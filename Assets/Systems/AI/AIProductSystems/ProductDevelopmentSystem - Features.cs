@@ -8,7 +8,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 {
     void Monetise(GameEntity product)
     {
-        var remainingFeatures = Products.GetAllFeaturesForProduct(product).Where(f => !Products.IsUpgradingFeature(product, gameContext, f.Name) && f.FeatureBonus.isMonetisationFeature);
+        var remainingFeatures = Products.GetAllFeaturesForProduct(product).Where(f => !Teams.IsUpgradingFeature(product, gameContext, f.Name) && f.FeatureBonus.isMonetisationFeature);
 
         var segments = Marketing.GetAudienceInfos();
 
@@ -51,7 +51,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
     void ManageFeatures(GameEntity product)
     {
-        var remainingFeatures = Products.GetAllFeaturesForProduct(product).Where(f => !Products.IsUpgradingFeature(product, gameContext, f.Name));
+        var remainingFeatures = Products.GetAllFeaturesForProduct(product).Where(f => !Teams.IsUpgradingFeature(product, gameContext, f.Name));
 
         if (remainingFeatures.Count() == 0)
             return;

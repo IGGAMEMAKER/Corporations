@@ -346,6 +346,9 @@ public class TeamInfo
 
     public int ID;
     public bool TooManyLeaders = false;
+
+    // upgrades are written here
+    public TeamRank Rank;
 }
 
 public enum TeamType
@@ -354,13 +357,18 @@ public enum TeamType
     MarketingTeam,
 
     CrossfunctionalTeam,
-    BigCrossfunctionalTeam,
-    SmallCrossfunctionalTeam,
 
-    CoreTeam, // managers
     MergeAndAcquisitionTeam,
     SupportTeam,
     ServersideTeam
+}
+
+public enum TeamRank
+{
+    Solo,       // 1    - 1 * 4
+    SmallTeam,  // 5    - 2 * 4
+    BigTeam,    // 20   - 4 * 4
+    Department, // 100  - 10 * 4
 }
 
 public class TeamTask

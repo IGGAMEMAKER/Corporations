@@ -90,17 +90,14 @@ namespace Assets.Core
                 ;
         }
 
-        public static bool IsUniversalTeam(TeamType teamType) => new TeamType[] { TeamType.BigCrossfunctionalTeam, TeamType.CoreTeam, TeamType.CrossfunctionalTeam, TeamType.SmallCrossfunctionalTeam }.Contains(teamType);
+        public static bool IsUniversalTeam(TeamType teamType) => new TeamType[] { TeamType.CrossfunctionalTeam }.Contains(teamType);
 
         public static string GetFormattedTeamType(TeamType teamType)
         {
             switch (teamType)
             {
-                case TeamType.BigCrossfunctionalTeam:   return "Big team";
                 case TeamType.CrossfunctionalTeam:      return "Universal team";
-                case TeamType.SmallCrossfunctionalTeam: return "Small team";
 
-                case TeamType.CoreTeam:                 return "Core team";
                 case TeamType.DevelopmentTeam:          return "Development team";
                 case TeamType.MarketingTeam:            return "Marketing team";
                 case TeamType.MergeAndAcquisitionTeam:  return "M&A team";
@@ -112,21 +109,7 @@ namespace Assets.Core
             }
         }
 
-        public static int GetAmountOfWorkersByTeamType(TeamType teamType)
-        {
-            switch (teamType)
-            {
-                case TeamType.MarketingTeam: return 3;
-                case TeamType.DevelopmentTeam: return 3;
-                case TeamType.SmallCrossfunctionalTeam: return 3;
-                case TeamType.CrossfunctionalTeam: return 10;
-                case TeamType.BigCrossfunctionalTeam: return 20;
-
-                default: return 1000;
-            }
-        }
-
-        public static int GetAmountOfTeams(GameEntity company, TeamType teamType)
+        public static int GetTeams(GameEntity company, TeamType teamType)
         {
             return company.team.Teams.Count(t => t.TeamType == teamType);
         }

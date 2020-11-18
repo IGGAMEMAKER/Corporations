@@ -1,8 +1,4 @@
-﻿using Assets.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
+﻿using System.Linq;
 
 namespace Assets.Core
 {
@@ -14,59 +10,82 @@ namespace Assets.Core
 
     public static partial class Teams
     {
-        public static int GetAmountOfPossibleChannelsByTeamType(TeamInfo team) => GetAmountOfPossibleChannelsByTeamType(team.TeamType);
-        public static int GetAmountOfPossibleChannelsByTeamType(TeamType teamType)
+        public static bool HasFreeSlotForTeamTask(GameEntity product, TeamTask task)
         {
-            switch (teamType)
-            {
-                case TeamType.BigCrossfunctionalTeam: return 3;
-                case TeamType.CrossfunctionalTeam: return 2;
-                case TeamType.SmallCrossfunctionalTeam: return 1;
-                case TeamType.MarketingTeam: return 2;
-
-                default: return 0;
-            }
+            return GetSlotsForTaskType(product, task) > 0;
         }
 
-        public static int GetAmountOfPossibleFeaturesByTeamType(TeamInfo team) => GetAmountOfPossibleFeaturesByTeamType(team.TeamType);
-        public static int GetAmountOfPossibleFeaturesByTeamType(TeamType teamType)
+        public static int GetSlotsForTaskType(GameEntity product, TeamTask task)
         {
-            switch (teamType)
-            {
-                case TeamType.BigCrossfunctionalTeam: return 3;
-                case TeamType.CrossfunctionalTeam: return 2;
-                case TeamType.SmallCrossfunctionalTeam: return 1;
-                case TeamType.DevelopmentTeam: return 2;
-
-                default: return 0;
-            }
+            return GetMaxSlotsForTaskType(product, task) - GetAllSameTaskTypeSlots(product, task);
         }
 
         public static int GetMaxSlotsForTaskType(GameEntity product, TeamTask task)
         {
-            return product.team.Teams.Sum(t => (IsTaskSuitsTeam(t.TeamType, task) ? 1 : 0) * t.ID);
+            return product.team.Teams.Sum(t => GetSlotsForTask(t, task));
         }
 
-        public static int GetPendingFeaturesAmount(GameEntity product, TeamTask task)
+        public static int GetTeamTasks(TeamInfo team)
+        {
+            switch (team.Rank)
+            {
+                case TeamRank.Solo:         return 1 * 4;
+                case TeamRank.SmallTeam:    return 2 * 4;
+                case TeamRank.BigTeam:      return 5 * 4;
+                case TeamRank.Department:   return 10 * 4;
+
+                default: return -1000;
+            }
+        }
+
+        public static int GetSlotsForTask(TeamInfo team, TeamTask task)
+        {
+            if (IsTaskSuitsTeam(team.TeamType, task))
+                return GetTeamTasks(team);
+
+            // group by team type
+            // group by task type
+
+            return 0;
+        }
+
+        public static int GetPendingMarketingChannelsAmount(GameEntity product)
+        {
+            return product.team.Teams[0].Tasks.Count(t => t.IsMarketingTask && t.IsPending);
+        }
+        public static int GetPendingServersAmount(GameEntity product)
+        {
+            return product.team.Teams[0].Tasks.Count(t => t.IsHighloadTask && t.IsPending);
+        }
+        public static int GetPendingFeaturesAmount(GameEntity product)
         {
             return product.team.Teams[0].Tasks.Count(t => t.IsFeatureUpgrade && t.IsPending);
         }
-        public static int GetActiveSlots(GameEntity product, TeamTask task)
+
+        public static int GetPendingSameTypeTaskAmount(GameEntity product, TeamTask task)
+        {
+            if (task.IsFeatureUpgrade)
+                return GetPendingFeaturesAmount(product);
+
+            if (task.IsMarketingTask)
+                return GetPendingMarketingChannelsAmount(product);
+
+            if (task.IsHighloadTask)
+                return GetPendingServersAmount(product);
+
+            return 0;
+        }
+
+        public static int GetAllSameTaskTypeSlots(GameEntity product, TeamTask task)
         {
             return product.team.Teams[0].Tasks.Count(t => task.AreSameTypeTasks(t));
         }
 
-
-
-        public static int GetFreeSlotsForTaskType(GameEntity product, TeamTask task)
+        public static int GetActiveSameTaskTypeSlots(GameEntity product, TeamTask task)
         {
-            return GetMaxSlotsForTaskType(product, task) - GetActiveSlots(product, task);
+            return product.team.Teams[0].Tasks.Count(t => task.AreSameTypeTasks(t) && !t.IsPending);
         }
 
-        public static bool HasFreeSlotForTeamTask(GameEntity product, TeamTask task)
-        {
-            return GetFreeSlotsForTaskType(product, task) > 0;
-        }
 
         public static SlotInfo GetSlotOfTeamTask(GameEntity product, TeamTask task)
         {
@@ -84,6 +103,28 @@ namespace Assets.Core
             }
 
             return null;
+        }
+
+        //
+        public static int GetAmountOfUpgradingFeatures(GameEntity product, GameContext gameContext)
+        {
+            var features = Products.GetAllFeaturesForProduct(product);
+
+            int upgrading = 0;
+            foreach (var f in features)
+            {
+                if (IsUpgradingFeature(product, gameContext, f.Name))
+                    upgrading++;
+            }
+
+            return upgrading;
+        }
+
+        public static bool IsUpgradingFeature(GameEntity product, GameContext Q, string featureName)
+        {
+            var cooldownName = $"company-{product.company.Id}-upgradeFeature-{featureName}";
+
+            return Cooldowns.HasCooldown(Q, cooldownName, out SimpleCooldown simpleCooldown);
         }
     }
 }

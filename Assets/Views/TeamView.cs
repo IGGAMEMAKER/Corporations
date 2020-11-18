@@ -145,13 +145,10 @@ public class TeamView : View/*, IPointerEnterHandler, IPointerExitHandler*/
     {
         switch (TeamType)
         {
-            case TeamType.BigCrossfunctionalTeam: return BigTeam;
-            case TeamType.CoreTeam: return CoreTeam;
             case TeamType.CrossfunctionalTeam: return UniversalTeam;
             case TeamType.DevelopmentTeam: return DevelopmentTeam;
             case TeamType.ServersideTeam: return DevopsTeam;
             case TeamType.MarketingTeam: return MarketingTeam;
-            case TeamType.SmallCrossfunctionalTeam: return SmallTeam;
             case TeamType.SupportTeam: return SupportTeam;
 
             default: return CoreTeam;

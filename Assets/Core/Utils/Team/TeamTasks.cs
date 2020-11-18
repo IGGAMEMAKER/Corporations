@@ -12,6 +12,7 @@ namespace Assets.Core
         {
             if (IsUniversalTeam(teamType))
             {
+                // universal teams cannot run datacenters
                 if (teamTask.IsHighloadTask && (teamTask as TeamTaskSupportFeature).SupportFeature.SupportBonus.Max > 1_000_000)
                     return false;
 
@@ -37,7 +38,7 @@ namespace Assets.Core
         {
             var taskId = product.team.Teams[teamId].Tasks.Count;
 
-            var slots = GetFreeSlotsForTaskType(product, task);
+            var slots = GetSlotsForTaskType(product, task);
 
             if (!HasFreeSlotForTeamTask(product, task))
                 task.IsPending = true;

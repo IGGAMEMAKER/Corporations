@@ -21,6 +21,11 @@ public class MarketingChannelsListView : ListView
     public GameObject PossibleChannels;
     public GameObject AllChannels;
 
+    public GameObject PendingTaskIcon;
+    public Text AmountOfFeatures;
+
+    public Text AmountOfSlots;
+
     public override void SetItem<T>(Transform t, T entity)
     {
         var channel = (GameEntity)(object)entity;
@@ -54,6 +59,21 @@ public class MarketingChannelsListView : ListView
         
         // list
         var channels = ShowAffordableOnly ? Markets.GetAffordableMarketingChannels(company, Q) : Markets.GetTheoreticallyPossibleMarketingChannels(company, Q); // segmentId
+
+
+        var p = new TeamTaskChannelActivity(0, 0);
+        var activeTasks = Teams.GetActiveSameTaskTypeSlots(company, p);
+
+        var pending = Teams.GetPendingSameTypeTaskAmount(company, p);
+
+
+        AmountOfFeatures.text = $"{activeTasks}";
+        if (pending > 0)
+            AmountOfFeatures.text += $"+{Visuals.Colorize(pending.ToString(), "orange")}";
+
+        Draw(PendingTaskIcon, pending > 0);
+
+        AmountOfSlots.text = Visuals.Colorize((long)Teams.GetSlotsForTaskType(company, p));
 
         SetItems(channels.OrderByDescending(c => Marketing.GetChannelCost(company, c)));
     }

@@ -102,7 +102,7 @@ namespace Assets.Core
                 );
 
             // add team for CEO
-            Teams.AddTeam(company, TeamType.SmallCrossfunctionalTeam);
+            Teams.AddTeam(company, TeamType.CrossfunctionalTeam);
 
             // CEO
             int CeoID = CEO.human.Id;

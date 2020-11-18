@@ -13,7 +13,7 @@ public class FeatureUpgradeController : ButtonController
 
         var featureName = FeatureView.NewProductFeature.Name;
 
-        if (!Products.IsUpgradingFeature(product, Q, featureName))
+        if (!Teams.IsUpgradingFeature(product, Q, featureName))
         {
             var relay = FindObjectOfType<FlagshipRelayInCompanyView>();
 

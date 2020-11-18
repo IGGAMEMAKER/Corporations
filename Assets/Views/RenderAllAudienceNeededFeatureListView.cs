@@ -1,5 +1,6 @@
 ﻿using Assets.Core;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,8 @@ public class RenderAllAudienceNeededFeatureListView : ListView
 
     public GameObject PendingTaskIcon;
     public Text AmountOfFeatures;
+
+    public Text AmountOfSlots;
 
     public AudiencesOnMainScreenListView AudiencesOnMainScreenListView;
     
@@ -51,7 +54,6 @@ public class RenderAllAudienceNeededFeatureListView : ListView
         if (RetentionFeatures)
         {
             features.AddRange(retentionFeatures);
-
         }
 
         if (MonetizationFeatures)
@@ -59,25 +61,20 @@ public class RenderAllAudienceNeededFeatureListView : ListView
             features.AddRange(monetisationFeatures);
         }
 
-        if (features.Count > 0)
-        {
-            var p = new TeamTaskFeatureUpgrade(features[0]);
-            var activeFeatures = Teams.GetActiveSlots(company, p);
 
-            var pending = Teams.GetPendingFeaturesAmount(company, p);
+        var p = new TeamTaskFeatureUpgrade(features.FirstOrDefault());
+        var activeTasks = Teams.GetActiveSameTaskTypeSlots(company, p);
+
+        var pending = Teams.GetPendingSameTypeTaskAmount(company, p);
 
 
-            AmountOfFeatures.text = $"{activeFeatures}";
-            if (pending > 0)
-                AmountOfFeatures.text += $"+{Visuals.Colorize(pending.ToString(), "orange")}";
+        AmountOfFeatures.text = $"{activeTasks}";
+        if (pending > 0)
+            AmountOfFeatures.text += $"+{Visuals.Colorize(pending.ToString(), "orange")}";
 
-            Draw(PendingTaskIcon, pending > 0);
-        }
-        else
-        {
-            AmountOfFeatures.text = "";
-            Hide(PendingTaskIcon);
-        }
+        Draw(PendingTaskIcon, pending > 0);
+
+        AmountOfSlots.text = Visuals.Colorize((long)Teams.GetSlotsForTaskType(company, p));
 
         SetItems(features);
     }

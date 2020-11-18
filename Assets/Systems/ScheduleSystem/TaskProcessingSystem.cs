@@ -13,8 +13,9 @@ public partial class TaskProcessingSystem : OnDateChange
     {
         var date = ScheduleUtils.GetCurrentDate(gameContext);
 
+        // TIMED ACTIONS
         GameEntity[] tasks = Cooldowns.GetTimedActions(gameContext);
-
+        
         for (var i = tasks.Length - 1; i >= 0; i--)
         {
             try
@@ -45,10 +46,8 @@ public partial class TaskProcessingSystem : OnDateChange
             }
         }
 
-        //return;
+        // PROCESS TEAM TASKS
         var products = Companies.GetProductCompanies(gameContext);
-
-        //Debug.Log("Products " + products.Count());
 
         foreach (var p in products)
         {
@@ -79,7 +78,7 @@ public partial class TaskProcessingSystem : OnDateChange
 
                             var featureName = upgrade.NewProductFeature.Name;
 
-                            if (!Products.IsUpgradingFeature(p, gameContext, featureName))
+                            if (!Teams.IsUpgradingFeature(p, gameContext, featureName))
                             {
                                 Products.UpgradeFeatureAndAddCooldown(p, featureName, gameContext);
 

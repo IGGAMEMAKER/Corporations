@@ -74,7 +74,7 @@ public class FeatureView : View, IPointerEnterHandler, IPointerExitHandler
         var cooldownName = $"company-{product.company.Id}-upgradeFeature-{featureName}";
         bool hasCooldown = Cooldowns.HasCooldown(Q, cooldownName, out SimpleCooldown cooldown);
 
-        if (Products.IsUpgradingFeature(product, Q, featureName))
+        if (Teams.IsUpgradingFeature(product, Q, featureName))
         {
             //var progress = (CurrentIntDate % C.PERIOD) / (float)C.PERIOD;
             var progress = CurrentIntDate - cooldown.StartDate;
