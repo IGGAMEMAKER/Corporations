@@ -60,6 +60,9 @@ public class TeamTaskView : View
 
         var product = Flagship;
 
+        if (teamTask == null)
+            return;
+
         if (IsFeatureUpgradeTask)
         {
             RenderFeatureTask(product);
