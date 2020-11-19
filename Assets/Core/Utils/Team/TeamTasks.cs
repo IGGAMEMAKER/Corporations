@@ -12,6 +12,8 @@ namespace Assets.Core
         {
             if (IsUniversalTeam(teamType))
             {
+                return true;
+
                 // universal teams cannot run datacenters
                 if (teamTask.IsHighloadTask && (teamTask as TeamTaskSupportFeature).SupportFeature.SupportBonus.Max > 1_000_000)
                     return false;
@@ -55,21 +57,15 @@ namespace Assets.Core
             }
             else
             {
-                try
-                {
-                    DisableTask(product, gameContext, teamId, taskId);
-                    product.team.Teams[teamId].Tasks[taskId] = task;
-                }
-                catch (Exception ex)
-                {
-                    Debug.LogError($"Error on taskId: {taskId} / {product.team.Teams[teamId].Tasks.Count}" + taskId);
-                }
+                DisableTask(product, gameContext, teamId, taskId);
+
+                product.team.Teams[teamId].Tasks[taskId] = task;
             }
 
-            ProcessTeamTaskIfNotPending(product, gameContext, task, team);
+            InitializeTeamTaskIfNotPending(product, gameContext, task, team);
         }
 
-        public static void ProcessTeamTaskIfNotPending(GameEntity product, GameContext gameContext, TeamTask task, TeamInfo team)
+        public static void InitializeTeamTaskIfNotPending(GameEntity product, GameContext gameContext, TeamTask task, TeamInfo team)
         {
             if (task.IsPending)
                 return;
@@ -157,7 +153,8 @@ namespace Assets.Core
 
             if (product.team.Teams[teamId].Tasks.Count() > taskId)
             {
-                DisableTask(product, gameContext, teamId, taskId);
+                if (!product.team.Teams[teamId].Tasks[taskId].IsPending)
+                    DisableTask(product, gameContext, teamId, taskId);
 
                 product.team.Teams[teamId].Tasks.RemoveAt(taskId);
             }

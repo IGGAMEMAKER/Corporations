@@ -130,7 +130,7 @@ namespace Assets.Core
 
             bool isNotMaxedOut = rating + ratingGain <= ratingCap;
 
-            return (!upgrading || isPendingAlready) && isNotMaxedOut;
+            return !upgrading && isNotMaxedOut && !isPendingAlready;
         };
 
         public static Func<NewProductFeature, bool> IsFeatureWillNotDissapointAnyoneSignificant(GameEntity company) => (NewProductFeature f) =>

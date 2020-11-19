@@ -17,7 +17,7 @@ namespace Assets.Core
 
         public static int GetSlotsForTaskType(GameEntity product, TeamTask task)
         {
-            return GetMaxSlotsForTaskType(product, task) - GetAllSameTaskTypeSlots(product, task);
+            return GetMaxSlotsForTaskType(product, task) - GetAllActiveTaskSlots(product); // GetAllSameTaskTypeSlots(product, task);
         }
 
         public static int GetMaxSlotsForTaskType(GameEntity product, TeamTask task)
@@ -76,6 +76,12 @@ namespace Assets.Core
             return 0;
         }
 
+
+
+        public static int GetAllActiveTaskSlots(GameEntity product)
+        {
+            return product.team.Teams[0].Tasks.Count();
+        }
         public static int GetAllSameTaskTypeSlots(GameEntity product, TeamTask task)
         {
             return product.team.Teams[0].Tasks.Count(t => task.AreSameTypeTasks(t));

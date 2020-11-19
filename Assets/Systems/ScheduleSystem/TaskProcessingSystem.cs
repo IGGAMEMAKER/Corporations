@@ -65,36 +65,14 @@ public partial class TaskProcessingSystem : OnDateChange
                         if (Teams.HasFreeSlotForTeamTask(p, task))
                         {
                             task.IsPending = false;
+
+                            Teams.InitializeTeamTaskIfNotPending(p, gameContext, task, team);
                         }
                     }
 
-                    // ProcessTeamTaskIfNotPending
-
                     if (!task.IsPending)
                     {
-                        if (task is TeamTaskFeatureUpgrade)
-                        {
-                            var upgrade = task as TeamTaskFeatureUpgrade;
-
-                            var featureName = upgrade.NewProductFeature.Name;
-
-                            if (!Teams.IsUpgradingFeature(p, gameContext, featureName))
-                            {
-                                Products.UpgradeFeatureAndAddCooldown(p, featureName, gameContext);
-
-                                // -----------------------
-
-                                if (Products.GetFeatureRating(p, featureName) >= Products.GetFeatureRatingCap(p))
-                                {
-                                    removableTasks.Add(new SlotInfo { SlotId = slotId, TeamId = teamId });
-                                }
-                            }
-                        }
-
-                        if (task is TeamTaskChannelActivity)
-                        {
-                            // channel tookout
-                        }
+                        ProcessTeamTaskIfNotPending(p, task, ref removableTasks, slotId, teamId);
                     }
 
                     slotId++;
@@ -112,7 +90,32 @@ public partial class TaskProcessingSystem : OnDateChange
         }
     }
 
+    void ProcessTeamTaskIfNotPending(GameEntity p, TeamTask task, ref List<SlotInfo> removableTasks, int slotId, int teamId)
+    {
+        if (task is TeamTaskFeatureUpgrade)
+        {
+            var upgrade = task as TeamTaskFeatureUpgrade;
 
+            var featureName = upgrade.NewProductFeature.Name;
+
+            if (!Teams.IsUpgradingFeature(p, gameContext, featureName))
+            {
+                Products.UpgradeFeatureAndAddCooldown(p, featureName, gameContext);
+
+                // -----------------------
+
+                if (Products.GetFeatureRating(p, featureName) >= Products.GetFeatureRatingCap(p))
+                {
+                    removableTasks.Add(new SlotInfo { SlotId = slotId, TeamId = teamId });
+                }
+            }
+        }
+
+        if (task is TeamTaskChannelActivity)
+        {
+            // channel tookout
+        }
+    }
 
 
     protected override bool Filter(GameEntity entity) => entity.hasDate;
