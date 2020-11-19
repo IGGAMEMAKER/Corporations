@@ -47,6 +47,14 @@ namespace Assets.Core
             return $"{prefix} #{team.ID}";
         }
 
+        public static bool IsTeamPromotable(GameEntity product, TeamInfo team, GameContext Q)
+        {
+            bool hasLeadManager = HasMainManagerInTeam(team, Q, product);
+            var organisation = team.Organisation;
+
+            return hasLeadManager && organisation >= 100 && team.Rank < TeamRank.Department;
+        }
+
         public static void Promote(GameEntity product, TeamInfo team)
         {
             switch (team.Rank)
@@ -217,7 +225,7 @@ namespace Assets.Core
                 .Select(m => Humans.Get(gameContext, m))
                 .Count(h => h.humanCompanyRelationship.Morale < 40 && Teams.GetLoyaltyChangeForManager(h, team, product) < 0) > 0;
 
-            return IsFullTeam(team) && (hasNoManager || hasNoManagerFocus || hasDisloyalManagers);
+            return IsFullTeam(team) && (hasNoManager || hasDisloyalManagers || IsTeamPromotable(product, team, gameContext));
         }
     }
 }

@@ -22,15 +22,14 @@ public class TeamScreenView : View
         var product = Flagship;
         var team = product.team.Teams[SelectedTeam];
 
-        bool hasLeadManager = Teams.HasMainManagerInTeam(team, Q, product);
 
         var mainManagerRole = Teams.GetMainManagerForTheTeam(team);
         var formattedManager = Humans.GetFormattedRole(mainManagerRole);
 
-        var organisation = product.team.Teams[SelectedTeam].Organisation;
+        bool hasLeadManager = Teams.HasMainManagerInTeam(team, Q, product);
 
         Draw(ManagerFocus, hasLeadManager);
-        Draw(PromoteTeam, hasLeadManager && organisation >= 100);
+        Draw(PromoteTeam, Teams.IsTeamPromotable(product, team, Q));
 
         Draw(FireTeam, SelectedTeam > 0);
 
