@@ -60,7 +60,7 @@ public class MarketingChannelsListView : ListView
         // list
         var channels = ShowAffordableOnly ? Markets.GetAffordableMarketingChannels(company, Q) : Markets.GetTheoreticallyPossibleMarketingChannels(company, Q); // segmentId
 
-
+        // ----------------------------------------------------
         var p = new TeamTaskChannelActivity(0, 0);
         var activeTasks = Teams.GetActiveSameTaskTypeSlots(company, p);
 
@@ -74,6 +74,7 @@ public class MarketingChannelsListView : ListView
         Draw(PendingTaskIcon, pending > 0);
 
         AmountOfSlots.text = Visuals.Colorize((long)Teams.GetSlotsForTaskType(company, p));
+        // ----------------------------------------------------
 
         SetItems(channels.OrderByDescending(c => Marketing.GetChannelCost(company, c)));
     }

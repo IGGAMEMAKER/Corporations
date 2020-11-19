@@ -61,7 +61,7 @@ public class RenderAllAudienceNeededFeatureListView : ListView
             features.AddRange(monetisationFeatures);
         }
 
-
+        // ----------------------------------------------------
         var p = new TeamTaskFeatureUpgrade(features.FirstOrDefault());
         var activeTasks = Teams.GetActiveSameTaskTypeSlots(company, p);
 
@@ -75,6 +75,7 @@ public class RenderAllAudienceNeededFeatureListView : ListView
         Draw(PendingTaskIcon, pending > 0);
 
         AmountOfSlots.text = Visuals.Colorize((long)Teams.GetSlotsForTaskType(company, p));
+        // ----------------------------------------------------
 
         SetItems(features);
     }
