@@ -12,11 +12,7 @@ public class OrganisationView : View
     public TextMeshProUGUI OrganisationGrowth;
 
     public Transform loadingBar;
-    public Transform textPercent;
-
-    public GameObject ExpandTeam;
-    public GameObject FireTeam;
-
+    
     public override void ViewRender()
     {
         base.ViewRender();
@@ -38,14 +34,5 @@ public class OrganisationView : View
         OrganisationGrowth.GetComponent<Hint>().SetHint($"Changes by {Visuals.Colorize(growth.Sum())}: \n" + growth.ToString() + "\n\nThis value is divided by 10");
 
         loadingBar.GetComponent<Image>().fillAmount = organisation / 100f;
-        //textPercent.GetComponent<TextMeshProUGUI>().text = ((int)value).ToString("F0");
-
-        var teamCount = product.team.Teams.Count;
-
-        bool CanExpand = teamCount == 1 && organisation >= 100;
-
-        Draw(ExpandTeam, CanExpand);
-
-        Draw(FireTeam, team.ID != 0);
     }
 }

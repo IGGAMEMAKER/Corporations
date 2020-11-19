@@ -7,11 +7,9 @@ using UnityEngine.UI;
 
 public class TeamScreenView : View
 {
-    public Text ManagerAdvice;
+    public GameObject ManagerFocus;
+    public GameObject PromoteTeam;
 
-    public GameObject LeftPanel;
-
-    public Text TeamStats;
     public Text Advices;
 
     public GameObject FireTeam;
@@ -29,11 +27,22 @@ public class TeamScreenView : View
         var mainManagerRole = Teams.GetMainManagerForTheTeam(team);
         var formattedManager = Humans.GetFormattedRole(mainManagerRole);
 
-        Draw(LeftPanel, hasLeadManager);
+        var organisation = product.team.Teams[SelectedTeam].Organisation;
+
+        Draw(ManagerFocus, hasLeadManager);
+        Draw(PromoteTeam, hasLeadManager && organisation >= 100);
+
         Draw(FireTeam, SelectedTeam > 0);
 
         // --------------------------------------
+        //RenderTeamStats(product);
 
+        // hiring advice ---------------------------------
+        RenderTeamAdvices(product, hasLeadManager, formattedManager, team);
+    }
+
+    void RenderTeamStats(GameEntity product)
+    {
         var ratingGain = Products.GetFeatureRatingGain(product);
         var marketingEffeciency = Teams.GetMarketingEfficiency(product);
         var featureCap = Products.GetFeatureRatingCap(product);
@@ -46,11 +55,10 @@ public class TeamScreenView : View
             .Append("Marketing efficiency: ")
             .AppendLine(Visuals.Positive(marketingEffeciency.ToString("0") + "%"))
             ;
+    }
 
-        //TeamStats.text = stats.ToString();
-        Hide(TeamStats);
-
-        // hiring advice ---------------------------------
+    void RenderTeamAdvices(GameEntity product, bool hasLeadManager, string formattedManager, TeamInfo team)
+    {
         var advices = new StringBuilder();
 
         if (!hasLeadManager)
@@ -60,16 +68,16 @@ public class TeamScreenView : View
         else
         {
             if (Teams.IsNeedsToHireRole(product, WorkerRole.ProductManager, team, Q))
-                advices.AppendLine("* Hire product manager to boost rating gain and max feature level");
+                advices.AppendLine("* Product manager boosts MAX feature level");
 
             if (Teams.IsNeedsToHireRole(product, WorkerRole.MarketingLead, team, Q))
-                advices.AppendLine("* Hire marketing lead to boost your marketing efficiency");
+                advices.AppendLine("* Marketing lead boosts your marketing efficiency");
 
             if (Teams.IsNeedsToHireRole(product, WorkerRole.TeamLead, team, Q))
-                advices.AppendLine("* Hire team lead to boost iteration speed");
+                advices.AppendLine("* Team lead boosts development speed");
         }
 
-        bool hasManagersForThisTeam = Teams.GetCandidatesForTeam(Flagship, team, Q).Count > 0;
+        bool hasManagersForThisTeam = Teams.GetCandidatesForTeam(product, team, Q).Count > 0;
         if (!hasManagersForThisTeam)
         {
             advices.Clear();

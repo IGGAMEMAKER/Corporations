@@ -133,5 +133,7 @@ public class FlagshipRelayInCompanyView : View
         ShowOnly(ManagersTabs, Tabs);
 
         Hide(TaskPanel);
+
+        ScreenUtils.Navigate(Q, ScreenMode.TeamScreen);
     }
 }

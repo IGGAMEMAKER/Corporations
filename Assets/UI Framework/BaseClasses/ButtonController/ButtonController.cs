@@ -1,4 +1,5 @@
-﻿using Assets.Core;
+﻿using Assets;
+using Assets.Core;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -62,6 +63,11 @@ public abstract partial class ButtonController : BaseClass
             Button.onClick.RemoveListener(ExecuteAndUpdateScreen);
         else
             Debug.LogWarning("This component is not assigned to Button. It is assigned to " + gameObject.name);
+    }
+
+    public void PlaySound(Sound sound)
+    {
+        SoundManager.Play(sound);
     }
 
     public void UpdatePage()

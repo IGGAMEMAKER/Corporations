@@ -10,17 +10,11 @@ namespace Assets.Core
     {
         public static int AddTeam(GameEntity company, TeamType teamType)
         {
-            var prefix = GetFormattedTeamType(teamType);
-
-            bool isCoreTeam = company.team.Teams.Count == 0;
-
-            company.team.Teams.Add(new TeamInfo
+            var team = new TeamInfo
             {
-                Name = isCoreTeam ? "Core team" : $"{prefix} #{company.team.Teams.Count}",
                 TeamType = teamType,
                 Tasks = new List<TeamTask>(),
 
-                //Offers = new System.Collections.Generic.Dictionary<int, JobOffer> { },
                 Managers = new List<int>(),
                 Roles = new Dictionary<int, WorkerRole>(),
 
@@ -32,19 +26,55 @@ namespace Assets.Core
                 ID = company.team.Teams.Count,
 
                 TooManyLeaders = false
-            });
+            };
+
+            company.team.Teams.Add(team);
+
+            team.Name = GenerateTeamName(company, team);
 
             return company.team.Teams.Count - 1;
+        }
+
+        public static string GenerateTeamName(GameEntity company, TeamInfo team)
+        {
+            var prefix = GetFormattedTeamType(team);
+
+            bool isCoreTeam = company.team.Teams.Count == 0;
+
+            if (isCoreTeam)
+                return prefix;
+
+            return $"{prefix} #{team.ID}";
+        }
+
+        public static void Promote(GameEntity product, TeamInfo team)
+        {
+            switch (team.Rank)
+            {
+                case TeamRank.Solo:
+                    team.Rank = TeamRank.SmallTeam;
+                    break;
+
+                case TeamRank.SmallTeam:
+                    team.Rank = TeamRank.BigTeam;
+                    break;
+
+                case TeamRank.BigTeam:
+                    team.Rank = TeamRank.Department;
+                    break;
+            }
+
+            team.Name = GenerateTeamName(product, team);
+            team.Organisation = Mathf.Min(team.Organisation, 10);
         }
 
         public static void RemoveTeam(GameEntity company, GameContext gameContext, int teamId)
         {
             var tasks = company.team.Teams[teamId].Tasks;
-            var count = tasks.Count;
 
             while (tasks.Count > 0)
             {
-                Teams.RemoveTeamTask(company, gameContext, teamId, 0);
+                RemoveTeamTask(company, gameContext, teamId, 0);
             }
 
             company.team.Teams.RemoveAt(teamId);
@@ -61,6 +91,7 @@ namespace Assets.Core
         private static void ReplaceTeam(GameEntity company, GameContext gameContext, TeamComponent t)
         {
             company.ReplaceTeam(t.Morale, t.Organisation, t.Managers, t.Workers, t.Teams, t.Salaries);
+
             Economy.UpdateSalaries(company, gameContext);
         }
 
@@ -91,6 +122,53 @@ namespace Assets.Core
         }
 
         public static bool IsUniversalTeam(TeamType teamType) => new TeamType[] { TeamType.CrossfunctionalTeam }.Contains(teamType);
+
+        public static string GetFormattedTeamType(TeamInfo team) => GetFormattedTeamType(team.TeamType, team.Rank, team.ID == 0 ? "Core" : "");
+        public static string GetFormattedTeamType(TeamType teamType, TeamRank rank, string formattedName = "")
+        {
+            if (formattedName.Length == 0)
+                formattedName = GetFormattedTeamType(teamType);
+
+            switch (rank)
+            {
+                case TeamRank.Solo:
+                    return $"Solo {formattedName}";
+
+                case TeamRank.SmallTeam:
+                    return $"Small {formattedName}";
+
+                case TeamRank.BigTeam:
+                    return $"Big {formattedName}";
+
+                case TeamRank.Department:
+                    switch (teamType)
+                    {
+                        case TeamType.CrossfunctionalTeam:
+                            return "Crossfunctional Department";
+
+                        case TeamType.DevelopmentTeam:
+                            return "Development Department";
+
+                        case TeamType.MarketingTeam:
+                            return "Marketing Department";
+
+                        case TeamType.MergeAndAcquisitionTeam:
+                            return "M&A Department";
+
+                        case TeamType.ServersideTeam:
+                            return "Serverside Department";
+
+                        case TeamType.SupportTeam:
+                            return "Support Department";
+
+                        default:
+                            return teamType.ToString() + " DEPARTMENT";
+                    }
+
+                default:
+                    return rank.ToString() + " " + formattedName;
+            }
+        }
 
         public static string GetFormattedTeamType(TeamType teamType)
         {

@@ -9,7 +9,7 @@ public class TeamListView : StaffListView
     {
         var c = GetCompany();
 
-        var chosenTeamId = FindObjectOfType<FlagshipRelayInCompanyView>().ChosenTeamId;
+        var chosenTeamId = SelectedTeam; // FindObjectOfType<FlagshipRelayInCompanyView>().ChosenTeamId;
 
         var team = c.team.Teams[chosenTeamId];
 

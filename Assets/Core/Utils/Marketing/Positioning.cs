@@ -24,6 +24,11 @@ namespace Assets.Core
             }
         }
 
+        public static string GetPositioningName(GameEntity product)
+        {
+            return GetPositioning(product).name;
+        }
+
         public static List<ProductPositioning> GetNichePositionings(GameEntity product)
         {
             return product.nicheSegments.Positionings;

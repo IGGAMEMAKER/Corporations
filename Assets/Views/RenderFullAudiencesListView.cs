@@ -26,7 +26,8 @@ public class RenderFullAudiencesListView : ListView
         var audiences = Marketing.GetAudienceInfos();
 
         //bool showAudiences = true;
-        bool showAudiences = Flagship.isRelease;
+        var company = Flagship;
+        bool showAudiences = company.isRelease;
 
         if (showAudiences)
         {
@@ -35,7 +36,7 @@ public class RenderFullAudiencesListView : ListView
         else
         {
             // take primary audience only
-            SetItems(audiences.Where(a => a.ID == Marketing.GetCoreAudienceId(Flagship)));
+            SetItems(audiences.Where(a => a.ID == Marketing.GetCoreAudienceId(company)));
         }
 
         //SetItems(infos);
@@ -44,16 +45,19 @@ public class RenderFullAudiencesListView : ListView
         var segmentName = audience.Name;
 
         var potentialPhrase = $"{Format.Minify(audience.Size)} users";
-        var incomePerUser = (double)Economy.GetBaseIncomeByMonetisationType(Flagship); // 1L * (segmentId + 1);
+        var incomePerUser = (double)Economy.GetBaseIncomeByMonetisationType(company); // 1L * (segmentId + 1);
         var worth = (long)(incomePerUser * audience.Size);
 
         var worthPhrase = Format.MinifyMoney(worth);
 
         AudienceDescription.text = segmentName + $"\n\n<size=30>Potential\n{Visuals.Positive(potentialPhrase)}\n\nIncome\n{Visuals.Positive(worthPhrase)}</size>";
-        PositionongDescription.text = $"We are making {Markets.GetCompanyPositioningName(Flagship, Q)}";
+        PositionongDescription.text = $"We are making {Marketing.GetPositioningName(company)}";
 
         if (CompaniesInterestedInUsers != null)
-            CompaniesInterestedInUsers.text = $"which are interested in {segmentName}";
+        {
+            //CompaniesInterestedInUsers.text = $"which are interested in {segmentName}";
+            CompaniesInterestedInUsers.text = $"which are interested in {Marketing.GetPositioningName(company)}";
+        }
 
         FindObjectOfType<CompaniesFocusingSpecificSegmentListView>().SetSegment(segmentId);
     }

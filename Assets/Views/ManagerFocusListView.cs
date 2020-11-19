@@ -43,7 +43,7 @@ public class ManagerFocusListView : ListView
         Hide(FocusList);
         Show(Organisation);
 
-        OrganisationView.ViewRender();
+        Find<OrganisationView>().ViewRender();
     }
 
     void SetManagerTask(ManagerTask task)
@@ -51,7 +51,7 @@ public class ManagerFocusListView : ListView
         Teams.SetManagerTask(Flagship, SelectedTeam, ChosenIndex, task);
 
         OnDeselect();
-        TeamView.SetEntity(Flagship.team.Teams[SelectedTeam], SelectedTeam);
+        //TeamView.SetEntity(Flagship.team.Teams[SelectedTeam], SelectedTeam);
 
         ViewRender();
     }

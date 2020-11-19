@@ -11,6 +11,6 @@ public class RenderCompanyPositioning : UpgradedParameterView
         if (!c.hasProduct)
             return "-----";
 
-        return Markets.GetCompanyPositioningName(c, Q);
+        return Marketing.GetPositioningName(c);
     }
 }

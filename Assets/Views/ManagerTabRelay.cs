@@ -9,8 +9,6 @@ public class ManagerTabRelay : View
     public GameObject EmployeesTab;
     public GameObject Managers;
 
-    public TeamView TeamView;
-
     // ----------------------------
 
     public List<GameObject> Tabs => new List<GameObject> { EmployeesTab, Managers };
@@ -85,7 +83,6 @@ public class ManagerTabRelay : View
     private void OnEnable()
     {
         OpenManagerTab();
-        TeamView.SetEntity(Flagship.team.Teams[SelectedTeam], SelectedTeam, null);
     }
 
 
