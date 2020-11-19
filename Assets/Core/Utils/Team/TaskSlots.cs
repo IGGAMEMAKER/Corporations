@@ -17,7 +17,7 @@ namespace Assets.Core
 
         public static int GetSlotsForTaskType(GameEntity product, TeamTask task)
         {
-            return GetMaxSlotsForTaskType(product, task) - GetAllActiveTaskSlots(product); // GetAllSameTaskTypeSlots(product, task);
+            return 3 + GetMaxSlotsForTaskType(product, task) - GetAllActiveTaskSlots(product); // GetAllSameTaskTypeSlots(product, task);
         }
 
         public static int GetMaxSlotsForTaskType(GameEntity product, TeamTask task)
@@ -29,10 +29,10 @@ namespace Assets.Core
         {
             switch (team.Rank)
             {
-                case TeamRank.Solo:         return 1 * 4;
-                case TeamRank.SmallTeam:    return 2 * 4;
-                case TeamRank.BigTeam:      return 5 * 4;
-                case TeamRank.Department:   return 10 * 4;
+                case TeamRank.Solo:         return 1;
+                case TeamRank.SmallTeam:    return 2;
+                case TeamRank.BigTeam:      return 5;
+                case TeamRank.Department:   return 10;
 
                 default: return -1000;
             }
@@ -41,7 +41,12 @@ namespace Assets.Core
         public static int GetSlotsForTask(TeamInfo team, TeamTask task)
         {
             if (IsTaskSuitsTeam(team.TeamType, task))
-                return GetTeamTasks(team);
+            {
+                if (IsUniversalTeam(team.TeamType))
+                    return GetTeamTasks(team);
+                else
+                    return GetTeamTasks(team) * 2;
+            }
 
             // group by team type
             // group by task type

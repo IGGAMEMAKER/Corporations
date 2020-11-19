@@ -107,6 +107,14 @@ namespace Assets.Core
             return counter;
         }
 
+
+
+        public static bool HasFeatureUpgrade(GameEntity product, string featureName)
+        {
+            return product.team.Teams[0].Tasks
+                .Any(t => t.IsFeatureUpgrade && (t as TeamTaskFeatureUpgrade).NewProductFeature.Name == featureName);
+        }
+
         public static bool HasPendingFeatureUpgrade(GameEntity product, string featureName)
         {
             return product.team.Teams[0].Tasks
@@ -124,13 +132,13 @@ namespace Assets.Core
 
             // can upgrade more
 
-            bool upgrading = Teams.IsUpgradingFeature(company, gameContext, f.Name);
+            bool upgrading = HasFeatureUpgrade(company, f.Name); // Teams.IsUpgradingFeature(company, gameContext, f.Name);
 
-            bool isPendingAlready = HasPendingFeatureUpgrade(company, f.Name);
+            //bool isPendingAlready = HasFeatureUpgrade(company, f.Name);
 
             bool isNotMaxedOut = rating + ratingGain <= ratingCap;
 
-            return !upgrading && isNotMaxedOut && !isPendingAlready;
+            return !upgrading && isNotMaxedOut;
         };
 
         public static Func<NewProductFeature, bool> IsFeatureWillNotDissapointAnyoneSignificant(GameEntity company) => (NewProductFeature f) =>

@@ -23,7 +23,8 @@ namespace Assets.Core
             // team tasks
             foreach (var t in e.team.Teams[0].Tasks)
             {
-                bonus.AppendAndHideIfZero(t.GetPrettyName(), GetTeamTaskCost(e, t));
+                if (!t.IsPending)
+                    bonus.AppendAndHideIfZero(t.GetPrettyName(), GetTeamTaskCost(e, t));
             }
 
             return bonus;
