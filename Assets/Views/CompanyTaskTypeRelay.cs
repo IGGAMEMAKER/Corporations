@@ -123,6 +123,7 @@ public class CompanyTaskTypeRelay : View
         bool hadFirstMarketingCampaign = Marketing.GetUsers(Flagship) > 50;
         bool serverOverload = Products.IsNeedsMoreServers(Flagship);
 
+        Draw(ServersButton, true);
         //Draw(ServersButton, hadFirstMarketingCampaign || serverOverload);
     }
 
