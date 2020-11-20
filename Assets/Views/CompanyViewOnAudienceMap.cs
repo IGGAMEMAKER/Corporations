@@ -22,8 +22,7 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
     public Hint LoyaltyHint;
 
     public Text Growth;
-
-    public SetAmountOfStars SetAmountOfStars;
+    public Text Users;
 
     GameEntity company;
 
@@ -34,31 +33,60 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
         bool hasControl = Companies.GetControlInCompany(MyCompany, c, Q) > 0;
 
         var shortName = Companies.GetShortName(c);
-        var loyalty = Marketing.GetSegmentLoyalty(company, segmentId, true);
 
-        SetEmblemColor();
 
-        Name.text = shortName;
+        //SetEmblemColor();
+        Name.text = c.company.Name; // shortName;
+        RenderBorderImage(hasControl);
+        EmphasizeCompanySize();
+
+        RenderLoyalty();
+
+        RenderUsers();
+        RenderGrowth();
+
+        LinkToProjectView.CompanyId = c.company.Id;
+
+        CompanyHint.SetHint(GetCompanyHint(hasControl));
+    }
+
+    void RenderLoyalty()
+    {
+        var loyalty = Marketing.GetPositioningQuality(company);
+
+        Loyalty.text = loyalty.Sum().ToString("0");
+        LoyaltyHint.SetHint(loyalty.SortByModule().HideZeroes().ToString());
+    }
+
+    void RenderBorderImage(bool hasControl)
+    {
         if (hasControl)
         {
             BorderImage.color = Visuals.GetColorFromString(Colors.COLOR_CONTROL);
         }
-        BorderImage.color = Visuals.GetColorFromString(hasControl ? Colors.COLOR_CONTROL : Colors.COLOR_NEUTRAL);
+        else
+        {
+            BorderImage.color = Visuals.GetColorFromString(Colors.COLOR_VIOLET);
+        }
+    }
 
-        LinkToProjectView.CompanyId = c.company.Id;
+    void RenderUsers()
+    {
+        var users = Marketing.GetUsers(company);
+        Users.text = Format.MinifyToInteger(users);
+    }
 
-        Loyalty.text = loyalty.Sum().ToString("0");
-        LoyaltyHint.SetHint(loyalty.SortByModule().HideZeroes().ToString());
-
-        CompanyHint.SetHint(GetCompanyHint(hasControl));
-
+    void RenderGrowth()
+    {
         var growth = Marketing.GetAudienceChange(company, Q, true);
-        Growth.text = Visuals.PositiveOrNegativeMinified(growth.Sum());
+        var growthSum = growth.Sum();
+
+        Growth.text = Visuals.PositiveOrNegativeMinified(growthSum) + " users";
         Growth.GetComponent<Hint>().SetHint("Users will change by " + Visuals.Colorize(growth.Sum()) + " because " + growth.ToString());
+    }
 
-        //Hide(SetAmountOfStars);
-        //Hide(LoyaltyImage);
-
+    void EmphasizeCompanySize()
+    {
         var position = Markets.GetPositionOnMarket(Q, company);
 
         var max = 1.8f;
@@ -133,7 +161,7 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
         var managerStars = GetManagerEstimation(company, Q);
 
         var productStrength = (budgetStars + managerStars + teamStars) / 3;
-        SetAmountOfStars.SetStars(productStrength);
+        //SetAmountOfStars.SetStars(productStrength);
 
         StringBuilder hint = new StringBuilder($"<size=35>{Visuals.Colorize(company.company.Name, hasControl ? Colors.COLOR_CONTROL : Colors.COLOR_NEUTRAL)}</size>");
 

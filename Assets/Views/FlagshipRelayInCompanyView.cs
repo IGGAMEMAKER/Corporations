@@ -105,7 +105,17 @@ public class FlagshipRelayInCompanyView : View
 
     public void ChooseMainScreen()
     {
-        ChooseWorkerInteractions();
+        if (Flagship.isRelease)
+        {
+            ChooseAudiencePickingPanel();
+        }
+        else
+        {
+            //ChooseMainScreen();
+            ChooseWorkerInteractions();
+        }
+
+        //ChooseWorkerInteractions();
     }
 
     public void ChooseTaskTab()

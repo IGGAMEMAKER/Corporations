@@ -27,6 +27,29 @@ namespace Assets.Core
                 .Cap(0, 100);
         }
 
+        public static Bonus<float> GetPositioningQuality(GameEntity product) => GetPositioningQuality(product, GetPositioning(product));
+        public static Bonus<float> GetPositioningQuality(GameEntity product, ProductPositioning positioning)
+        {
+            var bonus = new Bonus<float>("Total loyalty");
+
+            var segments = Marketing.GetAudienceInfos();
+
+            var loyalties = positioning.Loyalties;
+
+            var segId = 0;
+            foreach (var l in loyalties)
+            {
+                if (l > 0)
+                {
+                    bonus.Append(segments[segId].Name, GetSegmentLoyalty(product, segId));
+                }
+
+                segId++;
+            }
+
+            return bonus;
+        }
+
         public static float GetSegmentLoyalty(GameEntity product, int segmentId) => GetSegmentLoyalty(product, segmentId, true).Sum();
         public static float GetSegmentLoyalty(GameEntity product, ProductPositioning positioning, int segmentId) => GetSegmentLoyalty(product, segmentId, positioning, true).Sum();
 

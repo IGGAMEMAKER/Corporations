@@ -56,7 +56,7 @@ public class CompanyTaskTypeRelay : View
 
     private void RenderCompetitorsButton()
     {
-        Draw(CompetitorsButton, true);
+        Draw(CompetitorsButton, false);
     }
 
     private void RenderMissionsButton()

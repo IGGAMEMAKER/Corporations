@@ -9,6 +9,9 @@ public class ManagerTabRelay : View
     public GameObject EmployeesTab;
     public GameObject Managers;
 
+    public GameObject LinkToNextTeam;
+    public GameObject LinkToPrevTeam;
+
     // ----------------------------
 
     public List<GameObject> Tabs => new List<GameObject> { EmployeesTab, Managers };
@@ -83,6 +86,9 @@ public class ManagerTabRelay : View
     private void OnEnable()
     {
         OpenManagerTab();
+
+        Draw(LinkToNextTeam, Flagship.team.Teams.Count > 1);
+        Draw(LinkToPrevTeam, Flagship.team.Teams.Count > 1);
     }
 
 
