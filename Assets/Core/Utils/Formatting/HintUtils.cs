@@ -41,7 +41,8 @@ public class Bonus<T>
 
     bool hideZeroes = false;
 
-    public Bonus(string bonusName) {
+    public Bonus(string bonusName)
+    {
         bonusDescriptions = new List<BonusDescription<T>>();
 
         parameter = bonusName;
@@ -51,6 +52,14 @@ public class Bonus<T>
     {
         renderSubTitle = false;
 
+        return this;
+    }
+
+    public Bonus<T> SetTitle(string name)
+    {
+        parameter = name;
+
+        return RenderTitle();
         return this;
     }
 

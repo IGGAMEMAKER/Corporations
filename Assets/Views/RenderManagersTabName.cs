@@ -11,6 +11,6 @@ public class RenderManagersTabName : UpgradedParameterView
     {
         var strength = Teams.GetTeamAverageStrength(SelectedCompany, Q);
 
-        return $"MANAGERS ({strength}LVL)";
+        return $"TEAMS ({strength}LVL)";
     }
 }

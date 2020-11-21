@@ -10,21 +10,29 @@ namespace Assets.Core
             return GetChurnRate(company, segmentId, true).Sum();
         }
 
-        public static Bonus<long> GetChurnRate(GameEntity c, int segmentId, bool isBonus)
+        public static Bonus<long> GetBaseChurnRate(GameEntity c, bool isBonus)
         {
             var state = c.nicheState.Phase; // Markets.GetMarketState(gameContext, c.product.Niche);
 
             var marketIsDying = state == MarketState.Death;
 
-            var loyalty = GetSegmentLoyalty(c, segmentId);
-
             return new Bonus<long>("Churn rate")
                 .RenderTitle()
                 .SetDimension("%")
 
-                .AppendAndHideIfZero("Disloyal clients", loyalty < 0 ? 5 : 0)
                 .AppendAndHideIfZero("Market is DYING", marketIsDying ? 5 : 0)
-                .Cap(0, 100);
+                .AppendAndHideIfZero("Outcompeted", 0)
+                ;
+        }
+
+        public static Bonus<long> GetChurnRate(GameEntity c, int segmentId, bool isBonus)
+        {
+            var loyalty = GetSegmentLoyalty(c, segmentId);
+
+            return GetBaseChurnRate(c, isBonus)
+                .AppendAndHideIfZero("Disloyal clients", loyalty < 0 ? 5 : 0)
+                .Cap(0, 100)
+                ;
         }
 
         public static Bonus<float> GetPositioningQuality(GameEntity product) => GetPositioningQuality(product, GetPositioning(product));

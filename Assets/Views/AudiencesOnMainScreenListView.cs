@@ -29,8 +29,10 @@ public class AudiencesOnMainScreenListView : ListView
 
         var audiences = Marketing.GetAudienceInfos();
 
+        var product = CurrentScreen == ScreenMode.ProjectScreen ? SelectedCompany : Flagship;
+
         //bool showAudiences = true;
-        bool showAudiences = Flagship.isRelease;
+        bool showAudiences = product.isRelease;
 
         if (showAudiences)
         {
@@ -40,16 +42,16 @@ public class AudiencesOnMainScreenListView : ListView
         {
             // take primary audience only
             // positioningId will be always less than amount of audiences
-            SetItems(audiences.Where(a => a.ID == Marketing.GetCoreAudienceId(Flagship)));
+            SetItems(audiences.Where(a => a.ID == Marketing.GetCoreAudienceId(product)));
         }
 
-        Teams.UpdateTeamEfficiency(Flagship, Q);
+        Teams.UpdateTeamEfficiency(product, Q);
 
         if (Iteration != null)
-            Iteration.text = Visuals.Positive(Products.GetIterationTime(Q, Flagship) + " days");
+            Iteration.text = Visuals.Positive(Products.GetIterationTime(Q, product) + " days");
 
         if (FeatureCap != null)
-            FeatureCap.text = Visuals.Positive(Products.GetFeatureRatingCap(Flagship).ToString("0.0"));
+            FeatureCap.text = Visuals.Positive(Products.GetFeatureRatingCap(product).ToString("0.0"));
     }
 
     public override void OnDeselect()
@@ -64,23 +66,24 @@ public class AudiencesOnMainScreenListView : ListView
         Hide(ButtonList);
     }
 
-    void RenderAudienceData(int segmentId, long clients)
+    // TODO REMOVE
+    void RenderAudienceData(int segmentId, long clients, GameEntity product)
     {
         var audience = Marketing.GetAudienceInfos()[segmentId];
 
-        var growing = Marketing.GetAudienceGrowthBySegment(Flagship, Q, segmentId);
+        var growing = Marketing.GetAudienceGrowthBySegment(product, Q, segmentId);
 
         var incomePerUser = 0.42f;
         var worth = (long)((double)audience.Size * incomePerUser);
 
-        var income = Economy.GetIncomePerSegment(Flagship, segmentId);
+        var income = Economy.GetIncomePerSegment(product, segmentId);
 
         var potentialPhrase = Format.Minify(audience.Size);
         var marketWorth = Format.MinifyMoney(worth);
 
         var growthPhrase = $"+{Format.Minify(growing)} weekly";
 
-        var loyalty = Marketing.GetSegmentLoyalty(Flagship, segmentId, true);
+        var loyalty = Marketing.GetSegmentLoyalty(product, segmentId, true);
 
         MainInfo.Title.text          = $"<b>{audience.Name}</b>\nIncome: {Visuals.Positive(Format.MinifyMoney(income))}";
         AmountOfUsers.Title.text     = $"{Format.Minify(clients)} {audience.Name}\n" + Visuals.Colorize(growthPhrase, growing >= 0);

@@ -8,7 +8,7 @@ public class BasicProjectInfoView : View
 
     private void OnEnable()
     {
-        Render();
+        //Render();
     }
 
     void RenderCEO()
@@ -24,7 +24,7 @@ public class BasicProjectInfoView : View
 
     void RenderCompanyStatus()
     {
-        PublicityStatus.text = SelectedCompany.isPublicCompany ? "Is public company" : "Is private company";
+        //PublicityStatus.text = SelectedCompany.isPublicCompany ? "Is public company" : "Is private company";
     }
 
     void Render()
