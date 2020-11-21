@@ -51,13 +51,13 @@ namespace Assets.Core
 
             long churnUsers = 0;
 
-            var segments = Marketing.GetAudienceInfos();
+            var segments = GetAudienceInfos();
             for (var i = 0; i < segments.Count; i++)
             {
-               churnUsers += Marketing.GetChurnClients(product, i);
+               churnUsers += GetChurnClients(product, i);
             }
 
-            bonus.Append("Marketing", Marketing.GetAudienceGrowth(product, gameContext));
+            bonus.Append("Marketing", GetAudienceGrowth(product, gameContext));
             bonus.Append("Negative loyalty", -churnUsers);
             bonus.MinifyValues();
 

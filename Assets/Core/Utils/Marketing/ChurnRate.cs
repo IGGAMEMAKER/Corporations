@@ -16,21 +16,41 @@ namespace Assets.Core
 
             var marketIsDying = state == MarketState.Death;
 
+            var competitiveness = c.teamEfficiency.Efficiency.Competitiveness;
+            var competitivenessBonus = GetChurnFromOutcompetition(c);
+
             return new Bonus<long>("Churn rate")
                 .RenderTitle()
                 .SetDimension("%")
 
                 .AppendAndHideIfZero("Market is DYING", marketIsDying ? 5 : 0)
-                .AppendAndHideIfZero("Outcompeted", 0)
+                .AppendAndHideIfZero("Outcompeted by " + competitiveness, competitivenessBonus);
                 ;
+        }
+
+        public static int GetChurnFromOutcompetition(GameEntity c)
+        {
+            var competitiveness = Mathf.Abs(c.teamEfficiency.Efficiency.Competitiveness);
+
+            var competitivenessBonus = competitiveness / 5;
+
+            return (int)Mathf.Pow(competitivenessBonus, 3);
+        }
+
+        public static Bonus<long> GetSegmentSpecificLoyaltyBonus(Bonus<long> bonus, GameEntity c, int segmentId, bool isBonus)
+        {
+            var loyalty = GetSegmentLoyalty(c, segmentId);
+
+            bonus.AppendAndHideIfZero("Disloyal clients", loyalty < 0 ? 5 : 0);
+
+            return bonus;
         }
 
         public static Bonus<long> GetChurnRate(GameEntity c, int segmentId, bool isBonus)
         {
-            var loyalty = GetSegmentLoyalty(c, segmentId);
 
-            return GetBaseChurnRate(c, isBonus)
-                .AppendAndHideIfZero("Disloyal clients", loyalty < 0 ? 5 : 0)
+            return GetSegmentSpecificLoyaltyBonus(GetBaseChurnRate(c, isBonus), c, segmentId, isBonus)
+                //.AppendAndHideIfZero("Disloyal clients", loyalty < 0 ? 5 : 0)
                 .Cap(0, 100)
                 ;
         }

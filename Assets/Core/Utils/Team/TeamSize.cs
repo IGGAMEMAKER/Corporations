@@ -8,7 +8,7 @@ namespace Assets.Core
     {
         public static int GetTeamSize(GameEntity e)
         {
-            return e.team.Workers[WorkerRole.Programmer] + e.team.Managers.Count;
+            return e.team.Teams.Count * 8;
         }
         
         public static GameEntity GetWorkerByRole(GameEntity company, WorkerRole role, TeamInfo teamInfo, GameContext gameContext)

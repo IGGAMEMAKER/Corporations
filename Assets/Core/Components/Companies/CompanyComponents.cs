@@ -320,6 +320,9 @@ public class TeamEfficiency
 
     public float FeatureCap;
     public float FeatureGain;
+
+    public bool isUniqueCompany;
+    public int Competitiveness;
 }
 
 public class TeamEfficiencyComponent : IComponent

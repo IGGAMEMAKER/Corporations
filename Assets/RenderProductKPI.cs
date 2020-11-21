@@ -18,16 +18,16 @@ public class RenderProductKPI : View
     {
         base.ViewRender();
 
-        var product = Flagship;
+        var product = SelectedCompany;
         var profit = Economy.GetProfit(Q, product, true);
 
-        var funding = profit.Only("Investments");
+        var funding = Economy.GetFundingBudget(product, Q);
         Funding.text = Visuals.Positive(Format.Money(funding));
 
         var income = Economy.GetProductIncome(product);
         Income.text = Visuals.Positive(Format.Money(income));
 
-        var marketingBudget = profit.Only("Marketing in").Sum();
+        var marketingBudget = Economy.GetMarketingBudget(product, Q);
         MarketingBudget.text = Visuals.Negative(Format.Money(marketingBudget));
 
         // ---------
@@ -43,12 +43,18 @@ public class RenderProductKPI : View
         var churnText = "";
         for (var i = 0; i < segments.Count; i++)
         {
-            churnUsers += Marketing.GetChurnClients(product, i);
+            var churnInSegment = Marketing.GetChurnClients(product, i);
+            churnUsers += churnInSegment;
 
-            var churn = Marketing.GetChurnRate(product, i, true);
+            var churn = Marketing.GetChurnRate(product, i, true).SetTitle("Churn for " + segments[i].Name);
 
-            if (churn.Sum() > 0)
-                churnText += $"\n{churn.SetTitle("Churn for " + segments[i].Name).ToString(true)}";
+            bool IsSomewhatInterestedInSegment = Marketing.IsAimingForSpecificAudience(product, i) || churnInSegment > 0;
+
+            if (churn.Sum() > 0 && IsSomewhatInterestedInSegment)
+            {
+                churnText += $"\n{churn.ToString(true)}";
+            }
+            //churnText += $"\n{churn.ToString(true)}";
         }
 
         Churn.text = Visuals.Negative(Format.Minify(churnUsers) + " users weekly\n") + churnText;

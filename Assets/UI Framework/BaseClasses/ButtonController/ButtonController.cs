@@ -65,11 +65,6 @@ public abstract partial class ButtonController : BaseClass
             Debug.LogWarning("This component is not assigned to Button. It is assigned to " + gameObject.name);
     }
 
-    public void PlaySound(Sound sound)
-    {
-        SoundManager.Play(sound);
-    }
-
     public void UpdatePage()
     {
         ScreenUtils.UpdateScreen(Q);

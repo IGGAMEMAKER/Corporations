@@ -105,6 +105,17 @@ namespace Assets.Core
             return bonus;
         }
 
+        public static long GetMarketingBudget(GameEntity product, GameContext context)
+        {
+            return -GetProfit(context, product, true).Only("Marketing in").Sum();
+        }
+
+        public static long GetFundingBudget(GameEntity product, GameContext context)
+        {
+            // TODO CHECK managing companies if company is dependent
+            return GetProfit(context, product, true).Only("Investments").Sum();
+        }
+
         public static bool WillPayInvestmentRightNow(Investment investment, int date)
         {
             return investment.RemainingPeriods > 0 && investment.StartDate <= date;

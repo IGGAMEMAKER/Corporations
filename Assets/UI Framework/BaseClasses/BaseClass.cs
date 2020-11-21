@@ -1,4 +1,5 @@
-﻿using Assets.Core;
+﻿using Assets;
+using Assets.Core;
 using Entitas;
 using System;
 using System.Collections.Generic;
@@ -76,6 +77,11 @@ public partial class BaseClass : MonoBehaviour
         }
 
         return m;
+    }
+
+    public void PlaySound(Sound sound)
+    {
+        SoundManager.Play(sound);
     }
 
     public void OpenModal(string ModalTag)

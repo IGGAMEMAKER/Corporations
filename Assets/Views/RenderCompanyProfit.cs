@@ -6,20 +6,22 @@ public class RenderCompanyProfit : UpgradedParameterView
     {
         var company = SelectedCompany;
 
-        var income = Economy.GetIncome(Q, company);
+        //var income = Economy.GetIncome(Q, company);
 
-        var bonus = new Bonus<long>("Balance change")
-            .Append("Income", income);
+        //var bonus = new Bonus<long>("Balance change")
+        //    .Append("Income", income);
 
-        if (company.hasProduct)
-        {
-            var prodMnt = Economy.GetProductCompanyMaintenance(company, true);
+        var bonus = Economy.GetProfit(Q, company, true);
 
-            foreach (var p in prodMnt.bonusDescriptions)
-                bonus.AppendAndHideIfZero(p.Name, -p.Value);
-        }
-        else
-            bonus.AppendAndHideIfZero("Maintenance", -Economy.GetMaintenance(Q, company));
+        //if (company.hasProduct)
+        //{
+        //    var prodMnt = Economy.GetProductCompanyMaintenance(company, true);
+
+        //    foreach (var p in prodMnt.bonusDescriptions)
+        //        bonus.AppendAndHideIfZero(p.Name, -p.Value);
+        //}
+        //else
+        //    bonus.AppendAndHideIfZero("Maintenance", -Economy.GetMaintenance(Q, company));
 
         bonus.MinifyValues();
         bonus.SortByModule();
