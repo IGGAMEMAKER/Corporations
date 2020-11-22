@@ -27,10 +27,10 @@ public class RenderCorporateCultureView : View
     {
         base.ViewRender();
 
-        SetText(Focusing,           CorporatePolicy.FocusingOrSpread, FocusingPolicy, false);
-        SetText(Expansion,          CorporatePolicy.Make, ExpansionPolicy, true);
-        SetText(Competition,        CorporatePolicy.CompetitionOrSupport, CompetitionPolicy, true);
-        SetText(Salaries,           CorporatePolicy.SalariesLowOrHigh, SalariesPolicy, true);
+        //SetText(Focusing,           CorporatePolicy.FocusingOrSpread, FocusingPolicy, false);
+        //SetText(Expansion,          CorporatePolicy.Make, ExpansionPolicy, true);
+        //SetText(Competition,        CorporatePolicy.CompetitionOrSupport, CompetitionPolicy, true);
+        //SetText(Salaries,           CorporatePolicy.SalariesLowOrHigh, SalariesPolicy, true);
     }
 
     void SetText(Text text, CorporatePolicy corporatePolicy, GameObject policyObject, bool render)

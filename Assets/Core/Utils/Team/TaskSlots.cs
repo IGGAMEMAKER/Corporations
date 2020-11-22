@@ -33,7 +33,8 @@ namespace Assets.Core
 
         public static int GetSlotsForTaskType(GameEntity product, TeamTask task)
         {
-            return GetMaxSlotsForTaskType(product, task) - GetAllSameTaskTypeSlots(product, task); // GetAllActiveTaskSlots(product); //
+            //return GetMaxSlotsForTaskType(product, task) - GetAllSameTaskTypeSlots(product, task); // GetAllActiveTaskSlots(product); //
+            return GetMaxSlotsForTaskType(product, task) - GetActiveSameTaskTypeSlots(product, task); // GetAllActiveTaskSlots(product); //
         }
 
         public static int GetMaxSlotsForTaskType(GameEntity product, TeamTask task)

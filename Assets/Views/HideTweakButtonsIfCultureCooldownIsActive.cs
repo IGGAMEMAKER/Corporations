@@ -15,6 +15,8 @@ public class HideTweakButtonsIfCultureCooldownIsActive : View
     public Text LeftName;
     public Text RightName;
 
+    public Text PolicyValue;
+
     public CorporatePolicy CorporatePolicy;
 
     public override void ViewRender()
@@ -29,6 +31,8 @@ public class HideTweakButtonsIfCultureCooldownIsActive : View
 
         TweakLeft.GetComponent<TweakCorporatePolicy>().SetSettings(CorporatePolicy, false);
         TweakRight.GetComponent<TweakCorporatePolicy>().SetSettings(CorporatePolicy, true);
+
+        PolicyValue.text = value.ToString();
 
         RenderTweak(TweakLeft, hasCooldown, value, false);
         RenderTweak(TweakRight, hasCooldown, value, true);

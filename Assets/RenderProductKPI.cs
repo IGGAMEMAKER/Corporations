@@ -60,6 +60,6 @@ public class RenderProductKPI : View
         Churn.text = Visuals.Negative(Format.Minify(churnUsers) + " users weekly\n") + churnText;
 
         var change = Marketing.GetAudienceChange(product, Q);
-        AudienceChange.text = Visuals.Positive(Format.Minify(change));
+        AudienceChange.text = Visuals.PositiveOrNegativeMinified(change);
     }
 }

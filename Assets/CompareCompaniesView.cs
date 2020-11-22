@@ -43,8 +43,10 @@ public class CompareCompaniesView : View
         Name1.text = RenderName(company1);
         Name2.text = RenderName(company2);
 
-        CompareData("Max feature quality", MaxRating1, MaxRating2, 
+        CompareData("Max feature lvl", MaxRating1, MaxRating2, 
             Products.GetFeatureRatingCap(company1), Products.GetFeatureRatingCap(company2));
+
+        //SetHints(MaxRating1, )
 
         CompareData("Marketing quality", MarketingEfficiency1, MarketingEfficiency2, 
             Teams.GetMarketingEfficiency(company1), Teams.GetMarketingEfficiency(company2));
@@ -88,7 +90,16 @@ public class CompareCompaniesView : View
         ViewRender();
     }
 
-    void CompareData(string tag, Text Left, Text Right, float left, float right) => CompareData(tag, Left, Right, (long)left, (long)right);
+    void SetHints(GameObject obj, string hint)
+    {
+
+    }
+
+    void CompareData(string tag, Text Left, Text Right, float left, float right)
+    {
+        CompareData(tag, Left, Right, left.ToString("0.0"), right.ToString("0.0"), left > right, left == right);
+    }
+
     void CompareData(string tag, Text Left, Text Right, long left, long right)
     {
         var formattedLeft = Format.Minify(left);

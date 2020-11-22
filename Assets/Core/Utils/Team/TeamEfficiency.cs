@@ -8,9 +8,6 @@ namespace Assets.Core
     {
         public static void UpdateTeamEfficiency(GameEntity product, GameContext gameContext)
         {
-            // max rating cap 
-            var featureCap = product.team.Teams.Max(t => GetFeatureRatingCap(product, t, gameContext));
-
             // competition
             var competitors = Companies.GetCompetitorsWithSamePositioning(product, gameContext, true);
 
@@ -25,7 +22,7 @@ namespace Assets.Core
                 DevelopmentEfficiency = GetDevelopmentTeamEfficiency(gameContext, product),
                 MarketingEfficiency = GetMarketingTeamEffeciency(gameContext, product, isUniqueCompany),
 
-                FeatureCap = featureCap, // Products.GetFeatureRatingCap(company, gameContext),
+                FeatureCap = GetMaxFeatureRatingCap(product, gameContext).Sum(), // Products.GetFeatureRatingCap(company, gameContext),
                 FeatureGain = GetFeatureRatingGain(product, product.team.Teams[0], gameContext),
 
                 isUniqueCompany = isUniqueCompany,
@@ -140,22 +137,39 @@ namespace Assets.Core
             return speed;
         }
 
-        public static float GetFeatureRatingCap(GameEntity product, TeamInfo team, GameContext gameContext)
+        public static Bonus<float> GetMaxFeatureRatingCap(GameEntity product, GameContext gameContext)
+        {
+            return product.team.Teams
+                .Select(t => GetFeatureRatingCap(product, t, gameContext))
+                .OrderByDescending(b => b.Sum())
+                .First();
+        }
+
+        public static Bonus<float> GetFeatureRatingCap(GameEntity product, TeamInfo team, GameContext gameContext)
         {
             var productManager = Products.GetWorkerInRole(team, WorkerRole.ProductManager, gameContext);
 
-            var cap = 4f;
+            var bonus = new Bonus<float>("Max feature lvl");
 
-            if (team.TeamType == TeamType.DevelopmentTeam)
-                cap += 2f;
+            bonus.Append("Base", 1f);
+            bonus.AppendAndHideIfZero("Development Team", team.TeamType == TeamType.DevelopmentTeam ? 1f : 0);
 
             if (productManager != null)
             {
                 // ... 5f
-                var addedCap = 5 * Humans.GetRating(productManager) / 100f;
+                var addedCap = 3 * Humans.GetRating(productManager) / 100f;
 
-                return cap + addedCap;
+                bonus.AppendAndHideIfZero("Product Manager", addedCap);
             }
+
+            var culture = Companies.GetOwnCulture(Companies.GetManagingCompanyOf(product, gameContext));
+
+            var cultureBonus = (10 - culture[CorporatePolicy.DoOrDelegate]) * 0.2f;
+            var cultureBonus2 = (culture[CorporatePolicy.DecisionsManagerOrTeam]) * 0.4f;
+
+            bonus.Append("Corporate culture Do or Delegate", cultureBonus);
+            bonus.Append("Corporate culture Manager or Team", cultureBonus2);
+
 
             //bool hasMainManager = Teams.HasMainManagerInTeam(team, gameContext, product);
             //if (hasMainManager)
@@ -164,7 +178,11 @@ namespace Assets.Core
             //    cap += focus * 0.4f;
             //}
 
-            return Mathf.Clamp(cap, 0, 10);
+            bonus.Cap(0, 10);
+
+            return bonus;
+
+            //return Mathf.Clamp(cap, 0, 10);
         }
 
         // ------------------------------------------------------------------
