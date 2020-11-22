@@ -38,7 +38,8 @@ public class CompareCompaniesView : View
 
         //var competitors = Companies.GetCompetitorsOfCompany(company1, Q, false).ToArray();
 
-        var company2 = competitors[offset];
+        var list = competitors;
+        var company2 = list.Count() > 0 ? competitors[offset] : company1;
 
         Name1.text = RenderName(company1);
         Name2.text = RenderName(company2);

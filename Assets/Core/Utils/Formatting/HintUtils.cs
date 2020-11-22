@@ -33,8 +33,12 @@ public class Bonus<T>
     public string dimension;
 
     bool isCapped = false;
-    long capMin = 0;
-    long capMax = 0;
+
+    T capMin;
+    T capMax;
+
+    //long capMin = 0;
+    //long capMax = 0;
 
     bool renderSubTitle = true;
     bool minifyValues = false;
@@ -94,7 +98,7 @@ public class Bonus<T>
         return this;
     }
 
-    public Bonus<T> Cap(long min, long max)
+    public Bonus<T> Cap(T min, T max)
     {
         capMin = min;
         capMax = max;
@@ -145,23 +149,26 @@ public class Bonus<T>
         return this;
     }
 
-    public long Sum()
+    public T Sum()
     {
-        long sum = 0;
+        dynamic sum = 0;
+
+
+        //System.Convert.ToDouble(T);
 
         foreach (var bonus in bonusDescriptions)
         {
             if (bonus.BonusType == BonusType.Multiplicative)
             {
-                //sum *= (long)(object)bonus.Value;
-                sum *= System.Convert.ToInt64(bonus.Value);
+                //sum *= System.Convert.ToInt64(bonus.Value);
+                sum *= bonus.Value;
             }
             else
             {
                 try
                 {
-                    //sum += (long)(object)bonus.Value;
-                    sum += System.Convert.ToInt64(bonus.Value);
+                    //sum += System.Convert.ToInt64(bonus.Value);
+                    sum += bonus.Value;
                 }
                 catch (System.Exception ex)
                 {
@@ -176,17 +183,63 @@ public class Bonus<T>
 
         if (isCapped)
         {
-            return (long)Mathf.Clamp(sum, capMin, capMax);
+            if (sum > (dynamic)capMax)
+            {
+                sum = capMax;
+            }
+
+            if (sum < capMin)
+            {
+                sum = capMin;
+            }
+            //return Mathf.Clamp(sum, (dynamic)capMin, (dynamic)capMax);
         }
 
         return sum;
     }
 
+    //long SumLong()
+    //{
+    //    long sum = 0;
+
+    //    foreach (var bonus in bonusDescriptions)
+    //    {
+    //        if (bonus.BonusType == BonusType.Multiplicative)
+    //        {
+    //            //sum *= (long)(object)bonus.Value;
+    //            sum *= System.Convert.ToInt64(bonus.Value);
+    //        }
+    //        else
+    //        {
+    //            try
+    //            {
+    //                //sum += (long)(object)bonus.Value;
+    //                sum += System.Convert.ToInt64(bonus.Value);
+    //            }
+    //            catch (System.Exception ex)
+    //            {
+    //                Debug.LogError($"Exception in bonus {parameter}: " + ex);
+    //                Debug.LogError($"Bad parameter {bonus.Name}: " + bonus.Value);
+
+    //                //Debug.Log("Parameters: " + string.Join(",", bonusDescriptions.Select(b => $"{b.Name}: {b.Value}... {b.Value.GetType()}")));
+
+    //            }
+    //        }
+    //    }
+
+    //    if (isCapped)
+    //    {
+    //        return (long)Mathf.Clamp(sum, capMin, capMax);
+    //    }
+
+    //    return sum;
+    //}
+
     public string ToString(bool positiveIsNegative = false)
     {
         StringBuilder str = new StringBuilder();
 
-        long val = Sum();
+        dynamic val = Sum();
 
         if (renderTitle)
             str.AppendFormat("{0} is {1}", parameter, Format.Sign(val));

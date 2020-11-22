@@ -20,7 +20,7 @@ public class JobOfferView : View
         Offer.text = Format.MinifyMoney(entity.JobOffer.Salary) + " / week";
 
         var opinionBonus = Teams.GetOpinionAboutOffer(human, entity);
-        var opinion = opinionBonus.Sum();
+        var opinion = (int)opinionBonus.Sum();
 
         Opinion.text = Format.Sign(opinion);
         Opinion.color = Visuals.GetColorPositiveOrNegative(opinion);
