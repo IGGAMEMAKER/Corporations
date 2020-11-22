@@ -24,7 +24,10 @@ public class AddTeamButton : ButtonController
 
     public override void Execute()
     {
-        Teams.AddTeam(Flagship, TeamType);
+        if (Teams.IsCanAddMoreTeams(Flagship, Q))
+            Teams.AddTeam(Flagship, Q, TeamType);
+        else
+            NotificationUtils.AddSimplePopup(Q, Visuals.Negative("You've reached max limit of teams"), "Change your corporate culture to add more teams");
     }
 
     //[ExecuteInEditMode]

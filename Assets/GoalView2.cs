@@ -31,21 +31,23 @@ public class GoalView2 : View
 
         var company = MyCompany;
 
-        bool completed = Investments.CanCompleteGoal(company, Q, InvestmentGoal);
+        var executor = Companies.Get(Q, InvestmentGoal.ExecutorId);
+
+        bool completed = Investments.CanCompleteGoal(executor, Q, InvestmentGoal);
 
         Draw(CompleteButton, completed);
         Draw(Requirements, !completed);
         Draw(ProgressImage, !completed);
 
         Title.text = InvestmentGoal.GetFormattedName();
-        Requirements.text = InvestmentGoal.GetFormattedRequirements(company, Q);
+        Requirements.text = InvestmentGoal.GetFormattedRequirements(executor, Q);
         Number.text = $"#{index + 1}";
 
-        var requirements = InvestmentGoal.GetGoalRequirements(company, Q);
+        //var requirements = InvestmentGoal.GetGoalRequirements(executor, Q);
 
-        var progress = InvestmentGoal.GetGoalProgress(company, Q) / 100f;
+        //var progress = InvestmentGoal.GetGoalProgress(executor, Q) / 100f;
 
-        ProgressImage.fillAmount = progress;
+        //ProgressImage.fillAmount = progress;
     }
 
     public void CompleteGoal()

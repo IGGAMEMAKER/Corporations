@@ -12,7 +12,7 @@ namespace Assets.Core
                 return;
 
             Cooldowns.AddCorporateCultureUpgradeCooldown(gameContext, company, C.CORPORATE_CULTURE_CHANGES_DURATION);
-            var culture = GetOwnCorporateCulture(company);
+            var culture = GetOwnCulture(company);
 
             var prevValue = culture[policy];
             culture[policy] = Mathf.Clamp(value, C.CORPORATE_CULTURE_LEVEL_MIN, C.CORPORATE_CULTURE_LEVEL_MAX);
@@ -28,7 +28,7 @@ namespace Assets.Core
 
         public static void IncrementCorporatePolicy(GameContext gameContext, GameEntity company, CorporatePolicy policy)
         {
-            var culture = GetOwnCorporateCulture(company);
+            var culture = GetOwnCulture(company);
 
             var value = culture[policy] + 1;
 
@@ -37,14 +37,14 @@ namespace Assets.Core
 
         public static void DecrementCorporatePolicy(GameContext gameContext, GameEntity company, CorporatePolicy policy)
         {
-            var culture = GetOwnCorporateCulture(company);
+            var culture = GetOwnCulture(company);
 
             var value = culture[policy] - 1;
 
             TweakCorporatePolicy(gameContext, company, policy, value);
         }
 
-        public static Dictionary<CorporatePolicy, int> GetOwnCorporateCulture(GameEntity company)
+        public static Dictionary<CorporatePolicy, int> GetOwnCulture(GameEntity company)
         {
             return company.corporateCulture.Culture;
         }
@@ -61,7 +61,8 @@ namespace Assets.Core
 
         public static Dictionary<CorporatePolicy, int> GetActualCorporateCulture(GameEntity company)
         {
-            return GetOwnCorporateCulture(company);
+            //if (company.isFlagship)
+            return GetOwnCulture(company);
             //var managingCompany = GetManagingCompanyOf(company, gameContext);
 
             //return managingCompany.corporateCulture.Culture;

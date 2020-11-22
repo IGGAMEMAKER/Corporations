@@ -11,21 +11,19 @@ namespace Assets.Core
             // max rating cap 
             var featureCap = product.team.Teams.Max(t => GetFeatureRatingCap(product, t, gameContext));
 
-            // average efficiency
-
+            // competition
             var competitors = Companies.GetCompetitorsWithSamePositioning(product, gameContext, true);
 
             var quality = Marketing.GetPositioningQuality(product).Sum();
             var maxQuality = competitors.Select(c => Marketing.GetPositioningQuality(c).Sum()).Max();
 
             bool isUniqueCompany = competitors.Count() == 1;
-
-            var marketingEfficiency = GetMarketingTeamEffeciency(gameContext, product, isUniqueCompany);
+            // -------------------------------------------------
 
             product.ReplaceTeamEfficiency(new TeamEfficiency
             {
-                DevelopmentEfficiency = 100,
-                MarketingEfficiency = marketingEfficiency,
+                DevelopmentEfficiency = GetDevelopmentTeamEfficiency(gameContext, product),
+                MarketingEfficiency = GetMarketingTeamEffeciency(gameContext, product, isUniqueCompany),
 
                 FeatureCap = featureCap, // Products.GetFeatureRatingCap(company, gameContext),
                 FeatureGain = GetFeatureRatingGain(product, product.team.Teams[0], gameContext),
@@ -35,11 +33,47 @@ namespace Assets.Core
             });
         }
 
+        public static int GetDevelopmentEfficiency(GameEntity company)
+        {
+            return company.teamEfficiency.Efficiency.DevelopmentEfficiency;
+        }
+
         public static int GetMarketingEfficiency(GameEntity company)
         {
             return company.teamEfficiency.Efficiency.MarketingEfficiency;
         }
 
+        // -------------- DEV -----------------------
+        public static int GetDevelopmentTeamEfficiency(GameContext gameContext, GameEntity product, TeamInfo teamInfo)
+        {
+            var efficiency = 0;
+
+            efficiency = GetEffectiveManagerRating(gameContext, product, WorkerRole.TeamLead, teamInfo);
+
+            efficiency += teamInfo.TeamType == TeamType.DevelopmentTeam ? 30 : 0;
+
+            //efficiency += Teams.GetManagerFocusBonus(gameContext, product, teamInfo, ManagerTask.ViralSpread) * 10;
+
+            return (10 + efficiency) * GetTeamEffeciency(product, teamInfo);
+        }
+
+        private static int GetDevelopmentTeamEfficiency(GameContext gameContext, GameEntity product)
+        {
+            var viableTeams = product.team.Teams
+
+            // dev teams only
+            .Where(t => IsUniversalTeam(t.TeamType) || t.TeamType == TeamType.DevelopmentTeam)
+
+            .Select(t => GetDevelopmentTeamEfficiency(gameContext, product, t) / 100)
+            ;
+
+            if (viableTeams.Count() == 0)
+                return 50;
+
+            return (int)viableTeams.Average();
+        }
+
+        // -------------- MARKETING --------------------------------
         public static int GetMarketingTeamEffeciency(GameContext gameContext, GameEntity company, bool isUnique)
         {
             var viableTeams = company.team.Teams
@@ -47,7 +81,7 @@ namespace Assets.Core
                 // marketing teams only
                 .Where(t => IsUniversalTeam(t.TeamType) || t.TeamType == TeamType.MarketingTeam)
                 
-                .Select(t => GetTeamEffeciency(company, t) * GetMarketingTeamEffeciency(gameContext, company, t) / 100)
+                .Select(t => GetMarketingTeamEffeciency(gameContext, company, t) / 100)
                 ;
 
             if (viableTeams.Count() == 0)
@@ -55,6 +89,23 @@ namespace Assets.Core
 
             return (int)viableTeams.Average() * (isUnique ? 2 : 1);
         }
+
+
+        public static int GetMarketingTeamEffeciency(GameContext gameContext, GameEntity product, TeamInfo teamInfo)
+        {
+            var marketingEffeciency = 0;
+
+            marketingEffeciency = Teams.GetEffectiveManagerRating(gameContext, product, WorkerRole.MarketingLead, teamInfo);
+
+            marketingEffeciency *= teamInfo.TeamType == TeamType.MarketingTeam ? 2 : 1;
+
+            //marketingEffeciency += Teams.GetManagerFocusBonus(gameContext, company, teamInfo, ManagerTask.ViralSpread) * 10;
+
+            return (50 + marketingEffeciency) * GetTeamEffeciency(product, teamInfo);
+        }
+
+
+        // --------------------------------
 
         public static int GetManagerFocusBonus(GameContext gameContext, GameEntity company, TeamInfo teamInfo, ManagerTask managerTask)
         {
@@ -68,21 +119,11 @@ namespace Assets.Core
             return 0;
         }
 
-        public static int GetMarketingTeamEffeciency(GameContext gameContext, GameEntity company, TeamInfo teamInfo)
-        {
-            var marketingEffeciency = 0;
 
-            marketingEffeciency = Teams.GetEffectiveManagerRating(gameContext, company, WorkerRole.MarketingLead, teamInfo);
-
-            marketingEffeciency *= teamInfo.TeamType == TeamType.MarketingTeam ? 2 : 1;
-
-            marketingEffeciency += Teams.GetManagerFocusBonus(gameContext, company, teamInfo, ManagerTask.ViralSpread) * 10;
-
-            return 50 + marketingEffeciency;
-        }
-
+        // --------------------- FEATURES --------------------------
         public static float GetFeatureRatingGain(GameEntity product, TeamInfo team, GameContext gameContext)
         {
+            return 1f;
             var speed = 0.2f;
 
             // 0.4f ... 1f
@@ -116,21 +157,18 @@ namespace Assets.Core
                 return cap + addedCap;
             }
 
-            bool hasMainManager = Teams.HasMainManagerInTeam(team, gameContext, product);
-            if (hasMainManager)
-            {
-                var focus = team.ManagerTasks.Count(t => t == ManagerTask.Polishing);
-                cap += focus * 0.4f;
-            }
+            //bool hasMainManager = Teams.HasMainManagerInTeam(team, gameContext, product);
+            //if (hasMainManager)
+            //{
+            //    var focus = team.ManagerTasks.Count(t => t == ManagerTask.Polishing);
+            //    cap += focus * 0.4f;
+            //}
 
             return Mathf.Clamp(cap, 0, 10);
         }
 
-        public static int GetTeamAverageEffeciency(GameEntity company)
-        {
-            var average = (int)company.team.Teams.Select(t => GetTeamEffeciency(company, t)).Average();
-            return Mathf.Clamp(average, 1, 150);
-        }
+        // ------------------------------------------------------------------
+
         public static int GetTeamEffeciency(GameEntity company, TeamInfo teamInfo)
         {
             var maxWorkers = 8;

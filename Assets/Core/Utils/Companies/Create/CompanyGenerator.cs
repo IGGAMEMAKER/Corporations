@@ -72,7 +72,9 @@ namespace Assets.Core
             company.AddCompany(id, name, companyType);
             company.isAlive = true;
 
-            
+            var culture = GetRandomCorporateCulture();
+            company.AddCorporateCulture(culture);
+
 
             SetIndependence(company, true);
             company.AddPartnerships(new List<int>());
@@ -102,7 +104,7 @@ namespace Assets.Core
                 );
 
             // add team for CEO
-            Teams.AddTeam(company, TeamType.CrossfunctionalTeam);
+            Teams.AddTeam(company, context, TeamType.CrossfunctionalTeam);
 
             // CEO
             int CeoID = CEO.human.Id;
@@ -120,8 +122,7 @@ namespace Assets.Core
             Teams.SetJobOffer(CEO, company, new JobOffer(0), 0, context);
 
             // uniqueness
-            var culture = GetRandomCorporateCulture();
-            company.AddCorporateCulture(culture);
+
             company.AddCompanyStrategies(RandomEnum<CompanySettingGrowthType>.GenerateValue(), RandomEnum<CompanySettingAttitudeToWorkers>.GenerateValue(), RandomEnum<CompanySettingControlDesire>.GenerateValue());
 
 

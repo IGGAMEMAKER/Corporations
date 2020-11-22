@@ -265,7 +265,9 @@ public enum InvestorGoalType
     DominateSegment,
     DominateMarket,
 
-    BuyBack
+    BuyBack,
+
+    ProductPrepareForRelease
 }
 
 public enum InvestmentRound

@@ -12,12 +12,28 @@ namespace Assets.Core
     {
         public static bool HasFreeSlotForTeamTask(GameEntity product, TeamTask task)
         {
-            return GetSlotsForTaskType(product, task) > 0;
+            var taskCost = GetTaskSlotCost(product, task);
+
+            if (taskCost == 0)
+                return true;
+
+            return GetSlotsForTaskType(product, task) >= taskCost;
+        }
+
+        public static int GetTaskSlotCost(GameEntity product, TeamTask task)
+        {
+            if (task.IsFeatureUpgrade || task.IsMarketingTask)
+                return 1;
+
+            if (task.IsHighloadTask && (task as TeamTaskSupportFeature).SupportFeature.SupportBonus.Max >= 2_000_000)
+                return 1;
+
+            return 0;
         }
 
         public static int GetSlotsForTaskType(GameEntity product, TeamTask task)
         {
-            return 3 + GetMaxSlotsForTaskType(product, task) - GetAllActiveTaskSlots(product); // GetAllSameTaskTypeSlots(product, task);
+            return GetMaxSlotsForTaskType(product, task) - GetAllSameTaskTypeSlots(product, task); // GetAllActiveTaskSlots(product); //
         }
 
         public static int GetMaxSlotsForTaskType(GameEntity product, TeamTask task)
@@ -31,8 +47,8 @@ namespace Assets.Core
             {
                 case TeamRank.Solo:         return 1;
                 case TeamRank.SmallTeam:    return 2;
-                case TeamRank.BigTeam:      return 5;
-                case TeamRank.Department:   return 10;
+                case TeamRank.BigTeam:      return 3; // 5
+                case TeamRank.Department:   return 6; // 10
 
                 default: return -1000;
             }

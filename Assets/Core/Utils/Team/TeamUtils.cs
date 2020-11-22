@@ -8,8 +8,11 @@ namespace Assets.Core
 {
     public static partial class Teams
     {
-        public static int AddTeam(GameEntity company, TeamType teamType)
+        public static void AddTeam(GameEntity company, GameContext gameContext, TeamType teamType)
         {
+            if (!IsCanAddMoreTeams(company, gameContext))
+                return;
+
             var team = new TeamInfo
             {
                 TeamType = teamType,
@@ -32,7 +35,7 @@ namespace Assets.Core
 
             team.Name = GenerateTeamName(company, team);
 
-            return company.team.Teams.Count - 1;
+            //return company.team.Teams.Count - 1;
         }
 
         public static string GenerateTeamName(GameEntity company, TeamInfo team)

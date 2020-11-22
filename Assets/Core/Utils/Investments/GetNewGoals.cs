@@ -159,6 +159,9 @@ namespace Assets.Core
                     AddOnce(goals, product, InvestorGoalType.ProductBecomeMarketFit);
 
                 if (Completed(product, InvestorGoalType.ProductBecomeMarketFit))
+                    AddOnce(goals, product, InvestorGoalType.ProductPrepareForRelease);
+
+                if (Completed(product, InvestorGoalType.ProductPrepareForRelease))
                     AddOnce(goals, product, InvestorGoalType.ProductRelease);
             }
 
@@ -170,8 +173,24 @@ namespace Assets.Core
                 if (Completed(product, InvestorGoalType.ProductStartMonetising))
                     goals.Add(InvestorGoalType.GrowUserBase);
 
-                if (Completed(product, InvestorGoalType.GrowUserBase) && users > 500_000 && ourAudiences < amountOfAudiences)
-                    goals.Add(InvestorGoalType.GainMoreSegments);
+                if (Completed(product, InvestorGoalType.GrowUserBase))
+                {
+                    bool canGetMoreAudiences = ourAudiences < amountOfAudiences;
+                    bool needsToExpand = Marketing.GetAudienceInfos()
+                        .Where(s => Marketing.IsAimingForSpecificAudience(product, s.ID))
+                        .All(s => Marketing.GetUsers(product, s.ID) > 1_000_000);
+
+                    if (users > 1_500_000 && canGetMoreAudiences && needsToExpand)
+                    {
+                        goals.Add(InvestorGoalType.GainMoreSegments);
+                    }
+
+                    if (users > 50_000_000 && canGetMoreAudiences)
+                    {
+                        // globalise
+                        return OnlyGoal(InvestorGoalType.GainMoreSegments);
+                    }
+                }
             }
 
             if (Marketing.IsHasDisloyalAudiences(product))

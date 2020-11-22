@@ -224,11 +224,11 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             {
                 if (teamTask.IsHighloadTask)
                 {
-                    Teams.AddTeam(product, TeamType.ServersideTeam);
+                    Teams.AddTeam(product, gameContext, TeamType.ServersideTeam);
                 }
                 else
                 {
-                    Teams.AddTeam(product, TeamType.CrossfunctionalTeam);
+                    Teams.AddTeam(product, gameContext, TeamType.CrossfunctionalTeam);
                 }
 
                 teamId = product.team.Teams.Count - 1;

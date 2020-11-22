@@ -13,16 +13,16 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
         if (CanMaintain(product, teamCost) && !product.team.Teams.Any(t => t.TeamType == teamType))
         {
-            var id = Teams.AddTeam(product, teamType);
+            //var id = Teams.AddTeam(product, teamType);
 
-            if (teamType == TeamType.DevelopmentTeam)
-                SetTasks(product, ManagerTask.Polishing, id);
+            //if (teamType == TeamType.DevelopmentTeam)
+            //    SetTasks(product, ManagerTask.Polishing, id);
 
-            if (teamType == TeamType.MarketingTeam)
-                SetTasks(product, ManagerTask.ViralSpread, id);
+            //if (teamType == TeamType.MarketingTeam)
+            //    SetTasks(product, ManagerTask.ViralSpread, id);
 
-            if (teamType == TeamType.ServersideTeam)
-                SetTasks(product, ManagerTask.Organisation, id);
+            //if (teamType == TeamType.ServersideTeam)
+            //    SetTasks(product, ManagerTask.Organisation, id);
         }
     }
 

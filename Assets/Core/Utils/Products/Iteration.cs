@@ -6,12 +6,22 @@ namespace Assets.Core
 {
     public static partial class Products
     {
-        public static int GetBaseIterationTime(GameContext gameContext, GameEntity company) => GetBaseIterationTime(Markets.Get(gameContext, company));
-        public static int GetBaseIterationTime(GameEntity niche) => GetBaseIterationTime(niche.nicheBaseProfile.Profile.NicheSpeed);
-        public static int GetBaseIterationTime(NicheSpeed nicheChangeSpeed)
+        public static int GetBaseIterationTime(GameContext gameContext, GameEntity company)
         {
-            return 12;
+            int baseValue = 12;
+
+
+            var eff = Mathf.Clamp(Teams.GetDevelopmentEfficiency(company), 50, 150);
+
+            return baseValue * 100 / eff;
         }
+        //public static int GetBaseIterationTime(GameContext gameContext, GameEntity company) => GetBaseIterationTime(Markets.Get(gameContext, company));
+        //public static int GetBaseIterationTime(GameEntity niche) => GetBaseIterationTime(niche.nicheBaseProfile.Profile.NicheSpeed);
+        //public static int GetBaseIterationTime(NicheSpeed nicheChangeSpeed)
+        //{
+        //    var teamEfficiency = 
+        //    return 12;
+        //}
 
         public static int GetIterationTime(GameContext gameContext, GameEntity company)
         {
@@ -132,7 +142,7 @@ namespace Assets.Core
         public static int GetTimeToMarketFromScratch(GameEntity niche)
         {
             var demand = GetMarketDemand(niche);
-            var iterationTime = GetBaseIterationTime(niche);
+            var iterationTime = 12; // GetBaseIterationTime(niche);
 
             return demand * iterationTime / 2 / 30;
         }

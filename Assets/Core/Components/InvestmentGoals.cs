@@ -172,27 +172,29 @@ public class InvestmentGoalMakeProductMarketFit : InvestmentGoal
     {
         GameEntity product = GetProduct(company, gameContext);
 
+        var requiredLoyalty = 10;
+
         return new List<GoalRequirements>
         {
             new GoalRequirements
             {
                 have = (long)Marketing.GetSegmentLoyalty(product, Marketing.GetCoreAudienceId(company)),
-                need = 10,
+                need = requiredLoyalty,
 
-                description = "Loyalty > 10"
+                description = $"Loyalty > {requiredLoyalty}"
             }
         };
     }
 }
 
-public class InvestmentGoalRelease : InvestmentGoal
+public class InvestmentGoalPrepareForRelease : InvestmentGoal
 {
-    public InvestmentGoalRelease() : base(InvestorGoalType.ProductRelease)
+    public InvestmentGoalPrepareForRelease() : base(InvestorGoalType.ProductPrepareForRelease)
     {
 
     }
 
-    public override string GetFormattedName() => "Release product";
+    public override string GetFormattedName() => "Prepare for release";
 
     public override List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
     {
@@ -216,6 +218,26 @@ public class InvestmentGoalRelease : InvestmentGoal
 
                 description = $"Has at least {teams} teams"
             },
+        };
+    }
+}
+
+
+public class InvestmentGoalRelease : InvestmentGoal
+{
+    public InvestmentGoalRelease() : base(InvestorGoalType.ProductRelease)
+    {
+
+    }
+
+    public override string GetFormattedName() => "Release product";
+
+    public override List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
+    {
+        GameEntity product = GetProduct(company, gameContext);
+
+        return new List<GoalRequirements>
+        {
             new GoalRequirements
             {
                 have = product.isRelease ? 1 : 0,

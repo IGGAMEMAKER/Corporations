@@ -257,13 +257,16 @@ public enum CorporatePolicy
     //BuyOrCreate, // BuyOrCreate
     Make,
     Sell,
-    Delegate,
+    DoOrDelegate,
 
     // choose
     FocusingOrSpread, // just for funds
     SalariesLowOrHigh, // low vs high
 
     CompetitionOrSupport,
+
+    PeopleOrProcesses,
+    DecisionsManagerOrTeam
 }
 
 [Game]

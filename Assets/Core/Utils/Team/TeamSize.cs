@@ -38,5 +38,24 @@ namespace Assets.Core
 
             return !HasRole(company, role, teamInfo, gameContext);
         }
+
+        public static bool IsCanAddMoreTeams(GameEntity company, GameContext gameContext)
+        {
+            return company.team.Teams.Count < GetMaxTeamsAmount(company, gameContext);
+        }
+
+        public static int GetMaxTeamsAmount(GameEntity company, GameContext gameContext)
+        {
+            var culture = Companies.GetActualCorporateCulture(company);
+
+            if (company.isFlagship)
+            {
+                var managingCompany = Companies.GetManagingCompanyOf(company, gameContext);
+
+                culture = managingCompany.corporateCulture.Culture;
+            }
+
+            return culture[CorporatePolicy.DoOrDelegate];
+        }
     }
 }

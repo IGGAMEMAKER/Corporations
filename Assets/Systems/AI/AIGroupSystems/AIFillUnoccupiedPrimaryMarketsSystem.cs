@@ -60,7 +60,7 @@ public partial class AIGroupExpansionSystem : OnQuarterChange
 
     IEnumerable<GameEntity> GetAcquisitionCandidates(GameEntity[] products, GameEntity managingCompany)
     {
-        var culture = Companies.GetOwnCorporateCulture(managingCompany);
+        var culture = Companies.GetOwnCulture(managingCompany);
 
         var desireToBuy = 15 - Companies.GetPolicyValue(managingCompany, CorporatePolicy.CompetitionOrSupport);
         var AIwantsToBuyPlayerCompany = Random.Range(0, 100) < 15 + desireToBuy;

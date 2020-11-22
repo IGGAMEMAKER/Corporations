@@ -23,7 +23,7 @@ public class RenderInvestorCorporateCulture : UpgradedParameterView
 
     string Wrap(CorporatePolicy corporatePolicy, string descriptionLeft, string descriptionRight)
     {
-        var investorCulture = Companies.GetOwnCorporateCulture(SelectedInvestor);
+        var investorCulture = Companies.GetOwnCulture(SelectedInvestor);
         var playerCulture = Companies.GetActualCorporateCulture(MyCompany);
 
 
@@ -49,7 +49,7 @@ public class RenderInvestorCorporateCulture : UpgradedParameterView
 
     string DescribePolicy(CorporatePolicy corporatePolicy, string left, string right)
     {
-        var investorCulture = Companies.GetOwnCorporateCulture(SelectedInvestor);
+        var investorCulture = Companies.GetOwnCulture(SelectedInvestor);
 
         var val = investorCulture[corporatePolicy];
 

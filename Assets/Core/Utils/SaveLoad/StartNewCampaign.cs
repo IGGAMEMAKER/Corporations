@@ -36,13 +36,16 @@ namespace Assets.Core
         {
             var company = Companies.GenerateCompanyGroup(gameContext, text);
 
-            var half = C.CORPORATE_CULTURE_LEVEL_MAX / 2;
+            var max = C.CORPORATE_CULTURE_LEVEL_MAX;
+            var half = max / 2;
 
             company.ReplaceCorporateCulture(new Dictionary<CorporatePolicy, int>
             {
                 [CorporatePolicy.CompetitionOrSupport] = half,
                 [CorporatePolicy.SalariesLowOrHigh] = half,
-                [CorporatePolicy.Delegate] = 1,
+                [CorporatePolicy.DoOrDelegate] = 1,
+                [CorporatePolicy.DecisionsManagerOrTeam] = 1,
+                [CorporatePolicy.PeopleOrProcesses] = half,
                 [CorporatePolicy.FocusingOrSpread] = 1, // doesn't matter
                 [CorporatePolicy.Make] = 1,
                 [CorporatePolicy.Sell] = 1,
@@ -79,7 +82,7 @@ namespace Assets.Core
 
                 for (var j = 0; j < teams; j++)
                 {
-                    Teams.AddTeam(c, TeamType.CrossfunctionalTeam);
+                    Teams.AddTeam(c, gameContext, TeamType.CrossfunctionalTeam);
                 }
 
                 foreach (var f in features)

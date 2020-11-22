@@ -3,11 +3,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
+[ExecuteAlways]
 public class HideTweakButtonsIfCultureCooldownIsActive : View
 {
     public GameObject TweakLeft;
     public GameObject TweakRight;
+
+    public Text PolicyName;
+    public Text LeftName;
+    public Text RightName;
 
     public CorporatePolicy CorporatePolicy;
 
@@ -17,7 +23,7 @@ public class HideTweakButtonsIfCultureCooldownIsActive : View
 
         bool hasCooldown = Cooldowns.HasCorporateCultureUpgradeCooldown(Q, MyCompany);
 
-        var culture = Companies.GetOwnCorporateCulture(MyCompany);
+        var culture = Companies.GetOwnCulture(MyCompany);
 
         var value = Companies.GetPolicyValue(MyCompany, CorporatePolicy);
 
@@ -33,5 +39,43 @@ public class HideTweakButtonsIfCultureCooldownIsActive : View
         bool willExceedLimits = (Increment && value == C.CORPORATE_CULTURE_LEVEL_MAX) || (!Increment && value == C.CORPORATE_CULTURE_LEVEL_MIN);
 
         tweakButton.SetActive(!hasCooldown && !willExceedLimits);
+    }
+
+    private void OnEnable()
+    {
+        ViewRender();
+    }
+
+    //void OnTransformChildrenChanged()
+    void OnValidate()
+    {
+        SetStuff();
+    }
+
+    void SetStuff()
+    {
+        switch (CorporatePolicy)
+        {
+            case CorporatePolicy.CompetitionOrSupport: SetTexts("Competition or Support", "Competition", "Support"); break;
+
+            case CorporatePolicy.DecisionsManagerOrTeam: SetTexts("Who makes decisions", "Manager", "Team", "Increases team speed", "Increases Max feature lvl"); break;
+            case CorporatePolicy.DoOrDelegate: SetTexts("Delegation?", "DO", "Delegate", "Increases max feature lvl", "+1 team limit"); break;
+            case CorporatePolicy.PeopleOrProcesses: SetTexts("People or Processes", "People", "Processes", "Managers grow faster", "Organisation grows faster"); break;
+
+            case CorporatePolicy.Sell: SetTexts("Make or sell", "Make", "Sell"); break;
+            case CorporatePolicy.SalariesLowOrHigh: SetTexts("Salaries", "Low", "High"); break;
+            case CorporatePolicy.Make: SetTexts("Make?", "Left", "Right"); break;
+
+            default: SetTexts($"<b>{CorporatePolicy.ToString()}</b>", "Left", "Right"); break;
+        }
+    }
+
+    void SetTexts(string Policy, string Left, string Right, string leftHint = "???", string rightHint = "???")
+    {
+        PolicyName.text = Policy;
+
+        LeftName.text = Left + "\n" + Visuals.Positive(leftHint);
+        RightName.text = Right + "\n" + Visuals.Positive(rightHint);
+        //RightName.text = Right;
     }
 }
