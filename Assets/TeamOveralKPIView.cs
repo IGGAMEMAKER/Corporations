@@ -11,7 +11,7 @@ public class TeamOveralKPIView : ParameterView
         var company = SelectedCompany;
 
         var teams = company.team.Teams.Count;
-        var employees = Teams.GetTeamSize(company) * 10;
+        var employees = Teams.GetTeamSize(company);
         var managerLevel = Teams.GetTeamAverageStrength(company, Q);
 
         var featureCap = Teams.GetMaxFeatureRatingCap(company, Q).Sum();
@@ -41,12 +41,12 @@ public class TeamOveralKPIView : ParameterView
         var text = $"<size=50>Quantity</size>";
 
         text += RenderParameter("\n\nEmployees", $"{employees} workers", -1);
-        text += RenderParameter("\nAverage manager lvl", $"{managerLevel}lvl", managerLvlPlace);
         text += RenderParameter("\nTeams", teams.ToString(), teamsPlace);
         
         text += $"\n\n<size=50>Quality</size>";
         
-        text += RenderParameter("\n\nMax feature lvl", featureCap.ToString("0.0lv"), capPlace);
+        text += RenderParameter("\n\nAverage manager lvl", $"{managerLevel}lvl", managerLvlPlace);
+        text += RenderParameter("\nMax feature lvl", featureCap.ToString("0.0lv"), capPlace);
         text += RenderParameter("\nAverage marketing efficiency", $"{marketingEff}%", marketingEffPlace);
         text += RenderParameter("\nAverage development efficiency", $"{devEff}%", devEffPlace);
 
