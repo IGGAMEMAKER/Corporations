@@ -37,16 +37,17 @@ public class CompanyTaskTypeRelay : View
     {
         base.ViewRender();
 
+        RenderMissionsButton();
+        RenderInvestmentButton();
         RenderFeatureButton();
-        RenderMonetizationButton();
+        RenderTeamButton();
         RenderMarketingButton();
         RenderServerButton();
-        RenderTeamButton();
 
-        RenderInvestmentButton();
-        RenderOffersButton();
-        RenderMissionsButton();
         RenderCompetitorsButton();
+
+        RenderMonetizationButton();
+        RenderOffersButton();
     }
 
     private void RenderOffersButton()
@@ -81,34 +82,6 @@ public class CompanyTaskTypeRelay : View
         GoalCounter.GetComponentInChildren<Text>().text = hasGoals ? goalsCount.ToString() : newGoalsCount.ToString();
     }
 
-    void RenderFeatureButton()
-    {
-        var features = Products.GetProductFeaturesList(Flagship, Q).Length;
-
-        Draw(FeatureCounter, features > 0);
-
-        FeatureCounter.GetComponentInChildren<Text>().text = features.ToString();
-    }
-
-    void RenderMonetizationButton()
-    {
-        var features = Products.GetUpgradeableMonetisationFeatures(Flagship, Q).Length;
-
-        Draw(MonetizationFeatureCounter, features > 0);
-        Draw(MonetizationButton, Flagship.isRelease);
-
-        MonetizationFeatureCounter.GetComponentInChildren<Text>().text = features.ToString();
-    }
-
-    void RenderMarketingButton()
-    {
-        var channels = Markets.GetAffordableMarketingChannels(Flagship, Q).Length;
-
-        Draw(MarketingCounter, channels > 0);
-
-        MarketingCounter.GetComponentInChildren<Text>().text = channels.ToString();
-    }
-
     void RenderInvestmentButton()
     {
         bool willBeBankruptSoon = Economy.IsWillBecomeBankruptOnNextPeriod(Q, Flagship);
@@ -118,21 +91,58 @@ public class CompanyTaskTypeRelay : View
         Draw(InvestmentButton, willBeBankruptSoon || skippedSomeTime);
     }
 
+    void RenderFeatureButton()
+    {
+        bool receivedFirstInvestments = MyCompany.shareholders.Shareholders.Count > 1;
+        bool skippedSomeTime = CurrentIntDate > 60;
+
+
+        var features = Products.GetProductFeaturesList(Flagship, Q).Length;
+        FeatureCounter.GetComponentInChildren<Text>().text = features.ToString();
+
+
+        Draw(FeatureCounter, features > 0);
+        Draw(DevelopmentButton, HasOrCompletedGoal(Flagship, InvestorGoalType.ProductPrototype));
+    }
+
+    void RenderMonetizationButton()
+    {
+        var features = Products.GetUpgradeableMonetisationFeatures(Flagship, Q).Length;
+        MonetizationFeatureCounter.GetComponentInChildren<Text>().text = features.ToString();
+
+        Draw(MonetizationFeatureCounter, features > 0);
+        Draw(MonetizationButton, HasOrCompletedGoal(Flagship, InvestorGoalType.ProductStartMonetising));
+    }
+
+    void RenderMarketingButton()
+    {
+        var channels = Markets.GetAffordableMarketingChannels(Flagship, Q).Length;
+        MarketingCounter.GetComponentInChildren<Text>().text = channels.ToString();
+
+
+        Draw(MarketingCounter, channels > 0);
+        Draw(MarketingButton, HasOrCompletedGoal(Flagship, InvestorGoalType.ProductFirstUsers));
+    }
+
+
     void RenderServerButton()
     {
-        bool hadFirstMarketingCampaign = Marketing.GetUsers(Flagship) > 50;
         bool serverOverload = Products.IsNeedsMoreServers(Flagship);
 
-        Draw(ServersButton, true);
-        //Draw(ServersButton, hadFirstMarketingCampaign || serverOverload);
+        Draw(ServersButton, serverOverload || HasOrCompletedGoal(Flagship, InvestorGoalType.ProductPrepareForRelease));
     }
 
     void RenderTeamButton()
     {
         int teamInterrupts = Flagship.team.Teams.Count(t => Teams.IsTeamNeedsAttention(Flagship, t, Q));
-
-        Draw(TeamsButton, Flagship.team.Teams.Count > 0);
-        Draw(TeamCounter, teamInterrupts > 0);
         TeamCounter.GetComponentInChildren<Text>().text = teamInterrupts.ToString();
+
+        Draw(TeamCounter, teamInterrupts > 0);
+        Draw(TeamsButton, HasOrCompletedGoal(Flagship, InvestorGoalType.ProductPrepareForRelease));
+    }
+
+    bool HasOrCompletedGoal(GameEntity company, InvestorGoalType goalType)
+    {
+        return company.companyGoal.Goals.Any(g => g.InvestorGoalType == goalType) || Investments.IsGoalCompleted(company, goalType);
     }
 }

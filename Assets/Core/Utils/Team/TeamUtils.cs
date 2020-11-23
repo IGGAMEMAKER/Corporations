@@ -134,7 +134,7 @@ namespace Assets.Core
 
         public static bool IsUniversalTeam(TeamType teamType) => new TeamType[] { TeamType.CrossfunctionalTeam }.Contains(teamType);
 
-        public static string GetFormattedTeamType(TeamInfo team) => GetFormattedTeamType(team.TeamType, team.Rank, team.ID == 0 ? "Core" : "");
+        public static string GetFormattedTeamType(TeamInfo team) => GetFormattedTeamType(team.TeamType, team.Rank, team.ID == 0 ? "Core team" : "");
         public static string GetFormattedTeamType(TeamType teamType, TeamRank rank, string formattedName = "")
         {
             if (formattedName.Length == 0)
