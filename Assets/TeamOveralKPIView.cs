@@ -21,20 +21,31 @@ public class TeamOveralKPIView : ParameterView
         var directCompetitors = Companies.GetDirectCompetitors(company, Q, true);
 
         // directCompetitors.OrderByDescending(c => Teams.GetTeamAverageStrength(c, Q)).Select((c, i)=> new { c, i }).Where(
-        var managerLvlPlace = Random.Range(0, 5);
-        var teamsPlace = Random.Range(0, 5);
-        var capPlace = Random.Range(0, 5);
-        var marketingEffPlace = Random.Range(0, 5);
-        var devEffPlace = Random.Range(0, 5);
+        var managerLvlPlace = directCompetitors.OrderByDescending(c => Teams.GetTeamAverageStrength(c, Q))
+            .Select((c, i) => new { c, i }).First(r => r.c.company.Id == company.company.Id).i;
+
+        var teamsPlace = directCompetitors.OrderByDescending(c => c.team.Teams.Count)
+            .Select((c, i) => new { c, i }).First(r => r.c.company.Id == company.company.Id).i;
+
+        var capPlace = directCompetitors.OrderByDescending(c => Teams.GetMaxFeatureRatingCap(c, Q).Sum())
+            .Select((c, i) => new { c, i }).First(r => r.c.company.Id == company.company.Id).i;
+
+        var marketingEffPlace = directCompetitors.OrderByDescending(c => Teams.GetMarketingEfficiency(c))
+            .Select((c, i) => new { c, i }).First(r => r.c.company.Id == company.company.Id).i;
+
+        var devEffPlace = directCompetitors.OrderByDescending(c => Teams.GetDevelopmentEfficiency(c))
+            .Select((c, i) => new { c, i }).First(r => r.c.company.Id == company.company.Id).i;
 
         // ----------------------------------------------------
 
-        var text = RenderParameter("Employees", $"{employees} workers", -1);
+        var text = $"<size=50>Quantity</size>";
 
+        text += RenderParameter("\n\nEmployees", $"{employees} workers", -1);
         text += RenderParameter("\nAverage manager lvl", $"{managerLevel}lvl", managerLvlPlace);
         text += RenderParameter("\nTeams", teams.ToString(), teamsPlace);
-        text += $"\n\n--------------------";
-
+        
+        text += $"\n\n<size=50>Quality</size>";
+        
         text += RenderParameter("\n\nMax feature lvl", featureCap.ToString("0.0lv"), capPlace);
         text += RenderParameter("\nAverage marketing efficiency", $"{marketingEff}%", marketingEffPlace);
         text += RenderParameter("\nAverage development efficiency", $"{devEff}%", devEffPlace);
