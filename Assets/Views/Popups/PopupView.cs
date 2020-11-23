@@ -28,6 +28,8 @@ public partial class PopupView : View
         RenderPopup(popup);
 
         popupButtonsContainer.SetComponents(ButtonComponents);
+
+        // close modals if has any
     }
 
     void RenderUniversalPopup(string title, string description, params Type[] buttons)

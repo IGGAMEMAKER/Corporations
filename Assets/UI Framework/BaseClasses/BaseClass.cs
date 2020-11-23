@@ -65,6 +65,11 @@ public partial class BaseClass : MonoBehaviour
         return results;
     }
 
+    public void PlaySound(Sound sound)
+    {
+        SoundManager.Play(sound);
+    }
+
     private MyModalWindow GetModal(string ModalTag)
     {
         var m = FindObjectsOfTypeAll<MyModalWindow>().FirstOrDefault(w => w.ModalTag == ModalTag);
@@ -79,31 +84,29 @@ public partial class BaseClass : MonoBehaviour
         return m;
     }
 
-    public void PlaySound(Sound sound)
-    {
-        SoundManager.Play(sound);
-    }
 
-    public void OpenModal(string ModalTag)
+    public void OpenModal(string ModalTag, bool closeOthers = true)
     {
-        var m = GetModal(ModalTag);
+        FindObjectOfType<MyModalManager>().OpenMyModal(ModalTag, closeOthers);
+        //var m = GetModal(ModalTag);
 
-        if (m != null)
-        {
-            Show(m);
-            ScheduleUtils.PauseGame(Q);
-        }
+        //if (m != null)
+        //{
+        //    Show(m);
+        //    ScheduleUtils.PauseGame(Q);
+        //}
     }
 
     public void CloseModal(string ModalTag)
     {
-        var m = GetModal(ModalTag);
+        FindObjectOfType<MyModalManager>().CloseMyModal(ModalTag);
+        //var m = GetModal(ModalTag);
 
-        if (m != null)
-        {
-            Hide(m);
-            ScheduleUtils.PauseGame(Q);
-        }
+        //if (m != null)
+        //{
+        //    Hide(m);
+        //    ScheduleUtils.PauseGame(Q);
+        //}
     }
 
     public bool Contains<T>(GameObject obj = null)
