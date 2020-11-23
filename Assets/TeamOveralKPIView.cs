@@ -1,6 +1,7 @@
 ﻿using Assets.Core;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TeamOveralKPIView : ParameterView
@@ -17,26 +18,36 @@ public class TeamOveralKPIView : ParameterView
         var marketingEff = Teams.GetMarketingEfficiency(company);
         var devEff = Teams.GetDevelopmentEfficiency(company);
 
+        var directCompetitors = Companies.GetDirectCompetitors(company, Q, true);
 
+        // directCompetitors.OrderByDescending(c => Teams.GetTeamAverageStrength(c, Q)).Select((c, i)=> new { c, i }).Where(
+        var managerLvlPlace = Random.Range(0, 5);
+        var teamsPlace = Random.Range(0, 5);
+        var capPlace = Random.Range(0, 5);
+        var marketingEffPlace = Random.Range(0, 5);
+        var devEffPlace = Random.Range(0, 5);
 
         // ----------------------------------------------------
 
-        var text = RenderParameter("Employees", employees.ToString(), 1);
+        var text = RenderParameter("Employees", $"{employees} workers", -1);
 
-        text += RenderParameter("\nAverage manager lvl", $"{managerLevel}lvl", 2);
-        text += RenderParameter("\nTeams", teams.ToString(), 1);
+        text += RenderParameter("\nAverage manager lvl", $"{managerLevel}lvl", managerLvlPlace);
+        text += RenderParameter("\nTeams", teams.ToString(), teamsPlace);
         text += $"\n\n--------------------";
 
-        text += RenderParameter("\n\nMax feature lvl", featureCap.ToString("0.0"), 1);
-        text += RenderParameter("\nAverage marketing efficiency", $"{marketingEff}%", 1);
-        text += RenderParameter("\nAverage development efficiency", $"{devEff}%", 2);
+        text += RenderParameter("\n\nMax feature lvl", featureCap.ToString("0.0lv"), capPlace);
+        text += RenderParameter("\nAverage marketing efficiency", $"{marketingEff}%", marketingEffPlace);
+        text += RenderParameter("\nAverage development efficiency", $"{devEff}%", devEffPlace);
 
         return text;
     }
 
     string RenderParameter(string name, string value, int place)
     {
-        return $"{name}: {Big(value)} ({Place(place)})";
+        if (place >= 0)
+            return $"{name}: <b>{Big(value)}</b> ({Place(place)})";
+
+        return $"{name}: <b>{Big(value)}</b>";
     }
 
     string Place(int place)

@@ -6,7 +6,7 @@ namespace Assets.Core
 {
     public static partial class Companies
     {
-        public static IEnumerable<GameEntity> GetCompetitorsWithSamePositioning(GameEntity company, GameContext gameContext, bool includeSelf = false)
+        public static IEnumerable<GameEntity> GetDirectCompetitors(GameEntity company, GameContext gameContext, bool includeSelf = false)
         {
             var competitors = GetCompetitorsOfCompany(company, gameContext, includeSelf);
 

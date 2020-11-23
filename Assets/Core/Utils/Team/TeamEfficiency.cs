@@ -9,7 +9,7 @@ namespace Assets.Core
         public static void UpdateTeamEfficiency(GameEntity product, GameContext gameContext)
         {
             // competition
-            var competitors = Companies.GetCompetitorsWithSamePositioning(product, gameContext, true);
+            var competitors = Companies.GetDirectCompetitors(product, gameContext, true);
 
             var quality = Marketing.GetPositioningQuality(product).Sum();
             var maxQuality = competitors.Select(c => Marketing.GetPositioningQuality(c).Sum()).Max();
