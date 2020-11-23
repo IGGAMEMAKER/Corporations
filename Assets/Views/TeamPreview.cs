@@ -50,11 +50,9 @@ public class TeamPreview : View
         Draw(NeedToInteract, Teams.IsTeamNeedsAttention(company, team, Q));
 
         // blink if never interacted with teams
-        bool isFirstTeam = company.team.Teams.Count == 1;
-        bool hasNoManagerFocus = team.ManagerTasks.Contains(ManagerTask.None);
         bool hasNoManager = Teams.NeedsMainManagerInTeam(team, Q, company);
 
-        GetComponent<Blinker>().enabled = (isFirstTeam && hasNoManagerFocus) || hasNoManager;
+        GetComponent<Blinker>().enabled = Teams.IsNeverHiredEmployees(company) || hasNoManager;
 
         // choose team icon
         switch (TeamInfo.TeamType)

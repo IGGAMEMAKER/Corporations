@@ -216,6 +216,13 @@ namespace Assets.Core
         }
 
 
+        public static bool IsNeverHiredEmployees(GameEntity product)
+        {
+            bool isFirstTeam = product.team.Teams.Count == 1;
+
+            return isFirstTeam && product.team.Teams[0].Managers.Count <= 1;
+        }
+
         public static bool IsTeamNeedsAttention(GameEntity product, TeamInfo team, GameContext gameContext)
         {
             bool hasNoManagerFocus = team.ManagerTasks.Contains(ManagerTask.None);

@@ -12,10 +12,7 @@ public class HireManagerByRole : CompanyUpgradeButton
     {
         var company = Flagship;
 
-        //Teams.HireManager(company, Q, WorkerRole);
-        FindObjectOfType<ManagerTabRelay>().HireWorker(WorkerRole);
-
-        //renderCompanyRoleOrHireWorkerWithThatRole.Render();
+        //FindObjectOfType<ManagerTabRelay>().HireWorker(WorkerRole);
     }
 
     public override string GetBenefits()

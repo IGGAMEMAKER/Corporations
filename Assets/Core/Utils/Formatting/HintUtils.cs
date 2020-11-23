@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
+// https://stackoverflow.com/questions/1267902/generics-where-t-is-a-number
+
 public enum BonusType
 {
     Additive,

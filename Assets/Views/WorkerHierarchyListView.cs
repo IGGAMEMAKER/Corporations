@@ -17,9 +17,9 @@ public class WorkerHierarchyListView : ListView
     {
         var role = (WorkerRole)(object)entity;
 
-        bool highlightRole = managerTabRelay.IsRoleChosen(role);
+        //bool highlightRole = managerTabRelay.IsRoleChosen(role);
 
-        t.GetComponent<RenderCompanyRoleOrHireWorkerWithThatRole>().SetEntity(company, role, highlightRole);
+        //t.GetComponent<RenderCompanyRoleOrHireWorkerWithThatRole>().SetEntity(company, role, highlightRole);
     }
 
     public override void ViewRender()
