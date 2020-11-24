@@ -173,7 +173,7 @@ public class InvestmentGoalMakeProductMarketFit : InvestmentGoal
     {
         GameEntity product = GetProduct(company, gameContext);
 
-        var loyalty = 17;
+        var loyalty = 15;
 
         return new List<GoalRequirements>
         {

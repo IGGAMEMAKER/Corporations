@@ -22,7 +22,7 @@ public class AcquisitionScreen : View
 
     public GameObject CashOfferContainer;
 
-    public GameObject HomeButton;
+    public GameObject SendAcquisitionOfferButton;
 
     AcquisitionConditions Conditions => AcquisitionOffer.BuyerOffer;
 
@@ -59,9 +59,13 @@ public class AcquisitionScreen : View
             var progress = Companies.GetOfferProgress(Q, SelectedCompany, MyCompany);
 
 
-            Title.text = $"Acquisition of company {SelectedCompany.company.Name}";
+            Title.text = $"company {SelectedCompany.company.Name}";
+
             RenderOffer(AcquisitionOffer);
+
             RenderProposalStatus(willAcceptOffer, progress, sellerOffer);
+
+            RenderButtons();
         }
         catch (Exception ex)
         {
@@ -83,6 +87,7 @@ public class AcquisitionScreen : View
         long price = BuyerOffer.Price;
 
         string overpriceText = "";
+
         if (price > cost)
         {
             var overprice = Mathf.Ceil(price * 10 / cost);
@@ -95,8 +100,6 @@ public class AcquisitionScreen : View
 
         Draw(CashOfferInput, turn == AcquisitionTurn.Buyer);
         Draw(CashOfferContainer, turn == AcquisitionTurn.Buyer);
-
-        Draw(HomeButton, turn == AcquisitionTurn.Seller);
     }
 
 
@@ -126,6 +129,24 @@ public class AcquisitionScreen : View
 
         ProgressText.text = progress + "%";
         ProgressText.color = Visuals.GetColorPositiveOrNegative(willAcceptOffer);
+
+    }
+
+    void RenderButtons()
+    {
+        // render buttons
+
+        //HideSendAcquisitionOfferButtonIfSentAlready
+        var offer = Companies.GetAcquisitionOffer(Q, SelectedCompany, MyCompany);
+
+        bool playerSentAnOffer = offer.acquisitionOffer.Turn == AcquisitionTurn.Seller;
+        bool isOurCompanyAlready = Companies.IsRelatedToPlayer(Q, SelectedCompany);
+
+        bool needsSendAcquisitionButton = !(playerSentAnOffer || isOurCompanyAlready);
+
+        bool hideAcceptOfferIfNecessary = !Companies.IsCompanyWillAcceptAcquisitionOffer(Q, SelectedCompany, MyCompany);
+
+        Draw(SendAcquisitionOfferButton, needsSendAcquisitionButton);
     }
 
 

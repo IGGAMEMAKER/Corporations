@@ -1,6 +1,7 @@
 ﻿using Assets.Core;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PopupToggler : View
@@ -13,12 +14,21 @@ public class PopupToggler : View
 
         var hasPopups = NotificationUtils.IsHasActivePopups(Q);
 
+        var messagesCount = NotificationUtils.GetPopups(Q).Count;
+
+
         if (hasPopups)
         {
+            Debug.Log("Popup toggler, has popups: " + string.Join(",", NotificationUtils.GetPopups(Q).Select(p => p.PopupType.ToString())));
             ScheduleUtils.PauseGame(Q);
 
+            var popup = NotificationUtils.GetPopupMessage(Q);
+            Debug.Log("Popup toggler, popup: " + popup.PopupType.ToString());
+
             Show(PopupView);
-            PopupView.ViewRender();
+            PopupView.SetPopup(popup, messagesCount);
+
+            //PopupView.ViewRender();
         }
         else
         {

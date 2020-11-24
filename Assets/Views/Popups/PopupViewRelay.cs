@@ -85,6 +85,10 @@ public partial class PopupView : View
                 RenderAcquisitionOfferResponse(popup as PopupMessageAcquisitionOfferResponse);
                 break;
 
+            //case PopupType.RevokeAcquisitionOffer:
+            //    RenderAcquisitionOfferResponse(popup as PopupMessageRevokeOffer);
+            //    break;
+
             case PopupType.Release:
                 RenderReleasePopup(popup as PopupMessageRelease);
                 break;

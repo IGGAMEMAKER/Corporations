@@ -58,6 +58,7 @@ public class RestoreGameStateAfterRecompilation : View
     {
         // tutorial
         var e = Q.CreateEntity();
+        var popups = Q.CreateEntity();
 
         e.AddTutorial(new Dictionary<TutorialFunctionality, bool>());
         e.AddEventContainer(new Dictionary<string, bool>());

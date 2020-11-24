@@ -49,7 +49,7 @@ namespace Assets.Core
 
         public static GameEntity GetPopupContainer(GameContext gameContext)
         {
-            return GetNotificationsComponent(gameContext);
+            return  GetNotificationsComponent(gameContext); // gameContext.GetEntities(GameMatcher.Popup)[0];//
         }
 
         public static bool IsHasActivePopups(GameContext gameContext)
