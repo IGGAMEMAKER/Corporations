@@ -10,6 +10,9 @@ public class TeamOveralKPIView : ParameterView
     {
         var company = SelectedCompany;
 
+        if (!company.hasProduct)
+            return "";
+
         var teams = company.team.Teams.Count;
         var employees = Teams.GetTeamSize(company);
         var managerLevel = Teams.GetTeamAverageStrength(company, Q);

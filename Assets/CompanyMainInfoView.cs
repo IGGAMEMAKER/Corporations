@@ -9,11 +9,14 @@ public class CompanyMainInfoView : View
     {
         base.ViewRender();
 
+        var company = SelectedCompany;
 
+        if (company.hasProduct)
+            Teams.UpdateTeamEfficiency(SelectedCompany, Q);
     }
 
     private void OnEnable()
     {
-        Teams.UpdateTeamEfficiency(SelectedCompany, Q);
+        ViewRender();
     }
 }

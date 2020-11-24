@@ -19,6 +19,10 @@ public class RenderProductKPI : View
         base.ViewRender();
 
         var product = SelectedCompany;
+
+        if (!product.hasProduct)
+            return;
+
         var profit = Economy.GetProfit(Q, product, true);
 
         var funding = Economy.GetFundingBudget(product, Q);
