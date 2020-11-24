@@ -1,6 +1,7 @@
 ﻿using Entitas;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets.Core
 {
@@ -27,16 +28,23 @@ namespace Assets.Core
 
         public static void ClosePopup(GameContext gameContext)
         {
-            if (!IsHasActivePopups(gameContext))
-                return;
+            try
+            {
+                if (!IsHasActivePopups(gameContext))
+                    return;
 
-            var container = GetPopupContainer(gameContext);
-            var messages = container.popup.PopupMessages;
+                var container = GetPopupContainer(gameContext);
+                var messages = container.popup.PopupMessages;
 
-            messages.RemoveAt(0);
+                messages.RemoveAt(0);
 
-            container.ReplacePopup(messages);
-            ScreenUtils.UpdateScreen(gameContext);
+                container.ReplacePopup(messages);
+                ScreenUtils.UpdateScreen(gameContext);
+            }
+            catch
+            {
+                Debug.Log("Error in Close popup!");
+            }
         }
 
         public static GameEntity GetPopupContainer(GameContext gameContext)

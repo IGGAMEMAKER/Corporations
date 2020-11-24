@@ -40,7 +40,9 @@ public enum PopupType
     DefectedManager,
     NotEnoughWorkers,
 
-    SimpleInfo
+    SimpleInfo,
+
+    RevokeAcquisitionOffer,
 }
 
 public class PopupMessage
@@ -150,6 +152,15 @@ public class PopupMessageAcquisitionOfferResponse : PopupMessageCompanyEvent
 {
     public int buyerInvestorId;
     public PopupMessageAcquisitionOfferResponse(int companyId, int buyerInvestorId) : base(companyId, PopupType.AcquisitionOfferResponse)
+    {
+        this.buyerInvestorId = buyerInvestorId;
+    }
+}
+
+public class PopupMessageRevokeOffer : PopupMessageCompanyEvent
+{
+    public int buyerInvestorId;
+    public PopupMessageRevokeOffer(int companyId, int buyerInvestorId) : base(companyId, PopupType.RevokeAcquisitionOffer)
     {
         this.buyerInvestorId = buyerInvestorId;
     }

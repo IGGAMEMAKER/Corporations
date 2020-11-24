@@ -9,6 +9,8 @@ public abstract class ListView : View // MonoBehaviour
 {
     public GameObject Prefab;
 
+    public bool ForceCleanup = false;
+
     [HideInInspector]
     public int index = 0;
     [HideInInspector]
@@ -160,13 +162,27 @@ public abstract class ListView : View // MonoBehaviour
         }
     }
 
+    GameObject _NewInstance => Instantiate(Prefab, transform, false);
 
     GameObject GetObjectForItem()
     {
         if (index >= Items.Count)
         {
-            var o = Instantiate(Prefab, transform, false);
-            Items.Add(o);
+            //var o = Instantiate(Prefab, transform, false);
+            Items.Add(_NewInstance);
+        }
+        else
+        {
+            if (ForceCleanup)
+            {
+                Destroy(Items[index]);
+
+                Items.RemoveAt(index);
+
+                Items.Insert(index, _NewInstance);
+
+                //return Items[index];
+            }
         }
 
         return Items[index];

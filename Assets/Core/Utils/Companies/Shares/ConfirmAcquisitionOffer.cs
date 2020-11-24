@@ -12,7 +12,7 @@ namespace Assets.Core
             {
                 var offer = GetAcquisitionOffer(gameContext, company, buyer);
 
-                BuyCompany(gameContext, company, buyer, offer.acquisitionOffer.SellerOffer.Price);
+                BuyCompany(gameContext, company, buyer, offer.acquisitionOffer.BuyerOffer.Price);
             }
             catch (Exception ex)
             {

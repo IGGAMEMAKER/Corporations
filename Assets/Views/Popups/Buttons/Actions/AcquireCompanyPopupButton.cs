@@ -8,6 +8,9 @@ public class AcquireCompanyPopupButton : PopupButtonController<PopupMessageAcqui
     {
         try
         {
+            // LOGS AND PICK
+            Debug.Log("TRY AcquireCompany");
+
             var companyId = Popup.companyId;
             var buyerId = Popup.buyerInvestorId;
 
@@ -18,10 +21,32 @@ public class AcquireCompanyPopupButton : PopupButtonController<PopupMessageAcqui
 
             Debug.Log("AcquireCompanyPopupButton : will buy " + company.company.Name + " as " + Companies.GetInvestorName(investor));
 
-            NavigateToProjectScreen(companyId);
-            NotificationUtils.ClosePopup(Q);
+            var offer = Companies.GetAcquisitionOffer(Q, company, investor);
 
-            Companies.ConfirmAcquisitionOffer(Q, company, investor);
+            var bid = offer.acquisitionOffer.BuyerOffer.Price;
+            var balance = Economy.BalanceOf(MyCompany);
+
+            if (Companies.IsEnoughResources(MyCompany, bid))
+            {
+                // CONFIRM ACQUISITION
+                Companies.ConfirmAcquisitionOffer(Q, company, investor);
+
+                // SOUND
+                PlaySound(Assets.Sound.MoneySpent);
+            }
+            else
+            {
+                PlaySound(Assets.Sound.Notification);
+
+                NotificationUtils.AddSimplePopup(Q, Visuals.Negative("Not enough cash :("), $"You need {Format.Money(bid)}, but only have {Format.Money(balance)}");
+            }
+
+
+            // NAVIGATE
+            NavigateToProjectScreen(companyId);
+
+            // CLOSE POPUP
+            NotificationUtils.ClosePopup(Q);
         }
         catch (Exception ex)
         {

@@ -54,21 +54,18 @@ public class AcquisitionScreen : View
         try
         {
             var sellerOffer = AcquisitionOffer.SellerOffer;
-
-            Title.text = $"Acquisition of company {SelectedCompany.company.Name}";
-
-
-
             var willAcceptOffer = Companies.IsCompanyWillAcceptAcquisitionOffer(Q, SelectedCompany, MyCompany);
 
             var progress = Companies.GetOfferProgress(Q, SelectedCompany, MyCompany);
 
 
+            Title.text = $"Acquisition of company {SelectedCompany.company.Name}";
             RenderOffer(AcquisitionOffer);
             RenderProposalStatus(willAcceptOffer, progress, sellerOffer);
         }
         catch (Exception ex)
         {
+            Debug.LogError("AcquisitionScreen.ViewRender");
             Debug.LogError(ex);
         }
     }
@@ -98,6 +95,7 @@ public class AcquisitionScreen : View
 
         Draw(CashOfferInput, turn == AcquisitionTurn.Buyer);
         Draw(CashOfferContainer, turn == AcquisitionTurn.Buyer);
+
         Draw(HomeButton, turn == AcquisitionTurn.Seller);
     }
 
@@ -118,13 +116,13 @@ public class AcquisitionScreen : View
             //if (!ScheduleUtils.IsTimerRunning(Q))
             //    ProposalStatus.text += Visuals.Negative("Unpause") + " to get their response";
         }
-        else
-        {
-            var status = $"{progress}% of owners want to accept your offer";
-            var textDescription = willAcceptOffer ? Visuals.Positive("They will accept offer!") : Visuals.Negative("They will not accept offer!");
+        //else
+        //{
+        //    //var status = $"{progress}% of owners want to accept your offer";
+        //    //var textDescription = willAcceptOffer ? Visuals.Positive("They will accept offer!") : Visuals.Negative("They will not accept offer!");
 
-            //ProposalStatus.text = status; // + "\n" + textDescription;
-        }
+        //    //ProposalStatus.text = status; // + "\n" + textDescription;
+        //}
 
         ProgressText.text = progress + "%";
         ProgressText.color = Visuals.GetColorPositiveOrNegative(willAcceptOffer);

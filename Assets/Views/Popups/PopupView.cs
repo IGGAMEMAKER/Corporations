@@ -21,12 +21,16 @@ public partial class PopupView : View
 
         AmountOfMessages.text = "Messages: " + messagesCount;
 
-        var popup = NotificationUtils.GetPopupMessage(Q);
 
         ButtonComponents.Clear();
 
+        var popup = NotificationUtils.GetPopupMessage(Q);
+        
+        // calls RenderUniversalPopup
+        // which fills ButtonComponents list
         RenderPopup(popup);
 
+        // attaches button components to buttonContainer
         popupButtonsContainer.SetComponents(ButtonComponents);
 
         // close modals if has any

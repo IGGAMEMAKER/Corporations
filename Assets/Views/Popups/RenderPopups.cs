@@ -341,13 +341,15 @@ public partial class PopupView : View
         if (willAccept)
         {
             buttons.Add(typeof(AcquireCompanyPopupButton));
+            buttons.Add(typeof(RevokeOfferPopupButton));
         }
         else
         {
             buttons.Add(typeof(SendAnotherAcquisitionOfferPopupButton));
+            buttons.Add(typeof(RevokeOfferPopupButton));
         }
 
-        buttons.Add(typeof(ClosePopupCancel));
+        //buttons.Add(typeof(ClosePopupCancel));
 
         RenderUniversalPopup(
             "Response from company " + GetCompanyName(popup.companyId),
