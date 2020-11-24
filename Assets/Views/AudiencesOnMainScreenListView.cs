@@ -20,16 +20,16 @@ public class AudiencesOnMainScreenListView : ListView
 
     public override void SetItem<T>(Transform t, T entity)
     {
-        t.GetComponent<AudiencePreview>().SetEntity((AudienceInfo)(object)entity);
+        t.GetComponent<AudiencePreview>().SetEntity((AudienceInfo)(object)entity, product);
     }
 
+    GameEntity product => CurrentScreen == ScreenMode.ProjectScreen ? SelectedCompany : Flagship;
     public override void ViewRender()
     {
         base.ViewRender();
 
         var audiences = Marketing.GetAudienceInfos();
 
-        var product = CurrentScreen == ScreenMode.ProjectScreen ? SelectedCompany : Flagship;
 
         //bool showAudiences = true;
         bool showAudiences = product.isRelease;

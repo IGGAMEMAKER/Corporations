@@ -320,8 +320,8 @@ public partial class PopupView : View
     void RenderCorporateCultureChanges(PopupMessageCultureChange popup)
     {
         RenderUniversalPopup(
-            "You changed the corporate culture!",
-            "{improvement_description}\n\nYou will be able to do this again in " + C.CORPORATE_CULTURE_CHANGES_DURATION + " days",
+            Visuals.Positive("Corporate culture changed!"),
+            "\n\nYou will be able to do this again in " + C.CORPORATE_CULTURE_CHANGES_DURATION + " days",
             typeof(ClosePopupOK)
             );
     }

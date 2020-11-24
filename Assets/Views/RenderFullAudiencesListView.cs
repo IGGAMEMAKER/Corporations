@@ -12,7 +12,7 @@ public class RenderFullAudiencesListView : ListView
 
     public override void SetItem<T>(Transform t, T entity)
     {
-        t.GetComponent<AudiencePreview>().SetEntity((AudienceInfo)(object)entity);
+        t.GetComponent<AudiencePreview>().SetEntity((AudienceInfo)(object)entity, Flagship);
     }
 
     public override void ViewRender()

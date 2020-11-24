@@ -24,7 +24,7 @@ namespace Assets.Core
                 .SetDimension("%")
 
                 .AppendAndHideIfZero("Market is DYING", marketIsDying ? 5 : 0)
-                .AppendAndHideIfZero("Outcompeted by " + competitiveness, competitivenessBonus);
+                .AppendAndHideIfZero("Outcompeted by " + competitiveness, c.isRelease ? competitivenessBonus : 0);
                 ;
         }
 
@@ -81,10 +81,10 @@ namespace Assets.Core
         public static float GetSegmentLoyalty(GameEntity product, int segmentId) => GetSegmentLoyalty(product, segmentId, true).Sum();
         public static float GetSegmentLoyalty(GameEntity product, ProductPositioning positioning, int segmentId) => GetSegmentLoyalty(product, segmentId, positioning, true).Sum();
 
-        public static Bonus<long> GetSegmentLoyalty(GameEntity product, int segmentId, bool isBonus) => GetSegmentLoyalty(product, segmentId, GetPositioning(product), isBonus);
-        public static Bonus<long> GetSegmentLoyalty(GameEntity product, int segmentId, ProductPositioning positioning, bool isBonus)
+        public static Bonus<float> GetSegmentLoyalty(GameEntity product, int segmentId, bool isBonus) => GetSegmentLoyalty(product, segmentId, GetPositioning(product), isBonus);
+        public static Bonus<float> GetSegmentLoyalty(GameEntity product, int segmentId, ProductPositioning positioning, bool isBonus)
         {
-            var bonus = new Bonus<long>("Loyalty");
+            var bonus = new Bonus<float>("Loyalty");
 
             // features
             ApplyLoyaltyFromFeatures(bonus, product, segmentId);
@@ -102,7 +102,7 @@ namespace Assets.Core
             return bonus;
         }
 
-        public static void ApplyLoyaltyFromFeatures(Bonus<long> bonus, GameEntity product, int segmentId)
+        public static void ApplyLoyaltyFromFeatures(Bonus<float> bonus, GameEntity product, int segmentId)
         {
             var features = Products.GetAllFeaturesForProduct(product);
             foreach (var f in features)
@@ -111,12 +111,12 @@ namespace Assets.Core
                 {
                     var loyaltyGain = GetLoyaltyChangeFromFeature(product, f, segmentId, false);
 
-                    bonus.Append($"Feature {f.Name}", (int)loyaltyGain);
+                    bonus.Append($"Feature {f.Name}", loyaltyGain);
                 }
             }
         }
 
-        public static void ApplyLoyaltyPositioningBonuses(Bonus<long> bonus, GameEntity product, ProductPositioning positioning, int segmentId)
+        public static void ApplyLoyaltyPositioningBonuses(Bonus<float> bonus, GameEntity product, ProductPositioning positioning, int segmentId)
         {
             var positioningBonus = positioning.Loyalties[segmentId];
             bonus.AppendAndHideIfZero("From positioning", positioningBonus);

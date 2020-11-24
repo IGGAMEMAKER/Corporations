@@ -105,6 +105,9 @@ namespace Assets.Core
 
             // add team for CEO
             Teams.AddTeam(company, context, TeamType.CrossfunctionalTeam);
+            company.team.Teams[0].Workers = 8;
+            company.team.Teams[0].HiringProgress = 100;
+
 
             // CEO
             int CeoID = CEO.human.Id;

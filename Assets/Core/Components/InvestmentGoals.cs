@@ -145,15 +145,16 @@ public class InvestmentGoalMakePrototype : InvestmentGoal
     public override List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
     {
         GameEntity product = GetProduct(company, gameContext);
+        var loyalty = 13;
 
         return new List<GoalRequirements>
         {
             new GoalRequirements
             {
                 have = (long)Marketing.GetSegmentLoyalty(product, Marketing.GetCoreAudienceId(company)),
-                need = 5,
+                need = loyalty,
 
-                description = "Loyalty > 5"
+                description = $"Loyalty > {loyalty}"
             }
         };
     }
@@ -172,16 +173,16 @@ public class InvestmentGoalMakeProductMarketFit : InvestmentGoal
     {
         GameEntity product = GetProduct(company, gameContext);
 
-        var requiredLoyalty = 10;
+        var loyalty = 17;
 
         return new List<GoalRequirements>
         {
             new GoalRequirements
             {
                 have = (long)Marketing.GetSegmentLoyalty(product, Marketing.GetCoreAudienceId(company)),
-                need = requiredLoyalty,
+                need = loyalty,
 
-                description = $"Loyalty > {requiredLoyalty}"
+                description = $"Loyalty > {loyalty}"
             }
         };
     }
@@ -270,6 +271,34 @@ public class InvestmentGoalFirstUsers : InvestmentGoal
             {
                 have = Marketing.GetUsers(product),
                 need = TargetUsersAmount,
+
+                description = "Users > " + Format.Minify(TargetUsersAmount)
+            }
+        };
+    }
+}
+
+public class InvestmentGoalMillionUsers : InvestmentGoal
+{
+    public long TargetUsersAmount;
+
+    public InvestmentGoalMillionUsers(long users) : base(InvestorGoalType.ProductMillionUsers)
+    {
+        TargetUsersAmount = users;
+    }
+
+    public override string GetFormattedName() => "ROAD TO MILLION USERS";
+
+    public override List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
+    {
+        GameEntity product = GetProduct(company, gameContext);
+
+        return new List<GoalRequirements>
+        {
+            new GoalRequirements
+            {
+                have = Marketing.GetUsers(product),
+                need = 1_000_000,
 
                 description = "Users > " + Format.Minify(TargetUsersAmount)
             }

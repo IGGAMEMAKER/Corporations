@@ -33,7 +33,8 @@ namespace Assets.Core
             switch (goalType)
             {
                 case InvestorGoalType.ProductPrototype:        return new InvestmentGoalMakePrototype();
-                case InvestorGoalType.ProductFirstUsers:       return new InvestmentGoalFirstUsers(2_000);
+                case InvestorGoalType.ProductFirstUsers:       return new InvestmentGoalFirstUsers(5_000);
+                case InvestorGoalType.ProductMillionUsers:       return new InvestmentGoalMillionUsers(1_000_000);
                 case InvestorGoalType.ProductBecomeMarketFit:  return new InvestmentGoalMakeProductMarketFit();
                 case InvestorGoalType.ProductRelease:          return new InvestmentGoalRelease();
                 case InvestorGoalType.ProductPrepareForRelease:return new InvestmentGoalPrepareForRelease();

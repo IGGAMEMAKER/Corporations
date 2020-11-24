@@ -180,7 +180,12 @@ namespace Assets.Core
                         .Where(s => Marketing.IsAimingForSpecificAudience(product, s.ID))
                         .All(s => Marketing.GetUsers(product, s.ID) > 1_000_000);
 
-                    if (users > 1_500_000 && canGetMoreAudiences && needsToExpand)
+                    if (users < 1_000_000)
+                    {
+                        AddOnce(goals, product, InvestorGoalType.ProductMillionUsers);
+                    }
+
+                    if (users > 1_000_000 && canGetMoreAudiences && needsToExpand)
                     {
                         goals.Add(InvestorGoalType.GainMoreSegments);
                     }
@@ -215,7 +220,7 @@ namespace Assets.Core
             #region data
             var income = Economy.GetIncome(Q, company);
 
-            bool solidCompany = income > 500_000;
+            bool solidCompany = income > 50_000;
 
             var weakerCompany = Companies.GetWeakerCompetitor(company, Q);
             bool hasWeakerCompanies = weakerCompany != null;

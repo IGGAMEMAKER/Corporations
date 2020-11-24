@@ -267,7 +267,9 @@ public enum InvestorGoalType
 
     BuyBack,
 
-    ProductPrepareForRelease
+    ProductPrepareForRelease,
+
+    ProductMillionUsers,
 }
 
 public enum InvestmentRound

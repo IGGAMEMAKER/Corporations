@@ -19,22 +19,24 @@ public class AudiencePreview : View
 
     public int segmentId;
 
-    public void SetEntity(AudienceInfo audience)
+    public void SetEntity(AudienceInfo audience, GameEntity product)
     {
         base.ViewRender();
+
+        //var product = Flagship;
 
         segmentId = audience.ID;
         Audience = audience;
 
         var links = GetComponent<ProductUpgradeLinks>();
-        bool isMainAudience = Marketing.IsTargetAudience(Flagship, segmentId);
+        bool isMainAudience = Marketing.IsTargetAudience(product, segmentId);
 
         Draw(TargetAudience, isMainAudience);
 
-        var loyalty = (int) Marketing.GetSegmentLoyalty(Flagship, segmentId); // Random.Range(-5, 15);
-        var loyaltyBonus = Marketing.GetSegmentLoyalty(Flagship, segmentId, true);
+        var loyalty = (int) Marketing.GetSegmentLoyalty(product, segmentId); // Random.Range(-5, 15);
+        var loyaltyBonus = Marketing.GetSegmentLoyalty(product, segmentId, true);
 
-        long clients = Marketing.GetUsers(Flagship, segmentId);
+        long clients = Marketing.GetUsers(product, segmentId);
 
         bool isNewAudience = clients == 0;
         bool isLoyalAudience = loyalty >= 0;
@@ -65,7 +67,7 @@ public class AudiencePreview : View
             Loyalty.text = Format.Sign(loyalty);
             Loyalty.GetComponent<Hint>().SetHint(loyaltyBonus.SortByModule(true).RenderTitle().ToString());
 
-            var income = Economy.GetIncomePerSegment(Flagship, segmentId);
+            var income = Economy.GetIncomePerSegment(product, segmentId);
 
             text += $"\n\nIncome: <b>{Visuals.Colorize(Format.MinifyMoney(income), income >= 0)}</b>" +
                 $"\nUsers: <b>{Visuals.Colorize(Format.Minify(clients), clients >= 0)}</b>";

@@ -24,7 +24,7 @@ public class MarketSituationDescriptionView2 : ParameterView
 
                 var churnGained = Marketing.GetChurnFromOutcompetition(company);
 
-                return Visuals.Negative($"You lose {churnGained}% of your audience, cause your product ({quality}) is outdated ({maxQuality})");
+                return Visuals.Negative($"You lose {churnGained}% of your audience, cause your product ({(int)quality}) is outdated ({(int)maxQuality})");
             }
 
             return "";

@@ -22,6 +22,8 @@ public class BusinessButtonsController : View
         bool isRelatedToPlayer = Companies.IsRelatedToPlayer(Q, SelectedCompany); // CompanyUtils.IsDaughterOfCompany(MyGroupEntity, SelectedCompany) || SelectedCompany == MyCompany;
         bool isDaughter = Companies.IsDaughterOf(MyCompany, SelectedCompany);
 
+        bool nonFlagshipDaughter = isDaughter && !SelectedCompany.isFlagship;
+
         // controlled company buttons
 
         // is independent company
@@ -31,8 +33,9 @@ public class BusinessButtonsController : View
 
         // daughters
         ManageCompany.SetActive(false);
-        SellCompany.SetActive(isDaughter);
-        CloseCompany.SetActive(isDaughter);
+
+        Hide(SellCompany);
+        Draw(CloseCompany, nonFlagshipDaughter);
 
         // other companies
         AcquireCompany.SetActive(!isRelatedToPlayer);

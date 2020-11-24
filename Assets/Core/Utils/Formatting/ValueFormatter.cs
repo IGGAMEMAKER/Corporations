@@ -29,6 +29,14 @@ namespace Assets.Core
 
             return "" + shortened + litera;
         }
+        
+        public static string Sign(float value, bool minify = false)
+        {
+            if (minify)
+                return (value > 0 ? "+" : "") + Minify(value);
+
+            return value > 0 ? $"+{value}" : value.ToString();
+        }
 
         public static string Sign(long value, bool minify = false)
         {
