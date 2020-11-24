@@ -29,6 +29,20 @@ namespace Assets.Core
             return GetPositioning(product).name;
         }
 
+        public static long GetAudienceWorth(AudienceInfo audienceInfo)
+        {
+            return audienceInfo.Size;
+        }
+
+        public static long GetPositioningWorth(GameEntity product, ProductPositioning productPositioning)
+        {
+            var audiences = GetAudienceInfos();
+
+            return productPositioning.Loyalties
+                .Select((l, i) => new { i, cost = GetAudienceWorth(audiences[i]), isLoyal = l >= 0 })
+                .Sum(f => f.isLoyal ? f.cost : 0);
+        }
+
         public static List<ProductPositioning> GetNichePositionings(GameEntity product)
         {
             return product.nicheSegments.Positionings;
@@ -41,7 +55,7 @@ namespace Assets.Core
 
         public static bool IsFocusingOneAudience(GameEntity product)
         {
-            var audiences = Marketing.GetAudienceInfos();
+            var audiences = GetAudienceInfos();
 
             var positioning = product.productPositioning.Positioning;
             bool isFocusingOneAudience = positioning < audiences.Count;

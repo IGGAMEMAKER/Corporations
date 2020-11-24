@@ -26,12 +26,14 @@ public class SegmentPreview : View
         SegmentId = Marketing.GetCoreAudienceId(company);
         var info = Marketing.GetAudienceInfos()[SegmentId];
 
-        var worth = Random.Range(2, 500) * 1_000_000L;
+
+
+        var worth = Marketing.GetPositioningWorth(company, positioning);
 
         //bool isTargetAudience = Marketing.IsTargetAudience(company, segmentId);
 
-        // AudienceInfo info, int segmentId
-        Title.text = $"{positioning.name} \n<b>{Format.MinifyMoney(worth)}</b>";
+        bool isOurPositioning = company.productPositioning.Positioning == positioning.ID;
+        Title.text = Visuals.Colorize($"{positioning.name} \n<b>{Format.MinifyMoney(worth)}</b>", isOurPositioning ? Colors.COLOR_CONTROL : Colors.COLOR_WHITE);
 
         var competition = Companies.GetCompetitionInSegment(Flagship, Q, positioning.ID);
 

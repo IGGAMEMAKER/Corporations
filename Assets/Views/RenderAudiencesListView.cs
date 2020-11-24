@@ -38,7 +38,7 @@ public class RenderAudiencesListView : ListView
 
         if (ChooseTargetAudienceButtonController != null)
         {
-            ChooseTargetAudienceButtonController.SetSegment(ind);
+            //ChooseTargetAudienceButtonController.SetSegment(ind);
             Draw(ChooseTargetAudienceButtonController, ind != Marketing.GetCoreAudienceId(Flagship));
         }
 
