@@ -17,7 +17,7 @@ public class TasksForTaskTypeView : View
         var company = Flagship;
 
         // ----------------------------------------------------
-        var p = new TeamTaskSupportFeature(new SupportFeature());
+        var p = new TeamTaskSupportFeature(new SupportFeature { SupportBonus = new SupportBonusHighload(2_000_000) });
         var activeTasks = Teams.GetActiveSameTaskTypeSlots(company, p);
 
         var pending = Teams.GetPendingSameTypeTaskAmount(company, p);

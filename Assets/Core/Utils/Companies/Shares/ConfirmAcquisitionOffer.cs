@@ -72,7 +72,7 @@ namespace Assets.Core
                 }
 
                 // and close group
-                NotificationUtils.AddSimplePopup(gameContext, "You've bought GROUP company " + company.company.Name, "The group will be destroyed\nAll their products will be in our direct control");
+                NotificationUtils.AddSimplePopup(gameContext, Visuals.Positive("You've bought GROUP company " + company.company.Name), "The group will be destroyed\nAll their products will be in our direct control");
                 CloseCompany(gameContext, company);
             }
         }
