@@ -14,9 +14,14 @@ public class PositioningManagerView : View
     public CompaniesFocusingSpecificSegmentListView CompaniesFocusingSpecificSegmentListView;
     public RenderAudienceChoiceListView RenderAudienceChoiceListView;
 
+    bool flag = false;
+
     public override void ViewRender()
     {
         base.ViewRender();
+
+        if (!flag)
+            return;
 
         var company = Flagship;
 
@@ -44,12 +49,16 @@ public class PositioningManagerView : View
 
     private void OnEnable()
     {
+        Positioning = Marketing.GetPositioning(Flagship);
+        flag = true;
+
         ViewRender();
     }
 
     public void SetAnotherPositioning(ProductPositioning positioning)
     {
         Positioning = positioning;
+        flag = true;
 
         ViewRender();
     }

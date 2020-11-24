@@ -2,17 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CompetitionPanelView : MonoBehaviour
+public class CompetitionPanelView : View
 {
-    // Start is called before the first frame update
-    void Start()
+    public GameObject ShowPositioningPanelButton;
+    public GameObject ShowCompaniesButton;
+
+    public GameObject CompaniesPanel;
+    public GameObject PositioningPanel;
+
+
+    private void OnEnable()
     {
-        
+        ShowCompanies();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ShowCompanies()
     {
-        
+        ToggleMode(false);
+    }
+
+    public void ShowPositioningPanel()
+    {
+        ToggleMode(true);
+    }
+
+    void ToggleMode(bool tg)
+    {
+        Draw(ShowCompaniesButton, tg);
+        Draw(ShowPositioningPanelButton, !tg);
+
+        Draw(PositioningPanel, tg);
+        Draw(CompaniesPanel, !tg);
     }
 }
