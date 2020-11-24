@@ -6,7 +6,8 @@ using UnityEngine;
 
 public class CompaniesFocusingSpecificSegmentListView : ListView
 {
-    int segmentId;
+    ProductPositioning positioning;
+
     public override void SetItem<T>(Transform t, T entity)
     {
         var company = entity as GameEntity;
@@ -17,13 +18,13 @@ public class CompaniesFocusingSpecificSegmentListView : ListView
 
         var scale = min + (max - min) * marketShare;
 
-        t.GetComponent<CompanyViewOnAudienceMap>().SetEntity(company, segmentId);
-        t.GetComponent<RectTransform>().localScale = new Vector3(scale, scale, 1);
+        t.GetComponent<CompanyViewInSegmentTab>().SetEntity(company, positioning);
+        //t.GetComponent<RectTransform>().localScale = new Vector3(scale, scale, 1);
     }
 
-    public void SetSegment(int segmentId)
+    public void SetSegment(ProductPositioning productPositioning)
     {
-        this.segmentId = segmentId;
+        positioning = productPositioning;
 
         ViewRender();
     }
@@ -32,12 +33,7 @@ public class CompaniesFocusingSpecificSegmentListView : ListView
     {
         base.ViewRender();
 
-        var company = Flagship;
-
-        var companies = Companies.GetCompetitorsOfCompany(company, Q, true)
-            .Where(c => c.productPositioning.Positioning == company.productPositioning.Positioning)
-            //.Where(c => Marketing.IsTargetAudience(c, segmentId))
-            ;
+        var companies = Companies.GetCompetitionInSegment(Flagship, Q, positioning.ID, true);
 
         SetItems(companies);
     }

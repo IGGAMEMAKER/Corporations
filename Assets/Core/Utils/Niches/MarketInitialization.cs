@@ -18,6 +18,7 @@ namespace Assets.Core
         {
             return GetAllMarketingChannels(gameContext)
                 .Where(channel => !Marketing.IsActiveInChannel(product, channel))
+                .Where(c => !product.team.Teams[0].Tasks.Any(t => t.IsPending && t.AreSameTasks(new TeamTaskChannelActivity(c.marketingChannel.ChannelInfo.ID, 0))))
                 .ToArray();
         }
 
@@ -60,23 +61,6 @@ namespace Assets.Core
             // show if can afford
             return Economy.IsCanMaintainForAWhile(company, gameContext, adCost, 1);
         };
-
-        public static int GetAmountOfAvailableChannels(GameEntity company, GameContext gameContext)
-        {
-            bool didFeatures = company.features.Upgrades.Count > 0;
-
-            int counter = 0;
-
-            if (didFeatures)
-            {
-                counter = 4;
-
-                if (company.isRelease)
-                    counter = 8;
-            }
-
-            return counter;
-        }
 
 
 

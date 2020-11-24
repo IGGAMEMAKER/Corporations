@@ -1,6 +1,7 @@
 ﻿using Assets.Core;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,25 +18,35 @@ public class SegmentPreview : View
 
     public int SegmentId;
 
-    public void SetEntity(AudienceInfo info, int segmentId)
+    public void SetEntity(ProductPositioning positioning)
     {
-        Title.text = $"{info.Name}";
+        var company = Flagship;
 
-        var have = Marketing.GetUsers(Flagship, segmentId);
+        var positionings = Marketing.GetNichePositionings(company);
+        SegmentId = Marketing.GetCoreAudienceId(company);
+        var info = Marketing.GetAudienceInfos()[SegmentId];
 
-        var max = Marketing.GetAudienceInfos()[segmentId].Size;
-        Description.text = $"{Format.Minify(have)} / {Format.Minify(max)} users";
+        var worth = Random.Range(2, 500) * 1_000_000L;
 
-        SegmentId = segmentId;
+        //bool isTargetAudience = Marketing.IsTargetAudience(company, segmentId);
+
+        // AudienceInfo info, int segmentId
+        Title.text = $"{positioning.name} \n<b>{Format.MinifyMoney(worth)}</b>";
+
+        var competition = Companies.GetCompetitionInSegment(Flagship, Q, positioning.ID);
+
+        if (competition.Count() == 0)
+        {
+            Title.text += " " + Visuals.Positive("FREE");
+        }
+
 
         Icon.texture = Resources.Load<Texture2D>($"Audiences/{info.Icon}");
 
-        var company = Flagship;
-        bool isTargetAudience = Marketing.IsTargetAudience(company, segmentId);
 
-        var audienceColor = Visuals.GetColorFromString(isTargetAudience ? Colors.COLOR_GOLD : Colors.COLOR_WHITE);
-        if (isTargetAudience)
-            PanelImage.color = audienceColor;
+        //var audienceColor = Visuals.GetColorFromString(isTargetAudience ? Colors.COLOR_GOLD : Colors.COLOR_WHITE);
+        //if (isTargetAudience)
+        //    PanelImage.color = audienceColor;
 
         HideChanges();
     }

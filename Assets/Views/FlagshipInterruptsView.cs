@@ -93,7 +93,9 @@ public class FlagshipInterruptsView : View
 
         problemCounter = 0;
 
-        SpecialDraw(AudienceMapLink, true, false);
+        var needsAudienceMap = Companies.IsReleaseableApp(product);
+
+        SpecialDraw(AudienceMapLink, needsAudienceMap, false);
         AudienceMapLink.GetComponent<Blinker>().enabled = Companies.IsReleaseableApp(product);
 
         SpecialDraw(NeedsManagersImage, false);

@@ -90,21 +90,14 @@ namespace Assets.Core
 
         public static int GetAmountOfPossibleFeatures(GameEntity company, GameContext gameContext)
         {
-            var counter = 1;
-
-            var universalTeams = company.team.Teams.Count(t => Teams.IsUniversalTeam(t.TeamType));
-            var devTeams = company.team.Teams.Count(t => t.TeamType == TeamType.DevelopmentTeam);
-
             // can upgrade this amount of features
-            var maxCounter = 3 + universalTeams + devTeams * 2;
+            var maxCounter = 1 + company.team.Teams.Sum(t => Teams.GetSlotsForTask(t, new TeamTaskFeatureUpgrade(null)) * 3 / 2);
 
-            var allFeatures = Products.GetAllFeaturesForProduct(company);
+            //var allFeatures = Products.GetAllFeaturesForProduct(company);
 
-            var upgradingAlready = allFeatures.Count(f => Teams.IsUpgradingFeature(company, gameContext, f.Name));
+            var upgradingAlready = company.team.Teams[0].Tasks.Count(t => t.IsFeatureUpgrade); // allFeatures.Count(f => Teams.IsUpgradingFeature(company, gameContext, f.Name));
 
-            counter = maxCounter - upgradingAlready;
-
-            return counter;
+            return maxCounter - upgradingAlready;
         }
 
 
@@ -186,6 +179,7 @@ namespace Assets.Core
             return GetMonetisationFeatures(product)
                 .Where(IsCanBeShownAsUpgradeableFeature(product, gameContext))
                 .Where(IsFeatureWillNotDissapointAnyoneSignificant(product))
+                .Where(f => !product.team.Teams[0].Tasks.Any(t => t.IsPending && t.AreSameTasks(new TeamTaskFeatureUpgrade(f))))
                 .ToArray();
         }
         public static NewProductFeature[] GetUpgradeableRetentionFeatures(GameEntity product, GameContext gameContext)
@@ -196,6 +190,7 @@ namespace Assets.Core
                 .Where(IsCanBeShownAsUpgradeableFeature(product, gameContext))
                 .Where(IsFeatureWillNotDissapointAnyoneSignificant(product))
                 .TakeWhile(f => counter-- > 0)
+                .Where(f => !product.team.Teams[0].Tasks.Any(t => t.IsPending && t.AreSameTasks(new TeamTaskFeatureUpgrade(f))))
                 .ToArray();
         }
 

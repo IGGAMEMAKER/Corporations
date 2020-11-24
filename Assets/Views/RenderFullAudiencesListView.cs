@@ -59,7 +59,7 @@ public class RenderFullAudiencesListView : ListView
             CompaniesInterestedInUsers.text = $"which are interested in {Marketing.GetPositioningName(company)}";
         }
 
-        FindObjectOfType<CompaniesFocusingSpecificSegmentListView>().SetSegment(segmentId);
+        //FindObjectOfType<CompaniesFocusingSpecificSegmentListView>().SetSegment(segmentId);
     }
 
     private void OnEnable()

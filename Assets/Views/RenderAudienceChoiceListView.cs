@@ -1,18 +1,32 @@
-﻿using System.Collections;
+﻿using Assets.Core;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RenderAudienceChoiceListView : MonoBehaviour
+public class RenderAudienceChoiceListView : ListView
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void SetItem<T>(Transform t, T entity)
     {
-        
+        t.GetComponent<SegmentPreview>().SetEntity((ProductPositioning)(object)entity);
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void ViewRender()
     {
-        
+        base.ViewRender();
+
+        var positionings = Marketing.GetNichePositionings(Flagship);
+
+        SetItems(positionings);
+    }
+
+    public override void OnItemSelected(int ind)
+    {
+        base.OnItemSelected(ind);
+
+        var positionings = Marketing.GetNichePositionings(Flagship);
+
+        var p = positionings[ind];
+
+        FindObjectOfType<PositioningManagerView>().SetAnotherPositioning(p);
     }
 }

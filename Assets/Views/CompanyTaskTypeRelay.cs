@@ -93,11 +93,8 @@ public class CompanyTaskTypeRelay : View
 
     void RenderFeatureButton()
     {
-        bool receivedFirstInvestments = MyCompany.shareholders.Shareholders.Count > 1;
-        bool skippedSomeTime = CurrentIntDate > 60;
-
-
-        var features = Products.GetProductFeaturesList(Flagship, Q).Length;
+        //var features = Products.GetProductFeaturesList(Flagship, Q).Length;
+        var features = Products.GetUpgradeableRetentionFeatures(Flagship, Q).Length;
         FeatureCounter.GetComponentInChildren<Text>().text = features.ToString();
 
 

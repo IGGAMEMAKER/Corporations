@@ -56,9 +56,12 @@ public class MarketingChannelsListView : ListView
 
         if (AllChannels != null)
             Draw(AllChannels, ShowAffordableOnly);
-        
+
         // list
-        var channels = ShowAffordableOnly ? Markets.GetAffordableMarketingChannels(company, Q) : Markets.GetTheoreticallyPossibleMarketingChannels(company, Q); // segmentId
+        var channels = ShowAffordableOnly ?
+            Markets.GetAffordableMarketingChannels(company, Q)
+            :
+            Markets.GetTheoreticallyPossibleMarketingChannels(company, Q);
 
         // ----------------------------------------------------
         var p = new TeamTaskChannelActivity(0, 0);

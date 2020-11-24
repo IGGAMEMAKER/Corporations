@@ -26,7 +26,7 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
 
     GameEntity company;
 
-    public void SetEntity(GameEntity c, int segmentId)
+    public void SetEntity(GameEntity c)
     {
         company = c;
 

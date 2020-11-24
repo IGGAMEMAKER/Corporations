@@ -28,7 +28,7 @@ public class TeamScreenView : View
 
         bool hasLeadManager = Teams.HasMainManagerInTeam(team, Q, product);
 
-        Draw(ManagerFocus, hasLeadManager);
+        Draw(ManagerFocus, false);
         Draw(PromoteTeam, Teams.IsTeamPromotable(product, team, Q));
 
         Draw(FireTeam, SelectedTeam > 0);

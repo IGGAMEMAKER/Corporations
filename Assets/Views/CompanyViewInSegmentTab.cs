@@ -18,9 +18,10 @@ public class CompanyViewInSegmentTab : View
 
     public LinkToProjectView LinkToProjectView;
 
-    public void SetEntity(GameEntity company, int segmentId)
+    public void SetEntity(GameEntity company, ProductPositioning positioning)
     {
-        var loyalty = (int)Marketing.GetSegmentLoyalty(company, segmentId); // Random.Range(-5, 10);
+        var loyalty = (int)Marketing.GetPositioningQuality(company).Sum(); // (int)Marketing.GetSegmentLoyalty(company, segmentId); // Random.Range(-5, 10);
+
         AudienceLoyalty.text = loyalty.ToString();
         AudienceLoyalty.color = Visuals.GetColorPositiveOrNegative(loyalty);
 

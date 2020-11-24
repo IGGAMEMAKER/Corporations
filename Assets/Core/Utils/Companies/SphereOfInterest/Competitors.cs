@@ -13,6 +13,13 @@ namespace Assets.Core
             return competitors.Where(c => c.productPositioning.Positioning == company.productPositioning.Positioning);
         }
 
+        public static IEnumerable<GameEntity> GetCompetitionInSegment(GameEntity company, GameContext gameContext, int positioningID, bool includeSelf = false)
+        {
+            var competitors = GetCompetitorsOfCompany(company, gameContext, includeSelf);
+
+            return competitors.Where(c => c.productPositioning.Positioning == positioningID);
+        }
+
         public static IEnumerable<GameEntity> GetCompetitorsOfCompany(GameEntity company, GameContext gameContext, bool includeSelf = false)
         {
             IEnumerable<GameEntity> companies;

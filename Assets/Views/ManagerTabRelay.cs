@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ManagerTabRelay : View
 {
@@ -16,6 +17,17 @@ public class ManagerTabRelay : View
     public GameObject StatsButton;
 
     public GameObject StatsTab;
+
+    [Header("Team type image")]
+    public Image TeamImage;
+    public Text TeamRankValue;
+
+    [Header("Team type sprites")]
+    public Sprite UniversalTeamSprite;
+    public Sprite UnknownTeamSprite;
+    public Sprite MarketingTeamSprite;
+    public Sprite ServersideTeamSprite;
+    public Sprite DevTeamSprite;
 
     // ----------------------------
 
@@ -39,9 +51,27 @@ public class ManagerTabRelay : View
 
         EmployeeButton.GetComponent<Blinker>().enabled = Teams.IsNeverHiredEmployees(Flagship);
 
+        RenderTeamRank();
 
         Draw(LinkToNextTeam, Flagship.team.Teams.Count > 1);
         Draw(LinkToPrevTeam, Flagship.team.Teams.Count > 1);
+    }
+
+    void RenderTeamRank()
+    {
+        var team = Flagship.team.Teams[SelectedTeam];
+
+        TeamRankValue.text = (int)team.Rank + "";
+
+        switch (team.TeamType)
+        {
+            case TeamType.CrossfunctionalTeam: TeamImage.sprite = UniversalTeamSprite; break;
+            case TeamType.MarketingTeam: TeamImage.sprite = MarketingTeamSprite; break;
+            case TeamType.DevelopmentTeam: TeamImage.sprite = DevTeamSprite; break;
+            case TeamType.ServersideTeam: TeamImage.sprite = ServersideTeamSprite; break;
+
+            default: TeamImage.sprite = UnknownTeamSprite; break;
+        }
     }
 
 

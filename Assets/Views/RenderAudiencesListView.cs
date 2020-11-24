@@ -7,7 +7,6 @@ public class RenderAudiencesListView : ListView
 {
     public AudienceDetailsView AudienceDetailsView;
     public ChooseTargetAudienceButtonController ChooseTargetAudienceButtonController;
-    public ProductCompaniesFocusListView ProductCompaniesFocusListView;
 
     public MarketingChannelsListView MarketingChannelsListView;
 
@@ -15,7 +14,7 @@ public class RenderAudiencesListView : ListView
 
     public override void SetItem<T>(Transform t, T entity)
     {
-        t.GetComponent<SegmentPreview>().SetEntity(entity as AudienceInfo, index);
+        //t.GetComponent<SegmentPreview>().SetEntity(entity as AudienceInfo, index);
 
         if (DisableAutomaticAudienceChange)
             t.GetComponentInChildren<ChooseTargetAudienceButtonController>().enabled = false;
@@ -42,9 +41,6 @@ public class RenderAudiencesListView : ListView
             ChooseTargetAudienceButtonController.SetSegment(ind);
             Draw(ChooseTargetAudienceButtonController, ind != Marketing.GetCoreAudienceId(Flagship));
         }
-
-        if (ProductCompaniesFocusListView != null)
-            ProductCompaniesFocusListView.SetSegment(ind);
 
         if (MarketingChannelsListView != null)
         {

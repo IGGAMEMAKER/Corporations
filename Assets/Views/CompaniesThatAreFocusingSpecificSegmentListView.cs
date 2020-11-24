@@ -6,7 +6,7 @@ public class CompaniesThatAreFocusingSpecificSegmentListView : ListView
     public override void SetItem<T>(Transform t, T entity)
     {
         //t.GetComponent<CompanyViewOnMap>().SetEntity(entity as GameEntity, false, false);
-        t.GetComponent<CompanyViewOnAudienceMap>().SetEntity(entity as GameEntity, segmentId);
+        t.GetComponent<CompanyViewOnAudienceMap>().SetEntity(entity as GameEntity);
     }
 
     public void SetCompanies(GameEntity[] companies, int segmentId)
