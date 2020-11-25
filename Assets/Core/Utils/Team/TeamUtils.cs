@@ -58,22 +58,24 @@ namespace Assets.Core
             return hasLeadManager && organisation >= 100 && team.Rank < TeamRank.Department;
         }
 
-        public static void Promote(GameEntity product, TeamInfo team)
+        public static TeamRank GetNextTeamRank(TeamRank teamRank)
         {
-            switch (team.Rank)
+            switch (teamRank)
             {
                 case TeamRank.Solo:
-                    team.Rank = TeamRank.SmallTeam;
-                    break;
+                    return TeamRank.SmallTeam;
 
                 case TeamRank.SmallTeam:
-                    team.Rank = TeamRank.BigTeam;
-                    break;
+                    return TeamRank.BigTeam;
 
-                case TeamRank.BigTeam:
-                    team.Rank = TeamRank.Department;
-                    break;
+                default:
+                    return TeamRank.Department;
             }
+        }
+
+        public static void Promote(GameEntity product, TeamInfo team)
+        {
+            team.Rank = GetNextTeamRank(team.Rank);
 
             team.Name = GenerateTeamName(product, team);
             team.Organisation = Mathf.Min(team.Organisation, 10);

@@ -15,6 +15,6 @@ public class DirectCompetitorsListView : ListView
     {
         base.ViewRender();
 
-        SetItems(Companies.GetDirectCompetitors(Flagship, Q, true).OrderByDescending(c => Economy.CostOf(c, Q)));
+        SetItems(Companies.GetDirectCompetitors(Flagship, Q, true).OrderByDescending(c => c.hasProduct ? Marketing.GetUsers(c) : Economy.CostOf(c, Q)));
     }
 }

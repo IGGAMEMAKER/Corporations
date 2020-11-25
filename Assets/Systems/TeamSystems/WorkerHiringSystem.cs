@@ -15,7 +15,7 @@ class WorkerHiringSystem : OnDateChange
         {
             foreach (var t in c.team.Teams)
             {
-                if (t.Workers < 8)
+                if (t.Workers < Teams.GetMaxTeamSize(t))
                 {
                     bool isUniversalTeam = Teams.IsUniversalTeam(t.TeamType);
 

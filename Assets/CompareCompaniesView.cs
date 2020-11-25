@@ -53,7 +53,7 @@ public class CompareCompaniesView : View
             Teams.GetMarketingEfficiency(company1), Teams.GetMarketingEfficiency(company2));
 
         CompareData("Employees", Employees1, Employees2, 
-            Teams.GetTeamSize(company1), Teams.GetTeamSize(company2));
+            Teams.GetTotalEmployees(company1), Teams.GetTotalEmployees(company2));
 
 
 

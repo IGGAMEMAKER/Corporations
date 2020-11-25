@@ -6,11 +6,26 @@ namespace Assets.Core
 {
     public static partial class Teams
     {
-        public static int GetTeamSize(GameEntity e)
+        //public static int GetTeamSize(GameEntity e)
+        public static int GetTotalEmployees(GameEntity e)
         {
-            return e.team.Teams.Count * 8;
+            return e.team.Teams.Sum(t => GetMaxTeamSize(t));
         }
-        
+
+        public static int GetMaxTeamSize(TeamInfo team) => GetMaxTeamSize(team.Rank);
+        public static int GetMaxTeamSize(TeamRank rank)
+        {
+            switch (rank)
+            {
+                case TeamRank.Solo: return 1;
+                case TeamRank.SmallTeam: return 8;
+                case TeamRank.BigTeam: return 20;
+                case TeamRank.Department: return 100;
+
+                default: return 100_000;
+            }
+        }
+
         public static GameEntity GetWorkerByRole(GameEntity company, WorkerRole role, TeamInfo teamInfo, GameContext gameContext)
         {
             var managers = teamInfo.Managers.Select(humanId => Humans.Get(gameContext, humanId));

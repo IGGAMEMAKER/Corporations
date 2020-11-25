@@ -14,7 +14,7 @@ public class TeamOveralKPIView : ParameterView
             return "";
 
         var teams = company.team.Teams.Count;
-        var employees = Teams.GetTeamSize(company);
+        var employees = Teams.GetTotalEmployees(company);
         var managerLevel = Teams.GetTeamAverageStrength(company, Q);
 
         var featureCap = Teams.GetMaxFeatureRatingCap(company, Q).Sum();

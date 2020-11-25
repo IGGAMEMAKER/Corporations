@@ -1,9 +1,25 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 namespace Assets.Core
 {
     partial class Economy
     {
+        public static long GetPromotedTeamCost(TeamInfo team)
+        {
+            var nextRank = Teams.GetNextTeamRank(team.Rank);
+
+            return GetPromotedTeamCost(nextRank);
+        }
+        public static long GetPromotedTeamCost(TeamRank rank)
+        {
+            return Teams.GetMaxTeamSize(rank) * C.SALARIES_PROGRAMMER;
+        }
+        public static long GetTeamCost(TeamInfo team)
+        {
+            return team.Workers * C.SALARIES_PROGRAMMER;
+        }
+
         public static long GetSingleTeamCost()
         {
             var workerCost = C.SALARIES_PROGRAMMER;
@@ -16,9 +32,11 @@ namespace Assets.Core
         // resulting costs
         public static Bonus<long> GetProductCompanyMaintenance(GameEntity e, bool isBonus)
         {
+            var teamCost = e.team.Teams.Sum(GetTeamCost);
+
             var bonus = new Bonus<long>("Maintenance")
                 .Append("Managers", GetManagersCost(e))
-                .AppendAndHideIfZero($"Teams X{e.team.Teams.Count}", GetSingleTeamCost() * e.team.Teams.Count * C.PERIOD / 30);
+                .AppendAndHideIfZero($"Teams X{e.team.Teams.Count}", teamCost * C.PERIOD / 30);
 
             // team tasks
             foreach (var t in e.team.Teams[0].Tasks)

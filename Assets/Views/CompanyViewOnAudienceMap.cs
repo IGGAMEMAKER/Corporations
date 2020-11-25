@@ -96,8 +96,21 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
     {
         var position = Markets.GetPositionOnMarket(Q, company);
 
-        var max = 1.8f;
-        var scale = Mathf.Clamp(max / (1 + position), 0.8f, max);
+        var max = 1f;
+        var min = 0.5f;
+
+        var scale = max / (1 + position);
+
+        if (position == 0)
+            scale = max;
+        else if (position == 1)
+            scale = max * 0.8f;
+        else if (position == 2 || position == 3)
+            scale = max * 0.7f;
+        else
+            scale = min;
+
+        scale = Mathf.Clamp(scale, min, max);
 
         transform.localScale = new Vector3(scale, scale, 1);
     }

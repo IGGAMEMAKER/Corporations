@@ -108,7 +108,6 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
             case InvestorGoalType.BecomeProfitable:
                 actions.Add(ProductActions.GrabUsers);
-                //actions.Add(ProductActions.ShowProfit);
                 actions.Add(ProductActions.Features);
                 actions.Add(ProductActions.ExpandTeam);
 
@@ -215,7 +214,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
         // searching team for this task
         int teamId = 0; // Teams.GetTeamIdForTask(product, teamTask);
 
-        if (teamId == -1)
+        if (!Teams.HasFreeSlotForTeamTask(product, teamTask))
         {
             // need to hire new team
             var teamCost = Economy.GetSingleTeamCost();
@@ -224,18 +223,20 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             {
                 if (teamTask.IsHighloadTask)
                 {
-                    Teams.AddTeam(product, gameContext, TeamType.ServersideTeam);
+                    TryAddTeam(product, TeamType.ServersideTeam);
+                    //Teams.AddTeam(product, gameContext, TeamType.ServersideTeam);
                 }
                 else
                 {
-                    Teams.AddTeam(product, gameContext, TeamType.CrossfunctionalTeam);
+                    TryAddTeam(product, TeamType.CrossfunctionalTeam);
+                    //Teams.AddTeam(product, gameContext, TeamType.CrossfunctionalTeam);
                 }
 
                 teamId = product.team.Teams.Count - 1;
             }
         }
 
-        if (teamId >= 0)
+        if (Teams.HasFreeSlotForTeamTask(product, teamTask))
         {
             Teams.AddTeamTask(product, gameContext, teamId, teamTask);
         }

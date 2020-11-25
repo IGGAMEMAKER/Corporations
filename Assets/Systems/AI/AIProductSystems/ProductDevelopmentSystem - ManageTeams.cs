@@ -1,28 +1,28 @@
 ﻿using Assets.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
 
 public partial class ProductDevelopmentSystem : OnPeriodChange
 {
-
     void TryAddTeam(GameEntity product, TeamType teamType)
     {
         var teamCost = Economy.GetSingleTeamCost();
 
-        if (CanMaintain(product, teamCost) && !product.team.Teams.Any(t => t.TeamType == teamType))
+        if (CanMaintain(product, teamCost))
         {
-            //var id = Teams.AddTeam(product, teamType);
+            if (!Teams.IsCanAddMoreTeams(product, gameContext))
+            {
+                Companies.IncrementCorporatePolicy(gameContext, product, CorporatePolicy.DoOrDelegate);
+            }
 
-            //if (teamType == TeamType.DevelopmentTeam)
-            //    SetTasks(product, ManagerTask.Polishing, id);
+            if (Teams.IsCanAddMoreTeams(product, gameContext))
+                Teams.AddTeam(product, gameContext, teamType);
+        }
+    }
 
-            //if (teamType == TeamType.MarketingTeam)
-            //    SetTasks(product, ManagerTask.ViralSpread, id);
-
-            //if (teamType == TeamType.ServersideTeam)
-            //    SetTasks(product, ManagerTask.Organisation, id);
+    void TryUpgradeTeam(GameEntity company, TeamInfo team)
+    {
+        if (CanMaintain(company, Economy.GetPromotedTeamCost(team)) && Teams.IsTeamPromotable(company, team, gameContext))
+        {
+            Teams.Promote(company, team);
         }
     }
 
