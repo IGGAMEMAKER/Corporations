@@ -8,9 +8,9 @@ namespace Assets.Core
         public static void BuyShares(GameContext context, GameEntity company, int buyerInvestorId, int sellerInvestorId, int amountOfShares, long offer, bool comparedToShareSize)
         {
             var shareSize = GetShareSize(context, company, sellerInvestorId);
+
             BuyShares(context, company, buyerInvestorId, sellerInvestorId, amountOfShares, offer * shareSize / 100);
         }
-
         public static void BuyShares(GameContext context, GameEntity company, int buyerInvestorId, int sellerInvestorId, int amountOfShares, long bid)
         {
             var seller = GetInvestorById(context, sellerInvestorId);
@@ -30,13 +30,8 @@ namespace Assets.Core
                 return;
             }
 
-            Companies.Log(company, $"Buy {amountOfShares} shares of {company.company.Name} for ${bid}");
-            Companies.Log(company, $"Buyer: {GetInvestorName(context, buyerInvestorId)}");
-            Companies.Log(company, $"Seller: {GetInvestorName(context, sellerInvestorId)}");
+            TransferShares(context, company, buyerInvestorId, sellerInvestorId, amountOfShares, bid);
 
-            TransferShares(context, company, buyerInvestorId, sellerInvestorId, amountOfShares);
-
-            Companies.Log(company, "Transferred");
 
             SpendResources(buyer, bid, "Buy Shares of " + company.company.Name);
             AddResources(seller, bid, "Buy Shares of " + company.company.Name);
@@ -85,7 +80,7 @@ namespace Assets.Core
             company.shareholders.Shareholders[sellerInvestorId] = b;
 
             if (b.amount <= 0)
-                RemoveShareholder(company, context, sellerInvestorId);
+                RemoveShareholder(company, context, investor);
 
             Companies.SpendResources(company, cost, "Buy back");
             Companies.AddResources(investor, bid, "Buy back");

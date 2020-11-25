@@ -24,27 +24,31 @@ namespace Assets.Core
                 AddFocusIndustry(industry, parent);
             }
 
-            AddOwning(parent, daughter.company.Id);
+            RemoveAllShareholders(context, daughter);
+            AddShares(daughter, parent, 100);
 
-            var shareholders = new Dictionary<int, BlockOfShares>
-            {
-                {
-                    parent.shareholder.Id,
-                    new BlockOfShares
-                    {
-                        amount = 100,
-                        InvestorType = InvestorType.Strategic,
-                        shareholderLoyalty = 100,
+            //AddOwning(parent, daughter.company.Id);
 
-                        Investments = new List<Investment>()
-                    }
-                }
-            };
 
-            if (daughter.hasShareholders)
-                daughter.ReplaceShareholders(shareholders);
-            else
-                daughter.AddShareholders(shareholders);
+            //var shareholders = new Dictionary<int, BlockOfShares>
+            //{
+            //    {
+            //        parent.shareholder.Id,
+            //        new BlockOfShares
+            //        {
+            //            amount = 100,
+            //            InvestorType = InvestorType.Strategic,
+            //            shareholderLoyalty = 100,
+
+            //            Investments = new List<Investment>()
+            //        }
+            //    }
+            //};
+
+            //if (daughter.hasShareholders)
+            //    daughter.ReplaceShareholders(shareholders);
+            //else
+            //    daughter.AddShareholders(shareholders);
 
             SetIndependence(daughter, false);
         }

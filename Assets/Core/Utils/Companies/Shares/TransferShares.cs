@@ -83,15 +83,21 @@ namespace Assets.Core
             RemoveOwning(investor, company.company.Id);
         }
 
-        public static void TransferShares(GameContext context, GameEntity company, int buyerInvestorId, int sellerInvestorId, int amountOfShares)
+        public static void TransferShares(GameContext context, GameEntity company, int buyerInvestorId, int sellerInvestorId, int amountOfShares, long bid)
         {
+            Companies.Log(company, $"Buy {amountOfShares} shares of {company.company.Name} for ${bid}");
+            Companies.Log(company, $"Buyer: {GetInvestorName(context, buyerInvestorId)}");
+            Companies.Log(company, $"Seller: {GetInvestorName(context, sellerInvestorId)}");
+
             //AddShares2(context, company, buyerInvestorId, amountOfShares);
             AddShares(company, GetInvestorById(context, buyerInvestorId), amountOfShares);
 
             DecreaseShares(context, company, sellerInvestorId, amountOfShares);
+
+            Companies.Log(company, "Transferred");
         }
 
-        public static void TransferCompany(GameContext gameContext, GameEntity company, GameEntity buyer)
+        public static void RemoveAllShareholders(GameContext gameContext, GameEntity company)
         {
             var shareholders = GetShareholders(company);
             int[] array = new int[company.shareholders.Shareholders.Keys.Count];
@@ -102,6 +108,11 @@ namespace Assets.Core
             {
                 RemoveShareholder(company, gameContext, GetInvestorById(gameContext, sellerInvestorId));
             }
+        }
+
+        public static void TransferCompany(GameContext gameContext, GameEntity company, GameEntity buyer)
+        {
+            RemoveAllShareholders(gameContext, company);
 
             // set new shareholder
             AddShares(company, buyer, 100);
