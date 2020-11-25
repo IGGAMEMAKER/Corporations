@@ -7,31 +7,25 @@ namespace Assets.Core
 {
     partial class Companies
     {
-        public static void AttachToGroup(GameContext context, int parentId, int subsidiaryId)
+        public static void AttachToGroup(GameContext context, int parentId, int subsidiaryId) => AttachToGroup(context, Get(context, parentId), Get(context, subsidiaryId));
+        public static void AttachToGroup(GameContext context, GameEntity parent, GameEntity daughter)
         {
             // TODO only possible if independent!
-
-            var parent = Get(context, parentId);
-
 
             // we cannot attach company to product company
             if (parent.hasProduct)
                 return;
 
-            var daughter = Get(context, subsidiaryId);
-
             if (daughter.hasProduct)
             {
                 var industry = Markets.GetIndustry(daughter.product.Niche, context);
 
-                AddFocusNiche(daughter.product.Niche, parent, context);
+                AddFocusNiche(parent, daughter.product.Niche, context);
                 AddFocusIndustry(industry, parent);
             }
 
+            AddOwning(parent, daughter.company.Id);
 
-            //Debug.Log("Attach " + daughter.company.Name + " to " + parent.company.Name);
-
-            AddOwning(parent, subsidiaryId);
             var shareholders = new Dictionary<int, BlockOfShares>
             {
                 {
@@ -61,13 +55,20 @@ namespace Assets.Core
                 company.ownings.Holdings.Add(owningCompanyId);
         }
 
+        public static void RemoveOwning(GameEntity company, int owningCompanyId)
+        {
+            if (company.ownings.Holdings.Contains(owningCompanyId))
+                company.ownings.Holdings.Remove(owningCompanyId);
+        }
+
         public static GameEntity CreateProductAndAttachItToGroup(GameContext gameContext, NicheType nicheType, GameEntity group)
         {
             string name = group.company.Name + " " + Enums.GetFormattedNicheName(nicheType);
 
             var c = GenerateProductCompany(gameContext, name, nicheType);
 
-            AttachToGroup(gameContext, group.company.Id, c.company.Id);
+            //AttachToGroup(gameContext, group.company.Id, c.company.Id);
+            AttachToGroup(gameContext, group, c);
 
             return c;
         }

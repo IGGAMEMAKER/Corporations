@@ -45,6 +45,7 @@ namespace Assets.Core
             return IsInvestsInCompany(c, investorId) ? shareholders[investorId].amount : 0;
         }
 
+        public static bool IsInvestsInCompany(GameEntity company, GameEntity investor) => Investments.IsInvestsInCompany(investor, company);
         public static bool IsInvestsInCompany(GameEntity company, int investorId)
         {
             return Investments.IsInvestsInCompany(investorId, company);

@@ -116,7 +116,7 @@ namespace Assets.Core
 
             Investments.BecomeInvestor(gameContext, shareholder, 100000);
 
-            AddShareholder(c, shareholder, 500);
+            AddShares(c, shareholder, 500);
 
             if (founderOnly)
                 return;
@@ -125,7 +125,7 @@ namespace Assets.Core
             {
                 var investor = Investments.GetRandomInvestmentFund(gameContext);
 
-                AddShareholder(c, investor, 100);
+                AddShares(c, investor, 100);
             }
         }
 

@@ -10,6 +10,6 @@ public class SphereOfInterestController : ButtonController
         if (isInSphereOfInterest)
             Companies.RemoveFromSphereOfInfluence(niche, MyCompany, Q);
         else
-            Companies.AddFocusNiche(niche, MyCompany, Q);
+            Companies.AddFocusNiche(MyCompany, niche, Q);
     }
 }

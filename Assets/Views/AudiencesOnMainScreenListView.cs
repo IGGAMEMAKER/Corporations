@@ -30,6 +30,8 @@ public class AudiencesOnMainScreenListView : ListView
 
         var audiences = Marketing.GetAudienceInfos();
 
+        if (!product.hasProduct)
+            return;
 
         //bool showAudiences = true;
         bool showAudiences = product.isRelease;

@@ -60,7 +60,7 @@ namespace Assets.Core
 
 
 
-        public static void AddFocusNiche(NicheType nicheType, GameEntity company, GameContext gameContext)
+        public static void AddFocusNiche(GameEntity company, NicheType nicheType, GameContext gameContext)
         {
             var niches = company.companyFocus.Niches;
 

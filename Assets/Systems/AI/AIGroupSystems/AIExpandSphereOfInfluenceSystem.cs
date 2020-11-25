@@ -75,7 +75,7 @@ public partial class AIGroupExpansionSystem
 
             var niche = suitableNiches[rand].niche.NicheType;
 
-            Companies.AddFocusNiche(niche, group, gameContext);
+            Companies.AddFocusNiche(group, niche, gameContext);
             break;
         }
     }

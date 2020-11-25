@@ -38,7 +38,8 @@
             int companyGroupId = group.company.Id;
             //int companyGroupId = GenerateCompanyGroup(context, futureName + " Group", companyId).company.Id;
 
-            AttachToGroup(context, companyGroupId, companyId);
+            //AttachToGroup(context, companyGroupId, companyId);
+            AttachToGroup(context, group, product);
 
 
             //var groupCo = Get(context, companyGroupId);
@@ -47,7 +48,7 @@
             var industry = Markets.GetIndustry(niche, context);
             AddFocusIndustry(industry, group);
 
-            AddFocusNiche(niche, group, context);
+            AddFocusNiche(group, niche, context);
             group.isManagingCompany = true;
 
             // manage partnerships of product company

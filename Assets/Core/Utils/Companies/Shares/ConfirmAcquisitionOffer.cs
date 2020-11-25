@@ -20,20 +20,6 @@ namespace Assets.Core
             }
         }
 
-        public static void TransferCompany(GameContext gameContext, GameEntity company, GameEntity buyer)
-        {
-            var daughterShareholders = GetShareholders(company);
-            int[] array2 = new int[company.shareholders.Shareholders.Keys.Count];
-            daughterShareholders.Keys.CopyTo(array2, 0);
-
-            foreach (var sellerInvestorId in array2)
-            {
-                RemoveShareholder(company, gameContext, sellerInvestorId);
-            }
-
-            AddShareholder(company, buyer, 100);
-        }
-
         public static void BuyCompany(GameContext gameContext, GameEntity company, GameEntity buyer, long offer) //  int buyerInvestorId
         {
             // can afford acquisition
@@ -47,7 +33,9 @@ namespace Assets.Core
 
 
             foreach (var sellerInvestorId in array)
+            {
                 BuyShares(gameContext, company, buyer.shareholder.Id, sellerInvestorId, shareholders[sellerInvestorId].amount, offer, true);
+            }
 
 
             RemoveAllPartnerships(company, gameContext);
@@ -68,11 +56,16 @@ namespace Assets.Core
                 // transfer all products to buyer
                 foreach (var d in daughters)
                 {
-                    TransferCompany(gameContext, d, company);
+                    AttachToGroup(gameContext, buyer, d);
+                    //TransferCompany(gameContext, d, company);
                 }
+            }
 
+            if (IsGroup(company))
+            {
                 // and close group
                 NotificationUtils.AddSimplePopup(gameContext, Visuals.Positive("You've bought GROUP company " + company.company.Name), "The group will be destroyed\nAll their products will be in our direct control");
+
                 CloseCompany(gameContext, company);
             }
         }

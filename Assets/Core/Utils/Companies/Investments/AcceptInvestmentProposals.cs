@@ -23,7 +23,7 @@
             long shares = p.AdditionalShares; // allShares * p.Investment.Offer / cost;
 
             // update shareholders list
-            AddShareholder(company, investor, (int)shares);
+            AddShares(company, investor, (int)shares);
 
             var date = ScheduleUtils.GetCurrentDate(gameContext);
 

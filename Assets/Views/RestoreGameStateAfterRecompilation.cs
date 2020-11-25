@@ -236,8 +236,8 @@ public class RestoreGameStateAfterRecompilation : View
         GenerateProductCompany("whatsapp", NicheType.Com_Messenger);
         var fbMessenger = GenerateProductCompany("facebook messenger", NicheType.Com_Messenger);
 
-        int google = GenerateProductCompany("Google", NicheType.Tech_SearchEngine).company.Id;
-        int yahoo = GenerateProductCompany("Yahoo", NicheType.Tech_SearchEngine).company.Id;
+        var google = GenerateProductCompany("Google", NicheType.Tech_SearchEngine);
+        var yahoo = GenerateProductCompany("Yahoo", NicheType.Tech_SearchEngine);
         GenerateProductCompany("Yandex", NicheType.Tech_SearchEngine);
 
         var microsoftOs = GenerateProductCompany("Windows", NicheType.Tech_OSDesktop);
@@ -248,13 +248,13 @@ public class RestoreGameStateAfterRecompilation : View
         var investorId2 = GenerateInvestmentFund("Goldman Sachs", 2000000);
         var investorId3 = GenerateInvestmentFund("Morgan J.P.", 3000000);
 
-        int alphabet = GenerateHoldingCompany("Alphabet");
+        var alphabet = GenerateHoldingCompany("Alphabet");
         AttachToHolding(alphabet, google);
 
         AddShareholder(alphabet, investorId1, 100);
         AddShareholder(alphabet, investorId2, 200);
 
-        int googleGroupId = PromoteToGroup(google);
+        int googleGroupId = PromoteToGroup(google.company.Id);
 
         var facebookInc = GenerateHoldingCompany("Facebook Inc");
         AttachToHolding(facebookInc, facebook);
@@ -320,7 +320,7 @@ public class RestoreGameStateAfterRecompilation : View
         var niches = Markets.GetNichesInIndustry(company.companyFocus.Industries[0], Q);
 
         foreach (var n in niches)
-            Companies.AddFocusNiche(n.niche.NicheType, company, Q);
+            Companies.AddFocusNiche(company, n.niche.NicheType, Q);
     }
 
     void AutoFillSomeFocusNichesByIndustry(GameEntity company)
@@ -330,7 +330,7 @@ public class RestoreGameStateAfterRecompilation : View
         //CompanyUtils.AddFocusNiche(RandomEnum<NicheComponent>.PickRandomItem(niches).NicheType, company);
 
         foreach (var n in niches)
-            Companies.AddFocusNiche(n.niche.NicheType, company, Q);
+            Companies.AddFocusNiche(company, n.niche.NicheType, Q);
     }
 
     IndustryType GetRandomIndustry()
@@ -355,30 +355,21 @@ public class RestoreGameStateAfterRecompilation : View
         return Companies.GenerateInvestmentFund(Q, name, money);
     }
 
-    int GenerateHoldingCompany(string name)
+    GameEntity GenerateHoldingCompany(string name)
     {
-        return Companies.GenerateHoldingCompany(Q, name).company.Id;
+        return Companies.GenerateHoldingCompany(Q, name);
     }
 
-    void AttachToHolding(int parent, GameEntity child) => AttachToHolding(parent, child.company.Id);
-    void AttachToHolding(int parent, int child)
+    void AttachToHolding(GameEntity p, GameEntity c)
     {
-        Companies.AttachToGroup(Q, parent, child);
-
-        var c = Companies.Get(Q, child);
-        var p = Companies.Get(Q, parent);
-
-        if (c.hasProduct)
-            Companies.AddFocusNiche(c.product.Niche, p, Q);
+        Companies.AttachToGroup(Q, p, c);
     }
 
 
-    void AddShareholder(int companyId, GameEntity investorId, int shares)
+    void AddShareholder(GameEntity company, GameEntity investorId, int shares)
     {
         //Debug.Log($"Add Shareholder {investorId} with {shares} shares to {companyId}");
-        var company = Companies.Get(Q, companyId);
-
-        Companies.AddShareholder(company, investorId, shares);
+        Companies.AddShares(company, investorId, shares);
     }
 
     int PromoteToGroup(int companyId)

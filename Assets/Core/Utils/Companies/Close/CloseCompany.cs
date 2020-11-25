@@ -32,6 +32,7 @@ namespace Assets.Core
             e.ReplaceShareholders(new Dictionary<int, BlockOfShares>());
 
 
+
             e.isAlive = false;
 
             if (bankrupt)

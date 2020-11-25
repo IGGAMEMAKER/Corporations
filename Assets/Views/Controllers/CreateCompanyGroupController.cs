@@ -6,8 +6,11 @@ public class CreateCompanyGroupController : ButtonController
     {
         string name = "Company Group #" + Companies.GenerateCompanyId(Q);
 
-        int groupId = Companies.GenerateCompanyGroup(Q, name).company.Id;
+        var group = Companies.GenerateCompanyGroup(Q, name);
+
+        int groupId = group.company.Id;
 
         Companies.AttachToGroup(Q, MyGroupEntity.company.Id, groupId);
+        //Companies.AttachToGroup(Q, MyGroupEntity.company.Id, group);
     }
 }

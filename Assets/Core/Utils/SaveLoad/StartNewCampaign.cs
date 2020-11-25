@@ -110,7 +110,7 @@ namespace Assets.Core
             for (var i = 0; i < C.AMOUNT_OF_INVESTORS_ON_STARTING_NICHE; i++)
             {
                 var fund = Companies.GenerateInvestmentFund(gameContext, RandomUtils.GenerateInvestmentCompanyName(), 500000);
-                Companies.AddFocusNiche(niche.niche.NicheType, fund, gameContext);
+                Companies.AddFocusNiche(fund, niche.niche.NicheType, gameContext);
             }
         }
     }

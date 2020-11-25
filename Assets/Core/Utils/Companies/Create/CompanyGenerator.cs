@@ -49,7 +49,7 @@ namespace Assets.Core
             // sphere of interest
             var industry = Markets.GetIndustry(niche, context);
 
-            AddFocusNiche(niche, product, context);
+            AddFocusNiche(product, niche, context);
             AddFocusIndustry(industry, product);
 
             return product;
