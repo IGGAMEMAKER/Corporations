@@ -55,10 +55,10 @@ namespace Assets.Core
                 company.ownings.Holdings.Add(owningCompanyId);
         }
 
-        public static void RemoveOwning(GameEntity company, int owningCompanyId)
+        public static void RemoveOwning(GameEntity owner, int owningCompanyId)
         {
-            if (company.ownings.Holdings.Contains(owningCompanyId))
-                company.ownings.Holdings.Remove(owningCompanyId);
+            if (owner.ownings.Holdings.Contains(owningCompanyId))
+                owner.ownings.Holdings.Remove(owningCompanyId);
         }
 
         public static GameEntity CreateProductAndAttachItToGroup(GameContext gameContext, NicheType nicheType, GameEntity group)

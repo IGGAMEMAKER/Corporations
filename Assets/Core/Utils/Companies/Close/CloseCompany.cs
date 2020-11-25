@@ -27,7 +27,10 @@ namespace Assets.Core
             RemoveAllPartnerships(e, context);
 
             foreach (var holding in GetDaughters(context, e))
-                DestroyBlockOfShares(context, holding, e.shareholder.Id);
+            {
+                RemoveShareholder(holding, context, e);
+                //DestroyBlockOfShares(context, holding, e.shareholder.Id);
+            }
 
             e.ReplaceShareholders(new Dictionary<int, BlockOfShares>());
 
