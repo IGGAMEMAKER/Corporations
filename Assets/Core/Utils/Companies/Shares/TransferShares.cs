@@ -99,12 +99,12 @@ namespace Assets.Core
 
         public static void RemoveAllShareholders(GameContext gameContext, GameEntity company)
         {
-            var shareholders = GetShareholders(company);
-            int[] array = new int[company.shareholders.Shareholders.Keys.Count];
-            shareholders.Keys.CopyTo(array, 0);
+            //var shareholders = GetShareholders(company);
+            //int[] array = new int[company.shareholders.Shareholders.Keys.Count];
+            //shareholders.Keys.CopyTo(array, 0);
 
             // remove old shareholders
-            foreach (var sellerInvestorId in array)
+            foreach (var sellerInvestorId in GetShareholdersCopy(company))
             {
                 RemoveShareholder(company, gameContext, GetInvestorById(gameContext, sellerInvestorId));
             }

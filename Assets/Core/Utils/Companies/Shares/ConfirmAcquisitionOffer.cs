@@ -27,14 +27,10 @@ namespace Assets.Core
                 return;
 
             var shareholders = GetShareholders(company);
-            int[] array = new int[shareholders.Keys.Count];
-            shareholders.Keys.CopyTo(array, 0);
 
-
-
-            foreach (var sellerInvestorId in array)
+            foreach (var sellerInvestorId in GetShareholdersCopy(company))
             {
-                BuyShares(gameContext, company, buyer.shareholder.Id, sellerInvestorId, shareholders[sellerInvestorId].amount, offer, true);
+                BuyShares(gameContext, company, buyer, GetInvestorById(gameContext, sellerInvestorId), shareholders[sellerInvestorId].amount, offer, true);
             }
 
 

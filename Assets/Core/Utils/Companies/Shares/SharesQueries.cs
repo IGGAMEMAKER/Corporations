@@ -28,6 +28,15 @@ namespace Assets.Core
             return IsSharesCanBeSold(Get(context, companyId));
         }
 
+        public static int[] GetShareholdersCopy(GameEntity company)
+        {
+            var shareholders = GetShareholders(company);
+            int[] array = new int[company.shareholders.Shareholders.Keys.Count];
+            shareholders.Keys.CopyTo(array, 0);
+
+            return array;
+        }
+
         public static Dictionary<int, BlockOfShares> GetShareholders(GameEntity company)
         {
             var shareholders = new Dictionary<int, BlockOfShares>();

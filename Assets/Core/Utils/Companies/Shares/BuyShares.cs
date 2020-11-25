@@ -5,16 +5,18 @@ namespace Assets.Core
 {
     partial class Companies
     {
-        public static void BuyShares(GameContext context, GameEntity company, int buyerInvestorId, int sellerInvestorId, int amountOfShares, long offer, bool comparedToShareSize)
+        public static void BuyShares(GameContext context, GameEntity company, GameEntity buyer, GameEntity seller, int amountOfShares, long offer, bool comparedToShareSize)
         {
+            int sellerInvestorId = seller.shareholder.Id;
+
             var shareSize = GetShareSize(context, company, sellerInvestorId);
 
-            BuyShares(context, company, buyerInvestorId, sellerInvestorId, amountOfShares, offer * shareSize / 100);
+            BuyShares(context, company, buyer, seller, amountOfShares, offer * shareSize / 100);
         }
-        public static void BuyShares(GameContext context, GameEntity company, int buyerInvestorId, int sellerInvestorId, int amountOfShares, long bid)
+        public static void BuyShares(GameContext context, GameEntity company, GameEntity buyer, GameEntity seller, int amountOfShares, long bid)
         {
-            var seller = GetInvestorById(context, sellerInvestorId);
-            var buyer = GetInvestorById(context, buyerInvestorId);
+            int sellerInvestorId = seller.shareholder.Id;
+            int buyerInvestorId = buyer.shareholder.Id;
 
             // protecting from buying your own shares
             if (buyerInvestorId == sellerInvestorId)
