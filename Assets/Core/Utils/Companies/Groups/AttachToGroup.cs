@@ -7,7 +7,6 @@ namespace Assets.Core
 {
     partial class Companies
     {
-        public static void AttachToGroup(GameContext context, int parentId, int subsidiaryId) => AttachToGroup(context, Get(context, parentId), Get(context, subsidiaryId));
         public static void AttachToGroup(GameContext context, GameEntity parent, GameEntity daughter)
         {
             // TODO only possible if independent!

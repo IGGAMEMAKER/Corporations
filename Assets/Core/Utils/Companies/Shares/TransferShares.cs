@@ -5,6 +5,29 @@ namespace Assets.Core
 {
     partial class Companies
     {
+        public static void TransferShares(GameContext context, GameEntity company, int buyerInvestorId, int sellerInvestorId, int amountOfShares, long bid)
+        {
+            Companies.Log(company, $"Buy {amountOfShares} shares of {company.company.Name} for ${bid}");
+            Companies.Log(company, $"Buyer: {GetInvestorName(context, buyerInvestorId)}");
+            Companies.Log(company, $"Seller: {GetInvestorName(context, sellerInvestorId)}");
+
+            AddShares(company, GetInvestorById(context, buyerInvestorId), amountOfShares);
+
+            DecreaseShares(context, company, sellerInvestorId, amountOfShares);
+
+            Companies.Log(company, "Transferred");
+        }
+
+        // not used
+        public static void TransferCompany(GameContext gameContext, GameEntity company, GameEntity buyer)
+        {
+            // TODO why not make it with transfer shares function?
+            RemoveAllShareholders(gameContext, company);
+
+            // set new shareholder
+            AddShares(company, buyer, 100);
+        }
+
         public static void AddShares(GameEntity company, GameEntity investor, int shares)
         {
             int investorId = investor.shareholder.Id;
@@ -90,28 +113,6 @@ namespace Assets.Core
 
             // remove from shareholder
             RemoveOwning(investor, company.company.Id);
-        }
-
-        public static void TransferShares(GameContext context, GameEntity company, int buyerInvestorId, int sellerInvestorId, int amountOfShares, long bid)
-        {
-            Companies.Log(company, $"Buy {amountOfShares} shares of {company.company.Name} for ${bid}");
-            Companies.Log(company, $"Buyer: {GetInvestorName(context, buyerInvestorId)}");
-            Companies.Log(company, $"Seller: {GetInvestorName(context, sellerInvestorId)}");
-
-            //AddShares2(context, company, buyerInvestorId, amountOfShares);
-            AddShares(company, GetInvestorById(context, buyerInvestorId), amountOfShares);
-
-            DecreaseShares(context, company, sellerInvestorId, amountOfShares);
-
-            Companies.Log(company, "Transferred");
-        }
-
-        public static void TransferCompany(GameContext gameContext, GameEntity company, GameEntity buyer)
-        {
-            RemoveAllShareholders(gameContext, company);
-
-            // set new shareholder
-            AddShares(company, buyer, 100);
         }
 
         public static void ReplaceShareholders(GameEntity company, Dictionary<int, BlockOfShares> shareholders)
