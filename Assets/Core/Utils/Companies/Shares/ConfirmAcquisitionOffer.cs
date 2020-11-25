@@ -40,19 +40,18 @@ namespace Assets.Core
 
             if (IsGroup(company))
             {
-                var daughters = GetDaughters(gameContext, company);
+                //var daughters = GetDaughters(gameContext, company);
 
-                // transfer all products to buyer
-                foreach (var d in daughters)
-                {
-                    AttachToGroup(gameContext, buyer, d);
-                    //TransferCompany(gameContext, d, company);
-                }
+                //// transfer all products to buyer
+                //foreach (var d in daughters)
+                //{
+                //    AttachToGroup(gameContext, buyer, d);
+                //}
 
                 // and close group
-                NotificationUtils.AddSimplePopup(gameContext, Visuals.Positive("You've bought GROUP company " + company.company.Name), "The group will be destroyed\nAll their products will be in our direct control");
+                NotificationUtils.AddSimplePopup(gameContext, Visuals.Positive("You've bought GROUP company " + company.company.Name), "We will INDIRECTLY control all their products");
 
-                CloseCompany(gameContext, company);
+                //CloseCompany(gameContext, company);
             }
         }
     }

@@ -20,10 +20,8 @@
             }
         }
 
-        public static int PromoteProductCompanyToGroup(GameContext context, int companyId)
+        public static int PromoteProductCompanyToGroup(GameContext context, GameEntity product)
         {
-            var product = Get(context, companyId);
-
             if (!product.isIndependentCompany)
                 return -1;
 
@@ -34,7 +32,7 @@
             var name = product.company.Name;
 
             var futureName = Enums.GetShortNicheName(product.product.Niche);
-            var group = GenerateCompanyGroup(context, futureName + " Group", companyId);
+            var group = GenerateCompanyGroup(context, futureName + " Group", product);
             int companyGroupId = group.company.Id;
             //int companyGroupId = GenerateCompanyGroup(context, futureName + " Group", companyId).company.Id;
 

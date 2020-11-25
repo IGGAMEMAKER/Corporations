@@ -254,7 +254,7 @@ public class RestoreGameStateAfterRecompilation : View
         AddShareholder(alphabet, investorId1, 100);
         AddShareholder(alphabet, investorId2, 200);
 
-        int googleGroupId = PromoteToGroup(google.company.Id);
+        int googleGroupId = PromoteToGroup(google);
 
         var facebookInc = GenerateHoldingCompany("Facebook Inc");
         AttachToHolding(facebookInc, facebook);
@@ -372,9 +372,9 @@ public class RestoreGameStateAfterRecompilation : View
         Companies.AddShares(company, investorId, shares);
     }
 
-    int PromoteToGroup(int companyId)
+    int PromoteToGroup(GameEntity company)
     {
-        return Companies.PromoteProductCompanyToGroup(Q, companyId);
+        return Companies.PromoteProductCompanyToGroup(Q, company);
     }
 
     long GetRandomFundSize(int min, int max)

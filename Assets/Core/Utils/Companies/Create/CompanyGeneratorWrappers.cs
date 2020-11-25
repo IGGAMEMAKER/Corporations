@@ -27,20 +27,17 @@ namespace Assets.Core
             return CreateCompany(context, name, companyType, new Dictionary<int, BlockOfShares>(), CEO);
         }
 
-        public static GameEntity GenerateCompanyGroup(GameContext context, string name, int FormerProductCompany)
+        public static GameEntity GenerateCompanyGroup(GameContext context, string name, GameEntity FormerProductCompany)
         {
-            var c = GenerateCompanyGroup(context, name);
+            var group = GenerateCompanyGroup(context, name);
 
-            CopyShareholders(context, FormerProductCompany, c.company.Id);
+            CopyShareholders(context, FormerProductCompany, group);
 
-            return c;
+            return group;
         }
 
-        public static void CopyShareholders(GameContext gameContext, int from, int to)
+        public static void CopyShareholders(GameContext gameContext, GameEntity From, GameEntity To)
         {
-            var From = Get(gameContext, from);
-            var To = Get(gameContext, to);
-
             ReplaceShareholders(To, From.shareholders.Shareholders);
         }
 
@@ -89,25 +86,6 @@ namespace Assets.Core
 
             return c;
         }
-
-        // TODO remove
-        public static void SetFounderAmbitionDueToMarketSize(GameEntity company, GameContext gameContext)
-        {
-            var niche = Markets.Get(gameContext, company.product.Niche);
-            var rating = Markets.GetMarketPotentialRating(niche);
-
-
-            var rand = UnityEngine.Random.Range(1f, 2f) * 5;
-
-            // 5...25
-            var ambition = 65 + Mathf.Clamp(rating * rand, 0, 30);
-            var CeoId = GetCEOId(company);
-
-            var ceo = Humans.Get(gameContext, CeoId);
-
-            Humans.SetTrait(ceo, Trait.Ambitious, (int)ambition);
-        }
-
 
         public static void AutoFillShareholders(GameContext gameContext, GameEntity c, bool founderOnly)
         {
