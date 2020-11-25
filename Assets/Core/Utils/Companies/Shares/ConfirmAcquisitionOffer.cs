@@ -55,10 +55,7 @@ namespace Assets.Core
                     AttachToGroup(gameContext, buyer, d);
                     //TransferCompany(gameContext, d, company);
                 }
-            }
 
-            if (IsGroup(company))
-            {
                 // and close group
                 NotificationUtils.AddSimplePopup(gameContext, Visuals.Positive("You've bought GROUP company " + company.company.Name), "The group will be destroyed\nAll their products will be in our direct control");
 
