@@ -43,7 +43,7 @@
             foreach (var daughter in GetDaughters(gameContext, group))
             {
                 if (daughter.company.Id == target.company.Id)
-                    shares += GetShareSize(gameContext, target, group.shareholder.Id);
+                    shares += GetShareSize(gameContext, target, group);
 
                 if (!daughter.hasProduct)
                     shares += GetControlInCompany(daughter, target, gameContext);

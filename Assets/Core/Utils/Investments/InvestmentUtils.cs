@@ -26,7 +26,7 @@ namespace Assets.Core
                     //companyId = company.company.Id,
                     company = company,
 
-                    control = Companies.GetShareSize(context, company, entity.shareholder.Id),
+                    control = Companies.GetShareSize(context, company, entity),
 
                     holdings = recursively ? GetHoldings(context, company, recursively) : new List<CompanyHolding>()
                 };

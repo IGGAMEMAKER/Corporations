@@ -4,11 +4,6 @@ namespace Assets.Core
 {
     public static partial class Companies
     {
-        public static bool IsCompanyWillAcceptCorporationOffer(GameContext gameContext, GameEntity company, int buyerInvestorId)
-        {
-            return GetCorporationOfferProgress(gameContext, company, buyerInvestorId) > 75 - GetShareSize(gameContext, company, buyerInvestorId);
-        }
-
         public static bool IsShareholderWillAcceptCorporationOffer(GameEntity company, int shareholderId, GameContext gameContext)
         {
             // costs

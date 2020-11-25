@@ -18,7 +18,7 @@ public class FullShareholdersListView : ListView
         base.ViewRender();
 
         var shareholders = Companies.GetShareholders(SelectedCompany)
-            .OrderByDescending(s => Companies.GetAmountOfShares(Q, SelectedCompany, s.Key));
+            .OrderByDescending(s => Companies.GetAmountOfShares(Q, SelectedCompany, Companies.GetInvestorById(Q, s.Key)));
 
         SetItems(shareholders);
     }

@@ -4,7 +4,7 @@
     {
         public static bool IsCompanyWillAcceptAcquisitionOffer(GameContext gameContext, GameEntity company, GameEntity buyer)
         {
-            return GetOfferProgress(gameContext, company, buyer) > 75 - GetShareSize(gameContext, company, buyer.shareholder.Id);
+            return GetOfferProgress(gameContext, company, buyer) > 75 - GetShareSize(gameContext, company, buyer);
         }
 
         public static bool IsShareholderWillAcceptAcquisitionOffer(AcquisitionOfferComponent ackOffer, int shareholderId, GameContext gameContext)

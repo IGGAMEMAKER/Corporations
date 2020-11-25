@@ -8,16 +8,9 @@ namespace Assets.Core
     {
         public static void ConfirmAcquisitionOffer(GameContext gameContext, GameEntity company, GameEntity buyer)
         {
-            try
-            {
-                var offer = GetAcquisitionOffer(gameContext, company, buyer);
+            var offer = GetAcquisitionOffer(gameContext, company, buyer);
 
-                BuyCompany(gameContext, company, buyer, offer.acquisitionOffer.BuyerOffer.Price);
-            }
-            catch (Exception ex)
-            {
-                Debug.LogError("Error in ConfirOffer");
-            }
+            BuyCompany(gameContext, company, buyer, offer.acquisitionOffer.BuyerOffer.Price);
         }
 
         public static void BuyCompany(GameContext gameContext, GameEntity company, GameEntity buyer, long offer) //  int buyerInvestorId

@@ -46,10 +46,11 @@ public class ShareholderView : View
         
         Type.text = Investments.GetFormattedInvestorType(shareholder.shareholder.InvestorType);
 
-        Share.text = Companies.GetShareSize(Q, company, investorId) + "%";
+        Share.text = Companies.GetShareSize(Q, company, shareholder) + "%";
+        //Share.text = Companies.GetShareSize(Q, company, investorId) + "%";
 
-        //BuyShares.gameObject.SetActive(investorId != MyGroupEntity?.shareholder?.Id);
+        ////BuyShares.gameObject.SetActive(investorId != MyGroupEntity?.shareholder?.Id);
 
-        //BuyShares.gameObject.GetComponent<LinkToBuyShares>().SetInvestorId(investorId);
+        ////BuyShares.gameObject.GetComponent<LinkToBuyShares>().SetInvestorId(investorId);
     }
 }

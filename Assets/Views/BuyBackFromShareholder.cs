@@ -23,7 +23,7 @@ public class BuyBackFromShareholder : ButtonView
         var shareholder = Companies.GetInvestorById(Q, ShareholderId);
 
         var portionSize = Companies.GetPortionSize(Q, MyCompany, shareholder, 1);
-        var portionCost = Companies.GetSharesCost(Q, MyCompany, ShareholderId, portionSize);
+        var portionCost = Companies.GetSharesCost(Q, MyCompany, shareholder, portionSize);
 
         productUpgradeLinks.Title.text = "<b>Buy back 1%</b>\nfor " + Format.Money(portionCost);
     }

@@ -7,9 +7,7 @@ namespace Assets.Core
     {
         public static void BuyShares(GameContext context, GameEntity company, GameEntity buyer, GameEntity seller, int amountOfShares, long offer, bool comparedToShareSize)
         {
-            int sellerInvestorId = seller.shareholder.Id;
-
-            var shareSize = GetShareSize(context, company, sellerInvestorId);
+            var shareSize = GetShareSize(context, company, seller);
 
             BuyShares(context, company, buyer, seller, amountOfShares, offer * shareSize / 100);
         }
@@ -24,7 +22,7 @@ namespace Assets.Core
 
             // buy all
             if (amountOfShares == -1)
-                amountOfShares = GetAmountOfShares(context, company, sellerInvestorId);
+                amountOfShares = GetAmountOfShares(context, company, seller);
 
             if (company.hasShareholder && buyerInvestorId == company.shareholder.Id)
             {
@@ -41,7 +39,7 @@ namespace Assets.Core
 
         public static int GetPortionSize(GameContext gameContext, GameEntity company, GameEntity seller, int percent)
         {
-            var shares = GetAmountOfShares(gameContext, company, seller.shareholder.Id);
+            var shares = GetAmountOfShares(gameContext, company, seller);
 
             var totalShares = GetTotalShares(company);
 
@@ -62,10 +60,11 @@ namespace Assets.Core
             BuyBack(context, company, sellerInvestorId, portion);
         }
 
-        public static void BuyBack(GameContext context, GameEntity company, GameEntity investor, int amountOfShares)
+        public static void BuyBack(GameContext context, GameEntity company, GameEntity seller, int amountOfShares)
         {
-            var sellerInvestorId = investor.shareholder.Id;
-            var bid = GetSharesCost(context, company, sellerInvestorId, amountOfShares);
+            // TODO BUYBACK
+            var sellerInvestorId = seller.shareholder.Id;
+            var bid = GetSharesCost(context, company, seller, amountOfShares);
 
             Debug.Log($"Buy Back! {amountOfShares} shares of {company.company.Name} for ${bid}");
             var cost = bid;
@@ -73,7 +72,7 @@ namespace Assets.Core
             if (!IsEnoughResources(company, cost))
                 return;
 
-            Debug.Log($"Seller: {GetInvestorName(investor)}");
+            Debug.Log($"Seller: {GetInvestorName(seller)}");
 
             var b = company.shareholders.Shareholders[sellerInvestorId]; //.amount -= amountOfShares;
 
@@ -82,10 +81,10 @@ namespace Assets.Core
             company.shareholders.Shareholders[sellerInvestorId] = b;
 
             if (b.amount <= 0)
-                RemoveShareholder(company, context, investor);
+                RemoveShareholder(company, context, seller);
 
             Companies.SpendResources(company, cost, "Buy back");
-            Companies.AddResources(investor, bid, "Buy back");
+            Companies.AddResources(seller, bid, "Buy back");
         }
     }
 }

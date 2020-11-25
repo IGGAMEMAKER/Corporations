@@ -10,11 +10,12 @@ namespace Assets.Core
             foreach (var s in company.shareholders.Shareholders)
             {
                 var investorId = s.Key;
-                var sharePercentage = GetShareSize(gameContext, company, investorId);
+                
+                var investor = GetInvestorById(gameContext, investorId);
+                var sharePercentage = GetShareSize(gameContext, company, investor);
 
                 var sum = dividends * sharePercentage / 100;
 
-                var investor = GetInvestorById(gameContext, investorId);
                 AddResources(investor, sum, "Pay dividends");
             }
 

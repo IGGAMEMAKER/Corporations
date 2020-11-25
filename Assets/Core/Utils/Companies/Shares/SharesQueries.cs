@@ -47,23 +47,20 @@ namespace Assets.Core
             return shareholders;
         }
 
-        public static int GetAmountOfShares(GameContext context, GameEntity c, int investorId)
+        public static bool IsInvestsInCompany(GameEntity company, GameEntity investor) => Investments.IsInvestsInCompany(investor, company);
+
+        public static int GetAmountOfShares(GameContext context, GameEntity c, GameEntity investor)
         {
             var shareholders = c.shareholders.Shareholders;
 
-            return IsInvestsInCompany(c, investorId) ? shareholders[investorId].amount : 0;
+            return IsInvestsInCompany(c, investor) ? shareholders[investor.shareholder.Id].amount : 0;
         }
 
-        public static bool IsInvestsInCompany(GameEntity company, GameEntity investor) => Investments.IsInvestsInCompany(investor, company);
-        public static bool IsInvestsInCompany(GameEntity company, int investorId)
-        {
-            return Investments.IsInvestsInCompany(investorId, company);
-        }
 
         //public static int GetShareSize(GameContext context, int companyId, int investorId) 
-        public static int GetShareSize(GameContext context, GameEntity c, int investorId)
+        public static int GetShareSize(GameContext context, GameEntity c, GameEntity investor)
         {
-            int shares = GetAmountOfShares(context, c, investorId);
+            int shares = GetAmountOfShares(context, c, investor);
             int total = GetTotalShares(c);
 
             if (total == 0)
@@ -71,9 +68,9 @@ namespace Assets.Core
 
             return shares * 100 / total;
         }
-        public static float GetExactShareSize(GameContext context, GameEntity c, int investorId)
+        public static float GetExactShareSize(GameContext context, GameEntity c, GameEntity investor)
         {
-            int shares = GetAmountOfShares(context, c, investorId);
+            int shares = GetAmountOfShares(context, c, investor);
             int total = GetTotalShares(c);
 
             if (total == 0)
@@ -82,10 +79,10 @@ namespace Assets.Core
             return shares * 100f / total;
         }
 
-        public static long GetSharesCost(GameContext context, GameEntity c, int investorId, int shares = -1)
+        public static long GetSharesCost(GameContext context, GameEntity c, GameEntity investor, int shares = -1)
         {
             if (shares == -1)
-                shares = GetAmountOfShares(context, c, investorId);
+                shares = GetAmountOfShares(context, c, investor);
 
             int total = GetTotalShares(c);
 
