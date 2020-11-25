@@ -8,6 +8,7 @@ public class CompetitionPanelView : View
     public GameObject ShowCompaniesButton;
 
     public GameObject CompaniesPanel;
+    public GameObject DaughterCompaniesPanel;
     public GameObject PositioningPanel;
 
 
@@ -33,5 +34,6 @@ public class CompetitionPanelView : View
 
         Draw(PositioningPanel, tg);
         Draw(CompaniesPanel, !tg);
+        Draw(DaughterCompaniesPanel, !tg);
     }
 }

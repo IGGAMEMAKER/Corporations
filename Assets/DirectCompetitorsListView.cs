@@ -1,6 +1,7 @@
 ﻿using Assets.Core;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class DirectCompetitorsListView : ListView
@@ -14,6 +15,6 @@ public class DirectCompetitorsListView : ListView
     {
         base.ViewRender();
 
-        SetItems(Companies.GetDirectCompetitors(Flagship, Q, true));
+        SetItems(Companies.GetDirectCompetitors(Flagship, Q, true).OrderByDescending(c => Economy.CostOf(c, Q)));
     }
 }

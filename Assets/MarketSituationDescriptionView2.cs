@@ -27,7 +27,7 @@ public class MarketSituationDescriptionView2 : ParameterView
                 return Visuals.Negative($"You lose {churnGained}% of your audience, cause your product ({(int)quality}) is outdated ({(int)maxQuality})");
             }
 
-            return "";
+            return $"which are also making {Marketing.GetPositioningName(company)}";
         }
     }
 }

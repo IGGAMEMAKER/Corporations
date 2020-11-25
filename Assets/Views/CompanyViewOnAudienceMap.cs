@@ -45,9 +45,16 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
         RenderUsers();
         RenderGrowth();
 
+        BlinkDaughterCompanyIfThereAreTroublesWithLoyalty();
+
         LinkToProjectView.CompanyId = c.company.Id;
 
         CompanyHint.SetHint(GetCompanyHint(hasControl));
+    }
+
+    void BlinkDaughterCompanyIfThereAreTroublesWithLoyalty()
+    {
+        GetComponent<Blinker>().enabled = company.isFlagship && Marketing.GetAppQuality(company) < 0;
     }
 
     void RenderLoyalty()
@@ -81,7 +88,7 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
         var growth = Marketing.GetAudienceChange(company, Q, true);
         var growthSum = growth.Sum();
 
-        Growth.text = Visuals.PositiveOrNegativeMinified(growthSum) + " users";
+        Growth.text = Visuals.PositiveOrNegativeMinified(growthSum);// + " users";
         Growth.GetComponent<Hint>().SetHint("Users will change by " + Visuals.Colorize(growth.Sum()) + " because " + growth.ToString());
     }
 
@@ -165,13 +172,20 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
 
         StringBuilder hint = new StringBuilder($"<size=35>{Visuals.Colorize(company.company.Name, hasControl ? Colors.COLOR_CONTROL : Colors.COLOR_NEUTRAL)}</size>");
 
+        if (hasControl)
+            hint.AppendLine(Visuals.Colorize("\n\nYour company", Colors.COLOR_CONTROL));
+
         hint.AppendLine($"\n\nUsers: <b>{Format.Minify(clients)}</b>");
         hint.AppendLine($"{Visuals.Colorize(changeFormatted, change >=0)}\n");
         //hint.AppendLine($"Users: <b>{Format.Minify(clients)}</b> {Visuals.Colorize(changeFormatted, change >=0)}\n");
         //hint.AppendLine(RenderStars("Product", techStars));
 
         //hint.AppendLine();
-        hint.AppendLine(RenderStars("Company strength", productStrength));
+
+        hint.AppendLine($"\n\nApp quality: <size=25><b>{Visuals.Colorize((long)Marketing.GetAppQuality(company))}</b></size>");
+        // STRENGTH
+        //hint.AppendLine(RenderStars("Company strength", productStrength));
+        
         //hint.AppendLine(RenderStars("Budget", budgetStars));
 
         //hint.AppendLine();

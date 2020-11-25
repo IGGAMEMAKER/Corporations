@@ -55,6 +55,11 @@ namespace Assets.Core
                 ;
         }
 
+        public static float GetAppQuality(GameEntity product)
+        {
+            return GetPositioningQuality(product).Sum();
+        }
+
         public static Bonus<float> GetPositioningQuality(GameEntity product) => GetPositioningQuality(product, GetPositioning(product));
         public static Bonus<float> GetPositioningQuality(GameEntity product, ProductPositioning positioning)
         {
