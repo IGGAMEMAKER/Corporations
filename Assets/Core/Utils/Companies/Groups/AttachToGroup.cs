@@ -23,31 +23,9 @@ namespace Assets.Core
                 AddFocusIndustry(industry, parent);
             }
 
+            // TODO why not make it with transfer shares function?
             RemoveAllShareholders(context, daughter);
             AddShares(daughter, parent, 100);
-
-            //AddOwning(parent, daughter.company.Id);
-
-
-            //var shareholders = new Dictionary<int, BlockOfShares>
-            //{
-            //    {
-            //        parent.shareholder.Id,
-            //        new BlockOfShares
-            //        {
-            //            amount = 100,
-            //            InvestorType = InvestorType.Strategic,
-            //            shareholderLoyalty = 100,
-
-            //            Investments = new List<Investment>()
-            //        }
-            //    }
-            //};
-
-            //if (daughter.hasShareholders)
-            //    daughter.ReplaceShareholders(shareholders);
-            //else
-            //    daughter.AddShareholders(shareholders);
 
             SetIndependence(daughter, false);
         }

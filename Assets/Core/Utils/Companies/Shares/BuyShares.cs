@@ -30,7 +30,7 @@ namespace Assets.Core
                 return;
             }
 
-            TransferShares(context, company, buyerInvestorId, sellerInvestorId, amountOfShares, bid);
+            TransferShares(context, company, buyer, seller, amountOfShares, bid);
 
 
             SpendResources(buyer, bid, "Buy Shares of " + company.company.Name);

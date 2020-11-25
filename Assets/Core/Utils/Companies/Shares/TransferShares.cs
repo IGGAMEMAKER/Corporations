@@ -5,27 +5,17 @@ namespace Assets.Core
 {
     partial class Companies
     {
-        public static void TransferShares(GameContext context, GameEntity company, int buyerInvestorId, int sellerInvestorId, int amountOfShares, long bid)
+        public static void TransferShares(GameContext context, GameEntity company, GameEntity buyer, GameEntity seller, int amountOfShares, long bid)
         {
             Companies.Log(company, $"Buy {amountOfShares} shares of {company.company.Name} for ${bid}");
-            Companies.Log(company, $"Buyer: {GetInvestorName(context, buyerInvestorId)}");
-            Companies.Log(company, $"Seller: {GetInvestorName(context, sellerInvestorId)}");
+            Companies.Log(company, $"Buyer: {GetInvestorName(buyer)}");
+            Companies.Log(company, $"Seller: {GetInvestorName(seller)}");
 
-            AddShares(company, GetInvestorById(context, buyerInvestorId), amountOfShares);
+            AddShares(company, buyer, amountOfShares);
 
-            DecreaseShares(context, company, sellerInvestorId, amountOfShares);
+            DecreaseShares(context, company, seller, amountOfShares);
 
             Companies.Log(company, "Transferred");
-        }
-
-        // not used
-        public static void TransferCompany(GameContext gameContext, GameEntity company, GameEntity buyer)
-        {
-            // TODO why not make it with transfer shares function?
-            RemoveAllShareholders(gameContext, company);
-
-            // set new shareholder
-            AddShares(company, buyer, 100);
         }
 
         public static void AddShares(GameEntity company, GameEntity investor, int shares)
@@ -63,10 +53,10 @@ namespace Assets.Core
             ReplaceShareholders(company, shareholders);
         }
 
-        public static void DecreaseShares(GameContext gameContext, GameEntity company, int investorId, int shares)
+        public static void DecreaseShares(GameContext gameContext, GameEntity company, GameEntity shareholder, int shares)
         {
             var shareholders = company.shareholders.Shareholders;
-            var shareholder = Investments.GetInvestor(gameContext, investorId);
+            int investorId = shareholder.shareholder.Id;
 
             var prev = shareholders[investorId];
 
@@ -79,6 +69,7 @@ namespace Assets.Core
                 return;
             }
 
+            // decrease shares otherwise
             shareholders[investorId] = new BlockOfShares
             {
                 amount = prev.amount - shares,
