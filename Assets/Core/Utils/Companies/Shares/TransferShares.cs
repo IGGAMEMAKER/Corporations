@@ -40,10 +40,6 @@ namespace Assets.Core
             ReplaceShareholders(company, shareholders);
         }
 
-
-
-
-
         public static void DecreaseShares(GameContext gameContext, GameEntity company, int investorId, int shares)
         {
             var shareholders = company.shareholders.Shareholders;
@@ -68,6 +64,19 @@ namespace Assets.Core
             };
 
             ReplaceShareholders(company, shareholders);
+        }
+
+        public static void RemoveAllShareholders(GameContext gameContext, GameEntity company)
+        {
+            //var shareholders = GetShareholders(company);
+            //int[] array = new int[company.shareholders.Shareholders.Keys.Count];
+            //shareholders.Keys.CopyTo(array, 0);
+
+            // remove old shareholders
+            foreach (var sellerInvestorId in GetShareholdersCopy(company))
+            {
+                RemoveShareholder(company, gameContext, GetInvestorById(gameContext, sellerInvestorId));
+            }
         }
 
         public static void RemoveShareholder(GameEntity company, GameContext gameContext, GameEntity investor)
@@ -95,19 +104,6 @@ namespace Assets.Core
             DecreaseShares(context, company, sellerInvestorId, amountOfShares);
 
             Companies.Log(company, "Transferred");
-        }
-
-        public static void RemoveAllShareholders(GameContext gameContext, GameEntity company)
-        {
-            //var shareholders = GetShareholders(company);
-            //int[] array = new int[company.shareholders.Shareholders.Keys.Count];
-            //shareholders.Keys.CopyTo(array, 0);
-
-            // remove old shareholders
-            foreach (var sellerInvestorId in GetShareholdersCopy(company))
-            {
-                RemoveShareholder(company, gameContext, GetInvestorById(gameContext, sellerInvestorId));
-            }
         }
 
         public static void TransferCompany(GameContext gameContext, GameEntity company, GameEntity buyer)
