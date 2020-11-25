@@ -8,14 +8,14 @@ public class RenderCompanyName : UpgradedParameterView
     public override string RenderValue()
     {
         var company = SelectedCompany;
-        bool isRelatedToPlayer = Companies.IsRelatedToPlayer(Q, company);
+        bool isRelatedToPlayer = Companies.IsRelatedToPlayer(Q, company) || Companies.HasControlInCompany(MyCompany, company, Q);
 
         var color = isRelatedToPlayer ? Colors.COLOR_COMPANY_WHERE_I_AM_CEO : Colors.COLOR_COMPANY_WHERE_I_AM_NOT_CEO;
         
 
         var status = Enums.GetFormattedCompanyType(company.company.CompanyType);
 
-        return Visuals.Colorize(company.company.Name, color) + $" ({status})";
+        return Visuals.Colorize(company.company.Name, color) + $"#{company.creationIndex} ({status})";
     }
 
     //void OnEnable()

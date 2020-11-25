@@ -19,8 +19,9 @@ public class BusinessButtonsController : View
 
         bool canBePartnersTheoretically = Companies.IsCanBePartnersTheoretically(MyCompany, SelectedCompany);
 
-        bool isRelatedToPlayer = Companies.IsRelatedToPlayer(Q, SelectedCompany); // CompanyUtils.IsDaughterOfCompany(MyGroupEntity, SelectedCompany) || SelectedCompany == MyCompany;
         bool isDaughter = Companies.IsDaughterOf(MyCompany, SelectedCompany);
+
+        bool isRelatedToPlayer = Companies.IsRelatedToPlayer(Q, SelectedCompany);
 
         bool nonFlagshipDaughter = isDaughter && !SelectedCompany.isFlagship;
 
@@ -38,7 +39,8 @@ public class BusinessButtonsController : View
         Draw(CloseCompany, nonFlagshipDaughter);
 
         // other companies
-        AcquireCompany.SetActive(!isRelatedToPlayer);
+        bool possibleToBuy = Companies.IsTheoreticallyPossibleToBuy(Q, MyCompany, SelectedCompany);
+        Draw(AcquireCompany, !isRelatedToPlayer && possibleToBuy);
 
         JoinCorporation.SetActive(false && !isRelatedToPlayer && isCorporation);
 

@@ -51,5 +51,10 @@
 
             return shares;
         }
+
+        public static bool HasControlInCompany(GameEntity group, GameEntity target, GameContext gameContext)
+        {
+            return GetControlInCompany(group, target, gameContext) > 0;
+        }
     }
 }

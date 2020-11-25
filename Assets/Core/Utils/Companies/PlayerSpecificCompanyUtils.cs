@@ -16,5 +16,15 @@ namespace Assets.Core
 
             return company.isControlledByPlayer || IsDaughterOf(playerCompany, company);
         }
+
+        public static bool IsTheoreticallyPossibleToBuy(GameContext gameContext, GameEntity buyer, GameEntity target)
+        {
+            return !HasControlInCompany(buyer, target, gameContext);
+
+            //foreach (var owning in Investments.GetOwnings(gameContext, buyer))
+            //{
+
+            //}
+        }
     }
 }
