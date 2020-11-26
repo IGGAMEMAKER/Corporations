@@ -501,10 +501,10 @@ public class InvestmentGoalOutcompeteByIncome : InvestmentGoal
     public int CompanyId;
     public string CompetitorName;
 
-    public InvestmentGoalOutcompeteByIncome(int id, string name) : base(InvestorGoalType.OutcompeteCompanyByIncome)
+    public InvestmentGoalOutcompeteByIncome(GameEntity company) : base(InvestorGoalType.OutcompeteCompanyByIncome)
     {
-        CompanyId = id;
-        CompetitorName = name;
+        CompanyId = company.company.Id;
+        CompetitorName = company.company.Name;
     }
 
     public override string GetFormattedName() => "Outcompete " + CompetitorName + " by income";
@@ -531,10 +531,10 @@ public class InvestmentGoalOutcompeteByUsers : InvestmentGoal
     public int CompanyId;
     public string CompetitorName;
 
-    public InvestmentGoalOutcompeteByUsers(int id, string name) : base(InvestorGoalType.OutcompeteCompanyByUsers)
+    public InvestmentGoalOutcompeteByUsers(GameEntity company) : base(InvestorGoalType.OutcompeteCompanyByUsers)
     {
-        CompanyId = id;
-        CompetitorName = name;
+        CompanyId = company.company.Id;
+        CompetitorName = company.company.Name;
     }
 
     public override string GetFormattedName() => "Outcompete " + CompetitorName + " by users";
@@ -561,10 +561,10 @@ public class InvestmentGoalOutcompeteByCost : InvestmentGoal
     public int CompanyId;
     public string CompetitorName;
 
-    public InvestmentGoalOutcompeteByCost(int id, string name) : base(InvestorGoalType.OutcompeteCompanyByCost)
+    public InvestmentGoalOutcompeteByCost(GameEntity company) : base(InvestorGoalType.OutcompeteCompanyByCost)
     {
-        CompanyId = id;
-        CompetitorName = name;
+        CompanyId = company.company.Id;
+        CompetitorName = company.company.Name;
     }
 
     public override string GetFormattedName() => "Outcompete " + CompetitorName + " by cost";
@@ -652,10 +652,10 @@ public class InvestmentGoalAcquireCompany : InvestmentGoal
     public int CompanyId;
     public string CompetitorName;
 
-    public InvestmentGoalAcquireCompany(int id, string name) : base(InvestorGoalType.AcquireCompany)
+    public InvestmentGoalAcquireCompany(GameEntity company) : base(InvestorGoalType.AcquireCompany)
     {
-        CompanyId = id;
-        CompetitorName = name;
+        CompanyId = company.company.Id;
+        CompetitorName = company.company.Name;
     }
 
     public override string GetFormattedName() => "Acquire " + CompetitorName + "!";

@@ -11,8 +11,8 @@ namespace Assets.Core
 
             var unknown = new InvestmentGoalUnknown(goalType);
 
-            var strongerOpponent = Companies.GetStrongerCompetitor(company, gameContext);
-            var weakerOpponent = Companies.GetWeakerCompetitor(company, gameContext);
+            var strongerOpponent = Companies.GetStrongerCompetitor(company, gameContext, true);
+            var weakerOpponent = Companies.GetWeakerCompetitor(company, gameContext, true);
 
             if (goalType == InvestorGoalType.OutcompeteCompanyByIncome 
                 || goalType == InvestorGoalType.OutcompeteCompanyByCost 
@@ -43,16 +43,17 @@ namespace Assets.Core
 
                 case InvestorGoalType.BecomeProfitable:         return new InvestmentGoalBecomeProfitable(income);
 
-                case InvestorGoalType.GrowIncome:               return new InvestmentGoalGrowProfit(Economy.GetIncome(gameContext, company) * 3 / 2);
-                case InvestorGoalType.GrowUserBase:             return new InvestmentGoalGrowAudience(Marketing.GetUsers(company) * 2);
-                case InvestorGoalType.GrowCompanyCost:          return new InvestmentGoalGrowCost(Economy.CostOf(company, gameContext) * 2);
-                case InvestorGoalType.GainMoreSegments:         return new InvestmentGoalMoreSegments(Marketing.GetAmountOfTargetAudiences(company) + 1);
+                case InvestorGoalType.GrowIncome:               return new InvestmentGoalGrowProfit     (Economy.GetIncome(gameContext, company) * 3 / 2);
+                case InvestorGoalType.GrowUserBase:             return new InvestmentGoalGrowAudience   (Marketing.GetUsers(company) * 2);
+                case InvestorGoalType.GrowCompanyCost:          return new InvestmentGoalGrowCost       (Economy.CostOf(company, gameContext) * 2);
+                case InvestorGoalType.GainMoreSegments:         return new InvestmentGoalMoreSegments   (Marketing.GetAmountOfTargetAudiences(company) + 1);
 
-                case InvestorGoalType.OutcompeteCompanyByIncome:    return new InvestmentGoalOutcompeteByIncome(strongerOpponent.company.Id, strongerOpponent.company.Name);
-                case InvestorGoalType.OutcompeteCompanyByUsers:     return new InvestmentGoalOutcompeteByUsers(strongerOpponent.company.Id, strongerOpponent.company.Name);
-                case InvestorGoalType.OutcompeteCompanyByCost:      return new InvestmentGoalOutcompeteByCost(strongerOpponent.company.Id, strongerOpponent.company.Name);
+                case InvestorGoalType.OutcompeteCompanyByIncome:    return new InvestmentGoalOutcompeteByIncome(strongerOpponent);
+                case InvestorGoalType.OutcompeteCompanyByUsers:     return new InvestmentGoalOutcompeteByUsers(strongerOpponent);
+                case InvestorGoalType.OutcompeteCompanyByCost:      return new InvestmentGoalOutcompeteByCost(strongerOpponent);
 
-                case InvestorGoalType.AcquireCompany:               return new InvestmentGoalAcquireCompany(weakerOpponent.company.Id, weakerOpponent.company.Name);
+                case InvestorGoalType.AcquireCompany:               return new InvestmentGoalAcquireCompany(weakerOpponent);
+
                 case InvestorGoalType.DominateMarket:               return new InvestmentGoalDominateMarket(MainMarket);
                 case InvestorGoalType.BuyBack:                      return new InvestmentGoalBuyBack();
 
@@ -77,7 +78,7 @@ namespace Assets.Core
             }
             else
             {
-                Companies.Log(executor, "ADD GOAL " + goal.GetFormattedName() + " as company");
+                Companies.Log(executor, "ADD GOAL " + goal.GetFormattedName() + " as executor && controller");
                 AddCompanyGoal2(executor, goal);
             }
         }

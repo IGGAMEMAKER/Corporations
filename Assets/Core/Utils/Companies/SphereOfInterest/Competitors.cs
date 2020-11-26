@@ -44,12 +44,12 @@ namespace Assets.Core
         }
 
 
-        public static List<GameEntity> GetSortedCompetitors(GameEntity company, GameContext gameContext, ref int index)
+        public static List<GameEntity> GetSortedCompetitors(GameEntity company, GameContext gameContext, ref int index, bool directCompetitors)
         {
             // first - Strong
             // last - Weak
 
-            var competitors = GetCompetitorsOf(company, gameContext, true)
+            var competitors = (directCompetitors ? GetDirectCompetitors(company, gameContext, true) : GetCompetitorsOf(company, gameContext, true))
         .OrderByDescending(c => Economy.CostOf(c, gameContext))
         .ToList();
 
@@ -58,10 +58,11 @@ namespace Assets.Core
             return competitors;
         }
 
-        public static GameEntity GetStrongerCompetitor(GameEntity company, GameContext gameContext)
+        //public static GameEntity GetStrongerCompetitor(GameEntity company, GameContext gameContext, bool directCompetitor)
+        public static GameEntity GetStrongerCompetitor(GameEntity company, GameContext gameContext, bool preferDirectCompetitor)
         {
             int index = 0;
-            var competitors = GetSortedCompetitors(company, gameContext, ref index);
+            var competitors = GetSortedCompetitors(company, gameContext, ref index, preferDirectCompetitor);
 
             if (index == 0)
                 return null;
@@ -69,10 +70,10 @@ namespace Assets.Core
             return competitors[index - 1];
         }
 
-        public static GameEntity GetWeakerCompetitor(GameEntity company, GameContext gameContext)
+        public static GameEntity GetWeakerCompetitor(GameEntity company, GameContext gameContext, bool directCompetitor)
         {
             int index = 0;
-            var competitors = GetSortedCompetitors(company, gameContext, ref index);
+            var competitors = GetSortedCompetitors(company, gameContext, ref index, directCompetitor);
 
             if (index + 1 >= competitors.Count)
                 return null;
