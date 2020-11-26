@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -18,15 +19,15 @@ namespace Assets.Core
             //int index = 0;
             //var sortedCompetitors = Companies.GetSortedCompetitors(company, Q, ref index, false);
 
-            var numeratedCompetitors = Companies.GetCompetitorsOf(company, Q, false).Select((c, i) => new { c, i, cost = Economy.CostOf(c, Q) });
+            var numeratedCompetitors = Companies.GetCompetitorsOf(company, Q, true).Select((c, i) => new { c, i, cost = Economy.CostOf(c, Q) });
 
             var nn = numeratedCompetitors.First(nc => nc.c.company.Id == company.company.Id);
 
             var strongerCompetitors = numeratedCompetitors.Where(nc1 => nc1.cost > nn.cost).Select(nc1 => nc1.c);
-            var weakerCompetitors = numeratedCompetitors.Where(nc1 => nc1.cost < nn.cost).Select(nc1 => nc1.c);
+            var weakerCompetitors   = numeratedCompetitors.Where(nc1 => nc1.cost < nn.cost).Select(nc1 => nc1.c);
 
             var strongerDirectCompetitors = strongerCompetitors.Where(cc => Companies.IsDirectCompetitor(cc, nn.c));
-            var weakerDirectCompetitors = weakerCompetitors.Where(cc => Companies.IsDirectCompetitor(cc, nn.c));
+            var weakerDirectCompetitors     = weakerCompetitors.Where(cc => Companies.IsDirectCompetitor(cc, nn.c));
 
             // ----------------------------------------
 
@@ -61,11 +62,26 @@ namespace Assets.Core
                     Debug.LogError("Is group");
                 }
 
-                goals.AddRange(GetWrappedGroupGoals(company, Q, strongerCompetitors, weakerCompetitors, strongerDirectCompetitors, weakerDirectCompetitors));
+                try
+                {
+                    goals.AddRange(GetWrappedGroupGoals(company, Q, strongerCompetitors, weakerCompetitors, strongerDirectCompetitors, weakerDirectCompetitors));
+                }
+                catch
+                {
+                    Debug.LogError("Tried to add group goals, but failed");
+                }
+
             }
 
             // both
-            goals.AddRange(GetWrappedCommonGoals(company, Q, strongerCompetitors, weakerCompetitors, strongerDirectCompetitors, weakerDirectCompetitors));
+            try
+            {
+                goals.AddRange(GetWrappedCommonGoals(company, Q, strongerCompetitors, weakerCompetitors, strongerDirectCompetitors, weakerDirectCompetitors));
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("added common goals " + ex);
+            }
 
             return goals;
         }

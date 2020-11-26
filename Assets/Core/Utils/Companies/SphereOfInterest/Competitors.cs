@@ -21,7 +21,7 @@ namespace Assets.Core
             return competitors.Where(c => c.productPositioning.Positioning == positioningID);
         }
 
-        public static bool IsDirectCompetitor(GameEntity c1, GameEntity c2) => c1.productPositioning.Positioning == c2.productPositioning.Positioning && c1.product.Niche == c2.product.Niche;
+        public static bool IsDirectCompetitor(GameEntity c1, GameEntity c2) => c1.hasProduct && c2.hasProduct && c1.productPositioning.Positioning == c2.productPositioning.Positioning && c1.product.Niche == c2.product.Niche;
 
         public static IEnumerable<GameEntity> GetCompetitorsOf(GameEntity company, GameContext gameContext, bool includeSelf = false)
         {

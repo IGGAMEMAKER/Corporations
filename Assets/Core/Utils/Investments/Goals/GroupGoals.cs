@@ -28,11 +28,13 @@ namespace Assets.Core
             bool hasWeakerDirectCompetitors = weakerDirectCompetitors.Count() > 0;
             bool hasWeakerCompetitors = weakerCompetitors.Count() > 0;
 
+            bool isGroupOrGlobalProduct = true;
+
             GameEntity weakerCompany = null;
 
             if (hasWeakerDirectCompetitors)
                 weakerCompany = weakerDirectCompetitors.Last();
-            else if (hasWeakerCompetitors)
+            else if (hasWeakerCompetitors && isGroupOrGlobalProduct)
                 weakerCompany = weakerCompetitors.Last();
 
             #endregion
@@ -59,12 +61,12 @@ namespace Assets.Core
             #endregion
 
             if (solidCompany && daughters.Count() > 2)
-                //AddOnce(goals, company, InvestorGoalType.DominateMarket);
                 AddOnce(goals, company, new InvestmentGoalDominateMarket(company.product.Niche));
+                //AddOnce(goals, company, InvestorGoalType.DominateMarket);
 
             if (Completed(company, InvestorGoalType.DominateMarket))
-                //goals.Add(InvestorGoalType.BuyBack);
                 goals.Add(new InvestmentGoalBuyBack());
+                //goals.Add(InvestorGoalType.BuyBack);
 
             return goals;
         }

@@ -94,7 +94,12 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
 
     void EmphasizeCompanySize()
     {
-        var position = Markets.GetPositionOnMarket(Q, company);
+        var position = Companies.GetDirectCompetitors(company, Q, true)
+            .OrderByDescending(Marketing.GetUsers)
+            .Select((c, i) => new { c, i, share = Marketing.GetUsers(c) })
+            .First(cc => cc.c.company.Id == company.company.Id)
+            .i;
+        // Markets.GetPositionOnMarket(Q, company);
 
         var max = 1f;
         var min = 0.5f;

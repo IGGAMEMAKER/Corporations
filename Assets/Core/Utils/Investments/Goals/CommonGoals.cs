@@ -18,7 +18,7 @@ namespace Assets.Core
             var income = Economy.GetIncome(Q, company);
             bool profitable = Economy.IsProfitable(Q, company);
 
-            bool solidCompany = (releasedProduct || isGroup) && income > 500_000;
+            bool solidCompany = (releasedProduct || isGroup) && income > 100_000;
 
             // weaker
             bool hasWeakerDirectCompetitors = weakerDirectCompetitors.Count() > 0;
@@ -26,9 +26,12 @@ namespace Assets.Core
 
             GameEntity weakerCompany = null;
 
+            bool isGlobalProduct = company.hasProduct && Marketing.GetPositioning(company).isGlobal;
+            bool isGroupOrGlobalProduct = isGroup || isGlobalProduct;
+
             if (hasWeakerDirectCompetitors)
                 weakerCompany = weakerDirectCompetitors.Last();
-            else if (hasWeakerCompetitors)
+            else if (hasWeakerCompetitors && isGroupOrGlobalProduct)
                 weakerCompany = weakerCompetitors.Last();
 
             // stronger
@@ -38,9 +41,9 @@ namespace Assets.Core
             GameEntity strongerCompany = null;
 
             if (hasStrongerDirectCompetitors)
-                strongerCompany = strongerDirectCompetitors.Last();
-            else if (hasStrongerCompetitors)
-                strongerCompany = strongerCompetitors.Last();
+                strongerCompany = strongerDirectCompetitors.First();
+            else if (hasStrongerCompetitors && isGroupOrGlobalProduct)
+                strongerCompany = strongerCompetitors.First();
             #endregion
 
             if (solidCompany)

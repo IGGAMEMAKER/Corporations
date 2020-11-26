@@ -1,6 +1,7 @@
 ﻿using Assets.Core;
 using Entitas;
 using Entitas.CodeGeneration.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -563,8 +564,16 @@ public class InvestmentGoalOutcompeteByCost : InvestmentGoal
 
     public InvestmentGoalOutcompeteByCost(GameEntity company) : base(InvestorGoalType.OutcompeteCompanyByCost)
     {
-        CompanyId = company.company.Id;
-        CompetitorName = company.company.Name;
+        try
+        {
+            CompanyId = company.company.Id;
+            CompetitorName = company.company.Name;
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError("Inv goal otcompeted #" + " " + ex);
+            Debug.LogError("Inv goal otcompeted #" + company.creationIndex + " " + ex);
+        }
     }
 
     public override string GetFormattedName() => "Outcompete " + CompetitorName + " by cost";

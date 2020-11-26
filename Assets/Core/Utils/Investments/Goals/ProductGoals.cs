@@ -51,35 +51,35 @@ namespace Assets.Core
 
                 // has no goals at start
                 if (!Completed(product, InvestorGoalType.ProductPrototype))
-                    //return OnlyGoal(InvestorGoalType.ProductPrototype);
                     return OnlyGoal(new InvestmentGoalMakePrototype());
+                    //return OnlyGoal(InvestorGoalType.ProductPrototype);
 
                 if (Completed(product, InvestorGoalType.ProductPrototype))
-                    //AddOnce(goals, product, InvestorGoalType.ProductFirstUsers);
                     AddOnce(goals, product, new InvestmentGoalFirstUsers(5_000));
+                    //AddOnce(goals, product, InvestorGoalType.ProductFirstUsers);
 
                 if (Completed(product, InvestorGoalType.ProductFirstUsers))
-                    //AddOnce(goals, product, InvestorGoalType.ProductBecomeMarketFit);
                     AddOnce(goals, product, new InvestmentGoalMakeProductMarketFit());
+                    //AddOnce(goals, product, InvestorGoalType.ProductBecomeMarketFit);
 
                 if (Completed(product, InvestorGoalType.ProductBecomeMarketFit))
-                    //AddOnce(goals, product, InvestorGoalType.ProductPrepareForRelease);
                     AddOnce(goals, product, new InvestmentGoalPrepareForRelease());
+                    //AddOnce(goals, product, InvestorGoalType.ProductPrepareForRelease);
 
                 if (Completed(product, InvestorGoalType.ProductPrepareForRelease))
-                    //AddOnce(goals, product, InvestorGoalType.ProductRelease);
                     AddOnce(goals, product, new InvestmentGoalRelease());
+                    //AddOnce(goals, product, InvestorGoalType.ProductRelease);
             }
 
             if (releasedProduct)
             {
                 if (Completed(product, InvestorGoalType.ProductRelease))
-                    //AddOnce(goals, product, InvestorGoalType.ProductStartMonetising);
                     AddOnce(goals, product, new InvestmentGoalStartMonetisation());
+                    //AddOnce(goals, product, InvestorGoalType.ProductStartMonetising);
 
                 if (Completed(product, InvestorGoalType.ProductStartMonetising))
-                    //goals.Add(InvestorGoalType.GrowUserBase);
                     goals.Add(new InvestmentGoalGrowAudience(Marketing.GetUsers(product) * 2));
+                    //goals.Add(InvestorGoalType.GrowUserBase);
 
                 if (Completed(product, InvestorGoalType.GrowUserBase))
                 {
@@ -110,8 +110,8 @@ namespace Assets.Core
             }
 
             if (Marketing.IsHasDisloyalAudiences(product))
-                //return OnlyGoal(InvestorGoalType.ProductRegainLoyalty);
                 return OnlyGoal(new InvestmentGoalRegainLoyalty());
+                //return OnlyGoal(InvestorGoalType.ProductRegainLoyalty);
 
             return goals;
         }

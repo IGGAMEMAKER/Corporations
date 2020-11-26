@@ -168,6 +168,8 @@ public struct ProductPositioning
     public float priceModifier;
 
     public List<int> Loyalties;
+
+    public bool isGlobal => Loyalties.TrueForAll(l => l == 3);
 }
 
 [Game]
