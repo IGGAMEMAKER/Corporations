@@ -187,6 +187,10 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
 
         if (hasControl)
             hint.AppendLine(Visuals.Colorize("\n\nYour company", Colors.COLOR_CONTROL));
+        else
+        {
+            hint.AppendLine("\n<b>Goals</b>: " + string.Join("\n", company.companyGoal.Goals.Select(g => g.GetFormattedName())));
+        }
 
         hint.AppendLine($"\n\nUsers: <b>{Format.Minify(clients)}</b>");
         hint.AppendLine($"{Visuals.Colorize(changeFormatted, change >=0)}\n");
