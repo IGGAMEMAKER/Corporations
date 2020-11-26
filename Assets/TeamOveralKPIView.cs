@@ -41,10 +41,13 @@ public class TeamOveralKPIView : ParameterView
 
         // ----------------------------------------------------
 
+        var managersCount = company.team.Teams.Sum(t => t.Managers.Count());
+
         var text = $"<size=50>Quantity</size>";
 
         text += RenderParameter("\n\nEmployees", $"{employees} workers", -1);
         text += RenderParameter("\nTeams", teams.ToString(), teamsPlace);
+        text += RenderParameter("\nManagers", managersCount.ToString(), -1);
         
         text += $"\n\n<size=50>Quality</size>";
         

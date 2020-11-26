@@ -13,6 +13,8 @@ public class SegmentPreview : View
     public Image BorderIcon;
     public Image PanelImage;
 
+    public Image BorderImage;
+
     public Image DarkPanel;
     public Text Value;
 
@@ -26,14 +28,18 @@ public class SegmentPreview : View
         SegmentId = Marketing.GetCoreAudienceId(company);
         var info = Marketing.GetAudienceInfos()[SegmentId];
 
+        var selectedPositioning = FindObjectOfType<PositioningManagerView>().Positioning;
 
+        BorderImage.color = Visuals.GetColorFromString(selectedPositioning.ID == positioning.ID ? Colors.COLOR_CONTROL : Colors.COLOR_NEUTRAL);
 
         var worth = Marketing.GetPositioningWorth(company, positioning);
 
-        //bool isTargetAudience = Marketing.IsTargetAudience(company, segmentId);
 
         bool isOurPositioning = company.productPositioning.Positioning == positioning.ID;
-        Title.text = Visuals.Colorize($"{positioning.name} \n<b>{Format.MinifyMoney(worth)}</b>", isOurPositioning ? Colors.COLOR_CONTROL : Colors.COLOR_WHITE);
+
+        var positioningColor = isOurPositioning ? Colors.COLOR_CONTROL : Colors.COLOR_WHITE;
+
+        Title.text = Visuals.Colorize($"{positioning.name} \n<b>{Format.MinifyMoney(worth)}</b>", positioningColor);
 
         var competition = Companies.GetCompetitionInSegment(Flagship, Q, positioning.ID);
 
@@ -41,11 +47,16 @@ public class SegmentPreview : View
         {
             Title.text += " " + Visuals.Positive("FREE");
         }
+        else
+        {
+            Title.text += $" ({competition.Count()} companies)";
+        }
 
 
         Icon.texture = Resources.Load<Texture2D>($"Audiences/{info.Icon}");
 
 
+        //bool isTargetAudience = Marketing.IsTargetAudience(company, segmentId);
         //var audienceColor = Visuals.GetColorFromString(isTargetAudience ? Colors.COLOR_GOLD : Colors.COLOR_WHITE);
         //if (isTargetAudience)
         //    PanelImage.color = audienceColor;
