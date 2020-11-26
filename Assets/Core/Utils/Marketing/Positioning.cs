@@ -50,7 +50,8 @@ namespace Assets.Core
 
         public static void ChangePositioning(GameEntity product, GameContext gameContext, int positioningId)
         {
-            bool isChaningPositioning = product.productPositioning.Positioning != positioningId;
+            var previousPositioning = product.productPositioning.Positioning;
+            bool isChaningPositioning = previousPositioning != positioningId;
 
             if (!isChaningPositioning)
                 return;
@@ -70,7 +71,21 @@ namespace Assets.Core
 
             if (product.isFlagship)
             {
-                NotificationUtils.AddSimplePopup(gameContext, "Product positioning changed", "");
+                if (Marketing.GetUsers(product) > 50)
+                {
+                    var segments = Marketing.GetNichePositionings(product);
+                    var audiences = GetAudienceInfos();
+
+                    var newLoyalties = segments[positioningId].Loyalties;
+
+                    var newAudiences = string.Join("\n", newLoyalties.Select((l, i) => l >= 0 ? audiences[i].Name : "").Where(s => s.Count() != 0).Select(Visuals.Positive));
+                    var losingAudiences = string.Join("\n", newLoyalties.Select((l, i) => (l < 0 && GetUsers(product, i) > 0 && !IsAimingForSpecificAudience(product, i)) ? audiences[i].Name : "").Where(s => s.Count() != 0).Select(Visuals.Negative));
+
+                    var losingAudiencesMsg = losingAudiences.Count() > 0 ? "\nBut you will lose\n\n" + losingAudiences : "";
+
+                    NotificationUtils.AddSimplePopup(gameContext, "Product positioning changed", 
+                        "You will start getting\n\n" + newAudiences + losingAudiencesMsg);
+                }
             }
             else
             {

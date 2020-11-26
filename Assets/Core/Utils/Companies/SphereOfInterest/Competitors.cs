@@ -8,10 +8,20 @@ namespace Assets.Core
     {
         public static IEnumerable<GameEntity> GetDirectCompetitors(GameEntity company, GameContext gameContext, bool includeSelf = false)
         {
-            //var competitors = GetCompetitorsOf(company, gameContext, includeSelf);
+            var competitors = GetCompetitorsOf(company, gameContext, includeSelf);
 
-            //return competitors.Where(c => c.productPositioning.Positioning == company.productPositioning.Positioning);
-            return GetCompetitionInSegment(company, gameContext, company.productPositioning.Positioning, includeSelf);
+            if (company.hasProduct && !Marketing.GetPositioning(company).isGlobal)
+            {
+                return competitors.Where(c => IsDirectCompetitor(c, company));
+                //return GetCompetitionInSegment(company, gameContext, company.productPositioning.Positioning, includeSelf);
+            }
+            else
+            {
+                return competitors;
+                //var competitors = GetCompetitorsOf(company, gameContext, includeSelf);
+
+                //return competitors.Where(c => c.productPositioning.Positioning == company.productPositioning.Positioning);
+            }
         }
 
         public static IEnumerable<GameEntity> GetCompetitionInSegment(GameEntity company, GameContext gameContext, int positioningID, bool includeSelf = false)
@@ -21,7 +31,12 @@ namespace Assets.Core
             return competitors.Where(c => c.productPositioning.Positioning == positioningID);
         }
 
-        public static bool IsDirectCompetitor(GameEntity c1, GameEntity c2) => c1.hasProduct && c2.hasProduct && c1.productPositioning.Positioning == c2.productPositioning.Positioning && c1.product.Niche == c2.product.Niche;
+        public static bool IsDirectCompetitor(GameEntity c1, GameEntity c2)
+        {
+            return c1.hasProduct && c2.hasProduct 
+                && c1.productPositioning.Positioning == c2.productPositioning.Positioning 
+                && c1.product.Niche == c2.product.Niche;
+        }
 
         public static IEnumerable<GameEntity> GetCompetitorsOf(GameEntity company, GameContext gameContext, bool includeSelf = false)
         {
@@ -50,8 +65,8 @@ namespace Assets.Core
             // last - Weak
 
             var competitors = (directCompetitors ? GetDirectCompetitors(company, gameContext, true) : GetCompetitorsOf(company, gameContext, true))
-        .OrderByDescending(c => Economy.CostOf(c, gameContext))
-        .ToList();
+                .OrderByDescending(c => Economy.CostOf(c, gameContext))
+                .ToList();
 
             index = competitors.FindIndex(c => c.company.Id == company.company.Id);
 

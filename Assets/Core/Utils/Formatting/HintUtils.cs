@@ -252,7 +252,9 @@ public class Bonus<T>
         foreach (var bonus in bonusDescriptions)
         {
             //long value = (long)(object)bonus.Value;
-            long value = System.Convert.ToInt64(bonus.Value);
+            //long value = System.Convert.ToInt64(bonus.Value);
+
+            dynamic value = bonus.Value;
 
             if (bonus.HideIfZero || hideZeroes)
             {
@@ -265,7 +267,16 @@ public class Bonus<T>
 
             var text = "";
 
-            text = Visuals.RenderBonus(bonus.Name, value, bonus.Dimension + dimension, positiveIsNegative, bonus.BonusType, minifyValues);
+            float f;
+            if (float.TryParse(bonus.Value.ToString(), out f))
+            {
+                text = Visuals.RenderFloatBonus(bonus.Name, f, bonus.Dimension + dimension, positiveIsNegative, bonus.BonusType, minifyValues);
+            }
+            else
+            {
+                text = Visuals.RenderBonus(bonus.Name, value, bonus.Dimension + dimension, positiveIsNegative, bonus.BonusType, minifyValues);
+            }
+
 
             str.AppendLine(text);
         }

@@ -48,11 +48,11 @@ namespace Assets.Core
                 case InvestorGoalType.GrowCompanyCost:          return new InvestmentGoalGrowCost       (Economy.CostOf(company, gameContext) * 2);
                 case InvestorGoalType.GainMoreSegments:         return new InvestmentGoalMoreSegments   (Marketing.GetAmountOfTargetAudiences(company) + 1);
 
-                case InvestorGoalType.OutcompeteCompanyByIncome:    return new InvestmentGoalOutcompeteByIncome(strongerOpponent);
-                case InvestorGoalType.OutcompeteCompanyByUsers:     return new InvestmentGoalOutcompeteByUsers(strongerOpponent);
-                case InvestorGoalType.OutcompeteCompanyByCost:      return new InvestmentGoalOutcompeteByCost(strongerOpponent);
+                case InvestorGoalType.OutcompeteCompanyByIncome:    return new InvestmentGoalOutcompeteByIncome(strongerOpponent.company.Id, strongerOpponent.company.Name);
+                case InvestorGoalType.OutcompeteCompanyByUsers:     return new InvestmentGoalOutcompeteByUsers(strongerOpponent.company.Id, strongerOpponent.company.Name);
+                case InvestorGoalType.OutcompeteCompanyByCost:      return new InvestmentGoalOutcompeteByCost(strongerOpponent.company.Id, strongerOpponent.company.Name);
 
-                case InvestorGoalType.AcquireCompany:               return new InvestmentGoalAcquireCompany(weakerOpponent);
+                case InvestorGoalType.AcquireCompany:               return new InvestmentGoalAcquireCompany(weakerOpponent.company.Id, weakerOpponent.company.Name);
 
                 case InvestorGoalType.DominateMarket:               return new InvestmentGoalDominateMarket(MainMarket);
                 case InvestorGoalType.BuyBack:                      return new InvestmentGoalBuyBack();

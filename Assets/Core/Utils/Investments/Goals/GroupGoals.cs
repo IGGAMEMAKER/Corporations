@@ -25,27 +25,36 @@ namespace Assets.Core
             bool solidCompany = income > 50_000;
 
 
-            bool hasWeakerDirectCompetitors = weakerDirectCompetitors.Count() > 0;
-            bool hasWeakerCompetitors = weakerCompetitors.Count() > 0;
-
-            bool isGroupOrGlobalProduct = true;
-
-            GameEntity weakerCompany = null;
-
-            if (hasWeakerDirectCompetitors)
-                weakerCompany = weakerDirectCompetitors.Last();
-            else if (hasWeakerCompetitors && isGroupOrGlobalProduct)
-                weakerCompany = weakerCompetitors.Last();
-
+            GameEntity weakerCompany; // null;
             #endregion
 
-            if (solidCompany && weakerCompany != null)
+            var daughters = Companies.GetDaughterProducts(Q, company);
+
+            if (solidCompany)
             {
                 //goals.Add(InvestorGoalType.AcquireCompany);
-                goals.Add(new InvestmentGoalAcquireCompany(weakerCompany));
+
+                if (daughters.Count() > 0)
+                {
+                    var flagship = daughters.First();
+                    var flagshipCompetitors = Companies.GetDirectCompetitors(flagship, Q, false);
+
+                    if (flagshipCompetitors.Count() > 0)
+                    {
+                        weakerCompany = flagshipCompetitors.OrderByDescending(c => Economy.CostOf(c, Q)).Last();
+                    }
+                    else
+                    {
+                        weakerCompany = Companies.GetWeakerCompetitor(company, Q, true);
+                    }
+
+                    var acquisitionGoal = new InvestmentGoalAcquireCompany(weakerCompany.company.Id, weakerCompany.company.Name);
+
+                    if (!acquisitionGoal.IsCompleted(company, Q))
+                        goals.Add(acquisitionGoal);
+                }
             }
 
-            var daughters = Companies.GetDaughterProducts(Q, company);
 
             #region DominateSegment
             //if (solidCompany && company.companyFocus.Niches.Count == 1)
@@ -61,7 +70,7 @@ namespace Assets.Core
             #endregion
 
             if (solidCompany && daughters.Count() > 2)
-                AddOnce(goals, company, new InvestmentGoalDominateMarket(company.product.Niche));
+                AddOnce(goals, company, new InvestmentGoalDominateMarket(company.companyFocus.Niches.First()));
                 //AddOnce(goals, company, InvestorGoalType.DominateMarket);
 
             if (Completed(company, InvestorGoalType.DominateMarket))

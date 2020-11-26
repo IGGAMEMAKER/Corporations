@@ -502,17 +502,20 @@ public class InvestmentGoalOutcompeteByIncome : InvestmentGoal
     public int CompanyId;
     public string CompetitorName;
 
-    public InvestmentGoalOutcompeteByIncome(GameEntity company) : base(InvestorGoalType.OutcompeteCompanyByIncome)
+    public InvestmentGoalOutcompeteByIncome(int CompanyId, string CompetitorName) : base(InvestorGoalType.OutcompeteCompanyByIncome)
     {
-        CompanyId = company.company.Id;
-        CompetitorName = company.company.Name;
+        this.CompanyId = CompanyId;
+        this.CompetitorName = CompetitorName;
     }
 
     public override string GetFormattedName() => "Outcompete " + CompetitorName + " by income";
 
     public override List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
     {
-        var income = Economy.GetIncome(gameContext, Companies.Get(gameContext, CompanyId));
+        var competitor = Companies.Get(gameContext, CompanyId);
+
+        var income = Economy.GetIncome(gameContext, competitor);
+
         return new List<GoalRequirements>
         {
             new GoalRequirements
@@ -532,10 +535,10 @@ public class InvestmentGoalOutcompeteByUsers : InvestmentGoal
     public int CompanyId;
     public string CompetitorName;
 
-    public InvestmentGoalOutcompeteByUsers(GameEntity company) : base(InvestorGoalType.OutcompeteCompanyByUsers)
+    public InvestmentGoalOutcompeteByUsers(int CompanyId, string CompetitorName) : base(InvestorGoalType.OutcompeteCompanyByUsers)
     {
-        CompanyId = company.company.Id;
-        CompetitorName = company.company.Name;
+        this.CompanyId = CompanyId;
+        this.CompetitorName = CompetitorName;
     }
 
     public override string GetFormattedName() => "Outcompete " + CompetitorName + " by users";
@@ -562,18 +565,10 @@ public class InvestmentGoalOutcompeteByCost : InvestmentGoal
     public int CompanyId;
     public string CompetitorName;
 
-    public InvestmentGoalOutcompeteByCost(GameEntity company) : base(InvestorGoalType.OutcompeteCompanyByCost)
+    public InvestmentGoalOutcompeteByCost(int CompanyId, string CompetitorName) : base(InvestorGoalType.OutcompeteCompanyByCost)
     {
-        try
-        {
-            CompanyId = company.company.Id;
-            CompetitorName = company.company.Name;
-        }
-        catch (Exception ex)
-        {
-            Debug.LogError("Inv goal otcompeted #" + " " + ex);
-            Debug.LogError("Inv goal otcompeted #" + company.creationIndex + " " + ex);
-        }
+        this.CompanyId = CompanyId;
+        this.CompetitorName = CompetitorName;
     }
 
     public override string GetFormattedName() => "Outcompete " + CompetitorName + " by cost";
@@ -661,10 +656,10 @@ public class InvestmentGoalAcquireCompany : InvestmentGoal
     public int CompanyId;
     public string CompetitorName;
 
-    public InvestmentGoalAcquireCompany(GameEntity company) : base(InvestorGoalType.AcquireCompany)
+    public InvestmentGoalAcquireCompany(int CompanyId, string CompetitorName) : base(InvestorGoalType.AcquireCompany)
     {
-        CompanyId = company.company.Id;
-        CompetitorName = company.company.Name;
+        this.CompanyId = CompanyId;
+        this.CompetitorName = CompetitorName;
     }
 
     public override string GetFormattedName() => "Acquire " + CompetitorName + "!";

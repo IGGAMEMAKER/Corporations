@@ -25,6 +25,9 @@ public class CompareCompaniesView : View
     public Text Employees1;
     public Text Employees2;
 
+    public Hint FeatureCap1;
+    public Hint FeatureCap2;
+
     int offset = 0;
 
     GameEntity[] competitors => Companies.GetCompetitorsOf(SelectedCompany, Q, false)
@@ -47,6 +50,8 @@ public class CompareCompaniesView : View
         CompareData("Max feature lvl", MaxRating1, MaxRating2, 
             Products.GetFeatureRatingCap(company1), Products.GetFeatureRatingCap(company2));
 
+        FeatureCap1.SetHint(Teams.GetMaxFeatureRatingCap(company1, Q).ToString());
+        FeatureCap2.SetHint(Teams.GetMaxFeatureRatingCap(company2, Q).ToString());
         //SetHints(MaxRating1, )
 
         CompareData("Marketing quality", MarketingEfficiency1, MarketingEfficiency2, 

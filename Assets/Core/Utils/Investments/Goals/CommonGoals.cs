@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -21,35 +22,18 @@ namespace Assets.Core
             bool solidCompany = (releasedProduct || isGroup) && income > 100_000;
 
             // weaker
-            bool hasWeakerDirectCompetitors = weakerDirectCompetitors.Count() > 0;
-            bool hasWeakerCompetitors = weakerCompetitors.Count() > 0;
-
-            GameEntity weakerCompany = null;
-
-            bool isGlobalProduct = company.hasProduct && Marketing.GetPositioning(company).isGlobal;
-            bool isGroupOrGlobalProduct = isGroup || isGlobalProduct;
-
-            if (hasWeakerDirectCompetitors)
-                weakerCompany = weakerDirectCompetitors.Last();
-            else if (hasWeakerCompetitors && isGroupOrGlobalProduct)
-                weakerCompany = weakerCompetitors.Last();
+            GameEntity weakerCompany = Companies.GetWeakerCompetitor(company, Q, true); // null;
 
             // stronger
-            bool hasStrongerDirectCompetitors = strongerDirectCompetitors.Count() > 0;
-            bool hasStrongerCompetitors = strongerCompetitors.Count() > 0;
+            GameEntity strongerCompany = Companies.GetStrongerCompetitor(company, Q, true); // null;
 
-            GameEntity strongerCompany = null;
-
-            if (hasStrongerDirectCompetitors)
-                strongerCompany = strongerDirectCompetitors.First();
-            else if (hasStrongerCompetitors && isGroupOrGlobalProduct)
-                strongerCompany = strongerCompetitors.First();
             #endregion
 
             if (solidCompany)
             {
                 goals.Add(new InvestmentGoalGrowCost(Economy.CostOf(company, Q) * 3 / 2));
                 goals.Add(new InvestmentGoalGrowProfit(Economy.GetIncome(Q, company) * 3 / 2));
+                
                 //goals.Add(InvestorGoalType.GrowCompanyCost);
                 //goals.Add(InvestorGoalType.GrowIncome);
 
@@ -61,8 +45,10 @@ namespace Assets.Core
 
                 if (strongerCompany != null)
                 {
-                    goals.Add(new InvestmentGoalOutcompeteByIncome(strongerCompany));
-                    goals.Add(new InvestmentGoalOutcompeteByCost(strongerCompany));
+                    goals.Add(new InvestmentGoalOutcompeteByIncome(strongerCompany.company.Id, strongerCompany.company.Name));
+                    //goals.Add(new InvestmentGoalOutcompeteByCost(strongerCompany.company.Id, strongerCompany.company.Name));
+
+
                     //goals.Add(InvestorGoalType.OutcompeteCompanyByIncome);
                     //goals.Add(InvestorGoalType.OutcompeteCompanyByCost);
                     ////goals.Add(InvestorGoalType.OutcompeteCompanyByUsers);
