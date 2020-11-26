@@ -21,7 +21,7 @@ public class DaughtersListView : ListView, IPointerEnterHandler, IPointerExitHan
     {
         base.ViewRender();
 
-        var daughters = Companies.GetDaughters(Q, MyCompany);
+        var daughters = Companies.GetDaughters(MyCompany, Q);
 
         bool drawCompanies = daughters.Count() > 1;
 

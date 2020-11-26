@@ -18,7 +18,7 @@ namespace Assets.Core
 
 
             // IsCompanyRelatedToPlayer(gameContext, o.acquisitionOffer.CompanyId)
-            var daughterIds = GetDaughters(gameContext, player).Select(c => c.company.Id);
+            var daughterIds = GetDaughters(player, gameContext).Select(c => c.company.Id);
 
             return GetAcquisitionOffers(gameContext)
                 // don't show your own offers (ui bug)

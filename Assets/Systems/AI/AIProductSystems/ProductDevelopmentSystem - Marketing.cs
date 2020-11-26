@@ -10,7 +10,11 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
     {
         var goal = product.companyGoal.Goals.First(g => g.InvestorGoalType == InvestorGoalType.ProductRelease);
 
-        if (Companies.IsReleaseableApp(product))
+        var Cluster = new SupportFeature { SupportBonus = new SupportBonusHighload(2_000_000), Name = "Cluster" };
+
+        TryAddTask(product, new TeamTaskSupportFeature(Cluster));
+
+        if (Products.GetServerCapacity(product) > 2_000_000 && Companies.IsReleaseableApp(product))
             Marketing.ReleaseApp(gameContext, product);
     }
 
@@ -85,8 +89,10 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             }
 
             Companies.Log(product, $"POSITIONING SHIFTED TO: {newPositioning.name}!");
+
             Debug.Log($"POSITIONING of {product.company.Name} SHIFTED TO: {newPositioning.name}! {newPositioning.ID}");
-            Marketing.ChangePositioning(product, newPositioning.ID);
+
+            Marketing.ChangePositioning(product, gameContext, newPositioning.ID);
 
             return;
         }

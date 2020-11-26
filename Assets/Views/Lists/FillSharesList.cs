@@ -14,7 +14,7 @@ public class FillSharesList : View
         var human = SelectedHuman;
 
         if (human.hasShareholder)
-            return Investments.GetOwnings(Q, human);
+            return Investments.GetOwnings(human, Q);
 
         return new GameEntity[0];
     }

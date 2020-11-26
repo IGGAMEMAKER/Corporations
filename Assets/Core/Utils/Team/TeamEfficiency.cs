@@ -189,7 +189,7 @@ namespace Assets.Core
 
         public static int GetTeamEffeciency(GameEntity company, TeamInfo teamInfo)
         {
-            var maxWorkers = 8;
+            var maxWorkers = Teams.GetMaxTeamSize(teamInfo); // 8;
 
             var organisationBonus = (int)teamInfo.Organisation;
 

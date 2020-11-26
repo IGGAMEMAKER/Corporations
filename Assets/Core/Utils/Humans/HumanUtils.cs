@@ -119,7 +119,7 @@ namespace Assets.Core
 
         public static List<int> GetCandidatesForRole(GameEntity company, GameContext gameContext, WorkerRole WorkerRole)
         {
-            var competitors = Companies.GetCompetitorsOfCompany(company, gameContext, false);
+            var competitors = Companies.GetCompetitorsOf(company, gameContext, false);
 
             //Debug.Log("Competitors: " + string.Join(", ", competitors.Select(c => c.company.Name)));
 

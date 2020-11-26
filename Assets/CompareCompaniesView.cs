@@ -27,7 +27,7 @@ public class CompareCompaniesView : View
 
     int offset = 0;
 
-    GameEntity[] competitors => Companies.GetCompetitorsOfCompany(SelectedCompany, Q, false)
+    GameEntity[] competitors => Companies.GetCompetitorsOf(SelectedCompany, Q, false)
         .Where(c => c.productPositioning.Positioning == SelectedCompany.productPositioning.Positioning).ToArray();
 
     public override void ViewRender()

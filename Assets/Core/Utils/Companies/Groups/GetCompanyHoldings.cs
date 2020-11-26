@@ -9,7 +9,7 @@ namespace Assets.Core
     {
         public static GameEntity[] GetDaughterProducts(GameContext context, GameEntity company)
         {
-            return GetDaughters(context, company)
+            return GetDaughters(company, context)
                 .Where(p => p.hasProduct)
                 .ToArray();
         }
@@ -37,9 +37,9 @@ namespace Assets.Core
             return company.hasOwnings ? company.ownings.Holdings.Count() : 0;
         }
 
-        public static GameEntity[] GetDaughters(GameContext context, GameEntity c)
+        public static GameEntity[] GetDaughters(GameEntity c, GameContext context)
         {
-            return Investments.GetOwnings(context, c);
+            return Investments.GetOwnings(c, context);
         }
 
         public static bool IsDaughterOf(GameEntity parent, GameEntity daughter)

@@ -8,8 +8,8 @@ public enum ProductActions
 {
     Features,
     GrabUsers,
-    ExpandTeam, // hire more people, add more teams
-    HandleTeam,
+    HandleTeam, // hire more people, add more teams
+    //HandleTeam,
 
     ReleaseApp,
 
@@ -18,7 +18,7 @@ public enum ProductActions
     GrabSegments,
 
     ShowProfit,
-    RestoreLoyalty
+    RestoreLoyalty,
 }
 
 public partial class ProductDevelopmentSystem : OnPeriodChange
@@ -65,12 +65,16 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
             case InvestorGoalType.ProductBecomeMarketFit:
                 actions.Add(ProductActions.Features);
-
                 actions.Add(ProductActions.GrabUsers);
                 break;
 
+            //case InvestorGoalType.ProductPrepareForRelease:
+            //    actions.Add(ProductActions.HandleTeam);
+            //    actions.Add(ProductActions.ReleaseApp);
+            //    break;
+
             case InvestorGoalType.ProductRelease:
-                actions.Add(ProductActions.ExpandTeam);
+                actions.Add(ProductActions.HandleTeam);
                 actions.Add(ProductActions.ReleaseApp);
 
                 break;
@@ -80,36 +84,43 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
                 actions.Add(ProductActions.Features);
 
                 actions.Add(ProductActions.GrabUsers);
+                actions.Add(ProductActions.HandleTeam);
                 break;
 
             case InvestorGoalType.ProductRegainLoyalty:
                 actions.Add(ProductActions.Features);
                 actions.Add(ProductActions.RestoreLoyalty);
+
+                actions.Add(ProductActions.HandleTeam);
                 break;
 
             case InvestorGoalType.GainMoreSegments:
+                actions.Add(ProductActions.RestoreLoyalty);
                 actions.Add(ProductActions.GrabSegments);
                 actions.Add(ProductActions.Features);
                 actions.Add(ProductActions.GrabUsers);
 
+                actions.Add(ProductActions.HandleTeam);
                 break;
 
             case InvestorGoalType.GrowUserBase:
                 actions.Add(ProductActions.GrabUsers);
                 actions.Add(ProductActions.Features);
 
+                actions.Add(ProductActions.HandleTeam);
                 break;
 
             case InvestorGoalType.GrowIncome:
                 actions.Add(ProductActions.Features);
                 actions.Add(ProductActions.GrabUsers);
 
+                actions.Add(ProductActions.HandleTeam);
                 break;
 
             case InvestorGoalType.BecomeProfitable:
                 actions.Add(ProductActions.GrabUsers);
                 actions.Add(ProductActions.Features);
-                actions.Add(ProductActions.ExpandTeam);
+                actions.Add(ProductActions.HandleTeam);
 
                 break;
 
@@ -119,6 +130,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
                 actions.Add(ProductActions.GrabUsers);
                 actions.Add(ProductActions.Features);
 
+                actions.Add(ProductActions.HandleTeam);
                 break;
         }
 
@@ -155,7 +167,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
                 GrabSegments(product);
                 break;
 
-            case ProductActions.ExpandTeam:
+            case ProductActions.HandleTeam:
                 ExpandTeam(product);
                 break;
 
@@ -164,7 +176,10 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
                 break;
 
             default:
-                Companies.Log(product, Visuals.Negative("UNKNOWN ACTION in ProductDevelopmentSystem: " + action));
+                var lg = Visuals.Negative("UNKNOWN ACTION in ProductDevelopmentSystem: " + action);
+                Companies.Log(product, lg);
+
+                Debug.LogError(lg);
 
                 break;
         }

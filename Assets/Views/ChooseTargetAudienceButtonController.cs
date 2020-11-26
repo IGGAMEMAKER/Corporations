@@ -11,6 +11,6 @@ public class ChooseTargetAudienceButtonController : ButtonController
 
         var positioning = FindObjectOfType<PositioningManagerView>().Positioning;
 
-        Marketing.ChangePositioning(company, positioning.ID);
+        Marketing.ChangePositioning(company, Q, positioning.ID);
     }
 }

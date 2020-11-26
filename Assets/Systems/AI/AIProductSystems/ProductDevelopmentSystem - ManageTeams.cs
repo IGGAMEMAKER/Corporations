@@ -14,7 +14,9 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             }
 
             if (Teams.IsCanAddMoreTeams(product, gameContext))
+            {
                 Teams.AddTeam(product, gameContext, teamType);
+            }
         }
     }
 
@@ -35,11 +37,18 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
     void ExpandTeam(GameEntity product)
     {
-        if (product.team.Teams.Count < 4)
+        foreach (var t in product.team.Teams)
         {
-            TryAddTeam(product, TeamType.DevelopmentTeam);
-            TryAddTeam(product, TeamType.MarketingTeam);
-            TryAddTeam(product, TeamType.ServersideTeam);
+            TryUpgradeTeam(product, t);
+
+            Teams.FillTeam(product, gameContext, t);
         }
+
+        //if (product.team.Teams.Count < 4)
+        //{
+        //    TryAddTeam(product, TeamType.DevelopmentTeam);
+        //    TryAddTeam(product, TeamType.MarketingTeam);
+        //    TryAddTeam(product, TeamType.ServersideTeam);
+        //}
     }
 }

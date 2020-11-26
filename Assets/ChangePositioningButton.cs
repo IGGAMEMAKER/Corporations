@@ -11,7 +11,7 @@ public class ChangePositioningButton : ButtonView, IPointerEnterHandler, IPointe
 
     public override void Execute()
     {
-        Marketing.ChangePositioning(Flagship, positioningId);
+        Marketing.ChangePositioning(Flagship, Q, positioningId);
 
         FindObjectOfType<PositioningVariantsListView2>().ViewRender();
     }

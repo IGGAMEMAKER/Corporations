@@ -36,7 +36,7 @@ public class CompetingCompaniesOnMainScreen : ListView
     {
         base.ViewRender();
 
-        var companies = Companies.GetCompetitorsOfCompany(Flagship, Q, true);
+        var companies = Companies.GetCompetitorsOf(Flagship, Q, true);
 
         var interval = 40;
 

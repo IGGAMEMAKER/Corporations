@@ -170,6 +170,27 @@ namespace Assets.Core
             return roles;
         }
 
+        public static void FillTeam(GameEntity company, GameContext gameContext, TeamInfo t)
+        {
+            var allRoles = GetRolesForTeam(t.TeamType);
+            var currentRoles = t.Roles.Values.ToArray();
+
+            var necessaryRoles = allRoles.Where(r => !currentRoles.Contains(r));
+
+            if (necessaryRoles.Count() > 0)
+            {
+                var rating = GetTeamAverageStrength(company, gameContext) + UnityEngine.Random.Range(-2, 3);
+                var salary = GetSalaryPerRating(rating);
+
+                if (Economy.IsCanMaintain(company, gameContext, salary))
+                {
+                    var human = HireManager(company, gameContext, necessaryRoles.First(), t.ID);
+
+                    SetJobOffer(human, company, new JobOffer(salary), t.ID, gameContext);
+                }
+            }
+        }
+
         public static WorkerRole[] GetRolesForTeam(TeamType teamType)
         {
             switch (teamType)

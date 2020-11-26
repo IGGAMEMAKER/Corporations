@@ -16,7 +16,7 @@ public class OwningsListView : ListView
     {
         base.ViewRender();
 
-        var companies = Companies.GetDaughters(Q, SelectedCompany)
+        var companies = Companies.GetDaughters(SelectedCompany, Q)
             .OrderByDescending(c => Economy.CostOf(c, Q));
 
         SetItems(companies);

@@ -28,7 +28,7 @@ public partial class CheckBankruptciesSystem : OnPeriodChange
 
         Companies.LogFinancialTransactions(company);
 
-        foreach (var d in Companies.GetDaughters(gameContext, company))
+        foreach (var d in Companies.GetDaughters(company, gameContext))
         {
             Companies.Log(company, $"* Daughter {d.company.Name} stats");
             Companies.LogFinancialTransactions(d);

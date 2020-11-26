@@ -56,7 +56,7 @@ namespace Assets.Core
             if (company.hasProduct)
                 return new NicheType[1] { company.product.Niche };
 
-            var daughters = GetDaughters(gameContext, company);
+            var daughters = GetDaughters(company, gameContext);
 
             return daughters
                 .Where(d => d.hasProduct)

@@ -16,16 +16,30 @@ namespace Assets.Core
             // product only
             if (isProduct)
             {
-                goals.AddRange(GetWrappedProductGoals(company, Q));
+                try
+                {
+                    goals.AddRange(GetWrappedProductGoals(company, Q));
+                }
+                catch
+                {
+                    Debug.Log("Is product");
+                }
             }
 
             // group only
             if (isGroup)
             {
-                // daughters need to be dependant on parent company
-                foreach (var daughter in Companies.GetDaughterProducts(Q, company))
+                try
                 {
-                    goals.AddRange(GetWrappedProductGoals(daughter, Q, company));
+                    // daughters need to be dependant on parent company
+                    foreach (var daughter in Companies.GetDaughterProducts(Q, company))
+                    {
+                        goals.AddRange(GetWrappedProductGoals(daughter, Q, company));
+                    }
+                }
+                catch
+                {
+                    Debug.Log("Is group");
                 }
 
                 goals.AddRange(GetWrappedGroupGoals(company, Q));

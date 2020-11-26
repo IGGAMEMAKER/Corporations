@@ -122,7 +122,7 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
 
     public static int GetBudgetEstimation(GameEntity product, GameContext gameContext)
     {
-        var competitors = Companies.GetCompetitorsOfCompany(product, gameContext, true);
+        var competitors = Companies.GetCompetitorsOf(product, gameContext, true);
 
         var position = competitors.OrderByDescending(c => Economy.GetProductMaintenance(c, Q)).ToList().FindIndex(s => s.company.Id == product.company.Id);
 
@@ -131,7 +131,7 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
 
     public static int GetTeamEstimation(GameEntity product, GameContext gameContext)
     {
-        var competitors = Companies.GetCompetitorsOfCompany(product, gameContext, true);
+        var competitors = Companies.GetCompetitorsOf(product, gameContext, true);
 
         var position = competitors.OrderByDescending(c => c.team.Teams.Count).ToList().FindIndex(s => s.company.Id == product.company.Id);
 

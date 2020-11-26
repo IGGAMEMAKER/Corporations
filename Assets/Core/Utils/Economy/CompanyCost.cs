@@ -26,7 +26,7 @@ namespace Assets.Core
             return GetHoldingsCost(context, e);
         }
 
-        public static long GetHoldingsCost(GameContext context, GameEntity entity) => GetHoldingsCost(context, Investments.GetHoldings(context, entity, true));
+        public static long GetHoldingsCost(GameContext context, GameEntity entity) => GetHoldingsCost(context, Investments.GetHoldings(entity, context, true));
         public static long GetHoldingsCost(GameContext context, List<CompanyHolding> holdings)
         {
             return holdings.Sum(h => h.control * CostOf(h.company, context)) / 100;

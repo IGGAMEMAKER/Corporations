@@ -5,43 +5,43 @@ namespace Assets.Core
 {
     partial class Companies
     {
-        public static GameEntity CloseCompany(GameContext context, GameEntity e, bool bankrupt = false)
+        public static GameEntity CloseCompany(GameContext context, GameEntity company, bool bankrupt = false)
         {
-            var balance = Economy.BalanceOf(e);
+            var balance = Economy.BalanceOf(company);
 
-            e.companyResourceHistory.Actions.Add(new ResourceTransaction { Tag = "Close company", TeamResource = -balance });
+            company.companyResourceHistory.Actions.Add(new ResourceTransaction { Tag = "Close company", TeamResource = -balance });
             
             // pay to everyone
-            PayDividends(context, e, balance);
+            PayDividends(context, company, balance);
 
             // fire everyone
 
-            NotifyAboutProductSupportEnd(e, context);
+            NotifyAboutProductSupportEnd(company, context);
 
-            if (e.hasProduct)
+            if (company.hasProduct)
             {
-                Teams.DismissTeam(e, context);
-                Markets.ReturnUsersWhenCompanyIsClosed(e, context);
+                Teams.DismissTeam(company, context);
+                Markets.ReturnUsersWhenCompanyIsClosed(company, context);
             }
 
-            RemoveAllPartnerships(e, context);
+            RemoveAllPartnerships(company, context);
 
-            foreach (var holding in GetDaughters(context, e))
+            foreach (var holding in GetDaughters(company, context))
             {
-                RemoveShareholder(holding, context, e);
-                //DestroyBlockOfShares(context, holding, e.shareholder.Id);
+                RemoveShareholder(holding, context, company);
             }
 
-            e.ReplaceShareholders(new Dictionary<int, BlockOfShares>());
+            RemoveAllShareholders(context, company);
+            //e.ReplaceShareholders(new Dictionary<int, BlockOfShares>());
 
 
 
-            e.isAlive = false;
+            company.isAlive = false;
 
             if (bankrupt)
-                e.isBankrupt = true;
+                company.isBankrupt = true;
 
-            return e;
+            return company;
         }
 
 

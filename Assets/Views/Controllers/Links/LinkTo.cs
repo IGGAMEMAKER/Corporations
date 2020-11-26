@@ -39,7 +39,7 @@ public class LinkTo : ButtonController
                 NavigateToCompany(TargetMenu, MyGroupEntity.company.Id);
                 break;
             case ScreenMode.ManageCompaniesScreen:
-                var daughters = Companies.GetDaughters(Q, MyGroupEntity);
+                var daughters = Companies.GetDaughters(MyGroupEntity, Q);
                 
                 if (daughters.Length > 0)
                 {

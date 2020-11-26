@@ -13,11 +13,11 @@ namespace Assets.Core
         }
 
         // entity can be company, investor or human?
-        public static List<CompanyHolding> GetHoldings(GameContext context, GameEntity entity, bool recursively)
+        public static List<CompanyHolding> GetHoldings(GameEntity entity, GameContext context, bool recursively)
         {
             List<CompanyHolding> holdings = new List<CompanyHolding>();
 
-            var ownings = GetOwnings(context, entity);
+            var ownings = GetOwnings(entity, context);
 
             foreach (var company in ownings)
             {
@@ -28,7 +28,7 @@ namespace Assets.Core
 
                     control = Companies.GetShareSize(context, company, entity),
 
-                    holdings = recursively ? GetHoldings(context, company, recursively) : new List<CompanyHolding>()
+                    holdings = recursively ? GetHoldings(company, context, recursively) : new List<CompanyHolding>()
                 };
 
                 holdings.Add(holding);
@@ -37,7 +37,7 @@ namespace Assets.Core
             return holdings;
         }
 
-        public static GameEntity[] GetOwnings(GameContext context, GameEntity c) // c can be human, investor or company
+        public static GameEntity[] GetOwnings(GameEntity c, GameContext context) // c can be human, investor or company
         {
             if (!c.hasOwnings)
                 return new GameEntity[0];
@@ -78,7 +78,7 @@ namespace Assets.Core
 
         public static long GetInvestorCapitalCost(GameContext gameContext, GameEntity human)
         {
-            var holdings = Investments.GetHoldings(gameContext, human, false);
+            var holdings = Investments.GetHoldings(human, gameContext, false);
 
             return Economy.GetHoldingsCost(gameContext, holdings);
         }

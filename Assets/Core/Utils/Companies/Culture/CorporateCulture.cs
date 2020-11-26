@@ -20,7 +20,8 @@ namespace Assets.Core
             if (value != prevValue)
             {
                 // culture changed
-                NotificationUtils.AddPopup(gameContext, new PopupMessageCultureChange(company.company.Id));
+                if (company.isFlagship || company.isControlledByPlayer)
+                    NotificationUtils.AddPopup(gameContext, new PopupMessageCultureChange(company.company.Id));
             }
 
             company.ReplaceCorporateCulture(culture);

@@ -16,13 +16,13 @@ namespace Assets.Core
 
         private static long GetGroupIncome(GameContext context, GameEntity e)
         {
-            return Investments.GetHoldings(context, e, true)
+            return Investments.GetHoldings(e, context, true)
                 .Sum(h => h.control * GetIncome(context, h.company) / 100);
         }
 
         private static long GetGroupMaintenance(GameContext context, GameEntity company)
         {
-            return Investments.GetHoldings(context, company, true)
+            return Investments.GetHoldings(company, context, true)
                 .Sum(h => h.control * GetMaintenance(context, h.company) / 100);
         }
 
@@ -71,7 +71,7 @@ namespace Assets.Core
             // group
             if (Companies.IsGroup(c))
             {
-                var holdings = Investments.GetHoldings(context, c, true);
+                var holdings = Investments.GetHoldings(c, context, true);
 
                 bool isOnlyHolding = holdings.Count == 1;
 

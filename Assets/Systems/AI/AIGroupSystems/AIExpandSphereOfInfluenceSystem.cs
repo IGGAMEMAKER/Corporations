@@ -21,7 +21,7 @@ public partial class AIGroupExpansionSystem
         foreach (var n in group.companyFocus.Niches)
         {
             //Debug.Log("Checking niche " + n.ToString());
-            foreach (var holding in Companies.GetDaughters(gameContext, group))
+            foreach (var holding in Companies.GetDaughters(group, gameContext))
             {
                 //Debug.Log("Checking holding " + holding.company.Name);
 

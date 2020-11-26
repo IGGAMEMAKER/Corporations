@@ -17,7 +17,7 @@ public class RenderFlagshipCompetitorListView : ListView
     {
         base.ViewRender();
 
-        var competitors = Companies.GetCompetitorsOfCompany(Flagship, Q, true)
+        var competitors = Companies.GetCompetitorsOf(Flagship, Q, true)
             .OrderByDescending(Marketing.GetUsers);
 
         SetItems(competitors);

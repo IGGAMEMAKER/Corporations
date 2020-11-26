@@ -39,7 +39,9 @@ public class RenderProductKPI : View
         var growthBonus = Marketing.GetAudienceGrowthBonus(product, Q);
         var growth = growthBonus.Sum();
 
-        Growth.text = Visuals.Positive(Format.Minify(growth) + $" users weekly\n{growthBonus.ToString()}");
+        var amountOfChannels = growthBonus.bonusDescriptions.Count;
+
+        Growth.text = Visuals.Positive(Format.Minify(growth) + $" users weekly\n\nActive in {amountOfChannels} channels"); //growthBonus.ToString()
 
         long churnUsers = 0;
         var segments = Marketing.GetAudienceInfos();

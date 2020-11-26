@@ -25,6 +25,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
                 if (loyalty + attitude < 0 && Marketing.IsImportantAudience(product, s.ID))
                 {
                     Companies.Log(product, $"Wanted to add {feature.Name}, but this will dissapoint {s.Name}");
+
                     willUpsetPeople = true;
 
                     break;
@@ -34,6 +35,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             if (!willUpsetPeople)
             {
                 TryAddTask(product, new TeamTaskFeatureUpgrade(feature));
+
                 Companies.LogSuccess(product, $"Added {feature.Name} for profit");
             }
         }
@@ -54,7 +56,12 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
         var remainingFeatures = Products.GetAllFeaturesForProduct(product).Where(f => !Teams.IsUpgradingFeature(product, gameContext, f.Name));
 
         if (remainingFeatures.Count() == 0)
+        {
+            Companies.IncrementCorporatePolicy(gameContext, product, CorporatePolicy.DecisionsManagerOrTeam);
+            //Companies.DecrementCorporatePolicy(gameContext, product, CorporatePolicy.);
+
             return;
+        }
 
         var feature = remainingFeatures.First();
         if (feature.FeatureBonus.isMonetisationFeature) //  && feature.Name.Contains("Ads")

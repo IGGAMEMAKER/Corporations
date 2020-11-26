@@ -72,7 +72,7 @@ namespace Assets.Core
             var newPositioning = rand < 1 ? 0 : 3; //  positioningWorths.ToArray()[rand].ID;
             // 0 - teens, 3 - old people
 
-            Marketing.ChangePositioning(company, newPositioning);
+            Marketing.ChangePositioning(company, Q, newPositioning);
 
             Marketing.AddClients(company, 50, Marketing.GetCoreAudienceId(company));
 

@@ -48,9 +48,37 @@ namespace Assets.Core
             return product.nicheSegments.Positionings;
         }
 
-        public static void ChangePositioning(GameEntity product, int positioningId)
+        public static void ChangePositioning(GameEntity product, GameContext gameContext, int positioningId)
         {
+            bool isChaningPositioning = product.productPositioning.Positioning != positioningId;
+
+            if (!isChaningPositioning)
+                return;
+
+            var playerFlagship = Companies.GetPlayerFlagship(gameContext);
+
+            if (Companies.IsDirectCompetitor(playerFlagship, product) && !product.isFlagship)
+            {
+                // was competitor
+                NotificationUtils.AddSimplePopup(gameContext, Visuals.Positive($"Our competitor left competition!"), $"{product.company.Name} is no longer competing with us, cause they changed their product positioning");
+            }
+
+
+
             product.productPositioning.Positioning = positioningId;
+
+
+            if (product.isFlagship)
+            {
+                NotificationUtils.AddSimplePopup(gameContext, "Product positioning changed", "");
+            }
+            else
+            {
+                if (Companies.IsDirectCompetitor(playerFlagship, product))
+                {
+                    NotificationUtils.AddSimplePopup(gameContext, Visuals.Negative($"New competitor!"), $"{product.company.Name} will compete with {playerFlagship.company.Name}");
+                }
+            }
         }
 
         public static bool IsFocusingOneAudience(GameEntity product)

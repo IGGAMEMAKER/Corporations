@@ -61,7 +61,7 @@ public class RenderCompanyCompetitors : ListView
     {
         base.ViewRender();
 
-        var competitors = Companies.GetCompetitorsOfCompany(SelectedCompany, Q, true);
+        var competitors = Companies.GetCompetitorsOf(SelectedCompany, Q, true);
 
         SetItems(competitors);
     }

@@ -59,7 +59,7 @@ public class RenderCompanyEconomyTab : View
     {
         string description = "Group maintenance:\n";
 
-        var holdings = Investments.GetHoldings(context, company, false);
+        var holdings = Investments.GetHoldings(company, context, false);
 
         foreach (var h in holdings)
         {
@@ -81,7 +81,7 @@ public class RenderCompanyEconomyTab : View
     {
         string description = "Group income:\n";
 
-        var holdings = Investments.GetHoldings(context, company, false);
+        var holdings = Investments.GetHoldings(company, context, false);
 
         foreach (var h in holdings)
         {

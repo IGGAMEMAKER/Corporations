@@ -67,7 +67,7 @@ namespace Assets.Core
 
         public static List<int> GetCandidatesForTeam(GameEntity company, TeamInfo team, GameContext Q)
         {
-            var competitors = Companies.GetCompetitorsOfCompany(company, Q, false);
+            var competitors = Companies.GetCompetitorsOf(company, Q, false);
 
             var managers = new List<GameEntity>();
             var managerIds = new List<int>();

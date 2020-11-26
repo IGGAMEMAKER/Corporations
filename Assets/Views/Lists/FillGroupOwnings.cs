@@ -15,6 +15,6 @@ public class FillGroupOwnings : View
         if (!HasCompany)
             return new GameEntity[0];
 
-        return Companies.GetDaughters(Q, MyGroupEntity);
+        return Companies.GetDaughters(MyGroupEntity, Q);
     }
 }

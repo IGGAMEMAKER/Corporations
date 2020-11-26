@@ -15,6 +15,7 @@ namespace Assets.Core
         {
             return Teams.GetMaxTeamSize(rank) * C.SALARIES_PROGRAMMER;
         }
+
         public static long GetTeamCost(TeamInfo team)
         {
             return team.Workers * C.SALARIES_PROGRAMMER;

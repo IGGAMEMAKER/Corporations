@@ -20,7 +20,7 @@
 
         public static int GetCompanyLimitPenalty(GameEntity company, GameContext gameContext)
         {
-            var daughters = GetDaughters(gameContext, company);
+            var daughters = GetDaughters(company, gameContext);
 
             var daughtersCount = daughters.Length;
             var limit = GetCompanyLimit(company);

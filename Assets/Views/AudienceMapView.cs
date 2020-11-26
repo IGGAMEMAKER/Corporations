@@ -12,7 +12,7 @@ public class AudienceMapView : View
 
     public void SetEntity(AudienceInfo info, long index, int count)
     {
-        var companies = Companies.GetCompetitorsOfCompany(Flagship, Q, true);
+        var companies = Companies.GetCompetitorsOf(Flagship, Q, true);
 
         var max = 2.75f;
         var scale = Mathf.Clamp(max / (count - index), 1f, max);
