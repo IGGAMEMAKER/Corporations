@@ -50,7 +50,7 @@ namespace Assets.Core
 
                     var acquisitionGoal = new InvestmentGoalAcquireCompany(weakerCompany.company.Id, weakerCompany.company.Name);
 
-                    if (!acquisitionGoal.IsCompleted(company, Q))
+                    if (!Investments.CanCompleteGoal(company, Q, acquisitionGoal))
                         goals.Add(acquisitionGoal);
                 }
             }

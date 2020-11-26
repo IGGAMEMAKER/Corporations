@@ -55,6 +55,8 @@ namespace Assets.Core
             c.ReplaceCompany(c.company.Id, name, c.company.CompanyType);
         }
 
+        public static string GetCompanyNames(IEnumerable<GameEntity> companies, string separator = ", ") => string.Join(separator, companies.Select(c => c.company.Name));
+
         // Logging
 
         public static void LogSuccess(GameEntity entity, string text) => Log(entity, Visuals.Positive(text));

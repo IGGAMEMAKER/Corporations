@@ -73,27 +73,30 @@ namespace Assets.Core
             return competitors;
         }
 
-        //public static GameEntity GetStrongerCompetitor(GameEntity company, GameContext gameContext, bool directCompetitor)
         public static GameEntity GetStrongerCompetitor(GameEntity company, GameContext gameContext, bool preferDirectCompetitor)
+        {
+            return GetStrongerCompetitors(company, gameContext, preferDirectCompetitor).FirstOrDefault();
+        }
+
+        public static GameEntity GetWeakerCompetitor(GameEntity company, GameContext gameContext, bool preferDirectCompetitor)
+        {
+            return GetWeakerCompetitors(company, gameContext, preferDirectCompetitor).LastOrDefault();
+        }
+
+        public static IEnumerable<GameEntity> GetStrongerCompetitors(GameEntity company, GameContext gameContext, bool preferDirectCompetitor)
         {
             int index = 0;
             var competitors = GetSortedCompetitors(company, gameContext, ref index, preferDirectCompetitor);
 
-            if (index == 0)
-                return null;
-
-            return competitors[index - 1];
+            return competitors.Where((c, i) => i < index);
         }
 
-        public static GameEntity GetWeakerCompetitor(GameEntity company, GameContext gameContext, bool directCompetitor)
+        public static IEnumerable<GameEntity> GetWeakerCompetitors(GameEntity company, GameContext gameContext, bool directCompetitor)
         {
             int index = 0;
             var competitors = GetSortedCompetitors(company, gameContext, ref index, directCompetitor);
 
-            if (index + 1 >= competitors.Count)
-                return null;
-
-            return competitors.Last();
+            return competitors.Where((c, i) => i > index);
         }
     }
 }

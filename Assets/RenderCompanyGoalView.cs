@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Core;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,8 +13,13 @@ public class RenderCompanyGoalView : ParameterView
 
         foreach (var g in goals)
         {
-            text += "\n" + g.GetFormattedName();
+            text += "\n* " + g.GetFormattedName();
         }
+
+        var strongerCompanies = Companies.GetCompanyNames(Companies.GetStrongerCompetitors(SelectedCompany, Q, false));
+        var strongerDirectCompanies = Companies.GetCompanyNames(Companies.GetWeakerCompetitors(SelectedCompany, Q, false));
+
+        text += $"\n\n<b>Stronger</b> than {strongerCompanies}\n\n<b>Weaker</b> than {strongerDirectCompanies}";
 
         return text;
     }

@@ -628,7 +628,7 @@ public class InvestmentGoalDominateMarket : InvestmentGoal
 
     public override string GetFormattedName()
     {
-        return "DOMINATE MARKET OF " + Enums.GetFormattedNicheName(TargetMarket).ToUpper();
+        return "DOMINATE MARKET";
     }
 
     public override List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
@@ -645,7 +645,7 @@ public class InvestmentGoalDominateMarket : InvestmentGoal
                 have = have,
                 need = need,
 
-                description = "Own ALL companies in " + Enums.GetFormattedNicheName(TargetMarket) + $" ({have}/{need})"
+                description = "Own ALL companies in " + Enums.GetFormattedNicheName(TargetMarket) + $" market ({have}/{need})"
             }
         };
     }
