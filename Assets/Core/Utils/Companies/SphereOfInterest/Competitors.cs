@@ -31,6 +31,12 @@ namespace Assets.Core
             return competitors.Where(c => c.productPositioning.Positioning == positioningID);
         }
 
+        public static bool IsDirectCompetitor(GameEntity c1, GameEntity niche, int positioningId)
+        {
+            return c1.hasProduct
+                && c1.productPositioning.Positioning == positioningId
+                && c1.product.Niche == niche.niche.NicheType;
+        }
         public static bool IsDirectCompetitor(GameEntity c1, GameEntity c2)
         {
             return c1.hasProduct && c2.hasProduct 
@@ -75,7 +81,7 @@ namespace Assets.Core
 
         public static GameEntity GetStrongerCompetitor(GameEntity company, GameContext gameContext, bool preferDirectCompetitor)
         {
-            return GetStrongerCompetitors(company, gameContext, preferDirectCompetitor).FirstOrDefault();
+            return GetStrongerCompetitors(company, gameContext, preferDirectCompetitor).LastOrDefault();
         }
 
         public static GameEntity GetWeakerCompetitor(GameEntity company, GameContext gameContext, bool preferDirectCompetitor)

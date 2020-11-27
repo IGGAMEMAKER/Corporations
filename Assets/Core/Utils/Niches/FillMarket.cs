@@ -17,53 +17,91 @@ namespace Assets.Core
                 return;
 
             var nicheType = niche.niche.NicheType;
-            var playersOnMarket = GetCompetitorsAmount(nicheType, gameContext);
+            var playersOnMarket = 0; // GetCompetitorsAmount(nicheType, gameContext);
 
             // don't spawn companies on innovation phase if has companies already
-            if (phase == MarketState.Innovation && playersOnMarket > 0)
-                return;
+            //if (phase == MarketState.Innovation && playersOnMarket > 0)
+            //    return;
 
+            bool isInPlayerSphereOfInfluence = Companies.IsInPlayerSphereOfInterest(niche.niche.NicheType, gameContext);
 
-
-            TryToSpawnCompany(niche, gameContext, phase, playersOnMarket);
+            TryToSpawnCompany(niche, gameContext, phase, isInPlayerSphereOfInfluence);
         }
 
-        public static bool IsNeedsMoreCompaniesOnMarket(GameEntity niche, GameContext gameContext, MarketState phase, int playersOnMarket)
+        public static void TryToSpawnCompany(GameEntity niche, GameContext gameContext, MarketState phase, bool inPlayerSphereOfInfluence)
         {
-            // force spawning if there are no companies
-            if (playersOnMarket == 0)
-            {
-                // offer spawning a company to player
-                if (InspirationToPlayer(niche.niche.NicheType, gameContext))
-                    return false;
+            var segments = GetNichePositionings(niche.niche.NicheType, gameContext);
 
-                return true;
+            var productsOnMarket = Markets.GetProductsOnMarket(niche, gameContext);
+            bool willMakeSameProductWithPlayerFlagship = false;
+
+            GameEntity playerFlagship = null;
+
+            if (inPlayerSphereOfInfluence)
+            {
+                playerFlagship = Companies.GetPlayerFlagship(gameContext);
+
+                if (niche.niche.NicheType == playerFlagship.product.Niche)
+                    willMakeSameProductWithPlayerFlagship = true;
             }
 
-            // competition is low
-            return IsMarketCanAffordMoreCompanies(niche, gameContext);
-        }
+            float intensity = 1f / (1 + segments.Count);
 
-        public static bool IsAllReleasedCompaniesAreProfitable(GameEntity niche, GameContext gameContext)
-        {
-            var releasedProducts = GetProductsOnMarket(niche, gameContext).Where(p => p.isRelease);
+            if (inPlayerSphereOfInfluence)
+                intensity = 1f;
 
-            return releasedProducts.All(p => Economy.IsProfitable(gameContext, p));
-        }
-
-        public static bool IsMarketCanAffordMoreCompanies(GameEntity niche, GameContext gameContext) => IsAllReleasedCompaniesAreProfitable(niche, gameContext);
-
-        public static void TryToSpawnCompany(GameEntity niche, GameContext gameContext, MarketState phase, int playersOnMarket)
-        {
-            var leaderFunds = Random.Range(5000, 300000);
-
-            bool leaderHasEnoughMoney = GetStartCapital(niche, gameContext) <= leaderFunds;
-
-            if (IsNeedsMoreCompaniesOnMarket(niche, gameContext, phase, playersOnMarket) && leaderHasEnoughMoney)
+            foreach (var s in segments)
             {
-                var product = SpawnCompany(niche, gameContext, leaderFunds);
+                var productsCount = productsOnMarket.Count(p => p.productPositioning.Positioning == s.ID);
 
-                NotificationUtils.SendNewCompetitorPopup(gameContext, niche, product);
+                bool willCompeteDirectly = false;
+
+                // increase chances if player has companeis in that segment
+                if (inPlayerSphereOfInfluence)
+                {
+                    if (willMakeSameProductWithPlayerFlagship && Companies.IsDirectCompetitor(playerFlagship, niche, s.ID))
+                    {
+                        willCompeteDirectly = true;
+                    }
+                }
+
+                var spawnChance = 0f;
+
+
+                if (productsCount == 0)
+                {
+                    spawnChance = 20;
+                }
+                else if (productsCount == 1)
+                {
+                    spawnChance = 10;
+                }
+                else if (productsCount == 2)
+                {
+                    spawnChance = 5;
+                }
+                else
+                {
+                    spawnChance = 1;
+                }
+
+                if (willCompeteDirectly)
+                    spawnChance *= 10;
+
+                spawnChance *= intensity;
+
+                // take into account competition strength too
+                // Noone wants to make a browser, cause Google exists already
+
+                if (Random.Range(0f, 100f) < spawnChance)
+                {
+                    var leaderFunds = Random.Range(50_000, 300_000);
+
+                    var product = SpawnCompany(niche, gameContext, leaderFunds);
+                    Marketing.ChangePositioning(product, gameContext, s.ID, true);
+
+                    NotificationUtils.SendNewCompetitorPopup(gameContext, niche, product);
+                }
             }
         }
 

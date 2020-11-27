@@ -197,7 +197,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             {
                 Companies.LogFail(product, "CANNOT GET A GOAL");
 
-                Debug.LogError("CANNOT GET A GOAL FOR: " + product.company.Name + "\n\nCompleted goals\n\n" + string.Join(", ", product.completedGoals.Goals));
+                Debug.Log("CANNOT GET A GOAL FOR: " + product.company.Name + "\n\nCompleted goals\n\n" + string.Join(", ", product.completedGoals.Goals));
             }
             else
             {

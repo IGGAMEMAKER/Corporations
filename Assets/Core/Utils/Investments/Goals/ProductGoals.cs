@@ -43,10 +43,6 @@ namespace Assets.Core
 
             if (isPrototype)
             {
-                bool madePrototype  = Completed(product, InvestorGoalType.ProductPrototype);
-                bool isMarketFit    = Completed(product, InvestorGoalType.ProductBecomeMarketFit);
-                bool gotFirstUsers  = Completed(product, InvestorGoalType.ProductFirstUsers);
-
                 var coreLoyalty = Marketing.GetSegmentLoyalty(product, Marketing.GetCoreAudienceId(product));
 
                 // has no goals at start

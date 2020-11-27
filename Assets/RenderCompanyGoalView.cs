@@ -17,9 +17,9 @@ public class RenderCompanyGoalView : ParameterView
         }
 
         var strongerCompanies = Companies.GetCompanyNames(Companies.GetStrongerCompetitors(SelectedCompany, Q, false));
-        var strongerDirectCompanies = Companies.GetCompanyNames(Companies.GetWeakerCompetitors(SelectedCompany, Q, false));
+        var weakerCompanies = Companies.GetCompanyNames(Companies.GetWeakerCompetitors(SelectedCompany, Q, false));
 
-        text += $"\n\n<b>Stronger</b> than {strongerCompanies}\n\n<b>Weaker</b> than {strongerDirectCompanies}";
+        text += $"\n\n<b>Stronger</b> than {weakerCompanies}\n\n<b>Weaker</b> than {strongerCompanies}";
 
         return text;
     }

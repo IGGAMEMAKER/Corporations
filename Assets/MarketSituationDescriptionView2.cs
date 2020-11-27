@@ -9,25 +9,29 @@ public class MarketSituationDescriptionView2 : ParameterView
     {
         var company = Flagship;
 
+        var positioningName = $"We are making {Marketing.GetPositioningName(Flagship)}";
+
         if (company.teamEfficiency.Efficiency.isUniqueCompany)
         {
-            return Visuals.Positive("You get TWICE more users, cause you have 0 competitors");
+            return Visuals.Positive("We get TWICE more users, cause you have 0 competitors") + ".\n" + positioningName;
         }
 
         else
         {
             var competitiveness = company.teamEfficiency.Efficiency.Competitiveness;
-            if (Mathf.Abs(competitiveness) > 0)
+            var churnGained = Marketing.GetChurnFromOutcompetition(company);
+
+            //if (Mathf.Abs(competitiveness) > 0)
+            if (churnGained > 0)
             {
                 var quality = Marketing.GetPositioningQuality(company).Sum();
                 var maxQuality = quality + competitiveness;
 
-                var churnGained = Marketing.GetChurnFromOutcompetition(company);
-
-                return Visuals.Negative($"You lose {churnGained}% of your audience, cause your product ({(int)quality}) is outdated ({(int)maxQuality})");
+                return Visuals.Negative($"We LOSE {churnGained}% of your audience, cause your product (quality={(int)quality}) is OUTDATED (max quality={(int)maxQuality})\n") + positioningName;
             }
 
-            return $"which are also making {Marketing.GetPositioningName(company)}";
+            return positioningName;
+            //return $"which are also making {Marketing.GetPositioningName(company)}";
         }
     }
 }

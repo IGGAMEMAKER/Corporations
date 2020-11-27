@@ -31,6 +31,13 @@ public class TaskPanelView : View
 
         var team = Flagship.team.Teams[teamId];
 
+        TaskBenefit.text = "";
+
+        if (teamTask.IsPending)
+        {
+            TaskBenefit.text = Visuals.Negative("<size=30>This task is not active!</size>") + "\nCause our team is doing other tasks. Hire more teams, to make more tasks at the same time.\n\n";
+        }
+
         if (teamTask.IsFeatureUpgrade)
         {
             var f = teamTask as TeamTaskFeatureUpgrade;
@@ -93,26 +100,28 @@ public class TaskPanelView : View
 
             var ratingCap = Products.GetFeatureRatingCap(Flagship);
 
-            TaskBenefit.text = $"<size=40>Quality: {ratingFormatted} / 10lvl</size>" +
-                //$"This feature will be upgraded to level {ratingCap}" + 
+            TaskBenefit.text += $"<size=40>Feature Quality: {ratingFormatted}lvl</size>" +
+                $"\n\nThis feature will be upgraded to level {ratingCap}" +
                 $"\n\n<size=30>Gives you {sumLoyaltyFormatted} loyalty total</size>" +
                 //$"\n\nOn quality=10 you will get:" +
                 //$"\n\n<size=30>{sumLoyaltyMaxFormatted} loyalty total</size>" +
                 $"\n{featureDescription}"
                 ;
 
+
+
             TaskModifiers.text = $"Will be upgraded to level {ratingCap} due to assigned team";
         }
 
         if (teamTask.IsMarketingTask)
         {
-            TaskBenefit.text = $"marketing task";
+            TaskBenefit.text += $"Marketing task";
             TaskModifiers.text = "";
         }
 
         if (teamTask.IsHighloadTask)
         {
-            TaskBenefit.text = $"Server";
+            TaskBenefit.text += $"Server";
             TaskModifiers.text = "";
         }
 

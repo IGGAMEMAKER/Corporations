@@ -28,7 +28,7 @@ namespace Assets.Core
             var potentialLeader = Markets.GetPotentialMarketLeader(gameContext, niche.niche.NicheType);
             var hasBiggestPotential = potentialLeader.company.Id == product.company.Id;
 
-            if (Companies.IsInPlayerSphereOfInterest(product, gameContext) && hasBiggestPotential)
+            if (Companies.IsInPlayerSphereOfInterest(product, gameContext))
                 AddPopup(gameContext, new PopupMessageCompanySpawn(product.company.Id));
         }
 

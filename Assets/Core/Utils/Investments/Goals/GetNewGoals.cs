@@ -83,6 +83,13 @@ namespace Assets.Core
                 Debug.LogError("added common goals " + ex);
             }
 
+            // only show buy back goal if there is only that goal
+            if (goals.Any(g => g.InvestorGoalType == InvestorGoalType.BuyBack))
+                return OnlyGoal(goals.First(g => g.InvestorGoalType == InvestorGoalType.BuyBack));
+
+            if (company.companyGoal.Goals.Any(g => g.InvestorGoalType == InvestorGoalType.BuyBack))
+                return new List<InvestmentGoal>();
+
             return goals;
         }
 

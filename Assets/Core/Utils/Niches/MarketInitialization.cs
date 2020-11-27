@@ -690,7 +690,7 @@ namespace Assets.Core
             list.Add(new ProductPositioning
             {
                 ID = maxPositioning,
-                name = nicheName + " for everyone",
+                name = nicheName + " for ALL",
                 Loyalties = audiences.Select(a => mass).ToList(),
 
                 isCompetitive = false,

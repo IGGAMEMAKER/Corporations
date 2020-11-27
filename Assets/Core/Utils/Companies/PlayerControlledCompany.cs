@@ -60,6 +60,9 @@ namespace Assets.Core
 
         public static GameEntity GetPlayerFlagship(GameContext gameContext)
         {
+            var flagships = gameContext.GetEntities(GameMatcher.Flagship);
+            
+            return flagships.Count() > 0 ? flagships.First() : null;
             var playerCompany = Companies.GetPlayerCompany(gameContext);
 
             if (playerCompany == null)

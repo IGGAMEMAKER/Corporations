@@ -48,10 +48,14 @@ namespace Assets.Core
                         weakerCompany = Companies.GetWeakerCompetitor(company, Q, true);
                     }
 
-                    var acquisitionGoal = new InvestmentGoalAcquireCompany(weakerCompany.company.Id, weakerCompany.company.Name);
+                    // if there are weaker companies
+                    if (weakerCompany != null)
+                    {
+                        var acquisitionGoal = new InvestmentGoalAcquireCompany(weakerCompany.company.Id, weakerCompany.company.Name);
 
-                    if (!Investments.CanCompleteGoal(company, Q, acquisitionGoal))
-                        goals.Add(acquisitionGoal);
+                        if (!Investments.CanCompleteGoal(company, Q, acquisitionGoal))
+                            goals.Add(acquisitionGoal);
+                    }
                 }
             }
 
@@ -74,7 +78,8 @@ namespace Assets.Core
                 //AddOnce(goals, company, InvestorGoalType.DominateMarket);
 
             if (Completed(company, InvestorGoalType.DominateMarket))
-                goals.Add(new InvestmentGoalBuyBack());
+                 return OnlyGoal(new InvestmentGoalBuyBack());
+                 //goals.Add(new InvestmentGoalBuyBack());
                 //goals.Add(InvestorGoalType.BuyBack);
 
             return goals;

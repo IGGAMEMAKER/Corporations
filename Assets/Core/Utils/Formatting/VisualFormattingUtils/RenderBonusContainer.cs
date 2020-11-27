@@ -24,7 +24,7 @@
             var text = "";
 
             if (bonusType == BonusType.Multiplicative)
-                text = $"Multiplied by \n{bonusName}: {value}";
+                text = $"Multiplied by \n{bonusName}: {value.ToString("0.00")}";
             else
                 text = $"{bonusName}: {Format.Sign(value, minifyValue)}{dimension}";
 

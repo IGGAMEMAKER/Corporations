@@ -34,8 +34,10 @@ namespace Assets.Core
         {
             if (minify)
                 return (value > 0 ? "+" : "") + Minify(value);
+                //return (value > 0 ? "+" : "") + Minify(value);
 
-            return value > 0 ? $"+{value}" : value.ToString();
+            return value > 0 ? $"+{value.ToString("0.00")}" : value.ToString("0.00");
+            //return value > 0 ? $"+{value}" : value.ToString();
         }
 
         public static string Sign(long value, bool minify = false)

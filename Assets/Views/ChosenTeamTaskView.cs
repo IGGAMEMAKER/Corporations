@@ -10,6 +10,9 @@ public class ChosenTeamTaskView : ParameterView
     {
         var task = TeamTask;
 
+        var cost = Economy.GetTeamTaskCost(Flagship, task);
+        var costs = Format.Money(cost) + " / week";
+
         if (task is TeamTaskFeatureUpgrade)
         {
             var f = task as TeamTaskFeatureUpgrade;
@@ -24,14 +27,14 @@ public class ChosenTeamTaskView : ParameterView
             var channel = Markets.GetMarketingChannel(Q, f.ChannelId);
             var gain = Marketing.GetChannelClientGain(Flagship, channel);
 
-            return $"Marketing in Forum {channel.marketingChannel.ChannelInfo.ID} (+{Format.Minify(gain)} users / week)";
+            return $"Marketing in Channel {channel.marketingChannel.ChannelInfo.ID} (+{Format.Minify(gain)} users / week). Costs {costs}";
         }
 
         if (task.IsHighloadTask)
         {
             var f = task as TeamTaskSupportFeature;
             
-            return $"{task.GetPrettyName()} can maintain {Format.Minify(f.SupportFeature.SupportBonus.Max)} users";
+            return $"{task.GetPrettyName()} can maintain {Format.Minify(f.SupportFeature.SupportBonus.Max)} users. Costs {costs}";
         }
 
         return "???";
