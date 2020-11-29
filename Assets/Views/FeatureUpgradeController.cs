@@ -23,13 +23,16 @@ public class FeatureUpgradeController : ButtonController
 
             var featureList = FindObjectOfType<RenderAllAudienceNeededFeatureListView>();
 
-            // view render to recalculate features count
-            featureList.ViewRender();
-
-            if (featureList.count == 0)
+            if (featureList != null)
             {
-                CloseModal("Features");
-                // CloseMyModalWindowIfListIsBlank
+                // view render to recalculate features count
+                featureList.ViewRender();
+
+                if (featureList.count == 0)
+                {
+                    CloseModal("Features");
+                    // CloseMyModalWindowIfListIsBlank
+                }
             }
         }
 

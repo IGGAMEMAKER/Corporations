@@ -68,7 +68,7 @@ public class FeatureBonus
     }
 
     public bool isAcquisitionFeature => this is FeatureBonusAcquisition;
-    public bool isMonetisationFeature => this is FeatureBonusMonetisation;
+    public bool isMonetisationFeature => this is FeatureBonusMonetization;
     public bool isRetentionFeature => this is FeatureBonusRetention;
 }
 
@@ -84,9 +84,9 @@ public class FeatureBonusRetention : FeatureBonus
     {
     }
 }
-public class FeatureBonusMonetisation : FeatureBonus
+public class FeatureBonusMonetization : FeatureBonus
 {
-    public FeatureBonusMonetisation(float Max) : base(Max)
+    public FeatureBonusMonetization(float Max) : base(Max)
     {
     }
 }
@@ -102,12 +102,15 @@ public class NewProductFeature
         Name = name;
 
         if (monetisationBenefit > 0)
-            FeatureBonus = new FeatureBonusMonetisation(monetisationBenefit);
+            FeatureBonus = new FeatureBonusMonetization(monetisationBenefit);
         else
             FeatureBonus = new FeatureBonusRetention(5);
 
         AttitudeToFeature = attitudes;
     }
+
+    public bool IsMonetizationFeature => FeatureBonus.isMonetisationFeature;
+    public bool IsRetentionFeature => FeatureBonus.isRetentionFeature;
 }
 
 public class SupportFeature

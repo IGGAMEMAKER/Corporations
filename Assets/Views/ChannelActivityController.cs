@@ -24,14 +24,18 @@ public class ChannelActivityController : ButtonController
 
         var channelList = FindObjectOfType<MarketingChannelsListView>();
 
-        // view render to recalculate features count
-        channelList.ViewRender();
-
-        if (channelList.count == 0)
+        if (channelList != null)
         {
-            CloseModal("Marketing");
-        }
 
-        MarketingChannelView.ViewRender();
+            // view render to recalculate features count
+            channelList.ViewRender();
+
+            if (channelList.count == 0)
+            {
+                CloseModal("Marketing");
+            }
+
+            MarketingChannelView.ViewRender();
+        }
     }
 }

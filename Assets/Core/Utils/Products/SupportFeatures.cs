@@ -89,6 +89,8 @@ namespace Assets.Core
 
         public static bool IsNeedsMoreServers(GameEntity product)
         {
+            return false;
+
             // hack to avoid AI client loss
             if (!product.isFlagship)
                 return false;

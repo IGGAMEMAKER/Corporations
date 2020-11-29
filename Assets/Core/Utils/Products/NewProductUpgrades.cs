@@ -88,54 +88,149 @@ namespace Assets.Core
             //}
         }
 
-        public static int GetAmountOfPossibleFeatures(GameEntity company, GameContext gameContext)
+        // new + upgrading
+        // new
+
+        // GetNonMaxedOutFeatures
+        public static IEnumerable<NewProductFeature> GetNonMaxedOutFeatures(GameEntity product)
         {
-            // can upgrade this amount of features
-            var maxCounter = 1 + company.team.Teams.Sum(t => Teams.GetSlotsForTask(t, new TeamTaskFeatureUpgrade(null)) * 3 / 2);
+            return GetAllFeaturesForProduct(product).Where(ExcludeMaxedOutFeatures(product));
+        }
 
-            //var allFeatures = Products.GetAllFeaturesForProduct(company);
+        public static IEnumerable<NewProductFeature> GetPlayerRetentionFeatures(GameEntity product)
+        {
+            return GetNonMaxedOutFeatures(product)
+                
+                .Where(IsFeatureWillNotDissapointAnyoneSignificant(product))
+                
+                .Take(GetPossibleFeaturesLeft(product, true))
+                ;
+        }
 
-            var upgradingAlready = company.team.Teams[0].Tasks.Count(t => t.IsFeatureUpgrade); // allFeatures.Count(f => Teams.IsUpgradingFeature(company, gameContext, f.Name));
+        public static IEnumerable<NewProductFeature> GetUpgradingFeatures(GameEntity product, bool monetisation = false)
+        {
+            return GetNonMaxedOutFeatures(product)
+                .Where(f => IsUpgradingFeature(product, f.Name));
+        }
 
-            return maxCounter - upgradingAlready;
+        public static IEnumerable<NewProductFeature> GetUpgradeableFeatures(GameEntity product, int monetisation = 0)
+        {
+            var featureList = GetNonMaxedOutFeatures(product);
+
+            if (monetisation == -1)
+                featureList = featureList.Where(OnlyMonetization());
+            else if (monetisation == 1)
+                featureList = featureList.Where(ExcludeMonetization());
+
+            return featureList
+
+                // NO upgrading features
+                .Where(ExcludeUpgradingFeatures(product))
+
+                .Where(IsFeatureWillNotDissapointAnyoneSignificant(product))
+                .Take(GetPossibleFeaturesLeft(product, false))
+                ;
+
+                //.Where(f => !product.team.Teams[0].Tasks.Any(t => t.IsPending && t.AreSameTasks(new TeamTaskFeatureUpgrade(f))))
+                //;
+        }
+
+        public static IEnumerable<NewProductFeature> GetUpgradeableMonetizationFeatures(GameEntity product)
+        {
+            return GetUpgradeableFeatures(product, -1);
+        }
+
+        public static IEnumerable<NewProductFeature> GetUpgradeableRetentionFeatures(GameEntity product)
+        {
+            return GetUpgradeableFeatures(product, 1);
         }
 
 
+        // ------------------------ FILTERS ------------------------------------------
+        #region filters
+        public static Func<NewProductFeature, bool> IsCanBeUpgradedRightNow(GameEntity product) => (NewProductFeature f) =>
+        {
+            return !IsUpgradingFeature(product, f.Name) && !IsFeatureMaxedOut(product, f);
+        };
 
-        public static bool HasFeatureUpgrade(GameEntity product, string featureName)
+        public static Func<NewProductFeature, bool> ExcludeMaxedOutFeatures(GameEntity product) => (NewProductFeature f) =>
+        {
+            var maxed = IsFeatureMaxedOut(product, f);
+            var upgrading = IsUpgradingFeature(product, f.Name);
+
+            if (upgrading)
+                return true;
+
+            return !maxed;
+        };
+
+        public static Func<NewProductFeature, bool> ExcludeUpgradingFeatures(GameEntity product) => (NewProductFeature f) =>
+        {
+            return !IsUpgradingFeature(product, f.Name);
+        };
+
+        public static Func<NewProductFeature, bool> OnlyMonetization() => (NewProductFeature f) => IsMonetizationFeature(f);
+        public static Func<NewProductFeature, bool> ExcludeMonetization() => (NewProductFeature f) => !IsMonetizationFeature(f);
+        #endregion
+
+        public static bool IsMonetizationFeature(NewProductFeature f) => f.FeatureBonus is FeatureBonusMonetization;
+
+
+        public static int GetMaxFeatures(GameEntity product)
+        {
+            return product.team.Teams.Sum(t => Teams.GetSlotsForTask(t, new TeamTaskFeatureUpgrade(null)));
+        }
+
+        public static int GetFeaturesInProgress(GameEntity product)
+        {
+            return product.team.Teams[0].Tasks.Count(t => t.IsFeatureUpgrade);
+        }
+
+        public static int GetPossibleFeaturesLeft(GameEntity product, bool allowUpgradingFeatures)
+        {
+            var maxCounter = GetMaxFeatures(product);
+
+            var upgradingAlready = allowUpgradingFeatures ? 0 : GetFeaturesInProgress(product);
+
+            var diff = maxCounter - upgradingAlready;
+
+            // ensure it is always >=0
+            return Math.Max(diff, 0);
+        }
+
+
+        // pending and active features
+        public static bool IsUpgradingFeature(GameEntity product, string featureName)
         {
             return product.team.Teams[0].Tasks
                 .Any(t => t.IsFeatureUpgrade && (t as TeamTaskFeatureUpgrade).NewProductFeature.Name == featureName);
         }
 
-        public static bool HasPendingFeatureUpgrade(GameEntity product, string featureName)
+        public static bool IsPendingFeature(GameEntity product, string featureName)
         {
             return product.team.Teams[0].Tasks
                 .Any(t => t.IsFeatureUpgrade && (t as TeamTaskFeatureUpgrade).NewProductFeature.Name == featureName && t.IsPending);
         }
 
-        public static Func<NewProductFeature, bool> IsCanBeShownAsUpgradeableFeature(GameEntity company, GameContext gameContext) => (NewProductFeature f) =>
+        public static bool IsFeatureMaxedOut(GameEntity company, NewProductFeature f)
         {
             var ratingCap = GetFeatureRatingCap(company);
             var ratingGain = GetFeatureRatingGain(company);
 
             var rating = GetFeatureRating(company, f.Name);
 
-            // is not upgrading already
-
-            // can upgrade more
-
-            bool upgrading = HasFeatureUpgrade(company, f.Name); // Teams.IsUpgradingFeature(company, gameContext, f.Name);
-
-            //bool isPendingAlready = HasFeatureUpgrade(company, f.Name);
-
-            bool isNotMaxedOut = rating + ratingGain <= ratingCap;
-
-            return !upgrading && isNotMaxedOut;
-        };
+            return rating + ratingGain > ratingCap;
+        }
+        // -----------------------------------
 
         public static Func<NewProductFeature, bool> IsFeatureWillNotDissapointAnyoneSignificant(GameEntity company) => (NewProductFeature f) =>
         {
+            if (IsUpgradingFeature(company, f.Name))
+                return true;
+
+            if (f.IsRetentionFeature)
+                return true;
+
             bool willMakeAnyoneDisloyal = false;
             var segments = Marketing.GetAudienceInfos();
 
@@ -154,49 +249,12 @@ namespace Assets.Core
             return !willMakeAnyoneDisloyal;
         };
 
-        public static NewProductFeature[] GetProductFeaturesList(GameEntity company, GameContext gameContext)
-        {
-            var counter = GetAmountOfPossibleFeatures(company, gameContext);
 
-            var features = GetAllFeaturesForProduct(company)
-                .Where(IsCanBeShownAsUpgradeableFeature(company, gameContext))
-
-                // will not make anyone disloyal
-                .Where(IsFeatureWillNotDissapointAnyoneSignificant(company))
-                .TakeWhile(f => counter-- > 0)
-                .ToArray()
-                ;
-
-            return features;
-        }
 
         // set of features
-
-
-
-        public static NewProductFeature[] GetUpgradeableMonetisationFeatures(GameEntity product, GameContext gameContext)
-        {
-            return GetMonetisationFeatures(product)
-                .Where(IsCanBeShownAsUpgradeableFeature(product, gameContext))
-                .Where(IsFeatureWillNotDissapointAnyoneSignificant(product))
-                .Where(f => !product.team.Teams[0].Tasks.Any(t => t.IsPending && t.AreSameTasks(new TeamTaskFeatureUpgrade(f))))
-                .ToArray();
-        }
-        public static NewProductFeature[] GetUpgradeableRetentionFeatures(GameEntity product, GameContext gameContext)
-        {
-            var counter = GetAmountOfPossibleFeatures(product, gameContext);
-
-            return GetChurnFeatures(product)
-                .Where(IsCanBeShownAsUpgradeableFeature(product, gameContext))
-                .Where(IsFeatureWillNotDissapointAnyoneSignificant(product))
-                .TakeWhile(f => counter-- > 0)
-                .Where(f => !product.team.Teams[0].Tasks.Any(t => t.IsPending && t.AreSameTasks(new TeamTaskFeatureUpgrade(f))))
-                .ToArray();
-        }
-
         public static NewProductFeature[] GetMonetisationFeatures(GameEntity product)
         {
-            return GetAllFeaturesForProduct(product).Where(f => f.FeatureBonus is FeatureBonusMonetisation).ToArray();
+            return GetAllFeaturesForProduct(product).Where(f => f.FeatureBonus is FeatureBonusMonetization).ToArray();
         }
 
         public static NewProductFeature[] GetChurnFeatures(GameEntity product)
@@ -209,7 +267,7 @@ namespace Assets.Core
             return GetAllFeaturesForProduct(product).Where(f => f.FeatureBonus is FeatureBonusAcquisition).ToArray();
         }
 
-        // set ot feature benefits
+        // ----------------------------------------- set ot feature benefits
         public static float GetMonetisationFeaturesBenefit(GameEntity product)
         {
             return GetSummaryFeatureBenefit(product, GetMonetisationFeatures(product));

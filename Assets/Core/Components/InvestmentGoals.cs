@@ -206,13 +206,13 @@ public class InvestmentGoalPrepareForRelease : InvestmentGoal
 
         return new List<GoalRequirements>
         {
-            new GoalRequirements
-            {
-                have = Products.GetServerCapacity(product),
-                need = load,
+            //new GoalRequirements
+            //{
+            //    have = Products.GetServerCapacity(product),
+            //    need = load,
 
-                description = $"Servers capacity > {Format.Minify(load)}"
-            },
+            //    description = $"Servers capacity > {Format.Minify(load)}"
+            //},
             new GoalRequirements
             {
                 have = product.team.Teams.Count,

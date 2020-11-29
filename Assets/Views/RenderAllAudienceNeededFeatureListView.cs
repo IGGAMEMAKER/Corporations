@@ -46,8 +46,8 @@ public class RenderAllAudienceNeededFeatureListView : ListView
 
         var company = Flagship;
 
-        var retentionFeatures = Products.GetUpgradeableRetentionFeatures(company, Q);
-        var monetisationFeatures = Products.GetUpgradeableMonetisationFeatures(company, Q);
+        var retentionFeatures = Products.GetUpgradeableRetentionFeatures(company);
+        var monetisationFeatures = Products.GetUpgradeableMonetizationFeatures(company);
 
         List<NewProductFeature> features = new List<NewProductFeature>();
 

@@ -87,7 +87,7 @@ namespace Assets.Core
                 product.features.Upgrades[featureName] = Mathf.Clamp(value + gain, 0, cap);
             } else
             {
-                product.features.Upgrades[featureName] = UnityEngine.Random.Range(1, 3f);
+                product.features.Upgrades[featureName] = gain; // UnityEngine.Random.Range(1, 3f);
             }
 
             var iteration = GetIterationTime(gameContext, product);

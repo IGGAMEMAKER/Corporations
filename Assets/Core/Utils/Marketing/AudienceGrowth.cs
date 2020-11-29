@@ -102,7 +102,7 @@ namespace Assets.Core
                 Size = 100,
                 Bonuses = new List<FeatureBonus>
                 {
-                    new FeatureBonusMonetisation(-100),
+                    new FeatureBonusMonetization(-100),
                     new FeatureBonusRetention(5),
                     new FeatureBonusAcquisition(5)
                 }
@@ -147,7 +147,7 @@ namespace Assets.Core
         {
             return new List<FeatureBonus>
             {
-                new FeatureBonusMonetisation(Companies.GetRandomValueInRange(-15, 15f, segmentId, 1)),
+                new FeatureBonusMonetization(Companies.GetRandomValueInRange(-15, 15f, segmentId, 1)),
                 new FeatureBonusAcquisition(Companies.GetRandomValueInRange(-5, 25f, segmentId, 2)),
                 new FeatureBonusRetention(Companies.GetRandomValueInRange(-10, 5f, segmentId, 3))
                 //new FeatureBonusRetention(Random.Range(-10, 5f))

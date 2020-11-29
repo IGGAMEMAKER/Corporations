@@ -37,12 +37,14 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
 
         //SetEmblemColor();
         Name.text = c.company.Name; // shortName;
+        Users.text = c.company.Name;
+        Hide(Name);
         RenderBorderImage(hasControl);
         EmphasizeCompanySize();
 
         RenderLoyalty();
 
-        RenderUsers();
+        //RenderUsers();
         RenderGrowth();
 
         BlinkDaughterCompanyIfThereAreTroublesWithLoyalty();
@@ -80,7 +82,7 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
     void RenderUsers()
     {
         var users = Marketing.GetUsers(company);
-        Users.text = Format.MinifyToInteger(users);
+        Users.text = Format.MinifyToInteger(users) + "\nusers";
     }
 
     void RenderGrowth()

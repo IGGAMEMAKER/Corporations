@@ -100,7 +100,7 @@ namespace Assets.Core
 
             bonus.AppendAndHideIfZero("Is Released", product.isRelease ? -5 : 0);
 
-            bonus.AppendAndHideIfZero("Server overload", Products.IsNeedsMoreServers(product) ? -70 : 0);
+            //bonus.AppendAndHideIfZero("Server overload", Products.IsNeedsMoreServers(product) ? -70 : 0);
 
             bonus.Cap(-100, 50);
 

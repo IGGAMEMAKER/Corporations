@@ -1,49 +1,25 @@
 ﻿using Assets.Core;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 public partial class ProductDevelopmentSystem : OnPeriodChange
 {
     void Monetise(GameEntity product)
     {
-        var remainingFeatures = Products.GetAllFeaturesForProduct(product).Where(f => !Teams.IsUpgradingFeature(product, gameContext, f.Name) && f.FeatureBonus.isMonetisationFeature);
+        var remainingFeatures = Products.GetUpgradeableMonetizationFeatures(product);
 
         var segments = Marketing.GetAudienceInfos();
 
         foreach (var feature in remainingFeatures)
         {
-            bool willUpsetPeople = false;
+            TryAddTask(product, new TeamTaskFeatureUpgrade(feature));
 
-            foreach (var s in segments)
-            {
-                var loyalty = Marketing.GetSegmentLoyalty(product, s.ID);
-                var attitude = feature.AttitudeToFeature[s.ID];
-
-                // will make audience sad
-                if (loyalty + attitude < 0 && Marketing.IsImportantAudience(product, s.ID))
-                {
-                    Companies.Log(product, $"Wanted to add {feature.Name}, but this will dissapoint {s.Name}");
-
-                    willUpsetPeople = true;
-
-                    break;
-                }
-            }
-
-            if (!willUpsetPeople)
-            {
-                TryAddTask(product, new TeamTaskFeatureUpgrade(feature));
-
-                Companies.LogSuccess(product, $"Added {feature.Name} for profit");
-            }
+            Companies.LogSuccess(product, $"Added {feature.Name} for profit");
         }
     }
 
     void DeMonetise(GameEntity product)
     {
-        var remainingFeatures = Products.GetAllFeaturesForProduct(product).Where(f => f.FeatureBonus.isMonetisationFeature);
+        var remainingFeatures = Products.GetMonetisationFeatures(product);
 
         foreach (var f in remainingFeatures)
         {
@@ -53,32 +29,22 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
     void ManageFeatures(GameEntity product)
     {
-        var remainingFeatures = Products.GetAllFeaturesForProduct(product).Where(f => !Teams.IsUpgradingFeature(product, gameContext, f.Name));
+        var features = Products.GetUpgradeableRetentionFeatures(product);
 
-        if (remainingFeatures.Count() == 0)
+        foreach (var f in features)
         {
+            TryAddTask(product, new TeamTaskFeatureUpgrade(f));
+        }
+
+        // --------------
+
+        if (features.Count() == 0)
+        {
+            // upgrade corporate culture? feature CAP
+            // hire more teams for SLOTS
             Companies.IncrementCorporatePolicy(gameContext, product, CorporatePolicy.DecisionsManagerOrTeam);
-            //Companies.DecrementCorporatePolicy(gameContext, product, CorporatePolicy.);
 
             return;
         }
-
-        var feature = remainingFeatures.First();
-        if (feature.FeatureBonus.isMonetisationFeature) //  && feature.Name.Contains("Ads")
-        {
-            var segments = Marketing.GetAudienceInfos();
-
-            foreach (var s in segments)
-            {
-                var loyalty = Marketing.GetSegmentLoyalty(product, s.ID);
-                var attitude = feature.AttitudeToFeature[s.ID];
-
-                // will make audience sad
-                if (loyalty + attitude < 0 && Marketing.IsImportantAudience(product, s.ID))
-                    return;
-            }
-        }
-
-        TryAddTask(product, new TeamTaskFeatureUpgrade(feature));
     }
 }

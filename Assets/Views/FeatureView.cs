@@ -26,6 +26,8 @@ public class FeatureView : View, IPointerEnterHandler, IPointerExitHandler
 
     public GameObject PendingTaskIcon;
 
+    public Image BorderImage;
+
     public AudiencesOnMainScreenListView _AudiencesOnMainScreenListView;
     AudiencesOnMainScreenListView AudiencesOnMainScreenListView
     {
@@ -56,7 +58,7 @@ public class FeatureView : View, IPointerEnterHandler, IPointerExitHandler
         bool upgraded = Products.IsUpgradedFeature(product, featureName);
         var rating = (int)Products.GetFeatureRating(product, featureName);
 
-        Draw(PendingTaskIcon, Products.HasPendingFeatureUpgrade(product, featureName));
+        Draw(PendingTaskIcon, Products.IsPendingFeature(product, featureName));
 
         Draw(Rating, true);
         //Draw(Rating, upgraded && rating > 0);
@@ -73,6 +75,10 @@ public class FeatureView : View, IPointerEnterHandler, IPointerExitHandler
 
         var cooldownName = $"company-{product.company.Id}-upgradeFeature-{featureName}";
         bool hasCooldown = Cooldowns.HasCooldown(Q, cooldownName, out SimpleCooldown cooldown);
+
+        
+        var featureBenefit = NewProductFeature.IsMonetizationFeature ? Visuals.Positive("Increases income") : Visuals.Positive("Increases loyalty of users");
+        GetComponent<Hint>().SetHint($"<size=30>{featureName}</size>\n\n{featureBenefit}");
 
         if (Teams.IsUpgradingFeature(product, Q, featureName))
         {
@@ -153,11 +159,20 @@ public class FeatureView : View, IPointerEnterHandler, IPointerExitHandler
     {
         if (AudiencesOnMainScreenListView != null)
             AudiencesOnMainScreenListView.ShowAudienceLoyaltyChangeOnFeatureUpgrade(NewProductFeature);
+
+        BorderImage.color = Visuals.GetColorFromString(Colors.COLOR_GOLD);
     }
 
     void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
     {
         if (AudiencesOnMainScreenListView != null)
             AudiencesOnMainScreenListView.HideLoyaltyChanges();
+
+        RenderNeutralBorders();
+    }
+
+    void RenderNeutralBorders()
+    {
+        BorderImage.color = Visuals.GetColorFromString(Colors.COLOR_NEUTRAL);
     }
 }

@@ -26,11 +26,15 @@ public class CompanyTaskTypeRelay : View
 
     public GameObject MissionButton;
     public GameObject OffersButton;
-    public GameObject CompetitorsButton;
+
+    [Header("Tabs")]
+    public GameObject DevelopmentTab;
+    public GameObject MarketingTab;
 
     void OnEnable()
     {
         ViewRender();
+        HideTabs();
     }
 
     public override void ViewRender()
@@ -44,8 +48,6 @@ public class CompanyTaskTypeRelay : View
         RenderMarketingButton();
         RenderServerButton();
 
-        RenderCompetitorsButton();
-
         RenderMonetizationButton();
         RenderOffersButton();
     }
@@ -53,11 +55,6 @@ public class CompanyTaskTypeRelay : View
     private void RenderOffersButton()
     {
         Draw(OffersButton, false);
-    }
-
-    private void RenderCompetitorsButton()
-    {
-        Draw(CompetitorsButton, false);
     }
 
     private void RenderMissionsButton()
@@ -94,7 +91,7 @@ public class CompanyTaskTypeRelay : View
     void RenderFeatureButton()
     {
         //var features = Products.GetProductFeaturesList(Flagship, Q).Length;
-        var features = Products.GetUpgradeableRetentionFeatures(Flagship, Q).Length;
+        var features = Products.GetUpgradeableRetentionFeatures(Flagship).Count();
         FeatureCounter.GetComponentInChildren<Text>().text = features.ToString();
 
 
@@ -104,7 +101,7 @@ public class CompanyTaskTypeRelay : View
 
     void RenderMonetizationButton()
     {
-        var features = Products.GetUpgradeableMonetisationFeatures(Flagship, Q).Length;
+        var features = Products.GetUpgradeableMonetizationFeatures(Flagship).Count();
         MonetizationFeatureCounter.GetComponentInChildren<Text>().text = features.ToString();
 
         Draw(MonetizationFeatureCounter, features > 0);
@@ -126,7 +123,8 @@ public class CompanyTaskTypeRelay : View
     {
         bool serverOverload = Products.IsNeedsMoreServers(Flagship);
 
-        Draw(ServersButton, serverOverload || HasOrCompletedGoal(Flagship, InvestorGoalType.ProductPrepareForRelease));
+        //Draw(ServersButton, serverOverload || HasOrCompletedGoal(Flagship, InvestorGoalType.ProductPrepareForRelease));
+        Draw(ServersButton, false);
     }
 
     void RenderTeamButton()
@@ -141,5 +139,33 @@ public class CompanyTaskTypeRelay : View
     bool HasOrCompletedGoal(GameEntity company, InvestorGoalType goalType)
     {
         return company.companyGoal.Goals.Any(g => g.InvestorGoalType == goalType) || Investments.IsGoalCompleted(company, goalType);
+    }
+
+    public void OnDevelopmentTabHover()
+    {
+        Show(DevelopmentTab);
+        Hide(MarketingTab);
+    }
+
+    public void OnDevelopmentTabLeave()
+    {
+        HideTabs();
+    }
+
+    public void OnMarketingTabHover()
+    {
+        Show(MarketingTab);
+        Hide(DevelopmentTab);
+    }
+
+    public void OnMarketingTabLeave()
+    {
+        HideTabs();
+    }
+
+    void HideTabs()
+    {
+        Hide(DevelopmentTab);
+        Hide(MarketingTab);
     }
 }

@@ -100,7 +100,8 @@ public class FlagshipRelayInCompanyView : View
 
     public void ChooseWorkerInteractions()
     {
-        ShowOnly(WorkerInteractions, Tabs);
+        ChooseAudiencePickingPanel();
+        //ShowOnly(WorkerInteractions, Tabs);
     }
 
     public void ChooseMainScreen()
