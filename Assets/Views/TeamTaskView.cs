@@ -38,10 +38,10 @@ public class TeamTaskView : View
         ViewRender();
     }
 
-    public void SetEntity(TeamTask teamTask, int taskId)
+    public void SetEntity(TeamTask teamTask, int SlotId)
     {
         this.teamTask = teamTask;
-        SlotId = taskId;
+        this.SlotId = SlotId;
         TeamId = 0;
 
         ViewRender();
@@ -151,7 +151,7 @@ public class TeamTaskView : View
         RepresentativeNumber.text = "+" + Format.Minify(gain); // .ToString("0.0")
         RepresentativeNumber.color = Visuals.GetColorPositiveOrNegative(true);
 
-        TaskHint.SetHint($"Getting {Format.Minify(gain)} users from channel Forum {channel.marketingChannel.ChannelInfo.ID}");
+        TaskHint.SetHint($"Getting {Format.Minify(gain)} users from channel #{channel.marketingChannel.ChannelInfo.ID}");
     }
 
     void RenderSupportTask(GameEntity product)

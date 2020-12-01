@@ -48,16 +48,20 @@ public class CompanyPreviewView : View
     {
         var isDaughter = Companies.IsDaughterOf(MyGroupEntity, entity);
 
-        CEOLabel.gameObject.SetActive(entity.isControlledByPlayer || isDaughter);
+        if (CEOLabel != null)
+        {
+            Draw(CEOLabel, entity.isControlledByPlayer || isDaughter);
 
-        if (isDaughter)
-        {
-            CEOLabel.text = "SUB";
-            CEOHint.SetHint("This company is subsidiary (daughter) of " + MyGroupEntity.company.Name);
-        } else if (entity.isControlledByPlayer)
-        {
-            CEOLabel.text = "CEO";
-            CEOHint.SetHint("You are CEO of this company!");
+            if (isDaughter)
+            {
+                CEOLabel.text = "SUB";
+                CEOHint.SetHint("This company is subsidiary (daughter) of " + MyGroupEntity.company.Name);
+            }
+            else if (entity.isControlledByPlayer)
+            {
+                CEOLabel.text = "CEO";
+                CEOHint.SetHint("You are CEO of this company!");
+            }
         }
     }
 
@@ -65,12 +69,14 @@ public class CompanyPreviewView : View
     {
         var inGroupScreens = CurrentScreen == ScreenMode.GroupManagementScreen || CurrentScreen == ScreenMode.ManageCompaniesScreen;
 
-        Panel.color = GetPanelColor(entity == SelectedCompany && inGroupScreens);
+        if (Panel != null)
+            Panel.color = GetPanelColor(entity == SelectedCompany && inGroupScreens);
     }
 
     void RenderCompanyType(GameEntity entity)
     {
-        CompanyTypeLabel.text = Enums.GetFormattedCompanyType(entity.company.CompanyType);
+        if (CompanyTypeLabel != null)
+            CompanyTypeLabel.text = Enums.GetFormattedCompanyType(entity.company.CompanyType);
     }
 
     void RenderCompanyName(GameEntity entity)
@@ -90,6 +96,7 @@ public class CompanyPreviewView : View
     {
         var cost = Economy.CostOf(e, Q);
 
-        ShareCostLabel.text = Format.Money(cost);
+        if (ShareCostLabel != null)
+            ShareCostLabel.text = Format.Money(cost);
     }
 }

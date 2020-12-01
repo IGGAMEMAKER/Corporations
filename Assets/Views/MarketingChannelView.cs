@@ -78,7 +78,7 @@ public class MarketingChannelView : View
         // audience gain
         var gain = Marketing.GetChannelClientGain(company, channel);
 
-        Users.text = "+" + Format.Minify(gain) + " users";
+        Users.text = "+" + Format.Minify(gain); // + " users";
     }
 
     void RenderSegmentImage(GameEntity company)

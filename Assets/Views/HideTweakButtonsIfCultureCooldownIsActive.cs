@@ -62,8 +62,8 @@ public class HideTweakButtonsIfCultureCooldownIsActive : View
         {
             case CorporatePolicy.CompetitionOrSupport: SetTexts("Competition or Support", "Competition", "Support"); break;
 
-            case CorporatePolicy.DecisionsManagerOrTeam: SetTexts("Who makes decisions", "Manager", "Team", "Increases team speed", "Increases Max feature lvl"); break;
-            case CorporatePolicy.DoOrDelegate: SetTexts("Delegation?", "DO", "Delegate", "Increases max feature lvl", "+1 team limit"); break;
+            case CorporatePolicy.DecisionsManagerOrTeam: SetTexts("Who makes decisions", "Manager", "Team", "+Team speed", "+Max feature lvl"); break;
+            case CorporatePolicy.DoOrDelegate: SetTexts("Do or Delegate?", "DO", "Delegate", "+Max feature lvl", "+1 team"); break;
             case CorporatePolicy.PeopleOrProcesses: SetTexts("People or Processes", "People", "Processes", "Managers grow faster", "Organisation grows faster"); break;
 
             case CorporatePolicy.Sell: SetTexts("Make or sell", "Make", "Sell"); break;
@@ -78,8 +78,8 @@ public class HideTweakButtonsIfCultureCooldownIsActive : View
     {
         PolicyName.text = Policy;
 
-        LeftName.text = Left + "\n" + Visuals.Positive(leftHint);
-        RightName.text = Right + "\n" + Visuals.Positive(rightHint);
+        LeftName.text = Left + "\n" + Visuals.Positive($"<b>{leftHint}</b>");
+        RightName.text = Right + "\n" + Visuals.Positive($"<b>{rightHint}</b>");
         //RightName.text = Right;
     }
 }

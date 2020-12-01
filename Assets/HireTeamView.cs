@@ -19,7 +19,7 @@ public class HireTeamView : View
 
         var teamType = GetComponent<AddTeamButton>().TeamType;
 
-        var lastHiringTeam = Flagship.team.Teams.FirstOrDefault(t => t.TeamType == teamType && t.Workers != 8);
+        var lastHiringTeam = Flagship.team.Teams.FirstOrDefault(t => t.TeamType == teamType && !Teams.IsFullTeam(t) && t.Rank == TeamRank.Solo);
 
         if (lastHiringTeam == null)
         {
@@ -35,7 +35,7 @@ public class HireTeamView : View
             Show(Padlock);
             Show(HiringProgress);
 
-            HiringProgress.fillAmount = (lastHiringTeam.Workers + lastHiringTeam.HiringProgress / 100f) / 8;
+            HiringProgress.fillAmount = (lastHiringTeam.Workers + lastHiringTeam.HiringProgress / 100f) / Teams.GetMaxTeamSize(lastHiringTeam);
             Title.text = $"<b>Hiring workers for {Teams.GetFormattedTeamType(teamType)}";
 
             GetComponent<Button>().enabled = false;

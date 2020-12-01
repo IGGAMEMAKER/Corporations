@@ -1,14 +1,15 @@
 ﻿using Assets.Core;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CurrentMarketingTasksListView : ListView
 {
     public override void SetItem<T>(Transform t, T entity)
     {
-        var slot = (SlotInfo)(object)(entity);
-        t.GetComponent<TeamTaskView>().SetEntity(slot.TeamId, slot.SlotId);
+        var task = (TeamTask)(object)entity;
+        t.GetComponent<TeamTaskView>().SetEntity(task, 0);
     }
 
     public override void ViewRender()
@@ -17,7 +18,7 @@ public class CurrentMarketingTasksListView : ListView
 
         var company = Flagship;
 
-        var tasks = new List<SlotInfo>();
+        var tasks = new List<TeamTask>();
 
         for (var teamId = 0; teamId < company.team.Teams.Count; teamId++)
         {
@@ -26,10 +27,11 @@ public class CurrentMarketingTasksListView : ListView
             for (var slotId = 0; slotId < team.Tasks.Count; slotId++)
             {
                 if (team.Tasks[slotId].IsMarketingTask)
-                    tasks.Add(new SlotInfo { SlotId = slotId, TeamId = teamId });
+                    tasks.Add(team.Tasks[slotId]);
+                    //tasks.Add(new SlotInfo { SlotId = slotId, TeamId = teamId });
             }
         }
 
-        SetItems(tasks);
+        SetItems(tasks.OrderByDescending(t => Marketing.GetChannelClientGain(company, Markets.GetMarketingChannel(Q, (t as TeamTaskChannelActivity).ChannelId))).Take(18));
     }
 }

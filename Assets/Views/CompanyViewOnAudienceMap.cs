@@ -90,7 +90,7 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
         var growth = Marketing.GetAudienceChange(company, Q, true);
         var growthSum = growth.Sum();
 
-        Growth.text = Visuals.PositiveOrNegativeMinified(growthSum);// + " users";
+        Growth.text = Visuals.PositiveOrNegativeMinified(growthSum) + " users";
         Growth.GetComponent<Hint>().SetHint("Users will change by " + Visuals.Colorize(growth.Sum()) + " because " + growth.ToString());
     }
 

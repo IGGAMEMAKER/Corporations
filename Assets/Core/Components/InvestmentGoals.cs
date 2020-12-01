@@ -21,6 +21,8 @@ public abstract class InvestmentGoal
     public int ExecutorId;
     public int ControllerId;
 
+    public List<long> HaveInitially;
+
     public InvestmentGoal SetExecutorAndController(int executor, int controller)
     {
         ExecutorId = executor;
@@ -70,7 +72,7 @@ public abstract class InvestmentGoal
         var executor = GetExecutor(company1, gameContext);
 
         return "as " + executor.company.Name + "\n" + string.Join("\n", GetGoalRequirements(executor, gameContext)
-            .Select(g => Visuals.Colorize(g.description, IsRequirementMet(g, executor, gameContext))));
+            .Select(g => Visuals.Colorize($"<b>{g.description}</b>", IsRequirementMet(g, executor, gameContext))));
     }
 
     //public abstract bool Redoable();
@@ -508,7 +510,7 @@ public class InvestmentGoalOutcompeteByIncome : InvestmentGoal
         this.CompetitorName = CompetitorName;
     }
 
-    public override string GetFormattedName() => "Outcompete " + CompetitorName + " by income";
+    public override string GetFormattedName() => "Outcompete " + CompetitorName; // + " by income";
 
     public override List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
     {
@@ -541,7 +543,7 @@ public class InvestmentGoalOutcompeteByUsers : InvestmentGoal
         this.CompetitorName = CompetitorName;
     }
 
-    public override string GetFormattedName() => "Outcompete " + CompetitorName + " by users";
+    public override string GetFormattedName() => "Outcompete " + CompetitorName; // + " by users";
 
     public override List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
     {
@@ -571,7 +573,7 @@ public class InvestmentGoalOutcompeteByCost : InvestmentGoal
         this.CompetitorName = CompetitorName;
     }
 
-    public override string GetFormattedName() => "Outcompete " + CompetitorName + " by cost";
+    public override string GetFormattedName() => "Outcompete " + CompetitorName; // + " by cost";
 
     public override List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
     {

@@ -39,6 +39,7 @@ public class AddTeamButton : ButtonController
         //Debug.Log("AddTeamButton");
         if (Title == null)
             return;
+
         Title.text = $"<b>Create {Teams.GetFormattedTeamType(TeamType)}"; // Create\n
 
         var hint = GetComponent<Hint>();

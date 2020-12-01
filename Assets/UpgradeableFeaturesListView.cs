@@ -1,6 +1,7 @@
 ﻿using Assets.Core;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class UpgradeableFeaturesListView : ListView
@@ -14,7 +15,7 @@ public class UpgradeableFeaturesListView : ListView
     {
         base.ViewRender();
 
-        var features = Products.GetUpgradeableRetentionFeatures(Flagship);
+        var features = Products.GetUpgradeableRetentionFeatures(Flagship).Take(2);
 
         SetItems(features);
     }

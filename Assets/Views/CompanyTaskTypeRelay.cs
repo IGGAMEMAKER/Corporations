@@ -105,7 +105,7 @@ public class CompanyTaskTypeRelay : View
         MonetizationFeatureCounter.GetComponentInChildren<Text>().text = features.ToString();
 
         Draw(MonetizationFeatureCounter, features > 0);
-        Draw(MonetizationButton, HasOrCompletedGoal(Flagship, InvestorGoalType.ProductStartMonetising));
+        Draw(MonetizationButton, false); // HasOrCompletedGoal(Flagship, InvestorGoalType.ProductStartMonetising)
     }
 
     void RenderMarketingButton()

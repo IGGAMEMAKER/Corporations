@@ -1,4 +1,5 @@
 ﻿using Assets.Core;
+using System.Linq;
 using UnityEngine;
 
 public class UpgradeableMonetizationFeaturesListView : ListView
@@ -12,7 +13,7 @@ public class UpgradeableMonetizationFeaturesListView : ListView
     {
         base.ViewRender();
 
-        var features = Products.GetUpgradeableMonetizationFeatures(Flagship);
+        var features = Products.GetUpgradeableMonetizationFeatures(Flagship).Take(1);
 
         SetItems(features);
     }

@@ -47,6 +47,12 @@ namespace Assets.Core
             return t == CompanyType.Corporation || t == CompanyType.Group || t == CompanyType.Holding;
         }
 
+
+        public static bool IsProduct(GameEntity e)
+        {
+            return e.hasProduct;
+        }
+
         // Update
         public static void Rename(GameContext context, int companyId, string name)
         {
