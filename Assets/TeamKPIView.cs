@@ -18,8 +18,8 @@ public class TeamKPIView : ParameterView
 
         var featureCap = Teams.GetFeatureRatingCap(product, team, Q);
 
-        var featureMockup = new TeamTaskFeatureUpgrade(new NewProductFeature("blah", new List<int>()));
-        var marketingMockup = new TeamTaskChannelActivity(0, 0);
+        var featureMockup = Teams.GetDevelopmentTaskMockup();
+        var marketingMockup = Teams.GetMarketingTaskMockup();
         var serverMockup = new TeamTaskSupportFeature(new SupportFeature { SupportBonus = new SupportBonus(5_000_000) });
 
         var devSlots = Teams.GetSlotsForTask(team, featureMockup);

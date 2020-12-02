@@ -9,11 +9,11 @@ public class RenderNextCorporateUpgradeDate : ParameterView
     {
         var task = Cooldowns.GetTask(Q, new CompanyTaskUpgradeCulture(MyCompany.company.Id));
 
-        //if (task == null)
-        //{
-        //    NextTweakLabel.SetActive(false);
-        //    return "";
-        //}
+        if (task == null)
+        {
+            //NextTweakLabel.SetActive(false);
+            return "";
+        }
 
         NextTweakLabel.SetActive(true);
 

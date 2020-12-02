@@ -40,7 +40,7 @@ namespace Assets.Core
         {
             var taskId = product.team.Teams[teamId].Tasks.Count;
 
-            var slots = GetSlotsForTaskType(product, task);
+            var slots = GetOverallSlotsForTaskType(product, task);
 
             if (!HasFreeSlotForTeamTask(product, task))
                 task.IsPending = true;

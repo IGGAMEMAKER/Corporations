@@ -29,7 +29,7 @@ public class TasksForTaskTypeView : View
 
         Draw(PendingTaskIcon, pending > 0);
 
-        AmountOfSlots.text = Visuals.Colorize((long)Teams.GetSlotsForTaskType(company, p));
+        AmountOfSlots.text = Visuals.Colorize((long)Teams.GetOverallSlotsForTaskType(company, p));
         // ----------------------------------------------------
     }
 }

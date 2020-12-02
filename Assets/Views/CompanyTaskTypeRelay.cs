@@ -30,6 +30,9 @@ public class CompanyTaskTypeRelay : View
     [Header("Tabs")]
     public GameObject DevelopmentTab;
     public GameObject MarketingTab;
+    public GameObject TeamTab;
+
+    public List<GameObject> Tabs => new List<GameObject> { DevelopmentTab, MarketingTab, TeamTab };
 
     void OnEnable()
     {
@@ -141,10 +144,11 @@ public class CompanyTaskTypeRelay : View
         return company.companyGoal.Goals.Any(g => g.InvestorGoalType == goalType) || Investments.IsGoalCompleted(company, goalType);
     }
 
+    // -------------- TABS ------------------
+
     public void OnDevelopmentTabHover()
     {
-        Show(DevelopmentTab);
-        Hide(MarketingTab);
+        ShowOnly(DevelopmentTab, Tabs);
     }
 
     public void OnDevelopmentTabLeave()
@@ -152,10 +156,11 @@ public class CompanyTaskTypeRelay : View
         HideTabs();
     }
 
+    // ------
+
     public void OnMarketingTabHover()
     {
-        Show(MarketingTab);
-        Hide(DevelopmentTab);
+        ShowOnly(MarketingTab, Tabs);
     }
 
     public void OnMarketingTabLeave()
@@ -163,9 +168,21 @@ public class CompanyTaskTypeRelay : View
         HideTabs();
     }
 
+    // -------
+
+    public void OnTeamTabHover()
+    {
+        ShowOnly(TeamTab, Tabs);
+    }
+
+    public void OnTeamTabLeave()
+    {
+        HideTabs();
+    }
+
+    // ------
     void HideTabs()
     {
-        Hide(DevelopmentTab);
-        Hide(MarketingTab);
+        HideAll(Tabs);
     }
 }

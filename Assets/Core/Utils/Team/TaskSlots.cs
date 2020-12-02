@@ -17,7 +17,7 @@ namespace Assets.Core
             if (taskCost == 0)
                 return true;
 
-            return GetSlotsForTaskType(product, task) >= taskCost;
+            return GetOverallSlotsForTaskType(product, task) >= taskCost;
         }
 
         public static int GetTaskSlotCost(GameEntity product, TeamTask task)
@@ -31,7 +31,7 @@ namespace Assets.Core
             return 0;
         }
 
-        public static int GetSlotsForTaskType(GameEntity product, TeamTask task)
+        public static int GetOverallSlotsForTaskType(GameEntity product, TeamTask task)
         {
             //return GetMaxSlotsForTaskType(product, task) - GetAllSameTaskTypeSlots(product, task); // GetAllActiveTaskSlots(product); //
             return GetMaxSlotsForTaskType(product, task) - GetActiveSameTaskTypeSlots(product, task); // GetAllActiveTaskSlots(product); //
@@ -54,6 +54,19 @@ namespace Assets.Core
                 default: return -1000;
             }
         }
+
+        public static TeamTask GetDevelopmentTaskMockup()
+        {
+            return new TeamTaskFeatureUpgrade(null);
+            //return new TeamTaskFeatureUpgrade(new NewProductFeature("x", new System.Collections.Generic.List<int>()));
+        }
+
+        public static TeamTask GetMarketingTaskMockup()
+        {
+            return new TeamTaskChannelActivity(0, 0);
+        }
+
+        //public static TeamTask GetHighload
 
         public static int GetSlotsForTask(TeamInfo team, TeamTask task)
         {
@@ -113,7 +126,6 @@ namespace Assets.Core
         {
             return product.team.Teams[0].Tasks.Count(t => task.AreSameTypeTasks(t) && !t.IsPending);
         }
-
 
         public static SlotInfo GetSlotOfTeamTask(GameEntity product, TeamTask task)
         {

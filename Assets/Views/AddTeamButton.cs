@@ -28,6 +28,8 @@ public class AddTeamButton : ButtonController
             Teams.AddTeam(Flagship, Q, TeamType);
         else
         {
+
+            Navigate(ScreenMode.GroupScreen);
             NotificationUtils.AddSimplePopup(Q, Visuals.Negative("You've reached max limit of teams"), $"Change your {Visuals.Positive("corporate culture".ToUpper())} to add more teams");
             //CloseModal("New Team");
         }

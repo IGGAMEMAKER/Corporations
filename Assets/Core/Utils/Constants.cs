@@ -70,6 +70,14 @@
     public static int NEW_MANAGER_RATING_MIN = 30;
     public static int NEW_MANAGER_RATING_MAX = 75;
 
+    internal static int MANAGEMENT_COST_SOLO = 1;
+    internal static int MANAGEMENT_COST_SMALL_TEAM = 3;
+    internal static int MANAGEMENT_COST_BIG_TEAM = 5;
+    internal static int MANAGEMENT_COST_DEPARTMENT = 10;
+    internal static int MANAGEMENT_COST_COMPANY = 100;
+    internal static int MANAGEMENT_COST_GROUP = 1000;
+    internal static int MANAGEMENT_COST_CORPORATION = 10_000;
+
     public const int CORPORATE_CULTURE_CHANGES_DURATION = 30;
     public const int CORPORATE_CULTURE_LEVEL_MAX = 10;
     public const int CORPORATE_CULTURE_LEVEL_MIN = 1;

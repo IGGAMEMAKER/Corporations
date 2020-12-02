@@ -56,7 +56,13 @@ namespace Assets.Core
 
         public static bool IsCanAddMoreTeams(GameEntity company, GameContext gameContext)
         {
-            return company.team.Teams.Count < GetMaxTeamsAmount(company, gameContext);
+            return true;
+            var culture = Companies.GetOwnCulture(company);
+
+            return culture[CorporatePolicy.DoOrDelegate] > 1;
+                //return true;
+            
+            //return company.team.Teams.Count < GetMaxTeamsAmount(company, gameContext);
         }
 
         public static int GetMaxTeamsAmount(GameEntity company, GameContext gameContext)

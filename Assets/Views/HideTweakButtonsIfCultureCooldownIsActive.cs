@@ -62,8 +62,9 @@ public class HideTweakButtonsIfCultureCooldownIsActive : View
         {
             case CorporatePolicy.CompetitionOrSupport: SetTexts("Competition or Support", "Competition", "Support"); break;
 
-            case CorporatePolicy.DecisionsManagerOrTeam: SetTexts("Who makes decisions", "Manager", "Team", "+Team speed", "+Max feature lvl"); break;
-            case CorporatePolicy.DoOrDelegate: SetTexts("Do or Delegate?", "DO", "Delegate", "+Max feature lvl", "+1 team"); break;
+            case CorporatePolicy.DecisionsManagerOrTeam: SetTexts("Structure", "Vertical", "Horizontal", "+Team speed", "+Max feature lvl"); break;
+            //case CorporatePolicy.DecisionsManagerOrTeam: SetTexts("Who makes decisions", "Manager", "Team", "+Team speed", "+Max feature lvl"); break;
+            case CorporatePolicy.DoOrDelegate: SetTexts("Control level", "DO", "Delegate", "+Max feature lvl", "+1 team"); break;
             case CorporatePolicy.PeopleOrProcesses: SetTexts("People or Processes", "People", "Processes", "Managers grow faster", "Organisation grows faster"); break;
 
             case CorporatePolicy.Sell: SetTexts("Make or sell", "Make", "Sell"); break;

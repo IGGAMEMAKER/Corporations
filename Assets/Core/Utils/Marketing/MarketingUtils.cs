@@ -40,6 +40,13 @@ namespace Assets.Core
             return clients * churn / 100;
         }
 
+        public static long GetChurnClients(GameEntity product)
+        {
+            var segments = Marketing.GetAudienceInfos();
+
+            return segments.Sum(s => GetChurnClients(product, s.ID));
+        }
+
         public static void ReleaseApp(GameContext gameContext, GameEntity product)
         {
             if (!product.isRelease)

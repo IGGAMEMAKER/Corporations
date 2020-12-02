@@ -210,11 +210,7 @@ namespace Assets.Core
 
         public static bool IsFullTeam(TeamInfo team)
         {
-            int maxWorkers = 8;
-            int workers = team.Workers; // Random.Range(0, maxWorkers);
-            bool hasFullTeam = workers >= maxWorkers;
-
-            return hasFullTeam;
+            return team.Workers >= Teams.GetMaxTeamSize(team);
         }
 
 

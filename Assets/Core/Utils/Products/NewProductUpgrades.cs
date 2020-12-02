@@ -178,7 +178,7 @@ namespace Assets.Core
 
         public static int GetMaxFeatures(GameEntity product)
         {
-            return product.team.Teams.Sum(t => Teams.GetSlotsForTask(t, new TeamTaskFeatureUpgrade(null)));
+            return product.team.Teams.Sum(t => Teams.GetSlotsForTask(t, Teams.GetDevelopmentTaskMockup()));
         }
 
         public static int GetFeaturesInProgress(GameEntity product)

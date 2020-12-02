@@ -32,6 +32,6 @@ public class CurrentMarketingTasksListView : ListView
             }
         }
 
-        SetItems(tasks.OrderByDescending(t => Marketing.GetChannelClientGain(company, Markets.GetMarketingChannel(Q, (t as TeamTaskChannelActivity).ChannelId))).Take(18));
+        SetItems(tasks.OrderByDescending(t => Marketing.GetChannelClientGain(company, Markets.GetMarketingChannel(Q, (t as TeamTaskChannelActivity).ChannelId))).Take(12));
     }
 }

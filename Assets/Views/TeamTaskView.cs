@@ -41,7 +41,10 @@ public class TeamTaskView : View
     public void SetEntity(TeamTask teamTask, int SlotId)
     {
         this.teamTask = teamTask;
-        this.SlotId = SlotId;
+
+        var slot = Teams.GetSlotOfTeamTask(Flagship, teamTask);
+
+        this.SlotId = slot.SlotId;
         TeamId = 0;
 
         ViewRender();

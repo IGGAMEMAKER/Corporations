@@ -32,7 +32,7 @@ public class TeamPreview : View
         TeamInfo = team;
 
         // show hiring progress
-        int maxWorkers = 8;
+        int maxWorkers = Teams.GetMaxTeamSize(team);
         int workers = team.Workers;
         bool hasFullTeam = Teams.IsFullTeam(team);
 
@@ -54,6 +54,45 @@ public class TeamPreview : View
 
         GetComponent<Blinker>().enabled = Teams.IsNeverHiredEmployees(company) || hasNoManager;
 
+        RenderTeamImage();
+
+        RenderTeamHint(team, hasFullTeam, workers, maxWorkers);
+    }
+
+    void RenderTeamHint(TeamInfo team, bool hasFullTeam, int workers, int maxWorkers)
+    {
+        var hint = $"<size=35>{team.Name}</size>\n";
+
+        if (!hasFullTeam)
+        {
+            hint += $"\nIs hiring employees: {workers} / {maxWorkers}";
+        }
+        else
+        {
+            hint += $"\nCurrently has {workers} employees";
+        }
+
+        hint += "\n\nCan perform: ";
+
+        var devTasks = Teams.GetSlotsForTask(team, Teams.GetDevelopmentTaskMockup());
+        var marketingTasks = Teams.GetSlotsForTask(team, Teams.GetMarketingTaskMockup());
+
+        if (devTasks > 0)
+        {
+            hint += $"\n{Visuals.Positive(devTasks.ToString())} development tasks";
+        }
+
+        if (marketingTasks > 0)
+        {
+            hint += $"\n{Visuals.Positive(marketingTasks.ToString())} marketing tasks";
+        }
+
+        // render hint
+        GetComponent<Hint>().SetHint(hint);
+    }
+
+    void RenderTeamImage()
+    {
         // choose team icon
         switch (TeamInfo.TeamType)
         {

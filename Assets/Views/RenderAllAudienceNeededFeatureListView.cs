@@ -74,7 +74,7 @@ public class RenderAllAudienceNeededFeatureListView : ListView
 
         Draw(PendingTaskIcon, pending > 0);
 
-        AmountOfSlots.text = Visuals.Colorize((long)Teams.GetSlotsForTaskType(company, p));
+        AmountOfSlots.text = Visuals.Colorize((long)Teams.GetOverallSlotsForTaskType(company, p));
         // ----------------------------------------------------
 
         SetItems(features);

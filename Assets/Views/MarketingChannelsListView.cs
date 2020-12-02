@@ -64,7 +64,7 @@ public class MarketingChannelsListView : ListView
             Markets.GetTheoreticallyPossibleMarketingChannels(company, Q);
 
         // ----------------------------------------------------
-        var p = new TeamTaskChannelActivity(0, 0);
+        var p = Teams.GetMarketingTaskMockup();
         var activeTasks = Teams.GetActiveSameTaskTypeSlots(company, p);
 
         var pending = Teams.GetPendingSameTypeTaskAmount(company, p);
@@ -76,7 +76,7 @@ public class MarketingChannelsListView : ListView
 
         Draw(PendingTaskIcon, pending > 0);
 
-        AmountOfSlots.text = Visuals.Colorize((long)Teams.GetSlotsForTaskType(company, p));
+        AmountOfSlots.text = Visuals.Colorize((long)Teams.GetOverallSlotsForTaskType(company, p));
         // ----------------------------------------------------
 
         SetItems(channels.OrderByDescending(c => Marketing.GetChannelCost(company, c)));
