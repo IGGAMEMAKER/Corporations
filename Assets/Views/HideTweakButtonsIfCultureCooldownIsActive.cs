@@ -35,7 +35,7 @@ public class HideTweakButtonsIfCultureCooldownIsActive : View
         PolicyValue.text = value.ToString();
 
         RenderTweak(TweakLeft, hasCooldown, value, false);
-        RenderTweak(TweakRight, hasCooldown, value, true);
+        RenderTweak(TweakRight, hasCooldown, value, true);        
     }
 
     private void RenderTweak(GameObject tweakButton, bool hasCooldown, int value, bool Increment)
