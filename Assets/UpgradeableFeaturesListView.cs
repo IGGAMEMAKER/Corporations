@@ -27,7 +27,7 @@ public class UpgradeableFeaturesListView : ListView
             if (Teams.HasFreeSlotForTeamTask(Flagship, Teams.GetDevelopmentTaskMockup()))
             {
                 var maxLvl = Teams.GetMaxFeatureRatingCap(Flagship, Q).Sum();
-                NoAvailableFeaturesText.text = $"You've upgraded all features to max level ({maxLvl}lvl).\nIncrease max feature level it to upgrade more features";
+                NoAvailableFeaturesText.text = $"You've upgraded all features to max level ({maxLvl}lvl).\n\n{Visuals.Negative("Increase max feature level it to upgrade more features")}";
             }
             else
             {
