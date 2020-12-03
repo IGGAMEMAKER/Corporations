@@ -16,6 +16,15 @@ public class MyProductCompaniesListView : ListView
         //    Destroy(link);
     }
 
+    public override void OnItemSelected(int ind)
+    {
+        base.OnItemSelected(ind);
+
+        var company = Item.GetComponent<CompanyPreviewView>().Company;
+
+        FindObjectOfType<HierarchyView>().ChooseProduct(company);
+    }
+
     //public override void ViewRender()
     //{
     //    base.ViewRender();

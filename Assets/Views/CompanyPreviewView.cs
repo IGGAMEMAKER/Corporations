@@ -11,11 +11,11 @@ public class CompanyPreviewView : View
 
     public Text ShareCostLabel;
 
-    public GameEntity entity;
+    public GameEntity Company;
 
     public void SetEntity(GameEntity company)
     {
-        entity = company;
+        Company = company;
 
         Render(company);
     }
@@ -24,7 +24,7 @@ public class CompanyPreviewView : View
     {
         base.ViewRender();
 
-        Render(entity);
+        Render(Company);
     }
 
     void Render(GameEntity e)
@@ -46,18 +46,18 @@ public class CompanyPreviewView : View
 
     void RenderDependencyStatus(GameEntity e)
     {
-        var isDaughter = Companies.IsDaughterOf(MyGroupEntity, entity);
+        var isDaughter = Companies.IsDaughterOf(MyGroupEntity, Company);
 
         if (CEOLabel != null)
         {
-            Draw(CEOLabel, entity.isControlledByPlayer || isDaughter);
+            Draw(CEOLabel, Company.isControlledByPlayer || isDaughter);
 
             if (isDaughter)
             {
                 CEOLabel.text = "SUB";
                 CEOHint.SetHint("This company is subsidiary (daughter) of " + MyGroupEntity.company.Name);
             }
-            else if (entity.isControlledByPlayer)
+            else if (Company.isControlledByPlayer)
             {
                 CEOLabel.text = "CEO";
                 CEOHint.SetHint("You are CEO of this company!");
@@ -70,7 +70,9 @@ public class CompanyPreviewView : View
         var inGroupScreens = CurrentScreen == ScreenMode.GroupManagementScreen || CurrentScreen == ScreenMode.ManageCompaniesScreen;
 
         if (Panel != null)
-            Panel.color = GetPanelColor(entity == SelectedCompany && inGroupScreens);
+        {
+            Panel.color = GetPanelColor(inGroupScreens); // Company == SelectedCompany && 
+        }
     }
 
     void RenderCompanyType(GameEntity entity)

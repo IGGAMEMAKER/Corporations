@@ -23,6 +23,6 @@ public class RenderCorporateCultureView : View
         
         Draw(StructurePolicy, canChangeCulture);
         Draw(PeopleOrProcessesPolicy, canChangeCulture);
-        Draw(SalariesPolicy, canChangeCulture);
+        Draw(SalariesPolicy, false);
     }
 }

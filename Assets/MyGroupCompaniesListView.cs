@@ -12,6 +12,15 @@ public class MyGroupCompaniesListView : ListView
         Destroy(t.GetComponent<LinkToProjectView>());
     }
 
+    public override void OnItemSelected(int ind)
+    {
+        base.OnItemSelected(ind);
+
+        var company = Item.GetComponent<CompanyPreviewView>().Company;
+
+        FindObjectOfType<HierarchyView>().ChooseGroup(company);
+    }
+
     //public override void ViewRender()
     //{
     //    base.ViewRender();
