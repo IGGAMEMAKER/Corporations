@@ -71,6 +71,8 @@ public class HideTweakButtonsIfCultureCooldownIsActive : View
             case CorporatePolicy.SalariesLowOrHigh: SetTexts("Salaries", "Low", "High"); break;
             case CorporatePolicy.Make: SetTexts("Make?", "Left", "Right"); break;
 
+            case CorporatePolicy.HardSkillsOrSoftSkills: SetTexts("Skills or Comunication", "Skill", "Communication", "Better employee rating", "More Traits"); break;
+
             default: SetTexts($"<b>{CorporatePolicy.ToString()}</b>", "Left", "Right"); break;
         }
     }

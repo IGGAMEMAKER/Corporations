@@ -266,7 +266,9 @@ public enum CorporatePolicy
     CompetitionOrSupport,
 
     PeopleOrProcesses,
-    DecisionsManagerOrTeam
+    DecisionsManagerOrTeam,
+
+    HardSkillsOrSoftSkills
 }
 
 [Game]
