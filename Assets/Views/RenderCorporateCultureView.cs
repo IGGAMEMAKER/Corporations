@@ -12,6 +12,8 @@ public class RenderCorporateCultureView : View
 
     public GameObject SalariesPolicy;
 
+    public GameObject SoftSkillsPolicy;
+
 
     public override void ViewRender()
     {
@@ -24,5 +26,7 @@ public class RenderCorporateCultureView : View
         Draw(StructurePolicy, canChangeCulture);
         Draw(PeopleOrProcessesPolicy, canChangeCulture);
         Draw(SalariesPolicy, false);
+
+        Draw(SoftSkillsPolicy, canChangeCulture);
     }
 }

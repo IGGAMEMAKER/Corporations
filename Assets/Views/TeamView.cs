@@ -128,7 +128,7 @@ public class TeamView : View/*, IPointerEnterHandler, IPointerExitHandler*/
 
         RenderTasks();
 
-        int maxWorkers = 8;
+        int maxWorkers = Teams.GetMaxTeamSize(info);
         int workers = info.Workers; // Random.Range(0, maxWorkers);
         bool hasFullTeam = workers >= maxWorkers;
 

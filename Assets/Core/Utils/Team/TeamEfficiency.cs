@@ -20,7 +20,7 @@ namespace Assets.Core
             product.ReplaceTeamEfficiency(new TeamEfficiency
             {
                 DevelopmentEfficiency = GetDevelopmentTeamEfficiency(gameContext, product),
-                MarketingEfficiency = GetMarketingTeamEffeciency(gameContext, product, isUniqueCompany),
+                MarketingEfficiency = GetMarketingTeamEfficiency(gameContext, product, isUniqueCompany),
 
                 FeatureCap = GetMaxFeatureRatingCap(product, gameContext).Sum(), // Products.GetFeatureRatingCap(company, gameContext),
                 FeatureGain = GetFeatureRatingGain(product, product.team.Teams[0], gameContext),
@@ -71,14 +71,14 @@ namespace Assets.Core
         }
 
         // -------------- MARKETING --------------------------------
-        public static int GetMarketingTeamEffeciency(GameContext gameContext, GameEntity company, bool isUnique)
+        public static int GetMarketingTeamEfficiency(GameContext gameContext, GameEntity company, bool isUnique)
         {
             var viableTeams = company.team.Teams
                 
                 // marketing teams only
                 .Where(t => IsUniversalTeam(t.TeamType) || t.TeamType == TeamType.MarketingTeam)
                 
-                .Select(t => GetMarketingTeamEffeciency(gameContext, company, t) / 100)
+                .Select(t => GetMarketingTeamEfficiency(gameContext, company, t) / 100)
                 ;
 
             if (viableTeams.Count() == 0)
@@ -88,7 +88,7 @@ namespace Assets.Core
         }
 
 
-        public static int GetMarketingTeamEffeciency(GameContext gameContext, GameEntity product, TeamInfo teamInfo)
+        public static int GetMarketingTeamEfficiency(GameContext gameContext, GameEntity product, TeamInfo teamInfo)
         {
             var marketingEffeciency = 0;
 

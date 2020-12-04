@@ -21,21 +21,21 @@ public class AudienceLossView : UpgradedParameterView
 
         if (change > 0)
         {
-            text = $"We {Visuals.Positive("GAIN")} {Format.Minify(change)} users weekly\n";
+            text = $"We {Visuals.Positive("GAIN")} {Format.Minify(change)} users weekly\n-------------------";
         }
         else if (change < 0)
         {
-            text = $"We are {Visuals.Negative("LOSING")} {Format.Minify(-change)} users weekly\n";
+            text = $"We are {Visuals.Negative("LOSING")} {Format.Minify(-change)} users weekly\n--------------------";
         }
 
         if (gain > 0)
         {
-            text += $"\n\nWe {Visuals.Positive("GAIN")} {Format.Minify(gain)} users from our marketing activities";
+            text += $"\nWe {Visuals.Positive("GAIN")} {Format.Minify(gain)} users from our marketing activities";
         }
 
         if (loss > 0)
         {
-            text += $"\n\nWe {Visuals.Negative("LOSE")} {Format.Minify(loss)} users, cause";
+            text += $"\nWe {Visuals.Negative("LOSE")} {Format.Minify(loss)} users, cause";
 
             if (baseChurn.Sum() > 0)
             {

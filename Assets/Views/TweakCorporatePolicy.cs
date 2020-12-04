@@ -54,6 +54,7 @@ public class TweakCorporatePolicy : ButtonController
                 case 9: text = "You can run an IPO!"; break;
             }
 
+            PlaySound(Assets.Sound.GoalCompleted);
             NotificationUtils.AddSimplePopup(Q, Visuals.Positive(text), "Corporate culture changed");
         }
 

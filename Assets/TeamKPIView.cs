@@ -13,7 +13,7 @@ public class TeamKPIView : ParameterView
 
         var team = product.team.Teams[SelectedTeam];
 
-        var marketingEff = Teams.GetMarketingTeamEffeciency(Q, product, team) / 100;
+        var marketingEff = Teams.GetMarketingTeamEfficiency(Q, product, team) / 100;
         var devEff = Teams.GetDevelopmentTeamEfficiency(Q, product, team) / 100;
 
         var featureCap = Teams.GetFeatureRatingCap(product, team, Q);

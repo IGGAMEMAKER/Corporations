@@ -12,7 +12,7 @@ public class MarketingEfficiencyView : UpgradedParameterView
 
         var marketingOrientedTeams = Flagship.team.Teams.Where(t => Teams.IsTaskSuitsTeam(t.TeamType, Teams.GetMarketingTaskMockup()));
 
-        var effs = string.Join("\n", marketingOrientedTeams.Select(m => $"* {m.Name} ({Visuals.Colorize(Teams.GetMarketingTeamEffeciency(Q, Flagship, m) / 100)}%)"));
+        var effs = string.Join("\n", marketingOrientedTeams.Select(m => $"* {m.Name} ({Visuals.Colorize(Teams.GetMarketingTeamEfficiency(Q, Flagship, m) / 100)}%)"));
 
         return $"Average marketing efficiency is: {eff}%\n\n{effs}\n\nHire better marketing leads to increase this value";
     }
