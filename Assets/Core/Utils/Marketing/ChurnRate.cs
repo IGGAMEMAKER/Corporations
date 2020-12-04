@@ -37,7 +37,7 @@ namespace Assets.Core
             return (int)Mathf.Pow(competitivenessBonus, 3);
         }
 
-        public static Bonus<long> GetSegmentSpecificLoyaltyBonus(Bonus<long> bonus, GameEntity c, int segmentId, bool isBonus)
+        public static Bonus<long> GetSegmentSpecificChurnBonus(Bonus<long> bonus, GameEntity c, int segmentId, bool isBonus)
         {
             var loyalty = GetSegmentLoyalty(c, segmentId);
 
@@ -48,9 +48,9 @@ namespace Assets.Core
 
         public static Bonus<long> GetChurnRate(GameEntity c, int segmentId, bool isBonus)
         {
+            var baseChurn = GetBaseChurnRate(c, isBonus);
 
-            return GetSegmentSpecificLoyaltyBonus(GetBaseChurnRate(c, isBonus), c, segmentId, isBonus)
-                //.AppendAndHideIfZero("Disloyal clients", loyalty < 0 ? 5 : 0)
+            return GetSegmentSpecificChurnBonus(baseChurn, c, segmentId, isBonus)
                 .Cap(0, 100)
                 ;
         }

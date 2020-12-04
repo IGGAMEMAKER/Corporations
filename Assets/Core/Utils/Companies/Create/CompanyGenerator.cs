@@ -164,6 +164,25 @@ namespace Assets.Core
             return dict;
         }
 
+        public static Dictionary<CorporatePolicy, int> GetPlayerCorporateCulture()
+        {
+            var max = C.CORPORATE_CULTURE_LEVEL_MAX;
+            var half = max / 2;
+
+            return new Dictionary<CorporatePolicy, int>
+            {
+                [CorporatePolicy.CompetitionOrSupport] = half,
+                [CorporatePolicy.SalariesLowOrHigh] = half,
+                [CorporatePolicy.DoOrDelegate] = 1,
+                [CorporatePolicy.DecisionsManagerOrTeam] = 1,
+                [CorporatePolicy.PeopleOrProcesses] = half,
+                [CorporatePolicy.FocusingOrSpread] = 1, // doesn't matter
+                [CorporatePolicy.Make] = 1,
+                [CorporatePolicy.Sell] = 1,
+                [CorporatePolicy.HardSkillsOrSoftSkills] = half
+            };
+        }
+
         public static Dictionary<CorporatePolicy, int> GetFundCorporateCulture()
         {
             var max = C.CORPORATE_CULTURE_LEVEL_MAX + 1;
