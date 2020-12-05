@@ -19,12 +19,16 @@ namespace Assets.Core
             var competitiveness = c.teamEfficiency.Efficiency.Competitiveness;
             var competitivenessBonus = GetChurnFromOutcompetition(c);
 
+            var quality = Marketing.GetAppQuality(c);
+
             return new Bonus<long>("Churn rate")
                 .RenderTitle()
                 .SetDimension("%")
 
                 .AppendAndHideIfZero("Market is DYING", marketIsDying ? 5 : 0)
-                .AppendAndHideIfZero("Outcompeted by " + competitiveness, c.isRelease ? competitivenessBonus : 0);
+                .AppendAndHideIfZero($"<b>App quality ({quality})</b> WORSE than best app quality ({quality + competitiveness})", c.isRelease ? competitivenessBonus : 0);
+                //.AppendAndHideIfZero($"<b>App quality ({quality})</b> WORSE than best app quality ({quality + competitiveness}) by " + competitiveness, c.isRelease ? competitivenessBonus : 0);
+                //.AppendAndHideIfZero("Outcompeted by " + competitiveness, c.isRelease ? competitivenessBonus : 0);
                 ;
         }
 

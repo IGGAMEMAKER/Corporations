@@ -19,6 +19,8 @@ public class MarketingEfficiencyView : UpgradedParameterView
 
     public override string RenderValue()
     {
+        Teams.UpdateTeamEfficiency(Flagship, Q);
+
         var eff = Teams.GetMarketingEfficiency(Flagship);
 
         Colorize(eff, 0, 100);

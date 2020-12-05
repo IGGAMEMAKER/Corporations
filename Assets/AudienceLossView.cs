@@ -30,16 +30,18 @@ public class AudienceLossView : UpgradedParameterView
 
         if (gain > 0)
         {
-            text += $"\nWe {Visuals.Positive("GAIN")} {Format.Minify(gain)} users from our marketing activities";
+            text += $"\n{Visuals.Positive("+" + Format.Minify(gain))} users from marketing";
+            //text += $"\nWe {Visuals.Positive("GAIN")} {Format.Minify(gain)} users from marketing";
         }
 
         if (loss > 0)
         {
-            text += $"\nWe {Visuals.Negative("LOSE")} {Format.Minify(loss)} users, cause";
+            text += $"\n\nWe {Visuals.Negative("LOSE")} {Format.Minify(loss)} users, cause";
 
             if (baseChurn.Sum() > 0)
             {
-                text += $"\nBase churn={baseChurn.Sum()}%, cause {baseChurn.ToString()}\n";
+                text += $" base {baseChurn.ToString(true)}"; // \nBase churn={baseChurn.Sum()}%, cause 
+                //text += $" base {baseChurn.Minify().ToString(true)}"; // \nBase churn={baseChurn.Sum()}%, cause 
             }
 
             var segments = Marketing.GetAudienceInfos();
@@ -49,8 +51,10 @@ public class AudienceLossView : UpgradedParameterView
                 var churn = Marketing.GetSegmentSpecificChurnBonus(new Bonus<long>("segment churn"), product, s.ID, true);
 
                 var segmentChurn = Marketing.GetChurnClients(product, s.ID);
+                var loyalty = Marketing.GetSegmentLoyalty(product, s.ID);
 
-                text += $"\n * {s.Name}: {churn.ToString()}";
+                if (segmentChurn > 0 && loyalty < 0)
+                    text += $"\n * {s.Name}: Disloyal users"; // {churn.Minify().ToString(true)}
             }
         }
 
