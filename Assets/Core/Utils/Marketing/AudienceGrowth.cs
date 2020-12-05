@@ -83,6 +83,11 @@ namespace Assets.Core
                 return 0;
             }
 
+            return GetBaseAudienceId(product);
+        }
+
+        public static int GetBaseAudienceId(GameEntity product)
+        {
             var infos = Marketing.GetAudienceInfos();
             var maxAudience = infos.Count;
 

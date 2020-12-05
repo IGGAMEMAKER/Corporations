@@ -27,6 +27,7 @@ namespace Assets.Core
                 Workers = 0,
                 Organisation = 0,
                 ID = company.team.Teams.Count,
+                Rank = TeamRank.Solo,
 
                 TooManyLeaders = false
             };

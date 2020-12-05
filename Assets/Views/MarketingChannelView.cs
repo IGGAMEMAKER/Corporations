@@ -90,7 +90,8 @@ public class MarketingChannelView : View
         }
         else
         {
-            var segmentID = Marketing.GetCoreAudienceId(company);
+            var segmentID = Marketing.GetBaseAudienceId(company);
+            //var segmentID = Marketing.GetCoreAudienceId(company);
             var audiences = Marketing.GetAudienceInfos();
 
             SegmentTypeImage.texture = Resources.Load<Texture2D>($"Audiences/{audiences[segmentID].Icon}");

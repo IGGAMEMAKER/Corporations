@@ -30,7 +30,7 @@ public class MarketingChannelsListView2 : ListView
             }
             else
             {
-                NoAvailableFeaturesText.text = $"Hire and upgrade more teams, to add more marketing channels";
+                NoAvailableFeaturesText.text = Visuals.Positive($"Hire and upgrade more teams, to add more marketing channels");
             }
         }
 

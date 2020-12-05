@@ -18,7 +18,9 @@ public class UpgradeableFeaturesListView : ListView
     {
         base.ViewRender();
 
-        var features = Products.GetUpgradeableRetentionFeatures(Flagship).Take(2);
+        bool isMonetizationMission = Flagship.companyGoal.Goals.Any(g => g.InvestorGoalType == InvestorGoalType.ProductStartMonetising);
+
+        var features = Products.GetUpgradeableRetentionFeatures(Flagship).Take(2).Where(f => !isMonetizationMission);
 
         var count = features.Count();
 
@@ -27,12 +29,16 @@ public class UpgradeableFeaturesListView : ListView
             if (Teams.HasFreeSlotForTeamTask(Flagship, Teams.GetDevelopmentTaskMockup()))
             {
                 var maxLvl = Teams.GetMaxFeatureRatingCap(Flagship, Q).Sum();
-                NoAvailableFeaturesText.text = $"You've upgraded all features to max level ({maxLvl}lvl).\n\n{Visuals.Negative("Increase max feature level it to upgrade more features")}";
+                NoAvailableFeaturesText.text = Visuals.Negative("Increase <b>max feature level</b> to upgrade more features");
+                //NoAvailableFeaturesText.text = $"You've upgraded all features to max level ({maxLvl}lvl).\n\n{Visuals.Negative("Increase max feature level it to upgrade more features")}";
             }
             else
             {
-                NoAvailableFeaturesText.text = $"Hire and upgrade more teams, to make more features";
+                NoAvailableFeaturesText.text =  $"All teams are busy. <b>Hire</b> or <b>promote</b> more teams, to make more features";
             }
+
+            if (isMonetizationMission)
+                NoAvailableFeaturesText.text = "Add monetization features";
         }
 
         Draw(NoAvailableFeaturesText, count == 0);

@@ -8,13 +8,20 @@ public class MarketingEfficiencyView : UpgradedParameterView
 {
     public override string RenderHint()
     {
-        var eff = Teams.GetMarketingEfficiency(Flagship);
+        var product = Flagship;
 
-        var marketingOrientedTeams = Flagship.team.Teams.Where(t => Teams.IsTaskSuitsTeam(t.TeamType, Teams.GetMarketingTaskMockup()));
+        var eff = Teams.GetMarketingEfficiency(product);
+
+        var marketingOrientedTeams = product.team.Teams.Where(t => Teams.IsTaskSuitsTeam(t.TeamType, Teams.GetMarketingTaskMockup()));
 
         var effs = string.Join("\n", marketingOrientedTeams.Select(m => $"* {m.Name} ({Visuals.Colorize(Teams.GetMarketingTeamEfficiency(Q, Flagship, m) / 100)}%)"));
 
-        return $"Average marketing efficiency is: {eff}%\n\n{effs}\n\nHire better marketing leads to increase this value";
+        var competitionPhrase = Visuals.Positive("NO COMPETITORS: X2\n\n");
+
+        if (!product.teamEfficiency.Efficiency.isUniqueCompany)
+            competitionPhrase = "";
+
+        return $"Average marketing efficiency is: {eff}%\n\n{effs}\n\n{competitionPhrase}Hire better marketing leads to increase this value";
     }
 
     public override string RenderValue()

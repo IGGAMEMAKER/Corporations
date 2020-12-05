@@ -76,8 +76,8 @@ namespace Assets.Core
             var viableTeams = company.team.Teams
                 
                 // marketing teams only
-                .Where(t => IsUniversalTeam(t.TeamType) || t.TeamType == TeamType.MarketingTeam)
-                
+                .Where(t => Teams.IsTaskSuitsTeam(t.TeamType, Teams.GetMarketingTaskMockup())) //  IsUniversalTeam(t.TeamType) || t.TeamType == TeamType.MarketingTeam
+
                 .Select(t => GetMarketingTeamEfficiency(gameContext, company, t) / 100)
                 ;
 

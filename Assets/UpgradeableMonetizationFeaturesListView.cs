@@ -13,7 +13,10 @@ public class UpgradeableMonetizationFeaturesListView : ListView
     {
         base.ViewRender();
 
-        bool canMonetize = Flagship.companyGoal.Goals.Any(g => g.InvestorGoalType == InvestorGoalType.ProductStartMonetising) || Flagship.completedGoals.Goals.Any(g => g == InvestorGoalType.ProductStartMonetising);
+        bool isMonetizationMission = Flagship.companyGoal.Goals.Any(g => g.InvestorGoalType == InvestorGoalType.ProductStartMonetising);
+        bool completedMonetizationMission = Flagship.completedGoals.Goals.Any(g => g == InvestorGoalType.ProductStartMonetising);
+
+        bool canMonetize = isMonetizationMission || completedMonetizationMission;
 
         var features = Products.GetUpgradeableMonetizationFeatures(Flagship).Take(canMonetize ? 1 : 0);
 

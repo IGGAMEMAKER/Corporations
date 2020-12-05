@@ -105,7 +105,7 @@ namespace Assets.Core
 
             // add team for CEO
             Teams.AddTeam(company, context, TeamType.CrossfunctionalTeam);
-            company.team.Teams[0].Workers = 8;
+            company.team.Teams[0].Workers = Teams.GetMaxTeamSize(TeamRank.Solo);
             company.team.Teams[0].HiringProgress = 100;
 
 
