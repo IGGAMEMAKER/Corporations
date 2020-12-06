@@ -36,9 +36,9 @@ public class ManagerFocusListView : ListView
         Hide(Organisation);
     }
 
-    public override void OnDeselect()
+    public override void OnDeselect(int ind)
     {
-        base.OnDeselect();
+        base.OnDeselect(ind);
 
         Hide(FocusList);
         Show(Organisation);
@@ -50,7 +50,7 @@ public class ManagerFocusListView : ListView
     {
         Teams.SetManagerTask(Flagship, SelectedTeam, ChosenIndex, task);
 
-        OnDeselect();
+        OnDeselectAll();
         //TeamView.SetEntity(Flagship.team.Teams[SelectedTeam], SelectedTeam);
 
         ViewRender();

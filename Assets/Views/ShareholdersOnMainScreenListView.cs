@@ -46,9 +46,9 @@ public class ShareholdersOnMainScreenListView : ListView
         SetItems(MyCompany.shareholders.Shareholders.Keys.ToArray());
     }
 
-    public override void OnDeselect()
+    public override void OnDeselect(int ind)
     {
-        base.OnDeselect();
+        base.OnDeselect(ind);
 
         HideButtons();
     }

@@ -57,7 +57,11 @@ public abstract class ListView : View // MonoBehaviour
 
     public virtual void OnItemSelected(int ind) { }
 
-    public virtual void OnDeselect()
+    public virtual void OnDeselectAll()
+    {
+        ChosenIndex = -1;
+    }
+    public virtual void OnDeselect(int ind)
     {
         ChosenIndex = -1;
     }
@@ -66,14 +70,17 @@ public abstract class ListView : View // MonoBehaviour
     {
         if (ChosenIndex == elementIndex)
         {
+            if (elementIndex >= 0)
+                Item = Items[ChosenIndex];
+            
             // deselect
-            OnDeselect();
+            OnDeselect(ChosenIndex);
         }
         else
         {
             ChosenIndex = elementIndex;
 
-            Item = Items[elementIndex];
+            Item = Items[ChosenIndex];
             OnItemSelected(ChosenIndex);
         }
 

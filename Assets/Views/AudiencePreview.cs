@@ -57,15 +57,20 @@ public class AudiencePreview : View
             text += $"\n\nIncome: <b>{Visuals.Positive("???")}</b>" +
                 $"\nPotential: <b>{Visuals.Positive("???")}</b>";
 
-            Hide(Loyalty);
+            if (Loyalty != null)
+                Hide(Loyalty);
         }
 
         else
         {
+            if (Loyalty != null)
+            {
+
             Show(Loyalty);
 
             Loyalty.text = Format.Sign(loyalty);
             Loyalty.GetComponent<Hint>().SetHint(loyaltyBonus.SortByModule(true).RenderTitle().ToString());
+            }
 
             var income = Economy.GetIncomePerSegment(product, segmentId);
 
@@ -88,6 +93,9 @@ public class AudiencePreview : View
 
     public void ShowChanges(int change)
     {
+        if (LoyaltyChangeBackground == null)
+            return;
+
         LoyaltyChange.text = Format.Sign(change);
         LoyaltyChange.color = Visuals.GetColorPositiveOrNegative(change >= 0);
 
@@ -96,6 +104,9 @@ public class AudiencePreview : View
 
     public void HideLoyaltyChanges()
     {
+        if (LoyaltyChangeBackground == null)
+            return;
+
         Hide(LoyaltyChangeBackground);
     }
 }

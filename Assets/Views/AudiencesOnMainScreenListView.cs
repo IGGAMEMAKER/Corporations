@@ -56,9 +56,9 @@ public class AudiencesOnMainScreenListView : ListView
             FeatureCap.text = Visuals.Positive(Products.GetFeatureRatingCap(product).ToString("0.0"));
     }
 
-    public override void OnDeselect()
+    public override void OnDeselect(int ind)
     {
-        base.OnDeselect();
+        base.OnDeselect(ind);
 
         HideButtons();
     }
