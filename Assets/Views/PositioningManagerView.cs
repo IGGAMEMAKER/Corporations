@@ -112,13 +112,14 @@ public class PositioningManagerView : View
 
     void RenderPositioningChangeBenefit()
     {
-        var audienceGrowth = Marketing.GetAudienceGrowth(Flagship, Q);
-        var audienceChange = Marketing.GetAudienceChange(Flagship, Q);
+        var audienceGrowth = (double)Marketing.GetAudienceGrowth(Flagship, Q);
+        var audienceChange = (double)Marketing.GetAudienceChange(Flagship, Q);
 
         var incomePerUser = 0.05f;
-        var incomeGrowth = audienceGrowth * incomePerUser;
 
-        var newAudienceGrowth = 1_000_000;
+        var incomeGrowth = (double)(audienceGrowth * incomePerUser);
+        var newAudienceGrowth = (double)1_000_000;
+
         var newIncomePerUser = incomePerUser;
 
         var newIncomeGrowth = newAudienceGrowth * newIncomePerUser;
@@ -131,7 +132,7 @@ public class PositioningManagerView : View
         if (newAudienceGrowth > audienceGrowth)
         {
             var incomeGainDescription = "+" + Format.Money(incomeChange) + " / week";
-            var audienceGainDescription = "+" + Format.Money(audienceGrowthChange) + " users";
+            var audienceGainDescription = "+" + Format.Minify(audienceGrowthChange) + " users";
 
             ChangeGain.text += $"<b>GET</b> additional <b>{Visuals.Positive(incomeGainDescription)}</b> (by getting <b>additional</b> {Visuals.Positive(audienceGainDescription)})";
         }
@@ -139,7 +140,7 @@ public class PositioningManagerView : View
         if (newAudienceGrowth < audienceGrowth)
         {
             var incomeGainDescription = Format.Money(-incomeChange) + " / week";
-            var audienceGainDescription = Format.Money(-audienceGrowthChange) + " users";
+            var audienceGainDescription = Format.Minify(-audienceGrowthChange) + " users";
 
             ChangeGain.text += $"<b>LOSE</b> <b>{Visuals.Negative(incomeGainDescription)}</b> (by losing {Visuals.Negative(audienceGainDescription)})";
         }
