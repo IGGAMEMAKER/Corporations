@@ -41,18 +41,75 @@ public class RenderAudienceChoiceListView : ListView
 
     public void SetExpansionPositionings()
     {
-        var currentPositioning = Marketing.GetPositioning(Flagship);
+        var positioning = Marketing.GetPositioning(Flagship);
         var positionings = Marketing.GetNichePositionings(Flagship);
 
-        var favouriteSegments = currentPositioning.Loyalties.Select((l, i) => new { l, i }).Where(r => r.l > 0).Select(r => r.i);
+        var favouriteSegments = positioning.Loyalties.Select((l, i) => new { l, i }).Where(r => r.l >= 0).Select(r => r.i);
         var favouriteCount = favouriteSegments.Count();
 
-        //var biggerSegments = 
+        var expansionPositionings = new List<ProductPositioning>(); // positionings.Where(p => p.Loyalties.All((l, i) => l >= 0 && positioning.Loyalties[i] >= 0));
+
+        foreach (var p in positionings)
+        {
+            bool willNotLosePreviousUsers = true;
+            var newFavouriteCount = p.Loyalties.Count(l => l >= 0);
+            
+            for (var i = 0; i < p.Loyalties.Count; i++)
+            {
+                bool likesAudience = positioning.Loyalties[i] >= 0;
+                bool willHateAudience = p.Loyalties[i] < 0;
+
+                if (likesAudience && willHateAudience)
+                {
+                    willNotLosePreviousUsers = false;
+                }
+            }
+
+            if (willNotLosePreviousUsers && newFavouriteCount > favouriteCount)
+                expansionPositionings.Add(p);
+        }
+
+        SetPositionings(expansionPositionings);
     }
 
-    public void SetPositionings(List<int> Audiences)
+    public void SetPivotPositionings()
     {
-        var positionings = WrapWithCurrentPositioning(Flagship, GetProductPositionings(Audiences, Flagship));
+        var positioning = Marketing.GetPositioning(Flagship);
+        var positionings = Marketing.GetNichePositionings(Flagship);
+
+        var favouriteSegments = positioning.Loyalties.Select((l, i) => new { l, i }).Where(r => r.l >= 0).Select(r => r.i);
+        var favouriteCount = favouriteSegments.Count();
+
+        var pivotPositionings = new List<ProductPositioning>(); // positionings.Where(p => p.Loyalties.All((l, i) => l >= 0 && positioning.Loyalties[i] >= 0));
+
+        foreach (var p in positionings)
+        {
+            bool willNotLosePreviousUsers = true;
+            var newFavouriteCount = p.Loyalties.Count(l => l >= 0);
+
+            for (var i = 0; i < p.Loyalties.Count; i++)
+            {
+                bool likesAudience = positioning.Loyalties[i] >= 0;
+                bool willHateAudience = p.Loyalties[i] < 0;
+
+                if (likesAudience && willHateAudience)
+                {
+                    willNotLosePreviousUsers = false;
+                }
+            }
+
+            //willNotLosePreviousUsers && 
+            if (newFavouriteCount <= favouriteCount)
+                pivotPositionings.Add(p);
+        }
+
+        SetPositionings(pivotPositionings);
+    }
+
+    public void SetPositionings(List<int> Audiences) => SetPositionings(GetProductPositionings(Audiences, Flagship));
+    public void SetPositionings(List<ProductPositioning> positionings1)
+    {
+        var positionings = WrapWithCurrentPositioning(Flagship, positionings1);
 
         SetItems(positionings);
     }

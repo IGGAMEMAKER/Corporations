@@ -88,6 +88,7 @@ namespace Assets.Core
                     {
                         //AddOnce(goals, product, InvestorGoalType.ProductMillionUsers);
                         AddOnce(goals, product, new InvestmentGoalMillionUsers(1_000_000));
+                        goals.RemoveAll(g => g.InvestorGoalType == InvestorGoalType.GrowUserBase);
                     }
 
                     if (users >= 1_000_000 && canGetMoreAudiences && needsToExpand)
@@ -101,6 +102,12 @@ namespace Assets.Core
                         // globalise
                         //return OnlyGoal(InvestorGoalType.GainMoreSegments);
                         return OnlyGoal(new InvestmentGoalMoreSegments(ourAudiences + 1));
+                    }
+
+                    // protect from no goals situation
+                    if (goals.Count == 0)
+                    {
+                        goals.Add(new InvestmentGoalGrowAudience(Marketing.GetUsers(product) * 2));
                     }
                 }
             }

@@ -34,6 +34,7 @@ public class PositioningManagerView : View
     public Text LovingLabel;
 
     public Text NewPositioningName;
+    public Text ChangeGain;
 
     List<int> TargetAudiences;
 
@@ -105,6 +106,43 @@ public class PositioningManagerView : View
             LovingLabel.text = $"Instead, you will <b><color=green>GET</color> these users</b>";
         else
             LovingLabel.text = $"You will <b><color=green>GET</color> these users</b>";
+
+        RenderPositioningChangeBenefit();
+    }
+
+    void RenderPositioningChangeBenefit()
+    {
+        var audienceGrowth = Marketing.GetAudienceGrowth(Flagship, Q);
+        var audienceChange = Marketing.GetAudienceChange(Flagship, Q);
+
+        var incomePerUser = 0.05f;
+        var incomeGrowth = audienceGrowth * incomePerUser;
+
+        var newAudienceGrowth = 1_000_000;
+        var newIncomePerUser = incomePerUser;
+
+        var newIncomeGrowth = newAudienceGrowth * newIncomePerUser;
+
+        ChangeGain.text = $"Your income grows by {Format.Money(incomeGrowth)} every week (by getting {Format.Minify(audienceGrowth)} users).\nAfter positioning change you will ";
+
+        var incomeChange = newIncomeGrowth - incomeGrowth;
+        var audienceGrowthChange = newAudienceGrowth - audienceGrowth;
+
+        if (newAudienceGrowth > audienceGrowth)
+        {
+            var incomeGainDescription = "+" + Format.Money(incomeChange) + " / week";
+            var audienceGainDescription = "+" + Format.Money(audienceGrowthChange) + " users";
+
+            ChangeGain.text += $"<b>GET</b> additional <b>{Visuals.Positive(incomeGainDescription)}</b> (by getting <b>additional</b> {Visuals.Positive(audienceGainDescription)})";
+        }
+
+        if (newAudienceGrowth < audienceGrowth)
+        {
+            var incomeGainDescription = Format.Money(-incomeChange) + " / week";
+            var audienceGainDescription = Format.Money(-audienceGrowthChange) + " users";
+
+            ChangeGain.text += $"<b>LOSE</b> <b>{Visuals.Negative(incomeGainDescription)}</b> (by losing {Visuals.Negative(audienceGainDescription)})";
+        }
     }
 
     void ShowTabs()
@@ -123,7 +161,7 @@ public class PositioningManagerView : View
         HideButtonDescriptions();
         ShowTabs();
 
-        FindObjectOfType<RenderAudienceChoiceListView>().SetPositionings(new List<int> { 0, 1, 2, 3 });
+        FindObjectOfType<RenderAudienceChoiceListView>().SetExpansionPositionings();
         Show(PositioningDescriptionTab);
     }
 
@@ -132,7 +170,7 @@ public class PositioningManagerView : View
         HideButtonDescriptions();
         ShowTabs();
 
-        FindObjectOfType<RenderAudienceChoiceListView>().SetPositionings(new List<int> { 0, 1 });
+        FindObjectOfType<RenderAudienceChoiceListView>().SetPivotPositionings();
         Show(PositioningDescriptionTab);
     }
 

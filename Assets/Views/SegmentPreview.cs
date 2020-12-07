@@ -36,6 +36,8 @@ public class SegmentPreview : View
         var infos = Marketing.GetAudienceInfos();
         var info = infos[SegmentId];
 
+        var actualPositioning = Marketing.GetPositioning(Flagship);
+
         var selectedPositioning = FindObjectOfType<PositioningManagerView>().Positioning;
 
         BorderImage.color = Visuals.GetColorFromString(selectedPositioning.ID == positioning.ID ? Colors.COLOR_CONTROL : Colors.COLOR_NEUTRAL);
@@ -50,19 +52,29 @@ public class SegmentPreview : View
         Title.text = $"{positioning.name}\nWorth <size=40><b>{Format.MinifyMoney(worth)}</b></size>";
         Title.color = Visuals.GetColorFromString(positioningColor);
 
+        bool ourPositioning = positioning.ID == actualPositioning.ID;
+        if (ourPositioning)
+            Title.text += $"\n{Visuals.Colorize("(Our positioning)", Colors.COLOR_CONTROL)}";
+
         //Title.text = Visuals.Colorize($"{positioning.name}\nWorth <size=40><b>{Format.MinifyMoney(worth)}</b></size>", positioningColor);
         //Title.text = Visuals.Colorize($"{positioning.name} \n<b>{Format.MinifyMoney(worth)}</b>", positioningColor);
 
         var competition = Companies.GetCompetitionInSegment(Flagship, Q, positioning.ID);
 
-        //if (competition.Count() == 0)
-        //{
-        //    Title.text += " " + Visuals.Positive("FREE");
-        //}
-        //else
-        //{
-        //    Title.text += $" ({competition.Count()} companies)";
-        //}
+        if (!ourPositioning)
+        {
+            var competitors = competition.Count();
+            var comeptitionColor = Visuals.GetGradientColor(0, 5, competitors, true);
+
+            if (competitors == 0)
+            {
+                Title.text += "\n" + Visuals.Positive("NO COMPETITION");
+            }
+            else
+            {
+                Title.text += "\n" + Visuals.Colorize($"{competitors} companies", comeptitionColor);
+            }
+        }
 
 
         Icon.texture = Resources.Load<Texture2D>($"Audiences/{info.Icon}");
