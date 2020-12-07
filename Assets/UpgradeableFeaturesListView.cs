@@ -38,7 +38,9 @@ public class UpgradeableFeaturesListView : ListView
             }
 
             if (isMonetizationMission)
-                NoAvailableFeaturesText.text = "Add monetization features";
+            {
+                NoAvailableFeaturesText.text = "Monetization features will be available in a couple of weeks";
+            }
         }
 
         Draw(NoAvailableFeaturesText, count == 0);

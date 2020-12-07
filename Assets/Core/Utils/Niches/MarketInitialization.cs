@@ -370,6 +370,9 @@ namespace Assets.Core
             var socialNetworks =
                 new MarketProfile(AudienceSize.Global, Monetisation.Adverts, Margin.Mid, AppComplexity.Hard, NicheSpeed.Year);
 
+    //        var payment =
+    //new MarketProfile(AudienceSize.Million100, Monetisation.Service, Margin.Low, AppComplexity.Average, NicheSpeed.HalfYear);
+
             var messenger = socialNetworks.Copy().IncomeLow().WebService().Dynamic();
 
             SetMarkets(NicheType.Com_Email, 1990, 2020, gameContext, GetPopularUsefulAppProfile);
@@ -378,7 +381,8 @@ namespace Assets.Core
             SetMarkets(NicheType.Com_Dating, 2000, 2020, gameContext, GetPopularUsefulAppProfile);
 
             SetMarkets(NicheType.Com_Messenger, 2000, 2030, gameContext, messenger);
-            SetMarkets(NicheType.Com_SocialNetwork, 2003, 2025, gameContext, socialNetworks);
+            SetMarkets(NicheType.Com_SocialNetwork, 1998, 2030, gameContext, socialNetworks);
+            //SetMarkets(NicheType.Com_SocialNetwork, 2003, 2025, gameContext, socialNetworks);
 
 
 

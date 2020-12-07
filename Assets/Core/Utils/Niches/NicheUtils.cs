@@ -93,7 +93,7 @@ namespace Assets.Core
             var isBig = profile.AudienceSize == AudienceSize.Global; // GetMarketPotentialRating(niche) > 3;
 
 
-
+            return isOpened;
             return isPerspective && isOpened && isCheap && !isBig;
         }
     }
