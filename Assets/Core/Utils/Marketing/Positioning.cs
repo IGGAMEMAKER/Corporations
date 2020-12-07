@@ -57,7 +57,7 @@ namespace Assets.Core
 
             if (product.isFlagship)
             {
-                if (Marketing.GetUsers(product) > 50)
+                if (GetUsers(product) > 50)
                 {
                     var segments = Marketing.GetNichePositionings(product);
                     var audiences = GetAudienceInfos();

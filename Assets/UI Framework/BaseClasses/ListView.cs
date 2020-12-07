@@ -70,8 +70,8 @@ public abstract class ListView : View // MonoBehaviour
     {
         if (ChosenIndex == elementIndex)
         {
-            if (elementIndex >= 0)
-                Item = Items[ChosenIndex];
+            //if (elementIndex >= 0)
+            //    Item = Items[ChosenIndex];
             
             // deselect
             OnDeselect(ChosenIndex);

@@ -19,7 +19,7 @@ public class AudiencePreview : View
 
     public int segmentId;
 
-    public void SetEntity(AudienceInfo audience, GameEntity product)
+    public void SetEntity(AudienceInfo audience, GameEntity product, int setLoyalty = 0)
     {
         base.ViewRender();
 
@@ -33,13 +33,18 @@ public class AudiencePreview : View
 
         Draw(TargetAudience, isMainAudience);
 
-        var loyalty = (int) Marketing.GetSegmentLoyalty(product, segmentId); // Random.Range(-5, 15);
+        var loyalty = (int)Marketing.GetSegmentLoyalty(product, segmentId); // Random.Range(-5, 15);
         var loyaltyBonus = Marketing.GetSegmentLoyalty(product, segmentId, true);
 
         long clients = Marketing.GetUsers(product, segmentId);
 
         bool isNewAudience = clients == 0;
         bool isLoyalAudience = loyalty >= 0;
+
+        if (setLoyalty == 1)
+            isLoyalAudience = true;
+        if (setLoyalty == -1)
+            isLoyalAudience = false;
 
         var text = $"<size=35>{audience.Name}</size>";
 
@@ -65,11 +70,10 @@ public class AudiencePreview : View
         {
             if (Loyalty != null)
             {
+                Show(Loyalty);
 
-            Show(Loyalty);
-
-            Loyalty.text = Format.Sign(loyalty);
-            Loyalty.GetComponent<Hint>().SetHint(loyaltyBonus.SortByModule(true).RenderTitle().ToString());
+                Loyalty.text = Format.Sign(loyalty);
+                Loyalty.GetComponent<Hint>().SetHint(loyaltyBonus.SortByModule(true).RenderTitle().ToString());
             }
 
             var income = Economy.GetIncomePerSegment(product, segmentId);
