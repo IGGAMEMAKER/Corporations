@@ -41,6 +41,11 @@ namespace Assets.Core
             return loyaltyBonus;
         }
 
+        public static bool IsWillSufferOnAudienceLoss(GameEntity company, int segmentId)
+        {
+            return IsAimingForSpecificAudience(company, segmentId) && GetUsers(company, segmentId) > 0;
+        }
+
         public static bool IsAimingForSpecificAudience(GameEntity company, int segmentId)
         {
             var positioning = GetPositioning(company);

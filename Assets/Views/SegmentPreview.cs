@@ -19,16 +19,22 @@ public class SegmentPreview : View
     public Text Value;
 
     public SegmentAudiencesListView SegmentAudiencesListView;
+    public AudienceListView AudienceListView;
 
     public int SegmentId;
+    public int PositioningID;
 
     public void SetEntity(ProductPositioning positioning)
     {
         var company = Flagship;
 
+        PositioningID = positioning.ID;
+
         var positionings = Marketing.GetNichePositionings(company);
         SegmentId = Marketing.GetCoreAudienceId(company);
-        var info = Marketing.GetAudienceInfos()[SegmentId];
+
+        var infos = Marketing.GetAudienceInfos();
+        var info = infos[SegmentId];
 
         var selectedPositioning = FindObjectOfType<PositioningManagerView>().Positioning;
 
@@ -41,7 +47,10 @@ public class SegmentPreview : View
 
         var positioningColor = isOurPositioning ? Colors.COLOR_CONTROL : Colors.COLOR_WHITE;
 
-        Title.text = Visuals.Colorize($"{positioning.name}\nWorth <size=40><b>{Format.MinifyMoney(worth)}</b></size>", positioningColor);
+        Title.text = $"{positioning.name}\nWorth <size=40><b>{Format.MinifyMoney(worth)}</b></size>";
+        Title.color = Visuals.GetColorFromString(positioningColor);
+
+        //Title.text = Visuals.Colorize($"{positioning.name}\nWorth <size=40><b>{Format.MinifyMoney(worth)}</b></size>", positioningColor);
         //Title.text = Visuals.Colorize($"{positioning.name} \n<b>{Format.MinifyMoney(worth)}</b>", positioningColor);
 
         var competition = Companies.GetCompetitionInSegment(Flagship, Q, positioning.ID);
@@ -62,6 +71,7 @@ public class SegmentPreview : View
         {
             SegmentAudiencesListView.SetAudiences(positioning);
         }
+        //AudienceListView.SetAudiences(positioning.Loyalties.Select((l, i) => new { l, i, asda = infos[i] }).Where(pp => )
 
         //bool isTargetAudience = Marketing.IsTargetAudience(company, segmentId);
         //var audienceColor = Visuals.GetColorFromString(isTargetAudience ? Colors.COLOR_GOLD : Colors.COLOR_WHITE);
@@ -69,6 +79,18 @@ public class SegmentPreview : View
         //    PanelImage.color = audienceColor;
 
         HideChanges();
+    }
+
+    public void DeselectSegment()
+    {
+        BorderImage.color = Visuals.GetColorFromString(Colors.COLOR_NEUTRAL);
+        Title.color = Visuals.GetColorFromString(Colors.COLOR_NEUTRAL);
+    }
+
+    public void ChooseSegment()
+    {
+        BorderImage.color = Visuals.GetColorFromString(Colors.COLOR_CONTROL);
+        Title.color = Visuals.GetColorFromString(Colors.COLOR_CONTROL);
     }
 
     public void AnimateChanges(long change)

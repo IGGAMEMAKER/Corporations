@@ -23,7 +23,7 @@ public class RenderAudienceChoiceListView : ListView
     List<ProductPositioning> GetProductPositionings(List<int> Audiences, GameEntity company)
     {
         return Marketing.GetNichePositionings(company)
-            .Where(p => Audiences.All(a => p.Loyalties[a] > 0))
+            .Where(p => Audiences.All(a => p.Loyalties[a] >= 0))
             .ToList();
     }
 
@@ -63,7 +63,14 @@ public class RenderAudienceChoiceListView : ListView
 
         var positionings = Marketing.GetNichePositionings(Flagship);
 
-        var p = positionings[ind];
+        var p = positionings[Item.GetComponent<SegmentPreview>().PositioningID];
+
+        foreach (var it in Items)
+        {
+            it.GetComponent<SegmentPreview>().DeselectSegment();
+        }
+
+        Item.GetComponent<SegmentPreview>().ChooseSegment();
 
         FindObjectOfType<PositioningManagerView>().SetAnotherPositioning(p);
     }

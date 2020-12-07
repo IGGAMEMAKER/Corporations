@@ -34,7 +34,6 @@ public class AudiencePreview : View
         Draw(TargetAudience, isMainAudience);
 
         var loyalty = (int)Marketing.GetSegmentLoyalty(product, segmentId); // Random.Range(-5, 15);
-        var loyaltyBonus = Marketing.GetSegmentLoyalty(product, segmentId, true);
 
         long clients = Marketing.GetUsers(product, segmentId);
 
@@ -46,7 +45,6 @@ public class AudiencePreview : View
         if (setLoyalty == -1)
             isLoyalAudience = false;
 
-        var text = $"<size=35>{audience.Name}</size>";
 
         if (links != null)
         {
@@ -54,7 +52,24 @@ public class AudiencePreview : View
                 links.Background.color = Visuals.GetColorFromString(Colors.COLOR_NEUTRAL);
             else
                 links.Background.color = Visuals.GetColorPositiveOrNegative(isLoyalAudience);
+
+
+            if (setLoyalty == 1 || setLoyalty == -1)
+                links.Background.color = Visuals.GetColorPositiveOrNegative(isLoyalAudience);
         }
+
+        RenderAudienceHint(audience, isNewAudience, product, clients, loyalty);
+
+        AudienceImage.texture = Resources.Load<Texture2D>($"Audiences/{audience.Icon}");
+
+        HideLoyaltyChanges();
+    }
+
+    void RenderAudienceHint(AudienceInfo audience, bool isNewAudience, GameEntity product, long clients, int loyalty)
+    {
+        var text = $"<size=35>{audience.Name}</size>";
+
+        var loyaltyBonus = Marketing.GetSegmentLoyalty(product, segmentId, true);
 
 
         if (isNewAudience)
@@ -82,10 +97,7 @@ public class AudiencePreview : View
                 $"\nUsers: <b>{Visuals.Colorize(Format.Minify(clients), clients >= 0)}</b>";
         }
 
-        AudienceImage.texture = Resources.Load<Texture2D>($"Audiences/{audience.Icon}");
-
         AudienceHint.SetHint(text);
-        HideLoyaltyChanges();
     }
 
     public void ShowChanges(NewProductFeature f)

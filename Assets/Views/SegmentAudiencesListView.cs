@@ -14,7 +14,10 @@ public class SegmentAudiencesListView : ListView
     public void SetAudiences(ProductPositioning positioning)
     {
         var allAudiences = Marketing.GetAudienceInfos();
-        var audiences = positioning.Loyalties.Select((l, i) => new { l, i }).Where(pp => pp.l > 0).Select(pp => allAudiences[pp.i]);
+        var audiences = positioning.Loyalties
+            .Select((l, i) => new { l, i })
+            .Where(pp => pp.l >= 0)
+            .Select(pp => allAudiences[pp.i]);
         
         SetItems(audiences);
     }

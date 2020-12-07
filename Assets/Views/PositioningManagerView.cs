@@ -33,6 +33,8 @@ public class PositioningManagerView : View
     public AudienceListView LovingAudiences;
     public Text LovingLabel;
 
+    public Text NewPositioningName;
+
     List<int> TargetAudiences;
 
     bool flag = false;
@@ -71,13 +73,18 @@ public class PositioningManagerView : View
     void RenderSegmentDescription(GameEntity company)
     {
         var audiences = Marketing.GetAudienceInfos();
-        var worth = Marketing.GetPositioningWorth(company, Positioning);
 
         var audiencesSelected = Positioning.Loyalties
-            .Select((l, i) => new { i, cost = Marketing.GetAudienceWorth(audiences[i]), isLoyal = l >= 0 });
+            .Select((l, i) => new { i, isLoyal = l >= 0 });
 
-        var lovingAudiences     = audiencesSelected.Where(f => f.isLoyal && !Marketing.IsAimingForSpecificAudience(company, f.i));
-        var hatedAudiences      = audiencesSelected.Where(f => !f.isLoyal && Marketing.IsAimingForSpecificAudience(company, f.i));
+        //Debug.Log()
+
+        NewPositioningName.text = Positioning.name;
+
+        var lovingAudiences = audiencesSelected.Where(f => f.isLoyal && !Marketing.IsAimingForSpecificAudience(company, f.i));
+        //var lovingAudiences     = audiencesSelected.Where(f => f.isLoyal); //  && !Marketing.IsAimingForSpecificAudience(company, f.i)
+        var hatedAudiences = audiencesSelected.Where(f => !f.isLoyal && Marketing.IsWillSufferOnAudienceLoss(company, f.i));
+        //var hatedAudiences      = audiencesSelected.Where(f => !f.isLoyal); // && Marketing.IsWillSufferOnAudienceLoss(company, f.i)
 
 
         HatedAudiences  .SetAudiences(hatedAudiences.Select(a => audiences[a.i]).ToList(), -1);
@@ -92,12 +99,12 @@ public class PositioningManagerView : View
         Draw(LovingLabel, hasNewLovingUsers);
         Draw(LovingAudiences, hasNewLovingUsers);
 
-        HatedLabel.text = $"<size=50><color=red><b>!!! You will LOSE these users</b></color></size>";
+        HatedLabel.text = $"<size=50><color=red><b>!!! You will LOSE ALL of these users</b></color></size>";
 
         if (hasNewHatingUsers)
-            LovingLabel.text = $"Instead, you will <b><color=green>GET</color></b>";
+            LovingLabel.text = $"Instead, you will <b><color=green>GET</color> these users</b>";
         else
-            LovingLabel.text = $"You will <b><color=green>GET</color></b>";
+            LovingLabel.text = $"You will <b><color=green>GET</color> these users</b>";
     }
 
     void ShowTabs()
@@ -157,20 +164,20 @@ public class PositioningManagerView : View
     }
 
 
-    void RenderSegmentDescription2(GameEntity company)
-    {
-        var audiences = Marketing.GetAudienceInfos();
-        var worth = Marketing.GetPositioningWorth(company, Positioning);
+    //void RenderSegmentDescription2(GameEntity company)
+    //{
+    //    var audiences = Marketing.GetAudienceInfos();
+    //    var worth = Marketing.GetPositioningWorth(company, Positioning);
 
-        var a = Positioning.Loyalties
-            .Select((l, i) => new { i, cost = Marketing.GetAudienceWorth(audiences[i]), isLoyal = l >= 0 });
+    //    var a = Positioning.Loyalties
+    //        .Select((l, i) => new { i, cost = Marketing.GetAudienceWorth(audiences[i]), isLoyal = l >= 0 });
 
-        var favoriteAudiences = a.Where(f => f.isLoyal);
-        var hatedAudiences = a.Where(f => !f.isLoyal);
+    //    var favoriteAudiences = a.Where(f => f.isLoyal);
+    //    var hatedAudiences = a.Where(f => !f.isLoyal);
 
-        var favoriteAudiencesDescription = string.Join("\n", favoriteAudiences.Select(f => DescribeAudience(f.cost, f.i)));
-        var hatedAudiencesDescription = string.Join("\n", hatedAudiences.Select(f => DescribeAudience(f.cost, f.i)));
+    //    var favoriteAudiencesDescription = string.Join("\n", favoriteAudiences.Select(f => DescribeAudience(f.cost, f.i)));
+    //    var hatedAudiencesDescription = string.Join("\n", hatedAudiences.Select(f => DescribeAudience(f.cost, f.i)));
 
-        SegmentDescription.text = $"{Positioning.name}\n\n<b>Potential Income</b>\n{Visuals.Positive(Format.MinifyMoney(worth))}\n\n<b>Suits</b>\n{favoriteAudiencesDescription}\n\n<b>Hate</b>\n{hatedAudiencesDescription}\n\n";
-    }
+    //    SegmentDescription.text = $"{Positioning.name}\n\n<b>Potential Income</b>\n{Visuals.Positive(Format.MinifyMoney(worth))}\n\n<b>Suits</b>\n{favoriteAudiencesDescription}\n\n<b>Hate</b>\n{hatedAudiencesDescription}\n\n";
+    //}
 }
