@@ -26,7 +26,9 @@ public class UpgradeableFeaturesListView : ListView
 
         if (count == 0)
         {
-            if (Teams.HasFreeSlotForTeamTask(Flagship, Teams.GetDevelopmentTaskMockup()))
+            bool hasFreeSlot = Teams.HasFreeSlotForTeamTask(Flagship, Teams.GetDevelopmentTaskMockup());
+
+            if (hasFreeSlot)
             {
                 var maxLvl = Teams.GetMaxFeatureRatingCap(Flagship, Q).Sum();
                 NoAvailableFeaturesText.text = Visuals.Negative("Increase <b>max feature level</b> to upgrade more features");
@@ -39,7 +41,14 @@ public class UpgradeableFeaturesListView : ListView
 
             if (isMonetizationMission)
             {
-                NoAvailableFeaturesText.text = "Monetization features will be available in a couple of weeks";
+                if (hasFreeSlot)
+                {
+                    NoAvailableFeaturesText.text = Visuals.Positive("Add <b>Monetization features</b> to start making money!");
+                }
+                else
+                {
+                    NoAvailableFeaturesText.text = "You will get <b>Monetization features</b> after finishing current features";
+                }
             }
         }
 
