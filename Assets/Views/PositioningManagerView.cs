@@ -1,4 +1,5 @@
 ﻿using Assets.Core;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,6 +54,11 @@ public class PositioningManagerView : View
         Hide(PositioningDescriptionTab);
 
         ViewRender();
+    }
+
+    private void OnDisable()
+    {
+        ChangeGain.text = "";
     }
 
     //public override void ViewRender()
@@ -112,38 +118,75 @@ public class PositioningManagerView : View
 
     void RenderPositioningChangeBenefit()
     {
-        var audienceGrowth = (double)Marketing.GetAudienceGrowth(Flagship, Q);
-        var audienceChange = (double)Marketing.GetAudienceChange(Flagship, Q);
+        var product = Flagship;
+        var audienceChange = (double)Marketing.GetAudienceChange(product, Q);
 
-        var incomePerUser = 0.05f;
 
-        var incomeGrowth = (double)(audienceGrowth * incomePerUser);
-        var newAudienceGrowth = (double)1_000_000;
+        var audienceGrowth = (double)Marketing.GetAudienceGrowth(product, Q);
 
+        // Fake positioning change -------------------
+        var positioning = Marketing.GetPositioning(product);
+
+        Marketing.ChangePositioning(product, Positioning.ID);
+        var newAudienceGrowth = (double)Marketing.GetAudienceGrowth(product, Q);
+
+        var newAppQuality = Marketing.GetAppQuality(product);
+
+        var companies = Companies.GetCompetitionInSegment(product, Q, Positioning.ID, true);
+        var newBestAppQuality = companies.Select(c => Marketing.GetAppQuality(c)).Max();
+
+        //var newBestAppQuality = Marketing
+        Marketing.ChangePositioning(product, positioning.ID);
+        // --------------------------------
+
+        var incomePerUser = 0.05d;
         var newIncomePerUser = incomePerUser;
 
-        var newIncomeGrowth = newAudienceGrowth * newIncomePerUser;
 
-        ChangeGain.text = $"Your income grows by {Format.Money(incomeGrowth)} every week (by getting {Format.Minify(audienceGrowth)} users).\nAfter positioning change you will ";
+
+        var incomeGrowth = Convert.ToInt64((audienceGrowth * incomePerUser));
+        var newIncomeGrowth = Convert.ToInt64(newAudienceGrowth * newIncomePerUser);
+
+        var situation = $"Your income grows by {Format.Money(incomeGrowth)} every week (by getting {Format.Minify(audienceGrowth)} users).";
+
+        ChangeGain.text = situation;
 
         var incomeChange = newIncomeGrowth - incomeGrowth;
         var audienceGrowthChange = newAudienceGrowth - audienceGrowth;
 
-        if (newAudienceGrowth > audienceGrowth)
+        if (newAudienceGrowth != audienceGrowth)
         {
-            var incomeGainDescription = "+" + Format.Money(incomeChange) + " / week";
-            var audienceGainDescription = "+" + Format.Minify(audienceGrowthChange) + " users";
+            ChangeGain.text += $"\nAfter positioning change you will ";
 
-            ChangeGain.text += $"<b>GET</b> additional <b>{Visuals.Positive(incomeGainDescription)}</b> (by getting <b>additional</b> {Visuals.Positive(audienceGainDescription)})";
+            if (newAudienceGrowth > audienceGrowth)
+            {
+                var incomeGainDescription = "+" + Format.Money(incomeChange) + " / week";
+                var audienceGainDescription = "+" + Format.Minify(audienceGrowthChange) + " users";
+
+                ChangeGain.text += $"<b>GET</b> additional <b>{Visuals.Positive(incomeGainDescription)}</b> (by getting <b>additional</b> {Visuals.Positive(audienceGainDescription)})";
+            }
+
+            if (newAudienceGrowth < audienceGrowth)
+            {
+                var incomeGainDescription = Format.Money(-incomeChange) + " / week";
+                var audienceGainDescription = Format.Minify(-audienceGrowthChange) + " users";
+
+                ChangeGain.text += $"<b>LOSE</b> <b>{Visuals.Negative(incomeGainDescription)}</b> (by losing {Visuals.Negative(audienceGainDescription)})";
+            }
+        }
+        else
+        {
+            ChangeGain.text += Visuals.Colorize("\nThis is our current positioning", Colors.COLOR_CONTROL);
         }
 
-        if (newAudienceGrowth < audienceGrowth)
+        if (newBestAppQuality > newAppQuality + 5)
         {
-            var incomeGainDescription = Format.Money(-incomeChange) + " / week";
-            var audienceGainDescription = Format.Minify(-audienceGrowthChange) + " users";
-
-            ChangeGain.text += $"<b>LOSE</b> <b>{Visuals.Negative(incomeGainDescription)}</b> (by losing {Visuals.Negative(audienceGainDescription)})";
+            ChangeGain.text += "\n" + Visuals.Negative("Your product is worse than products, which are competing in this segment, so you will need to upgrade more features quickly");
         }
+        //if (newAudienceGrowth == audienceGrowth)
+        //{
+        //    ChangeGain.text += $""
+        //}
     }
 
     void ShowTabs()

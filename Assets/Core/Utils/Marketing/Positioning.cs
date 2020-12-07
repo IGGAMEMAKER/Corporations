@@ -92,6 +92,10 @@ namespace Assets.Core
             //}
         }
 
+        public static void ChangePositioning(GameEntity product, int newPositioning)
+        {
+            product.productPositioning.Positioning = newPositioning;
+        }
         public static void ChangePositioning(GameEntity product, GameContext gameContext, int newPositioning, bool newCompany = false)
         {
             var previousPositioning = product.productPositioning.Positioning;
@@ -101,7 +105,8 @@ namespace Assets.Core
                 return;
 
             // CHANGE POSITIONING
-            product.productPositioning.Positioning = newPositioning;
+            ChangePositioning(product, newPositioning);
+            //product.productPositioning.Positioning = newPositioning;
 
 
             // NOTIFY ABOUT THAT
