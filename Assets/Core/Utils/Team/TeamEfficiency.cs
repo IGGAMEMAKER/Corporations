@@ -168,7 +168,7 @@ namespace Assets.Core
             var cultureBonus2 = (culture[CorporatePolicy.DecisionsManagerOrTeam]) * 0.4f;
 
             bonus.Append("Corporate culture Do or Delegate", cultureBonus);
-            bonus.Append("Corporate culture Manager or Team", cultureBonus2);
+            bonus.Append("Corporate culture Structure", cultureBonus2);
 
 
             //bool hasMainManager = Teams.HasMainManagerInTeam(team, gameContext, product);

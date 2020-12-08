@@ -27,7 +27,14 @@ public class MarketSituationDescriptionView2 : ParameterView
                 var quality = Marketing.GetPositioningQuality(company).Sum();
                 var maxQuality = quality + competitiveness;
 
-                return Visuals.Negative($"We LOSE {churnGained}% of your audience, cause your app quality ({(int)quality}) is OUTDATED (max={(int)maxQuality})\n") + positioningName;
+                var qualityDescription = quality.ToString("0");
+                var maxDescription = (int)maxQuality;
+
+                var heart = "<size=30>\u2665</size>";
+
+                var lossReason = $"{heart}={qualityDescription}, while max={maxDescription}";
+
+                return Visuals.Negative($"You LOSE {churnGained}% of audience, cause your APP IS OUTDATED ({lossReason})\n") + positioningName;
             }
 
             return positioningName;

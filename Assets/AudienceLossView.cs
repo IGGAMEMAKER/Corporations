@@ -2,9 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AudienceLossView : UpgradedParameterView
 {
+    public Text AudienceChangeLabel;
+
     public override string RenderHint()
     {
         var product = Flagship;
@@ -22,10 +25,18 @@ public class AudienceLossView : UpgradedParameterView
         if (change > 0)
         {
             text = $"We {Visuals.Positive("GAIN")} {Format.Minify(change)} users weekly\n-------------------";
+
+            AudienceChangeLabel.text = "Growth";
         }
         else if (change < 0)
         {
             text = $"We are {Visuals.Negative("LOSING")} {Format.Minify(-change)} users weekly\n--------------------";
+
+            AudienceChangeLabel.text = "Losing";
+        }
+        else
+        {
+            AudienceChangeLabel.text = "Growth";
         }
 
         if (gain > 0)

@@ -58,7 +58,7 @@ namespace Assets.Core
             }
 
             bonus.Append("Marketing", GetAudienceGrowth(product, gameContext));
-            bonus.Append("Negative loyalty", -churnUsers);
+            bonus.Append("Loss", -churnUsers);
             bonus.MinifyValues();
 
             return bonus;

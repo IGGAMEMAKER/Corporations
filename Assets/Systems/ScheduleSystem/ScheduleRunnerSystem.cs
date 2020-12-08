@@ -74,7 +74,8 @@ public class ScheduleRunnerSystem : IExecuteSystem
         // on right click
         // on right mouse click
         // on right mouse button
-        if (Input.GetMouseButtonUp(1))
+        //if (Input.GetMouseButtonUp(1))
+        if (Input.GetKeyDown(KeyCode.Space))
             ToggleTimer();
 
         //if (Input.GetKeyUp(KeyCode.Space))

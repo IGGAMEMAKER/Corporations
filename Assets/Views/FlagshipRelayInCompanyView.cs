@@ -67,7 +67,7 @@ public class FlagshipRelayInCompanyView : View
     {
         TeamTask = teamTask;
 
-        ScheduleUtils.PauseGame(Q);
+        //ScheduleUtils.PauseGame(Q);
 
         Teams.AddTeamTask(Flagship, Q, 0, teamTask);
 

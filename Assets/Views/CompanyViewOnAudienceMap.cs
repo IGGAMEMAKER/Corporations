@@ -62,9 +62,10 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
     void RenderLoyalty()
     {
         var loyalty = Marketing.GetPositioningQuality(company);
+        var loyaltyString = loyalty.Sum().ToString("0.00");
 
         Loyalty.text = loyalty.Sum().ToString("0");
-        LoyaltyHint.SetHint(loyalty.SortByModule().HideZeroes().ToString());
+        LoyaltyHint.SetHint($"<size=30>App quality={loyaltyString}</size>\n" + loyalty.SortByModule().HideZeroes().ToString());
     }
 
     void RenderBorderImage(bool hasControl)
