@@ -10,25 +10,25 @@ public class NewCampaignController : View
     public StartCampaignButton StartCampaignButton;
     public InputField Input;
 
-    public void SetNiche(NicheType nicheType)
-    {
-        NicheType = nicheType;
+    //public void SetNiche(NicheType nicheType)
+    //{
+    //    NicheType = nicheType;
 
-        StartCampaignButton.SetNiche(nicheType, Input);
+    //    StartCampaignButton.SetNiche(nicheType, Input);
 
-        Input.Select();
-        Input.ActivateInputField();
-    }
+    //    Input.Select();
+    //    Input.ActivateInputField();
+    //}
 
-    public void SetIndustry(IndustryType industry)
-    {
-        Industry = industry;
+    //public void SetIndustry(IndustryType industry)
+    //{
+    //    Industry = industry;
 
-        StartCampaignButton.SetIndustry(industry, Input);
+    //    StartCampaignButton.SetIndustry(industry, Input);
 
-        Input.Select();
-        Input.ActivateInputField();
-    }
+    //    Input.Select();
+    //    Input.ActivateInputField();
+    //}
 
     public void OnCompanyNameChange()
     {

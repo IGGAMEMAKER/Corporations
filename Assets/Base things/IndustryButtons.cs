@@ -14,9 +14,9 @@ public class IndustryButtons : View
     // Start is called before the first frame update
     void Start()
     {
-        useful.SetIndustry(IndustryType.Tourism, TypeCorporationNameContainer, ChooseInitialNicheContainer);
-        ecommerce.SetIndustry(IndustryType.Finances, TypeCorporationNameContainer, ChooseInitialNicheContainer);
-        socialMedia.SetIndustry(IndustryType.Communications, TypeCorporationNameContainer, ChooseInitialNicheContainer);
-        technology.SetIndustry(IndustryType.Technology, TypeCorporationNameContainer, ChooseInitialNicheContainer);
+        //useful.SetIndustry(IndustryType.Tourism, TypeCorporationNameContainer, ChooseInitialNicheContainer);
+        //ecommerce.SetIndustry(IndustryType.Finances, TypeCorporationNameContainer, ChooseInitialNicheContainer);
+        //socialMedia.SetIndustry(IndustryType.Communications, TypeCorporationNameContainer, ChooseInitialNicheContainer);
+        //technology.SetIndustry(IndustryType.Technology, TypeCorporationNameContainer, ChooseInitialNicheContainer);
     }
 }

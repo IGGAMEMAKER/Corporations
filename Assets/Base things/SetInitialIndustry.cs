@@ -21,7 +21,7 @@ public class SetInitialIndustry : MonoBehaviour
     public void ChooseIndustry()
     {
         TypeCorporationNameContainer.SetActive(true);
-        TypeCorporationNameContainer.GetComponent<NewCampaignController>().SetIndustry(IndustryType);
+        //TypeCorporationNameContainer.GetComponent<NewCampaignController>().SetIndustry(IndustryType);
         ChooseInitialNicheContainer.SetActive(false);
     }
 }
