@@ -37,6 +37,10 @@ public class PositioningManagerView : View
     public Text NewPositioningName;
     public Text ChangeGain;
 
+    public GameObject COMPETITION_PANEL;
+
+    public GameObject ChangePositioningButton;
+
     List<int> TargetAudiences;
 
     bool flag = false;
@@ -49,16 +53,25 @@ public class PositioningManagerView : View
         TargetAudiences = audiences.Where(a => Marketing.IsAimingForSpecificAudience(Flagship, a.ID)).Select(a => a.ID).ToList();
         flag = true;
 
-        ShowAll(PivotButtons);
-        Hide(PositioningsList);
-        Hide(PositioningDescriptionTab);
+        CleanScreen();
 
         ViewRender();
+    }
+
+    void CleanScreen()
+    {
+        ShowAll(PivotButtons);
+        Hide(PositioningsList);
+        Hide(COMPETITION_PANEL);
+
+        Hide(ChangePositioningButton);
+        //Hide(PositioningDescriptionTab);
     }
 
     private void OnDisable()
     {
         ChangeGain.text = "";
+        CleanScreen();
     }
 
     //public override void ViewRender()
@@ -139,13 +152,20 @@ public class PositioningManagerView : View
         Marketing.ChangePositioning(product, positioning.ID);
         // --------------------------------
 
-        var incomePerUser = 0.05d;
+        var incomePerUser = Economy.GetIncomePerUser(product, 0) * C.PERIOD / 30; //  0.05d;
         var newIncomePerUser = incomePerUser;
 
+        bool noCompetitors = companies.Count() == 0;
+
+        if (noCompetitors)
+        {
+            newAudienceGrowth *= 2;
+        }
 
 
         var incomeGrowth = Convert.ToInt64((audienceGrowth * incomePerUser));
         var newIncomeGrowth = Convert.ToInt64(newAudienceGrowth * newIncomePerUser);
+
 
         var situation = $"Your income grows by {Format.Money(incomeGrowth)} every week (by getting {Format.Minify(audienceGrowth)} users).";
 
@@ -179,10 +199,18 @@ public class PositioningManagerView : View
             ChangeGain.text += Visuals.Colorize("\nThis is our current positioning", Colors.COLOR_CONTROL);
         }
 
+
+        // Competition --------------------
         if (newBestAppQuality > newAppQuality + 5)
         {
             ChangeGain.text += "\n" + Visuals.Negative("Your product is worse than products, which are competing in this segment, so you will need to upgrade more features quickly");
         }
+
+        if (noCompetitors)
+        {
+            ChangeGain.text += "\n" + Visuals.Positive("There are NO competitors, so you will get <b>TWICE</b> more users!");
+        }
+        // -------------------------
         //if (newAudienceGrowth == audienceGrowth)
         //{
         //    ChangeGain.text += $""
@@ -206,7 +234,7 @@ public class PositioningManagerView : View
         ShowTabs();
 
         FindObjectOfType<RenderAudienceChoiceListView>().SetExpansionPositionings();
-        Show(PositioningDescriptionTab);
+        Hide(COMPETITION_PANEL);
     }
 
     public void OnPivotButton()
@@ -215,7 +243,8 @@ public class PositioningManagerView : View
         ShowTabs();
 
         FindObjectOfType<RenderAudienceChoiceListView>().SetPivotPositionings();
-        Show(PositioningDescriptionTab);
+        Hide(COMPETITION_PANEL);
+        //Show(PositioningDescriptionTab);
     }
 
     public void SetAnotherPositioning(ProductPositioning positioning)
@@ -225,6 +254,10 @@ public class PositioningManagerView : View
 
         //ViewRender();
         CompaniesFocusingSpecificSegmentListView.SetSegment(Positioning);
+        Show(COMPETITION_PANEL);
+
+
+        Draw(ChangePositioningButton, Positioning.ID != Flagship.productPositioning.Positioning);
 
         RenderSegmentDescription(Flagship);
     }

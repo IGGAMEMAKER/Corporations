@@ -27,7 +27,7 @@ public class MarketSituationDescriptionView2 : ParameterView
                 var quality = Marketing.GetPositioningQuality(company).Sum();
                 var maxQuality = quality + competitiveness;
 
-                return Visuals.Negative($"We LOSE {churnGained}% of your audience, cause your product (quality={(int)quality}) is OUTDATED (max quality={(int)maxQuality})\n") + positioningName;
+                return Visuals.Negative($"We LOSE {churnGained}% of your audience, cause your app quality ({(int)quality}) is OUTDATED (max={(int)maxQuality})\n") + positioningName;
             }
 
             return positioningName;
