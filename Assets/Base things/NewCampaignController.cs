@@ -10,6 +10,11 @@ public class NewCampaignController : View
     public StartCampaignButton StartCampaignButton;
     public InputField Input;
 
+    private void Start()
+    {
+        ActivateInputField();
+    }
+
     //public void SetNiche(NicheType nicheType)
     //{
     //    NicheType = nicheType;

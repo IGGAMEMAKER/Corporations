@@ -15,7 +15,7 @@ public abstract class CampaignStarter : ButtonController
 {
     public override void Execute()
     {
-        FindObjectOfType<StartCampaignButton>().CampaignButton = gameObject;
+        //FindObjectOfType<StartCampaignButton>().CampaignButton = gameObject;
 
         FindObjectOfType<StartNormalCampaign>().Execute();
     }

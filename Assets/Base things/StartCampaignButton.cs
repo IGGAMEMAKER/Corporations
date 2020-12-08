@@ -8,7 +8,7 @@ public class StartCampaignButton : ButtonController
 {
     NicheType NicheType;
     //IndustryType Industry;
-    InputField Input;
+    public InputField Input;
 
     public GameObject CampaignButton;
 
