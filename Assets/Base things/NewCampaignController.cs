@@ -16,8 +16,7 @@ public class NewCampaignController : View
 
     //    StartCampaignButton.SetNiche(nicheType, Input);
 
-    //    Input.Select();
-    //    Input.ActivateInputField();
+    //    ActivateInputField();
     //}
 
     //public void SetIndustry(IndustryType industry)
@@ -26,9 +25,14 @@ public class NewCampaignController : View
 
     //    StartCampaignButton.SetIndustry(industry, Input);
 
-    //    Input.Select();
-    //    Input.ActivateInputField();
+    //    ActivateInputField();
     //}
+
+    void ActivateInputField()
+    {
+        Input.Select();
+        Input.ActivateInputField();
+    }
 
     public void OnCompanyNameChange()
     {
