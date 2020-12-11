@@ -23,13 +23,25 @@ public class TraitView : View
     public Image Image;
     public Hint Hint;
 
-
+    public Trait Trait;
 
     public void SetEntity(Trait trait)
     {
         base.ViewRender();
 
-        switch(trait)
+        RenderTraitType(trait);
+
+        Hint.SetHint(trait.ToString());
+    }
+
+    private void OnValidate()
+    {
+        RenderTraitType(Trait);
+    }
+
+    public void RenderTraitType(Trait trait)
+    {
+        switch (trait)
         {
             case Trait.Ambitious:
                 Image.sprite = Ambitious;
@@ -90,7 +102,5 @@ public class TraitView : View
             default:
                 break;
         }
-
-        Hint.SetHint(trait.ToString());
     }
 }
