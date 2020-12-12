@@ -25,12 +25,11 @@ public partial class BaseClass : MonoBehaviour
 
     public GameEntity SelectedHuman => ScreenUtils.GetSelectedHuman(Q);
     public int SelectedTeam => ScreenUtils.GetSelectedTeam(Q);
-    
+
     // TODO REMOVE
     public GameEntity SelectedInvestor => ScreenUtils.GetSelectedInvestor(Q);
 
     public ScreenMode CurrentScreen => ScreenUtils.GetMenu(Q).menu.ScreenMode;
-
 
 
     public GameEntity Hero => ScreenUtils.GetPlayer(Q);
@@ -48,24 +47,25 @@ public partial class BaseClass : MonoBehaviour
 
     public static List<T> FindObjectsOfTypeAll<T>()
     {
-        List<T> results = new List<T>();
-        for (int i = 0; i < SceneManager.sceneCount; i++)
+        var results = new List<T>();
+        for (var i = 0; i < SceneManager.sceneCount; i++)
         {
             var s = SceneManager.GetSceneAt(i);
             if (s.isLoaded)
             {
                 var allGameObjects = s.GetRootGameObjects();
-                for (int j = 0; j < allGameObjects.Length; j++)
+                for (var j = 0; j < allGameObjects.Length; j++)
                 {
                     var go = allGameObjects[j];
                     results.AddRange(go.GetComponentsInChildren<T>(true));
                 }
             }
         }
+
         return results;
     }
 
-    public void PlaySound(Sound sound)
+    public static void PlaySound(Sound sound)
     {
         SoundManager.Play(sound);
     }
@@ -147,7 +147,6 @@ public partial class BaseClass : MonoBehaviour
     }
 
 
-
     public void ToggleIsChosenComponent(bool isChosen)
     {
         if (Contains<IsChosenComponent>())
@@ -179,17 +178,18 @@ public partial class BaseClass : MonoBehaviour
         var t = typeof(T);
         if (!CachedObjects.ContainsKey(t))
         {
-            CachedObjects[t] = (GameObject)FindObjectOfType(typeof(T));
+            CachedObjects[t] = (GameObject) FindObjectOfType(typeof(T));
         }
 
         // https://stackoverflow.com/questions/1003023/cast-to-generic-type-in-c-sharp
-        return (T)Convert.ChangeType(CachedObjects[t], typeof(T));
+        return (T) Convert.ChangeType(CachedObjects[t], typeof(T));
         //return (T)CachedObjects[t];
     }
 
     // -----------------------------
 
     public void Draw(MonoBehaviour mb, bool condition) => Draw(mb.gameObject, condition);
+
     public void Draw(GameObject go, bool condition)
     {
         if (go.activeSelf != condition)
@@ -197,6 +197,7 @@ public partial class BaseClass : MonoBehaviour
     }
 
     public void ShowOnly(GameObject obj, GameObject[] objects) => ShowOnly(obj, objects.ToList());
+
     public void ShowOnly(GameObject obj, List<GameObject> objects)
     {
         foreach (var o in objects)
@@ -229,6 +230,7 @@ public partial class BaseClass : MonoBehaviour
     public void Hide(GameObject go) => Draw(go, false);
 
     public void HideAll(GameObject[] objects) => HideAll(objects.ToList());
+
     public void HideAll(List<GameObject> objects)
     {
         foreach (var b in objects)
@@ -236,6 +238,7 @@ public partial class BaseClass : MonoBehaviour
     }
 
     public void ShowAll(GameObject[] objects) => ShowAll(objects.ToList());
+
     public void ShowAll(List<GameObject> objects)
     {
         foreach (var b in objects)

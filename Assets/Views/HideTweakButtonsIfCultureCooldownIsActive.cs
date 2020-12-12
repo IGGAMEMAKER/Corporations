@@ -51,7 +51,7 @@ public class HideTweakButtonsIfCultureCooldownIsActive : View
     }
 
     //void OnTransformChildrenChanged()
-    void OnValidate()
+    private void OnValidate()
     {
         SetStuff();
     }
@@ -62,7 +62,7 @@ public class HideTweakButtonsIfCultureCooldownIsActive : View
         {
             case CorporatePolicy.CompetitionOrSupport: SetTexts("Competition or Support", "Competition", "Support"); break;
 
-            case CorporatePolicy.DecisionsManagerOrTeam: SetTexts("Structure", "Vertical", "Horizontal", "+Team speed", "+Max feature lvl"); break;
+            case CorporatePolicy.DecisionsManagerOrTeam: SetTexts("Structure", "Vertical", "Horizontal", "Less control", "+Max feature lvl\n+Team speed"); break;
             //case CorporatePolicy.DecisionsManagerOrTeam: SetTexts("Who makes decisions", "Manager", "Team", "+Team speed", "+Max feature lvl"); break;
             case CorporatePolicy.DoOrDelegate: SetTexts("Control level", "DO", "Delegate", "+Max feature lvl", "+1 team"); break;
             case CorporatePolicy.PeopleOrProcesses: SetTexts("People or Processes", "People", "Processes", "Managers grow faster", "Organisation grows faster"); break;
@@ -71,7 +71,7 @@ public class HideTweakButtonsIfCultureCooldownIsActive : View
             case CorporatePolicy.SalariesLowOrHigh: SetTexts("Salaries", "Low", "High"); break;
             case CorporatePolicy.Make: SetTexts("Make?", "Left", "Right"); break;
 
-            case CorporatePolicy.HardSkillsOrSoftSkills: SetTexts("Skills or Comunication", "Skill", "Communication", "Better employee rating", "More Traits"); break;
+            case CorporatePolicy.HardSkillsOrSoftSkills: SetTexts("Skills or Comunication", "Skill", "Communication", "More PERSONAL traits", "More TEAM traits"); break;
 
             default: SetTexts($"<b>{CorporatePolicy.ToString()}</b>", "Left", "Right"); break;
         }

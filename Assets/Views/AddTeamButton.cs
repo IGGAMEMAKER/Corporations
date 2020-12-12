@@ -36,7 +36,7 @@ public class AddTeamButton : ButtonController
     }
 
     //[ExecuteInEditMode]
-    void OnValidate()
+    private void OnValidate()
     {
         //Debug.Log("AddTeamButton");
         if (Title == null)

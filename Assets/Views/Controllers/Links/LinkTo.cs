@@ -38,24 +38,24 @@ public class LinkTo : ButtonController
             case ScreenMode.GroupManagementScreen:
                 NavigateToCompany(TargetMenu, MyGroupEntity.company.Id);
                 break;
-            case ScreenMode.ManageCompaniesScreen:
-                var daughters = Companies.GetDaughters(MyGroupEntity, Q);
+            //case ScreenMode.ManageCompaniesScreen:
+            //    var daughters = Companies.GetDaughters(MyGroupEntity, Q);
                 
-                if (daughters.Length > 0)
-                {
-                    if (Companies.IsDaughterOf(MyCompany, SelectedCompany))
-                    {
-                        Navigate(TargetMenu);
-                        return;
-                    }
+            //    if (daughters.Length > 0)
+            //    {
+            //        if (Companies.IsDaughterOf(MyCompany, SelectedCompany))
+            //        {
+            //            Navigate(TargetMenu);
+            //            return;
+            //        }
 
-                    // daughters[0].company.Id
-                    Navigate(ScreenMode.ProjectScreen, C.MENU_SELECTED_COMPANY, MyCompany.company.Id);
-                    //if (SelectedCompany.company.Id == MyGroupEntity.company.Id)
-                    //else
-                    //    Navigate(TargetMenu);
-                }
-                break;
+            //        // daughters[0].company.Id
+            //        Navigate(ScreenMode.ProjectScreen, C.MENU_SELECTED_COMPANY, MyCompany.company.Id);
+            //        //if (SelectedCompany.company.Id == MyGroupEntity.company.Id)
+            //        //else
+            //        //    Navigate(TargetMenu);
+            //    }
+            //    break;
 
             case ScreenMode.HoldingScreen:
                 ScreenUtils.SetMainPanelId(Q, 0);

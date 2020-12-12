@@ -10,7 +10,7 @@ namespace Assets.Visuals
         public float amplification = 0.2f;
 
         float duration = 0;
-        bool animated;
+        bool _animated;
 
         void Update()
         {
@@ -19,18 +19,19 @@ namespace Assets.Visuals
 
         void OnEnable()
         {
-            animated = true;
+            _animated = true;
             duration = 0;
         }
 
         void Render()
         {
-            if (!animated)
+            if (!_animated)
                 return;
 
             duration += Time.deltaTime;
 
             float phase;
+            
 
             if (duration < period)
                 phase = duration / period;
@@ -42,7 +43,7 @@ namespace Assets.Visuals
             transform.localScale = new Vector3(scale, scale, 1);
 
             if (duration >= period * 2)
-                animated = false;
+                _animated = false;
         }
     }
 }
