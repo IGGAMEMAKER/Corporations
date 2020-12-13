@@ -11,30 +11,69 @@ public enum TextStyle
     ScreenTitle,
     PanelTitle,
     PanelText,
-    
+
     KpiLabel,
-    KpiValue
+    KpiValue,
+    
+    PlainDescription
+}
+
+public enum ImageColor
+{
+    None,
+    Primary,
+    Secondary,
 }
 
 public class Styler : MonoBehaviour
 {
     [FormerlySerializedAs("TextStyle")] public TextStyle textStyle;
-    
+    public ImageColor imageColor;
+
     [ExecuteInEditMode]
     void OnValidate()
     {
         var txt = GetComponent<Text>();
-        
-        if (txt == null)
-            return;
 
+        if (txt != null)
+        {
+            SetTextComponent(txt);
+        }
+
+        var img = GetComponent<Image>();
+
+        if (img != null)
+        {
+            SetImageComponentColor(img);
+        }
+    }
+
+    void SetImageComponentColor(Image img)
+    {
+        switch (imageColor)
+        {
+            case ImageColor.None:
+                break;
+            case ImageColor.Primary:
+                // img.color = new Color(0.34f, 0f, 1f);
+                // 250090
+                break;
+            case ImageColor.Secondary:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+
+    void SetTextComponent(Text txt)
+    {
         switch (textStyle)
         {
             case TextStyle.None:
                 break;
             case TextStyle.ScreenTitle:
                 break;
-            
+
             case TextStyle.PanelText:
                 txt.fontSize = 22;
                 txt.fontStyle = FontStyle.Bold;
@@ -43,7 +82,7 @@ public class Styler : MonoBehaviour
                 txt.fontSize = 34;
                 txt.fontStyle = FontStyle.Normal;
                 break;
-            
+
             case TextStyle.KpiLabel:
                 txt.fontSize = 34;
                 txt.fontStyle = FontStyle.Normal;
@@ -52,7 +91,11 @@ public class Styler : MonoBehaviour
                 txt.fontSize = 60;
                 txt.fontStyle = FontStyle.Bold;
                 break;
-            
+
+            case TextStyle.PlainDescription:
+                txt.fontSize = 28;
+                txt.fontStyle = FontStyle.Normal;
+                break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
