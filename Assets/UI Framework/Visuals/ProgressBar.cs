@@ -47,7 +47,7 @@ public class ProgressBar : MonoBehaviour {
         if (Text != null)
         {
             Text.text = description.Length > 0 ?
-                $"{description} ({txt})"
+                $"{description}\n({txt})"
                 : txt;
         }
     }

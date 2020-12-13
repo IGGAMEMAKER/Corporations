@@ -15,10 +15,8 @@ public class ProductUpgradeButtons : RoleRelatedButtons
         
         ReleaseApp.SetCompanyId(id);
 
-        // prerelease stuff
-        // ---------------------
         Draw(ReleaseApp, Companies.IsReleaseableApp(company));
-        Draw(ChangePositioning, company.isRelease);
+        Draw(ChangePositioning, false);
     }
 
     void RenderInvestmentsButton()
