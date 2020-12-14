@@ -26,7 +26,7 @@ namespace Assets.Core
         {
             var loyalty = (int)GetSegmentLoyalty(company, segmentId);
 
-            int loyaltyBonus = 0;
+            var loyaltyBonus = 0;
             if (loyalty >= 0)
             {
                 loyaltyBonus = loyalty * 10;
@@ -49,9 +49,8 @@ namespace Assets.Core
         public static bool IsAimingForSpecificAudience(GameEntity company, int segmentId)
         {
             var positioning = GetPositioning(company);
-            var positioningLoyalty = positioning.Loyalties[segmentId];
-
-            return positioningLoyalty >= 0;
+            
+            return positioning.Loyalties[segmentId]>= 0;
         }
 
         public static int GetAmountOfTargetAudiences(GameEntity company) => GetAmountOfTargetAudiences(GetPositioning(company));
@@ -81,6 +80,21 @@ namespace Assets.Core
             return IsAimingForSpecificAudience(company, segmentId) && !IsAudienceDisloyal(company, segmentId);
         }
 
+        public static double GetSegmentFocusingMultiplier(GameEntity product, GameEntity channel)
+        {
+            var favouriteAudiences = Marketing.GetAmountOfTargetAudiences(product);
+
+            switch (favouriteAudiences)
+            {
+                case 1: return 1;
+                case  2: return 0.7d;
+                case 3: return 0.5d;
+                
+                default: return 0.1d;
+            }
+            // return  Companies.GetHashedRandom2(product.company.Id, channel.marketingChannel.ChannelInfo.ID + segmentId);
+        }
+
         // fraction will be recalculated
         // take into account
         // * Base channel width (f.e. 100K users per week)
@@ -90,24 +104,26 @@ namespace Assets.Core
         // * Base user activity (desire to click on ads: 5% => we can get 5K users)
         // * segment bonuses (audience may be small, but it is way more active (desire to click X2) and you can get more)
         // * positioning bonuses
-        public static long GetChannelClientGain(GameEntity company, GameEntity channel) => GetAudienceInfos().Select(i => GetChannelClientGain(company, channel, i.ID)).Sum();
+        public static long GetChannelClientGain(GameEntity company, GameEntity channel) =>
+            GetAudienceInfos().Select(i => GetChannelClientGain(company, channel, i.ID)).Sum();
         public static long GetChannelClientGain(GameEntity company, GameEntity channel, int segmentId)
         {
             if (!IsAttractsSpecificAudience(company, segmentId))
                 return 0;
 
-            var fraction = (double)Companies.GetHashedRandom2(company.company.Id, channel.marketingChannel.ChannelInfo.ID + segmentId);
+            var baseChannelBatch = channel.marketingChannel.ChannelInfo.Batch;
+            var fraction = GetSegmentFocusingMultiplier(company, channel);
 
-            var batch = (long)(channel.marketingChannel.ChannelInfo.Batch * fraction);
+            var batch = (long)(baseChannelBatch * fraction);
 
-            var marketingEffeciency = Teams.GetMarketingEfficiency(company);
+            var marketingEfficiency = Teams.GetMarketingEfficiency(company);
             var loyaltyBonus = GetGrowthLoyaltyBonus(company, segmentId);
 
-            return batch * (marketingEffeciency + loyaltyBonus) / 100;
+            return batch * (marketingEfficiency + loyaltyBonus) / 100;
         }
 
         // in months
-        public static void EnableChannelActivity(GameEntity product, GameContext gameContext, GameEntity channel)
+        public static void EnableChannelActivity(GameEntity product, GameEntity channel)
         {
             var companyId = product.company.Id;
             var channelId = channel.marketingChannel.ChannelInfo.ID;
@@ -116,34 +132,13 @@ namespace Assets.Core
             channel.channelMarketingActivities.Companies[companyId] = 1;
         }
 
-        public static void DisableChannelActivity(GameEntity product, GameContext gameContext, GameEntity channel)
+        public static void DisableChannelActivity(GameEntity product, GameEntity channel)
         {
             var companyId = product.company.Id;
             var channelId = channel.marketingChannel.ChannelInfo.ID;
 
             product.companyMarketingActivities.Channels.Remove(channelId);
             channel.channelMarketingActivities.Companies.Remove(companyId);
-        }
-
-
-
-        public static void ToggleChannelActivity(GameEntity product, GameContext gameContext, GameEntity channel, int teamId, int taskId)
-        {
-            var active = IsActiveInChannel(product, channel);
-
-            if (active)
-            {
-                DisableChannelActivity(product, gameContext, channel);
-            }
-            else
-            {
-                //EnableChannelActivity(product, gameContext, channel);
-
-                var channelId = channel.marketingChannel.ChannelInfo.ID;
-                var channelCost = Marketing.GetChannelCost(product, channel);
-
-                Teams.AddTeamTask(product, gameContext, teamId, taskId, new TeamTaskChannelActivity(channelId, channelCost));
-            }
         }
     }
 }

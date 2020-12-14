@@ -9,17 +9,11 @@ namespace Assets.Core
         public static long GetAudienceGrowthBySegment(GameEntity product, GameContext gameContext, int segmentId)
         {
             var channels = Markets.GetAllMarketingChannels(gameContext);
-            long result = 0;
 
-            foreach (var channelId in product.companyMarketingActivities.Channels.Keys)
-            {
-                var channel = channels.First(c => c.marketingChannel.ChannelInfo.ID == channelId);
-
-                var gain = GetChannelClientGain(product, channel, segmentId);
-                result += gain;
-            }
-
-            return result;
+            return product.companyMarketingActivities.Channels.Keys
+                .Select(channelId => channels.First(c => c.marketingChannel.ChannelInfo.ID == channelId))
+                .Select(channel => GetChannelClientGain(product, channel, segmentId))
+                .Sum();
         }
 
         public static Bonus<long> GetAudienceGrowthBonus(GameEntity product, GameContext gameContext)

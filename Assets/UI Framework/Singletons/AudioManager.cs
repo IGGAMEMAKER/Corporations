@@ -31,7 +31,9 @@ namespace Assets
         GoalCompleted,
         GoalPicked,
 
-        MoneySpent
+        MoneySpent,
+        
+        Bubble1
     }
 
     public class AudioManager: MonoBehaviour
@@ -59,6 +61,7 @@ namespace Assets
         public AudioClip goalCompletedSound;
         public AudioClip goalPickedSound;
         public AudioClip moneySpentSound;
+        public AudioClip bubble1Sound;
 
         void Start()
         {
@@ -88,6 +91,9 @@ namespace Assets
             AddSound(goalPickedSound, Sound.GoalPicked);
 
             AddSound(moneySpentSound, Sound.MoneySpent);
+            
+            // bubbles
+            AddSound(bubble1Sound, Sound.Bubble1);
         }
 
         void AddSound(AudioClip audioClip, Sound sound = Sound.None)

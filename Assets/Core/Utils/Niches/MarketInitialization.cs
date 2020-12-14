@@ -40,7 +40,7 @@ namespace Assets.Core
         {
             var adCost = Marketing.GetChannelCost(company, c);
 
-            if (Companies.IsPlayerFlagship(company))
+            if (company.isFlagship)
             {
                 var group = Companies.GetPlayerCompany(gameContext);
 
@@ -100,28 +100,30 @@ namespace Assets.Core
             SpawnChannelSet(1000000, 1, gameContext, 5, false, ref i);
         }
 
-        static void SpawnChannelSet(long audience1, int amountOfChannels, GameContext gameContext, int costInWorkers, bool isFree, ref int i)
+        static void SpawnChannelSet(long batch, int amountOfChannels, GameContext gameContext, int costInWorkers, bool isFree, ref int i)
         {
             for (var j = 0; j < amountOfChannels; j++)
-                SpawnChannel(audience1, gameContext, costInWorkers, isFree, ref i);
+                SpawnChannel(batch, gameContext, costInWorkers, isFree, ref i);
         }
 
         static void SpawnChannel(long batch, GameContext gameContext, int costInWorkers, bool isFree, ref int i)
         {
             var channelType = RandomEnum<ClientContainerType>.GenerateValue(ClientContainerType.ProductCompany);
-            long audience = batch * 100; // * Random.Range(0.85f, 1.1f);
+            var audience = batch * 100; // * Random.Range(0.85f, 1.1f);
 
             var relativeCost = Random.Range(0.5f, 3f);
 
             var e = gameContext.CreateEntity();
-            e.AddMarketingChannel(audience, channelType, new ChannelInfo
+            e.AddMarketingChannel(channelType, new ChannelInfo
             {
                 ID = i++,
 
                 Audience = audience,
                 Batch = batch,
+                
                 costPerAd = isFree ? 0 : Mathf.Pow(batch, 1.12f) * relativeCost,
                 relativeCost = relativeCost,
+                
                 costInWorkers = costInWorkers,
 
                 Companies = new Dictionary<int, long>()
@@ -589,7 +591,7 @@ namespace Assets.Core
 
             var n = SetNicheCosts(nicheType, price, clients, techCost, adCosts, gameContext);
 
-            var audiences = Marketing.GetAudienceInfos();
+            Marketing.GetAudienceInfos();
 
             var positionings = GetStandardPositionings(nicheType);
 
@@ -608,6 +610,7 @@ namespace Assets.Core
 
         public static List<ProductPositioning> GetStandardPositionings(NicheType nicheType)
         {
+            Debug.Log("GetStandardPositionings");
             var audiences = Marketing.GetAudienceInfos();
 
             var nicheName = Enums.GetFormattedNicheName(nicheType);
@@ -620,94 +623,141 @@ namespace Assets.Core
 
             var like = 7;
 
+            int Kids_ID = 0;
+            int Adults_ID = 1;
+            int Family_ID = 2;
+            int Old_ID = 3;
+
             // focus each audience specifically
             foreach (var a in audiences)
             {
                 var index = a.ID;
-
+            
                 var loyalties = audiences.Select(a1 => hate).ToList();
-
+            
                 loyalties[index] = adore;
-
+            
                 list.Add(new ProductPositioning
                 {
                     ID = list.Count,
+
                     name = nicheName + " for " + a.Name,
                     isCompetitive = false,
                     Loyalties = loyalties,
-
+            
                     marketShare = 100,
                     priceModifier = 1f
                 });
             }
-
-            // focus multiple audiences
-            var randomPositionings = Random.Range(6, 10);
-
-            //var goodness = Random.Range(hate, adore);
-            for (var i = 0; i < randomPositionings; i++)
-            {
-                int points = audiences.Count * mass;
-
-                List<int> loyalties = new List<int> { };
-
-                foreach (var s in audiences)
-                {
-                    var value = Random.Range(-1, like);
-
-                    var l = Mathf.Clamp(value, hate, Mathf.Min(points, like));
-
-                    if (l >= 0)
-                        points -= l;
-                    else
-                        l = hate;
-
-                    loyalties.Add(l);
-                }
-
-                list.Add(new ProductPositioning
-                {
-                    ID = list.Count,
-                    name = "RANDOM " + nicheName + " " + i,
-                    Loyalties = loyalties.ToList(),
-                    //Loyalties = audiences.Select(a1 => Random.Range(-10, 4)).ToList(),
-
-                    isCompetitive = false,
-                    marketShare = 100,
-                    priceModifier = 1f,
-                });
-            }
-
-            var maxPositioning = list.Count;
-
-            // remove positionings for noone
-            list.RemoveAll(p => p.Loyalties.All(l => l < 0));
-
-            // better than global positioning?
-            list.RemoveAll(p => p.Loyalties.All(l => l >= mass));
-
-            // better than strictly focused positioning
-            list.RemoveAll(p => p.Loyalties.Count(l => l >= adore) >= 2);
-
-
+            
+            AddPositioning(ref list, "Cool " + nicheName, Kids_ID);
+            AddPositioning(ref list, "Trendy " + nicheName, Adults_ID, Kids_ID);
+            AddPositioning(ref list, "Corporate " + nicheName, Adults_ID, Family_ID);
+            
+            // // focus multiple audiences
+            // var randomPositionings = Random.Range(6, 10);
+            //
+            // //var goodness = Random.Range(hate, adore);
+            // for (var i = 0; i < randomPositionings; i++)
+            // {
+            //     int points = audiences.Count * mass;
+            //
+            //     List<int> loyalties = new List<int> { };
+            //
+            //     foreach (var s in audiences)
+            //     {
+            //         var value = Random.Range(-1, like);
+            //
+            //         var l = Mathf.Clamp(value, hate, Mathf.Min(points, like));
+            //
+            //         if (l >= 0)
+            //             points -= l;
+            //         else
+            //             l = hate;
+            //
+            //         loyalties.Add(l);
+            //     }
+            //
+            //     list.Add(new ProductPositioning
+            //     {
+            //         ID = list.Count,
+            //         name = "RANDOM " + nicheName + " " + i,
+            //         Loyalties = loyalties.ToList(),
+            //         //Loyalties = audiences.Select(a1 => Random.Range(-10, 4)).ToList(),
+            //
+            //         isCompetitive = false,
+            //         marketShare = 100,
+            //         priceModifier = 1f,
+            //     });
+            // }
+            //
+            // var maxPositioning = list.Count;
+            //
+            // // remove positionings for noone
+            // list.RemoveAll(p => p.Loyalties.All(l => l < 0));
+            //
+            // // better than global positioning?
+            // list.RemoveAll(p => p.Loyalties.All(l => l >= mass));
+            //
+            // // better than strictly focused positioning
+            // list.RemoveAll(p => p.Loyalties.Count(l => l >= adore) >= 2);
+            //
+            //
             // take ALL
             list.Add(new ProductPositioning
             {
-                ID = maxPositioning,
-                name = nicheName + " for ALL",
+                ID = list.Count,
+                name = nicheName + " for EVERYONE",
                 Loyalties = audiences.Select(a => mass).ToList(),
-
+            
                 isCompetitive = false,
                 marketShare = 100,
                 priceModifier = 1f,
             });
 
+            foreach (ProductPositioning positioning in list)
+            {
+                Debug.Log($"Added positioning in niche {nicheName}: " + positioning.name + " #" + positioning.ID);
+            }
 
-            Debug.Log($"Created {list.Count} positionings");
+            // Debug.Log($"Created {list.Count} positionings");
 
             return list;
         }
+        
+        private  static List<int> GetLoyaltiesMockup() => new List<int> {0, 0, 0, 0};
 
+        public static void AddPositioning(ref List<ProductPositioning> positionings, string name, int primaryAudienceId)
+        {
+            var loyalties = GetLoyaltiesMockup();
+            loyalties[primaryAudienceId] = 10;
+
+            AddPositioning(ref positionings, name, loyalties);
+        }
+
+        public static void AddPositioning(ref List<ProductPositioning> positionings, string name, int primaryAudienceId, int secondaryId)
+        {
+            var loyalties = GetLoyaltiesMockup();
+            loyalties[primaryAudienceId] = 7;
+            loyalties[secondaryId] = 3;
+
+            AddPositioning(ref positionings, name, loyalties);
+        }
+        public static void AddPositioning(ref List<ProductPositioning> positionings, string name, List<int> loyalties)
+        {
+            var p = new ProductPositioning()
+            {
+                name = name,
+                Loyalties = loyalties,
+                
+                isCompetitive = false,
+                marketShare = 100,
+                priceModifier = 1f,
+                ID = positionings.Count
+            };
+            
+            positionings.Add(p);
+        }
 
         public static long Randomise(long baseValue, int nicheId)
         {

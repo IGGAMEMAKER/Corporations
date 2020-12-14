@@ -80,7 +80,7 @@ namespace Assets.Core
                 var channel = Markets.GetMarketingChannel(gameContext, (task as TeamTaskChannelActivity).ChannelId);
 
                 if (!Marketing.IsActiveInChannel(product, channel))
-                    Marketing.EnableChannelActivity(product, gameContext, channel);
+                    Marketing.EnableChannelActivity(product, channel);
             }
 
             if (task.IsHighloadTask || task.IsSupportTask)
@@ -105,8 +105,9 @@ namespace Assets.Core
             {
                 var activity = task as TeamTaskChannelActivity;
 
-                var channel = Markets.GetAllMarketingChannels(gameContext).First(c => c.marketingChannel.ChannelInfo.ID == activity.ChannelId);
-                Marketing.DisableChannelActivity(product, gameContext, channel);
+                var channel = Markets.GetAllMarketingChannels(gameContext)
+                    .First(c => c.marketingChannel.ChannelInfo.ID == activity.ChannelId);
+                Marketing.DisableChannelActivity(product, channel);
             }
 
             if (task.IsFeatureUpgrade)
@@ -122,17 +123,17 @@ namespace Assets.Core
             {
                 var activity = task as TeamTaskSupportFeature;
 
-                var up = product.supportUpgrades.Upgrades;
+                var upgrades = product.supportUpgrades.Upgrades;
 
                 var name = activity.SupportFeature.Name;
-                if (up.ContainsKey(name))
+                if (upgrades.ContainsKey(name))
                 {
-                    up[name]--;
+                    upgrades[name]--;
                 }
 
-                if (up[name] <= 0)
+                if (upgrades[name] <= 0)
                 {
-                    up.Remove(name);
+                    upgrades.Remove(name);
                 }
             }
         }
@@ -151,12 +152,14 @@ namespace Assets.Core
         {
             //Debug.Log($"Remove Task: {taskId} from team {teamId}");
 
-            if (product.team.Teams[teamId].Tasks.Count() > taskId)
+            var tasks = product.team.Teams[teamId].Tasks;
+
+            if (tasks.Count() > taskId)
             {
-                if (!product.team.Teams[teamId].Tasks[taskId].IsPending)
+                if (!tasks[taskId].IsPending)
                     DisableTask(product, gameContext, teamId, taskId);
 
-                product.team.Teams[teamId].Tasks.RemoveAt(taskId);
+                tasks.RemoveAt(taskId);
             }
         }
     }

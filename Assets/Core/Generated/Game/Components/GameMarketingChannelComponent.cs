@@ -11,10 +11,9 @@ public partial class GameEntity {
     public MarketingChannelComponent marketingChannel { get { return (MarketingChannelComponent)GetComponent(GameComponentsLookup.MarketingChannel); } }
     public bool hasMarketingChannel { get { return HasComponent(GameComponentsLookup.MarketingChannel); } }
 
-    public void AddMarketingChannel(long newClients, ClientContainerType newContainerType, ChannelInfo newChannelInfo) {
+    public void AddMarketingChannel(ClientContainerType newContainerType, ChannelInfo newChannelInfo) {
         var index = GameComponentsLookup.MarketingChannel;
         var component = (MarketingChannelComponent)CreateComponent(index, typeof(MarketingChannelComponent));
-        component.Clients = newClients;
         component.ContainerType = newContainerType;
         component.ChannelInfo = newChannelInfo;
         AddComponent(index, component);
@@ -23,7 +22,6 @@ public partial class GameEntity {
     public void ReplaceMarketingChannel(long newClients, ClientContainerType newContainerType, ChannelInfo newChannelInfo) {
         var index = GameComponentsLookup.MarketingChannel;
         var component = (MarketingChannelComponent)CreateComponent(index, typeof(MarketingChannelComponent));
-        component.Clients = newClients;
         component.ContainerType = newContainerType;
         component.ChannelInfo = newChannelInfo;
         ReplaceComponent(index, component);

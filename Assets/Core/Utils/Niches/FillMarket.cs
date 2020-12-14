@@ -100,7 +100,7 @@ namespace Assets.Core
                     var product = SpawnCompany(niche, gameContext, leaderFunds);
                     Marketing.ChangePositioning(product, gameContext, s.ID, true);
 
-                    NotificationUtils.SendNewCompetitorPopup(gameContext, niche, product);
+                    // NotificationUtils.SendNewCompetitorPopup(gameContext, niche, product);
                 }
             }
         }
