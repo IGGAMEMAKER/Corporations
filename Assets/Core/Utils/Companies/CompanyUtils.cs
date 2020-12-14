@@ -65,6 +65,7 @@ namespace Assets.Core
 
         // Logging
 
+        public static void LogError(GameEntity entity, string text) => Debug.LogError($"error in entity #{entity.creationIndex}" + text);
         public static void LogSuccess(GameEntity entity, string text) => Log(entity, Visuals.Positive(text));
         public static void LogFail(GameEntity entity, string text) => Log(entity, Visuals.Negative(text));
         public static void Log(GameEntity entity, string text)
