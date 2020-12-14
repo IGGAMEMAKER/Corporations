@@ -30,9 +30,16 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
     {
         company = c;
 
-        bool hasControl = Companies.GetControlInCompany(MyCompany, c, Q) > 0;
+        ViewRender();
+    }
 
-        var shortName = Companies.GetShortName(c);
+    public override void ViewRender()
+    {
+        base.ViewRender();
+        
+        bool hasControl = Companies.GetControlInCompany(MyCompany, company, Q) > 0;
+
+        var shortName = Companies.GetShortName(company);
 
 
         //SetEmblemColor();
@@ -44,7 +51,7 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
         
         Users.text = Visuals.Colorize($"<b>{growthSign}{Format.MinifyToInteger(growthSum)} weekly </b>\n", growthSum > 0);
         
-        Users.text += c.company.Name; // + "\n<b>" + Format.MinifyToInteger(users) + "</b> users"; // shortName;
+        Users.text += company.company.Name; // + "\n<b>" + Format.MinifyToInteger(users) + "</b> users"; // shortName;
         // Users.text = c.company.Name;
         Hide(Name);
         RenderBorderImage(hasControl);
@@ -59,7 +66,7 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
 
         // BlinkDaughterCompanyIfThereAreTroublesWithLoyalty();
 
-        LinkToProjectView.CompanyId = c.company.Id;
+        LinkToProjectView.CompanyId = company.company.Id;
 
         CompanyHint.SetHint(GetCompanyHint(hasControl));
     }

@@ -7,6 +7,8 @@ public class MarketDynamicsAnimationController : View
 {
     public GameObject AudienceGrowthPrefab;
     public GameObject LoyaltyGrowthPrefab;
+
+    public List<GameEntity> ObservableCompanies;
     
     public override void ViewRender()
     {
@@ -18,6 +20,16 @@ public class MarketDynamicsAnimationController : View
 
     void RenderLoyaltyChange()
     {
+        PlayNextBubbleSound();
+    }
+
+    void PlayNextBubbleSound()
+    {
         PlaySound(Sound.Bubble1);
+    }
+
+    public void SetObservables(List<GameObject> items)
+    {
+        
     }
 }

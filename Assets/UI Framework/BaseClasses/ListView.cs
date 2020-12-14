@@ -38,6 +38,8 @@ public abstract class ListView : View // MonoBehaviour
     [HideInInspector]
     public GameObject Item;
 
+    private bool listWasChanged;
+    
     void OnDisable()
     {
         ChosenIndex = -1;
@@ -99,6 +101,11 @@ public abstract class ListView : View // MonoBehaviour
                 i++;
             }
         }
+    }
+
+    public virtual void OnListChanged()
+    {
+        listWasChanged = false;
     }
 
     // T is gameEntity in most cases
@@ -166,6 +173,13 @@ public abstract class ListView : View // MonoBehaviour
         {
             // there are more elements than needed
             Hide(Items[i]);
+
+            listWasChanged = true;
+        }
+
+        if (listWasChanged)
+        {
+            OnListChanged();
         }
     }
 
@@ -177,6 +191,8 @@ public abstract class ListView : View // MonoBehaviour
         {
             //var o = Instantiate(Prefab, transform, false);
             Items.Add(_NewInstance);
+
+            listWasChanged = true;
         }
         else
         {
