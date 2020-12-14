@@ -42,7 +42,7 @@ namespace Assets.Core
                 }
                 catch
                 {
-                    Debug.LogError("Is product");
+                    Debug.LogError("GetNewGoals Error for product");
                 }
             }
 
