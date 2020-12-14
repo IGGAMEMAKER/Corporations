@@ -36,18 +36,28 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
 
 
         //SetEmblemColor();
-        Name.text = c.company.Name; // shortName;
-        Users.text = c.company.Name;
+        var users = Marketing.GetUsers(company);
+
+        var growth = Marketing.GetAudienceChange(company, Q, true);
+        var growthSum = growth.Sum();
+        var growthSign = Format.SignOf(growthSum);
+        
+        Users.text = Visuals.Colorize($"<b>{growthSign}{Format.MinifyToInteger(growthSum)} weekly </b>\n", growthSum > 0);
+        
+        Users.text += c.company.Name; // + "\n<b>" + Format.MinifyToInteger(users) + "</b> users"; // shortName;
+        // Users.text = c.company.Name;
         Hide(Name);
         RenderBorderImage(hasControl);
         EmphasizeCompanySize();
 
         RenderLoyalty();
 
+        Growth.text = $"<b>{Format.Minify(users)}</b> users";
+        
         //RenderUsers();
-        RenderGrowth();
+        // RenderGrowth();
 
-        BlinkDaughterCompanyIfThereAreTroublesWithLoyalty();
+        // BlinkDaughterCompanyIfThereAreTroublesWithLoyalty();
 
         LinkToProjectView.CompanyId = c.company.Id;
 
@@ -70,14 +80,7 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
 
     void RenderBorderImage(bool hasControl)
     {
-        if (hasControl)
-        {
-            BorderImage.color = Visuals.GetColorFromString(Colors.COLOR_CONTROL);
-        }
-        else
-        {
-            BorderImage.color = Visuals.GetColorFromString(Colors.COLOR_VIOLET);
-        }
+        BorderImage.color = Visuals.GetColorFromString(hasControl ? Colors.COLOR_CONTROL : Colors.COLOR_VIOLET);
     }
 
     void RenderUsers()
@@ -91,7 +94,7 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
         var growth = Marketing.GetAudienceChange(company, Q, true);
         var growthSum = growth.Sum();
 
-        Growth.text = Visuals.PositiveOrNegativeMinified(growthSum) + " users";
+        // Growth.text = Visuals.PositiveOrNegativeMinified(growthSum) + " users";
         Growth.GetComponent<Hint>().SetHint("Users will change by " + Visuals.Colorize(growth.Sum()) + " because " + growth.ToString());
     }
 
