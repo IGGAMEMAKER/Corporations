@@ -84,7 +84,7 @@ public class TeamsListView : ListView
         var relay = FindObjectOfType<FlagshipRelayInCompanyView>();
 
         var task = relay.TeamTask;
-        Teams.AddTeamTask(Flagship, Q, teamId, task);
+        Teams.AddTeamTask(Flagship, CurrentIntDate, Q, teamId, task);
 
         relay.ChooseMainScreen();
 

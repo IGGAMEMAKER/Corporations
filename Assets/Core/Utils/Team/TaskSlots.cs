@@ -145,26 +145,9 @@ namespace Assets.Core
             return null;
         }
 
-        //
-        public static int GetAmountOfUpgradingFeatures(GameEntity product, GameContext gameContext)
+        public static bool IsUpgradingFeature(TeamTask task)
         {
-            var features = Products.GetAllFeaturesForProduct(product);
-
-            int upgrading = 0;
-            foreach (var f in features)
-            {
-                if (IsUpgradingFeature(product, gameContext, f.Name))
-                    upgrading++;
-            }
-
-            return upgrading;
-        }
-
-        public static bool IsUpgradingFeature(GameEntity product, GameContext Q, string featureName)
-        {
-            var cooldownName = $"company-{product.company.Id}-upgradeFeature-{featureName}";
-
-            return Cooldowns.HasCooldown(Q, cooldownName, out SimpleCooldown simpleCooldown);
+            return task.EndDate > 0 && !task.IsPending;
         }
     }
 }

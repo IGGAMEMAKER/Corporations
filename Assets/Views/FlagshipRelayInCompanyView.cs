@@ -69,7 +69,7 @@ public class FlagshipRelayInCompanyView : View
 
         //ScheduleUtils.PauseGame(Q);
 
-        Teams.AddTeamTask(Flagship, Q, 0, teamTask);
+        Teams.AddTeamTask(Flagship, CurrentIntDate, Q, 0, teamTask);
 
         if (teamTask.IsFeatureUpgrade)
         {

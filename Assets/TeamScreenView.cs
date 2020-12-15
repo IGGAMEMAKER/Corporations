@@ -43,16 +43,16 @@ public class TeamScreenView : View
     void RenderTeamStats(GameEntity product)
     {
         var ratingGain = Products.GetFeatureRatingGain(product);
-        var marketingEffeciency = Teams.GetMarketingEfficiency(product);
+        var marketingEfficiency = Teams.GetMarketingEfficiency(product);
         var featureCap = Products.GetFeatureRatingCap(product);
-        var devSpeed = Products.GetBaseIterationTime(Q, product);
+        var devSpeed = Products.GetBaseIterationTime(product);
 
         var stats = new StringBuilder()
             .Append("Max feature level: ")
             .AppendLine(Visuals.Positive(featureCap.ToString("0.0lvl (")) + Visuals.Positive(Format.ShowChange(ratingGain) + "lvl)"))
 
             .Append("Marketing efficiency: ")
-            .AppendLine(Visuals.Positive(marketingEffeciency.ToString("0") + "%"))
+            .AppendLine(Visuals.Positive(marketingEfficiency.ToString("0") + "%"))
             ;
     }
 

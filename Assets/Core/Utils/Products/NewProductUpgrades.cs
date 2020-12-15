@@ -200,6 +200,11 @@ namespace Assets.Core
 
 
         // pending and active features
+        public static TeamTask GetTeamTaskByFeatureName(GameEntity product, string featureName)
+        {
+            return product.team.Teams[0].Tasks
+                .First(t => t.IsFeatureUpgrade && (t as TeamTaskFeatureUpgrade).NewProductFeature.Name == featureName);
+        }
         public static bool IsUpgradingFeature(GameEntity product, string featureName)
         {
             return product.team.Teams[0].Tasks

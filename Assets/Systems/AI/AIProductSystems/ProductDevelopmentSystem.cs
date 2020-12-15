@@ -253,7 +253,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
         if (Teams.HasFreeSlotForTeamTask(product, teamTask))
         {
-            Teams.AddTeamTask(product, gameContext, teamId, teamTask);
+            Teams.AddTeamTask(product, ScheduleUtils.GetCurrentDate(gameContext), gameContext, teamId, teamTask);
         }
     }
 }

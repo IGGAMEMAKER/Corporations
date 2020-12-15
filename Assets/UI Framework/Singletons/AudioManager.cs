@@ -33,7 +33,13 @@ namespace Assets
 
         MoneySpent,
         
-        Bubble1
+        Bubble1,
+        Bubble2,
+        Bubble3,
+        Bubble4,
+        Bubble5,
+        Bubble6,
+        Bubble7
     }
 
     public class AudioManager: MonoBehaviour
@@ -62,6 +68,12 @@ namespace Assets
         public AudioClip goalPickedSound;
         public AudioClip moneySpentSound;
         public AudioClip bubble1Sound;
+        public AudioClip bubble2Sound;
+        public AudioClip bubble3Sound;
+        public AudioClip bubble4Sound;
+        public AudioClip bubble5Sound;
+        public AudioClip bubble6Sound;
+        public AudioClip bubble7Sound;
 
         void Start()
         {
@@ -94,6 +106,12 @@ namespace Assets
             
             // bubbles
             AddSound(bubble1Sound, Sound.Bubble1);
+            AddSound(bubble2Sound, Sound.Bubble2);
+            AddSound(bubble3Sound, Sound.Bubble3);
+            AddSound(bubble4Sound, Sound.Bubble4);
+            AddSound(bubble5Sound, Sound.Bubble5);
+            AddSound(bubble6Sound, Sound.Bubble6);
+            AddSound(bubble7Sound, Sound.Bubble7);
         }
 
         void AddSound(AudioClip audioClip, Sound sound = Sound.None)

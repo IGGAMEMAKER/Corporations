@@ -383,23 +383,26 @@ public class TeamTask
 {
     public bool IsPending;
 
+    public int EndDate = -1;
+    public int StartDate = -1;
+
     public bool IsFeatureUpgrade => this is TeamTaskFeatureUpgrade;
     public bool IsMarketingTask => this is TeamTaskChannelActivity;
-    public bool IsSupportTask => this is TeamTaskSupportFeature && !((this as TeamTaskSupportFeature).SupportFeature.SupportBonus is SupportBonusHighload);
-    public bool IsHighloadTask => this is TeamTaskSupportFeature && (this as TeamTaskSupportFeature).SupportFeature.SupportBonus is SupportBonusHighload;
+    public bool IsSupportTask => this is TeamTaskSupportFeature && !(((TeamTaskSupportFeature) this).SupportFeature.SupportBonus is SupportBonusHighload);
+    public bool IsHighloadTask => this is TeamTaskSupportFeature && ((TeamTaskSupportFeature) this).SupportFeature.SupportBonus is SupportBonusHighload;
 
     public bool AreSameTasks(TeamTask t)
     {
         if (!AreSameTypeTasks(t))
             return false;
 
-        if (IsFeatureUpgrade && (this as TeamTaskFeatureUpgrade).NewProductFeature.Name == (t as TeamTaskFeatureUpgrade).NewProductFeature.Name)
+        if (IsFeatureUpgrade && ((TeamTaskFeatureUpgrade) this)?.NewProductFeature.Name == ((TeamTaskFeatureUpgrade) t)?.NewProductFeature.Name)
             return true;
 
-        if (IsMarketingTask && (this as TeamTaskChannelActivity).ChannelId == (t as TeamTaskChannelActivity).ChannelId)
+        if (IsMarketingTask && ((TeamTaskChannelActivity) this).ChannelId == ((TeamTaskChannelActivity) t).ChannelId)
             return true;
 
-        if (IsHighloadTask && (this as TeamTaskSupportFeature).SupportFeature.Name == (t as TeamTaskSupportFeature).SupportFeature.Name)
+        if (IsHighloadTask && ((TeamTaskSupportFeature) this).SupportFeature.Name == ((TeamTaskSupportFeature) t).SupportFeature.Name)
             return true;
 
         return false;

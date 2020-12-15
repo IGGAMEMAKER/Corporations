@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerExitHandler*/
@@ -21,9 +22,14 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
     public Text Loyalty;
     public Hint LoyaltyHint;
 
-    public Text Growth;
-    public Text Users;
+    [FormerlySerializedAs("Growth1")] [FormerlySerializedAs("Growth")] public Text Users;
+    [FormerlySerializedAs("Users")] public Text Growth;
 
+    public AnimationSpawner AnimationSpawner;
+
+    private int loyaltyClamped = 0;
+    private long previousUsers = 0;
+    
     GameEntity company;
 
     public void SetEntity(GameEntity c)
@@ -41,27 +47,17 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
 
         var shortName = Companies.GetShortName(company);
 
+        // SetEmblemColor();
 
-        //SetEmblemColor();
-        var users = Marketing.GetUsers(company);
 
-        var growth = Marketing.GetAudienceChange(company, Q, true);
-        var growthSum = growth.Sum();
-        var growthSign = Format.SignOf(growthSum);
-        
-        Users.text = Visuals.Colorize($"<b>{growthSign}{Format.MinifyToInteger(growthSum)} weekly </b>\n", growthSum > 0);
-        
-        Users.text += company.company.Name; // + "\n<b>" + Format.MinifyToInteger(users) + "</b> users"; // shortName;
-        // Users.text = c.company.Name;
         Hide(Name);
         RenderBorderImage(hasControl);
         EmphasizeCompanySize();
 
         RenderLoyalty();
 
-        Growth.text = $"<b>{Format.Minify(users)}</b> users";
         
-        //RenderUsers();
+        RenderUsers();
         // RenderGrowth();
 
         // BlinkDaughterCompanyIfThereAreTroublesWithLoyalty();
@@ -79,10 +75,18 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
     void RenderLoyalty()
     {
         var loyalty = Marketing.GetPositioningQuality(company);
-        var loyaltyString = loyalty.Sum().ToString("0.00");
+        var loyaltySum = loyalty.Sum();
+        var loyaltyString = loyaltySum.ToString("0.00");
 
-        Loyalty.text = loyalty.Sum().ToString("0");
+        Loyalty.text = ((int)loyaltySum).ToString();// loyalty.Sum().ToString("0");
         LoyaltyHint.SetHint($"<size=30>App quality={loyaltyString}</size>\n" + loyalty.SortByModule().HideZeroes().ToString());
+
+        if ((int) loyaltySum > loyaltyClamped)
+        {
+            AnimationSpawner.SpawnJumpingAnimation(transform);
+
+            loyaltyClamped = (int) loyaltySum;
+        }
     }
 
     void RenderBorderImage(bool hasControl)
@@ -93,7 +97,29 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
     void RenderUsers()
     {
         var users = Marketing.GetUsers(company);
-        Users.text = Format.MinifyToInteger(users) + "\nusers";
+
+
+        var growth = Marketing.GetAudienceChange(company, Q, true);
+        var growthSum = growth.Sum();
+        var growthSign = Format.SignOf(growthSum);
+
+        var growthPhrase = $"<b>{growthSign}{Format.MinifyToInteger(growthSum)}</b>";
+        var growthDescription = Visuals.Colorize(growthPhrase, growthSum > 0); 
+
+        Growth.text = $"<b>{Format.MinifyToInteger(users)}</b> users";
+        if (growthSum != 0)
+        {
+            Growth.text += $" ({growthDescription})";
+        }
+        
+        Users.text = $"<b>{company.company.Name}</b>";
+
+        if (users != previousUsers)
+        {
+            AnimationSpawner.Spawn(Visuals.Colorize(growthPhrase + " users", growthSum > 0), null);
+            // PlaySound();
+            previousUsers = users;
+        }
     }
 
     void RenderGrowth()
@@ -102,7 +128,7 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
         var growthSum = growth.Sum();
 
         // Growth.text = Visuals.PositiveOrNegativeMinified(growthSum) + " users";
-        Growth.GetComponent<Hint>().SetHint("Users will change by " + Visuals.Colorize(growth.Sum()) + " because " + growth.ToString());
+        Users.GetComponent<Hint>().SetHint("Users will change by " + Visuals.Colorize(growth.Sum()) + " because " + growth.ToString());
     }
 
     void EmphasizeCompanySize()

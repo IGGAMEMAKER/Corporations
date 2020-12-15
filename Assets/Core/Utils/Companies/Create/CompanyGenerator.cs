@@ -37,7 +37,7 @@ namespace Assets.Core
 
 
             var serverFeature = Products.GetHighloadFeatures(product)[0];
-            Teams.AddTeamTask(product, context, 0, new TeamTaskSupportFeature(serverFeature));
+            Teams.AddTeamTask(product, ScheduleUtils.GetCurrentDate(context), context, 0, new TeamTaskSupportFeature(serverFeature));
 
             // clients
             product.AddMarketing(new Dictionary<int, long>());

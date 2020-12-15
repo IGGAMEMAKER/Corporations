@@ -52,57 +52,64 @@ public class FeatureView : View, IPointerEnterHandler, IPointerExitHandler
             return;
 
         var featureName = NewProductFeature.Name;
+        
         Name.text = featureName;
-
-
-        bool upgraded = Products.IsUpgradedFeature(product, featureName);
-        var rating = (int)Products.GetFeatureRating(product, featureName);
 
         Draw(PendingTaskIcon, Products.IsPendingFeature(product, featureName));
 
+        RenderFeatureRating(product, featureName);
+
+        RenderFeatureBenefit(featureName);
+
+        RenderFeatureUpgradeProgress(product, featureName);
+
+        RenderFeatureTypeIcon();
+    }
+
+    void RenderFeatureRating(GameEntity product, string featureName)
+    {
+        bool upgraded = Products.IsUpgradedFeature(product, featureName);
+        var rating = (int)Products.GetFeatureRating(product, featureName);
+        
         Draw(Rating, true);
-        //Draw(Rating, upgraded && rating > 0);
 
         Rating.text = rating.ToString("0LV");
-        //Rating.text = upgraded ? rating.ToString("0.0") + " / 10" : "0";// GetFeatureBenefits(upgraded, product);
-        Rating.color = upgraded ? Visuals.GetGradientColor(0, 10f, rating) : Visuals.GetColorFromString(Colors.COLOR_POSITIVE);
+        Rating.color = upgraded ? 
+            Visuals.GetGradientColor(0, 10f, rating)
+            :
+            Visuals.GetColorFromString(Colors.COLOR_POSITIVE);        
+    }
 
+    void RenderFeatureBenefit(string featureName)
+    {
         if (NewProductFeature.FeatureBonus.isMonetisationFeature)
             Benefits.text = "Income: " + Visuals.Positive(NewProductFeature.FeatureBonus.Max + "%");
 
         if (NewProductFeature.FeatureBonus.isRetentionFeature)
             Benefits.text = Visuals.Positive("Increases loyalty");
-
-        var cooldownName = $"company-{product.company.Id}-upgradeFeature-{featureName}";
-        bool hasCooldown = Cooldowns.HasCooldown(Q, cooldownName, out SimpleCooldown cooldown);
-
         
+
         var featureBenefit = NewProductFeature.IsMonetizationFeature ? Visuals.Positive("Increases income") : Visuals.Positive("Increases loyalty of users");
         GetComponent<Hint>().SetHint($"<size=30>{featureName}</size>\n\n{featureBenefit}");
+    }
 
-        if (Teams.IsUpgradingFeature(product, Q, featureName))
+    void RenderFeatureUpgradeProgress(GameEntity product, string featureName)
+    {
+        if (Products.IsUpgradingFeature(product, featureName))
         {
-            //var progress = (CurrentIntDate % C.PERIOD) / (float)C.PERIOD;
-            var progress = CurrentIntDate - cooldown.StartDate;
-            ProgressImage.fillAmount = 1f; // (float)progress / (cooldown.EndDate - cooldown.StartDate);
-
+            var task = Products.GetTeamTaskByFeatureName(product, featureName);
+            
             ProgressBar.SetDescription("Upgrading feature");
-            ProgressBar.SetValue(CurrentIntDate - cooldown.StartDate, cooldown.EndDate - cooldown.StartDate);
+            ProgressBar.SetValue(CurrentIntDate - task.StartDate, task.EndDate - task.StartDate);
 
             Show(ProgressBar);
-            //Draw(Rating, false);
         }
         else
         {
-            //Show(Rating);
-            ProgressImage.fillAmount = 0f;
-
             Hide(ProgressBar);
         }
 
         ProgressImage.fillAmount = 0f;
-
-        RenderFeatureTypeIcon();
     }
 
     float GetFeatureBenefit(bool isUpgraded, GameEntity product) => isUpgraded ?

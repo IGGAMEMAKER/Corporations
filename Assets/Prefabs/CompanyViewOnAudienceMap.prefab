@@ -239,6 +239,58 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Text: User growth
   isActionHint: 0
+--- !u!1 &3261415187874015684
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8427293355466391082}
+  - component: {fileID: 978041271386304101}
+  m_Layer: 5
+  m_Name: AnimationSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8427293355466391082
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3261415187874015684}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 18566334101413342}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 208}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &978041271386304101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3261415187874015684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51d15148d44186f4a8582be998f29366, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AnimationPrefab: {fileID: 8015825708830624345, guid: 421f94fde17cb094d92f27fcdd777780,
+    type: 3}
+  JumpingAnimationPrefab: {fileID: 4236776851421107319, guid: 59f3fdda50949934a96bd9bdfae6abae,
+    type: 3}
 --- !u!1 &4208135517030726004
 GameObject:
   m_ObjectHideFlags: 0
@@ -750,8 +802,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -47}
-  m_SizeDelta: {x: -10, y: -208.2}
+  m_AnchoredPosition: {x: 0, y: -31.700012}
+  m_SizeDelta: {x: -40, y: -283.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6410893452462620480
 CanvasRenderer:
@@ -792,9 +844,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '<b>Blah blah Money EX (M0)</b>
-
-    2.3M users'
+  m_Text: <b>Blah blah Money EX (M0)</b>
 --- !u!114 &5955898350846819806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -852,7 +902,7 @@ RectTransform:
   m_GameObject: {fileID: 7087383718898978254}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.1, y: 1.1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6829083024413330115}
   m_Father: {fileID: 8068970082745819196}
@@ -861,7 +911,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -13.2}
-  m_SizeDelta: {x: 50, y: 50}
+  m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &7281310943505600654
 CanvasRenderer:
@@ -1003,8 +1053,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 248.95001}
-  m_SizeDelta: {x: -90, y: 87.85}
+  m_AnchoredPosition: {x: 0, y: 226.5}
+  m_SizeDelta: {x: -90, y: 85.3}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &5167488896911855779
 CanvasRenderer:
@@ -1045,7 +1095,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: +123K users
+  m_Text: '123.4K
+
+    +123K users'
 --- !u!114 &2055647949871995408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1053,7 +1105,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7310931650618806247}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 053423e6b9d702245a7c61d5fba2dc52, type: 3}
   m_Name: 
@@ -1271,6 +1323,7 @@ RectTransform:
   m_Children:
   - {fileID: 8165991899037593951}
   - {fileID: 320759370138537610}
+  - {fileID: 8427293355466391082}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1317,8 +1370,9 @@ MonoBehaviour:
   LoyaltyImage: {fileID: 7087383718898978254}
   Loyalty: {fileID: 8441081643425366424}
   LoyaltyHint: {fileID: 8905081841058143976}
-  Growth: {fileID: 6773319843922634366}
   Users: {fileID: 2485475529061407493}
+  Growth: {fileID: 6773319843922634366}
+  AnimationSpawner: {fileID: 978041271386304101}
 --- !u!1 &9065475678833897122
 GameObject:
   m_ObjectHideFlags: 0

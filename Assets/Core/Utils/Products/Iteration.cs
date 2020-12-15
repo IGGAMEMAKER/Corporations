@@ -6,7 +6,7 @@ namespace Assets.Core
 {
     public static partial class Products
     {
-        public static int GetBaseIterationTime(GameContext gameContext, GameEntity company)
+        public static int GetBaseIterationTime(GameEntity company)
         {
             int baseValue = 12;
 
@@ -23,9 +23,9 @@ namespace Assets.Core
         //    return 12;
         //}
 
-        public static int GetIterationTime(GameContext gameContext, GameEntity company)
+        public static int GetIterationTime(GameEntity company)
         {
-            var baseValue = GetBaseIterationTime(gameContext, company);
+            var baseValue = GetBaseIterationTime(company);
 
             return baseValue;
 
@@ -71,7 +71,7 @@ namespace Assets.Core
             //Flagship.features.Upgrades[f.NewProductFeature.Name] = 0;
         }
 
-        public static void UpgradeFeatureAndAddCooldown(GameEntity product, string featureName, GameContext gameContext)
+        public static void IncreaseFeatureLevel(GameEntity product, string featureName)
         {
             var gain = GetFeatureRatingGain(product);
             var cap  = GetFeatureRatingCap(product);
@@ -89,11 +89,16 @@ namespace Assets.Core
             {
                 product.features.Upgrades[featureName] = gain; // UnityEngine.Random.Range(1, 3f);
             }
+        }
 
-            var iteration = GetIterationTime(gameContext, product);
+        public static void AddFeatureCooldown(GameEntity product, TeamTask task, int currentDate)
+        {
+            var iteration = GetIterationTime(product);
 
-            var cooldownName = $"company-{product.company.Id}-upgradeFeature-{featureName}";
-            Cooldowns.AddSimpleCooldown(gameContext, cooldownName, iteration);
+            task.EndDate = currentDate + iteration;
+
+            // var cooldownName = $"company-{product.company.Id}-upgradeFeature-{featureName}";
+            // Cooldowns.AddSimpleCooldown(gameContext, cooldownName, iteration);
         }
 
         public static void ForceUpgradeFeature(GameEntity product, string featureName, float value)
@@ -116,12 +121,6 @@ namespace Assets.Core
         }
 
         // feature benefits
-        public static float GetFeatureActualBenefit(GameEntity product, string featureName)
-        {
-            var feature = GetAllFeaturesForProduct(product).First(f => f.Name == featureName);
-
-            return GetFeatureActualBenefit(product, feature);
-        }
         public static float GetFeatureActualBenefit(GameEntity product, NewProductFeature feature)
         {
             return GetFeatureActualBenefit(GetFeatureRating(product, feature.Name), feature);

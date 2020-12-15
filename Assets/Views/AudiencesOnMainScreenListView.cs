@@ -50,7 +50,7 @@ public class AudiencesOnMainScreenListView : ListView
         Teams.UpdateTeamEfficiency(product, Q);
 
         if (Iteration != null)
-            Iteration.text = Visuals.Positive(Products.GetIterationTime(Q, product) + " days");
+            Iteration.text = Visuals.Positive(Products.GetIterationTime(product) + " days");
 
         if (FeatureCap != null)
             FeatureCap.text = Visuals.Positive(Products.GetFeatureRatingCap(product).ToString("0.0"));

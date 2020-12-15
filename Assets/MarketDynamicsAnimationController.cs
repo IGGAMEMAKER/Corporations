@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using Assets;
 using UnityEngine;
 
-public class MarketDynamicsAnimationController : View
+public class MarketDynamicsAnimationController : ListView
 {
-    public GameObject AudienceGrowthPrefab;
     public GameObject LoyaltyGrowthPrefab;
 
     public List<GameEntity> ObservableCompanies;
@@ -14,7 +13,6 @@ public class MarketDynamicsAnimationController : View
     {
         base.ViewRender();
         
-        // Debug.Log();
         RenderLoyaltyChange();
     }
 
@@ -30,6 +28,11 @@ public class MarketDynamicsAnimationController : View
 
     public void SetObservables(List<GameObject> items)
     {
-        
+        // SetItems();
+    }
+
+    public override void SetItem<T>(Transform t, T entity)
+    {
+        throw new System.NotImplementedException();
     }
 }

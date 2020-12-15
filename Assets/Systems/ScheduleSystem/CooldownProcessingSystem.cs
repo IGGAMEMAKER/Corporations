@@ -19,9 +19,9 @@ public partial class CooldownProcessingSystem : OnDateChange
         for (var i = taskNames.Length - 1; i >= 0; i--)
         {
             var cooldownName = taskNames[i];
-            var t = cooldowns[cooldownName];
+            var simpleCooldown = cooldowns[cooldownName];
 
-            var EndTime = t.EndDate;
+            var EndTime = simpleCooldown.EndDate;
 
             if (date >= EndTime)
                 cooldowns.Remove(cooldownName);

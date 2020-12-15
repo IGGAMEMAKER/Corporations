@@ -4,11 +4,14 @@ using UnityEngine.UI;
 public class AnimatedText : MonoBehaviour
 {
     public Animation Animation;
+    public Animator Animator;
     public Text Text;
 
-    public void Play(string text)
+    public void Play(string text, float playSpeed = 1f)
     {
         Text.text = text;
+
+        Animator.speed = playSpeed;
         Animation.Play();
 
         //var rand = Random.Range(-45, 45);
