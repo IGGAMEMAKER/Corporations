@@ -63,7 +63,6 @@ namespace Assets.Core
             return GetAudienceChange(product, gameContext, true).Sum();
         }
 
-        public static bool IsImportantAudience(GameEntity product, int segmentId) => IsTargetAudience(product, segmentId);
         public static bool IsTargetAudience(GameEntity product, int segmentId)
         {
             return GetPositioning(product).Loyalties[segmentId] > 0;
@@ -92,48 +91,25 @@ namespace Assets.Core
         {
             var million = 1000000;
 
-            var testAudience = new AudienceInfo
-            {
-                Name = "Test Audience",
-                //"Messaging", "News Feed", "Friends list", "Voice chat", "Profile", "Video chat", "Sending files", "Emojis", "Likes", "Ads", "Ad panel"
-                Needs = new List<int> { 5, 4, 3, 3, 2, 2, 2, 1, 1, },
-                Icon = "Teenager",
-                Size = 100,
-                Bonuses = new List<FeatureBonus>
-                {
-                    new FeatureBonusMonetization(-100),
-                    new FeatureBonusRetention(5),
-                    new FeatureBonusAcquisition(5)
-                }
-            };
-
             var list = new List<AudienceInfo>
             {
-                //testAudience,
                 new AudienceInfo {
                     Name = "Teenagers",
-                    //"Messaging", "News Feed", "Friends list", "Voice chat", "Profile", "Video chat", "Sending files", "Emojis", "Likes"
-                    //Needs = new List<int> { 5, 4, 3, 3, 2, 2, 2, 1, 1 },
                     Icon = "Teenager",
                     Size = 400 * million,
                 },
                 new AudienceInfo {
                     Name = "Adults (20+ years)",
-                    //"Messaging", "News Feed", "Friends list", "Voice chat", "Profile", "Video chat", "Sending files", "Emojis", "Likes"
-                    //Needs = new List<int> { 5, 2, 4, 3, 3, 1, 2, 1, 0, },
-                    //Needs = "Needs messaging, profiles, friends, voice chats",
                     Icon = "Adult",
                     Size = 700 * million,
                 },
                 new AudienceInfo {
                     Name = "Middle aged people (35+)",
-                    //Needs = "Needs messaging, profiles, friends, voice chats",
                     Icon = "Middle",
                     Size = 2000 * million,
                 },
                 new AudienceInfo {
                     Name = "Old people (50+)",
-                    //Needs = "Needs messaging, friends, voice chats, video chats",
                     Icon = "Old",
                     Size = 100 * million,
                 },

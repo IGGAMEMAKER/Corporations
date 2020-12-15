@@ -137,7 +137,7 @@ namespace Assets.Core
 
         // if maxChange = true
         // this will return max loyalty for regular features
-        // and worst loyalty hit for monetisation features
+        // and worst loyalty hit for monetization features
 
         // otherwise - upgraded values?
         public static float GetLoyaltyChangeFromFeature(GameEntity c, NewProductFeature f, int segmentId, bool maxChange = false)

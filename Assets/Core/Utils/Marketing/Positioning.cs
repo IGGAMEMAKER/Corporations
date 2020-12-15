@@ -93,9 +93,8 @@ namespace Assets.Core
             var audiences = GetAudienceInfos();
 
             var positioning = product.productPositioning.Positioning;
-            bool isFocusingOneAudience = positioning < audiences.Count;
-
-            return isFocusingOneAudience;
+            
+            return positioning < audiences.Count;
         }
 
         public static bool IsFocusingMoreThanOneAudience(GameEntity product)
