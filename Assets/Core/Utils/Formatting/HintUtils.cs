@@ -174,8 +174,8 @@ public class Bonus<T>
                 }
                 catch (System.Exception ex)
                 {
-                    Debug.LogError($"Exception in bonus {parameter}: " + ex);
-                    Debug.LogError($"Bad parameter {bonus.Name}: " + bonus.Value);
+                    // Debug.LogError($"Exception in bonus {parameter}: " + ex);
+                    // Debug.LogError($"Bad parameter {bonus.Name}: " + bonus.Value);
 
                     //Debug.Log("Parameters: " + string.Join(",", bonusDescriptions.Select(b => $"{b.Name}: {b.Value}... {b.Value.GetType()}")));
 

@@ -23,7 +23,7 @@ namespace Assets.Core
                 MarketingEfficiency = GetMarketingTeamEfficiency(gameContext, product, isUniqueCompany),
 
                 FeatureCap = GetMaxFeatureRatingCap(product, gameContext).Sum(), // Products.GetFeatureRatingCap(company, gameContext),
-                FeatureGain = GetFeatureRatingGain(product, product.team.Teams[0], gameContext),
+                FeatureGain = GetFeatureRatingGain(),
 
                 isUniqueCompany = isUniqueCompany,
                 Competitiveness = (int)(maxQuality - quality)
@@ -43,9 +43,7 @@ namespace Assets.Core
         // -------------- DEV -----------------------
         public static int GetDevelopmentTeamEfficiency(GameContext gameContext, GameEntity product, TeamInfo teamInfo)
         {
-            var efficiency = 0;
-
-            efficiency = GetEffectiveManagerRating(gameContext, product, WorkerRole.TeamLead, teamInfo);
+            var efficiency = GetEffectiveManagerRating(gameContext, product, WorkerRole.TeamLead, teamInfo);
 
             efficiency += teamInfo.TeamType == TeamType.DevelopmentTeam ? 30 : 0;
 
@@ -76,7 +74,7 @@ namespace Assets.Core
             var viableTeams = company.team.Teams
                 
                 // marketing teams only
-                .Where(t => Teams.IsTaskSuitsTeam(t.TeamType, Teams.GetMarketingTaskMockup())) //  IsUniversalTeam(t.TeamType) || t.TeamType == TeamType.MarketingTeam
+                .Where(t => IsTaskSuitsTeam(t.TeamType, GetMarketingTaskMockup())) //  IsUniversalTeam(t.TeamType) || t.TeamType == TeamType.MarketingTeam
 
                 .Select(t => GetMarketingTeamEfficiency(gameContext, company, t) / 100)
                 ;
@@ -90,15 +88,13 @@ namespace Assets.Core
 
         public static int GetMarketingTeamEfficiency(GameContext gameContext, GameEntity product, TeamInfo teamInfo)
         {
-            var marketingEffeciency = 0;
+            var efficiency = GetEffectiveManagerRating(gameContext, product, WorkerRole.MarketingLead, teamInfo);
 
-            marketingEffeciency = Teams.GetEffectiveManagerRating(gameContext, product, WorkerRole.MarketingLead, teamInfo);
-
-            marketingEffeciency *= teamInfo.TeamType == TeamType.MarketingTeam ? 2 : 1;
+            efficiency *= teamInfo.TeamType == TeamType.MarketingTeam ? 2 : 1;
 
             //marketingEffeciency += Teams.GetManagerFocusBonus(gameContext, company, teamInfo, ManagerTask.ViralSpread) * 10;
 
-            return (50 + marketingEffeciency) * GetTeamEffeciency(product, teamInfo);
+            return (50 + efficiency) * GetTeamEffeciency(product, teamInfo);
         }
 
 
@@ -118,24 +114,7 @@ namespace Assets.Core
 
 
         // --------------------- FEATURES --------------------------
-        public static float GetFeatureRatingGain(GameEntity product, TeamInfo team, GameContext gameContext)
-        {
-            return 0.2f;
-            var speed = 0.2f;
-
-            // 0.4f ... 1f
-            var gain = Teams.GetEffectiveManagerRating(gameContext, product, WorkerRole.ProductManager, team) / 100f;
-            speed += gain;
-
-            bool isDevTeam = team.TeamType == TeamType.DevelopmentTeam;
-            if (isDevTeam)
-            {
-                speed += 0.3f;
-                speed += gain;
-            }
-
-            return speed;
-        }
+        public static float GetFeatureRatingGain() => 1f;
 
         public static Bonus<float> GetMaxFeatureRatingCap(GameEntity product, GameContext gameContext)
         {
@@ -151,24 +130,24 @@ namespace Assets.Core
 
             var bonus = new Bonus<float>("Max feature lvl");
 
-            bonus.Append("Base", 1f);
+            bonus.Append("Base", 3f);
             bonus.AppendAndHideIfZero("Development Team", team.TeamType == TeamType.DevelopmentTeam ? 1f : 0);
 
             if (productManager != null)
             {
                 // ... 5f
-                var addedCap = 3 * Humans.GetRating(productManager) / 100f;
+                var addedCap = 6 * Humans.GetRating(productManager) / 100f;
 
                 bonus.AppendAndHideIfZero("Product Manager", addedCap);
             }
 
-            var culture = Companies.GetOwnCulture(Companies.GetManagingCompanyOf(product, gameContext));
-
-            var cultureBonus = (10 - culture[CorporatePolicy.DoOrDelegate]) * 0.2f;
-            var cultureBonus2 = (culture[CorporatePolicy.DecisionsManagerOrTeam]) * 0.4f;
-
-            bonus.Append("Corporate culture Do or Delegate", cultureBonus);
-            bonus.Append("Corporate culture Structure", cultureBonus2);
+            // var culture = Companies.GetOwnCulture(Companies.GetManagingCompanyOf(product, gameContext));
+            //
+            // var cultureBonus = (10 - culture[CorporatePolicy.DoOrDelegate]) * 0.2f;
+            // var cultureBonus2 = (culture[CorporatePolicy.DecisionsManagerOrTeam]) * 0.4f;
+            //
+            // bonus.Append("Corporate culture Do or Delegate", cultureBonus);
+            // bonus.Append("Corporate culture Structure", cultureBonus2);
 
 
             //bool hasMainManager = Teams.HasMainManagerInTeam(team, gameContext, product);

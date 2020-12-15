@@ -76,7 +76,7 @@ namespace Assets.Core
                 {
                     if (f.FeatureBonus.isRetentionFeature)
                     {
-                        Products.ForceUpgradeFeature(c, f.Name, Random.Range(4f, 9f));
+                        Products.ForceUpgradeFeature(c, f.Name, Random.Range(2f, 5f));
                     }
                 }
 

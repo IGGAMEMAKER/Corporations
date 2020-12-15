@@ -6,14 +6,21 @@ namespace Assets.Core
 {
     public static partial class Products
     {
-        public static int GetBaseIterationTime(GameEntity company)
+        public static int GetBaseIterationTime(GameEntity company) => (int) GetBaseIterationTime(company, true).Sum(); 
+        public static Bonus<float> GetBaseIterationTime(GameEntity company, bool isBonus)
         {
-            int baseValue = 12;
+            var bonus = new Bonus<float>("Iteration");
 
+            var features = company.productUpgrades.upgrades.Count;
+            var appSize = 1f + features * 0.1f;
 
             var eff = Mathf.Clamp(Teams.GetDevelopmentEfficiency(company), 50, 150);
 
-            return baseValue * 100 / eff;
+            bonus.Append("Base", 7);
+            bonus.MultiplyAndHideIfOne("Application size", appSize);
+            bonus.Multiply("Development Efficiency", 100f / eff);
+
+            return bonus;
         }
 
         public static int GetIterationTime(GameEntity company)
@@ -38,9 +45,10 @@ namespace Assets.Core
         {
             var productManagers = team.Managers.Select(humanId => Humans.Get(gameContext, humanId)).Where(worker => worker.worker.WorkerRole == workerRole);
 
-            if (productManagers.Count() > 0)
+            var managers = productManagers.ToList();
+            if (managers.Any())
             {
-                return productManagers.First();
+                return managers.First();
             }
 
             return null;
