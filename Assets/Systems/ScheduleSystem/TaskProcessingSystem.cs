@@ -23,11 +23,11 @@ public partial class TaskProcessingSystem : OnDateChange
                 var t = tasks[i];
                 var task = t.timedAction;
 
-                var EndTime = task.EndTime;
+                var endTime = task.EndTime;
 
                 if (t.isTask)
                 {
-                    if (date >= EndTime && !task.isCompleted)
+                    if (date >= endTime && !task.isCompleted)
                     {
                         Cooldowns.ProcessTask(task, gameContext);
                         t.timedAction.isCompleted = true;
@@ -36,7 +36,7 @@ public partial class TaskProcessingSystem : OnDateChange
 
 
                 // 
-                if (date > EndTime)
+                if (date > endTime)
                     t.Destroy();
             }
             catch (Exception ex)

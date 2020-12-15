@@ -15,13 +15,6 @@ namespace Assets.Core
 
             return baseValue * 100 / eff;
         }
-        //public static int GetBaseIterationTime(GameContext gameContext, GameEntity company) => GetBaseIterationTime(Markets.Get(gameContext, company));
-        //public static int GetBaseIterationTime(GameEntity niche) => GetBaseIterationTime(niche.nicheBaseProfile.Profile.NicheSpeed);
-        //public static int GetBaseIterationTime(NicheSpeed nicheChangeSpeed)
-        //{
-        //    var teamEfficiency = 
-        //    return 12;
-        //}
 
         public static int GetIterationTime(GameEntity company)
         {
@@ -71,7 +64,7 @@ namespace Assets.Core
             //Flagship.features.Upgrades[f.NewProductFeature.Name] = 0;
         }
 
-        public static void IncreaseFeatureLevel(GameEntity product, string featureName)
+        public static void IncreaseFeatureLevel(GameEntity product, TeamTask task, string featureName)
         {
             var gain = GetFeatureRatingGain(product);
             var cap  = GetFeatureRatingCap(product);

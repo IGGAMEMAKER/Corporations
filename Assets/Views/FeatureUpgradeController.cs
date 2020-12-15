@@ -12,11 +12,12 @@ public class FeatureUpgradeController : ButtonController
         var product = Flagship;
 
         var featureName = FeatureView.NewProductFeature.Name;
-        var task = new TeamTaskFeatureUpgrade(FeatureView.NewProductFeature);
 
-        if (!Teams.IsUpgradingFeature(task))
+        if (!Products.IsUpgradingFeature(product, featureName))
         {
             var relay = FindObjectOfType<FlagshipRelayInCompanyView>();
+            
+            var task = new TeamTaskFeatureUpgrade(FeatureView.NewProductFeature);
 
             relay.AddPendingTask(task);
 

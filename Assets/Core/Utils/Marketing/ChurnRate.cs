@@ -36,7 +36,7 @@ namespace Assets.Core
         {
             var competitiveness = Mathf.Abs(c.teamEfficiency.Efficiency.Competitiveness);
 
-            var competitivenessBonus = competitiveness / 5;
+            var competitivenessBonus = competitiveness / C.FEATURE_VALUE_UTP;
 
             return (int)Mathf.Pow(competitivenessBonus, 3);
         }
@@ -77,9 +77,7 @@ namespace Assets.Core
             foreach (var l in loyalties)
             {
                 if (l > 0)
-                {
                     bonus.Append(segments[segId].Name, GetSegmentLoyalty(product, segId));
-                }
 
                 segId++;
             }
@@ -168,7 +166,7 @@ namespace Assets.Core
             }
             else
             {
-                // is monetising
+                // is monetizing
                 loyaltyGain = attitude;
                 //loyaltyGain = attitude + (10 - rating) * attitude / 10;
             }

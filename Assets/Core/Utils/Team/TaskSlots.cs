@@ -74,8 +74,8 @@ namespace Assets.Core
             {
                 if (IsUniversalTeam(team.TeamType))
                     return GetTeamTasks(team);
-                else
-                    return GetTeamTasks(team) * 2;
+                
+                return GetTeamTasks(team) * 2;
             }
 
             // group by team type
@@ -112,14 +112,9 @@ namespace Assets.Core
         }
 
 
-
-        public static int GetAllActiveTaskSlots(GameEntity product)
-        {
-            return product.team.Teams[0].Tasks.Count();
-        }
         public static int GetAllSameTaskTypeSlots(GameEntity product, TeamTask task)
         {
-            return product.team.Teams[0].Tasks.Count(t => task.AreSameTypeTasks(t));
+            return product.team.Teams[0].Tasks.Count(task.AreSameTypeTasks);
         }
 
         public static int GetActiveSameTaskTypeSlots(GameEntity product, TeamTask task)
@@ -143,11 +138,6 @@ namespace Assets.Core
             }
 
             return null;
-        }
-
-        public static bool IsUpgradingFeature(TeamTask task)
-        {
-            return task.EndDate > 0 && !task.IsPending;
         }
     }
 }

@@ -37,8 +37,6 @@ namespace Assets.Core
         {
             var taskId = product.team.Teams[teamId].Tasks.Count;
 
-            var slots = GetOverallSlotsForTaskType(product, task);
-
             if (!HasFreeSlotForTeamTask(product, task))
                 task.IsPending = true;
 
@@ -108,7 +106,7 @@ namespace Assets.Core
 
                 if (date >= task.EndDate)
                 {
-                    Products.IncreaseFeatureLevel(p, featureName);
+                    Products.IncreaseFeatureLevel(p, task, featureName);
 
                     task.StartDate = date;
                     Products.AddFeatureCooldown(p, task, date);

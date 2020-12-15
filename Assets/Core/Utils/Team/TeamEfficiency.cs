@@ -120,7 +120,7 @@ namespace Assets.Core
         // --------------------- FEATURES --------------------------
         public static float GetFeatureRatingGain(GameEntity product, TeamInfo team, GameContext gameContext)
         {
-            return 1f;
+            return 0.2f;
             var speed = 0.2f;
 
             // 0.4f ... 1f

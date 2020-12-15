@@ -68,7 +68,7 @@ public class FeatureView : View, IPointerEnterHandler, IPointerExitHandler
 
     void RenderFeatureRating(GameEntity product, string featureName)
     {
-        bool upgraded = Products.IsUpgradedFeature(product, featureName);
+        var upgraded = Products.IsUpgradedFeature(product, featureName);
         var rating = (int)Products.GetFeatureRating(product, featureName);
         
         Draw(Rating, true);
@@ -89,7 +89,10 @@ public class FeatureView : View, IPointerEnterHandler, IPointerExitHandler
             Benefits.text = Visuals.Positive("Increases loyalty");
         
 
-        var featureBenefit = NewProductFeature.IsMonetizationFeature ? Visuals.Positive("Increases income") : Visuals.Positive("Increases loyalty of users");
+        var featureBenefit = NewProductFeature.IsMonetizationFeature
+            ? Visuals.Positive("Increases income")
+            :
+            Visuals.Positive("Increases loyalty of users");
         GetComponent<Hint>().SetHint($"<size=30>{featureName}</size>\n\n{featureBenefit}");
     }
 

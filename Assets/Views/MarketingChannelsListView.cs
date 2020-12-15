@@ -87,8 +87,8 @@ public class MarketingChannelsListView : ListView
         // calculate ROI
         var allChannels = Markets.GetAllMarketingChannels(Q);
 
-        maxROI = allChannels.Max(c => Marketing.GetChannelCostPerUser(company, Q, c));
-        minROI = allChannels.Min(c => Marketing.GetChannelCostPerUser(company, Q, c));
+        maxROI = allChannels.Max(c => Marketing.GetChannelCostPerUser(company, c));
+        minROI = allChannels.Min(c => Marketing.GetChannelCostPerUser(company, c));
     }
 
     void RenderMarketingEfficiencyInModal(GameEntity company)

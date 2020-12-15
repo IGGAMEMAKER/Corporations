@@ -6,13 +6,12 @@ namespace Assets.Core
 {
     public static partial class Marketing
     {
-        //public static long GetMarketingActivityCost(GameEntity product, GameContext gameContext, int ChannelId) => GetChannelCost(product, Markets.GetMarketingChannel(gameContext, ChannelId));
         public static long GetChannelCost(GameEntity product, GameEntity channel)
         {
             return (long)channel.marketingChannel.ChannelInfo.costPerAd;
         }
 
-        public static float GetChannelCostPerUser(GameEntity product, GameContext gameContext, GameEntity channel)
+        public static float GetChannelCostPerUser(GameEntity product, GameEntity channel)
         {
             return GetChannelCost(product, channel) * 1f / GetChannelClientGain(product, channel);
         }
@@ -66,32 +65,29 @@ namespace Assets.Core
 
         public static bool IsAudienceDisloyal(GameEntity company, int segmentId)
         {
-            var loyaltyBonus = GetGrowthLoyaltyBonus(company, segmentId);
-
             // cannot get clients if existing ones are outraged
-            return loyaltyBonus < 0;
+
+            return GetGrowthLoyaltyBonus(company, segmentId) < 0;
         }
 
         public static bool IsAttractsSpecificAudience(GameEntity company, int segmentId)
         {
-            // cannot get other segments if our product is not targeted for them
-            // OR
-            // cannot get clients if existing ones are outraged
             return IsAimingForSpecificAudience(company, segmentId) && !IsAudienceDisloyal(company, segmentId);
         }
 
-        public static double GetSegmentFocusingMultiplier(GameEntity product, GameEntity channel)
+        public static double GetSegmentFocusingMultiplier(GameEntity product)
         {
-            var favouriteAudiences = Marketing.GetAmountOfTargetAudiences(product);
+            var favouriteAudiences = GetAmountOfTargetAudiences(product);
 
             switch (favouriteAudiences)
             {
                 case 1: return 1;
-                case  2: return 0.7d;
+                case 2: return 0.7d;
                 case 3: return 0.5d;
-                
+
                 default: return 0.1d;
             }
+
             // return  Companies.GetHashedRandom2(product.company.Id, channel.marketingChannel.ChannelInfo.ID + segmentId);
         }
 
@@ -112,7 +108,7 @@ namespace Assets.Core
                 return 0;
 
             var baseChannelBatch = channel.marketingChannel.ChannelInfo.Batch;
-            var fraction = GetSegmentFocusingMultiplier(company, channel);
+            var fraction = GetSegmentFocusingMultiplier(company);
 
             var batch = (long)(baseChannelBatch * fraction);
 

@@ -715,10 +715,10 @@ namespace Assets.Core
                 priceModifier = 1f,
             });
 
-            foreach (ProductPositioning positioning in list)
-            {
-                Debug.Log($"Added positioning in niche {nicheName}: " + positioning.name + " #" + positioning.ID);
-            }
+            // foreach (ProductPositioning positioning in list)
+            // {
+            //     Debug.Log($"Added positioning in niche {nicheName}: " + positioning.name + " #" + positioning.ID);
+            // }
 
             // Debug.Log($"Created {list.Count} positionings");
 

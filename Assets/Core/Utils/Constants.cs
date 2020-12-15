@@ -77,6 +77,11 @@
     internal static int MANAGEMENT_COST_COMPANY = 100;
     internal static int MANAGEMENT_COST_GROUP = 1000;
     internal static int MANAGEMENT_COST_CORPORATION = 10_000;
+    public static int FEATURE_VALUE_UTP = 20;
+    public static int FEATURE_VALUE_TOP = 7;
+    public static int FEATURE_VALUE_OK = 1;
+    public static int FEATURE_VALUE_HATE = -20;
+    
 
     public const int CORPORATE_CULTURE_CHANGES_DURATION = 30;
     public const int CORPORATE_CULTURE_LEVEL_MAX = 10;

@@ -59,7 +59,7 @@ public class MarketingChannelView : View
     void RenderCost(GameEntity company)
     {
         var adCost = Marketing.GetChannelCost(company, channel);
-        var clientCost = Marketing.GetChannelCostPerUser(company, Q, channel);
+        var clientCost = Marketing.GetChannelCostPerUser(company, channel);
         var repaymentColor = Visuals.GetGradientColor(minCost, maxCost, clientCost, true);
 
         var canMaintain = Economy.IsCanMaintainForAWhile(MyCompany, Q, adCost, 1);

@@ -11,39 +11,25 @@ namespace Assets.Core
             //Needs messaging, profiles, friends, voice chats, video chats, emojis, file sending
             // Test Audience, Teenagers, Adults, Middle, Old
 
-            var utp = 6;
-            var top = 3;
-            var ok = 1;
+            var hate = C.FEATURE_VALUE_HATE;
 
-            var hate = -5;
-            var bad = -3;
+            var socialNetworkFeatures = GenerateFeatureList(
+                new List<string> {"Messaging"},
+                new List<string> {"News Feed", "Friends", "Profile", "Audio chat", "Video chat"},
+                new List<string> {"Sending files", "Emojis", "Likes"},
+                20,
+                NewProductFeature.SimpleFeature("Ads", hate, 100),
+                NewProductFeature.SimpleFeature("Panel for advertisers", 0, 25)
+            );
 
-            var socialNetworkFeatures = new NewProductFeature[]
-            {
-                new NewProductFeature("Messaging",      new List<int> { utp, utp, utp, utp, utp }),
-                new NewProductFeature("News Feed",      new List<int> { ok, top, top, ok, ok }),
-                new NewProductFeature("Friends",        new List<int> { ok, ok, top, top, top }),
-                new NewProductFeature("Profile",        new List<int> { top, top, top, top, ok }),
-
-                new NewProductFeature("Voice chat",     new List<int> { top, top, top, top, top }),
-                new NewProductFeature("Video chat",     new List<int> { top, top, top, top, top }),
-
-                new NewProductFeature("Sending files",  new List<int> { ok, top, top, ok, 0 }),
-                new NewProductFeature("Emojis",         new List<int> { ok, top, ok, ok, 0 }),
-                new NewProductFeature("Likes",          new List<int> { ok, top, top, 0, 0 }),
-
-                //new NewProductFeature { Name = "Login form", FeatureBonus = new FeatureBonusAcquisition(10) },
-                //new NewProductFeature { Name = "Sharing", FeatureBonus = new FeatureBonusAcquisition(8) },
-
-                new NewProductFeature("Ads", new List<int> { hate, hate, hate, hate, hate }, 100),
-                new NewProductFeature("Admin panel for advertisers", new List<int> { 0, 0, 0, 0, 0 }, 25),
-            };
-
-            foreach (var f in socialNetworkFeatures)
-            {
-                // remove test audience
-                f.AttitudeToFeature.RemoveAt(0);
-            }
+            // var gamingCompanyFeatures = GenerateFeatureList(
+            //     new List<string> {"Core game"},
+            //     new List<string> {"Multiplayer", "Different playing strategies", "Locations"},
+            //     new List<string> {"Website", "some feature 1"}, 25,
+            //     NewProductFeature.SimpleFeature("Ads", hate, 100),
+            //     NewProductFeature.SimpleFeature("Microtransactions", hate / 2, 50),
+            //     NewProductFeature.SimpleFeature("Skins", hate / 5, 40)
+            // );
 
             //var featureList = new List<NewProductFeature>();
             //switch (product.product.Niche)
@@ -54,38 +40,24 @@ namespace Assets.Core
             //}
 
             return socialNetworkFeatures;
-            //switch (product.product.Niche)
-            //{
-            //    case NicheType.Com_SocialNetwork:
-            //    default:
-            //        return new NewProductFeature[]
-            //        {
-            //            new NewProductFeature { Name = "Profile", FeatureBonus = new FeatureBonusRetention(10) },
-            //            new NewProductFeature { Name = "Friends", FeatureBonus = new FeatureBonusRetention(7) },
-            //            new NewProductFeature { Name = "Messaging", FeatureBonus = new FeatureBonusRetention(7) },
-            //            new NewProductFeature { Name = "News Feed", FeatureBonus = new FeatureBonusRetention(7) },
-            //            new NewProductFeature { Name = "Likes", FeatureBonus = new FeatureBonusRetention(7) },
+        }
 
-            //            new NewProductFeature { Name = "Login form", FeatureBonus = new FeatureBonusAcquisition(10) },
-            //            new NewProductFeature { Name = "Sharing", FeatureBonus = new FeatureBonusAcquisition(8) },
+        private static NewProductFeature[] GenerateFeatureList(List<string> UTPs, List<string> TOPs, List<string> OKs, int randomFeatures, params NewProductFeature[] features)
+        {
+            var featureList = new List<NewProductFeature>();
+            
+            featureList.AddRange(UTPs.Select(s => NewProductFeature.SimpleFeature(s, C.FEATURE_VALUE_UTP)));
+            featureList.AddRange(TOPs.Select(s => NewProductFeature.SimpleFeature(s, C.FEATURE_VALUE_TOP)));
+            featureList.AddRange(OKs.Select(s => NewProductFeature.SimpleFeature(s, C.FEATURE_VALUE_OK)));
 
-            //            new NewProductFeature { Name = "Ads", FeatureBonus = new FeatureBonusMonetisation(25) },
-            //            new NewProductFeature { Name = "Ad panel", FeatureBonus = new FeatureBonusMonetisation(10) },
-            //        };
-            //        break;
-            //        return new NewProductFeature[]
-            //        {
-            //            new NewProductFeature { Name = "Core app", FeatureBonus = new FeatureBonusRetention(10) },
+            for (var i = 0; i < randomFeatures; i++)
+            {
+                featureList.Add(NewProductFeature.SimpleFeature($"Random feature: {i}", C.FEATURE_VALUE_OK));
+            }
+            
+            featureList.AddRange(features);
 
-            //            new NewProductFeature { Name = "Landing Page", FeatureBonus = new FeatureBonusAcquisition(15) },
-            //            new NewProductFeature { Name = "Login form", FeatureBonus = new FeatureBonusAcquisition(10) },
-            //            new NewProductFeature { Name = "Sharing", FeatureBonus = new FeatureBonusAcquisition(8) },
-
-            //            new NewProductFeature { Name = "Pricing", FeatureBonus = new FeatureBonusMonetisation(25) },
-            //            new NewProductFeature { Name = "Cross promotions", FeatureBonus = new FeatureBonusMonetisation(15) },
-            //        };
-            //        break;
-            //}
+            return featureList.ToArray();
         }
 
         // new + upgrading

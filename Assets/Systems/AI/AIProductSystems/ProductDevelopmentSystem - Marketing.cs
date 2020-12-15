@@ -21,7 +21,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
     void ManageChannels(GameEntity product)
     {
         var channels = Markets.GetAffordableMarketingChannels(product, gameContext)
-            .OrderBy(c => Marketing.GetChannelCostPerUser(product, gameContext, c))
+            .OrderBy(c => Marketing.GetChannelCostPerUser(product, c))
             .ThenByDescending(c => Marketing.GetChannelCost(product, c));
         ;
 

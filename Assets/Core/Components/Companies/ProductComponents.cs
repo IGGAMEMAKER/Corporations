@@ -109,6 +109,11 @@ public class NewProductFeature
         AttitudeToFeature = attitudes;
     }
 
+    public static NewProductFeature SimpleFeature(string name, int value, float monetisationBenefit = 0)
+    {
+        return new NewProductFeature(name, new List<int> { value, value, value, value}, monetisationBenefit);
+    }
+
     public bool IsMonetizationFeature => FeatureBonus.isMonetisationFeature;
     public bool IsRetentionFeature => FeatureBonus.isRetentionFeature;
 }
