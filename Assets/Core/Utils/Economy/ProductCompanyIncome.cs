@@ -13,7 +13,7 @@ namespace Assets.Core
             return result * C.PERIOD / 30;
         }
 
-        public static float GetMonetisationEfficiency(GameEntity c, int segmentId)
+        public static float GetMonetizationEfficiency(GameEntity c, int segmentId)
         {
             try
             {
@@ -26,7 +26,7 @@ namespace Assets.Core
             }
             catch
             {
-                Debug.LogError("Tried to take monetisation from segment " + segmentId + " in company " + c.company.Name);
+                // Debug.LogError("Tried to take monetization from segment " + segmentId + " in company " + c.company.Name);
             }
 
             return 0;
@@ -55,9 +55,9 @@ namespace Assets.Core
 
         public static float GetIncomePerUser(GameEntity c, int segmentId)
         {
-            float price = GetBaseIncomeByMonetisationType(c);
+            float price = GetBaseIncomeByMonetizationType(c);
 
-            var bonuses = GetMonetisationEfficiency(c, segmentId);
+            var bonuses = GetMonetizationEfficiency(c, segmentId);
             // get positioning bonuses
             // get segment bonuses
 
@@ -69,10 +69,10 @@ namespace Assets.Core
 
         // where c = product or c = niche
         // both have nicheBaseProfile component
-        public static float GetBaseIncomeByMonetisationType(GameEntity c) => GetBaseIncomeByMonetisationType(c.nicheBaseProfile.Profile.MonetisationType);
-        public static float GetBaseIncomeByMonetisationType(Monetisation monetisation)
+        public static float GetBaseIncomeByMonetizationType(GameEntity c) => GetBaseIncomeByMonetizationType(c.nicheBaseProfile.Profile.MonetisationType);
+        public static float GetBaseIncomeByMonetizationType(Monetisation monetization)
         {
-            switch (monetisation)
+            switch (monetization)
             {
                 case Monetisation.Adverts:
                     return 0.3f;

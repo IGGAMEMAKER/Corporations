@@ -18,7 +18,7 @@ namespace Assets.Core
             var segmentId = Marketing.GetCoreAudienceId(company);
             var segment = Marketing.GetAudienceInfos()[segmentId];
 
-            var income = GetBaseIncomeByMonetisationType(company);
+            var income = GetBaseIncomeByMonetizationType(company);
 
             var incomeMultiplier = income * segment.Bonuses.Where(b => b.isMonetisationFeature).Select(b => b.Max).Sum();
 

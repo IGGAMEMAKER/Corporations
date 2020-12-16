@@ -71,38 +71,43 @@ namespace Assets.Core
             // group
             if (Companies.IsGroup(c))
             {
-                var holdings = Investments.GetHoldings(c, context, true);
-
-                bool isOnlyHolding = holdings.Count == 1;
-
-                foreach (var h in holdings)
-                {
-                    var b = GetProfit(context, h.company, true);
-
-                    if (isOnlyHolding)
-                    {
-                        // render full description
-                        foreach (var d in b.bonusDescriptions)
-                        {
-                            if (d.HideIfZero)
-                            {
-                                bonus.AppendAndHideIfZero(d.Name, d.Value);
-                            }
-                            else
-                            {
-                                bonus.Append(d.Name, d.Value);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        // general info is enough
-                        bonus.Append(h.company.company.Name, b.Sum());
-                    }
-                }
+                ApplyGroupInvestmentsToProfitBonus(c, context, bonus);
             }
 
             return bonus;
+        }
+
+        public static void ApplyGroupInvestmentsToProfitBonus(GameEntity c, GameContext context, Bonus<long> bonus)
+        {
+            var holdings = Investments.GetHoldings(c, context, true);
+
+            bool isOnlyHolding = holdings.Count == 1;
+
+            foreach (var h in holdings)
+            {
+                var b = GetProfit(context, h.company, true);
+
+                if (isOnlyHolding)
+                {
+                    // render full description
+                    foreach (var d in b.bonusDescriptions)
+                    {
+                        if (d.HideIfZero)
+                        {
+                            bonus.AppendAndHideIfZero(d.Name, d.Value);
+                        }
+                        else
+                        {
+                            bonus.Append(d.Name, d.Value);
+                        }
+                    }
+                }
+                else
+                {
+                    // general info is enough
+                    bonus.Append(h.company.company.Name, b.Sum());
+                }
+            }
         }
 
         public static long GetMarketingBudget(GameEntity product, GameContext context)
