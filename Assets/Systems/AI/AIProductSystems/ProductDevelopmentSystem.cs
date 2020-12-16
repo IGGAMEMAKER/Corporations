@@ -1,6 +1,7 @@
 ﻿using Assets.Core;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using UnityEngine;
 
@@ -23,6 +24,17 @@ public enum ProductActions
 
 public partial class ProductDevelopmentSystem : OnPeriodChange
 {
+    private static ProfilingComponent _profilingComponent;
+    public static ProfilingComponent MyProfiler
+    {
+        get
+        {
+            if (_profilingComponent == null)
+                _profilingComponent = Companies.GetProfilingComponent(Contexts.sharedInstance.game);
+
+            return _profilingComponent;
+        }
+    }
     public ProductDevelopmentSystem(Contexts contexts) : base(contexts)
     {
         
@@ -30,7 +42,12 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
     public void Measure(string name, GameEntity product, DateTime time)
     {
-        Companies.Measure(name + " " + product.company.Name, time, gameContext);
+        Companies.Measure(name + " " + product.company.Name, time, MyProfiler);
+    }
+
+    void Markup(string text = "-----------")
+    {
+        Companies.MeasureMarkup(MyProfiler, text);
     }
 
     protected override void Execute(List<GameEntity> entities)
@@ -59,6 +76,8 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
     void WorkOnGoal(GameEntity product, InvestmentGoal goal)
     {
         var actions = new List<ProductActions>();
+        
+        Markup("<b>Start working on goals</b>");
 
         var time = DateTime.Now;
 
@@ -153,7 +172,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             ManageProduct(action, product);
         }
 
-        Measure("Work on goal ", product, time);
+        Measure("<b>Work on goal</b> ", product, time);
         //Investments.CompleteGoal(product, gameContext, goal);
     }
 

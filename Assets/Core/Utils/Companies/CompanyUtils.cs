@@ -114,6 +114,11 @@ namespace Assets.Core
             return gameContext.GetEntities(GameMatcher.Profiling).First().profiling;
         }
 
+        public static void MeasureMarkup(ProfilingComponent MyProfiler, string text = "---------------------")
+        {
+            MyProfiler.MyProfiler.AppendLine(text);
+        }
+
         public static void Measure(string name, DateTime startTime, GameContext gameContext) =>
             Measure(name, startTime, GetProfilingComponent(gameContext));
         public static void Measure(string name, DateTime startTime, ProfilingComponent MyProfiler)
