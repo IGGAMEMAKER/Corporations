@@ -1,5 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using Assets.Core;
+using Entitas;
+using UnityEngine;
 
 public class MainSystem : Feature
 {
@@ -41,35 +45,47 @@ public class MainSystem : Feature
     }
 }
 
-public class StartProfilingSystem : OnDateChange
+public class ProfilingSystem : OnDateChange
 {
-    private static StringBuilder _profiler;
-    public static long ProfilerMilliseconds;
-
-    public static bool StartMeasuring;
-
-    public static StringBuilder MyProfiler
+    public ProfilingSystem(Contexts contexts) : base(contexts)
     {
-        get
-        {
-            if (_profiler == null)
-                _profiler = new StringBuilder();
-
-            return _profiler;
-        }
     }
-    
-    public StartProfilingSystem(Contexts contexts) : base(contexts) {}
 
     protected override void Execute(List<GameEntity> entities)
     {
-        if (StartMeasuring)
+        // GameEntity[] companies = contexts.game
+        //     .GetEntities(GameMatcher.AllOf(GameMatcher.Company, GameMatcher.CompanyResource, GameMatcher.MetricsHistory));
+        var profiler = gameContext.GetEntities(GameMatcher.AllOf(GameMatcher.Profiling)).First().profiling;
+        
+        var myProfiler = profiler.MyProfiler;
+        var profilerMilliseconds = profiler.ProfilerMilliseconds;
+        int date = ScheduleUtils.GetCurrentDate(gameContext);
+        
+        if (myProfiler.Length > 0)
         {
-            // print results
-        }
-        else
-        {
+            bool isPeriodEnd = ScheduleUtils.IsPeriodEnd(date);
+            bool isMonthEnd = ScheduleUtils.IsMonthEnd(date);
+
+            var prefix = "";
+
+            prefix += "Total: " + profilerMilliseconds + "ms ";
+
+            if (isMonthEnd)
+            {
+                prefix += "<b>MONTH</b>: ";
+            }
+
+            if (isPeriodEnd)
+            {
+                prefix += "<b>PERIOD</b>: ";
+            }
+
+            prefix += " SYSTEM\n";
+
+            Debug.Log(prefix + myProfiler.ToString());
             
+            myProfiler.Clear();
+            profiler.ProfilerMilliseconds = 0;
         }
     }
 }

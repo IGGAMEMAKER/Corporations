@@ -1,4 +1,5 @@
-﻿using Assets.Core;
+﻿using System.Text;
+using Assets.Core;
 using Entitas;
 
 public class ScheduleInitializeSystem : IInitializeSystem
@@ -15,6 +16,7 @@ public class ScheduleInitializeSystem : IInitializeSystem
         var DateEntity = _context.CreateEntity();
         DateEntity.AddDate(0);
         DateEntity.AddSpeed(3);
+        DateEntity.AddProfiling(0, new StringBuilder());
 
         ScheduleUtils.PauseGame(_context);
     }

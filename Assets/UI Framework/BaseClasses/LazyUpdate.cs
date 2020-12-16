@@ -90,29 +90,30 @@ public class LazyUpdate : Controller
 
         if (PrintDailyMeasurements)
         {
-            if (MyProfiler.Length > 0)
-            {
-                bool isPeriodEnd = ScheduleUtils.IsPeriodEnd(date);
-                bool isMonthEnd = ScheduleUtils.IsMonthEnd(date);
-
-                var prefix = "";
-
-                prefix += "Total: " + ProfilerMilliseconds + "ms ";
-                
-                if (isMonthEnd)
-                {
-                    prefix += "<b>MONTH</b>: ";
-                }
-
-                if (isPeriodEnd)
-                {
-                    prefix += "<b>PERIOD</b>: ";
-                }
-
-                Debug.Log(prefix + MyProfiler.ToString());
-                ProfilerMilliseconds = 0;
-                MyProfiler.Clear();
-            }
+            return;
+            // if (MyProfiler.Length > 0)
+            // {
+            //     bool isPeriodEnd = ScheduleUtils.IsPeriodEnd(date);
+            //     bool isMonthEnd = ScheduleUtils.IsMonthEnd(date);
+            //
+            //     var prefix = "";
+            //
+            //     prefix += "Total: " + ProfilerMilliseconds + "ms ";
+            //     
+            //     if (isMonthEnd)
+            //     {
+            //         prefix += "<b>MONTH</b>: ";
+            //     }
+            //
+            //     if (isPeriodEnd)
+            //     {
+            //         prefix += "<b>PERIOD</b>: ";
+            //     }
+            //
+            //     Debug.Log(prefix + MyProfiler.ToString());
+            //     ProfilerMilliseconds = 0;
+            //     MyProfiler.Clear();
+            // }
         }
     }
 

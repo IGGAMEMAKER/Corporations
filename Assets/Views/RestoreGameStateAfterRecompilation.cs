@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using UnityEngine;
 
 public class RestoreGameStateAfterRecompilation : View
@@ -69,6 +70,8 @@ public class RestoreGameStateAfterRecompilation : View
 
         e.AddDate(0);
         e.AddSpeed(2);
+        e.AddProfiling(0, new StringBuilder());
+
         //e.AddTargetDate(0);
 
         // game is paused already

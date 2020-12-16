@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Assets.Core;
+using Entitas;
 using UnityEngine;
 
 public abstract class Controller : BaseClass
@@ -9,15 +11,14 @@ public abstract class Controller : BaseClass
     private View[] Views;
     private ButtonView[] buttonViews;
 
-    private static StringBuilder _profiler;
-    public static long ProfilerMilliseconds;
+    private static ProfilingComponent _profiler;
 
-    public static StringBuilder MyProfiler
+    public static ProfilingComponent MyProfiler
     {
         get
         {
             if (_profiler == null)
-                _profiler = new StringBuilder();
+                _profiler = Q.GetEntities(GameMatcher.Profiling).First().profiling;
 
             return _profiler;
         }
@@ -62,12 +63,8 @@ public abstract class Controller : BaseClass
 
     public void Render()
     {
-        var starts = new Dictionary<string, DateTime>();
-        var ends = new Dictionary<string, DateTime>();
-
         foreach (var view in Views)
         {
-            starts[view.name] = DateTime.Now;
             var startTime = DateTime.Now;
 
             if (view.gameObject.activeSelf)
@@ -76,28 +73,15 @@ public abstract class Controller : BaseClass
             }
 
             var endTime = DateTime.Now;
-            ends[view.name] = DateTime.Now;
 
             var diff = endTime - startTime;
             var duration = diff.Milliseconds;
 
-            ProfilerMilliseconds += duration;
+            MyProfiler.ProfilerMilliseconds += duration;
 
             if (duration > 0)
-                MyProfiler.AppendLine($@"{view.name}: {duration}ms");
+                MyProfiler.MyProfiler.AppendLine($@"{view.name}: {duration}ms");
         }
-
-        // foreach (var pair in starts)
-        // {
-        //     var key = pair.Key;
-        //
-        //     var diff = ends[key] - pair.Value;
-        //     var duration = diff.Milliseconds; 
-        //     // ends[key].Millisecond - pair.Value.Millisecond;
-        //     
-        //     if (duration > 0)
-        //         MyProfiler.AppendLine($@"{key}: {duration}ms");
-        // }
 
         foreach (var view in buttonViews)
         {
