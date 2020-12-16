@@ -92,6 +92,11 @@ namespace Assets.Core
             return date % C.PERIOD == 0;
         }
 
+        public static bool IsMonthEnd(int date)
+        {
+            return date % 30 == 0;
+        }
+
         // was IAnyDateListener
         public static void ListenDateChanges(GameContext gameContext, IDateListener listener)
         {

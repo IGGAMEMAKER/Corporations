@@ -10,6 +10,7 @@ public abstract class Controller : BaseClass
     private ButtonView[] buttonViews;
 
     private static StringBuilder _profiler;
+    public long profilerMilliseconds;
 
     public static StringBuilder MyProfiler
     {
@@ -80,7 +81,9 @@ public abstract class Controller : BaseClass
             ends[view.name] = DateTime.Now;
             
             var diff = endTime - startTime;
-            var duration = diff.Milliseconds; 
+            var duration = diff.Milliseconds;
+
+            profilerMilliseconds += duration;
             
             if (duration > 0)
                 MyProfiler.AppendLine($@"{view.name}: {duration}ms");
