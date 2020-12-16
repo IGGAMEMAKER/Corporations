@@ -79,7 +79,7 @@ public class ProfilingSystem : OnDateChange
 
             var prefix = "";
 
-            prefix += "Total: " + profilerMilliseconds + "ms ";
+            prefix += "Total: <b>" + profilerMilliseconds + "ms</b> ";
 
             if (isMonthEnd)
             {
@@ -91,7 +91,7 @@ public class ProfilingSystem : OnDateChange
                 prefix += "<b>PERIOD</b>: ";
             }
 
-            prefix += "\n";
+            prefix += "\n\n";
 
             Debug.Log(prefix + myProfiler.ToString());
             

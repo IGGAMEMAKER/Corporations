@@ -8,13 +8,12 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 {
     void ReleaseApp(GameEntity product)
     {
-        var goal = product.companyGoal.Goals.First(g => g.InvestorGoalType == InvestorGoalType.ProductRelease);
+        // var Cluster = new SupportFeature { SupportBonus = new SupportBonusHighload(2_000_000), Name = "Cluster" };
+        //
+        // TryAddTask(product, new TeamTaskSupportFeature(Cluster));
 
-        var Cluster = new SupportFeature { SupportBonus = new SupportBonusHighload(2_000_000), Name = "Cluster" };
-
-        TryAddTask(product, new TeamTaskSupportFeature(Cluster));
-
-        if (Products.GetServerCapacity(product) > 2_000_000 && Companies.IsReleaseableApp(product))
+        // Products.GetServerCapacity(product) > 2_000_000 &&
+        if (Companies.IsReleaseableApp(product))
             Marketing.ReleaseApp(gameContext, product);
     }
 
@@ -25,15 +24,16 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             .ThenByDescending(c => Marketing.GetChannelCost(product, c));
         ;
 
-        if (channels.Count() > 0)
+        if (channels.Any())
         {
             var c = channels.First();
 
-            TryAddTask(product, new TeamTaskChannelActivity(c.marketingChannel.ChannelInfo.ID, Marketing.GetChannelCost(product, c)));
+            var cost = Marketing.GetChannelCost(product, c);
+            TryAddTask(product, new TeamTaskChannelActivity(c.marketingChannel.ChannelInfo.ID, cost));
         }
         else
         {
-            // maybe try to remove some?
+            // maybe try to remove expensive ones if necessary?
         }
     }
 

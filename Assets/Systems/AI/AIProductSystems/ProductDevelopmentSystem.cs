@@ -30,7 +30,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
     public void Measure(string name, GameEntity product, DateTime time)
     {
-        Companies.Measure(name + product.company.Name, time, gameContext);
+        Companies.Measure(name + " " + product.company.Name, time, gameContext);
     }
 
     protected override void Execute(List<GameEntity> entities)
@@ -58,7 +58,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
     void WorkOnGoal(GameEntity product, InvestmentGoal goal)
     {
-        List<ProductActions> actions = new List<ProductActions>();
+        var actions = new List<ProductActions>();
 
         var time = DateTime.Now;
 
@@ -159,35 +159,52 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
     private void ManageProduct(ProductActions action, GameEntity product)
     {
+        var time = DateTime.Now;
+        
         //Companies.Log(product, "Actions." + action.ToString());
         switch (action)
         {
             case ProductActions.Features:
                 ManageFeatures(product);
+                Measure("* Manage features", product, time);
+
                 break;
 
             case ProductActions.ReleaseApp:
                 ReleaseApp(product);
+                // Measure("* Rel", product, time);
+
                 break;
 
             case ProductActions.Monetise:
                 Monetize(product);
+                Measure("* Monetize", product, time);
+
                 break;
 
             case ProductActions.GrabUsers:
                 ManageChannels(product);
+                Measure("* Manage channels", product, time);
+
                 break;
 
             case ProductActions.GrabSegments:
                 GrabSegments(product);
+                Measure("* Manage Segments", product, time);
+
                 break;
 
             case ProductActions.HandleTeam:
                 ExpandTeam(product);
+                
+                Measure("* Manage Teams", product, time);
+
                 break;
 
             case ProductActions.RestoreLoyalty:
                 DeMonetize(product);
+                Measure("* Restore loyalty", product, time);
+
                 break;
 
             default:

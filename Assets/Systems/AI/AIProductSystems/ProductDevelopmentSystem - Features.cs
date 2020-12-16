@@ -1,4 +1,5 @@
-﻿using Assets.Core;
+﻿using System;
+using Assets.Core;
 using System.Linq;
 
 public partial class ProductDevelopmentSystem
@@ -33,14 +34,15 @@ public partial class ProductDevelopmentSystem
         {
             TryAddTask(product, new TeamTaskFeatureUpgrade(f));
         }
+        
 
         // --------------
 
-        if (!features.Any())
-        {
-            // upgrade corporate culture? feature CAP
-            // hire more teams for SLOTS
-            Companies.IncrementCorporatePolicy(gameContext, product, CorporatePolicy.DecisionsManagerOrTeam);
-        }
+        // if (!features.Any())
+        // {
+        //     // upgrade corporate culture? feature CAP
+        //     // hire more teams for SLOTS
+        //     Companies.IncrementCorporatePolicy(gameContext, product, CorporatePolicy.DecisionsManagerOrTeam);
+        // }
     }
 }
