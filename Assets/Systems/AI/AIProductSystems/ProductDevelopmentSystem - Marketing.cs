@@ -6,7 +6,7 @@ using UnityEngine;
 
 public partial class ProductDevelopmentSystem : OnPeriodChange
 {
-    void ReleaseApp(GameEntity product)
+    void ReleaseProduct(GameEntity product)
     {
         // var Cluster = new SupportFeature { SupportBonus = new SupportBonusHighload(2_000_000), Name = "Cluster" };
         //

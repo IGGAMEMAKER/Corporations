@@ -22,7 +22,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
     void TryUpgradeTeam(GameEntity company, TeamInfo team)
     {
-        if (CanMaintain(company, Economy.GetPromotedTeamCost(team)) && Teams.IsTeamPromotable(company, team, gameContext))
+        if (Teams.IsTeamPromotable(team) && CanMaintain(company, Economy.GetPromotedTeamCost(team)))
         {
             Teams.Promote(company, team);
         }
@@ -35,7 +35,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
         Teams.SetManagerTask(product, teamId, 2, managerTask);
     }
 
-    void ExpandTeam(GameEntity product)
+    void HandleTeam(GameEntity product)
     {
         foreach (var t in product.team.Teams)
         {

@@ -202,8 +202,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
                 break;
 
             case ProductActions.ReleaseApp:
-                ReleaseApp(product);
-                // Measure("* Rel", product, time);
+                ReleaseProduct(product);
 
                 break;
 
@@ -226,8 +225,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
                 break;
 
             case ProductActions.HandleTeam:
-                ExpandTeam(product);
-                
+                HandleTeam(product);
                 Measure("* Teams", time);
 
                 break;

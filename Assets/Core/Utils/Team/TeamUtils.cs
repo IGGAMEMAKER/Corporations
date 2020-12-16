@@ -54,6 +54,11 @@ namespace Assets.Core
         public static bool IsTeamPromotable(GameEntity product, TeamInfo team, GameContext Q)
         {
             bool hasLeadManager = HasMainManagerInTeam(team, Q, product);
+
+            return IsTeamPromotable(team, hasLeadManager);
+        }
+        public static bool IsTeamPromotable(TeamInfo team, bool hasLeadManager = true)
+        {
             var organisation = team.Organisation;
 
             return hasLeadManager && organisation >= 100 && team.Rank < TeamRank.Department;
