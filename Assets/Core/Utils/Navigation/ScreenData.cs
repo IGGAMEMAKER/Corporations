@@ -11,6 +11,9 @@ namespace Assets.Core
             return GetScreenData(context)[key];
         }
 
+        public static int GetInteger(GameContext context, string key) =>
+            Convert.ToInt32(GetScreenParameter(context, key));
+
         public static Dictionary<string, object> GetScreenData(GameContext context)
         {
             return GetMenu(context).menu.Data;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Core;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -15,7 +16,10 @@ public enum TextStyle
     KpiLabel,
     KpiValue,
     
-    PlainDescription
+    PlainDescription,
+    
+    SmallText,
+    Link
 }
 
 public enum ImageColor
@@ -67,6 +71,8 @@ public class Styler : MonoBehaviour
 
     void SetTextComponent(Text txt)
     {
+        txt.color = Color.white;
+        
         switch (textStyle)
         {
             case TextStyle.None:
@@ -95,6 +101,14 @@ public class Styler : MonoBehaviour
             case TextStyle.PlainDescription:
                 txt.fontSize = 28;
                 txt.fontStyle = FontStyle.Normal;
+                break;
+            case TextStyle.SmallText:
+                txt.fontSize = 20;
+                txt.fontStyle = FontStyle.Normal;
+                
+                break;
+            case TextStyle.Link:
+                txt.color = Visuals.Link();
                 break;
             default:
                 throw new ArgumentOutOfRangeException();

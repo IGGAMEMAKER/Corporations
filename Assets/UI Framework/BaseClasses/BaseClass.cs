@@ -43,7 +43,9 @@ public partial class BaseClass : MonoBehaviour
 
     //
     // GameObjects
-
+    public int GetParameter(string key) => ScreenUtils.GetInteger(Q, key);
+    public void SetParameter(string key, int value) => ScreenUtils.SetInteger(Q, value, key);
+    
 
     public static List<T> FindObjectsOfTypeAll<T>()
     {

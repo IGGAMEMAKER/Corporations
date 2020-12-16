@@ -159,11 +159,11 @@ namespace Assets.Core
                     break;
 
                 case WorkerRole.TeamLead:
-                    description = $"??Increases team speed";
+                    description = $"Increases team speed";
                     break;
 
                 case WorkerRole.MarketingLead:
-                    description = $"Makes marketing more effecient";
+                    description = $"Makes marketing more efficient";
                     //if (employed)
                     //    description += $" by {RenderBonus(Teams.GetMarketingLeadBonus(company, gameContext))}%";
                     break;

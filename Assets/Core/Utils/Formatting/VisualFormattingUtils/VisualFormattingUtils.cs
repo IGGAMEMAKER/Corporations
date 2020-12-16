@@ -39,6 +39,7 @@ namespace Assets.Core
         public static string Negative(string text)  => Colorize(text, Colors.COLOR_NEGATIVE);
 
         public static Color Positive() => GetColorFromString(Colors.COLOR_POSITIVE);
+        public static Color Link() => GetColorFromString(Colors.COLOR_LINK);
         public static Color Neutral() => GetColorFromString(Colors.COLOR_NEUTRAL);
         public static Color Negative() => GetColorFromString(Colors.COLOR_NEGATIVE);
 

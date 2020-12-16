@@ -66,13 +66,13 @@ public class TeamScreenView : View
         }
         else
         {
-            if (Teams.IsNeedsToHireRole(product, WorkerRole.ProductManager, team, Q))
+            if (Teams.IsNeedsToHireRole(WorkerRole.ProductManager, team, Q))
                 advices.AppendLine("* Product manager boosts MAX feature level");
 
-            if (Teams.IsNeedsToHireRole(product, WorkerRole.MarketingLead, team, Q))
+            if (Teams.IsNeedsToHireRole(WorkerRole.MarketingLead, team, Q))
                 advices.AppendLine("* Marketing lead boosts your marketing efficiency");
 
-            if (Teams.IsNeedsToHireRole(product, WorkerRole.TeamLead, team, Q))
+            if (Teams.IsNeedsToHireRole(WorkerRole.TeamLead, team, Q))
                 advices.AppendLine("* Team lead boosts development speed");
         }
 

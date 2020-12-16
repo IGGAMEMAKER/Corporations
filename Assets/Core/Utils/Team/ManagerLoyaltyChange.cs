@@ -182,7 +182,7 @@ namespace Assets.Core
             bonus.AppendAndHideIfZero("No CEO", hasCeo ? 0 : -4);
 
             var manager = Teams.GetMainManagerForTheTeam(team);
-            var lead = Teams.GetWorkerByRole(company, manager, team, gameContext);
+            var lead = Teams.GetWorkerByRole(manager, team, gameContext);
 
             if (lead == null)
             {

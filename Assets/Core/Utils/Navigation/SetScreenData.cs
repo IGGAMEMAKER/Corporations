@@ -7,13 +7,27 @@ namespace Assets.Core
 {
     public static partial class ScreenUtils
     {
+        // TODO DUPLICATE CODE
+        public static void SetIntegerWithoutUpdatingScreen(GameContext gameContext, int value, string parameterName)
+        {
+            var menu = GetMenu(gameContext);
+
+            var data = menu.menu.Data;
+
+            // ??if value didn't change, then do nothing?
+            if (data.ContainsKey(parameterName) && Convert.ToInt32(data[parameterName]) == value)
+                return;
+
+            data[parameterName] = value;
+        }
         public static void SetInteger(GameContext gameContext, int value, string parameterName)
         {
             var menu = GetMenu(gameContext);
 
             var data = menu.menu.Data;
 
-            if (Convert.ToInt32(data[parameterName]) == value)
+            // ??if value didn't change, then do nothing?
+            if (data.ContainsKey(parameterName) && Convert.ToInt32(data[parameterName]) == value)
                 return;
 
             data[parameterName] = value;

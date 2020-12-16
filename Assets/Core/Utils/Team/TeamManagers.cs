@@ -65,34 +65,38 @@ namespace Assets.Core
             return !HasMainManagerInTeam(team, gameContext, product);
         }
 
-        public static List<int> GetCandidatesForTeam(GameEntity company, TeamInfo team, GameContext Q)
+        public static IEnumerable<int> GetProperCandidatesFrom(Dictionary<int, WorkerRole> Managers, GameEntity company, TeamInfo team, bool hasLeader, WorkerRole leaderRole)
         {
-            var competitors = Companies.GetCompetitorsOf(company, Q, false);
+            return Managers
+                    .Where(RoleSuitsTeam(company, team))
 
-            var managers = new List<GameEntity>();
+                    // 
+                    .Where(m => hasLeader || m.Value == leaderRole)
+                    .Select(p => p.Key)
+                ;
+        }
+        public static List<int> GetCandidatesForTeam(GameEntity company, TeamInfo team, GameContext Q,
+            bool includeCompetingCompaniesWorkers = false)
+        {
             var managerIds = new List<int>();
 
-            bool hasLeader = Teams.HasMainManagerInTeam(team, Q, company);
-            var leaderRole = Teams.GetMainManagerForTheTeam(team);
+            bool hasLeader = HasMainManagerInTeam(team, Q, company);
+            var leaderRole = GetMainManagerForTheTeam(team);
 
             managerIds.AddRange(
-                company.employee.Managers
-                .Where(Teams.RoleSuitsTeam(company, team))
+                GetProperCandidatesFrom(company.employee.Managers, company, team, hasLeader, leaderRole)
+            );
 
-                // 
-                .Where(m => hasLeader || m.Value == leaderRole)
-                .Select(p => p.Key)
-                );
-
-            foreach (var c in competitors)
+            if (includeCompetingCompaniesWorkers)
             {
-                var workers = c.team.Managers
-                    .Where(Teams.RoleSuitsTeam(company, team))
-
-                    .Where(m => hasLeader || m.Value == leaderRole)
-                    .Select(p => p.Key);
-                managerIds.AddRange(workers);
+                foreach (var c in Companies.GetCompetitorsOf(company, Q, false))
+                {
+                    managerIds.AddRange(
+                        GetProperCandidatesFrom(c.team.Managers, company, team, hasLeader, leaderRole)
+                    );
+                }
             }
+
 
             return managerIds;
         }

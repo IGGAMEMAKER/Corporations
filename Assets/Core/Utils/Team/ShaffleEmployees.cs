@@ -177,7 +177,7 @@ namespace Assets.Core
 
             var necessaryRoles = allRoles.Where(r => !currentRoles.Contains(r));
 
-            if (necessaryRoles.Count() > 0)
+            if (necessaryRoles.Any())
             {
                 var rating = GetTeamAverageStrength(company, gameContext) + UnityEngine.Random.Range(-2, 3);
                 var salary = GetSalaryPerRating(rating);
@@ -196,13 +196,13 @@ namespace Assets.Core
             switch (teamType)
             {
                 case TeamType.SupportTeam:
-                case TeamType.MarketingTeam: return new WorkerRole[] { WorkerRole.MarketingLead };
+                case TeamType.MarketingTeam: return new[] { WorkerRole.MarketingLead };
 
-                case TeamType.DevelopmentTeam: return new WorkerRole[] { WorkerRole.TeamLead, WorkerRole.ProductManager };
-                case TeamType.ServersideTeam: return new WorkerRole[] { WorkerRole.TeamLead };
+                case TeamType.DevelopmentTeam: return new[] { WorkerRole.TeamLead, WorkerRole.ProductManager };
+                case TeamType.ServersideTeam: return new[] { WorkerRole.TeamLead };
 
                 default:
-                    return new WorkerRole[] { WorkerRole.CEO, WorkerRole.ProjectManager, WorkerRole.TeamLead, WorkerRole.MarketingLead, WorkerRole.ProductManager };
+                    return new[] { WorkerRole.CEO, WorkerRole.ProjectManager, WorkerRole.TeamLead, WorkerRole.MarketingLead, WorkerRole.ProductManager };
             }
         }
 

@@ -211,7 +211,7 @@ namespace Assets.Core
                 case NicheType.ECom_BookingTours: return "Booking Tours";
                 case NicheType.ECom_BookingHotels: return "Booking hotels";
                 case NicheType.ECom_BookingTransportTickets: return "Online airplane/train booking";
-                case NicheType.ECom_BookingAppartments: return "Rent appartments";
+                case NicheType.ECom_BookingAppartments: return "Rent apartments";
 
                 case NicheType.ECom_OnlineTaxi: return "Online taxi";
                 case NicheType.ECom_Marketplace: return "Marketplaces";
