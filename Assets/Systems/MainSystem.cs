@@ -44,7 +44,7 @@ public class MainSystem : Feature
 
 public class ProfilingSystem : OnDateChange
 {
-    private ProfilingComponent _profiler;
+    // private ProfilingComponent _profiler;
 
     // public static ProfilingComponent MyProfiler
     // {
@@ -93,10 +93,18 @@ public class ProfilingSystem : OnDateChange
 
             prefix += "\n\n";
 
-            Debug.Log(prefix + myProfiler.ToString());
+            var text = prefix + myProfiler.ToString() + "\n\n<b>TAGS</b>\n";
+
+            foreach (var pair in profiler.Tags)
+            {
+                text += $"\n{pair.Key}: {pair.Value}ms";
+            }
+
+            Debug.Log(text);
             
             myProfiler.Clear();
             profiler.ProfilerMilliseconds = 0;
+            profiler.Tags.Clear();
         }
     }
 }

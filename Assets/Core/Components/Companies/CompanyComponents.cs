@@ -117,6 +117,8 @@ public class ProfilingComponent : IComponent
 {
     public long ProfilerMilliseconds;
     public StringBuilder MyProfiler;
+
+    public Dictionary<string, long> Tags;
 }
 
 [Game]

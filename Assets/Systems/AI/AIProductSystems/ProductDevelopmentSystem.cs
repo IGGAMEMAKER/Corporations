@@ -44,9 +44,14 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
     {
         Measure(name + " " + product.company.Name, time);
     }
-    public void Measure(string name, DateTime time)
+    public void Measure(string name, DateTime time, string tag ="")
     {
-        Companies.Measure(name, time, MyProfiler);
+        Companies.Measure(name, time, MyProfiler, tag);
+    }
+
+    public void MeasureTag(string name, DateTime time)
+    {
+        Measure(name, time, name);
     }
 
     void Markup(string text = "-----------")
@@ -58,6 +63,8 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
     {
         var nonFlagshipProducts = Companies.GetProductCompanies(gameContext).Where(p => !p.isFlagship);
 
+        Markup($"\n<b>Products: {nonFlagshipProducts.Count()}</b>\n");
+        
         foreach (var product in nonFlagshipProducts)
         {
             var time0 = DateTime.Now;
@@ -67,7 +74,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
             foreach (var goal in product.companyGoal.Goals)
             {
-                Markup("<i>Start working on goals</i> " + product.company.Name);
+                // Markup("<i>Start working on goals</i> " + product.company.Name);
 
                 var time1 = DateTime.Now;
                 
@@ -91,8 +98,6 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
     void WorkOnGoal(GameEntity product, InvestmentGoal goal)
     {
         var actions = new List<ProductActions>();
-        
-
 
         //Companies.Log(product, $"Working on goal: {goal.GetFormattedName()}");
 
@@ -197,7 +202,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
         {
             case ProductActions.Features:
                 ManageFeatures(product);
-                Measure("* Features", time);
+                MeasureTag("* Features", time);
 
                 break;
 
@@ -208,31 +213,31 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
             case ProductActions.Monetise:
                 Monetize(product);
-                Measure("* Monetize", time);
+                MeasureTag("* Monetize", time);
 
                 break;
 
             case ProductActions.GrabUsers:
                 ManageChannels(product);
-                Measure("* Channels", time);
+                MeasureTag("* Channels", time);
 
                 break;
 
             case ProductActions.GrabSegments:
                 GrabSegments(product);
-                Measure("* Segments", time);
+                MeasureTag("* Segments", time);
 
                 break;
 
             case ProductActions.HandleTeam:
                 HandleTeam(product);
-                Measure("* Teams", time);
+                MeasureTag("* Teams", time);
 
                 break;
 
             case ProductActions.RestoreLoyalty:
                 DeMonetize(product);
-                Measure("* Restore loyalty", time);
+                MeasureTag("* Restore loyalty", time);
 
                 break;
 
@@ -267,7 +272,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
                 Investments.AddCompanyGoal(product, gameContext, pickableGoals[UnityEngine.Random.Range(0, max)]);
             }
             
-            Measure("Pick Goal " , product, time);
+            MeasureTag("Pick Goal ", time);
         }
     }
 

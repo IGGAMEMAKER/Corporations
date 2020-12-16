@@ -98,7 +98,7 @@ public class CompanyTaskTypeRelay : View
         FeatureCounter.GetComponentInChildren<Text>().text = features.ToString();
 
 
-        Draw(FeatureCounter, features > 0);
+        Draw(FeatureCounter, false && features > 0);
         Draw(DevelopmentButton, HasOrCompletedGoal(Flagship, InvestorGoalType.ProductPrototype));
     }
 

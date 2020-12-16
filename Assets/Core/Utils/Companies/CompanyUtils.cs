@@ -119,14 +119,25 @@ namespace Assets.Core
             MyProfiler.MyProfiler.AppendLine(text);
         }
 
-        public static void Measure(string name, DateTime startTime, GameContext gameContext) =>
-            Measure(name, startTime, GetProfilingComponent(gameContext));
-        public static void Measure(string name, DateTime startTime, ProfilingComponent MyProfiler)
+        // public static void Measure(string name, DateTime startTime, GameContext gameContext) =>
+        //     Measure(name, startTime, GetProfilingComponent(gameContext));
+        public static void Measure(string name, DateTime startTime, ProfilingComponent MyProfiler, string tag = "")
         {
             var diff = DateTime.Now - startTime;
             var duration = diff.Milliseconds;
 
             MyProfiler.ProfilerMilliseconds += duration;
+
+            if (MyProfiler.Tags == null)
+                MyProfiler.Tags = new Dictionary<string, long>();
+
+            if (tag.Length > 0)
+            {
+                if (!MyProfiler.Tags.ContainsKey(tag))
+                    MyProfiler.Tags[tag] = 0;
+
+                MyProfiler.Tags[tag] += duration;
+            }
 
             if (duration > 0)
                 MyProfiler.MyProfiler.AppendLine($@"{name}: {duration}ms");

@@ -70,7 +70,7 @@ public class RestoreGameStateAfterRecompilation : View
 
         e.AddDate(0);
         e.AddSpeed(2);
-        e.AddProfiling(0, new StringBuilder());
+        e.AddProfiling(0, new StringBuilder(), new Dictionary<string, long>());
 
         //e.AddTargetDate(0);
 

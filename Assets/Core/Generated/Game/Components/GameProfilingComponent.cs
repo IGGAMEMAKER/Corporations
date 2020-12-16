@@ -11,19 +11,21 @@ public partial class GameEntity {
     public ProfilingComponent profiling { get { return (ProfilingComponent)GetComponent(GameComponentsLookup.Profiling); } }
     public bool hasProfiling { get { return HasComponent(GameComponentsLookup.Profiling); } }
 
-    public void AddProfiling(long newProfilerMilliseconds, System.Text.StringBuilder newMyProfiler) {
+    public void AddProfiling(long newProfilerMilliseconds, System.Text.StringBuilder newMyProfiler, System.Collections.Generic.Dictionary<string, long> newTags) {
         var index = GameComponentsLookup.Profiling;
         var component = (ProfilingComponent)CreateComponent(index, typeof(ProfilingComponent));
         component.ProfilerMilliseconds = newProfilerMilliseconds;
         component.MyProfiler = newMyProfiler;
+        component.Tags = newTags;
         AddComponent(index, component);
     }
 
-    public void ReplaceProfiling(long newProfilerMilliseconds, System.Text.StringBuilder newMyProfiler) {
+    public void ReplaceProfiling(long newProfilerMilliseconds, System.Text.StringBuilder newMyProfiler, System.Collections.Generic.Dictionary<string, long> newTags) {
         var index = GameComponentsLookup.Profiling;
         var component = (ProfilingComponent)CreateComponent(index, typeof(ProfilingComponent));
         component.ProfilerMilliseconds = newProfilerMilliseconds;
         component.MyProfiler = newMyProfiler;
+        component.Tags = newTags;
         ReplaceComponent(index, component);
     }
 
