@@ -18,43 +18,51 @@ public class UpgradeableFeaturesListView : ListView
     {
         base.ViewRender();
 
-        bool isMonetizationMission = Flagship.companyGoal.Goals.Any(g => g.InvestorGoalType == InvestorGoalType.ProductStartMonetising);
+        bool isMonetizationMission =
+            Flagship.companyGoal.Goals.Any(g => g.InvestorGoalType == InvestorGoalType.ProductStartMonetising);
 
-        var features = Products.GetUpgradeableRetentionFeatures(Flagship).Take(2).Where(f => !isMonetizationMission);
+        var features = Products.GetUpgradeableRetentionFeatures(Flagship).Take(1).Where(f => !isMonetizationMission);
 
-        var count = features.Count();
+        var featureCount = features.Count();
 
-        if (count == 0)
+        RenderNoAvailableFeatures(isMonetizationMission, featureCount);
+
+        SetItems(features);
+    }
+
+    void RenderNoAvailableFeatures(bool isMonetizationMission, int featureCount)
+    {
+        if (featureCount == 0)
         {
             bool hasFreeSlot = Teams.HasFreeSlotForTeamTask(Flagship, Teams.GetDevelopmentTaskMockup());
 
             if (hasFreeSlot)
             {
-                var maxLvl = Teams.GetMaxFeatureRatingCap(Flagship, Q).Sum();
-                NoAvailableFeaturesText.text = Visuals.Negative("Increase <b>max feature level</b> to upgrade more features");
-                //NoAvailableFeaturesText.text = $"You've upgraded all features to max level ({maxLvl}lvl).\n\n{Visuals.Negative("Increase max feature level it to upgrade more features")}";
+                NoAvailableFeaturesText.text =
+                    Visuals.Negative("Increase <b>max feature level</b> to upgrade more features");
             }
             else
             {
-                NoAvailableFeaturesText.text =  $"All teams are busy. <b>Hire</b> or <b>promote</b> more teams, to make more features";
+                NoAvailableFeaturesText.text =
+                    $"All teams are busy. <b>HIRE</b> or <b>PROMOTE</b> more TEAMS, to make more features";
             }
 
             if (isMonetizationMission)
             {
                 if (hasFreeSlot)
                 {
-                    NoAvailableFeaturesText.text = Visuals.Positive("Add <b>Monetization features</b> to start making money!");
+                    NoAvailableFeaturesText.text =
+                        Visuals.Positive("Add <b>Monetization features</b> to start making money!");
                 }
                 else
                 {
-                    NoAvailableFeaturesText.text = "You will get <b>Monetization features</b> after finishing current features";
+                    NoAvailableFeaturesText.text =
+                        "You will get <b>Monetization features</b> after finishing current features";
                 }
             }
         }
 
-        Draw(NoAvailableFeaturesText, count == 0);
-
-        SetItems(features);
+        Draw(NoAvailableFeaturesText, featureCount == 0);
     }
 
     private void OnEnable()
