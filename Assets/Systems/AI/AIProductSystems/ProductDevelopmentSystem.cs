@@ -60,12 +60,14 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
         foreach (var product in nonFlagshipProducts)
         {
+            var time0 = DateTime.Now;
+            
             // add goal if there are no goals
             PickNewGoalIfThereAreNoGoals(product);
 
             foreach (var goal in product.companyGoal.Goals)
             {
-                Markup("<b>Start working on goals</b> " + product.company.Name);
+                Markup("<i>Start working on goals</i> " + product.company.Name);
 
                 var time1 = DateTime.Now;
                 
@@ -80,6 +82,9 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
             
             PickNewGoalIfThereAreNoGoals(product);
+            
+            Measure($"<b>Managing product</b>", product, time0);
+            Markup("\n\n");
         }
     }
 
