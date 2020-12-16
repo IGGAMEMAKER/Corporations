@@ -1,5 +1,6 @@
 ﻿using Assets.Core;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class LazyUpdate : Controller
     , IDateListener
@@ -27,6 +28,9 @@ public class LazyUpdate : Controller
     [UnityEngine.Header("Pause")]
     public bool ListenPauseEvents = false;
 
+    [UnityEngine.Header("Profile stuff")]
+    public bool PrintDailyMeasurements = false;
+
     public override void AttachListeners()
     {
         if (DateChanges)
@@ -45,6 +49,11 @@ public class LazyUpdate : Controller
         {
             ScheduleUtils.GetDateContainer(Q).AddAnyTimerRunningListener(this);
             ScheduleUtils.GetDateContainer(Q).AddAnyGamePausedListener(this);
+        }
+
+        if (PrintDailyMeasurements)
+        {
+            ListenDateChanges(this);
         }
     }
 
@@ -67,12 +76,23 @@ public class LazyUpdate : Controller
             ScheduleUtils.GetDateContainer(Q).RemoveAnyTimerRunningListener(this);
             ScheduleUtils.GetDateContainer(Q).RemoveAnyGamePausedListener(this);
         }
+        
+        if (PrintDailyMeasurements)
+        {
+            UnListenDateChanges(this);
+        }
     }
 
     public void OnDate(GameEntity entity, int date)
     {
-        if (!OnPeriodChange || (OnPeriodChange && ScheduleUtils.IsPeriodEnd(Q)))
+        if (!OnPeriodChange || (OnPeriodChange && ScheduleUtils.IsPeriodEnd(date)))
             Render();
+
+        if (PrintDailyMeasurements)
+        {
+            Debug.Log(MyProfiler.ToString());
+            MyProfiler.Clear();
+        }
     }
 
     public void OnMenu(GameEntity entity, ScreenMode screenMode, Dictionary<string, object> data)

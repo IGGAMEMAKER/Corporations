@@ -17,7 +17,7 @@ namespace Assets.Core
                 new List<string> {"Messaging"},
                 new List<string> {"News Feed", "Friends", "Profile", "Audio chat", "Video chat"},
                 new List<string> {"Sending files", "Emojis", "Likes"},
-                20,
+                0,
                 NewProductFeature.SimpleFeature("Ads", hate, 100),
                 NewProductFeature.SimpleFeature("Panel for advertisers", 0, 25)
             );

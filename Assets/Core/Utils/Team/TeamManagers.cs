@@ -65,9 +65,9 @@ namespace Assets.Core
             return !HasMainManagerInTeam(team, gameContext, product);
         }
 
-        public static IEnumerable<int> GetProperCandidatesFrom(Dictionary<int, WorkerRole> Managers, GameEntity company, TeamInfo team, bool hasLeader, WorkerRole leaderRole)
+        public static IEnumerable<int> GetProperCandidatesFrom(Dictionary<int, WorkerRole> managers, GameEntity company, TeamInfo team, bool hasLeader, WorkerRole leaderRole)
         {
-            return Managers
+            return managers
                     .Where(RoleSuitsTeam(company, team))
 
                     // 

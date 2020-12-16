@@ -1,13 +1,11 @@
 ﻿using Assets.Core;
 using System.Linq;
 
-public partial class ProductDevelopmentSystem : OnPeriodChange
+public partial class ProductDevelopmentSystem
 {
-    void Monetise(GameEntity product)
+    void Monetize(GameEntity product)
     {
         var remainingFeatures = Products.GetUpgradeableMonetizationFeatures(product);
-
-        var segments = Marketing.GetAudienceInfos();
 
         foreach (var feature in remainingFeatures)
         {
@@ -17,7 +15,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
         }
     }
 
-    void DeMonetise(GameEntity product)
+    void DeMonetize(GameEntity product)
     {
         var remainingFeatures = Products.GetMonetisationFeatures(product);
 
@@ -38,13 +36,11 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
         // --------------
 
-        if (features.Count() == 0)
+        if (!features.Any())
         {
             // upgrade corporate culture? feature CAP
             // hire more teams for SLOTS
             Companies.IncrementCorporatePolicy(gameContext, product, CorporatePolicy.DecisionsManagerOrTeam);
-
-            return;
         }
     }
 }

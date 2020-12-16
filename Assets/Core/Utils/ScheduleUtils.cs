@@ -86,10 +86,9 @@ namespace Assets.Core
             }
         }
 
-        public static bool IsPeriodEnd(GameContext gameContext)
+        public static bool IsPeriodEnd(GameContext gameContext) => IsPeriodEnd(GetCurrentDate(gameContext));
+        public static bool IsPeriodEnd(int date)
         {
-            var date = GetCurrentDate(gameContext);
-
             return date % C.PERIOD == 0;
         }
 

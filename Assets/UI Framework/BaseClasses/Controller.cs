@@ -1,7 +1,29 @@
-﻿using Assets.Core;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using Assets.Core;
+using UnityEngine;
 
 public abstract class Controller : BaseClass
 {
+    private View[] Views;
+    private ButtonView[] buttonViews;
+
+    private static StringBuilder _profiler;
+
+    public static StringBuilder MyProfiler
+    {
+        get
+        {
+            if (_profiler == null)
+            {
+                _profiler = new StringBuilder();
+            }
+
+            return _profiler;
+        }
+    }
+    
     public void ListenNavigationChanges(INavigationHistoryListener listener)
     {
         ScreenUtils.GetMenu(Q).AddNavigationHistoryListener(listener);
@@ -41,16 +63,65 @@ public abstract class Controller : BaseClass
 
     public void Render()
     {
-        foreach (var view in GetComponents<View>())
-            view.ViewRender();
+        var starts = new Dictionary<string, DateTime>();
+        var ends = new Dictionary<string, DateTime>();
+        
+        foreach (var view in Views)
+        {
+            starts[view.name] = DateTime.Now;
+            var startTime = DateTime.Now;
+            
+            if (view.gameObject.activeSelf)
+            {
+                view.ViewRender();
+            }
 
-        foreach (var view in GetComponents<ButtonView>())
-            view.ViewRender();
+            var endTime = DateTime.Now;
+            ends[view.name] = DateTime.Now;
+            
+            var diff = endTime - startTime;
+            var duration = diff.Milliseconds; 
+            
+            if (duration > 0)
+                MyProfiler.AppendLine($@"{view.name}: {duration}ms");
+        }
+
+        // foreach (var pair in starts)
+        // {
+        //     var key = pair.Key;
+        //
+        //     var diff = ends[key] - pair.Value;
+        //     var duration = diff.Milliseconds; 
+        //     // ends[key].Millisecond - pair.Value.Millisecond;
+        //     
+        //     if (duration > 0)
+        //         MyProfiler.AppendLine($@"{key}: {duration}ms");
+        // }
+        
+        foreach (var view in buttonViews)
+        {
+            if (view.gameObject.activeSelf)
+                view.ViewRender();
+        }
+        
+        // foreach (var view in GetComponents<View>())
+        //     view.ViewRender();
+        //
+        // foreach (var view in GetComponents<ButtonView>())
+        //     view.ViewRender();
+    }
+
+    private void FillListeners()
+    {
+        Views = GetComponents<View>();
+        buttonViews = GetComponents<ButtonView>();
     }
 
     void OnEnable()
     {
         AttachListeners();
+        
+        FillListeners();
 
         Render();
     }

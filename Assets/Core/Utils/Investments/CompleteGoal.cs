@@ -20,12 +20,13 @@ namespace Assets.Core
                 Companies.LogSuccess(company, $"Completed goal: {goal.GetFormattedName()}");
 
                 var executor = goal.GetExecutor(company, gameContext);
-                var controller = goal.GetController(company, gameContext);
 
                 CompleteGoal2(executor, goal);
 
                 if (goal.NeedsReport)
                 {
+                    var controller = goal.GetController(company, gameContext);
+
                     CompleteGoal2(controller, goal);
                 }
             }
