@@ -42,7 +42,11 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
     public void Measure(string name, GameEntity product, DateTime time)
     {
-        Companies.Measure(name + " " + product.company.Name, time, MyProfiler);
+        Measure(name + " " + product.company.Name, time);
+    }
+    public void Measure(string name, DateTime time)
+    {
+        Companies.Measure(name, time, MyProfiler);
     }
 
     void Markup(string text = "-----------")
@@ -61,7 +65,13 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
             foreach (var goal in product.companyGoal.Goals)
             {
+                Markup("<b>Start working on goals</b> " + product.company.Name);
+
+                var time1 = DateTime.Now;
+                
                 WorkOnGoal(product, goal);
+                
+                Measure("<b>Work on goal</b> ", product, time1);
             }
 
             var time = DateTime.Now;
@@ -77,9 +87,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
     {
         var actions = new List<ProductActions>();
         
-        Markup("<b>Start working on goals</b>");
 
-        var time = DateTime.Now;
 
         //Companies.Log(product, $"Working on goal: {goal.GetFormattedName()}");
 
@@ -172,7 +180,6 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             ManageProduct(action, product);
         }
 
-        Measure("<b>Work on goal</b> ", product, time);
         //Investments.CompleteGoal(product, gameContext, goal);
     }
 
@@ -185,7 +192,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
         {
             case ProductActions.Features:
                 ManageFeatures(product);
-                Measure("* Manage features", product, time);
+                Measure("* Features", time);
 
                 break;
 
@@ -197,32 +204,32 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
             case ProductActions.Monetise:
                 Monetize(product);
-                Measure("* Monetize", product, time);
+                Measure("* Monetize", time);
 
                 break;
 
             case ProductActions.GrabUsers:
                 ManageChannels(product);
-                Measure("* Manage channels", product, time);
+                Measure("* Channels", time);
 
                 break;
 
             case ProductActions.GrabSegments:
                 GrabSegments(product);
-                Measure("* Manage Segments", product, time);
+                Measure("* Segments", time);
 
                 break;
 
             case ProductActions.HandleTeam:
                 ExpandTeam(product);
                 
-                Measure("* Manage Teams", product, time);
+                Measure("* Teams", time);
 
                 break;
 
             case ProductActions.RestoreLoyalty:
                 DeMonetize(product);
-                Measure("* Restore loyalty", product, time);
+                Measure("* Restore loyalty", time);
 
                 break;
 
