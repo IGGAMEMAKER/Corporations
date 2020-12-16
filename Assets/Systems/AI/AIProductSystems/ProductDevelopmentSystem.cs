@@ -73,7 +73,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
                 
                 WorkOnGoal(product, goal);
                 
-                Measure("<b>Work on goal</b> ", product, time1);
+                Measure("<i>Work on goal</i> ", product, time1);
             }
 
             var time = DateTime.Now;
@@ -84,7 +84,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             PickNewGoalIfThereAreNoGoals(product);
             
             Measure($"<b>Managing product</b>", product, time0);
-            Markup("\n\n");
+            Markup("\n");
         }
     }
 
