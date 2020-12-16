@@ -1,8 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Assets.Core;
-using Entitas;
 using UnityEngine;
 
 public class MainSystem : Feature
@@ -47,18 +44,32 @@ public class MainSystem : Feature
 
 public class ProfilingSystem : OnDateChange
 {
+    private ProfilingComponent _profiler;
+
+    // public static ProfilingComponent MyProfiler
+    // {
+    //     get
+    //     {
+    //         if (_profiler == null)
+    //             _profiler = Companies.GetProfilingComponent(Contexts);
+    //
+    //         return _profiler;
+    //     }
+    // }
+    
     public ProfilingSystem(Contexts contexts) : base(contexts)
     {
+        // _profiler = Companies.GetProfilingComponent(gameContext);
+
     }
 
     protected override void Execute(List<GameEntity> entities)
     {
-        // GameEntity[] companies = contexts.game
-        //     .GetEntities(GameMatcher.AllOf(GameMatcher.Company, GameMatcher.CompanyResource, GameMatcher.MetricsHistory));
-        var profiler = gameContext.GetEntities(GameMatcher.AllOf(GameMatcher.Profiling)).First().profiling;
+        var profiler = Companies.GetProfilingComponent(gameContext);
         
         var myProfiler = profiler.MyProfiler;
         var profilerMilliseconds = profiler.ProfilerMilliseconds;
+        
         int date = ScheduleUtils.GetCurrentDate(gameContext);
         
         if (myProfiler.Length > 0)
@@ -80,7 +91,7 @@ public class ProfilingSystem : OnDateChange
                 prefix += "<b>PERIOD</b>: ";
             }
 
-            prefix += " SYSTEM\n";
+            prefix += "\n";
 
             Debug.Log(prefix + myProfiler.ToString());
             

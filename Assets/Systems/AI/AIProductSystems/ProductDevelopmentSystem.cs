@@ -23,7 +23,15 @@ public enum ProductActions
 
 public partial class ProductDevelopmentSystem : OnPeriodChange
 {
-    public ProductDevelopmentSystem(Contexts contexts) : base(contexts) { }
+    public ProductDevelopmentSystem(Contexts contexts) : base(contexts)
+    {
+        
+    }
+
+    public void Measure(string name, GameEntity product, DateTime time)
+    {
+        Companies.Measure(name + product.company.Name, time, gameContext);
+    }
 
     protected override void Execute(List<GameEntity> entities)
     {
@@ -39,7 +47,11 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
                 WorkOnGoal(product, goal);
             }
 
+            var time = DateTime.Now;
             Investments.CompleteGoals(product, gameContext);
+            Measure("Complete goals ", product, time);
+
+            
             PickNewGoalIfThereAreNoGoals(product);
         }
     }
@@ -47,6 +59,8 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
     void WorkOnGoal(GameEntity product, InvestmentGoal goal)
     {
         List<ProductActions> actions = new List<ProductActions>();
+
+        var time = DateTime.Now;
 
         //Companies.Log(product, $"Working on goal: {goal.GetFormattedName()}");
 
@@ -139,6 +153,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             ManageProduct(action, product);
         }
 
+        Measure("Work on goal ", product, time);
         //Investments.CompleteGoal(product, gameContext, goal);
     }
 
@@ -189,6 +204,8 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
     {
         if (product.companyGoal.Goals.Count == 0)
         {
+            var time = DateTime.Now;
+            
             var pickableGoals = Investments.GetNewGoals(product, gameContext);
 
             var max = pickableGoals.Count;
@@ -203,6 +220,8 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
                 Investments.AddCompanyGoal(product, gameContext, pickableGoals[UnityEngine.Random.Range(0, max)]);
             }
+            
+            Measure("Pick Goal " , product, time);
         }
     }
 

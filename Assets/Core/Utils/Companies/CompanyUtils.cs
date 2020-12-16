@@ -107,5 +107,24 @@ namespace Assets.Core
             return company.hasCompany && company.hasCompanyFocus
                 && (company.companyFocus.Niches.Contains(NicheType.ECom_MoneyExchange)); // || names.Contains(company.company.Name)
         }
+        
+        // ------- Profiling ----------
+        public static ProfilingComponent GetProfilingComponent(GameContext gameContext)
+        {
+            return gameContext.GetEntities(GameMatcher.Profiling).First().profiling;
+        }
+
+        public static void Measure(string name, DateTime startTime, GameContext gameContext) =>
+            Measure(name, startTime, GetProfilingComponent(gameContext));
+        public static void Measure(string name, DateTime startTime, ProfilingComponent MyProfiler)
+        {
+            var diff = DateTime.Now - startTime;
+            var duration = diff.Milliseconds;
+
+            MyProfiler.ProfilerMilliseconds += duration;
+
+            if (duration > 0)
+                MyProfiler.MyProfiler.AppendLine($@"{name}: {duration}ms");
+        }
     }
 }

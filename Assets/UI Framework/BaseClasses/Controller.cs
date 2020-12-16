@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using Assets.Core;
@@ -18,7 +19,7 @@ public abstract class Controller : BaseClass
         get
         {
             if (_profiler == null)
-                _profiler = Q.GetEntities(GameMatcher.Profiling).First().profiling;
+                _profiler = Companies.GetProfilingComponent(Q);
 
             return _profiler;
         }
@@ -70,23 +71,21 @@ public abstract class Controller : BaseClass
             if (view.gameObject.activeSelf)
             {
                 view.ViewRender();
+                
+                Companies.Measure(view.name, startTime, MyProfiler);
             }
-
-            var endTime = DateTime.Now;
-
-            var diff = endTime - startTime;
-            var duration = diff.Milliseconds;
-
-            MyProfiler.ProfilerMilliseconds += duration;
-
-            if (duration > 0)
-                MyProfiler.MyProfiler.AppendLine($@"{view.name}: {duration}ms");
         }
 
         foreach (var view in buttonViews)
         {
+            var startTime = DateTime.Now;
+
             if (view.gameObject.activeSelf)
+            {
                 view.ViewRender();
+                
+                Companies.Measure(view.name, startTime, MyProfiler);
+            }
         }
 
         // foreach (var view in GetComponents<View>())
