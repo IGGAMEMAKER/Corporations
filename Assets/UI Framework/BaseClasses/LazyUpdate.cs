@@ -97,7 +97,7 @@ public class LazyUpdate : Controller
 
                 var prefix = "";
 
-                prefix += "Total: " + profilerMilliseconds + "ms ";
+                prefix += "Total: " + ProfilerMilliseconds + "ms ";
                 
                 if (isMonthEnd)
                 {
@@ -110,7 +110,7 @@ public class LazyUpdate : Controller
                 }
 
                 Debug.Log(prefix + MyProfiler.ToString());
-                profilerMilliseconds = 0;
+                ProfilerMilliseconds = 0;
                 MyProfiler.Clear();
             }
         }

@@ -10,21 +10,19 @@ public abstract class Controller : BaseClass
     private ButtonView[] buttonViews;
 
     private static StringBuilder _profiler;
-    public long profilerMilliseconds;
+    public static long ProfilerMilliseconds;
 
     public static StringBuilder MyProfiler
     {
         get
         {
             if (_profiler == null)
-            {
                 _profiler = new StringBuilder();
-            }
 
             return _profiler;
         }
     }
-    
+
     public void ListenNavigationChanges(INavigationHistoryListener listener)
     {
         ScreenUtils.GetMenu(Q).AddNavigationHistoryListener(listener);
@@ -66,12 +64,12 @@ public abstract class Controller : BaseClass
     {
         var starts = new Dictionary<string, DateTime>();
         var ends = new Dictionary<string, DateTime>();
-        
+
         foreach (var view in Views)
         {
             starts[view.name] = DateTime.Now;
             var startTime = DateTime.Now;
-            
+
             if (view.gameObject.activeSelf)
             {
                 view.ViewRender();
@@ -79,12 +77,12 @@ public abstract class Controller : BaseClass
 
             var endTime = DateTime.Now;
             ends[view.name] = DateTime.Now;
-            
+
             var diff = endTime - startTime;
             var duration = diff.Milliseconds;
 
-            profilerMilliseconds += duration;
-            
+            ProfilerMilliseconds += duration;
+
             if (duration > 0)
                 MyProfiler.AppendLine($@"{view.name}: {duration}ms");
         }
@@ -100,13 +98,13 @@ public abstract class Controller : BaseClass
         //     if (duration > 0)
         //         MyProfiler.AppendLine($@"{key}: {duration}ms");
         // }
-        
+
         foreach (var view in buttonViews)
         {
             if (view.gameObject.activeSelf)
                 view.ViewRender();
         }
-        
+
         // foreach (var view in GetComponents<View>())
         //     view.ViewRender();
         //
@@ -123,7 +121,7 @@ public abstract class Controller : BaseClass
     void OnEnable()
     {
         AttachListeners();
-        
+
         FillListeners();
 
         Render();
