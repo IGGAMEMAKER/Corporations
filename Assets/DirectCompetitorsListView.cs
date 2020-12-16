@@ -19,7 +19,7 @@ public class DirectCompetitorsListView : ListView
         if (Flagship.isRelease)
         {
             var competitors = Companies.GetDirectCompetitors(Flagship, Q, true)
-                .OrderByDescending(c => Companies.IsRelatedToPlayer(Q, c) ? 1 : 0); 
+                .OrderByDescending(c => Companies.IsDirectlyRelatedToPlayer(Q, c) ? 1 : 0); 
             SetItems(competitors);
                 // .OrderByDescending(c => c.hasProduct ? Marketing.GetUsers(c) : Economy.CostOf(c, Q)));    
         }

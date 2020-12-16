@@ -14,7 +14,7 @@ public class RenderPotentialMarketLeader : ParameterView
 
         var chances = Products.GetInnovationChance(potentialLeader, Q);
 
-        var isRelatedToPlayer = Companies.IsRelatedToPlayer(Q, potentialLeader);
+        var isRelatedToPlayer = Companies.IsDirectlyRelatedToPlayer(Q, potentialLeader);
 
         var colorName = isRelatedToPlayer ? Colors.COLOR_CONTROL : Colors.COLOR_CONTROL_NO;
 

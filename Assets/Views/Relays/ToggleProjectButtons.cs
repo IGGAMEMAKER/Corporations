@@ -17,7 +17,7 @@ public class ToggleProjectButtons : View
 
         var company = SelectedCompany;
 
-        var isRelatedToPlayer = Companies.IsRelatedToPlayer(Q, company);
+        var isRelatedToPlayer = Companies.IsDirectlyRelatedToPlayer(Q, company);
         var isExplored = true; // company.hasResearch || isRelatedToPlayer;
 
 

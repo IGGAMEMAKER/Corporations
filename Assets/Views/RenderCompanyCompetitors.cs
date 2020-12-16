@@ -22,7 +22,7 @@ public class RenderCompanyCompetitors : ListView
 
         string text = company.company.Name;
 
-        if (Companies.IsRelatedToPlayer(Q, company))
+        if (Companies.IsDirectlyRelatedToPlayer(Q, company))
             text = Visuals.Colorize(text, Colors.COLOR_GOLD);
 
         var sameMarkets = new List<NicheType>();

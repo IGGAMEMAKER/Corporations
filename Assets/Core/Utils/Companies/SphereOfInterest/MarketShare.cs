@@ -54,6 +54,7 @@
 
         public static bool HasControlInCompany(GameEntity group, GameEntity target, GameContext gameContext)
         {
+            // return group.ownings.Holdings.Contains(target.company.Id);
             return GetControlInCompany(group, target, gameContext) > 0;
         }
     }

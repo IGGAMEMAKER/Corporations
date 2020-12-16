@@ -4,7 +4,7 @@ public class RenderOpinionAboutUs : UpgradedParameterView
 {
     public override string RenderHint()
     {
-        if (Companies.IsRelatedToPlayer(Q, SelectedCompany))
+        if (Companies.IsDirectlyRelatedToPlayer(Q, SelectedCompany))
             return "";
 
         if (Companies.IsFinancialStructure(SelectedCompany))
@@ -15,7 +15,7 @@ public class RenderOpinionAboutUs : UpgradedParameterView
 
     public override string RenderValue()
     {
-        if (Companies.IsRelatedToPlayer(Q, SelectedCompany))
+        if (Companies.IsDirectlyRelatedToPlayer(Q, SelectedCompany))
             return "---";
 
         if (Companies.IsFinancialStructure(SelectedCompany))

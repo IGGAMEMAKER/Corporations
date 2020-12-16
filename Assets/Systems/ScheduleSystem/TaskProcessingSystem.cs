@@ -14,39 +14,15 @@ public partial class TaskProcessingSystem : OnDateChange
         var date = ScheduleUtils.GetCurrentDate(gameContext);
 
         // TIMED ACTIONS
-        GameEntity[] tasks = Cooldowns.GetTimedActions(gameContext);
-        
-        for (var i = tasks.Length - 1; i >= 0; i--)
-        {
-            try
-            {
-                var t = tasks[i];
-                var task = t.timedAction;
-
-                var endTime = task.EndTime;
-
-                if (t.isTask)
-                {
-                    if (date >= endTime && !task.isCompleted)
-                    {
-                        Cooldowns.ProcessTask(task, gameContext);
-                        t.timedAction.isCompleted = true;
-                    }
-                }
-
-
-                // 
-                if (date > endTime)
-                    t.Destroy();
-            }
-            catch (Exception ex)
-            {
-                Debug.Log("Error in task processing system");
-                Debug.Log(ex);
-            }
-        }
+        // TODO unnecessary?
+        ProcessTimedActions(date);
 
         // PROCESS TEAM TASKS
+        ProcessTeamTasks(date);
+    }
+
+    void ProcessTeamTasks(int date)
+    {
         var products = Companies.GetProductCompanies(gameContext);
 
         foreach (var p in products)
@@ -83,6 +59,41 @@ public partial class TaskProcessingSystem : OnDateChange
             foreach (var s in removableTasks)
             {
                 Teams.RemoveTeamTask(p, gameContext, s.TeamId, s.SlotId);
+            }
+        }
+    }
+
+    void ProcessTimedActions(int date)
+    {
+        GameEntity[] tasks = Cooldowns.GetTimedActions(gameContext);
+        
+        for (var i = tasks.Length - 1; i >= 0; i--)
+        {
+            try
+            {
+                var t = tasks[i];
+                var task = t.timedAction;
+
+                var endTime = task.EndTime;
+
+                if (t.isTask)
+                {
+                    if (date >= endTime && !task.isCompleted)
+                    {
+                        Cooldowns.ProcessTask(task, gameContext);
+                        t.timedAction.isCompleted = true;
+                    }
+                }
+
+
+                // 
+                if (date > endTime)
+                    t.Destroy();
+            }
+            catch (Exception ex)
+            {
+                Debug.Log("Error in task processing system");
+                Debug.Log(ex);
             }
         }
     }

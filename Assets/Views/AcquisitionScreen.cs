@@ -140,7 +140,7 @@ public class AcquisitionScreen : View
         var offer = Companies.GetAcquisitionOffer(Q, SelectedCompany, MyCompany);
 
         bool playerSentAnOffer = offer.acquisitionOffer.Turn == AcquisitionTurn.Seller;
-        bool isOurCompanyAlready = Companies.IsRelatedToPlayer(Q, SelectedCompany);
+        bool isOurCompanyAlready = Companies.IsDirectlyRelatedToPlayer(Q, SelectedCompany);
 
         bool needsSendAcquisitionButton = !(playerSentAnOffer || isOurCompanyAlready);
 

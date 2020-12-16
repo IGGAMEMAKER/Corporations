@@ -4,7 +4,9 @@
     {
         public static void RemovePlayerControlledCompany(GameContext context, int id)
         {
-            Get(context, id).isControlledByPlayer = false;
+            var company = Get(context, id);
+            company.isControlledByPlayer = false;
+            company.isRelatedToPlayer = false;
         }
 
         public static void BecomeCEO(GameContext gameContext, int companyID)
@@ -26,6 +28,7 @@
             var c = Get(context, id);
 
             c.isControlledByPlayer = true;
+            AttachToPlayer(c);
         }
 
         // it is done for player only!

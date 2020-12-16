@@ -32,7 +32,7 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
 
             if (offers.Count() > 0)
             {
-                if (Companies.IsRelatedToPlayer(gameContext, t))
+                if (Companies.IsDirectlyRelatedToPlayer(gameContext, t))
                 {
                     var investorNames = offers.Select(o => Companies.GetInvestorName(gameContext, o.acquisitionOffer.BuyerId));
 

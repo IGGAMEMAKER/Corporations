@@ -19,7 +19,7 @@ public partial class GameEntity {
         AddComponent(index, component);
     }
 
-    public void ReplaceMarketingChannel(long newClients, ClientContainerType newContainerType, ChannelInfo newChannelInfo) {
+    public void ReplaceMarketingChannel(ClientContainerType newContainerType, ChannelInfo newChannelInfo) {
         var index = GameComponentsLookup.MarketingChannel;
         var component = (MarketingChannelComponent)CreateComponent(index, typeof(MarketingChannelComponent));
         component.ContainerType = newContainerType;

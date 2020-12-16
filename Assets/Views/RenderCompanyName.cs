@@ -8,7 +8,7 @@ public class RenderCompanyName : UpgradedParameterView
     public override string RenderValue()
     {
         var company = SelectedCompany;
-        bool isRelatedToPlayer = Companies.IsRelatedToPlayer(Q, company) || Companies.HasControlInCompany(MyCompany, company, Q);
+        bool isRelatedToPlayer = Companies.IsDirectlyRelatedToPlayer(Q, company) || Companies.HasControlInCompany(MyCompany, company, Q);
 
         var color = isRelatedToPlayer ? Colors.COLOR_COMPANY_WHERE_I_AM_CEO : Colors.COLOR_COMPANY_WHERE_I_AM_NOT_CEO;
         

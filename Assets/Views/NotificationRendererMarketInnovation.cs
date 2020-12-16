@@ -31,7 +31,7 @@ public class NotificationRendererMarketInnovation : NotificationRenderer<Notific
         var c = Companies.Get(Q, message.CompanyId);
 
         bool isCompetitor = Companies.IsCompetingCompany(MyCompany, c, Q);
-        bool isPlayerRelated = Companies.IsRelatedToPlayer(Q, c);
+        bool isPlayerRelated = Companies.IsDirectlyRelatedToPlayer(Q, c);
 
         var colName = Colors.COLOR_PANEL_BASE;
 

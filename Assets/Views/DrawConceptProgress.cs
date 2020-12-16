@@ -13,7 +13,7 @@ public class DrawConceptProgress : View
     {
         Progress.fillAmount = getProgress(company) / 100;
 
-        var isPlayerRelated = Companies.IsRelatedToPlayer(Q, company);
+        var isPlayerRelated = Companies.IsDirectlyRelatedToPlayer(Q, company);
 
         Progress.gameObject.SetActive(isPlayerRelated);
     }

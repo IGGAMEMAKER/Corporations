@@ -17,7 +17,7 @@ namespace Assets.Core
         public static GameEntity[] GetIndependentAICompanies(GameContext gameContext)
         {
             return GetIndependentCompanies(gameContext)
-                .Where(c => !IsRelatedToPlayer(gameContext, c))
+                .Where(c => !IsDirectlyRelatedToPlayer(gameContext, c))
                 .ToArray();
         }
 
@@ -39,14 +39,14 @@ namespace Assets.Core
         public static GameEntity[] GetAIProducts(GameContext gameContext)
         {
             return Array.FindAll(GetProductCompanies(gameContext),
-                p => !IsRelatedToPlayer(gameContext, p)
+                p => !IsDirectlyRelatedToPlayer(gameContext, p)
                 );
         }
 
         public static GameEntity[] GetPlayerRelatedProducts(GameContext gameContext)
         {
             return Array.FindAll(GetProductCompanies(gameContext),
-                p => IsRelatedToPlayer(gameContext, p)
+                p => IsDirectlyRelatedToPlayer(gameContext, p)
                 );
         }
 
@@ -56,7 +56,7 @@ namespace Assets.Core
                 .AllOf(GameMatcher.Company, GameMatcher.Alive));
 
             return Array.FindAll(companies,
-                p => IsRelatedToPlayer(gameContext, p)
+                p => IsDirectlyRelatedToPlayer(gameContext, p)
                 );
         }
 

@@ -2,6 +2,7 @@
 using Entitas;
 using Entitas.CodeGeneration.Attributes;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class CompanyHolding
@@ -111,6 +112,12 @@ public class LoggingComponent : IComponent
 {
     public List<string> Logs;
 }
+[Game]
+public class ProfilingComponent : IComponent
+{
+    public long ProfilerMilliseconds;
+    public StringBuilder MyProfiler;
+}
 
 [Game]
 public class InvestmentProposalsComponent : IComponent
@@ -165,6 +172,7 @@ public class FollowingComponent : IComponent { }
 // Player can be CEO of only one product and one company group at time
 [Game]
 public struct ControlledByPlayerComponent : IComponent { }
+public class RelatedToPlayerComponent : IComponent { }
 
 // PLAYER ONLY
 public class FlagshipComponent : IComponent { }

@@ -9,7 +9,7 @@ public class RenderHoldingsName : ParameterView
         if (isFinancialStructure)
             return "They invest in";
 
-        bool isRelatedToPlayer = Companies.IsRelatedToPlayer(Q, SelectedCompany);
+        bool isRelatedToPlayer = Companies.IsDirectlyRelatedToPlayer(Q, SelectedCompany);
 
         if (isRelatedToPlayer)
             return "Our companies";

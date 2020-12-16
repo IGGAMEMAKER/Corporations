@@ -31,7 +31,7 @@ public class CompanyViewInSegmentTab : View
 
         CompanyLogo.color = Companies.GetCompanyUniqueColor(company.company.Id);
 
-        bool playerControlled = Companies.IsRelatedToPlayer(Q, company);
+        bool playerControlled = Companies.IsDirectlyRelatedToPlayer(Q, company);
         Border.color = Visuals.GetColorFromString(playerControlled ? Colors.COLOR_CONTROL : Colors.COLOR_CONTROL_NO);
 
         var income = Economy.GetProductCompanyMaintenance(company, true);

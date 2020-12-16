@@ -36,7 +36,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
             foreach (var goal in product.companyGoal.Goals)
             {
-                // WorkOnGoal(product, goal);
+                WorkOnGoal(product, goal);
             }
 
             Investments.CompleteGoals(product, gameContext);

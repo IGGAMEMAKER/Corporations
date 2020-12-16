@@ -57,6 +57,7 @@ namespace Assets.Core
         public static void TurnProductToPlayerFlagship(GameEntity company, GameContext Q, NicheType nicheType)
         {
             company.isFlagship = true;
+            AttachToPlayer(company);
             company.AddChannelExploration(new Dictionary<int, int>(), new List<int>(), 1);
 
             // give bad positioning initially

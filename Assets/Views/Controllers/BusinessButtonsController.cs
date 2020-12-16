@@ -21,7 +21,7 @@ public class BusinessButtonsController : View
 
         bool isDaughter = Companies.IsDaughterOf(MyCompany, SelectedCompany);
 
-        bool isRelatedToPlayer = Companies.IsRelatedToPlayer(Q, SelectedCompany);
+        bool isRelatedToPlayer = Companies.IsDirectlyRelatedToPlayer(Q, SelectedCompany);
 
         bool nonFlagshipDaughter = isDaughter && !SelectedCompany.isFlagship;
 

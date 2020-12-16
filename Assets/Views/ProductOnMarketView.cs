@@ -64,7 +64,7 @@ public class ProductOnMarketView : View
         Brand.text = (int)company.branding.BrandPower + $" {Visuals.DescribeValueWithText(brandChange, brandChangeValue, brandChangeValue, "")}";
 
         // name
-        var isPlayerRelated = Companies.IsRelatedToPlayer(Q, company);
+        var isPlayerRelated = Companies.IsDirectlyRelatedToPlayer(Q, company);
         var nameColor = isPlayerRelated ? Colors.COLOR_COMPANY_WHERE_I_AM_CEO : Colors.COLOR_COMPANY_WHERE_I_AM_NOT_CEO;
 
         //Name.text = $"{company.company.Name} ({Format.Minify(clients)} users)"; // + $" - <b>{level}LVL</b>";

@@ -10,7 +10,7 @@ public abstract class View : BaseClass
 
     public string RenderName(GameEntity company)
     {
-        if (Companies.IsRelatedToPlayer(Q, company))
+        if (Companies.IsDirectlyRelatedToPlayer(Q, company))
             return Visuals.Colorize(company.company.Name, Colors.COLOR_GOLD);
         else
             return Visuals.Colorize(company.company.Name, Colors.COLOR_WHITE);

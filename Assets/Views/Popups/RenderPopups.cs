@@ -21,7 +21,7 @@ public partial class PopupView : View
         var target = Companies.Get(Q, popup.companyId);
         var buyer = Investments.GetInvestor(Q, popup.buyerInvestorId);
 
-        bool isOurCompany = Companies.IsRelatedToPlayer(Q, target);
+        bool isOurCompany = Companies.IsDirectlyRelatedToPlayer(Q, target);
 
         RenderUniversalPopup(
             $"{buyer.company.Name} wants to buy {target.company.Name}!",
@@ -134,7 +134,8 @@ public partial class PopupView : View
 
     void RenderInnovatorPopup(PopupMessageInnovation popup)
     {
-        bool ourInnovation = Companies.IsRelatedToPlayer(Q, popup.companyId);
+        var company = Companies.Get(Q, popup.companyId);
+        bool ourInnovation = Companies.IsDirectlyRelatedToPlayer(Q, company);
 
         bool isRevolution = popup.clientGain > 0;
 

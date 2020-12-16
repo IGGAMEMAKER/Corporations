@@ -53,6 +53,14 @@ namespace Assets.Core
 
                 //CloseCompany(gameContext, company);
             }
+
+            if (Companies.IsPlayerCompany(buyer))
+                AttachToPlayer(company);
+        }
+
+        public static void AttachToPlayer(GameEntity company)
+        {
+            company.isRelatedToPlayer = true;
         }
     }
 }

@@ -610,7 +610,7 @@ namespace Assets.Core
 
         public static List<ProductPositioning> GetStandardPositionings(NicheType nicheType)
         {
-            Debug.Log("GetStandardPositionings");
+            // Debug.Log("GetStandardPositionings");
             var audiences = Marketing.GetAudienceInfos();
 
             var nicheName = Enums.GetFormattedNicheName(nicheType);

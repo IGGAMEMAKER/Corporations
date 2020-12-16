@@ -5,7 +5,7 @@ public class HideCorporationOfferButton : HideOnSomeCondition
     public override bool HideIf()
     {
         bool isCorporation = MyCompany.company.CompanyType == CompanyType.Corporation;
-        bool isDaughterAlready = Companies.IsRelatedToPlayer(Q, SelectedCompany);
+        bool isDaughterAlready = Companies.IsDirectlyRelatedToPlayer(Q, SelectedCompany);
 
         return !isCorporation || isDaughterAlready;
 

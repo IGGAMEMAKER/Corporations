@@ -7,7 +7,7 @@
             var desire = GetDesireToSellCompany(target, gameContext);
             //var founderWantsToSell = GetFounderAmbition(target, gameContext) == Ambition.EarnMoney;
 
-            return desire > 75 || target.isOnSales || IsRelatedToPlayer(gameContext, target);
+            return desire > 75 || target.isOnSales || IsDirectlyRelatedToPlayer(gameContext, target);
         }
 
         public static long GetDesireToSellCompany(GameEntity company, GameContext gameContext)

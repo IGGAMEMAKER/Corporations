@@ -44,7 +44,7 @@ public class CompanyInIndustryView : View
         NumberOfDaughters.text = daughters < 2 ? "" : daughters.ToString();
 
         // name
-        var isPlayerRelated = Companies.IsRelatedToPlayer(Q, company);
+        var isPlayerRelated = Companies.IsDirectlyRelatedToPlayer(Q, company);
         var nameColor = isPlayerRelated ? Colors.COLOR_COMPANY_WHERE_I_AM_CEO : Colors.COLOR_COMPANY_WHERE_I_AM_NOT_CEO;
 
         if (Companies.IsHaveStrategicPartnershipAlready(company, MyCompany))
