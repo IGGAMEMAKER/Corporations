@@ -38,51 +38,48 @@ namespace Assets.Core
             // 4 - !founder
 
             if (!Humans.IsEmployed(worker))
+                return bonus.Append("Salary", newOffer.JobOffer.Salary > GetSalaryPerRating(worker) ? 1 : -1);
+
+            int loyaltyBonus = (worker.humanCompanyRelationship.Morale - 50) / 10;
+            int desireToLeaveCompany = 0;
+
+            if (willNeedToLeaveCompany)
             {
-                bonus.Append("Salary", newOffer.JobOffer.Salary > GetSalaryPerRating(worker) ? 1 : -1);
+                // it's not easy to recruit worker from other company
+                desireToLeaveCompany -= 5;
+
+                // and if your worker loves stability...
+                if (worker.humanSkills.Traits.Contains(Trait.Loyal))
+                    desireToLeaveCompany -= 5;
+
+                // but if your worker loves new challenges...
+                if (worker.humanSkills.Traits.Contains(Trait.NewChallenges))
+                    desireToLeaveCompany += 10;
+
+                if (desireToLeaveCompany > 0)
+                    bonus.AppendAndHideIfZero("Wants to leave company", desireToLeaveCompany);
+                else
+                    bonus.AppendAndHideIfZero("Wants to stay in company", desireToLeaveCompany);
+
+                bonus.Append("Loyalty to company", -loyaltyBonus);
             }
             else
             {
-                int loyaltyBonus = (worker.humanCompanyRelationship.Morale - 50) / 10;
-                int desireToLeaveCompany = 0;
-
-                if (willNeedToLeaveCompany)
-                {
-                    // it's not easy to recruit worker from other company
-                    desireToLeaveCompany -= 5;
-
-                    // but if your worker loves new challenges...
-                    if (worker.humanSkills.Traits.Contains(Trait.Loyal))
-                        desireToLeaveCompany -= 5;
-
-                    // but if your worker loves new challenges...
-                    if (worker.humanSkills.Traits.Contains(Trait.NewChallenges))
-                        desireToLeaveCompany += 10;
-
-                    if (desireToLeaveCompany > 0)
-                        bonus.AppendAndHideIfZero("Wants to leave company", desireToLeaveCompany);
-                    else
-                        bonus.AppendAndHideIfZero("Wants to stay in company", desireToLeaveCompany);
-
-                    bonus.Append("Loyalty to company", -loyaltyBonus);
-                }
-                else
-                {
-                    // prolongation of contract
-                    bonus.Append("Loyalty to company", loyaltyBonus);
-                }
-
-                long newSalary = newOffer.JobOffer.Salary;
-
-                long salary = Humans.GetCurrentOffer(worker).JobOffer.Salary;
-                salary = (long)Mathf.Max(salary, 1);
-
-                var salaryRatio = (newSalary - salary) * 1f / salary;
-                salaryRatio = Mathf.Clamp(salaryRatio, -5, 5);
-
-                bonus.Append("Salary", salaryRatio);
+                // prolongation of contract
+                bonus.Append("Loyalty to company", loyaltyBonus);
             }
-            
+
+            long newSalary = newOffer.JobOffer.Salary;
+
+            long salary;
+            salary = (long) Mathf.Max(Humans.GetCurrentOffer(worker).JobOffer.Salary, 1);
+
+            float salaryRatio;
+            salaryRatio = (newSalary - salary) * 1f / salary;
+            salaryRatio = Mathf.Clamp(salaryRatio, -5, 5);
+
+            bonus.Append("Salary", salaryRatio);
+
 
 
             return bonus;
@@ -99,7 +96,7 @@ namespace Assets.Core
 
         public static int GetLoyaltyChangeForManager(GameEntity worker, TeamInfo team, Dictionary<CorporatePolicy, int> culture, GameEntity company)
         {
-            return (int)GetLoyaltyChangeBonus(worker, team, culture, company).Sum();
+            return GetLoyaltyChangeBonus(worker, team, culture, company).Sum();
         }
 
         public static Bonus<int> GetLoyaltyChangeBonus(GameEntity worker, TeamInfo team, Dictionary<CorporatePolicy, int> culture, GameEntity company)
@@ -176,12 +173,12 @@ namespace Assets.Core
 
         private static void ApplyCEOLoyalty(GameEntity company, TeamInfo team, GameContext gameContext, ref Bonus<int> bonus, GameEntity worker, WorkerRole role)
         {
-            bool hasCeo = Teams.HasMainManagerInTeam(company.team.Teams[0]);
+            bool hasCeo = HasMainManagerInTeam(company.team.Teams[0]);
 
             bonus.AppendAndHideIfZero("No CEO", hasCeo ? 0 : -4);
 
-            var manager = Teams.GetMainManagerRole(team);
-            var lead = Teams.GetWorkerByRole(manager, team, gameContext);
+            var manager = GetMainManagerRole(team);
+            var lead = GetWorkerByRole(manager, team, gameContext);
 
             if (lead == null)
             {

@@ -15,7 +15,7 @@ public class CEOButtons : RoleRelatedButtons
         {
             var role = manager.GetComponent<HireManagerByRole>().WorkerRole;
 
-            bool thereAreManagersWithSuchRole = Humans.GetCandidatesForRole(Flagship, Q, role).Count > 0;
+            bool thereAreManagersWithSuchRole = Teams.GetCandidatesForRole(Flagship, Q, role).Count > 0;
 
             Draw(manager, thereAreManagersWithSuchRole && CanHireManager(role, company) && isCEO);
         }

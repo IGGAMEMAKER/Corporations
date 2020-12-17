@@ -29,14 +29,13 @@ namespace Assets.Core
             }
         }
 
-        public static float GetNewWorkerRandomRating(GameEntity company, GameContext gameContext, int managerTasks, WorkerRole role)
+        public static float GetNewWorkerRandomRating(GameEntity company, GameContext gameContext, int managerTasks)
         {
-            //var averageStrength = GetTeamAverageStrength(company, gameContext);
             var hrRating = GetHRBasedNewManagerRating(company, gameContext);
 
             var recruitingEffort = managerTasks * 10f / company.team.Teams.Count;
 
-            var rng = UnityEngine.Random.Range(hrRating - 10, hrRating + 1 + recruitingEffort);
+            var rng = Random.Range(hrRating - 10, hrRating + 1 + recruitingEffort);
 
             var rating = Mathf.Clamp(rng, C.NEW_MANAGER_RATING_MIN, C.NEW_MANAGER_RATING_MAX);
 
@@ -48,7 +47,7 @@ namespace Assets.Core
             // Control rating levels for new workers
             var worker = Humans.GenerateHuman(gameContext, role);
 
-            var rating = GetNewWorkerRandomRating(company, gameContext, managerTasks, role);
+            var rating = GetNewWorkerRandomRating(company, gameContext, managerTasks);
             Humans.ResetSkills(worker, (int)rating);
 
             company.employee.Managers[worker.human.Id] = role;
@@ -78,7 +77,6 @@ namespace Assets.Core
         {
             var bonus = new Bonus<int>("New manager rating");
 
-            var culture = Companies.GetActualCorporateCulture(company);
             var managingCompany = Companies.GetManagingCompanyOf(company, gameContext);
 
             var productsOfManagingCompany = Companies.GetDaughterProducts(gameContext, managingCompany);
@@ -113,9 +111,7 @@ namespace Assets.Core
 
         public static int GetHRBasedNewManagerRating(GameEntity company, GameContext gameContext)
         {
-            var bonus = GetHRBasedNewManagerRatingBonus(company, gameContext);
-
-            return bonus.Sum();
+            return GetHRBasedNewManagerRatingBonus(company, gameContext).Sum();
         }
 
 
@@ -132,12 +128,13 @@ namespace Assets.Core
 
             if (necessaryRoles.Any())
             {
-                var rating = GetTeamAverageStrength(company, gameContext) + UnityEngine.Random.Range(-2, 3);
+                var rating = GetTeamAverageStrength(company, gameContext) + Random.Range(-2, 3);
                 var salary = GetSalaryPerRating(rating);
+                var role = necessaryRoles.First();
 
                 if (Economy.IsCanMaintain(company, gameContext, salary))
                 {
-                    var human = HireManager(company, gameContext, necessaryRoles.First(), t.ID);
+                    var human = HireManager(company, gameContext, role, t.ID);
 
                     SetJobOffer(human, company, new JobOffer(salary), t.ID, gameContext);
                 }

@@ -90,6 +90,23 @@ namespace Assets.Core
 
             return managerIds;
         }
+        
+        public static List<int> GetCandidatesForRole(GameEntity company, GameContext gameContext, WorkerRole WorkerRole)
+        {
+            var managerIds = new List<int>();
+
+            managerIds.AddRange(company.employee.Managers.Where(p => p.Value == WorkerRole).Select(p => p.Key));
+
+            var competitors = Companies.GetCompetitorsOf(company, gameContext, false);
+
+            foreach (var c in competitors)
+            {
+                var workers = c.team.Managers.Where(p => p.Value == WorkerRole).Select(p => p.Key);
+                managerIds.AddRange(workers);
+            }
+
+            return managerIds;
+        }
 
         public static void SetManagerTask(GameEntity company, int teamId, int taskId, ManagerTask managerTask)
         {
