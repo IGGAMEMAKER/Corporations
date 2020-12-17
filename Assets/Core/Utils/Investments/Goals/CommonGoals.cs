@@ -7,7 +7,7 @@ namespace Assets.Core
 {
     public static partial class Investments
     {
-        public static List<InvestmentGoal> GetCommonGoals(GameEntity company, GameContext Q, IEnumerable<GameEntity> strongerCompetitors, IEnumerable<GameEntity> weakerCompetitors, IEnumerable<GameEntity> strongerDirectCompetitors, IEnumerable<GameEntity> weakerDirectCompetitors)
+        public static List<InvestmentGoal> GetCommonGoals(GameEntity company, GameContext Q)
         {
             var goals = new List<InvestmentGoal>();
 

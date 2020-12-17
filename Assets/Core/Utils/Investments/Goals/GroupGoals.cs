@@ -6,7 +6,7 @@ namespace Assets.Core
 {
     public static partial class Investments
     {
-        public static List<InvestmentGoal> GetGroupOnlyGoals(GameEntity company, GameContext Q, IEnumerable<GameEntity> strongerCompetitors, IEnumerable<GameEntity> weakerCompetitors, IEnumerable<GameEntity> strongerDirectCompetitors, IEnumerable<GameEntity> weakerDirectCompetitors)
+        public static List<InvestmentGoal> GetGroupOnlyGoals(GameEntity company, GameContext Q)
         {
             var goals = new List<InvestmentGoal>();
 
@@ -32,14 +32,12 @@ namespace Assets.Core
 
             if (solidCompany)
             {
-                //goals.Add(InvestorGoalType.AcquireCompany);
-
-                if (daughters.Count() > 0)
+                if (daughters.Any())
                 {
                     var flagship = daughters.First();
                     var flagshipCompetitors = Companies.GetDirectCompetitors(flagship, Q, false);
 
-                    if (flagshipCompetitors.Count() > 0)
+                    if (flagshipCompetitors.Any())
                     {
                         weakerCompany = flagshipCompetitors.OrderByDescending(c => Economy.CostOf(c, Q)).Last();
                     }
@@ -73,14 +71,11 @@ namespace Assets.Core
             //}
             #endregion
 
-            if (solidCompany && daughters.Count() > 2)
+            if (solidCompany && daughters.Length > 2)
                 AddOnce(goals, company, new InvestmentGoalDominateMarket(company.companyFocus.Niches.First()));
-                //AddOnce(goals, company, InvestorGoalType.DominateMarket);
 
             if (Completed(company, InvestorGoalType.DominateMarket))
                  return OnlyGoal(new InvestmentGoalBuyBack());
-                 //goals.Add(new InvestmentGoalBuyBack());
-                //goals.Add(InvestorGoalType.BuyBack);
 
             return goals;
         }
