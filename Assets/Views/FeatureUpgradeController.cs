@@ -1,8 +1,4 @@
-﻿using Assets;
-using Assets.Core;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using Assets.Core;
 
 public class FeatureUpgradeController : ButtonController
 {

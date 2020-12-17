@@ -5,7 +5,6 @@ using UnityEngine;
 using System.Collections.Generic;
 using Entitas;
 using System.Linq;
-using System.Text;
 
 namespace Assets.Core
 {

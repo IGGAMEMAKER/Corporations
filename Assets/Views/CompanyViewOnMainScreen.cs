@@ -1,6 +1,4 @@
 ﻿using Assets.Core;
-using System.Text;
-using TMPro;
 using UnityEngine.UI;
 
 public class CompanyViewOnMainScreen : View

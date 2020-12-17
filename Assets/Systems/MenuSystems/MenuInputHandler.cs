@@ -1,5 +1,4 @@
-﻿using Assets.Core;
-using Entitas;
+﻿using Entitas;
 using System.Collections.Generic;
 
 class CampaignStatsInitializerSystem : IInitializeSystem

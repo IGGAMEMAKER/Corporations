@@ -1,6 +1,4 @@
-﻿using Assets.Core;
-
-public class CompanyGoalButtonView : CompanyUpgradeButton
+﻿public class CompanyGoalButtonView : CompanyUpgradeButton
 {
     InvestorGoalType InvestorGoal;
     InvestmentGoal Goal; // => Investments.GetInvestmentGoal(MyCompany, Q, InvestorGoal);

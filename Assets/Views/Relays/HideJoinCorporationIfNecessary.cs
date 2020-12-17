@@ -1,6 +1,4 @@
-﻿using Assets.Core;
-
-public class HideJoinCorporationIfNecessary : HideOnSomeCondition
+﻿public class HideJoinCorporationIfNecessary : HideOnSomeCondition
 {
     public override bool HideIf()
     {

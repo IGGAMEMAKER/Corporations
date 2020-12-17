@@ -1,6 +1,4 @@
-﻿using System.Text;
-using Assets.Core;
-using Entitas;
+﻿
 
 // public class ScheduleInitializeSystem : IInitializeSystem
 // {

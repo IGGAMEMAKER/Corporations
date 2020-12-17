@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class DebugTeamData : View
+﻿public class DebugTeamData : View
 {
     private void OnGUI()
     {

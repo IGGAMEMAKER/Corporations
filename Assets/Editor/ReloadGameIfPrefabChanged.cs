@@ -1,7 +1,6 @@
 ﻿#if UNITY_EDITOR
 using Assets.Core;
 using System.Collections;
-using System.Threading.Tasks;
 using UnityEditor;
 using UnityEditor.Experimental.SceneManagement;
 using UnityEngine;

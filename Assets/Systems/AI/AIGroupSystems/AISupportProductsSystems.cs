@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Assets.Core;
-using UnityEngine;
 
 public partial class AISupportProductsSystem : OnPeriodChange
 {

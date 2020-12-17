@@ -1,6 +1,4 @@
-﻿using Assets.Core;
-
-public class RenderInnovationChanceDescription : ParameterView
+﻿public class RenderInnovationChanceDescription : ParameterView
 {
     public override string RenderValue()
     {

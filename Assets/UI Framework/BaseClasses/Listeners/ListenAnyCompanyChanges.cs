@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class ListenAnyCompanyChanges : Controller
+﻿public class ListenAnyCompanyChanges : Controller
     , IAnyCompanyListener
 {
     public override void AttachListeners()

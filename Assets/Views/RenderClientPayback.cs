@@ -1,9 +1,4 @@
-﻿using Assets.Core;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class RenderClientPayback : UpgradedParameterView
+﻿public class RenderClientPayback : UpgradedParameterView
 {
     public override string RenderHint()
     {

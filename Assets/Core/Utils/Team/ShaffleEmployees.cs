@@ -170,12 +170,24 @@ namespace Assets.Core
             return roles;
         }
 
-        public static void FillTeam(GameEntity company, GameContext gameContext, TeamInfo t)
+        public static IEnumerable<WorkerRole> GetMissingRoles(TeamInfo t)
         {
             var allRoles = GetRolesForTeam(t.TeamType);
-            var currentRoles = t.Roles.Values.ToArray();
+            var existingRoles = GetExistingWorkerRoles(t);
+            
+            var necessaryRoles = allRoles.Where(r => !existingRoles.Contains(r));
 
-            var necessaryRoles = allRoles.Where(r => !currentRoles.Contains(r));
+            return necessaryRoles;
+        }
+
+        public static IEnumerable<WorkerRole> GetExistingWorkerRoles(TeamInfo t)
+        {
+            return t.Roles.Values.ToArray();
+        }
+
+        public static void FillTeam(GameEntity company, GameContext gameContext, TeamInfo t)
+        {
+            var necessaryRoles = GetMissingRoles(t);
 
             if (necessaryRoles.Any())
             {

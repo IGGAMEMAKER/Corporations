@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Assets.Core;
+﻿using Assets.Core;
 using UnityEngine;
 
 public class GetMissingWorkerRolesInTeamListView : ListView
@@ -17,8 +14,7 @@ public class GetMissingWorkerRolesInTeamListView : ListView
 
         var team = Flagship.team.Teams[SelectedTeam];
         
-        var roles = Teams.GetRolesForTeam(team.TeamType);
-        var missingRoles = roles.Where(r => !Teams.HasRole(r, team, Q));
+        var missingRoles = Teams.GetMissingRoles(team); // roles.Where(r => !Teams.HasRole(r, team, Q));
         
         SetItems(missingRoles);
     }

@@ -1,8 +1,4 @@
-﻿using Assets.Core;
-using System;
-using System.Linq;
-
-public class RenderNichePotential : ParameterView
+﻿public class RenderNichePotential : ParameterView
 {
     public override string RenderValue()
     {

@@ -1,5 +1,4 @@
 ﻿using Assets.Core;
-using UnityEngine.UI;
 
 public class RenderCompanyName : UpgradedParameterView
 {

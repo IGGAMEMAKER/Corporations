@@ -1,6 +1,5 @@
 ﻿using Assets.Core;
 using TMPro;
-using UnityEngine.UI;
 
 public class RenderIsInSphereOfInterest : View
 {

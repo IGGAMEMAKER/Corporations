@@ -1,6 +1,4 @@
 ﻿using Assets.Core;
-using Entitas;
-using System;
 
 public class FillNicheListView : View
 {

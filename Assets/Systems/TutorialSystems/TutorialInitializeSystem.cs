@@ -1,6 +1,4 @@
-﻿using Assets.Core;
-using Entitas;
-using System;
+﻿using Entitas;
 
 public class TutorialInitializeSystem : IInitializeSystem
 {

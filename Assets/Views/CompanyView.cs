@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
 
 public class CompanyView : View
     //, IPointerClickHandler

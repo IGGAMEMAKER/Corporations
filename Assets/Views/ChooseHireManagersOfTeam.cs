@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿
 
 // Inspect team
 public class ChooseHireManagersOfTeam : ButtonController

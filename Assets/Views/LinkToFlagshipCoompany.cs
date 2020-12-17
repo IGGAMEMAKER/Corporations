@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class LinkToFlagshipCoompany : ButtonController
+﻿public class LinkToFlagshipCoompany : ButtonController
 {
     public override void Execute()
     {

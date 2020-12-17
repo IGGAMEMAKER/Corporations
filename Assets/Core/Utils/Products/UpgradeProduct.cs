@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using UnityEngine;
-
-namespace Assets.Core
+﻿namespace Assets.Core
 {
     public static partial class Products
     {

@@ -1,6 +1,4 @@
-﻿using Assets.Core;
-
-public class RenderROI : UpgradedParameterView
+﻿public class RenderROI : UpgradedParameterView
 {
     public override string RenderHint()
     {

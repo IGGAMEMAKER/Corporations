@@ -1,6 +1,4 @@
-﻿using Assets.Core;
-
-public class RenderTeamSize : UpgradedParameterView
+﻿public class RenderTeamSize : UpgradedParameterView
 {
     public override string RenderHint() => "";
 

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Assets.Core
+﻿namespace Assets.Core
 {
     public static partial class Products
     {

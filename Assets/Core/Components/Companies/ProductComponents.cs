@@ -1,7 +1,6 @@
 ﻿using Entitas;
 using Entitas.CodeGeneration.Attributes;
 using System.Collections.Generic;
-using UnityEngine;
 
 
 public class ExpertiseComponent : IComponent

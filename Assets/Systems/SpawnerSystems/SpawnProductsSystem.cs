@@ -1,7 +1,5 @@
 ﻿using Assets.Core;
-using Entitas;
 using System.Collections.Generic;
-using UnityEngine;
 
 class SpawnProductsSystem : OnQuarterChange
 {

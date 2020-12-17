@@ -1,5 +1,4 @@
 ﻿using Entitas;
-using System;
 using System.Linq;
 
 namespace Assets.Core

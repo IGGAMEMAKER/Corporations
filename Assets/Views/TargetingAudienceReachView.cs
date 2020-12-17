@@ -1,6 +1,4 @@
-﻿using Assets.Core;
-
-public class TargetingAudienceReachView : View
+﻿public class TargetingAudienceReachView : View
 {
     public override void ViewRender()
     {

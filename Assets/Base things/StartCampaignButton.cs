@@ -1,7 +1,4 @@
-﻿using Assets.Core;
-using System.Linq;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class StartCampaignButton : ButtonController

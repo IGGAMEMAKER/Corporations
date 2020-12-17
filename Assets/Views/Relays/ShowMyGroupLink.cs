@@ -1,6 +1,4 @@
-﻿using Assets.Core;
-
-public class ShowMyGroupLink : HideOnSomeCondition
+﻿public class ShowMyGroupLink : HideOnSomeCondition
 {
     public override bool HideIf()
     {

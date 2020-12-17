@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Assets;
+﻿using Assets;
 using Assets.Core;
-using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 

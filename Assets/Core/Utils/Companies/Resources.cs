@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-
-namespace Assets.Core
+﻿namespace Assets.Core
 {
     public static partial class Companies
     {

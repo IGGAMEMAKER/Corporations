@@ -1,7 +1,4 @@
-﻿using Assets.Core;
-using Entitas;
-using System;
-using UnityEngine;
+﻿using Entitas;
 
 public partial class ProductInitializerSystem : IInitializeSystem
 {

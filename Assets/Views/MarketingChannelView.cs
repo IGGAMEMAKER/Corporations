@@ -1,7 +1,5 @@
 ﻿using Assets.Core;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class MarketingChannelView : View

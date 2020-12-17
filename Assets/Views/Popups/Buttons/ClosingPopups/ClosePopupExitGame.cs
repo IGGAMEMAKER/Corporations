@@ -1,5 +1,4 @@
 ﻿using Assets.Core;
-using UnityEngine;
 
 
 public class ClosePopupExitGame : SimplePopupButtonController

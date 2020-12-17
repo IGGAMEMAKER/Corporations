@@ -1,5 +1,3 @@
-﻿using UnityEngine;
-
-public class HideUpgradeTeamButton : View
+﻿public class HideUpgradeTeamButton : View
 {
 }

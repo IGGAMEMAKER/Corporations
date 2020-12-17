@@ -1,5 +1,4 @@
-﻿using System;
-using Assets.Core;
+﻿using Assets.Core;
 using UnityEngine.UI;
 
 public class HumanPreview : View

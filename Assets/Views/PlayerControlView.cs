@@ -1,9 +1,4 @@
-﻿using Assets.Core;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class PlayerControlView : ParameterView
+﻿public class PlayerControlView : ParameterView
 {
     public override string RenderValue()
     {

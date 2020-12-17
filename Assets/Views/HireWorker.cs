@@ -1,7 +1,4 @@
-﻿using Assets.Core;
-using UnityEngine;
-
-public class HireWorker : ButtonController
+﻿public class HireWorker : ButtonController
 {
     public int companyId;
 

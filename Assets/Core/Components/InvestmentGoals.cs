@@ -1,10 +1,6 @@
 ﻿using Assets.Core;
-using Entitas;
-using Entitas.CodeGeneration.Attributes;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 public struct GoalRequirements
 {

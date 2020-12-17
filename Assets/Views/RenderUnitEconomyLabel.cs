@@ -1,6 +1,4 @@
-﻿using Assets.Core;
-
-public class RenderUnitEconomyLabel : ParameterView
+﻿public class RenderUnitEconomyLabel : ParameterView
 {
     public override string RenderValue()
     {

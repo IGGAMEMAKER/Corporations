@@ -1,5 +1,4 @@
-﻿using Assets.Core;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
 
 public class RenderUnitEconomy2 : View
 {

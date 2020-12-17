@@ -1,6 +1,4 @@
-﻿using Assets.Core;
-
-public class TestCampaignReachView : View
+﻿public class TestCampaignReachView : View
 {
     public override void ViewRender()
     {

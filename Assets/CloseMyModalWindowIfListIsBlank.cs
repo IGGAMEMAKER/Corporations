@@ -1,5 +1,4 @@
 ﻿using Assets;
-using System.Collections;
 
 public class CloseMyModalWindowIfListIsBlank : View
 {

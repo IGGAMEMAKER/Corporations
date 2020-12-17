@@ -1,5 +1,4 @@
-﻿using Assets;
-using Assets.Core;
+﻿using Assets.Core;
 
 public class AutomaticInvestmentPickButton : PopupButtonController<PopupMessageBankruptcyThreat>
 {

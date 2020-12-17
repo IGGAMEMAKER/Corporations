@@ -1,5 +1,4 @@
 ﻿using Assets.Core;
-using System.Linq;
 using UnityEngine.UI;
 
 public class ProjectView : View

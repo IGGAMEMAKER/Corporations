@@ -1,6 +1,4 @@
-﻿using Assets.Core;
-
-public class TeamSizeToggleButton : ProductUpgradeButton
+﻿public class TeamSizeToggleButton : ProductUpgradeButton
 {
     public override string GetButtonTitle() => $"Reorganize team";
     public override string GetBenefits()

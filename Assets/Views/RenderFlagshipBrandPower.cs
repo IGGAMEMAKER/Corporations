@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class RenderFlagshipBrandPower : ParameterView
+﻿public class RenderFlagshipBrandPower : ParameterView
 {
     public override string RenderValue()
     {

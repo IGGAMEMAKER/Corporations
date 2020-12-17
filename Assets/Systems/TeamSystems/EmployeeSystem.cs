@@ -1,6 +1,5 @@
 ﻿using Assets.Core;
 using System.Collections.Generic;
-using UnityEngine;
 
 class EmployeeSystem : OnMonthChange
 {

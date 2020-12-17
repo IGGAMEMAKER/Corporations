@@ -1,8 +1,6 @@
-﻿using Assets.Core;
-using Entitas;
+﻿using Entitas;
 using Entitas.CodeGeneration.Attributes;
 using System.Collections.Generic;
-using UnityEngine;
 
 public interface IEventListener
 {

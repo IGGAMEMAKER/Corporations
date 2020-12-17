@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class RenderProductUpgrades : ParameterView
+﻿public class RenderProductUpgrades : ParameterView
 {
     public override string RenderValue()
     {

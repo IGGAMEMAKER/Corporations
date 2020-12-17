@@ -1,4 +1,5 @@
-﻿using Assets.Core;
+﻿using System;
+using Assets.Core;
 
 public partial class ProductDevelopmentSystem : OnPeriodChange
 {
@@ -28,20 +29,17 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
         }
     }
 
-    void SetTasks(GameEntity product, ManagerTask managerTask, int teamId)
-    {
-        Teams.SetManagerTask(product, teamId, 0, managerTask);
-        Teams.SetManagerTask(product, teamId, 1, managerTask);
-        Teams.SetManagerTask(product, teamId, 2, managerTask);
-    }
-
     void HandleTeam(GameEntity product)
     {
         foreach (var t in product.team.Teams)
         {
+            var time = DateTime.Now;
             TryUpgradeTeam(product, t);
+            MeasureTag("Team Upgrades", time);
 
+            time = DateTime.Now;
             Teams.FillTeam(product, gameContext, t);
+            MeasureTag("Teams Fill", time);
         }
 
         //if (product.team.Teams.Count < 4)

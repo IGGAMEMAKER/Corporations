@@ -1,9 +1,4 @@
-﻿using Assets.Core;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class AutorecruitWorkers : ProductUpgradeButton
+﻿public class AutorecruitWorkers : ProductUpgradeButton
 {
     public override string GetButtonTitle() => "Hire max"; //  workers\nautomatically
     public override string GetBenefits() => "";

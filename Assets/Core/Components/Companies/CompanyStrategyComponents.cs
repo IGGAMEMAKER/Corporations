@@ -1,5 +1,4 @@
 ﻿using Entitas;
-using System.Collections.Generic;
 
 public enum CompanySettingGrowthType
 {

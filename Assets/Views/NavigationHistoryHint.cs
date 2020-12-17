@@ -1,9 +1,4 @@
-﻿using Assets.Core;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class NavigationHistoryHint : View
+﻿public class NavigationHistoryHint : View
 {
     //private void OnGUI()
     //{

@@ -1,6 +1,4 @@
-﻿using Assets.Core;
-
-public class HideRoleTogglerIfNecessary : HideOnSomeCondition
+﻿public class HideRoleTogglerIfNecessary : HideOnSomeCondition
 {
     public override bool HideIf()
     {

@@ -1,6 +1,4 @@
-﻿using Assets.Core;
-
-public class RenderFeatures : ParameterView
+﻿public class RenderFeatures : ParameterView
 {
     public override string RenderValue()
     {

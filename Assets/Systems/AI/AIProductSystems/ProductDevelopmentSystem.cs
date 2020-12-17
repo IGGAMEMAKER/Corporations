@@ -9,7 +9,6 @@ public enum ProductActions
     Features,
     GrabUsers,
     HandleTeam, // hire more people, add more teams
-    //HandleTeam,
 
     ReleaseApp,
 

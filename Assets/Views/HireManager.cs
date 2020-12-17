@@ -1,6 +1,4 @@
 ﻿using Assets.Core;
-using System.Collections;
-using UnityEngine;
 
 public class HireManager : ButtonController
 {

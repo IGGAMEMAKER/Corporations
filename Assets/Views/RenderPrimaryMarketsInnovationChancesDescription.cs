@@ -1,6 +1,4 @@
-﻿using Assets.Core;
-using System.Linq;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
 
 public class RenderPrimaryMarketsInnovationChancesDescription : View
 {

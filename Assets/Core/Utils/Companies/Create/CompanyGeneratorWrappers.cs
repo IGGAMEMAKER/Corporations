@@ -1,8 +1,6 @@
-﻿using Assets.Core;
-using Entitas;
+﻿using Entitas;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Assets.Core
 {

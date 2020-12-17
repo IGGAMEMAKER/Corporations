@@ -1,5 +1,3 @@
-﻿using Assets.Core;
-
-public class TeamPerformanceView : View
+﻿public class TeamPerformanceView : View
 {
 }

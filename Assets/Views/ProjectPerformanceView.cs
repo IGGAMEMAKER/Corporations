@@ -1,6 +1,4 @@
-﻿using Assets.Core;
-
-public class ProjectPerformanceView : UpgradedParameterView
+﻿public class ProjectPerformanceView : UpgradedParameterView
 {
     public override string RenderHint() => "";
 

@@ -1,5 +1,4 @@
-﻿using Entitas;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Assets.Core

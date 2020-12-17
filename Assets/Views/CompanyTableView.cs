@@ -1,7 +1,6 @@
 ﻿using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Assets.Core;
-using UnityEngine;
 
 public class CompanyTableView : View, IPointerEnterHandler
 {

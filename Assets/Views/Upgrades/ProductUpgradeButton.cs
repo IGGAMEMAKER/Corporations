@@ -1,8 +1,6 @@
 ﻿using Assets.Core;
 using Michsky.UI.Frost;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public abstract class ProductUpgradeButton : UpgradedButtonController
 {

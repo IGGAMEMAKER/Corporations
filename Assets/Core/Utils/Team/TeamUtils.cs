@@ -1,6 +1,4 @@
-﻿using Assets.Core;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -134,13 +132,13 @@ namespace Assets.Core
             // count team size: small teams organise faster, big ones: slower
 
             return new Bonus<int>("Organisation change")
-                .AppendAndHideIfZero("No " + managerTitle.ToString(), NoCeo ? -30 : 0)
-                .AppendAndHideIfZero(managerTitle.ToString() + " efforts", rating)
+                .AppendAndHideIfZero("No " + managerTitle, NoCeo ? -30 : 0)
+                .AppendAndHideIfZero(managerTitle + " efforts", rating)
                 .AppendAndHideIfZero("Manager focus on Organisation", NoCeo ? 0 : managerFocus * 10)
                 ;
         }
 
-        public static bool IsUniversalTeam(TeamType teamType) => new TeamType[] { TeamType.CrossfunctionalTeam }.Contains(teamType);
+        public static bool IsUniversalTeam(TeamType teamType) => new[] { TeamType.CrossfunctionalTeam }.Contains(teamType);
 
         public static string GetFormattedTeamType(TeamInfo team) => GetFormattedTeamType(team.TeamType, team.Rank, team.ID == 0 ? "Core team" : "");
         public static string GetFormattedTeamType(TeamType teamType, TeamRank rank, string formattedName = "")
@@ -181,11 +179,11 @@ namespace Assets.Core
                             return "Support Department";
 
                         default:
-                            return teamType.ToString() + " DEPARTMENT";
+                            return teamType + " DEPARTMENT";
                     }
 
                 default:
-                    return rank.ToString() + " " + formattedName;
+                    return rank + " " + formattedName;
             }
         }
 
@@ -206,13 +204,6 @@ namespace Assets.Core
             }
         }
 
-        public static int GetTeams(GameEntity company, TeamType teamType)
-        {
-            return company.team.Teams.Count(t => t.TeamType == teamType);
-        }
-
-        
-
 
         public static bool IsFullTeam(TeamInfo team)
         {
@@ -229,9 +220,6 @@ namespace Assets.Core
 
         public static bool IsTeamNeedsAttention(GameEntity product, TeamInfo team, GameContext gameContext)
         {
-            bool hasNoManagerFocus = team.ManagerTasks.Contains(ManagerTask.None);
-
-
             bool hasNoManager = !HasMainManagerInTeam(team, gameContext, product);
 
 

@@ -1,7 +1,4 @@
-﻿using System.IO;
-using System.Text.RegularExpressions;
-using UnityEditor;
-using UnityEngine;
+﻿
 
 // https://gamedev.stackexchange.com/questions/166401/use-a-different-target-framework-version-in-a-unity-c-project-other-than-4-6
 

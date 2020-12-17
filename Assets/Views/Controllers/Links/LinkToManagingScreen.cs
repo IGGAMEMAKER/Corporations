@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class LinkToManagingScreen : ButtonController
+﻿public class LinkToManagingScreen : ButtonController
 {
     public override void Execute()
     {

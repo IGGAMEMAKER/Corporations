@@ -1,6 +1,4 @@
 ﻿using Assets.Core;
-using System.Linq;
-using UnityEngine;
 
 public class CreateAppPopupButton : PopupButtonController<PopupMessageDoYouWantToCreateApp>
 {

@@ -1,7 +1,6 @@
 ﻿ using Assets.Core;
 using System.Linq;
-using UnityEngine;
-using UnityEngine.UI;
+ using UnityEngine.UI;
 
 public class MarketPotentialView : View
 {

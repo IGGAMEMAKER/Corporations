@@ -1,5 +1,4 @@
-﻿using Assets.Core;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SetAmountOfStars : MonoBehaviour
 {

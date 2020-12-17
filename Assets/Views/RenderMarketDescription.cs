@@ -1,6 +1,4 @@
 ﻿using Assets.Core;
-using System;
-using System.Linq;
 using System.Text;
 
 public class RenderMarketDescription : ParameterView

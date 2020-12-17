@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class RenderTeamName : ParameterView
+﻿public class RenderTeamName : ParameterView
 {
     public override string RenderValue()
     {

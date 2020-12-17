@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace Assets.Core
+﻿namespace Assets.Core
 {
     public static partial class Economy
     {

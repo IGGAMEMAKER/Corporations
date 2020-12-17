@@ -1,7 +1,4 @@
-﻿using Assets.Core;
-using System.Collections.Generic;
-
-namespace Assets.Core
+﻿namespace Assets.Core
 {
     partial class Companies
     {

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Linq;
-using UnityEngine;
+﻿using System.Linq;
 
 namespace Assets.Core
 {
     public static partial class Teams
     {
-        //public static int GetTeamSize(GameEntity e)
         public static int GetTotalEmployees(GameEntity e)
         {
             return e.team.Teams.Sum(GetMaxTeamSize);
@@ -35,13 +32,9 @@ namespace Assets.Core
             return workersWithRole.Any() ? workersWithRole.First() : null;
         }
 
-        public static bool HasRole(WorkerRole role, TeamInfo teamInfo, GameContext gameContext)
+        public static bool HasRole(WorkerRole role, TeamInfo teamInfo)
         {
-            var managers = teamInfo.Managers.Select(humanId => Humans.Get(gameContext, humanId));
-
-            var workersWithRole = managers.Where(h => h.worker.WorkerRole == role);
-
-            return workersWithRole.Any();
+            return teamInfo.Roles.ContainsValue(role);
         }
 
         public static bool IsNeedsToHireRole(WorkerRole role, TeamInfo teamInfo, GameContext gameContext)
@@ -51,7 +44,7 @@ namespace Assets.Core
             if (!roles.Contains(role))
                 return false;
 
-            return !HasRole(role, teamInfo, gameContext);
+            return !HasRole(role, teamInfo);
         }
 
         public static bool IsCanAddMoreTeams(GameEntity company, GameContext gameContext)
@@ -63,20 +56,6 @@ namespace Assets.Core
                 //return true;
             
             //return company.team.Teams.Count < GetMaxTeamsAmount(company, gameContext);
-        }
-
-        public static int GetMaxTeamsAmount(GameEntity company, GameContext gameContext)
-        {
-            var culture = Companies.GetActualCorporateCulture(company);
-
-            if (company.isFlagship)
-            {
-                var managingCompany = Companies.GetManagingCompanyOf(company, gameContext);
-
-                culture = managingCompany.corporateCulture.Culture;
-            }
-
-            return culture[CorporatePolicy.DoOrDelegate];
         }
     }
 }

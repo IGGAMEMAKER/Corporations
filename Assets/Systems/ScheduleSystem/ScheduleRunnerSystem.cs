@@ -1,5 +1,4 @@
-﻿using Assets;
-using Assets.Core;
+﻿using Assets.Core;
 using Entitas;
 using UnityEngine;
 

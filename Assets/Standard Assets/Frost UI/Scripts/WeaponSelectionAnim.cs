@@ -1,6 +1,5 @@
 ﻿// THIS SCRIPT IS MADE FOR DEMO SCENE AND MAY NOT BE USEFUL IN YOUR PROJECT.
 
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

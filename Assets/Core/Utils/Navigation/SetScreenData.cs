@@ -1,7 +1,4 @@
-﻿using Entitas;
-using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System;
 
 namespace Assets.Core
 {

@@ -1,6 +1,4 @@
-﻿using Assets.Core;
-
-public class BlinkIfGoalIsCompleted : BlinkOnSomeCondition
+﻿public class BlinkIfGoalIsCompleted : BlinkOnSomeCondition
 {
     public override bool ConditionCheck()
     {

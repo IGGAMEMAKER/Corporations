@@ -1,8 +1,4 @@
-﻿using Assets.Core;
-using System.Collections;
-using System.Collections.Generic;
-
-public class MarketingProductUpgrades : CompanyUpgradeList
+﻿public class MarketingProductUpgrades : CompanyUpgradeList
 {
     public override ProductUpgrade[] GetUpgrades()
     {

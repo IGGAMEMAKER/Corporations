@@ -1,6 +1,4 @@
-﻿using Assets.Core;
-using Entitas;
-using System.Collections.Generic;
+﻿
 
 //// utils, logs and aliases
 //public partial class AutoUpgradeProductsSystem

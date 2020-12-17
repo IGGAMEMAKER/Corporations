@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class WorkerOptionsView : View
+﻿public class WorkerOptionsView : View
 {
     // increase salary
 
