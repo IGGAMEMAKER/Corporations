@@ -47,7 +47,7 @@ public class TeamPreview : View
         Draw(NeedToInteract, Teams.IsTeamNeedsAttention(company, team, Q));
 
         // blink if never interacted with teams
-        bool hasNoManager = Teams.NeedsMainManagerInTeam(team, Q, company);
+        bool hasNoManager = Teams.NeedsMainManagerInTeam(team);
 
         GetComponent<Blinker>().enabled = Teams.IsNeverHiredEmployees(company) || hasNoManager;
 

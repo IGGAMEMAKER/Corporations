@@ -31,7 +31,7 @@ public class WorkerView : View
 
         var team = Teams.GetTeamOf(human, Q);
 
-        bool isMainManager = human.worker.WorkerRole == Teams.GetMainManagerForTheTeam(team);
+        bool isMainManager = human.worker.WorkerRole == Teams.GetMainManagerRole(team);
         bool isCompanyLead = isMainManager && human.worker.WorkerRole == WorkerRole.CEO;
 
         Draw(TeamLead, isMainManager);

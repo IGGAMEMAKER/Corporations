@@ -4,6 +4,6 @@ public class SpawnEmplyeesByWorkerRole : ButtonController
 {
     public override void Execute()
     {
-        Teams.ShaffleEmployees(SelectedCompany, Q);
+        Teams.ShuffleEmployees(SelectedCompany, Q);
     }
 }

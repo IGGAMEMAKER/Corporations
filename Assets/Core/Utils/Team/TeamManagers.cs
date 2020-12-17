@@ -16,13 +16,11 @@ namespace Assets.Core
             Humans.SetRole(gameContext, humanId, workerRole);
         }
 
-        public static WorkerRole GetMainManagerForTheTeam(TeamInfo teamInfo)
+        public static WorkerRole GetMainManagerRole(TeamInfo teamInfo)
         {
             WorkerRole managerTitle;
 
-            bool isCoreTeam = teamInfo.ID == 0;
-
-            if (isCoreTeam)
+            if (teamInfo.isCoreTeam)
             {
                 return WorkerRole.CEO;
             }
@@ -41,31 +39,26 @@ namespace Assets.Core
 
                 default:
                     managerTitle = WorkerRole.ProjectManager;
-                    //managerTitle = WorkerRole.ProductManager;
                     break;
             }
 
             return managerTitle;
         }
 
-        public static bool HasMainManagerInTeam(TeamInfo teamInfo, GameContext gameContext, GameEntity product)
+        public static bool HasMainManagerInTeam(TeamInfo teamInfo)
         {
-            WorkerRole managerTitle = GetMainManagerForTheTeam(teamInfo);
-
-            var rating = GetEffectiveManagerRating(gameContext, product, managerTitle, teamInfo);
-
-            return rating > 0;
+            return HasRole(GetMainManagerRole(teamInfo), teamInfo);
         }
 
-        public static bool NeedsMainManagerInTeam(TeamInfo team, GameContext gameContext, GameEntity product)
+        public static bool NeedsMainManagerInTeam(TeamInfo team)
         {
-            return !HasMainManagerInTeam(team, gameContext, product);
+            return !HasMainManagerInTeam(team);
         }
 
-        public static IEnumerable<int> GetProperCandidatesFrom(Dictionary<int, WorkerRole> managers, GameEntity company, TeamInfo team, bool hasLeader, WorkerRole leaderRole)
+        public static IEnumerable<int> GetProperCandidatesFrom(Dictionary<int, WorkerRole> managers, TeamInfo team, bool hasLeader, WorkerRole leaderRole)
         {
             return managers
-                    .Where(RoleSuitsTeam(company, team))
+                    .Where(RoleSuitsTeam(team))
 
                     // 
                     .Where(m => hasLeader || m.Value == leaderRole)
@@ -77,11 +70,11 @@ namespace Assets.Core
         {
             var managerIds = new List<int>();
 
-            bool hasLeader = HasMainManagerInTeam(team, Q, company);
-            var leaderRole = GetMainManagerForTheTeam(team);
+            bool hasLeader = HasMainManagerInTeam(team);
+            var leaderRole = GetMainManagerRole(team);
 
             managerIds.AddRange(
-                GetProperCandidatesFrom(company.employee.Managers, company, team, hasLeader, leaderRole)
+                GetProperCandidatesFrom(company.employee.Managers, team, hasLeader, leaderRole)
             );
 
             if (includeCompetingCompaniesWorkers)
@@ -89,7 +82,7 @@ namespace Assets.Core
                 foreach (var c in Companies.GetCompetitorsOf(company, Q, false))
                 {
                     managerIds.AddRange(
-                        GetProperCandidatesFrom(c.team.Managers, company, team, hasLeader, leaderRole)
+                        GetProperCandidatesFrom(c.team.Managers, team, hasLeader, leaderRole)
                     );
                 }
             }

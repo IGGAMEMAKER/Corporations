@@ -366,6 +366,8 @@ public class TeamInfo
 
     // upgrades are written here
     public TeamRank Rank;
+
+    public bool isCoreTeam => ID == 0;
 }
 
 public enum TeamType

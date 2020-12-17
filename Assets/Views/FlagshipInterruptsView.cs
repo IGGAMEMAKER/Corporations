@@ -71,7 +71,6 @@ public class FlagshipInterruptsView : View
 
         bool needsMoreServers = Products.IsNeedsMoreServers(product);
         bool needsMoreSupport = Products.IsNeedsMoreMarketingSupport(product);
-        bool needsMoreManagers = product.team.Managers.Count < Teams.GetRolesTheoreticallyPossibleForThisCompanyType(product).Count;
         bool underAttack = product.hasServerAttack;
 
         if (underAttack)

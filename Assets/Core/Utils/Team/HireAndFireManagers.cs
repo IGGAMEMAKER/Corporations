@@ -140,10 +140,6 @@ namespace Assets.Core
             Humans.LeaveCompany(worker);
         }
 
-        // worker roles
-        static string RenderBonus(long b) => Visuals.Positive(b.ToString());
-        static string RenderBonus(float b) => Visuals.Positive(b.ToString());
-
         public static string GetRoleDescription(WorkerRole role, GameContext gameContext, bool isUnemployed, GameEntity company = null)
         {
             var description = "";

@@ -100,7 +100,7 @@ namespace Assets.Core
 
         public static int GetManagerFocusBonus(GameContext gameContext, GameEntity company, TeamInfo teamInfo, ManagerTask managerTask)
         {
-            bool hasMainManager = Teams.HasMainManagerInTeam(teamInfo, gameContext, company);
+            bool hasMainManager = Teams.HasMainManagerInTeam(teamInfo);
 
             if (hasMainManager)
             {

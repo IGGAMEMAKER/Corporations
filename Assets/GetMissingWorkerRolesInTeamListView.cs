@@ -14,7 +14,7 @@ public class GetMissingWorkerRolesInTeamListView : ListView
 
         var team = Flagship.team.Teams[SelectedTeam];
         
-        var missingRoles = Teams.GetMissingRoles(team); // roles.Where(r => !Teams.HasRole(r, team, Q));
+        var missingRoles = Teams.GetMissingRoles(team);
         
         SetItems(missingRoles);
     }

@@ -51,7 +51,7 @@ namespace Assets.Core
 
         public static bool IsTeamPromotable(GameEntity product, TeamInfo team, GameContext Q)
         {
-            bool hasLeadManager = HasMainManagerInTeam(team, Q, product);
+            bool hasLeadManager = HasMainManagerInTeam(team);
 
             return IsTeamPromotable(team, hasLeadManager);
         }
@@ -121,7 +121,7 @@ namespace Assets.Core
 
         public static Bonus<int> GetOrganisationChanges(TeamInfo teamInfo, GameEntity product, GameContext gameContext)
         {
-            WorkerRole managerTitle = GetMainManagerForTheTeam(teamInfo);
+            WorkerRole managerTitle = GetMainManagerRole(teamInfo);
 
             var rating = GetEffectiveManagerRating(gameContext, product, managerTitle, teamInfo);
 
@@ -220,7 +220,7 @@ namespace Assets.Core
 
         public static bool IsTeamNeedsAttention(GameEntity product, TeamInfo team, GameContext gameContext)
         {
-            bool hasNoManager = !HasMainManagerInTeam(team, gameContext, product);
+            bool hasNoManager = !HasMainManagerInTeam(team);
 
 
             bool hasDisloyalManagers = team.Managers

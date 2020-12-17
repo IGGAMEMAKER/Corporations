@@ -23,30 +23,6 @@ namespace Assets.Core
             }
         }
 
-        public static GameEntity GetWorkerByRole(WorkerRole role, TeamInfo teamInfo, GameContext gameContext)
-        {
-            var managers = teamInfo.Managers.Select(humanId => Humans.Get(gameContext, humanId));
-
-            var workersWithRole = managers.Where(h => h.worker.WorkerRole == role);
-
-            return workersWithRole.Any() ? workersWithRole.First() : null;
-        }
-
-        public static bool HasRole(WorkerRole role, TeamInfo teamInfo)
-        {
-            return teamInfo.Roles.ContainsValue(role);
-        }
-
-        public static bool IsNeedsToHireRole(WorkerRole role, TeamInfo teamInfo, GameContext gameContext)
-        {
-            var roles = GetRolesForTeam(teamInfo.TeamType);
-
-            if (!roles.Contains(role))
-                return false;
-
-            return !HasRole(role, teamInfo);
-        }
-
         public static bool IsCanAddMoreTeams(GameEntity company, GameContext gameContext)
         {
             return true;

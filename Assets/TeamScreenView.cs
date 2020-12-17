@@ -21,10 +21,10 @@ public class TeamScreenView : View
         var team = product.team.Teams[SelectedTeam];
 
 
-        var mainManagerRole = Teams.GetMainManagerForTheTeam(team);
+        var mainManagerRole = Teams.GetMainManagerRole(team);
         var formattedManager = Humans.GetFormattedRole(mainManagerRole);
 
-        bool hasLeadManager = Teams.HasMainManagerInTeam(team, Q, product);
+        bool hasLeadManager = Teams.HasMainManagerInTeam(team);
 
         Draw(ManagerFocus, false);
         Draw(PromoteTeam, Teams.IsTeamPromotable(product, team, Q));
@@ -64,13 +64,13 @@ public class TeamScreenView : View
         }
         else
         {
-            if (Teams.IsNeedsToHireRole(WorkerRole.ProductManager, team, Q))
+            if (Teams.IsNeedsToHireRole(WorkerRole.ProductManager, team))
                 advices.AppendLine("* Product manager boosts MAX feature level");
 
-            if (Teams.IsNeedsToHireRole(WorkerRole.MarketingLead, team, Q))
+            if (Teams.IsNeedsToHireRole(WorkerRole.MarketingLead, team))
                 advices.AppendLine("* Marketing lead boosts your marketing efficiency");
 
-            if (Teams.IsNeedsToHireRole(WorkerRole.TeamLead, team, Q))
+            if (Teams.IsNeedsToHireRole(WorkerRole.TeamLead, team))
                 advices.AppendLine("* Team lead boosts development speed");
         }
 

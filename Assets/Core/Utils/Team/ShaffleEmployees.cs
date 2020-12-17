@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using UnityEngine;
 
 namespace Assets.Core
 {
     public static partial class Teams
     {
-        public static void ShaffleEmployees(GameEntity company, GameContext gameContext)
+        public static void ShuffleEmployees(GameEntity company, GameContext gameContext)
         {
-            //Debug.Log("ShaffleEmployees: " + company.company.Name + " " + company.company.Id);
+            //Debug.Log("ShuffleEmployees: " + company.company.Name + " " + company.company.Id);
 
             // remove previous employees
             foreach (var humanId in company.employee.Managers.Keys)
@@ -117,7 +115,7 @@ namespace Assets.Core
         {
             var bonus = GetHRBasedNewManagerRatingBonus(company, gameContext);
 
-            return (int)bonus.Sum();
+            return bonus.Sum();
         }
 
 
@@ -126,64 +124,7 @@ namespace Assets.Core
             return !company.team.Managers.ContainsValue(workerRole);
         }
 
-        public static List<WorkerRole> GetGroupRoles() => new List<WorkerRole>
-        {
-            WorkerRole.CEO,
-            WorkerRole.MarketingDirector,
-            WorkerRole.TechDirector
-        };
 
-        public static List<WorkerRole> GetProductCompanyRoles() => new List<WorkerRole>
-        {
-            WorkerRole.CEO,
-            WorkerRole.MarketingLead,
-            WorkerRole.TeamLead,
-            WorkerRole.ProjectManager,
-            WorkerRole.ProductManager
-        };
-
-        public static List<WorkerRole> GetRolesTheoreticallyPossibleForThisCompanyType(GameEntity company)
-        {
-            var roles = new List<WorkerRole>();
-
-            switch (company.company.CompanyType)
-            {
-                case CompanyType.Corporation:
-                case CompanyType.Group:
-                case CompanyType.Holding:
-                    roles = GetGroupRoles();
-                    break;
-
-                case CompanyType.ProductCompany:
-                    roles = GetProductCompanyRoles();
-
-                    //var prototype = !company.isRelease;
-
-                    //if (prototype)
-                    //    roles = new List<WorkerRole> { WorkerRole.CEO };
-                    break;
-
-                case CompanyType.FinancialGroup:
-                    break;
-            }
-
-            return roles;
-        }
-
-        public static IEnumerable<WorkerRole> GetMissingRoles(TeamInfo t)
-        {
-            var allRoles = GetRolesForTeam(t.TeamType);
-            var existingRoles = GetExistingWorkerRoles(t);
-            
-            var necessaryRoles = allRoles.Where(r => !existingRoles.Contains(r));
-
-            return necessaryRoles;
-        }
-
-        public static IEnumerable<WorkerRole> GetExistingWorkerRoles(TeamInfo t)
-        {
-            return t.Roles.Values.ToArray();
-        }
 
         public static void FillTeam(GameEntity company, GameContext gameContext, TeamInfo t)
         {
@@ -201,45 +142,6 @@ namespace Assets.Core
                     SetJobOffer(human, company, new JobOffer(salary), t.ID, gameContext);
                 }
             }
-        }
-
-        public static WorkerRole[] GetRolesForTeam(TeamType teamType)
-        {
-            switch (teamType)
-            {
-                case TeamType.SupportTeam:
-                case TeamType.MarketingTeam: return new[] { WorkerRole.MarketingLead };
-
-                case TeamType.DevelopmentTeam: return new[] { WorkerRole.TeamLead, WorkerRole.ProductManager };
-                case TeamType.ServersideTeam: return new[] { WorkerRole.TeamLead };
-
-                default:
-                    return new[] { WorkerRole.CEO, WorkerRole.ProjectManager, WorkerRole.TeamLead, WorkerRole.MarketingLead, WorkerRole.ProductManager };
-            }
-        }
-
-        public static Func<KeyValuePair<int, WorkerRole>, bool> RoleSuitsTeam(GameEntity company, TeamInfo team) => pair => IsRoleSuitsTeam(pair.Value, company, team);
-        public static bool IsRoleSuitsTeam(WorkerRole workerRole, GameEntity company, TeamInfo team)
-        {
-            var roles = GetRolesForTeam(team.TeamType).ToList();
-
-            if (team.ID == 0)
-            {
-                // core team
-                // CEO only
-                roles.Remove(WorkerRole.ProjectManager);
-                //roles.Remove(WorkerRole.CEO);
-            }
-            else
-            {
-                // regular universal team
-                if (IsUniversalTeam(team.TeamType))
-                {
-                    roles.Remove(WorkerRole.CEO);
-                }
-            }
-
-            return roles.Contains(workerRole);
         }
     }
 }

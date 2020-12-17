@@ -176,11 +176,11 @@ namespace Assets.Core
 
         private static void ApplyCEOLoyalty(GameEntity company, TeamInfo team, GameContext gameContext, ref Bonus<int> bonus, GameEntity worker, WorkerRole role)
         {
-            bool hasCeo = Teams.HasMainManagerInTeam(company.team.Teams[0], gameContext, company);
+            bool hasCeo = Teams.HasMainManagerInTeam(company.team.Teams[0]);
 
             bonus.AppendAndHideIfZero("No CEO", hasCeo ? 0 : -4);
 
-            var manager = Teams.GetMainManagerForTheTeam(team);
+            var manager = Teams.GetMainManagerRole(team);
             var lead = Teams.GetWorkerByRole(manager, team, gameContext);
 
             if (lead == null)

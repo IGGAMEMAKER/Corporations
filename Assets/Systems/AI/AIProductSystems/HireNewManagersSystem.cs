@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public partial class HireNewManagersSystem : OnPeriodChange
+public class HireNewManagersSystem : OnPeriodChange
 {
     public HireNewManagersSystem(Contexts contexts) : base(contexts) {}
 
@@ -57,12 +57,9 @@ public partial class HireNewManagersSystem : OnPeriodChange
         // hire employees
         foreach (var t in company.team.Teams)
         {
-            var allRoles = Teams.GetRolesForTeam(t.TeamType);
-            var currentRoles = t.Roles.Values.ToArray();
+            var necessaryRoles = Teams.GetMissingRoles(t);
 
-            var necessaryRoles = allRoles.Where(r => !currentRoles.Contains(r));
-
-            if (necessaryRoles.Count() > 0)
+            if (necessaryRoles.Any())
             {
                 var rating = Teams.GetTeamAverageStrength(company, gameContext) + Random.Range(-2, 3);
                 var salary = Teams.GetSalaryPerRating(rating);
