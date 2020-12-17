@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Assets.Core;
 using UnityEngine;
 
@@ -93,12 +94,11 @@ public class ProfilingSystem : OnDateChange
 
             prefix += "\n\n";
 
-            var text = prefix + myProfiler.ToString() + "\n\n<b>TAGS</b>\n";
+            var text = prefix + "\n\n<b>TAGS</b>\n\n";
 
-            foreach (var pair in profiler.Tags)
-            {
-                text += $"\n{pair.Key}: {pair.Value}ms";
-            }
+            text = profiler.Tags.Aggregate(text, (current, pair) => current + $"\n{pair.Key}: {pair.Value}ms");
+
+            text += "\n\n" + myProfiler;
 
             Debug.Log(text);
             

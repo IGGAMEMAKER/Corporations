@@ -121,12 +121,13 @@ namespace Assets.Core
 
         // public static void Measure(string name, DateTime startTime, GameContext gameContext) =>
         //     Measure(name, startTime, GetProfilingComponent(gameContext));
-        public static void Measure(string name, DateTime startTime, ProfilingComponent MyProfiler, string tag = "")
+        public static void Measure(string name, DateTime startTime, ProfilingComponent MyProfiler, string tag = "", bool countToTagTimeOnly = false)
         {
             var diff = DateTime.Now - startTime;
             var duration = diff.Milliseconds;
 
-            MyProfiler.ProfilerMilliseconds += duration;
+            if (!countToTagTimeOnly)
+                MyProfiler.ProfilerMilliseconds += duration;
 
             if (MyProfiler.Tags == null)
                 MyProfiler.Tags = new Dictionary<string, long>();

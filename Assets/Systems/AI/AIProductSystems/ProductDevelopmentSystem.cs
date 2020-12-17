@@ -1,7 +1,6 @@
 ﻿using Assets.Core;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using UnityEngine;
 
@@ -44,14 +43,15 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
     {
         Measure(name + " " + product.company.Name, time);
     }
-    public void Measure(string name, DateTime time, string tag ="")
+
+    public void Measure(string name, DateTime time, string tag = "", bool countInTagOnly = false)
     {
-        Companies.Measure(name, time, MyProfiler, tag);
+        Companies.Measure(name, time, MyProfiler, tag, countInTagOnly);
     }
 
     public void MeasureTag(string name, DateTime time)
     {
-        Measure(name, time, name);
+        Measure(name, time, name, true);
     }
 
     void Markup(string text = "-----------")
@@ -64,6 +64,8 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
         var nonFlagshipProducts = Companies.GetProductCompanies(gameContext).Where(p => !p.isFlagship);
 
         Markup($"\n<b>Products: {nonFlagshipProducts.Count()}</b>\n");
+        
+        var timeX = DateTime.Now;
         
         foreach (var product in nonFlagshipProducts)
         {
@@ -93,6 +95,8 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             Measure($"<b>Managing product</b>", product, time0);
             Markup("\n");
         }
+        
+        MeasureTag("TOTAL PRODUCT DEVELOPMENT TOOK", timeX);
     }
 
     void WorkOnGoal(GameEntity product, InvestmentGoal goal)
@@ -208,7 +212,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
             case ProductActions.ReleaseApp:
                 ReleaseProduct(product);
-
+                MeasureTag("* Release", time);
                 break;
 
             case ProductActions.Monetise:
@@ -244,6 +248,8 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             default:
                 var lg = Visuals.Negative("UNKNOWN ACTION in ProductDevelopmentSystem: " + action);
                 Companies.Log(product, lg);
+
+                MeasureTag("* <B>DEFAULT PRODUCT ACTION</B>", time);
 
                 Debug.LogError(lg);
 
