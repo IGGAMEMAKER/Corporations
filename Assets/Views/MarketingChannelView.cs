@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class MarketingChannelView : View
 {
-    public GameEntity channel;
+    public ChannelInfo channel;
 
     public Text Title;
     public Text Users;
@@ -25,7 +25,7 @@ public class MarketingChannelView : View
     float maxCost = 100;
     float minCost = 0;
 
-    public void SetEntity(GameEntity channel, float minROI, float maxROI)
+    public void SetEntity(ChannelInfo channel, float minROI, float maxROI)
     {
         this.channel = channel;
         this.maxCost = maxROI;
@@ -38,14 +38,10 @@ public class MarketingChannelView : View
     {
         base.ViewRender();
 
-        // some error
-        if (channel == null)
-            return;
-
         var company = Flagship;
 
         // basic info
-        Title.text = $"Channel {channel.marketingChannel.ChannelInfo.ID}";
+        Title.text = $"Channel {channel.ID}";
 
         RenderAudienceGain(company);
 
@@ -58,8 +54,10 @@ public class MarketingChannelView : View
 
     void RenderCost(GameEntity company)
     {
-        var adCost = Marketing.GetChannelCost(company, channel);
-        var clientCost = Marketing.GetChannelCostPerUser(company, channel);
+        var channelId = channel.ID;
+        
+        var adCost = Marketing.GetChannelCost(company, channelId);
+        var clientCost = Marketing.GetChannelCostPerUser(company, channelId);
         var repaymentColor = Visuals.GetGradientColor(minCost, maxCost, clientCost, true);
 
         var canMaintain = Economy.IsCanMaintainForAWhile(MyCompany, Q, adCost, 1);
@@ -69,14 +67,16 @@ public class MarketingChannelView : View
         Cost.text = isFreeChannel ? "FREE" : $"{Format.MinifyMoney(adCost)} weekly"; //  (${clientCost.ToString("0.00")} each)
         Cost.color = Visuals.GetColorPositiveOrNegative(canMaintain);
 
-        CostPerUser.text = $"{clientCost.ToString("0.0")}$";
+        CostPerUser.text = $"{clientCost:0.0}$";
         CostPerUser.color = repaymentColor;
     }
 
     void RenderAudienceGain(GameEntity company)
     {
+        var channelId = channel.ID;
+
         // audience gain
-        var gain = Marketing.GetChannelClientGain(company, channel);
+        var gain = Marketing.GetChannelClientGain(company, channelId);
 
         Users.text = "+" + Format.Minify(gain); // + " users";
     }
@@ -98,9 +98,9 @@ public class MarketingChannelView : View
         }
     }
 
-    void RenderActivitySigns(GameEntity company, GameEntity channel)
+    void RenderActivitySigns(GameEntity company, ChannelInfo channel)
     {
-        bool isActiveChannel = Marketing.IsActiveInChannel(company, channel);
+        bool isActiveChannel = Marketing.IsActiveInChannel(company, channel.ID);
 
         Draw(ChosenImage, isActiveChannel);
         Draw(ChosenCheckMark, isActiveChannel);

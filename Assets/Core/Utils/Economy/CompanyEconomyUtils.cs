@@ -153,6 +153,13 @@ namespace Assets.Core
             return balance + profit < 0;
         }
 
+        public static long GetSpareBudget(GameEntity company, GameContext gameContext, int periods)
+        {
+            var balance = BalanceOf(company);
+            var profit = GetProfit(gameContext, company);
+
+            return balance + profit * periods;
+        }
 
         public static bool IsCanMaintainForAWhile(GameEntity company, GameContext gameContext, long money, int periods)
         {

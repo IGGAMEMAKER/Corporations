@@ -446,7 +446,7 @@ public class TeamTask
         if (IsSupportTask)
             return "Task: " + (this as TeamTaskSupportFeature).SupportFeature.Name;
 
-        return this.ToString();
+        return ToString();
     }
 
     public string GetPrettyName()
@@ -463,7 +463,7 @@ public class TeamTask
         if (IsSupportTask)
             return (this as TeamTaskSupportFeature).SupportFeature.Name;
 
-        return this.ToString();
+        return ToString();
     }
 
     //public long GetCost()
@@ -515,6 +515,8 @@ public class TeamTaskChannelActivity : TeamTask
         this.ChannelId = channelId;
         this.ChannelCost = cost;
     }
+    
+    public  static TeamTaskChannelActivity FromChannel(ChannelInfo channelInfo) => new TeamTaskChannelActivity(channelInfo.ID, (long)channelInfo.costPerAd); 
 }
 
 public class TeamTaskFeatureUpgrade : TeamTask

@@ -11,22 +11,18 @@ namespace Assets.Core
             var channels = Markets.GetAllMarketingChannels(gameContext);
 
             return product.companyMarketingActivities.Channels.Keys
-                .Select(channelId => channels.First(c => c.marketingChannel.ChannelInfo.ID == channelId))
+                // .Select(channelId => channels.First(c => c.marketingChannel.ChannelInfo.ID == channelId))
                 .Select(channel => GetChannelClientGain(product, channel, segmentId))
                 .Sum();
         }
 
-        public static Bonus<long> GetAudienceGrowthBonus(GameEntity product, GameContext gameContext)
+        public static Bonus<long> GetAudienceGrowthBonus(GameEntity product)
         {
             var bonus = new Bonus<long>("Audience Growth");
 
-            var channels = Markets.GetAllMarketingChannels(gameContext);
-
             foreach (var channelId in product.companyMarketingActivities.Channels.Keys)
             {
-                var channel = channels.First(c => c.marketingChannel.ChannelInfo.ID == channelId);
-
-                var gain = GetChannelClientGain(product, channel);
+                var gain = GetChannelClientGain(product, channelId);
 
                 bonus.AppendAndHideIfZero("Channel " + channelId, gain);
             }
@@ -36,7 +32,7 @@ namespace Assets.Core
 
         public static long GetAudienceGrowth(GameEntity product, GameContext gameContext)
         {
-            return GetAudienceGrowthBonus(product, gameContext).Sum();
+            return GetAudienceGrowthBonus(product).Sum();
         }
 
         public static Bonus<long> GetAudienceChange(GameEntity product, GameContext gameContext, bool isBonus)

@@ -34,7 +34,7 @@ public class ProductOnMarketView : View
         var company = Companies.Get(Q, companyId);
 
         var clients = Marketing.GetUsers(company);
-        var growthBonus = Marketing.GetAudienceGrowthBonus(company, Q);
+        var growthBonus = Marketing.GetAudienceGrowthBonus(company);
         var newClients = growthBonus.Sum();
 
         var marketRequirements = Products.GetMarketRequirements(company, Q);

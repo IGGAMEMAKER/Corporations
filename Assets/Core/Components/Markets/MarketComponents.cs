@@ -105,6 +105,11 @@ public class CompanyMarketingActivitiesComponent : IComponent
     public Dictionary<int, long> Channels;
 }
 
+public class ChannelInfosComponent : IComponent
+{
+    // int - channelId
+    public Dictionary<int, ChannelInfo> ChannelInfos;
+}
 
 
 public enum NicheSpeed
@@ -121,7 +126,7 @@ public enum AudienceSize
     SmallEnterprise = 50000, // 50K
     SmallUtil = SmallEnterprise,
     Million = 1000000, // 1M
-    Million100 = 100000000, // 100M // usefull util AdBlock
+    Million100 = 100000000, // 100M // useful util AdBlock
     Global = 1000000000 // 1-2B
 }
 

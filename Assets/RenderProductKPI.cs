@@ -36,7 +36,7 @@ public class RenderProductKPI : View
 
         // ---------
 
-        var growthBonus = Marketing.GetAudienceGrowthBonus(product, Q);
+        var growthBonus = Marketing.GetAudienceGrowthBonus(product);
         var growth = growthBonus.Sum();
 
         var amountOfChannels = growthBonus.bonusDescriptions.Count;

@@ -28,7 +28,7 @@ public class MarketingChannelsListView : ListView
 
     public override void SetItem<T>(Transform t, T entity)
     {
-        var channel = (GameEntity)(object)entity;
+        var channel = entity as ChannelInfo;
 
         t.GetComponent<MarketingChannelView>().SetEntity(channel, minROI, maxROI);
     }
@@ -61,7 +61,7 @@ public class MarketingChannelsListView : ListView
         var channels = ShowAffordableOnly ?
             Markets.GetAffordableMarketingChannels(company, Q)
             :
-            Markets.GetTheoreticallyPossibleMarketingChannels(company, Q);
+            Markets.GetTheoreticallyPossibleMarketingChannels(company);
 
         // ----------------------------------------------------
         var p = Teams.GetMarketingTaskMockup();
@@ -79,7 +79,7 @@ public class MarketingChannelsListView : ListView
         AmountOfSlots.text = Visuals.Colorize((long)Teams.GetOverallSlotsForTaskType(company, p));
         // ----------------------------------------------------
 
-        SetItems(channels.OrderByDescending(c => Marketing.GetChannelCost(company, c)));
+        SetItems(channels.OrderByDescending(c => Marketing.GetChannelCost(company, c.ID)));
     }
 
     void CalculateROI(GameEntity company)
@@ -87,8 +87,8 @@ public class MarketingChannelsListView : ListView
         // calculate ROI
         var allChannels = Markets.GetAllMarketingChannels(Q);
 
-        maxROI = allChannels.Max(c => Marketing.GetChannelCostPerUser(company, c));
-        minROI = allChannels.Min(c => Marketing.GetChannelCostPerUser(company, c));
+        maxROI = allChannels.Max(c => Marketing.GetChannelCostPerUser(company, c.marketingChannel.ChannelInfo.ID));
+        minROI = allChannels.Min(c => Marketing.GetChannelCostPerUser(company, c.marketingChannel.ChannelInfo.ID));
     }
 
     void RenderMarketingEfficiencyInModal(GameEntity company)

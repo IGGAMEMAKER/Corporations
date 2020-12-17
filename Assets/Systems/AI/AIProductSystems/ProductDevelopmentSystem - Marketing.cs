@@ -8,32 +8,42 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 {
     void ReleaseProduct(GameEntity product)
     {
-        // var Cluster = new SupportFeature { SupportBonus = new SupportBonusHighload(2_000_000), Name = "Cluster" };
-        //
-        // TryAddTask(product, new TeamTaskSupportFeature(Cluster));
-
-        // Products.GetServerCapacity(product) > 2_000_000 &&
         if (Companies.IsReleaseableApp(product))
             Marketing.ReleaseApp(gameContext, product);
     }
 
+    IEnumerable<ChannelInfo> GetNotActiveChannels(GameEntity product)
+    {
+        // var channels = Markets.GetAllMarketingChannels(product);
+        var channels = Markets.GetTheoreticallyPossibleMarketingChannels(product);
+
+        return channels.OrderBy(c => c.costPerAd);
+    }
+
+    ChannelInfo GetBestChannel(GameEntity product)
+    {
+        return Markets.GetAffordableMarketingChannels(product, gameContext).FirstOrDefault();
+        var spareBudget = Economy.GetSpareBudget(product, gameContext, 1);
+        
+        // return GetNotActiveChannels(product).FirstOrDefault();
+        return GetNotActiveChannels(product).FirstOrDefault(c => (long) c.costPerAd < spareBudget);
+        // return GetNotActiveChannels(product).FirstOrDefault(c => CanMaintain(product, (long) c.costPerAd));
+    }
+    
     void ManageChannels(GameEntity product)
     {
+        // var bestChannel = GetBestChannel(product);
         var channels = Markets.GetAffordableMarketingChannels(product, gameContext)
-            .OrderBy(c => Marketing.GetChannelCostPerUser(product, c))
-            .ThenByDescending(c => Marketing.GetChannelCost(product, c));
+        //     .OrderBy(c => Marketing.GetChannelCostPerUser(product, c.ID))
+        //     .ThenByDescending(c => Marketing.GetChannelCost(product, c.ID))
         ;
 
+        
         if (channels.Any())
         {
             var c = channels.First();
 
-            var cost = Marketing.GetChannelCost(product, c);
-            TryAddTask(product, new TeamTaskChannelActivity(c.marketingChannel.ChannelInfo.ID, cost));
-        }
-        else
-        {
-            // maybe try to remove expensive ones if necessary?
+            TryAddTask(product, TeamTaskChannelActivity.FromChannel(c));
         }
     }
 
@@ -58,7 +68,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
         {
             var broaderPositionings = positionings.Where(p => Marketing.GetAmountOfTargetAudiences(p) == widerAudiencesCount);
 
-            if (broaderPositionings.Count() == 0)
+            if (!broaderPositionings.Any())
             {
                 Companies.Log(product, $"No positionings for {widerAudiencesCount} audiences");
 
@@ -71,7 +81,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
             Companies.Log(product, $"positioning FOUND: {newPositioning.name}");
 
-            // if positioning change will not dissapoint our current users...
+            // if positioning change will not disappoint our current users...
             // change it to new one!
             foreach (var a in audiences)
             {
@@ -79,7 +89,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
                 var futureLoyalty = Marketing.GetSegmentLoyalty(product, newPositioning, a.ID);
 
 
-                // will dissapoint loyal users
+                // will disappoint loyal users
                 if (loyalty > 0 && futureLoyalty < 0)
                 {
                     Companies.Log(product, $"will dissapoint {a.Name}, whose loyalty is {loyalty} and after changing positioning will be {futureLoyalty}");

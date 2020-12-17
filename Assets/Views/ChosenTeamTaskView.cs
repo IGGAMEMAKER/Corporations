@@ -20,14 +20,11 @@ public class ChosenTeamTaskView : ParameterView
             return $"Upgrading {f.NewProductFeature.Name} feature";
         }
 
-        if (task is TeamTaskChannelActivity)
+        if (task is TeamTaskChannelActivity f1)
         {
-            var f = task as TeamTaskChannelActivity;
+            var gain = Marketing.GetChannelClientGain(Flagship, f1.ChannelId);
 
-            var channel = Markets.GetMarketingChannel(Q, f.ChannelId);
-            var gain = Marketing.GetChannelClientGain(Flagship, channel);
-
-            return $"Marketing in Channel {channel.marketingChannel.ChannelInfo.ID} (+{Format.Minify(gain)} users / week). Costs {costs}";
+            return $"Marketing in Channel {f1.ChannelId} (+{Format.Minify(gain)} users / week). Costs {costs}";
         }
 
         if (task.IsHighloadTask)

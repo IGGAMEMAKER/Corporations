@@ -66,37 +66,51 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
         Markup($"\n<b>Products: {nonFlagshipProducts.Count()}</b>\n");
         
         var timeX = DateTime.Now;
+
+        ManageProducts(nonFlagshipProducts);
         
+        MeasureTag("TOTAL PRODUCT DEVELOPMENT TOOK", timeX);
+    }
+
+    void ManageProducts(IEnumerable<GameEntity> nonFlagshipProducts)
+    {
         foreach (var product in nonFlagshipProducts)
         {
             var time0 = DateTime.Now;
             
-            // add goal if there are no goals
             PickNewGoalIfThereAreNoGoals(product);
+            if (product.companyGoal.Goals.Count == 0)
+                continue;
 
-            foreach (var goal in product.companyGoal.Goals)
-            {
-                // Markup("<i>Start working on goals</i> " + product.company.Name);
+            WorkOnGoals(product);
 
-                var time1 = DateTime.Now;
-                
-                WorkOnGoal(product, goal);
-                
-                Measure("<i>Work on goal</i> ", product, time1);
-            }
-
-            var time = DateTime.Now;
-            Investments.CompleteGoals(product, gameContext);
-            Measure("Complete goals ", product, time);
-
+            CompleteGoals(product);
             
             PickNewGoalIfThereAreNoGoals(product);
             
             Measure($"<b>Managing product</b>", product, time0);
             Markup("\n");
         }
-        
-        MeasureTag("TOTAL PRODUCT DEVELOPMENT TOOK", timeX);
+    }
+
+    void CompleteGoals(GameEntity product)
+    {
+        var time = DateTime.Now;
+            
+        Investments.CompleteGoals(product, gameContext);
+        Measure("Complete goals ", product, time);
+    }
+
+    void WorkOnGoals(GameEntity product)
+    {
+        foreach (var goal in product.companyGoal.Goals)
+        {
+            var time1 = DateTime.Now;
+                
+            WorkOnGoal(product, goal);
+                
+            Measure("<i>Work on goal</i> ", product, time1);
+        }
     }
 
     void WorkOnGoal(GameEntity product, InvestmentGoal goal)
@@ -213,6 +227,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             case ProductActions.ReleaseApp:
                 ReleaseProduct(product);
                 MeasureTag("* Release", time);
+                
                 break;
 
             case ProductActions.Monetise:

@@ -85,17 +85,18 @@ public class TeamView : View/*, IPointerEnterHandler, IPointerExitHandler*/
 
         if (task.IsMarketingTask)
         {
-            var marketingEffeciency = Teams.GetMarketingEfficiency(Flagship);
-            var channel = Markets.GetMarketingChannel(Q, (task as TeamTaskChannelActivity).ChannelId);
+            var marketingEfficiency = Teams.GetMarketingEfficiency(Flagship);
 
-            var baseGain = Marketing.GetChannelClientGain(Flagship, channel);
-            var finalGain = baseGain * marketingEffeciency / 100;
+            var channelId = (task as TeamTaskChannelActivity).ChannelId;
 
-            Text1.text = $"{marketingEffeciency}%";
-            Text1.color = Visuals.GetGradientColor(50, 150, marketingEffeciency);
+            var baseGain = Marketing.GetChannelClientGain(Flagship, channelId);
+            var finalGain = baseGain * marketingEfficiency / 100;
+
+            Text1.text = $"{marketingEfficiency}%";
+            Text1.color = Visuals.GetGradientColor(50, 150, marketingEfficiency);
 
             Text2.text = $"+{Format.Minify(finalGain)} users"; // from organisation
-            Text2.color = Visuals.Positive(); // Visuals.GetGradientColor(50, 150, marketingEffeciency);
+            Text2.color = Visuals.Positive(); // Visuals.GetGradientColor(50, 150, marketingEfficiency);
 
             Text3.text = $"";
             Text3.color = Visuals.Neutral();

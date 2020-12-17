@@ -16,9 +16,9 @@ public class ChannelActivityController : ButtonController
 
         var relay = FindObjectOfType<FlagshipRelayInCompanyView>();
 
-        var channelId = channel.marketingChannel.ChannelInfo.ID;
+        var channelId = channel.ID;
 
-        var task = new TeamTaskChannelActivity(channelId, Marketing.GetChannelCost(company, channel));
+        var task = new TeamTaskChannelActivity(channelId, Marketing.GetChannelCost(company, channelId));
 
         relay.AddPendingTask(task);
 

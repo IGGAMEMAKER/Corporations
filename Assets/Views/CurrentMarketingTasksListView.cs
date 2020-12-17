@@ -33,7 +33,7 @@ public class CurrentMarketingTasksListView : ListView
         }
 
         var marketingTasks = tasks
-            .OrderByDescending(t => Marketing.GetChannelClientGain(company, Markets.GetMarketingChannel(Q, (t as TeamTaskChannelActivity).ChannelId)))
+            .OrderByDescending(t => Marketing.GetChannelClientGain(company, (t as TeamTaskChannelActivity).ChannelId))
             .Take(12);
 
         SetItems(marketingTasks);

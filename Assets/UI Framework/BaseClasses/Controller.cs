@@ -62,24 +62,24 @@ public abstract class Controller : BaseClass
         {
             var startTime = DateTime.Now;
 
-            if (view.gameObject.activeSelf)
-            {
+            // if (view.gameObject.activeSelf)
+            // {
                 view.ViewRender();
                 
-                Companies.Measure(view.name, startTime, MyProfiler);
-            }
+                Companies.Measure(view.name, startTime, MyProfiler, "Views");
+            // }
         }
 
         foreach (var view in buttonViews)
         {
             var startTime = DateTime.Now;
 
-            if (view.gameObject.activeSelf)
-            {
+            // if (view.gameObject.activeSelf)
+            // {
                 view.ViewRender();
                 
-                Companies.Measure(view.name, startTime, MyProfiler);
-            }
+                Companies.Measure(view.name, startTime, MyProfiler, "Views");
+            // }
         }
 
         // foreach (var view in GetComponents<View>())

@@ -10,7 +10,6 @@ public class ProcessClientsSystem : OnPeriodChange
     {
         var audiences = Marketing.GetAudienceInfos();
 
-        var channels = Markets.GetAllMarketingChannels(gameContext);
         var companies = Companies.GetProductCompanies(gameContext);
 
         foreach (var product in companies)
@@ -29,9 +28,8 @@ public class ProcessClientsSystem : OnPeriodChange
                 foreach (var c in myChannels)
                 {
                     var channelId = c.Key;
-                    var channel = channels[channelId];
 
-                    var clients = Marketing.GetChannelClientGain(product, channel, segmentId);
+                    var clients = Marketing.GetChannelClientGain(product, channelId, segmentId);
                     Marketing.AddClients(product, clients, segmentId);
                 }
             }

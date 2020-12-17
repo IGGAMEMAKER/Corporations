@@ -6,19 +6,23 @@ namespace Assets.Core
 {
     public static partial class Marketing
     {
-        public static long GetChannelCost(GameEntity product, GameEntity channel)
+        public static long GetChannelCost(GameEntity product, int channelId)
         {
-            return (long)channel.marketingChannel.ChannelInfo.costPerAd;
+            return (long)product.channelInfos.ChannelInfos[channelId].costPerAd;
+            // return (long)channel.marketingChannel.ChannelInfo.costPerAd;
         }
 
-        public static float GetChannelCostPerUser(GameEntity product, GameEntity channel)
+        public static float GetChannelCostPerUser(GameEntity product, int channelId)
         {
-            return GetChannelCost(product, channel) * 1f / GetChannelClientGain(product, channel);
+            return GetChannelCost(product, channelId) * 1f / GetChannelClientGain(product, channelId);
         }
 
-        public static bool IsActiveInChannel(GameEntity product, GameEntity channel)
+        public static bool IsActiveInChannel(GameEntity product, int channelId)
         {
-            return channel.channelMarketingActivities.Companies.ContainsKey(product.company.Id);
+            return product.companyMarketingActivities.Channels.ContainsKey(channelId);
+            
+            // // GameEntity channel
+            // return channel.channelMarketingActivities.Companies.ContainsKey(product.company.Id);
         }
 
         public static long GetGrowthLoyaltyBonus(GameEntity company, int segmentId)
@@ -100,14 +104,18 @@ namespace Assets.Core
         // * Base user activity (desire to click on ads: 5% => we can get 5K users)
         // * segment bonuses (audience may be small, but it is way more active (desire to click X2) and you can get more)
         // * positioning bonuses
-        public static long GetChannelClientGain(GameEntity company, GameEntity channel) =>
-            GetAudienceInfos().Select(i => GetChannelClientGain(company, channel, i.ID)).Sum();
-        public static long GetChannelClientGain(GameEntity company, GameEntity channel, int segmentId)
+        public static long GetChannelClientGain(GameEntity company, int channelId) =>
+            GetAudienceInfos().Select(i => GetChannelClientGain(company, company.channelInfos.ChannelInfos[channelId], i.ID)).Sum();
+
+        public static long GetChannelClientGain(GameEntity company, int channelId, int segmentId) =>
+            GetChannelClientGain(company, company.channelInfos.ChannelInfos[channelId], segmentId);
+        
+        public static long GetChannelClientGain(GameEntity company, ChannelInfo channelInfo, int segmentId)
         {
             if (!IsAttractsSpecificAudience(company, segmentId))
                 return 0;
 
-            var baseChannelBatch = channel.marketingChannel.ChannelInfo.Batch;
+            var baseChannelBatch = channelInfo.Batch;
             var fraction = GetSegmentFocusingMultiplier(company);
 
             var batch = (long)(baseChannelBatch * fraction);

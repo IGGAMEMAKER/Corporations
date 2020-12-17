@@ -76,9 +76,10 @@ namespace Assets.Core
 
             if (task.IsMarketingTask)
             {
-                var channel = Markets.GetMarketingChannel(gameContext, (task as TeamTaskChannelActivity).ChannelId);
+                var channelId = (task as TeamTaskChannelActivity).ChannelId;
+                var channel = Markets.GetMarketingChannel(gameContext, channelId);
 
-                if (!Marketing.IsActiveInChannel(product, channel))
+                if (!Marketing.IsActiveInChannel(product, channelId))
                     Marketing.EnableChannelActivity(product, channel);
             }
 
@@ -135,8 +136,8 @@ namespace Assets.Core
             {
                 var activity = task as TeamTaskChannelActivity;
 
-                var channel = Markets.GetAllMarketingChannels(gameContext)
-                    .First(c => c.marketingChannel.ChannelInfo.ID == activity.ChannelId);
+                var channel = Markets.GetMarketingChannel(gameContext, activity.ChannelId);
+                
                 Marketing.DisableChannelActivity(product, channel);
             }
 

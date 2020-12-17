@@ -11,7 +11,7 @@ public class MarketingChannelsListView2 : ListView
 
     public override void SetItem<T>(Transform t, T entity)
     {
-        t.GetComponent<MarketingChannelView>().SetEntity(entity as GameEntity, 0, 100);
+        t.GetComponent<MarketingChannelView>().SetEntity(entity as ChannelInfo, 0, 100);
     }
 
     public override void ViewRender()
