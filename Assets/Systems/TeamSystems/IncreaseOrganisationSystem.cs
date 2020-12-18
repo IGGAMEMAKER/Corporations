@@ -14,14 +14,18 @@ class IncreaseOrganisationSystem : OnPeriodChange
         {
             var p = products[i];
 
-            for (var teamId = 0; teamId < p.team.Teams.Count; teamId++)
-            {
-                var team = p.team.Teams[teamId];
+            var pointChange = (int)-Teams.GetManagerPointChange(p, gameContext).Sum();
+            
+            p.companyResource.Resources.Spend(new TeamResource(0, pointChange, 0,0,0));
 
-                var change = Teams.GetOrganisationChanges(team, p, gameContext).Sum() / 10f;
-
-                team.Organisation = Mathf.Clamp(team.Organisation + change, 0, 100);
-            }
+            // for (var teamId = 0; teamId < p.team.Teams.Count; teamId++)
+            // {
+            //     var team = p.team.Teams[teamId];
+            //
+            //     var change = Teams.GetOrganisationChanges(team, p, gameContext).Sum() / 10f;
+            //
+            //     team.Organisation = Mathf.Clamp(team.Organisation + change, 0, 100);
+            // }
         }
     }
 }

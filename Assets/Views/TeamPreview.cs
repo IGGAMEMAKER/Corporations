@@ -39,7 +39,7 @@ public class TeamPreview : View
 
         RenderTeamImage();
 
-        RenderTeamHint(team, hasFullTeam, workers, maxWorkers);
+        RenderTeamHint(company, team, hasFullTeam, workers, maxWorkers);
     }
 
     void RenderHiringProgress(GameEntity company, TeamInfo team, int workers, int maxWorkers, bool hasFullTeam)
@@ -58,7 +58,7 @@ public class TeamPreview : View
         Draw(NeedToInteract, Teams.IsTeamNeedsAttention(company, team, Q));
     }
 
-    void RenderTeamHint(TeamInfo team, bool hasFullTeam, int workers, int maxWorkers)
+    void RenderTeamHint(GameEntity company, TeamInfo team, bool hasFullTeam, int workers, int maxWorkers)
     {
         var hint = $"<size=35>{team.Name}</size>\n";
 
@@ -85,6 +85,11 @@ public class TeamPreview : View
         // {
         //     hint += $"\n{Visuals.Positive(marketingTasks.ToString())} marketing tasks";
         // }
+
+        var bonus = Teams.GetTeamManagementBonus(team, company, Q);
+        var bonusSum = bonus.Sum();
+        
+        hint += Visuals.Colorize($"\n\n<b>Manager points ({bonusSum})</b>\n", bonusSum >= 0) + bonus.Minify().ToString();
 
         // render hint
         GetComponent<Hint>().SetHint(hint);

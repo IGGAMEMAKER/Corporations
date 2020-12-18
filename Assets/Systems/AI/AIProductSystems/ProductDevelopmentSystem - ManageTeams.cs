@@ -23,7 +23,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
     void TryUpgradeTeam(GameEntity company, TeamInfo team)
     {
-        if (Teams.IsTeamPromotable(team) && CanMaintain(company, Economy.GetPromotedTeamCost(team)))
+        if (Teams.IsTeamPromotable(company, team) && CanMaintain(company, Economy.GetPromotedTeamCost(team)))
         {
             Teams.Promote(company, team);
         }

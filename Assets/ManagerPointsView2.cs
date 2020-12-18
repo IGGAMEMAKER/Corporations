@@ -4,7 +4,7 @@ public class ManagerPointsView2 : UpgradedParameterView
 {
     public override string RenderValue()
     {
-        var points = 100;
+        var points = Flagship.companyResource.Resources.managerPoints;
 
         var change = Teams.GetManagerPointChange(Flagship, Q);
         var changeSum = (long) change.Sum();

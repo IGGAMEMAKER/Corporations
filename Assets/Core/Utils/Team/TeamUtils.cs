@@ -49,17 +49,16 @@ namespace Assets.Core
             return $"{prefix} #{team.ID}";
         }
 
-        public static bool IsTeamPromotable(GameEntity product, TeamInfo team, GameContext Q)
+        public static bool IsTeamPromotable(GameEntity product, TeamInfo team)
         {
             bool hasLeadManager = HasMainManagerInTeam(team);
 
-            return IsTeamPromotable(team, hasLeadManager);
-        }
-        public static bool IsTeamPromotable(TeamInfo team, bool hasLeadManager = true)
-        {
-            var organisation = team.Organisation;
+            var managerPoints = product.companyResource.Resources.managerPoints;
+            var promotionCost = 15;
 
-            return hasLeadManager && organisation >= 100 && team.Rank < TeamRank.Department;
+            var enoughManagementPoints = managerPoints >= promotionCost || true;
+
+            return hasLeadManager && team.isFullTeam && enoughManagementPoints && team.Rank < TeamRank.Department;
         }
 
         public static TeamRank GetNextTeamRank(TeamRank teamRank)
@@ -233,7 +232,7 @@ namespace Assets.Core
                 .Select(m => Humans.Get(gameContext, m))
                 .Count(h => h.humanCompanyRelationship.Morale < 40 && Teams.GetLoyaltyChangeForManager(h, team, product) < 0) > 0;
 
-            return IsFullTeam(team) && (hasNoManager || hasDisloyalManagers || IsTeamPromotable(product, team, gameContext));
+            return IsFullTeam(team) && (hasNoManager || hasDisloyalManagers || IsTeamPromotable(product, team));
         }
     }
 }

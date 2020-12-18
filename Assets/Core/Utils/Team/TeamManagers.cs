@@ -172,13 +172,15 @@ namespace Assets.Core
             var gain = GetTeamManagementGain(team, company, Q);
             var maintenance = GetManagementCostOfTeam(team);
         
-            bonus.AppendAndHideIfZero(Humans.GetFormattedRole(role) + $" in " + team.Name, gain);
-            bonus.Append("Maintenance of " + team.Name, -maintenance);
+            bonus.AppendAndHideIfZero(Humans.GetFormattedRole(role), gain);
+            // bonus.AppendAndHideIfZero(Humans.GetFormattedRole(role) + $" in " + team.Name, gain);
+            bonus.Append("Maintenance", -maintenance);
+            // bonus.Append("Maintenance of " + team.Name, -maintenance);
 
             return bonus;
         }
-        
-                public static int GetManagementCostOfTeam(TeamInfo team)
+
+        public static int GetManagementCostOfTeam(TeamInfo team)
         {
             switch (team.Rank)
             {

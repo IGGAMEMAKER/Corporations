@@ -368,6 +368,7 @@ public class TeamInfo
     public TeamRank Rank;
 
     public bool isCoreTeam => ID == 0;
+    public bool isFullTeam => Teams.IsFullTeam(this);
 }
 
 public enum TeamType
