@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -19,7 +20,7 @@ namespace Assets.Core
                 Managers = new List<int>(),
                 Roles = new Dictionary<int, WorkerRole>(),
 
-                ManagerTasks = new List<ManagerTask> { ManagerTask.None, ManagerTask.None, ManagerTask.None },
+                ManagerTasks = new List<ManagerTask> {ManagerTask.None, ManagerTask.None, ManagerTask.None},
 
                 HiringProgress = 0,
                 Workers = 0,
@@ -49,14 +50,36 @@ namespace Assets.Core
             return $"{prefix} #{team.ID}";
         }
 
+        public static int GetPromotionCost(TeamInfo teamInfo)
+        {
+            return 1;
+            switch (teamInfo.Rank)
+            {
+                case TeamRank.Solo:
+                    return 0;
+                    break;
+                case TeamRank.SmallTeam:
+                    return 15;
+                    break;
+                case TeamRank.BigTeam:
+                    return 25;
+                    break;
+                case TeamRank.Department:
+                    return 50;
+                    break;
+                default:
+                    return 100_000;
+            }
+        }
+
         public static bool IsTeamPromotable(GameEntity product, TeamInfo team)
         {
             bool hasLeadManager = HasMainManagerInTeam(team);
 
             var managerPoints = product.companyResource.Resources.managerPoints;
-            var promotionCost = 15;
+            var promotionCost = GetPromotionCost(team);
 
-            var enoughManagementPoints = managerPoints >= promotionCost || true;
+            var enoughManagementPoints = managerPoints >= promotionCost;
 
             return hasLeadManager && team.isFullTeam && enoughManagementPoints && team.Rank < TeamRank.Department;
         }
@@ -82,6 +105,9 @@ namespace Assets.Core
 
             team.Name = GenerateTeamName(product, team);
             team.Organisation = Mathf.Min(team.Organisation, 10);
+
+            var promotionCost = GetPromotionCost(team);
+            Companies.SpendResources(product, new TeamResource(0, promotionCost, 0, 0, 0), "Team Promotion");
         }
 
         public static void RemoveTeam(GameEntity company, GameContext gameContext, int teamId)
@@ -118,12 +144,6 @@ namespace Assets.Core
             c.isCrunching = !c.isCrunching;
         }
 
-        public static Bonus<long> GetManagerPointsGrowth(GameEntity company, GameContext gameContext)
-        {
-            return  new Bonus<long>("Manager points")
-                .Append("Base", 1);
-        }
-
         public static Bonus<int> GetOrganisationChanges(TeamInfo teamInfo, GameEntity product, GameContext gameContext)
         {
             WorkerRole managerTitle = GetMainManagerRole(teamInfo);
@@ -137,15 +157,18 @@ namespace Assets.Core
             // count team size: small teams organise faster, big ones: slower
 
             return new Bonus<int>("Organisation change")
-                .AppendAndHideIfZero("No " + managerTitle, NoCeo ? -30 : 0)
-                .AppendAndHideIfZero(managerTitle + " efforts", rating)
-                .AppendAndHideIfZero("Manager focus on Organisation", NoCeo ? 0 : managerFocus * 10)
+                    .AppendAndHideIfZero("No " + managerTitle, NoCeo ? -30 : 0)
+                    .AppendAndHideIfZero(managerTitle + " efforts", rating)
+                    .AppendAndHideIfZero("Manager focus on Organisation", NoCeo ? 0 : managerFocus * 10)
                 ;
         }
 
-        public static bool IsUniversalTeam(TeamType teamType) => new[] { TeamType.CrossfunctionalTeam }.Contains(teamType);
+        public static bool IsUniversalTeam(TeamType teamType) =>
+            new[] {TeamType.CrossfunctionalTeam}.Contains(teamType);
 
-        public static string GetFormattedTeamType(TeamInfo team) => GetFormattedTeamType(team.TeamType, team.Rank, team.ID == 0 ? "Core team" : "");
+        public static string GetFormattedTeamType(TeamInfo team) =>
+            GetFormattedTeamType(team.TeamType, team.Rank, team.isCoreTeam ? "Core team" : "");
+
         public static string GetFormattedTeamType(TeamType teamType, TeamRank rank, string formattedName = "")
         {
             if (formattedName.Length == 0)
@@ -196,14 +219,14 @@ namespace Assets.Core
         {
             switch (teamType)
             {
-                case TeamType.CrossfunctionalTeam:      return "Universal team";
+                case TeamType.CrossfunctionalTeam: return "Universal team";
 
-                case TeamType.DevelopmentTeam:          return "Development team";
-                case TeamType.MarketingTeam:            return "Marketing team";
-                case TeamType.MergeAndAcquisitionTeam:  return "M&A team";
-                case TeamType.SupportTeam:              return "Support team";
+                case TeamType.DevelopmentTeam: return "Development team";
+                case TeamType.MarketingTeam: return "Marketing team";
+                case TeamType.MergeAndAcquisitionTeam: return "M&A team";
+                case TeamType.SupportTeam: return "Support team";
 
-                case TeamType.ServersideTeam:               return "Serverside team";
+                case TeamType.ServersideTeam: return "Serverside team";
 
                 default: return teamType.ToString();
             }
@@ -230,7 +253,8 @@ namespace Assets.Core
 
             bool hasDisloyalManagers = team.Managers
                 .Select(m => Humans.Get(gameContext, m))
-                .Count(h => h.humanCompanyRelationship.Morale < 40 && Teams.GetLoyaltyChangeForManager(h, team, product) < 0) > 0;
+                .Count(h => h.humanCompanyRelationship.Morale < 40 &&
+                            GetLoyaltyChangeForManager(h, team, product) < 0) > 0;
 
             return IsFullTeam(team) && (hasNoManager || hasDisloyalManagers || IsTeamPromotable(product, team));
         }

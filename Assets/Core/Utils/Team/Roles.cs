@@ -19,9 +19,12 @@ namespace Assets.Core
         
         public static IEnumerable<WorkerRole> GetMissingRoles(TeamInfo t)
         {
-            var allRoles = GetRolesForTeam(t);
-            var existingRoles = GetExistingWorkerRoles(t);
+            bool hasLeader = HasMainManagerInTeam(t);
+            var leaderRole = GetMainManagerRole(t);
             
+            var allRoles = GetRolesForTeam(t).Where(r => hasLeader || r == leaderRole);
+            var existingRoles = GetExistingWorkerRoles(t);
+
             return allRoles.Where(r => !existingRoles.Contains(r));
         }
 
@@ -33,6 +36,8 @@ namespace Assets.Core
         public static IEnumerable<WorkerRole> GetRolesForTeam(TeamInfo team)
         {
             var roles = GetRolesForTeam(team.TeamType).ToList();
+
+            var mainRole = GetMainManagerRole(team);
 
             if (team.isCoreTeam)
             {
@@ -46,6 +51,11 @@ namespace Assets.Core
                 {
                     roles.Remove(WorkerRole.CEO);
                 }
+            }
+
+            if (team.Rank == TeamRank.Solo || team.Rank == TeamRank.SmallTeam)
+            {
+                roles.RemoveAll(r => r != mainRole);
             }
 
             return roles;

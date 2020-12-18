@@ -89,7 +89,7 @@ public class TeamPreview : View
         var bonus = Teams.GetTeamManagementBonus(team, company, Q);
         var bonusSum = bonus.Sum();
         
-        hint += Visuals.Colorize($"\n\n<b>Manager points ({bonusSum})</b>\n", bonusSum >= 0) + bonus.Minify().ToString();
+        hint += Visuals.Colorize($"\n\n<b>Manager points ({bonusSum})</b>\n\n", bonusSum >= 0) + bonus.Minify().ToString();
 
         // render hint
         GetComponent<Hint>().SetHint(hint);

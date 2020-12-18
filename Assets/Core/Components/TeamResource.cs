@@ -25,9 +25,18 @@ namespace Assets.Core
 
         public int managerPoints
         {
-            get { return ManagerPoints; }
+            get
+            {
+                if (ManagerPoints < 0)
+                    ManagerPoints = 0;
+
+                if (ManagerPoints > 20_000)
+                    ManagerPoints = 20_000;
+                
+                return ManagerPoints;
+            }
             set {
-                ManagerPoints = Mathf.Clamp(value, 0, 20_000); // > pointCap ? pointCap : value;
+                ManagerPoints = value; // > pointCap ? pointCap : value;
             }
         }
 
