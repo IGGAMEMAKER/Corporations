@@ -32,7 +32,6 @@ public class Styler : MonoBehaviour
     [FormerlySerializedAs("TextStyle")] public TextStyle textStyle;
     public ImageColor imageColor;
 
-    [ExecuteInEditMode]
     void OnValidate()
     {
         var txt = GetComponent<Text>();

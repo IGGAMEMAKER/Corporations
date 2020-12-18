@@ -70,13 +70,13 @@
     public static int NEW_MANAGER_RATING_MIN = 30;
     public static int NEW_MANAGER_RATING_MAX = 75;
 
-    internal static int MANAGEMENT_COST_SOLO = 1;
-    internal static int MANAGEMENT_COST_SMALL_TEAM = 3;
-    internal static int MANAGEMENT_COST_BIG_TEAM = 5;
-    internal static int MANAGEMENT_COST_DEPARTMENT = 10;
-    internal static int MANAGEMENT_COST_COMPANY = 100;
-    internal static int MANAGEMENT_COST_GROUP = 1000;
-    internal static int MANAGEMENT_COST_CORPORATION = 10_000;
+    internal const int MANAGEMENT_COST_SOLO = 1;
+    internal const int MANAGEMENT_COST_SMALL_TEAM = 3;
+    internal const int MANAGEMENT_COST_BIG_TEAM = 5;
+    internal const int MANAGEMENT_COST_DEPARTMENT = 10;
+    internal const int MANAGEMENT_COST_COMPANY = 100;
+    internal const int MANAGEMENT_COST_GROUP = 1000;
+    internal const int MANAGEMENT_COST_CORPORATION = 10_000;
     public static int FEATURE_VALUE_UTP = 20;
     public static int FEATURE_VALUE_TOP = 7;
     public static int FEATURE_VALUE_OK = 1;

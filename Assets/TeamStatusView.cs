@@ -81,14 +81,12 @@ public class TeamStatusView : View
             {
                 showHuman = true;
                 showTeams = true;
-                // showTeamButtons = true;
 
                 NextUpgradeGoal.text = $"On {PROMOTION_POINTS_TO_SPECIALISED_TEAMS} manager points you will\n{Visuals.Positive("hire specialised teams!")}";
                 TeamStatusLabel.text = $"<b>You have a DEPARTMENT ({coreTeam.Workers} employees)</b>";
 
                 showTeamButtons = points >= PROMOTION_POINTS_TO_SPECIALISED_TEAMS;
             }
-            // return $"<b>You have a DEPARTMENT ({coreTeam.Workers} / {Teams.GetMaxTeamSize(coreTeam)}</b>";
         }
 
         else
