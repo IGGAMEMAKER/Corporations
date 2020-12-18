@@ -74,28 +74,71 @@ public class HideTweakButtonsIfCultureCooldownIsActive : View
         
         switch (CorporatePolicy)
         {
+            // mindset?
             case CorporatePolicy.CompetitionOrSupport: 
-                SetTexts("Competition or Support", "Competition", "Support", defaultLeft, defaultRight); break;
+                SetTexts("Competition or Support", 
+                    "Competition", 
+                    "Support", 
+                    defaultLeft,
+                    defaultRight);
+                break;
 
             case CorporatePolicy.DecisionsManagerOrTeam: 
-                SetTexts("Structure", "Vertical", "Horizontal", defaultLeft, defaultRight, "Less control", "+Max feature lvl\n+Team speed"); break;
+                SetTexts("Company Structure",
+                    "Vertical",
+                    "Horizontal",
+                    defaultLeft,
+                    defaultRight,
+                    "Less control",
+                    "+Max feature lvl\n+Team speed");
+                break;
             //case CorporatePolicy.DecisionsManagerOrTeam: SetTexts("Who makes decisions", "Manager", "Team", "+Team speed", "+Max feature lvl"); break;
             
             case CorporatePolicy.DoOrDelegate: 
-                SetTexts("Control level", "DO", "Delegate", defaultLeft, defaultRight, "+Max feature lvl", "+1 team"); break;
+                SetTexts("Control level",
+                    "DO",
+                    "Delegate",
+                    defaultLeft,
+                    defaultRight,
+                    "+Max feature lvl",
+                    "+1 team");
+                break;
             
             case CorporatePolicy.PeopleOrProcesses: 
-                SetTexts("People or Processes", "People", "Processes", defaultLeft, defaultRight, "Managers grow faster", "Organisation grows faster"); break;
+                SetTexts("People or Processes",
+                    "People",
+                    "Processes",
+                    defaultLeft,
+                    defaultRight,
+                    "Managers grow faster",
+                    "Organisation grows faster");
+                break;
 
-            case CorporatePolicy.Sell: 
-                SetTexts("Make or sell", "Make", "Sell", defaultLeft, defaultRight); break;
             case CorporatePolicy.SalariesLowOrHigh: 
-                SetTexts("Salaries", "Low", "High", defaultLeft, defaultRight); break;
+                SetTexts("Salaries", 
+                    "Low", 
+                    "High", 
+                    defaultLeft, 
+                    defaultRight); 
+                break;
+            
             case CorporatePolicy.Make: 
-                SetTexts("Make?", "Left", "Right", defaultLeft, defaultRight); break;
+                SetTexts("Make?", 
+                    "Left", 
+                    "Right", 
+                    defaultLeft, 
+                    defaultRight);
+                break;
 
             case CorporatePolicy.HardSkillsOrSoftSkills: 
-                SetTexts("Skills or Communication", "Skill", "Communication", defaultLeft, defaultRight, "More PERSONAL traits", "More TEAM traits"); break;
+                SetTexts("Skills or Communication",
+                    "Skill", 
+                    "Communication", 
+                    defaultLeft, 
+                    defaultRight, 
+                    "More PERSONAL traits", 
+                    "More TEAM traits");
+                break;
 
             default: SetTexts($"<b>{CorporatePolicy.ToString()}</b>", "Left", "Right", defaultLeft, defaultRight); break;
         }

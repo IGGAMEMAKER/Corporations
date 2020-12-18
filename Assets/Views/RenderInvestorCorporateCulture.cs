@@ -15,7 +15,6 @@ public class RenderInvestorCorporateCulture : UpgradedParameterView
 
         text += Wrap(CorporatePolicy.Make,                  "", "Favors innovative companies");
         text += Wrap(CorporatePolicy.FocusingOrSpread,      "Focuses on one market/product/industry",   "Likes to diversify risks");
-        text += Wrap(CorporatePolicy.Sell,                  "",  "Favors popular companies");
         text += Wrap(CorporatePolicy.CompetitionOrSupport,  "Be best", "Favors stable companies");
 
         return text.Length == 0 ? "No specific preferences" : text;
