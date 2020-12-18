@@ -5,7 +5,7 @@ public class TeamsPanelListView : ListView
 {
     public override void SetItem<T>(Transform t, T entity)
     {
-        t.GetComponent<TeamPreview>().SetEntity((TeamInfo)(object)entity, index);
+        t.GetComponent<TeamPreview>().SetEntity((TeamInfo)(object)entity);
     }
 
     public override void ViewRender()

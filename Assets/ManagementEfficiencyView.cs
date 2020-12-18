@@ -4,8 +4,8 @@ public class ManagementEfficiencyView : UpgradedParameterView
 {
     public override string RenderHint()
     {
-        var capacity = Companies.GetManagementCapacity(MyCompany, Q);
-        var maintenance = Companies.GetManagementCostOfCompany(MyCompany, Q, true);
+        var capacity = Teams.GetManagementCapacity(MyCompany, Q);
+        var maintenance = Teams.GetManagementCostOfCompany(MyCompany, Q, true);
 
         var txt = $"Managing our companies costs {maintenance} points (we gain {capacity}).";
 
@@ -17,7 +17,7 @@ public class ManagementEfficiencyView : UpgradedParameterView
 
     public override string RenderValue()
     {
-        var efficiency = Companies.GetManagementEfficiency(MyCompany, Q);
+        var efficiency = Teams.GetManagementEfficiency(MyCompany, Q);
 
         Colorize(efficiency, 0, 100);
 

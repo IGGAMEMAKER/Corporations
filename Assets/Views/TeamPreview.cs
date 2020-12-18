@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class TeamPreview : View
 {
     public TeamInfo TeamInfo;
-    public int teamId;
 
     public Image HiringProgress;
     public Image HiringProgressBackground;
@@ -20,10 +19,8 @@ public class TeamPreview : View
     public Sprite MarketingIcon;
     public Sprite ServersideIcon;
 
-    public void SetEntity(TeamInfo team, int teamId)
+    public void SetEntity(TeamInfo team)
     {
-        this.teamId = teamId;
-
         var company = Flagship;
 
         TeamInfo = team;
@@ -33,6 +30,20 @@ public class TeamPreview : View
         int workers = team.Workers;
         bool hasFullTeam = Teams.IsFullTeam(team);
 
+        RenderHiringProgress(company, team, workers, maxWorkers, hasFullTeam);
+
+        // blink if never interacted with teams
+        bool hasNoManager = Teams.NeedsMainManagerInTeam(team);
+
+        GetComponent<Blinker>().enabled = Teams.IsNeverHiredEmployees(company) || hasNoManager;
+
+        RenderTeamImage();
+
+        RenderTeamHint(team, hasFullTeam, workers, maxWorkers);
+    }
+
+    void RenderHiringProgress(GameEntity company, TeamInfo team, int workers, int maxWorkers, bool hasFullTeam)
+    {
         var hiringProgress = team.HiringProgress;
 
         HiringProgress.fillAmount = hiringProgress / 100f;
@@ -45,15 +56,6 @@ public class TeamPreview : View
 
         // need to interact with team
         Draw(NeedToInteract, Teams.IsTeamNeedsAttention(company, team, Q));
-
-        // blink if never interacted with teams
-        bool hasNoManager = Teams.NeedsMainManagerInTeam(team);
-
-        GetComponent<Blinker>().enabled = Teams.IsNeverHiredEmployees(company) || hasNoManager;
-
-        RenderTeamImage();
-
-        RenderTeamHint(team, hasFullTeam, workers, maxWorkers);
     }
 
     void RenderTeamHint(TeamInfo team, bool hasFullTeam, int workers, int maxWorkers)
@@ -69,20 +71,20 @@ public class TeamPreview : View
             hint += $"\nCurrently has {workers} employees";
         }
 
-        hint += "\n\nCan perform: ";
-
-        var devTasks = Teams.GetSlotsForTask(team, Teams.GetDevelopmentTaskMockup());
-        var marketingTasks = Teams.GetSlotsForTask(team, Teams.GetMarketingTaskMockup());
-
-        if (devTasks > 0)
-        {
-            hint += $"\n{Visuals.Positive(devTasks.ToString())} development tasks";
-        }
-
-        if (marketingTasks > 0)
-        {
-            hint += $"\n{Visuals.Positive(marketingTasks.ToString())} marketing tasks";
-        }
+        // hint += "\n\nCan perform: ";
+        //
+        // var devTasks = Teams.GetSlotsForTask(team, Teams.GetDevelopmentTaskMockup());
+        // var marketingTasks = Teams.GetSlotsForTask(team, Teams.GetMarketingTaskMockup());
+        //
+        // if (devTasks > 0)
+        // {
+        //     hint += $"\n{Visuals.Positive(devTasks.ToString())} development tasks";
+        // }
+        //
+        // if (marketingTasks > 0)
+        // {
+        //     hint += $"\n{Visuals.Positive(marketingTasks.ToString())} marketing tasks";
+        // }
 
         // render hint
         GetComponent<Hint>().SetHint(hint);

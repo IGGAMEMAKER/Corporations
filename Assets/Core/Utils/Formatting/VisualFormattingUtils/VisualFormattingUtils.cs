@@ -20,7 +20,7 @@ namespace Assets.Core
         {
             return $"<color={colorHTML}>{text}</color>";
         }
-        public static string Colorize(long value)
+        public static string Colorize(long value, bool showSign = false)
         {
             if (value < 0)
                 return Negative(value.ToString());
@@ -28,7 +28,7 @@ namespace Assets.Core
             if (value == 0)
                 return Neutral(value.ToString());
 
-            return Positive(value.ToString());
+            return Positive(showSign ? "+" : "" + value);
         }
 
         public static string Link(string text) => $"<i><b><color=magenta>{text}</color></b></i>";
