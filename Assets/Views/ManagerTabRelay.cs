@@ -34,10 +34,12 @@ public class ManagerTabRelay : View
     private void OnEnable()
     {
         ShowAll(Tabs);
-        Hide(EmployeesTab);
-
-        Show(EmployeeButton);
-        Hide(StatsButton);
+        
+        ShowEmployees();
+        // Hide(EmployeesTab);
+        //
+        // Show(EmployeeButton);
+        // Hide(StatsButton);
 
         ViewRender();
     }

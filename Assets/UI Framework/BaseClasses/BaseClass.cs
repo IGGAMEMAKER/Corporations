@@ -230,17 +230,17 @@ public partial class BaseClass : MonoBehaviour
     public void Hide(MonoBehaviour mb) => Draw(mb.gameObject, false);
     public void Hide(GameObject go) => Draw(go, false);
 
-    public void HideAll(GameObject[] objects) => HideAll(objects.ToList());
+    public void HideAll(params GameObject[] objects) => HideAll(objects.ToList());
 
-    public void HideAll(List<GameObject> objects)
+    public void HideAll(IEnumerable<GameObject> objects)
     {
         foreach (var b in objects)
             Hide(b);
     }
 
-    public void ShowAll(GameObject[] objects) => ShowAll(objects.ToList());
+    public void ShowAll(params GameObject[] objects) => ShowAll(objects.ToList());
 
-    public void ShowAll(List<GameObject> objects)
+    public void ShowAll(IEnumerable<GameObject> objects)
     {
         foreach (var b in objects)
             Show(b);

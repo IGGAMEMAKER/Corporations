@@ -119,6 +119,12 @@ namespace Assets.Core
             c.isCrunching = !c.isCrunching;
         }
 
+        public static Bonus<long> GetManagerPointsGrowth(GameEntity company, GameContext gameContext)
+        {
+            return  new Bonus<long>("Manager points")
+                .Append("Base", 1);
+        }
+
         public static Bonus<int> GetOrganisationChanges(TeamInfo teamInfo, GameEntity product, GameContext gameContext)
         {
             WorkerRole managerTitle = GetMainManagerRole(teamInfo);
