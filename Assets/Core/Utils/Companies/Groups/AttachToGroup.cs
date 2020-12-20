@@ -53,7 +53,7 @@ namespace Assets.Core
             return c;
         }
 
-        public static void TurnProductToPlayerFlagship(GameEntity company, GameContext Q, NicheType nicheType)
+        public static void TurnProductToPlayerFlagship(GameEntity company, GameContext Q, NicheType nicheType, GameEntity parentCompany)
         {
             company.isFlagship = true;
             AttachToPlayer(company);
@@ -77,10 +77,13 @@ namespace Assets.Core
             Marketing.AddClients(company, 50, Marketing.GetCoreAudienceId(company));
 
             // give good salary to CEO, so he will not leave company
-            var CEO = Humans.Get(Q, Companies.GetCEOId(company));
+            var CEO = Humans.Get(Q, GetCEOId(company));
+            var GroupCeoID = GetCEOId(parentCompany);
 
-            var salary = Teams.GetSalaryPerRating(CEO);
-            Teams.SetJobOffer(CEO, company, new JobOffer(salary), 0, Q);
+            CEO.AddPseudoHuman(GroupCeoID);
+            
+            // var salary = Teams.GetSalaryPerRating(CEO);
+            // Teams.SetJobOffer(CEO, company, new JobOffer(salary), 0, Q);
         }
 
     }

@@ -18,13 +18,13 @@ public class RenderCorporateCultureView : View
     {
         base.ViewRender();
 
-        bool canChangeCulture = Companies.GetPolicyValue(MyCompany, CorporatePolicy.DoOrDelegate) > 3;
+        bool canChangeCulture = true; // Companies.GetPolicyValue(MyCompany, CorporatePolicy.DoOrDelegate) > 3;
 
         Draw(ResponsibilityPolicy, true);
         
         Draw(StructurePolicy, canChangeCulture);
         Draw(PeopleOrProcessesPolicy, canChangeCulture);
-        Draw(SalariesPolicy, false);
+        Draw(SalariesPolicy, canChangeCulture);
 
         Draw(SoftSkillsPolicy, canChangeCulture);
     }

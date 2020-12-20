@@ -36,14 +36,14 @@ class MoraleManagementSystem : OnPeriodChange
             // gain expertise and recalculate loyalty
             foreach (var team in c.team.Teams)
             {
-                var managers = team.Managers.Select(m => humans.First(h => h.human.Id == m)); //  Humans.Get(humans, m)
+                var managers = team.Managers.Select(m => Humans.Get(humans, m)); //  humans.First(h => h.human.Id == m) //  Humans.Get(humans, m)
                 bool tooManyLeaders = managers.Count(m => m.humanSkills.Traits.Contains(Trait.Leader)) >= 2;
 
                 team.TooManyLeaders = tooManyLeaders;
 
-                foreach (var humanId in team.Managers)
+                foreach (var human in managers)
                 {
-                    var human = managers.First(m => m.human.Id == humanId);
+                    // var human = managers.First(m => m.human.Id == humanId);
 
                     var relationship = human.humanCompanyRelationship;
 
@@ -69,13 +69,11 @@ class MoraleManagementSystem : OnPeriodChange
 
                     // leave company on low morale
                     if (newLoyalty <= 0)
-                        defectedManagers.Add(humanId);
+                        defectedManagers.Add(human.human.Id);
                     else
                     {
                         // if has offers
                         // choose best one
-                        var currentOffer = Humans.GetCurrentOffer(human).JobOffer; // team.Offers[humanId];
-
                         var offers = human.workerOffers.Offers;
 
                         // has competing offers

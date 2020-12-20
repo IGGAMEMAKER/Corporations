@@ -20,6 +20,9 @@ public class HideTweakButtonsIfCultureCooldownIsActive : View
     public Image LeftChoiceImage;
     public Image RightChoiceImage;
 
+    public Hint LeftHint;
+    public Hint RightHint;
+
     [Header("Images")]
     public Sprite ManagerOrTeamLeft;
     public Sprite ManagerOrTeamRight;
@@ -29,6 +32,15 @@ public class HideTweakButtonsIfCultureCooldownIsActive : View
 
     public Sprite OpennessOrSecretivenessLeft;
     public Sprite OpennessOrSecretivenessRight;
+
+    public Sprite SalariesLeft;
+    public Sprite SalariesRight;
+
+    public Sprite PeopleOrProcessLeft;
+    public Sprite PeopleOrProcessRight;
+
+    public Sprite SkillsOrCommunicationsLeft;
+    public Sprite SkillsOrCommunicationsRight;
 
     public override void ViewRender()
     {
@@ -76,19 +88,20 @@ public class HideTweakButtonsIfCultureCooldownIsActive : View
         {
             // mindset?
             case CorporatePolicy.CompetitionOrSupport: 
-                SetTexts("Competition or Support", 
+                SetTexts("Competition or Collaboration", 
+                // SetTexts("Openness or Secretiveness", 
                     "Competition", 
-                    "Support", 
-                    defaultLeft,
-                    defaultRight);
+                    "Collaboration", 
+                    OpennessOrSecretivenessRight,
+                    OpennessOrSecretivenessLeft);
                 break;
 
             case CorporatePolicy.DecisionsManagerOrTeam: 
                 SetTexts("Company Structure",
                     "Vertical",
                     "Horizontal",
-                    defaultLeft,
-                    defaultRight,
+                    ManagerOrTeamLeft,
+                    ManagerOrTeamRight,
                     "Less control",
                     "+Max feature lvl\n+Team speed");
                 break;
@@ -105,11 +118,11 @@ public class HideTweakButtonsIfCultureCooldownIsActive : View
                 break;
             
             case CorporatePolicy.PeopleOrProcesses: 
-                SetTexts("People or Processes",
+                SetTexts("People or Process",
                     "People",
-                    "Processes",
-                    defaultLeft,
-                    defaultRight,
+                    "Process",
+                    PeopleOrProcessLeft,
+                    PeopleOrProcessRight,
                     "Managers grow faster",
                     "Organisation grows faster");
                 break;
@@ -118,8 +131,10 @@ public class HideTweakButtonsIfCultureCooldownIsActive : View
                 SetTexts("Salaries", 
                     "Low", 
                     "High", 
-                    defaultLeft, 
-                    defaultRight); 
+                    SalariesLeft, 
+                    SalariesRight,
+                    "We spend less money on salaries",
+                    "Bigger loyalty"); 
                 break;
             
             case CorporatePolicy.Make: 
@@ -133,9 +148,9 @@ public class HideTweakButtonsIfCultureCooldownIsActive : View
             case CorporatePolicy.HardSkillsOrSoftSkills: 
                 SetTexts("Skills or Communication",
                     "Skill", 
-                    "Communication", 
-                    defaultLeft, 
-                    defaultRight, 
+                    "Team work", 
+                    SkillsOrCommunicationsLeft, 
+                    SkillsOrCommunicationsRight, 
                     "More PERSONAL traits", 
                     "More TEAM traits");
                 break;
@@ -149,8 +164,11 @@ public class HideTweakButtonsIfCultureCooldownIsActive : View
         PolicyName.text = Policy;
 
         LeftName.text = Left; // + "\n" + Visuals.Positive($"<b>{leftHint}</b>");
+        LeftHint.SetHint(Visuals.Positive($"<b>{leftHint}</b>"));
         LeftChoiceImage.sprite = leftSprite;
-        RightChoiceImage.sprite = rightSprite;
+
         RightName.text = Right; // + "\n" + Visuals.Positive($"<b>{rightHint}</b>");
+        RightHint.SetHint(Visuals.Positive($"<b>{rightHint}</b>"));
+        RightChoiceImage.sprite = rightSprite;
     }
 }

@@ -20,6 +20,7 @@ namespace Assets.Core
         {
             return GetTeamOf(human, Companies.Get(gameContext, human.worker.companyId));
         }
+
         public static TeamInfo GetTeamOf(GameEntity human, GameEntity company)
         {
             return company.team.Teams.Find(t => t.Managers.Contains(human.human.Id));
@@ -81,7 +82,6 @@ namespace Assets.Core
             bonus.Append("Salary", salaryRatio);
 
 
-
             return bonus;
         }
 
@@ -94,12 +94,14 @@ namespace Assets.Core
             return GetLoyaltyChangeForManager(worker, team, culture, company);
         }
 
-        public static int GetLoyaltyChangeForManager(GameEntity worker, TeamInfo team, Dictionary<CorporatePolicy, int> culture, GameEntity company)
+        public static int GetLoyaltyChangeForManager(GameEntity worker, TeamInfo team,
+            Dictionary<CorporatePolicy, int> culture, GameEntity company)
         {
             return GetLoyaltyChangeBonus(worker, team, culture, company).Sum();
         }
 
-        public static Bonus<int> GetLoyaltyChangeBonus(GameEntity worker, TeamInfo team, Dictionary<CorporatePolicy, int> culture, GameEntity company)
+        public static Bonus<int> GetLoyaltyChangeBonus(GameEntity worker, TeamInfo team,
+            Dictionary<CorporatePolicy, int> culture, GameEntity company)
         {
             var bonus = new Bonus<int>("Loyalty");
 
@@ -127,21 +129,23 @@ namespace Assets.Core
             if (role != WorkerRole.CEO)
                 bonus.AppendAndHideIfZero("Reached limits", Humans.GetRating(worker) >= 70 ? -3 : 0);
 
-            bonus.AppendAndHideIfZero("Too many leaders", worker.humanSkills.Traits.Contains(Trait.Leader) && team.TooManyLeaders ? -2 : 0);
-
+            bonus.AppendAndHideIfZero("Too many leaders",
+                worker.humanSkills.Traits.Contains(Trait.Leader) && team.TooManyLeaders ? -2 : 0);
+            // bonus.AppendAndHideIfZero(hu)
             return bonus;
         }
 
         private static void ApplyLowSalaryLoyalty(GameEntity company, ref Bonus<int> bonus, GameEntity worker)
         {
-            bool isFounder = worker.hasShareholder && company.shareholders.Shareholders.ContainsKey(worker.shareholder.Id);
+            bool isFounder = worker.hasShareholder; // &&
+                             // company.shareholders.Shareholders.ContainsKey(worker.shareholder.Id);
 
             if (isFounder)
                 return;
 
             var salary = Humans.GetSalary(worker);
 
-            var expectedSalary = (double)Teams.GetSalaryPerRating(worker);
+            var expectedSalary = (double) GetSalaryPerRating(worker);
 
             bool isGreedy = worker.humanSkills.Traits.Contains(Trait.Greedy);
             bool isShy = worker.humanSkills.Traits.Contains(Trait.Shy);
@@ -162,7 +166,8 @@ namespace Assets.Core
                 bonus.Append("Low salary", -5);
         }
 
-        private static void ApplyDuplicateWorkersLoyalty(GameEntity company, TeamInfo team, GameContext gameContext, ref Bonus<int> bonus, GameEntity worker, WorkerRole role)
+        private static void ApplyDuplicateWorkersLoyalty(GameEntity company, TeamInfo team, GameContext gameContext,
+            ref Bonus<int> bonus, GameEntity worker, WorkerRole role)
         {
             var roles = team.Managers.Select(humanId => Humans.Get(gameContext, humanId).worker.WorkerRole);
             bool hasDuplicateWorkers = roles.Count(r => r == role) > 1;
@@ -171,7 +176,8 @@ namespace Assets.Core
                 bonus.AppendAndHideIfZero("Too many " + Humans.GetFormattedRole(role) + "'s", -10);
         }
 
-        private static void ApplyCEOLoyalty(GameEntity company, TeamInfo team, GameContext gameContext, ref Bonus<int> bonus, GameEntity worker, WorkerRole role)
+        private static void ApplyCEOLoyalty(GameEntity company, TeamInfo team, GameContext gameContext,
+            ref Bonus<int> bonus, GameEntity worker, WorkerRole role)
         {
             bool hasCeo = HasMainManagerInTeam(company.team.Teams[0]);
 

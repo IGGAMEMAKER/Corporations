@@ -185,6 +185,11 @@ public class CEOComponent : IComponent
     public int HumanId;
 }
 
+public class PseudoHumanComponent : IComponent
+{
+    public int RealHumanId;
+}
+
 //public class CooldownsComponent : IComponent
 //{
 //    public List<Cooldown> Cooldowns;

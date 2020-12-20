@@ -18,7 +18,7 @@ public class CreateAppPopupButton : PopupButtonController<PopupMessageDoYouWantT
         // had no products before
         if (Companies.GetDaughtersAmount(MyCompany, Q) == 1)
         {
-            Companies.TurnProductToPlayerFlagship(company, Q, nicheType);
+            Companies.TurnProductToPlayerFlagship(company, Q, nicheType, MyCompany);
 
             Navigate(ScreenMode.HoldingScreen, C.MENU_SELECTED_NICHE, company.product.Niche);
         }

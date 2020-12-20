@@ -15,7 +15,22 @@ namespace Assets.Core
 
         public static GameEntity Get(GameContext gameContext, int humanId)
         {
-            return Array.Find(Get(gameContext), h => h.human.Id == humanId);
+            var humans = Get(gameContext);
+
+            return Get(humans, humanId);
+        }
+        
+        public static GameEntity Get(IEnumerable<GameEntity> humans, int humanId)
+        {
+            var human = humans.First(h => h.human.Id == humanId);
+
+            if (human.hasPseudoHuman)
+            {
+                return humans.First(h => h.human.Id == human.pseudoHuman.RealHumanId);
+            }
+
+            return human;
+            // return Array.Find(humans, h => h.human.Id == humanId);
         }
 
         public static int GenerateHumanId(GameContext gameContext)

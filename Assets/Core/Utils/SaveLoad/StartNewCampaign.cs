@@ -15,7 +15,7 @@ namespace Assets.Core
             PrepareMarket(niche, startCapital, gameContext);
 
             var flagship = Companies.CreateProductAndAttachItToGroup(gameContext, NicheType, group);
-            Companies.TurnProductToPlayerFlagship(flagship, gameContext, NicheType);
+            Companies.TurnProductToPlayerFlagship(flagship, gameContext, NicheType, group);
 
             LoadGameScene();
         }

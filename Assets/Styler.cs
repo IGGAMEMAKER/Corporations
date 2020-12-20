@@ -56,10 +56,12 @@ public class Styler : MonoBehaviour
             case ImageColor.None:
                 break;
             case ImageColor.Primary:
-                img.color = new Color(0.34f, 0f, 1f);
+                img.color = Visuals.GetColorFromString($"#190061"); // new Color(0.34f, 0f, 1f);
+                // img.color = Visuals.GetColorFromString($"#0C0032"); // new Color(0.34f, 0f, 1f);
                 // 250090
                 break;
             case ImageColor.Secondary:
+                img.color = Visuals.GetColorFromString($"#4A0061");
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
