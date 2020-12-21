@@ -44,6 +44,12 @@
     public const string MENU_SELECTED_INVESTOR = "SelectedInvestor";
     //public static float GAMEPLAY_OFFSET_Y = -110f;
     public const float GAMEPLAY_OFFSET_Y = -60f;
+    
+    public const int PROMOTION_POINTS_TO_SOLO_TEAM = 5;
+    public const int PROMOTION_POINTS_TO_SMALL_TEAM = 25;
+    public const int PROMOTION_POINTS_TO_BIG_TEAM = 50;
+    public const int PROMOTION_POINTS_TO_DEPARTMENT = 150;
+    public const int PROMOTION_POINTS_TO_SPECIALISED_TEAMS = 250;
 
 
     public const int SALARIES_MANAGER = 2000;

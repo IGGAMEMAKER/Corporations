@@ -17,16 +17,29 @@ public class HireTeamView : View
 
         var teamType = GetComponent<AddTeamButton>().TeamType;
 
+        bool hasEnoughPointsToHireTeam = Teams.IsCanAddMoreTeams(Flagship, Q);
+        var promotionCost = Teams.GetPromotionCost(TeamRank.Solo);
+        var managerPoints = Flagship.companyResource.Resources.managerPoints;
+        
         var lastHiringTeam = Flagship.team.Teams.FirstOrDefault(t => t.TeamType == teamType && !Teams.IsFullTeam(t) && t.Rank == TeamRank.Solo);
 
         if (lastHiringTeam == null)
         {
-            Hide(Padlock);
-            Hide(HiringProgress);
+            if (hasEnoughPointsToHireTeam)
+            {
+                Title.text = $"<b>Hire {Teams.GetFormattedTeamType(teamType)}";
+                Hide(Padlock);
+                Hide(HiringProgress);
+            }
+            else
+            {
+                Title.text = Visuals.Negative($"<b>Need {promotionCost} manager points");
+                Hide(Padlock);
+                Show(HiringProgress);
+                HiringProgress.fillAmount = managerPoints * 1f / promotionCost;
+            }
 
-            Title.text = $"<b>{Teams.GetFormattedTeamType(teamType)}";
-
-            GetComponent<Button>().enabled = true;
+            GetComponent<Button>().enabled = hasEnoughPointsToHireTeam;
         }
         else
         {

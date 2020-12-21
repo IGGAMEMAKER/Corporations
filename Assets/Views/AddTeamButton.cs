@@ -65,7 +65,7 @@ public class AddTeamButton : ButtonController
 
             case TeamType.MarketingTeam:
                 source = Marketing;
-                hint.SetHint("This team makes more effecient marketing campaigns");
+                hint.SetHint("This team makes more efficient marketing campaigns");
                 break;
 
             default:
