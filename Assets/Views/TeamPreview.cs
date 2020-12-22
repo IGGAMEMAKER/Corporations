@@ -86,7 +86,7 @@ public class TeamPreview : View
         //     hint += $"\n{Visuals.Positive(marketingTasks.ToString())} marketing tasks";
         // }
 
-        var bonus = Teams.GetTeamManagementBonus(team, company, Q);
+        var bonus = Teams.GetTeamManagementBonus(team, company, Q, true);
         var bonusSum = bonus.Sum();
         
         hint += Visuals.Colorize($"\n\n<b>Manager points ({bonusSum})</b>\n\n", bonusSum >= 0) + bonus.Minify().ToString();

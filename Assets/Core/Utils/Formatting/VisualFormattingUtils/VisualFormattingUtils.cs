@@ -28,7 +28,7 @@ namespace Assets.Core
             if (value == 0)
                 return Neutral(value.ToString());
 
-            return Positive(showSign ? "+" : "" + value);
+            return Positive((showSign ? "+" : "") + value);
         }
 
         public static string Link(string text) => $"<i><b><color=magenta>{text}</color></b></i>";

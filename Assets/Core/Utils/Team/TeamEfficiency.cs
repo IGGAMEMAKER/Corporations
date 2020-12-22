@@ -47,7 +47,7 @@ namespace Assets.Core
 
             //efficiency += Teams.GetManagerFocusBonus(gameContext, product, teamInfo, ManagerTask.ViralSpread) * 10;
 
-            return (10 + efficiency) * GetTeamEffeciency(product, teamInfo);
+            return (10 + efficiency) * GetTeamEfficiency(product, teamInfo);
         }
 
         private static int GetDevelopmentTeamEfficiency(GameContext gameContext, GameEntity product)
@@ -77,7 +77,7 @@ namespace Assets.Core
                 .Select(t => GetMarketingTeamEfficiency(gameContext, company, t) / 100)
                 ;
 
-            if (viableTeams.Count() == 0)
+            if (!viableTeams.Any())
                 return 30;
 
             return (int)viableTeams.Average() * (isUnique ? 2 : 1);
@@ -92,7 +92,7 @@ namespace Assets.Core
 
             //marketingEffeciency += Teams.GetManagerFocusBonus(gameContext, company, teamInfo, ManagerTask.ViralSpread) * 10;
 
-            return (50 + efficiency) * GetTeamEffeciency(product, teamInfo);
+            return (50 + efficiency) * GetTeamEfficiency(product, teamInfo);
         }
 
 
@@ -164,7 +164,7 @@ namespace Assets.Core
 
         // ------------------------------------------------------------------
 
-        public static int GetTeamEffeciency(GameEntity company, TeamInfo teamInfo)
+        public static int GetTeamEfficiency(GameEntity company, TeamInfo teamInfo)
         {
             var maxWorkers = Teams.GetMaxTeamSize(teamInfo); // 8;
 
@@ -174,7 +174,7 @@ namespace Assets.Core
             return teamInfo.Workers * (100 + 30 * organisationBonus / 100) / maxWorkers + 1;
         }
 
-        public static int GetWorkerEffeciency(GameEntity worker, GameEntity company)
+        public static int GetWorkerEfficiency(GameEntity worker, GameEntity company)
         {
             if (worker == null)
                 return 0;

@@ -2,15 +2,16 @@
 {
     public static partial class Teams
     {
-        public static int GetEffectiveManagerRating(GameContext gameContext, GameEntity company, WorkerRole workerRole, TeamInfo teamInfo) => GetEffectiveManagerRating(gameContext, company, GetWorkerByRole(workerRole, teamInfo, gameContext));
-        public static int GetEffectiveManagerRating(GameContext gameContext, GameEntity company, GameEntity manager)
+        public static int GetEffectiveManagerRating(GameContext gameContext, GameEntity company, WorkerRole workerRole, TeamInfo teamInfo) => GetEffectiveManagerRating(company, GetWorkerByRole(workerRole, teamInfo, gameContext));
+        public static int GetEffectiveManagerRating(GameEntity company, GameEntity manager)
         {
-            return 100;
+            // return 100;
             if (manager == null)
                 return 0;
 
             var rating = Humans.GetRating(manager);
-            var effeciency = GetWorkerEffeciency(manager, company);
+            return rating;
+            var effeciency = GetWorkerEfficiency(manager, company);
 
             // 0...50
             return rating * (50 + effeciency / 2) / 100;

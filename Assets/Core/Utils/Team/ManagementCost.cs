@@ -33,14 +33,13 @@
         {
             var role = GetMainManagerRole(team);
             var manager = GetWorkerByRole(role, team, gameContext);
-            var coreTeamBonus = 1; // team.isCoreTeam ? 3 : 1;
 
-            var rating = GetEffectiveManagerRating(gameContext, company, manager);
+            var rating = GetEffectiveManagerRating(company, manager);
         
-            return coreTeamBonus * rating / 10f;
+            return rating / 10f;
         }
 
-        public static Bonus<float> GetTeamManagementBonus(TeamInfo team, GameEntity company, GameContext gameContext)
+        public static Bonus<float> GetTeamManagementBonus(TeamInfo team, GameEntity company, GameContext gameContext, bool shortDescription = false)
         {
             var bonus = new Bonus<float>("points");
         
@@ -49,25 +48,19 @@
             var flatness  = Companies.GetPolicyValue(company, CorporatePolicy.DoOrDelegate);
             var processes = Companies.GetPolicyValue(company, CorporatePolicy.PeopleOrProcesses);
 
-            var minMultiplier = 0.1f;
-            var maxMultiplier = 1f;
-
-            var minDiscount = 0.5f;
-            var maxDiscount = 2f;
-
-            var multiplier = 1.5f; // minMultiplier + (maxMultiplier - minMultiplier) * flatness / 10;
-            var discount = 1f; // minDiscount + (maxDiscount - minDiscount) * processes / 10;
 
             var center = 5;
 
-            // vertical structure
+            // ---- structure
+            var multiplier = 1.5f;
             if (flatness < center)
                 multiplier = 2;
 
-            // horizontal
             if (flatness > center)
                 multiplier = 1f;
 
+            // ---- processes
+            var discount = 1f;
             if (processes < center)
                 discount = 2f;
 
@@ -76,10 +69,20 @@
 
             var gain = GetTeamManagementGain(team, company, gameContext) * multiplier;
             var maintenance = GetManagementCostOfTeam(team) * discount;
-        
-            bonus.AppendAndHideIfZero(Humans.GetFormattedRole(role), gain);
-            bonus.Append("Maintenance", -maintenance);
 
+            var gainNameFormatted = shortDescription
+                ? Humans.GetFormattedRole(role)
+                : $"{Humans.GetFormattedRole(role)} in {team.Name}";
+
+            var maintenanceFormatted = shortDescription ? "Maintenance" : team.Name; 
+            
+            bonus.AppendAndHideIfZero(gainNameFormatted, gain);
+            bonus.AppendAndHideIfZero(maintenanceFormatted, -maintenance);
+            // bonus.Append($"Maintenance of {team.Rank}#{team.ID}", -maintenance);
+
+            if (!team.isCoreTeam)
+                bonus.Cap(-100, 0);
+            
             return bonus;
         }
 

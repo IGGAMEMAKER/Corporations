@@ -92,7 +92,7 @@
     public static int FEATURE_VALUE_HATE = -20;
     
 
-    public const int CORPORATE_CULTURE_CHANGES_DURATION = 30;
+    public const int CORPORATE_CULTURE_CHANGES_DURATION = 2;
     public const int CORPORATE_CULTURE_LEVEL_MAX = 10;
     public const int CORPORATE_CULTURE_LEVEL_MIN = 1;
 

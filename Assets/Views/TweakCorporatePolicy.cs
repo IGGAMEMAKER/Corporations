@@ -18,14 +18,25 @@ public class TweakCorporatePolicy : ButtonController
         
         if (Change == 0)
             Companies.SetCorporatePolicy(Q, MyCompany, CorporatePolicy);
-        
+
+        CopyCorporateCulture(MyCompany, Flagship);
         DescribeChange(value != Companies.GetPolicyValue(MyCompany, CorporatePolicy));
+    }
+
+    public static void CopyCorporateCulture(GameEntity from, GameEntity to)
+    {
+        foreach (var policy in from.corporateCulture.Culture)
+        {
+            to.corporateCulture.Culture[policy.Key] = policy.Value;
+        }
     }
 
     public void SetSettings(CorporatePolicy policy, int change)
     {
         CorporatePolicy = policy;
         Change = change;
+        
+        
     }
 
     void DescribeChange(bool valueChanged)
