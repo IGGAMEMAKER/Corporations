@@ -74,6 +74,11 @@ public class TeamStatusView : View
                 TeamStatusLabel.text = $"<b>You have a big team of {coreTeam.Workers}</b>";
 
                 canPromote = points >= promotionCost;
+                showTeamButtons =
+                    Flagship.companyGoal.Goals.Exists(g =>
+                        g.InvestorGoalType == InvestorGoalType.ProductPrepareForRelease) ||
+                    Flagship.companyGoal.Goals.Exists(g =>
+                        g.InvestorGoalType == InvestorGoalType.ProductPrepareForRelease);
             }
 
             if (coreTeam.Rank == TeamRank.Department)
@@ -85,7 +90,8 @@ public class TeamStatusView : View
                 NextUpgradeGoal.text = $"On {promotionCost} manager points you will\n{Visuals.Positive("hire specialised teams!")}";
                 TeamStatusLabel.text = $"<b>You have a DEPARTMENT ({coreTeam.Workers} employees)</b>";
 
-                showTeamButtons = points >= promotionCost;
+                showTeamButtons = true;
+                // showTeamButtons = points >= promotionCost;
             }
         }
 

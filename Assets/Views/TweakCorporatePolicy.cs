@@ -4,30 +4,41 @@
 public class TweakCorporatePolicy : ButtonController
 {
     public CorporatePolicy CorporatePolicy;
-    public bool Increment = true;
+    public int Change;
 
     public override void Execute()
     {
-        if (Increment)
+        var value = Companies.GetPolicyValue(MyCompany, CorporatePolicy);
+        
+        if (Change > 0)
             Companies.IncrementCorporatePolicy(Q, MyCompany, CorporatePolicy);
-        else
+        
+        if (Change < 0)
             Companies.DecrementCorporatePolicy(Q, MyCompany, CorporatePolicy);
-
-        DescribeChange();
+        
+        if (Change == 0)
+            Companies.SetCorporatePolicy(Q, MyCompany, CorporatePolicy);
+        
+        DescribeChange(value != Companies.GetPolicyValue(MyCompany, CorporatePolicy));
     }
 
-    public void SetSettings(CorporatePolicy policy, bool increment)
+    public void SetSettings(CorporatePolicy policy, int change)
     {
         CorporatePolicy = policy;
-        Increment = increment;
+        Change = change;
     }
 
-    void DescribeChange()
+    void DescribeChange(bool valueChanged)
     {
+        if (!valueChanged)
+            return;
+
         if (CorporatePolicy == CorporatePolicy.DoOrDelegate)
         {
             DescribeDelegationChanges();
         }
+
+        PlaySound(Assets.Sound.GoalCompleted);
     }
 
     void DescribeDelegationChanges()
@@ -36,7 +47,7 @@ public class TweakCorporatePolicy : ButtonController
 
         var text = "";
 
-        if (Increment)
+        if (Change > 0)
         {
             switch (newValue)
             {
@@ -51,9 +62,7 @@ public class TweakCorporatePolicy : ButtonController
                 case 9: text = "You can run an IPO!"; break;
             }
 
-            PlaySound(Assets.Sound.GoalCompleted);
             NotificationUtils.AddSimplePopup(Q, Visuals.Positive(text), "Corporate culture changed");
         }
-
     }
 }

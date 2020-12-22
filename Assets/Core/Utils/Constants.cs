@@ -45,11 +45,6 @@
     //public static float GAMEPLAY_OFFSET_Y = -110f;
     public const float GAMEPLAY_OFFSET_Y = -60f;
     
-    public const int PROMOTION_POINTS_TO_SOLO_TEAM = 5;
-    public const int PROMOTION_POINTS_TO_SMALL_TEAM = 25;
-    public const int PROMOTION_POINTS_TO_BIG_TEAM = 50;
-    public const int PROMOTION_POINTS_TO_DEPARTMENT = 150;
-    public const int PROMOTION_POINTS_TO_SPECIALISED_TEAMS = 250;
 
 
     public const int SALARIES_MANAGER = 2000;
@@ -77,12 +72,20 @@
     public static int NEW_MANAGER_RATING_MAX = 75;
 
     internal const int MANAGEMENT_COST_SOLO = 1;
-    internal const int MANAGEMENT_COST_SMALL_TEAM = 3;
-    internal const int MANAGEMENT_COST_BIG_TEAM = 5;
-    internal const int MANAGEMENT_COST_DEPARTMENT = 10;
+    internal const int MANAGEMENT_COST_SMALL_TEAM = 4;
+    internal const int MANAGEMENT_COST_BIG_TEAM = 6;
+    internal const int MANAGEMENT_COST_DEPARTMENT = 8;
     internal const int MANAGEMENT_COST_COMPANY = 100;
     internal const int MANAGEMENT_COST_GROUP = 1000;
     internal const int MANAGEMENT_COST_CORPORATION = 10_000;
+    
+    public const int PROMOTION_POINTS_TO_SOLO_TEAM = 5;
+    public const int PROMOTION_POINTS_TO_SMALL_TEAM = 8;
+    public const int PROMOTION_POINTS_TO_BIG_TEAM = 25;
+    public const int PROMOTION_POINTS_TO_DEPARTMENT = 50;
+    public const int PROMOTION_POINTS_TO_SPECIALISED_TEAMS = 250;
+    
+    
     public static int FEATURE_VALUE_UTP = 20;
     public static int FEATURE_VALUE_TOP = 7;
     public static int FEATURE_VALUE_OK = 1;
@@ -121,8 +124,10 @@ public class Colors
     public const string COLOR_YOU = COLOR_GOLD;
     public const string COLOR_CONTROL = COLOR_GOLD;
     public const string COLOR_CONTROL_NO = COLOR_WHITE;
+    
     public const string COLOR_COMPANY_WHERE_I_AM_CEO = COLOR_GOLD;
     public const string COLOR_COMPANY_WHERE_I_AM_NOT_CEO = COLOR_WHITE;
+    
     public const string COLOR_COMPANY_SELECTED = "#131679";
 
     public const string COLOR_PARTNERSHIP = COLOR_VIOLET;

@@ -52,6 +52,11 @@ namespace Assets.Core
             TweakCorporatePolicy(gameContext, company, policy, value);
         }
 
+        public static void SetCorporatePolicy(GameContext gameContext, GameEntity company, CorporatePolicy policy, int value = 5)
+        {
+            TweakCorporatePolicy(gameContext, company, policy, value);
+        }
+
         public static void DecrementCorporatePolicy(GameContext gameContext, GameEntity company, CorporatePolicy policy)
         {
             var culture = GetOwnCulture(company);

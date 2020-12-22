@@ -8,6 +8,7 @@ public class HideTweakButtonsIfCultureCooldownIsActive : View
 {
     public GameObject TweakLeft;
     public GameObject TweakRight;
+    public GameObject TweakCenter;
 
     public Text PolicyName;
     public Text LeftName;
@@ -48,24 +49,23 @@ public class HideTweakButtonsIfCultureCooldownIsActive : View
 
         bool hasCooldown = Cooldowns.HasCorporateCultureUpgradeCooldown(Q, MyCompany);
 
-        var culture = Companies.GetOwnCulture(MyCompany);
-
         var value = Companies.GetPolicyValue(MyCompany, CorporatePolicy);
 
-        TweakLeft.GetComponent<TweakCorporatePolicy>().SetSettings(CorporatePolicy, false);
-        TweakRight.GetComponent<TweakCorporatePolicy>().SetSettings(CorporatePolicy, true);
+        TweakLeft.GetComponent<TweakCorporatePolicy>().SetSettings(CorporatePolicy, -1);
+        TweakRight.GetComponent<TweakCorporatePolicy>().SetSettings(CorporatePolicy, 1);
+        TweakCenter.GetComponent<TweakCorporatePolicy>().SetSettings(CorporatePolicy, 0);
 
         PolicyValue.text = value.ToString();
 
         RenderTweak(TweakLeft, hasCooldown, value, false);
-        RenderTweak(TweakRight, hasCooldown, value, true);        
+        RenderTweak(TweakRight, hasCooldown, value, true);
     }
 
     private void RenderTweak(GameObject tweakButton, bool hasCooldown, int value, bool Increment)
     {
         bool willExceedLimits = (Increment && value == C.CORPORATE_CULTURE_LEVEL_MAX) || (!Increment && value == C.CORPORATE_CULTURE_LEVEL_MIN);
 
-        Draw(tweakButton, !hasCooldown && !willExceedLimits && false);
+        // Draw(tweakButton, !hasCooldown && !willExceedLimits && false);
     }
 
     private void OnEnable()
@@ -102,8 +102,8 @@ public class HideTweakButtonsIfCultureCooldownIsActive : View
                     "Horizontal",
                     ManagerOrTeamLeft,
                     ManagerOrTeamRight,
-                    "Less control",
-                    "+Max feature lvl\n+Team speed");
+                    "Managers generate more management points!",
+                    "+Max feature lvl\n+Team speed\nCheaper teams");
                 break;
             //case CorporatePolicy.DecisionsManagerOrTeam: SetTexts("Who makes decisions", "Manager", "Team", "+Team speed", "+Max feature lvl"); break;
             
@@ -123,8 +123,8 @@ public class HideTweakButtonsIfCultureCooldownIsActive : View
                     "Process",
                     PeopleOrProcessLeft,
                     PeopleOrProcessRight,
-                    "Managers grow faster",
-                    "Organisation grows faster");
+                    "Managers stay longer in company",
+                    "We spend less <b>Manager points</b> on teams\nOrganization grows faster");
                 break;
 
             case CorporatePolicy.SalariesLowOrHigh: 
@@ -133,8 +133,8 @@ public class HideTweakButtonsIfCultureCooldownIsActive : View
                     "High", 
                     SalariesLeft, 
                     SalariesRight,
-                    "We spend less money on salaries",
-                    "Bigger loyalty"); 
+                    "Less money on salaries",
+                    "Bigger employee loyalty"); 
                 break;
             
             case CorporatePolicy.Make: 
@@ -151,7 +151,7 @@ public class HideTweakButtonsIfCultureCooldownIsActive : View
                     "Team work", 
                     SkillsOrCommunicationsLeft, 
                     SkillsOrCommunicationsRight, 
-                    "More PERSONAL traits", 
+                    "More PERSONAL traits\nBigger employee rating", 
                     "More TEAM traits");
                 break;
 
