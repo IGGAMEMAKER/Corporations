@@ -3,6 +3,7 @@
 public class ManagerPointsView2 : UpgradedParameterView
 {
     Bonus<float> change => Teams.GetManagerPointChange(Flagship, Q);
+    
     public override string RenderValue()
     {
         var points = Flagship.companyResource.Resources.managerPoints;

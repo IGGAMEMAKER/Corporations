@@ -11,18 +11,10 @@ namespace Assets.Core
             if (Cooldowns.HasCorporateCultureUpgradeCooldown(gameContext, company))
                 return;
 
-            Cooldowns.AddCorporateCultureUpgradeCooldown(gameContext, company, GetCultureChangeSpeed(company, gameContext));
+            Cooldowns.AddCorporateCultureUpgradeCooldown(gameContext, company, GetCultureChangeSpeed(company));
             var culture = GetOwnCulture(company);
 
-            var prevValue = culture[policy];
             culture[policy] = Mathf.Clamp(value, C.CORPORATE_CULTURE_LEVEL_MIN, C.CORPORATE_CULTURE_LEVEL_MAX);
-
-            //if (value != prevValue)
-            //{
-            //    // culture changed
-            //    if (company.isFlagship || company.isControlledByPlayer)
-            //        NotificationUtils.AddPopup(gameContext, new PopupMessageCultureChange(company.company.Id));
-            //}
 
             company.ReplaceCorporateCulture(culture);
         }
@@ -32,7 +24,7 @@ namespace Assets.Core
             return policy.ToString();
         }
 
-        public static int GetCultureChangeSpeed(GameEntity company, GameContext gameContext)
+        public static int GetCultureChangeSpeed(GameEntity company)
         {
             var culture = GetOwnCulture(company);
 

@@ -60,7 +60,7 @@ namespace Assets.Core
             .Select(t => GetDevelopmentTeamEfficiency(gameContext, product, t) / 100)
             ;
 
-            if (viableTeams.Count() == 0)
+            if (!viableTeams.Any())
                 return 50;
 
             return (int)viableTeams.Average();

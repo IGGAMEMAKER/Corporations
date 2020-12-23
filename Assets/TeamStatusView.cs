@@ -36,7 +36,6 @@ public class TeamStatusView : View
 
 
         bool showTeamButtons = false;
-        bool showHuman = false;
         bool showTeams = false;
 
         bool canPromote = false;
@@ -47,8 +46,6 @@ public class TeamStatusView : View
 
             if (coreTeam.Rank == TeamRank.Solo)
             {
-                showHuman = true;
-                
                 NextUpgradeGoal.text = $"On {promotionCost} manager points you will\n{Visuals.Positive("hire your first employees!")}";
                 TeamStatusLabel.text = $"<b>You do everything ALONE</b>";
 
@@ -57,8 +54,6 @@ public class TeamStatusView : View
 
             if (coreTeam.Rank == TeamRank.SmallTeam)
             {
-                showHuman = true;
-
                 NextUpgradeGoal.text = $"On {promotionCost} manager points you will\n{Visuals.Positive("hire your first MANAGERS!")}";
                 TeamStatusLabel.text = $"<b>You have a small team of {coreTeam.Workers}</b>";
                 
@@ -67,7 +62,6 @@ public class TeamStatusView : View
 
             if (coreTeam.Rank == TeamRank.BigTeam)
             {
-                showHuman = true;
                 showTeams = true;
 
                 NextUpgradeGoal.text = $"On {promotionCost} manager points you will\n{Visuals.Positive("hire more teams!")}";
@@ -77,13 +71,11 @@ public class TeamStatusView : View
                 showTeamButtons =
                     Flagship.companyGoal.Goals.Exists(g =>
                         g.InvestorGoalType == InvestorGoalType.ProductPrepareForRelease) ||
-                    Flagship.companyGoal.Goals.Exists(g =>
-                        g.InvestorGoalType == InvestorGoalType.ProductPrepareForRelease);
+                    Flagship.completedGoals.Goals.Exists(g => g == InvestorGoalType.ProductPrepareForRelease);
             }
 
             if (coreTeam.Rank == TeamRank.Department)
             {
-                showHuman = true;
                 showTeams = true;
                 promotionCost = C.PROMOTION_POINTS_TO_SPECIALISED_TEAMS;
 
@@ -99,8 +91,7 @@ public class TeamStatusView : View
         {
             showTeams = true;
             showTeamButtons = true;
-            showHuman = true;
-            
+
             NextUpgradeGoal.text = "";
             TeamStatusLabel.text = "Teams";
         }
@@ -110,11 +101,8 @@ public class TeamStatusView : View
         else
             HideAll(TeamTabs);
 
-        showHuman = true;
-        if (showHuman)
-            ShowAll(HumanTabs);
-        else
-            HideAll(HumanTabs);
+        ShowAll(HumanTabs);
+
 
         Draw(Buttons, showTeamButtons);
         

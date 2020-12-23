@@ -1,10 +1,12 @@
 ﻿using Assets.Core;
+using UnityEngine.UI.Michsky.UI.Frost;
 
 //[RequireComponent(typeof(LazyUpdate))]
 public class TweakCorporatePolicy : ButtonController
 {
     public CorporatePolicy CorporatePolicy;
     public int Change;
+    public UIGradient UIGradient;
 
     public override void Execute()
     {
@@ -36,7 +38,15 @@ public class TweakCorporatePolicy : ButtonController
         CorporatePolicy = policy;
         Change = change;
         
+        RenderShades(change);
+    }
+
+    void RenderShades(int change)
+    {
+        var value = Companies.GetPolicyValue(MyCompany, CorporatePolicy);
+        var center = 5;
         
+        Draw(UIGradient, (value <  center && change < 0) || (value >  center && change > 0) || (value == center && change == 0));
     }
 
     void DescribeChange(bool valueChanged)
@@ -50,6 +60,7 @@ public class TweakCorporatePolicy : ButtonController
         }
 
         PlaySound(Assets.Sound.GoalCompleted);
+        RenderShades(Change);
     }
 
     void DescribeDelegationChanges()
