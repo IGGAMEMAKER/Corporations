@@ -13,9 +13,21 @@ class WorkerHiringSystem : OnDateChange
 
         foreach (var c in companies)
         {
+            var value = Companies.GetPolicyValue(c, CorporatePolicy.PeopleOrProcesses);
+            var gain = 1;
+
+            var center = 5;
+
+            if (value > center)
+                gain = 3;
+
+            if (value == center)
+                gain = 2;
+
             foreach (var t in c.team.Teams)
             {
-                if (t.Workers < Teams.GetMaxTeamSize(t))
+                var maxSize = Teams.GetMaxTeamSize(t);
+                if (t.Workers < maxSize)
                 {
                     bool isUniversalTeam = Teams.IsUniversalTeam(t.TeamType);
 
@@ -25,7 +37,10 @@ class WorkerHiringSystem : OnDateChange
                     if (t.HiringProgress >= 100)
                     {
                         t.HiringProgress = 0;
-                        t.Workers++;
+                        t.Workers += gain;
+
+                        if (t.Workers > maxSize)
+                            t.Workers = maxSize;
                     }
                 }
             }

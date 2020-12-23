@@ -73,7 +73,6 @@ public class HideTweakButtonsIfCultureCooldownIsActive : View
         ViewRender();
     }
 
-    //void OnTransformChildrenChanged()
     private void OnValidate()
     {
         SetStuff();

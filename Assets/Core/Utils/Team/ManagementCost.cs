@@ -59,9 +59,9 @@
 
 
             
-            var gain = GetTeamManagementGain(team, company, gameContext);
-            var directMaintenance = GetManagementCostOfTeam(team) * discount;
-            var indirectMaintenance = GetIndirectManagementCostOfTeam(team) / multiplier;
+            var gain = GetTeamManagementGain(team, company, gameContext) * multiplier;
+            var directMaintenance = GetManagementCostOfTeam(team);
+            var indirectMaintenance = GetIndirectManagementCostOfTeam(team);
 
             var gainNameFormatted = shortDescription
                 ? Humans.GetFormattedRole(role)
