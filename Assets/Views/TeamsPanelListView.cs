@@ -1,4 +1,6 @@
-﻿using Assets.Core;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Assets.Core;
 using UnityEngine;
 
 public class TeamsPanelListView : ListView
@@ -15,7 +17,10 @@ public class TeamsPanelListView : ListView
         var company = Flagship;
         var teams = company.team.Teams;
 
-        SetItems(teams);
+        if (CurrentScreen == ScreenMode.TeamScreen)
+            SetItems(new List<GameObject>());
+        else
+            SetItems(teams);
     }
 
     public override void OnItemSelected(int ind)

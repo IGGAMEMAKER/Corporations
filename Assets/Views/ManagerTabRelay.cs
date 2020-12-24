@@ -13,6 +13,11 @@ public class ManagerTabRelay : View
 
     public GameObject EmployeeButton;
     public GameObject StatsButton;
+    public GameObject MergeTeamsButton;
+    
+    public GameObject DependantTeams;
+    public GameObject MergeCandidates;
+    public GameObject YouCanMergeTeamsLabel;
 
     public GameObject StatsTab;
 
@@ -30,16 +35,13 @@ public class ManagerTabRelay : View
     // ----------------------------
 
     public List<GameObject> Tabs => new List<GameObject> { Managers, StatsTab };
+    public List<GameObject> MergeCandidatesTab => new List<GameObject> { MergeCandidates, YouCanMergeTeamsLabel };
 
     private void OnEnable()
     {
         ShowAll(Tabs);
         
         ShowEmployees();
-        // Hide(EmployeesTab);
-        //
-        // Show(EmployeeButton);
-        // Hide(StatsButton);
 
         ViewRender();
     }
@@ -82,6 +84,8 @@ public class ManagerTabRelay : View
 
         Show(StatsButton);
         Hide(EmployeeButton);
+        
+        
     }
 
     public void ShowStats()
@@ -93,6 +97,11 @@ public class ManagerTabRelay : View
         Hide(StatsButton);
     }
 
+    public void ShowMergingTeams()
+    {
+        ShowAll(MergeCandidatesTab);
+        HideAll(Tabs);
+    }
 
 
 
