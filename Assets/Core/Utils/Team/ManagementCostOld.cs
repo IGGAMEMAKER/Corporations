@@ -55,7 +55,7 @@ namespace Assets.Core
         public static int GetManagementCostOfCompany(GameEntity company, GameContext gameContext, bool recursive)
         {
             int value = 1;
-            var teams = company.team.Teams.Sum(GetManagementCostOfTeam);
+            var teams = company.team.Teams.Sum(GetDirectManagementCostOfTeam);
 
             if (recursive && Companies.IsGroup(company))
             {

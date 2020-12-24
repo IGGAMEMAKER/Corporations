@@ -186,6 +186,9 @@ namespace Assets.Core
                     return $"Big {formattedName}";
 
                 case TeamRank.Department:
+                    if (formattedName.Contains("Core"))
+                        return "Core Department";
+                    
                     switch (teamType)
                     {
                         case TeamType.CrossfunctionalTeam:

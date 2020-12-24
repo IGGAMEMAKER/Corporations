@@ -83,13 +83,13 @@ namespace Assets.Core
 
             company.AddCompanyResourceHistory(new List<ResourceTransaction>());
             company.AddCompanyResource(new TeamResource());
-            Companies.SetResources(company, new TeamResource(100, 100, 100, 100, 10000), "Initial capital");
+            Companies.SetResources(company, new TeamResource(0, Teams.GetPromotionCost(TeamRank.Solo), 0, 0, 10000), "Initial capital");
 
             // investments
             company.AddShareholders(founders);
             company.AddInvestmentProposals(new List<InvestmentProposal>());
             company.AddInvestmentRounds(InvestmentRound.Preseed);
-            company.AddCompanyGoal(new List<InvestmentGoal> { }); // new InvestmentGoalGrowCost(1000000)
+            company.AddCompanyGoal(new List<InvestmentGoal>()); // new InvestmentGoalGrowCost(1000000)
             company.AddCompletedGoals(new List<InvestorGoalType>());
 
             // Branding?
@@ -101,7 +101,7 @@ namespace Assets.Core
                 100, 50,
                 new Dictionary<int, WorkerRole>(),
                 new Dictionary<WorkerRole, int> { [WorkerRole.Programmer] = 0 },
-                new List<TeamInfo>() {},
+                new List<TeamInfo>(),
                 0
                 );
 
@@ -171,12 +171,14 @@ namespace Assets.Core
             var max = C.CORPORATE_CULTURE_LEVEL_MAX;
             var half = max / 2;
 
+            max--;
+
             return new Dictionary<CorporatePolicy, int>
             {
                 [CorporatePolicy.CompetitionOrSupport] = half,
                 [CorporatePolicy.SalariesLowOrHigh] = half,
                 [CorporatePolicy.DoOrDelegate] = 1,
-                [CorporatePolicy.DecisionsManagerOrTeam] = 1,
+                [CorporatePolicy.DecisionsManagerOrTeam] = max,
                 [CorporatePolicy.PeopleOrProcesses] = half,
                 [CorporatePolicy.FocusingOrSpread] = 1, // doesn't matter
                 [CorporatePolicy.Make] = 1,

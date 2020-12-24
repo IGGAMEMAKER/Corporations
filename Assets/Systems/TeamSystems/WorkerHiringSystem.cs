@@ -13,16 +13,7 @@ class WorkerHiringSystem : OnDateChange
 
         foreach (var c in companies)
         {
-            var value = Companies.GetPolicyValue(c, CorporatePolicy.PeopleOrProcesses);
-            var gain = 1;
-
-            var center = 5;
-
-            if (value > center)
-                gain = 3;
-
-            if (value == center)
-                gain = 2;
+            var gain = (int)Teams.GetPolicyValueModified(c, CorporatePolicy.PeopleOrProcesses, 1, 2, 3);
 
             foreach (var t in c.team.Teams)
             {

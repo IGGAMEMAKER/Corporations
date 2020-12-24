@@ -136,14 +136,6 @@ public class HideTweakButtonsIfCultureCooldownIsActive : View
                     "Bigger employee loyalty"); 
                 break;
             
-            case CorporatePolicy.Make: 
-                SetTexts("Make?", 
-                    "Left", 
-                    "Right", 
-                    defaultLeft, 
-                    defaultRight);
-                break;
-
             case CorporatePolicy.HardSkillsOrSoftSkills: 
                 SetTexts("Skills or Communication",
                     "Skill", 
@@ -158,15 +150,15 @@ public class HideTweakButtonsIfCultureCooldownIsActive : View
         }
     }
 
-    void SetTexts(string Policy, string Left, string Right, Sprite leftSprite, Sprite rightSprite, string leftHint = "???", string rightHint = "???")
+    void SetTexts(string policy, string left, string right, Sprite leftSprite, Sprite rightSprite, string leftHint = "???", string rightHint = "???")
     {
-        PolicyName.text = Policy;
+        PolicyName.text = policy;
 
-        LeftName.text = Left; // + "\n" + Visuals.Positive($"<b>{leftHint}</b>");
+        LeftName.text = left; // + "\n" + Visuals.Positive($"<b>{leftHint}</b>");
         LeftHint.SetHint(Visuals.Positive($"<b>{leftHint}</b>"));
         LeftChoiceImage.sprite = leftSprite;
 
-        RightName.text = Right; // + "\n" + Visuals.Positive($"<b>{rightHint}</b>");
+        RightName.text = right; // + "\n" + Visuals.Positive($"<b>{rightHint}</b>");
         RightHint.SetHint(Visuals.Positive($"<b>{rightHint}</b>"));
         RightChoiceImage.sprite = rightSprite;
     }

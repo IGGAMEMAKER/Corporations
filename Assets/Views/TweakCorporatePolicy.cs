@@ -45,8 +45,9 @@ public class TweakCorporatePolicy : ButtonController
     {
         var value = Companies.GetPolicyValue(MyCompany, CorporatePolicy);
         var center = 5;
-        
-        Draw(UIGradient, (value <  center && change < 0) || (value >  center && change > 0) || (value == center && change == 0));
+
+        Draw(UIGradient,
+            value < center && change < 0 || value > center && change > 0 || value == center && change == 0);
     }
 
     void DescribeChange(bool valueChanged)

@@ -20,12 +20,12 @@ public class RenderCorporateCultureView : View
 
         bool canChangeCulture = true; // Companies.GetPolicyValue(MyCompany, CorporatePolicy.DoOrDelegate) > 3;
 
-        Draw(ResponsibilityPolicy, true);
-        
-        Draw(StructurePolicy, canChangeCulture);
-        Draw(PeopleOrProcessesPolicy, canChangeCulture);
-        Draw(SalariesPolicy, canChangeCulture);
-
-        Draw(SoftSkillsPolicy, canChangeCulture);
+        // Draw(ResponsibilityPolicy, true);
+        //
+        // Draw(StructurePolicy, canChangeCulture);
+        // Draw(PeopleOrProcessesPolicy, canChangeCulture);
+        // Draw(SalariesPolicy, canChangeCulture);
+        //
+        // Draw(SoftSkillsPolicy, canChangeCulture);
     }
 }
