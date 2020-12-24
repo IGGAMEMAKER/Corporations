@@ -372,7 +372,10 @@ public class TeamInfo
     // upgrades are written here
     public TeamRank Rank;
 
+    public int ParentID = -1;
+
     public bool isCoreTeam => ID == 0;
+    public bool isIndependentTeam => ParentID >= 0;
     public bool isFullTeam => Teams.IsFullTeam(this);
 }
 

@@ -85,7 +85,9 @@ public class ManagerTabRelay : View
         Show(StatsButton);
         Hide(EmployeeButton);
         
+        Show(MergeTeamsButton);
         
+        HideAll(MergeCandidatesTab);
     }
 
     public void ShowStats()
@@ -95,12 +97,19 @@ public class ManagerTabRelay : View
 
         Show(EmployeeButton);
         Hide(StatsButton);
+        
+        Show(MergeTeamsButton);
+        
+        HideAll(MergeCandidatesTab);
     }
 
     public void ShowMergingTeams()
     {
         ShowAll(MergeCandidatesTab);
         HideAll(Tabs);
+        
+        Hide(MergeTeamsButton);
+        Show(StatsButton);
     }
 
 

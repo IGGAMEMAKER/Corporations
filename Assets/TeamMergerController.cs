@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Assets;
+using Assets.Core;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -28,7 +29,7 @@ public class TeamMergerController : View, IDragHandler, IEndDragHandler, IBeginD
     void SetSortingOrder(int order)
     {
         // gameObject.transform.SetSiblingIndex(order);
-        GetComponent<Canvas>().sortingOrder = order;
+        // GetComponent<Canvas>().sortingOrder = order;
     }
     
     public void OnDrag(PointerEventData eventData)
@@ -68,11 +69,19 @@ public class TeamMergerController : View, IDragHandler, IEndDragHandler, IBeginD
     {
         if (Target != null && Movable != null && Target.GetInstanceID() != Movable.GetInstanceID())
         {
-            Debug.Log($"Merged {Movable.GetComponent<TeamPreview>().TeamInfo.Name} with {Target.GetComponent<TeamPreview>().TeamInfo.Name}");
+            var owner = Target.GetComponent<TeamPreview>().TeamInfo;
+            var dependant = Movable.GetComponent<TeamPreview>().TeamInfo;
 
-            PlaySound(Sound.Bubble7);
+            if (Teams.IsCanMergeTeams(owner, dependant))
+            {
+                Teams.AttachTeamToTeam(dependant, owner);
+                Debug.Log($"Attached {dependant.Name} to {owner}");
 
-            Hide(Movable);
+                PlaySound(Sound.Bubble7);
+
+                Hide(Movable);
+            }
+
             Target = null;
             Movable = null;
         }

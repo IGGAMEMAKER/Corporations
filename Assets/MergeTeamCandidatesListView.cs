@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Core;
 using UnityEngine;
 
 public class MergeTeamCandidatesListView : ListView
@@ -19,6 +20,6 @@ public class MergeTeamCandidatesListView : ListView
 
         var team = teams[SelectedTeam];
         
-        SetItems(teams.Where(t => t.TeamType == team.TeamType && !t.isCoreTeam && team.Rank == TeamRank.Department));
+        SetItems(teams.Where(t => Teams.IsCanMergeTeams(team, t)));
     }
 }

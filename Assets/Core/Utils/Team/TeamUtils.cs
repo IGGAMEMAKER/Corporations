@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -48,6 +49,29 @@ namespace Assets.Core
                 return prefix;
 
             return $"{prefix} #{team.ID}";
+        }
+
+        public static bool IsCanReceiveTeams(TeamInfo team)
+        {
+            return team.isFullTeam && team.Rank == TeamRank.Department;
+        }
+    
+        public static bool IsCanMergeTeams(TeamInfo owner, TeamInfo t)
+        {
+            if (!IsCanReceiveTeams(owner))
+                return false;
+    
+            return t.TeamType == owner.TeamType && !t.isCoreTeam && t.ID != owner.ID && t.ParentID != owner.ID;
+        }
+        
+        public static void AttachTeamToTeam(TeamInfo dependant, TeamInfo owner)
+        {
+            dependant.ParentID = owner.ID;
+        }
+
+        public static IEnumerable<TeamInfo> GetDependantTeams(TeamInfo owner, GameEntity company)
+        {
+            return company.team.Teams.Where(t => t.ParentID == owner.ID);
         }
 
         public static int GetPromotionCost(TeamInfo teamInfo)

@@ -18,7 +18,7 @@ public class TeamsPanelListView : ListView
         var teams = company.team.Teams;
 
         if (CurrentScreen == ScreenMode.TeamScreen)
-            SetItems(new List<GameObject>());
+            SetItems(Teams.GetDependantTeams(teams[SelectedTeam], company));
         else
             SetItems(teams);
     }
