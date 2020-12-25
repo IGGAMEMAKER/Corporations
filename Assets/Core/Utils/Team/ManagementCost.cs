@@ -61,24 +61,25 @@ namespace Assets.Core
             return gain >= managementCost;
         }
 
-        public static Bonus<float> GetTeamManagementBonus(TeamInfo team, GameEntity company, GameContext gameContext, bool shortDescription = false)
+        public static Bonus<float> GetTeamManagementBonus(TeamInfo team, GameEntity company, GameContext gameContext,
+            bool shortDescription = false)
         {
             var bonus = new Bonus<float>("points");
 
-            bool hasManager = HasMainManagerInTeam(team);
-            bool isDirectManagement = !hasManager || team.isCoreTeam;
-
             var needsHelp = !IsTeamSelfManageable(team, company, gameContext);
 
-            if (isDirectManagement || needsHelp)
+            bool isDirectManagement = team.isCoreTeam || needsHelp;
+            bool isIndirectManagement = !isDirectManagement;  
+
+            if (isDirectManagement)
             {
                 // if not managed properly
-                // spend points from CEO
-                
+                // spend points from parent team / CEO
+
                 var gain = GetTeamManagementGain(team, company, gameContext);
-            
+
                 var directMaintenance = GetDirectManagementCostOfTeam(team, company);
-            
+
 
                 foreach (var dependantTeam in GetDependantTeams(team, company))
                 {
@@ -87,7 +88,7 @@ namespace Assets.Core
                     bonus.Append(b);
                     directMaintenance += b.Sum();
                 }
-                
+
                 if (shortDescription)
                 {
                     bonus.AppendAndHideIfZero("Direct management in " + team.Name, gain - directMaintenance);
@@ -95,21 +96,26 @@ namespace Assets.Core
                 else
                 {
                     var role = GetMainManagerRole(team);
-                    
+
                     bonus.AppendAndHideIfZero(Humans.GetFormattedRole(role), gain);
                     bonus.AppendAndHideIfZero($"Base maintenance for {team.Rank}", -directMaintenance);
                 }
             }
 
 
-            if (!isDirectManagement)
+            if (isIndirectManagement)
             {
-                var indirectMaintenance = GetIndirectManagementCostOfTeam(team, company);
-
-                bonus.Append($"Indirect management for {team.Rank}", -indirectMaintenance);
+                ApplyIndirectManagementBonus(company,team, bonus);
             }
-            
+
             return bonus;
+        }
+
+        public static void ApplyIndirectManagementBonus(GameEntity company, TeamInfo team, Bonus<float> bonus)
+        {
+            var indirectMaintenance = GetIndirectManagementCostOfTeam(team, company);
+
+            bonus.Append($"Indirect management for {team.Rank}", -indirectMaintenance);
         }
 
         static float GetTeamManagementGain(TeamInfo team, GameEntity company, GameContext gameContext)
