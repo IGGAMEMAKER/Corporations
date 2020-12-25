@@ -1,4 +1,6 @@
-﻿namespace Assets.Core
+﻿using System.Linq;
+
+namespace Assets.Core
 {
     public static partial class Teams
     {
@@ -12,7 +14,7 @@
 
             bool teamsOnly = teams.Count > 3;
 
-            foreach (var team in teams)
+            foreach (var team in teams.Where(t => t.isIndependentTeam))
             {
                 var b = GetTeamManagementBonus(team, company, gameContext, true);
 
@@ -48,11 +50,6 @@
             return multiplier;
         }
 
-        public static bool IsDirectManagement(TeamInfo team, GameEntity company, GameContext gameContext)
-        {
-            return false;
-        }
-        
         public static Bonus<float> GetTeamManagementBonus(TeamInfo team, GameEntity company, GameContext gameContext, bool shortDescription = false)
         {
             var bonus = new Bonus<float>("points");
@@ -72,14 +69,22 @@
             
             bool noManager = !HasMainManagerInTeam(team);
             bool isDirectManagement = noManager || team.isCoreTeam;
-            
+
+            var dependantTeams = GetDependantTeams(team, company);
+            foreach (var dependantTeam in dependantTeams)
+            {
+                var b = GetTeamManagementBonus(dependantTeam, company, gameContext, true);
+
+                bonus.Append(b);
+                directMaintenance += b.Sum();
+            }
             
             // if not managed properly
             // spend points from CEO
 
-            var managingBadly = directMaintenance > gain;
+            var notEnoughPoints = directMaintenance > gain;
 
-            bool applyDirectManagementCost = isDirectManagement || managingBadly;
+            bool applyDirectManagementCost = isDirectManagement || notEnoughPoints;
             bool applyIndirectManagementCost = !isDirectManagement;
 
             if (applyDirectManagementCost)
