@@ -17,10 +17,7 @@ public class TeamsPanelListView : ListView
         var company = Flagship;
         var teams = company.team.Teams;
 
-        if (CurrentScreen == ScreenMode.TeamScreen)
-            SetItems(Teams.GetDependantTeams(teams[SelectedTeam], company));
-        else
-            SetItems(teams);
+        SetItems(teams);
     }
 
     public override void OnItemSelected(int ind)

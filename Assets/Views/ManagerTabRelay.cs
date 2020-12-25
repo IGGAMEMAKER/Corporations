@@ -14,10 +14,10 @@ public class ManagerTabRelay : View
     public GameObject EmployeeButton;
     public GameObject StatsButton;
     public GameObject MergeTeamsButton;
+    public GameObject ManagersButton;
     
     public GameObject DependantTeams;
     public GameObject MergeCandidates;
-    public GameObject YouCanMergeTeamsLabel;
 
     public GameObject StatsTab;
 
@@ -35,7 +35,16 @@ public class ManagerTabRelay : View
     // ----------------------------
 
     public List<GameObject> Tabs => new List<GameObject> { Managers, StatsTab };
-    public List<GameObject> MergeCandidatesTab => new List<GameObject> { MergeCandidates, YouCanMergeTeamsLabel };
+    public List<GameObject> MergeCandidatesTab => new List<GameObject> { MergeCandidates };
+    
+    public List<GameObject> TeamsTabs => new List<GameObject> { MergeCandidates, DependantTeams };
+    
+    public List<GameObject> TeamButtons => new List<GameObject> { EmployeeButton, StatsButton, MergeTeamsButton };
+    
+    public List<GameObject> EmployeeStuff => new List<GameObject> { EmployeeButton, EmployeesTab };
+    public List<GameObject> StatsStuff => new List<GameObject> { StatsButton, StatsTab };
+    
+    
 
     private void OnEnable()
     {
@@ -52,11 +61,51 @@ public class ManagerTabRelay : View
 
 
         EmployeeButton.GetComponent<Blinker>().enabled = Teams.IsNeverHiredEmployees(Flagship);
+        Draw(MergeTeamsButton,  Teams.IsCanReceiveTeams(Flagship.team.Teams[SelectedTeam]));
 
         RenderTeamRank();
 
         Draw(LinkToNextTeam, Flagship.team.Teams.Count > 1);
         Draw(LinkToPrevTeam, Flagship.team.Teams.Count > 1);
+    }
+
+    public void ShowManagers()
+    {
+        Hide(ManagersButton);
+        
+        ShowAll(Tabs);
+    }
+    
+    public void ShowEmployees()
+    {
+        ShowOnly(StatsButton, StatsStuff);
+        ShowOnly(EmployeesTab, EmployeeStuff);
+        
+        HideMergingCandidates();
+    }
+
+    public void ShowStats()
+    {
+        ShowOnly(StatsTab, StatsStuff);
+        ShowOnly(EmployeeButton, EmployeeStuff);
+        
+        HideMergingCandidates();
+    }
+
+    public void ShowMergingTeams()
+    {
+        ShowAll(MergeCandidatesTab);
+        HideAll(Tabs);
+        
+        Hide(MergeTeamsButton);
+        Show(StatsButton);
+    }
+
+    void HideMergingCandidates()
+    {
+        Show(MergeTeamsButton);
+        
+        HideAll(MergeCandidatesTab);
     }
 
     void RenderTeamRank()
@@ -77,40 +126,6 @@ public class ManagerTabRelay : View
     }
 
 
-    public void ShowEmployees()
-    {
-        Hide(StatsTab);
-        Show(EmployeesTab);
-
-        Show(StatsButton);
-        Hide(EmployeeButton);
-        
-        Show(MergeTeamsButton);
-        
-        HideAll(MergeCandidatesTab);
-    }
-
-    public void ShowStats()
-    {
-        Show(StatsTab);
-        Hide(EmployeesTab);
-
-        Show(EmployeeButton);
-        Hide(StatsButton);
-        
-        Show(MergeTeamsButton);
-        
-        HideAll(MergeCandidatesTab);
-    }
-
-    public void ShowMergingTeams()
-    {
-        ShowAll(MergeCandidatesTab);
-        HideAll(Tabs);
-        
-        Hide(MergeTeamsButton);
-        Show(StatsButton);
-    }
 
 
 

@@ -4,7 +4,7 @@ using System.Linq;
 using Assets.Core;
 using UnityEngine;
 
-public class MergeTeamCandidatesListView : ListView
+public class DependantTeamsListView : ListView
 {
     public GameObject Label;
     
@@ -16,16 +16,14 @@ public class MergeTeamCandidatesListView : ListView
     public override void ViewRender()
     {
         base.ViewRender();
-        
+
         var company = Flagship;
         var teams = company.team.Teams;
-
-        var team = teams[SelectedTeam];
-
-        var candidates = teams.Where(t => Teams.IsCanMergeTeams(team, t));
         
-        SetItems(candidates);
+        var dependantTeams = Teams.GetDependantTeams(teams[SelectedTeam], company);
         
-        Draw(Label, candidates.Any());
+        SetItems(dependantTeams);
+        
+        Draw(Label, dependantTeams.Any());
     }
 }
