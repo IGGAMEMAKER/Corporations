@@ -72,6 +72,7 @@ public class TeamMergerController : View, IDragHandler, IEndDragHandler, IBeginD
             var owner = Target.GetComponent<TeamPreview>().TeamInfo;
             var dependant = Movable.GetComponent<TeamPreview>().TeamInfo;
 
+            bool merged = false;
             if (Teams.IsCanMergeTeams(owner, dependant))
             {
                 Teams.AttachTeamToTeam(dependant, owner);
@@ -80,10 +81,15 @@ public class TeamMergerController : View, IDragHandler, IEndDragHandler, IBeginD
                 PlaySound(Sound.Bubble7);
 
                 Hide(Movable);
+
+                merged = true;
             }
 
             Target = null;
             Movable = null;
+            
+            if (merged)
+                Refresh();
         }
     }
 }
