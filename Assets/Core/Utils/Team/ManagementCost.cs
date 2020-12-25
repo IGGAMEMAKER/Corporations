@@ -50,59 +50,62 @@ namespace Assets.Core
             return multiplier;
         }
 
+        public static bool IsTeamSelfManageable(TeamInfo team, GameEntity company, GameContext gameContext, bool recursively = false)
+        {
+            if (!HasMainManagerInTeam(team))
+                return false;
+            
+            var managementCost = GetDirectManagementCostOfTeam(team, company);
+            var gain = GetTeamManagementGain(team, company, gameContext);
+            
+            return gain >= managementCost;
+        }
+
         public static Bonus<float> GetTeamManagementBonus(TeamInfo team, GameEntity company, GameContext gameContext, bool shortDescription = false)
         {
             var bonus = new Bonus<float>("points");
-        
-            var role = GetMainManagerRole(team);
 
-            var flatness  = GetPolicyValueModified(company, CorporatePolicy.DecisionsManagerOrTeam, 1f, 0.5f, 0.25f);
-            var processes = GetPolicyValueModified(company, CorporatePolicy.PeopleOrProcesses, 1f, 0.5f, 0.25f);
+            bool hasManager = HasMainManagerInTeam(team);
+            bool isDirectManagement = !hasManager || team.isCoreTeam;
 
+            var needsHelp = !IsTeamSelfManageable(team, company, gameContext);
 
-            var gain = GetTeamManagementGain(team, company, gameContext);
-            
-            var directMaintenance = GetDirectManagementCostOfTeam(team) * processes;
-            var indirectMaintenance = GetIndirectManagementCostOfTeam(team) * flatness;
-
-            var formattedManagerRole = Humans.GetFormattedRole(role);
-            
-            bool noManager = !HasMainManagerInTeam(team);
-            bool isDirectManagement = noManager || team.isCoreTeam;
-
-            var dependantTeams = GetDependantTeams(team, company);
-            foreach (var dependantTeam in dependantTeams)
+            if (isDirectManagement || needsHelp)
             {
-                var b = GetTeamManagementBonus(dependantTeam, company, gameContext, true);
-
-                bonus.Append(b);
-                directMaintenance += b.Sum();
-            }
+                // if not managed properly
+                // spend points from CEO
+                
+                var gain = GetTeamManagementGain(team, company, gameContext);
             
-            // if not managed properly
-            // spend points from CEO
+                var directMaintenance = GetDirectManagementCostOfTeam(team, company);
+            
 
-            var notEnoughPoints = directMaintenance > gain;
+                foreach (var dependantTeam in GetDependantTeams(team, company))
+                {
+                    var b = GetTeamManagementBonus(dependantTeam, company, gameContext, true);
 
-            bool applyDirectManagementCost = isDirectManagement || notEnoughPoints;
-            bool applyIndirectManagementCost = !isDirectManagement;
-
-            if (applyDirectManagementCost)
-            {
+                    bonus.Append(b);
+                    directMaintenance += b.Sum();
+                }
+                
                 if (shortDescription)
                 {
                     bonus.AppendAndHideIfZero("Direct management in " + team.Name, gain - directMaintenance);
                 }
                 else
                 {
-                    bonus.AppendAndHideIfZero(formattedManagerRole, gain);
+                    var role = GetMainManagerRole(team);
+                    
+                    bonus.AppendAndHideIfZero(Humans.GetFormattedRole(role), gain);
                     bonus.AppendAndHideIfZero($"Base maintenance for {team.Rank}", -directMaintenance);
                 }
             }
 
 
-            if (applyIndirectManagementCost)
+            if (!isDirectManagement)
             {
+                var indirectMaintenance = GetIndirectManagementCostOfTeam(team, company);
+
                 bonus.Append($"Indirect management for {team.Rank}", -indirectMaintenance);
             }
             
@@ -119,6 +122,12 @@ namespace Assets.Core
             return rating / 10f;
         }
 
+        public static float GetDirectManagementCostOfTeam(TeamInfo team, GameEntity company)
+        {
+            var processes = GetPolicyValueModified(company, CorporatePolicy.PeopleOrProcesses, 1f, 0.5f, 0.25f);
+
+            return GetDirectManagementCostOfTeam(team) * processes;
+        }
         public static int GetDirectManagementCostOfTeam(TeamInfo team)
         {
             switch (team.Rank)
@@ -132,6 +141,12 @@ namespace Assets.Core
             }
         }
 
+        public static float GetIndirectManagementCostOfTeam(TeamInfo team, GameEntity company)
+        {
+            var flatness  = GetPolicyValueModified(company, CorporatePolicy.DecisionsManagerOrTeam, 1f, 0.5f, 0.25f);
+
+            return GetIndirectManagementCostOfTeam(team) * flatness;
+        }
         public static int GetIndirectManagementCostOfTeam(TeamInfo team)
         {
             switch (team.Rank)
