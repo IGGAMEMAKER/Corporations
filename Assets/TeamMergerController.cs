@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
-public class TeamMergerController : View, IDragHandler, IEndDragHandler, IBeginDragHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
+public class TeamMergerController : ButtonView, IDragHandler, IEndDragHandler, IBeginDragHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public static TeamMergerController Movable;
     public static TeamMergerController Target;
@@ -73,9 +73,10 @@ public class TeamMergerController : View, IDragHandler, IEndDragHandler, IBeginD
             var dependant = Movable.GetComponent<TeamPreview>().TeamInfo;
 
             bool merged = false;
-            if (Teams.IsCanMergeTeams(owner, dependant))
+            if (Teams.IsCanMergeTeams(Flagship, owner, dependant))
             {
                 Teams.AttachTeamToTeam(dependant, owner);
+                
                 Debug.Log($"Attached {dependant.Name} to {owner}");
 
                 PlaySound(Sound.Bubble7);
@@ -87,9 +88,18 @@ public class TeamMergerController : View, IDragHandler, IEndDragHandler, IBeginD
 
             Target = null;
             Movable = null;
-            
+
             if (merged)
-                Refresh();
+            {
+                // Refresh();
+                // Set
+                // Navigate(ScreenMode.TeamScreen, );
+            }
         }
+    }
+
+    public override void Execute()
+    {
+        
     }
 }

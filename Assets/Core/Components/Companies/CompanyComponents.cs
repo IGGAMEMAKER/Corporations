@@ -375,7 +375,8 @@ public class TeamInfo
     public int ParentID = -1;
 
     public bool isCoreTeam => ID == 0;
-    public bool isIndependentTeam => ParentID >= 0;
+    public bool isAttachable => !isCoreTeam && ParentID == -1;
+    public bool isIndependentTeam => isCoreTeam || ParentID == -1;
     public bool isFullTeam => Teams.IsFullTeam(this);
 }
 

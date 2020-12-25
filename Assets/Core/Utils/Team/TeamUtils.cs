@@ -58,19 +58,44 @@ namespace Assets.Core
 
         public static IEnumerable<TeamInfo> GetMergingCandidates(TeamInfo team, GameEntity company)
         {
-            return company.team.Teams.Where(t => IsCanMergeTeams(team, t));
+            return company.team.Teams.Where(t => IsCanMergeTeams(company, team, t));
         }
         public static bool IsHasMergeCandidates(TeamInfo team, GameEntity company)
         {
             return GetMergingCandidates(team, company).Any();
         }
     
-        public static bool IsCanMergeTeams(TeamInfo owner, TeamInfo t)
+        public static bool IsCanMergeTeams(GameEntity company, TeamInfo owner, TeamInfo target)
         {
             if (!IsCanReceiveTeams(owner))
                 return false;
-    
-            return t.TeamType == owner.TeamType && !t.isCoreTeam && t.ID != owner.ID && t.ParentID != owner.ID;
+
+            bool noAttachToSelf = target.ID != owner.ID;
+
+            return target.TeamType == owner.TeamType && target.isAttachable && noAttachToSelf 
+                   && !IsTeamDependsAlready(company, owner, target, true)
+                && !IsTeamDependsAlready(company, target, owner, true); //  target.ParentID != owner.ID;
+        }
+        
+        // public static bool IsH
+
+        public static bool IsTeamDependsAlready(GameEntity company, TeamInfo owner, TeamInfo target, bool recursively)
+        {
+            if (target.ParentID == owner.ID)
+                return true;
+
+            if (recursively)
+            {
+                var dependantTeams = GetDependantTeams(owner, company);
+                foreach (var teamInfo in dependantTeams)
+                {
+                    if (IsTeamDependsAlready(company, teamInfo, target, true))
+                        return true;
+                }
+            }
+
+
+            return false;
         }
         
         public static void AttachTeamToTeam(TeamInfo dependant, TeamInfo owner)
@@ -143,14 +168,30 @@ namespace Assets.Core
             Companies.SpendResources(product, new TeamResource(0, promotionCost, 0, 0, 0), "Team Promotion");
         }
 
+        public static void DetachTeamFromTeam(TeamInfo team)
+        {
+            team.ParentID = -1;
+        }
+
         public static void RemoveTeam(GameEntity company, GameContext gameContext, int teamId)
         {
-            var tasks = company.team.Teams[teamId].Tasks;
+            var team = company.team.Teams[teamId];
+            var tasks = team.Tasks;
 
             while (tasks.Count > 0)
             {
                 RemoveTeamTask(company, gameContext, teamId, 0);
             }
+
+            var dependantTeams = GetDependantTeams(team, company);
+            foreach (var t in dependantTeams)
+            {
+                DetachTeamFromTeam(t);
+            }
+            // while (team.AttachedTeams.Any())
+            // {
+            //     team.AttachedTeams[0].
+            // }
 
             company.team.Teams.RemoveAt(teamId);
 

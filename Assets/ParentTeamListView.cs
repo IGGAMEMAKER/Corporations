@@ -4,7 +4,7 @@ using System.Linq;
 using Assets.Core;
 using UnityEngine;
 
-public class DependantTeamsListView : ListView
+public class ParentTeamListView : ListView
 {
     public GameObject Label;
     
@@ -19,12 +19,21 @@ public class DependantTeamsListView : ListView
 
         var company = Flagship;
         var teams = company.team.Teams;
+
+        var team = teams[SelectedTeam];
+
+        if (team.isIndependentTeam)
+        {
+            SetItems(new List<GameObject>());
+            Hide(Label);
+            return;
+        }
+
+        var parent = teams[team.ParentID];
         
-        var dependantTeams = Teams.GetDependantTeams(teams[SelectedTeam], company);
+        SetItems(new List<TeamInfo> { parent });
         
-        SetItems(dependantTeams);
-        
-        Draw(Label, dependantTeams.Any());
+        Draw(Label, true);
     }
     
     public override void OnItemSelected(int ind)

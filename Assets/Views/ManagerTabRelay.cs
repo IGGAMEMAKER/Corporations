@@ -7,15 +7,14 @@ public class ManagerTabRelay : View
 {
     public GameObject EmployeesTab;
     public GameObject Managers;
+    public GameObject TeamRelations;
 
     public GameObject LinkToNextTeam;
     public GameObject LinkToPrevTeam;
 
-    public GameObject EmployeeButton;
     public GameObject MergeTeamsButton;
     public GameObject ManagersButton;
     
-    public GameObject DependantTeams;
     public GameObject MergeCandidates;
 
     [Header("Team type image")]
@@ -31,34 +30,26 @@ public class ManagerTabRelay : View
 
     // ----------------------------
 
-    public List<GameObject> Tabs => new List<GameObject> { Managers };
-    public List<GameObject> MergeCandidatesTab => new List<GameObject> { MergeCandidates };
+    // public List<GameObject> Tabs => new List<GameObject> { Managers };
+    // public List<GameObject> MergeCandidatesTab => new List<GameObject> { MergeCandidates };
     
-    public List<GameObject> TeamsTabs => new List<GameObject> { MergeCandidates, DependantTeams };
-    
-    public List<GameObject> TeamButtons => new List<GameObject> { EmployeeButton, MergeTeamsButton };
-    
-    public List<GameObject> EmployeeStuff => new List<GameObject> { EmployeeButton, EmployeesTab };
+    // public List<GameObject> EmployeeStuff => new List<GameObject> { EmployeeButton, EmployeesTab };
     
 
     private void OnEnable()
     {
-        ShowAll(Tabs);
+        ShowMainScreen();
         
-        ShowEmployees();
-
         ViewRender();
     }
 
-    private bool needsMergeButton => Teams.IsHasMergeCandidates(Flagship.team.Teams[SelectedTeam], Flagship); 
 
     public override void ViewRender()
     {
         base.ViewRender();
 
 
-        EmployeeButton.GetComponent<Blinker>().enabled = Teams.IsNeverHiredEmployees(Flagship);
-        Draw(MergeTeamsButton,  needsMergeButton);
+        // EmployeeButton.GetComponent<Blinker>().enabled = Teams.IsNeverHiredEmployees(Flagship);
 
         RenderTeamRank();
 
@@ -66,34 +57,41 @@ public class ManagerTabRelay : View
         Draw(LinkToPrevTeam, Flagship.team.Teams.Count > 1);
     }
 
-    public void ShowManagers()
+    public void OnShowMainScreen()
     {
-        Hide(ManagersButton);
-        
-        ShowAll(Tabs);
+        ShowMainScreen();
     }
     
-    public void ShowEmployees()
+    public void OnShowMergingTeams()
     {
-        ShowOnly(EmployeesTab, EmployeeStuff);
+        ShowMergingTeams();
+    }
+    
+    void ShowMainScreen()
+    {
+        ShowAll(Managers, EmployeesTab, TeamRelations);
+        ConditionalShowMergeTeamsButton();
         
-        HideMergingCandidates();
+        HideAll(MergeCandidates);
+        
+        Hide(ManagersButton);
     }
 
-    public void ShowMergingTeams()
+    void ShowMergingTeams()
     {
-        ShowAll(MergeCandidatesTab);
-        HideAll(Tabs);
+        HideAll(Managers, EmployeesTab, TeamRelations);
+
+        ShowAll(MergeCandidates);
         
-        HideAll(MergeTeamsButton);
-        ShowAll(ManagersButton);
+        Hide(MergeTeamsButton);
+        Show(ManagersButton);
     }
 
-    void HideMergingCandidates()
+    void ConditionalShowMergeTeamsButton()
     {
-        ShowAll(MergeTeamsButton);
-        
-        HideAll(MergeCandidatesTab);
+        bool needsMergeButton = Teams.IsHasMergeCandidates(Flagship.team.Teams[SelectedTeam], Flagship); 
+
+        Draw(MergeTeamsButton, needsMergeButton);
     }
 
     void RenderTeamRank()

@@ -17,14 +17,24 @@ public class TeamsPanelListView : ListView
         var company = Flagship;
         var teams = company.team.Teams;
 
-        SetItems(teams);
+        var independentTeams = teams.Where(t => t.isIndependentTeam);
+        SetItems(independentTeams);
     }
 
+    // public override void OnItemSelected(int ind)
+    // {
+    //     base.OnItemSelected(ind);
+    //
+    //     FindObjectOfType<FlagshipRelayInCompanyView>().ChooseManagersTabs(ind);
+    //
+    //     ScheduleUtils.PauseGame(Q);
+    // }
+    
     public override void OnItemSelected(int ind)
     {
         base.OnItemSelected(ind);
 
-        FindObjectOfType<FlagshipRelayInCompanyView>().ChooseManagersTabs(ind);
+        FindObjectOfType<FlagshipRelayInCompanyView>().ChooseManagersTabs(Item.GetComponent<TeamPreview>().TeamInfo.ID);
 
         ScheduleUtils.PauseGame(Q);
     }
