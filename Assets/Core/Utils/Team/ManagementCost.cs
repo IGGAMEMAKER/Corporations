@@ -85,7 +85,9 @@ namespace Assets.Core
                 {
                     var b = GetTeamManagementBonus(dependantTeam, company, gameContext, true);
 
-                    bonus.Append(b);
+                    if (!shortDescription)
+                        bonus.Append(b);
+                    
                     directMaintenance += b.Sum();
                 }
 
