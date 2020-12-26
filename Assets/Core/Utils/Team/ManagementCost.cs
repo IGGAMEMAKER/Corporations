@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace Assets.Core
 {
@@ -61,28 +62,71 @@ namespace Assets.Core
             return gain >= managementCost;
         }
 
-        public static Bonus<float> GetTeamCostForParentTeam(TeamInfo team, GameEntity company, GameContext gameContext)
+        public static void ApplyDependantTeamsBonus(Bonus<float> bonus, TeamInfo team, GameEntity company,
+            GameContext gameContext)
+        {
+            var dependantTeams = GetDependantTeams(team, company);
+
+            foreach (var t in dependantTeams)
+            {
+                bonus.Append(t.Name, -Math.Abs(GetTeamCostForParentTeam(t, company, gameContext).Sum()));
+            }
+        }
+        
+        public static Bonus<float> GetTeamCostForParentTeam(TeamInfo team, GameEntity company, GameContext gameContext, bool fullDescription = false)
         {
             var gain = GetTeamManagementGain(team, company, gameContext);
 
+            // always positive
             var directCost = GetDirectManagementCostOfTeam(team, company);
-            var dependantTeamCost = GetDependantTeams(team, company)
-                .Sum(s => GetTeamCostForParentTeam(s, company, gameContext).Sum());
+            
+            // always positive or 0
+            var dependantTeams = GetDependantTeams(team, company);
+            var dependantTeamCost = Math.Abs(dependantTeams
+                .Sum(s => GetTeamCostForParentTeam(s, company, gameContext).Sum()));
 
-            var totalDirectCost = directCost + dependantTeamCost;
+            var totalCost = directCost + dependantTeamCost;
             var indirectCost = GetIndirectManagementCostOfTeam(team, company);
 
             var bonus = new Bonus<float>("Team Cost");
-            if (gain > totalDirectCost)
+            
+            if (team.isCoreTeam)
+            {
+                bonus.Append("CEO", gain);
+                bonus.Append($"Direct cost of Core {team.Rank}", -directCost);
+
+                ApplyDependantTeamsBonus(bonus, team, company, gameContext);
+                // bonus.AppendAndHideIfZero("Dependant teams", -dependantTeamCost);
+
+                return bonus;
+            }
+            
+            if (gain > totalCost)
             {
                 // team is managed well and can be managed indirectly
                 // except it is a core team (or independent team?)
-                
+
                 return bonus.Append($"Indirect management of {team.Rank}", -indirectCost);
             }
             else
             {
-                return bonus.Append($"Management cost", gain - totalDirectCost - indirectCost);
+                // team managed badly and will cause additional troubles in parent team
+                
+                if (fullDescription)
+                {
+                    bonus
+                        .Append("Manager", gain)
+                        .Append("Team self cost", -directCost)
+                        .Append("Indirect cost", -indirectCost);
+                    
+                    ApplyDependantTeamsBonus(bonus, team, company, gameContext);
+
+                    return bonus;
+                }
+                else
+                {
+                    return bonus.Append($"Management cost", gain - totalCost - indirectCost);
+                }
             }
         }
 
@@ -91,9 +135,14 @@ namespace Assets.Core
         {
             var bonus = new Bonus<float>("points");
 
+            return GetTeamCostForParentTeam(team, company, gameContext, !shortDescription);
+
             var needsHelp = !IsTeamSelfManageable(team, company, gameContext);
 
             bool isDirectManagement = team.isCoreTeam || needsHelp;
+
+            if (team.isCoreTeam)
+                return GetTeamCostForParentTeam(team, company, gameContext);
 
             if (isDirectManagement)
             {
