@@ -72,7 +72,7 @@ class TeamGrowthSystem : OnMonthChange
                         human.humanSkills.Roles[WorkerRole.CEO]++;
 
                         if (!human.hasHumanUpgradedSkills)
-                            human.AddHumanUpgradedSkills(C.PERIOD - 1);
+                            human.AddHumanUpgradedSkills((int)C.PERIOD - 1);
                     }
                 }
             }

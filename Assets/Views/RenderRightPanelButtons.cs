@@ -14,9 +14,9 @@ public class RenderRightPanelButtons : View
     {
         base.ViewRender();
 
-        var canChangeFlagship = Companies.GetDaughterProducts(Q, MyCompany).Length > 1;
-
-        ChangeFlagship.SetActive(canChangeFlagship);
-        ChangeFlagship.GetComponentInChildren<TextMeshProUGUI>().text = "CHANGE FLAGSHIP COMPANY";
+        // var canChangeFlagship = Companies.GetDaughterProducts(Q, MyCompany).Length > 1;
+        //
+        // ChangeFlagship.SetActive(canChangeFlagship);
+        // ChangeFlagship.GetComponentInChildren<TextMeshProUGUI>().text = "CHANGE FLAGSHIP COMPANY";
     }
 }

@@ -1,6 +1,6 @@
 ﻿public class C
 {
-    public const int PERIOD = 7;
+    public const long PERIOD = 7;
 
     public const int DEVELOPMENT_PRODUCTION_MARKETER = 10;
     public const int DEVELOPMENT_PRODUCTION_PROGRAMMER = 10;
