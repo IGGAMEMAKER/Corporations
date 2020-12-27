@@ -66,7 +66,7 @@ namespace Assets.Core
             return val.ToString();
         }
         
-        public static string MinifyToInteger<T>(T value, bool minify = false)
+        public static string MinifyToInteger<T>(T value, bool minify = true)
         {
             long.TryParse(value.ToString(), out long val);
 
