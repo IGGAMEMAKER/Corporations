@@ -11,6 +11,14 @@ namespace Assets.Core
     }
     public static class Format
     {
+        public static string Money<T>(T value, bool minifyToInteger = false)
+        {
+            if (minifyToInteger)
+                return $"${MinifyToInteger(value)}";
+            else
+                return $"${Minify(value)}";
+        }
+        
         public static string Sign(float value)
         {
             return SignOf(value) + value.ToString("0.00");
@@ -24,14 +32,6 @@ namespace Assets.Core
         public static string SignOf<T>(T value)
         {
             return (dynamic)value > 0 ? "+" : "";
-        }
-
-        public static string Money<T>(T value, bool minifyToInteger = false)
-        {
-            if (minifyToInteger)
-                return $"${MinifyToInteger(value)}";
-            else
-                return $"${Minify(value)}";
         }
 
         public static string Minify<T>(T value, bool minify = true)
@@ -61,6 +61,13 @@ namespace Assets.Core
             return val.ToString();
         }
         
+        private static string ShowMeaningfulValue(long value, long divisor, string litera)
+        {
+            int shortened = Convert.ToInt32(value * 10 / divisor);
+
+            return shortened / 10f + litera;
+        }
+        
         public static string MinifyToInteger<T>(T value, bool minify = true)
         {
             long.TryParse(value.ToString(), out long val);
@@ -87,15 +94,7 @@ namespace Assets.Core
 
             return val.ToString();
         }
-
-
-
-        private static string ShowMeaningfulValue(long value, long divisor, string litera)
-        {
-            int shortened = Convert.ToInt32(value * 10 / divisor);
-
-            return shortened / 10f + litera;
-        }
+        
         private static string ShowPrettyValue(long value, long divisor, string litera)
         {
             int shortened = Convert.ToInt32(value / divisor);
