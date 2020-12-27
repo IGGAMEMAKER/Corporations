@@ -34,11 +34,6 @@ namespace Assets.Core
                 return $"${Minify(value)}";
         }
 
-        // public static string MinifyMoney<T>(T value)
-        // {
-        //     return $"${MinifyToInteger(value)}";
-        // }
-
         public static string Minify<T>(T value, bool minify = true)
         {
             long.TryParse(value.ToString(), out long val);
@@ -94,23 +89,23 @@ namespace Assets.Core
         }
 
 
-        
-        public static string ShowChange(float value)
-        {
-            return value.ToString("+0.0;-#");
-        }
+
         private static string ShowMeaningfulValue(long value, long divisor, string litera)
         {
             int shortened = Convert.ToInt32(value * 10 / divisor);
 
-            return "" + shortened / 10f + litera;
+            return shortened / 10f + litera;
         }
-
         private static string ShowPrettyValue(long value, long divisor, string litera)
         {
             int shortened = Convert.ToInt32(value / divisor);
 
-            return "" + shortened + litera;
+            return shortened + litera;
+        }
+        
+        public static string ShowChange(float value)
+        {
+            return value.ToString("+0.0;-#");
         }
 
         
