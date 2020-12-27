@@ -4,7 +4,7 @@
     {
         public static string RenderBonus(string bonusName, long value, string dimension, bool flipColors, BonusType bonusType, bool minifyValue)
         {
-            var text = "";
+            string text;
 
             if (bonusType == BonusType.Multiplicative)
                 text = $"Multiplied by \n{bonusName}: {value}";
@@ -47,17 +47,6 @@
             return Negative(text);
         }
 
-        private static string DescribeReversed(string text, long value)
-        {
-            if (value == 0)
-                return Neutral(text);
-
-            if (value > 0)
-                return Negative(text);
-
-            return Positive(text);
-        }
-
         private static string RenderNormally(string text, float value)
         {
             if (value == 0)
@@ -69,6 +58,17 @@
             return Negative(text);
         }
 
+        private static string DescribeReversed(string text, long value)
+        {
+            if (value == 0)
+                return Neutral(text);
+
+            if (value > 0)
+                return Negative(text);
+
+            return Positive(text);
+        }
+        
         private static string DescribeReversed(string text, float value)
         {
             if (value == 0)

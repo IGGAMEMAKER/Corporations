@@ -11,6 +11,11 @@ namespace Assets.Core
     }
     public static class Format
     {
+        public static string ShowChange(float value)
+        {
+            return value.ToString("+0.0;-#");
+        }
+        
         public static string Money<T>(T value, bool minifyToInteger = false)
         {
             if (minifyToInteger)
@@ -101,13 +106,8 @@ namespace Assets.Core
 
             return shortened + litera;
         }
-        
-        public static string ShowChange(float value)
-        {
-            return value.ToString("+0.0;-#");
-        }
 
-        
+
         // dates
         public static DateDescription GetDateDescription(int date)
         {
