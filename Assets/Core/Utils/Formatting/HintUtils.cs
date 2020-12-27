@@ -200,42 +200,44 @@ public class Bonus<T>
         return sum;
     }
 
-    //long SumLong()
-    //{
-    //    long sum = 0;
+    /*
+    long SumLong()
+    {
+        long sum = 0;
 
-    //    foreach (var bonus in bonusDescriptions)
-    //    {
-    //        if (bonus.BonusType == BonusType.Multiplicative)
-    //        {
-    //            //sum *= (long)(object)bonus.Value;
-    //            sum *= System.Convert.ToInt64(bonus.Value);
-    //        }
-    //        else
-    //        {
-    //            try
-    //            {
-    //                //sum += (long)(object)bonus.Value;
-    //                sum += System.Convert.ToInt64(bonus.Value);
-    //            }
-    //            catch (System.Exception ex)
-    //            {
-    //                Debug.LogError($"Exception in bonus {parameter}: " + ex);
-    //                Debug.LogError($"Bad parameter {bonus.Name}: " + bonus.Value);
+        foreach (var bonus in bonusDescriptions)
+        {
+            if (bonus.BonusType == BonusType.Multiplicative)
+            {
+                //sum *= (long)(object)bonus.Value;
+                sum *= System.Convert.ToInt64(bonus.Value);
+            }
+            else
+            {
+                try
+                {
+                    //sum += (long)(object)bonus.Value;
+                    sum += System.Convert.ToInt64(bonus.Value);
+                }
+                catch (System.Exception ex)
+                {
+                    Debug.LogError($"Exception in bonus {parameter}: " + ex);
+                    Debug.LogError($"Bad parameter {bonus.Name}: " + bonus.Value);
 
-    //                //Debug.Log("Parameters: " + string.Join(",", bonusDescriptions.Select(b => $"{b.Name}: {b.Value}... {b.Value.GetType()}")));
+                    //Debug.Log("Parameters: " + string.Join(",", bonusDescriptions.Select(b => $"{b.Name}: {b.Value}... {b.Value.GetType()}")));
 
-    //            }
-    //        }
-    //    }
+                }
+            }
+        }
 
-    //    if (isCapped)
-    //    {
-    //        return (long)Mathf.Clamp(sum, capMin, capMax);
-    //    }
+        if (isCapped)
+        {
+            return (long)Mathf.Clamp(sum, capMin, capMax);
+        }
 
-    //    return sum;
-    //}
+        return sum;
+    }
+    */
 
     public string ToString(bool positiveIsNegative = false)
     {
@@ -265,12 +267,12 @@ public class Bonus<T>
                     continue;
             }
 
-            var text = "";
+            string text;
 
             float f;
             if (float.TryParse(bonus.Value.ToString(), out f))
             {
-                text = Visuals.RenderFloatBonus(bonus.Name, f, bonus.Dimension + dimension, positiveIsNegative, bonus.BonusType, minifyValues);
+                text = Visuals.RenderFloatBonus(bonus.Name, f, bonus.Dimension + dimension, positiveIsNegative, bonus.BonusType, false); // minifyValues
             }
             else
             {

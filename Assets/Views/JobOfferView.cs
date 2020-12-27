@@ -13,7 +13,7 @@ public class JobOfferView : View
         var human = SelectedHuman;
 
         CompanyTitle.text = RenderName(Companies.Get(Q, entity.CompanyId));
-        Offer.text = Format.MinifyMoney(entity.JobOffer.Salary) + " / week";
+        Offer.text = Format.Money(entity.JobOffer.Salary, true) + " / week";
 
         var opinionBonus = Teams.GetOpinionAboutOffer(human, entity);
         var opinion = (int)opinionBonus.Sum();

@@ -108,7 +108,7 @@ public class ShareholdersOnMainScreenListView : ListView
         var investmentInfo = string.Join(
             "\n",
             activeInvestments
-            .Select(i => $"Will give {Format.MinifyMoney(i.Portion)} for {i.RemainingPeriods} weeks")
+            .Select(i => $"Will give {Format.Money(i.Portion, true)} for {i.RemainingPeriods} weeks")
             .ToArray()
             );
 

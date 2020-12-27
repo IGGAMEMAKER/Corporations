@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEngine;
 
 namespace Assets.Core
 {
@@ -12,84 +11,40 @@ namespace Assets.Core
     }
     public static class Format
     {
-        public static string ShowChange(float value)
+        public static string Sign(float value)
         {
-            return value.ToString("+0.0;-#");
-        }
-        private static string ShowMeaningfulValue(long value, long divisor, string litera)
-        {
-            int shortened = Convert.ToInt32(value * 10 / divisor);
-
-            return "" + shortened / 10f + litera;
-        }
-
-        private static string ShowPrettyValue(long value, long divisor, string litera)
-        {
-            int shortened = Convert.ToInt32(value / divisor);
-
-            return "" + shortened + litera;
-        }
-        
-        public static string Sign(float value, bool minify = false)
-        {
-            if (minify)
-                return (value > 0 ? "+" : "") + Minify(value);
-                //return (value > 0 ? "+" : "") + Minify(value);
-
-            return value > 0 ? $"+{value.ToString("0.00")}" : value.ToString("0.00");
-            //return value > 0 ? $"+{value}" : value.ToString();
+            return SignOf(value) + value.ToString("0.00");
         }
 
         public static string Sign(long value, bool minify = false)
         {
-            if (minify)
-                return (value > 0 ? "+" : "") + Minify(value);
-
-            return value > 0 ? $"+{value}" : value.ToString();
+            return SignOf(value) + Minify(value, minify);
         }
 
-        public static string SignOf(long value)
+        public static string SignOf<T>(T value)
         {
-            return (value > 0 ? "+" : "");
+            return (dynamic)value > 0 ? "+" : "";
         }
 
-        public static string Money<T>(T value)
+        public static string Money<T>(T value, bool minifyToInteger = false)
         {
-            return $"${Minify(value)}";
+            if (minifyToInteger)
+                return $"${MinifyToInteger(value)}";
+            else
+                return $"${Minify(value)}";
         }
 
-        public static string MinifyMoney<T>(T value)
-        {
-            return $"${MinifyToInteger(value)}";
-        }
+        // public static string MinifyMoney<T>(T value)
+        // {
+        //     return $"${MinifyToInteger(value)}";
+        // }
 
-        public static string MinifyToInteger<T>(T value)
-        {
-            long.TryParse(value.ToString(), out long val);
-
-            long thousand = 1000;
-            long million = 1000 * thousand;
-            long billion = 1000 * million;
-            long trillion = 1000 * billion;
-
-            if (Math.Abs(val) >= trillion)
-                return ShowPrettyValue(val, trillion, "T");
-
-            if (Math.Abs(val) >= billion)
-                return ShowPrettyValue(val, billion, "B");
-
-            if (Math.Abs(val) >= million)
-                return ShowPrettyValue(val, million, "M");
-
-            if (Math.Abs(val) >= thousand)
-                return ShowPrettyValue(val, thousand, "K");
-
-            return val.ToString();
-        }
-
-        public static string Minify<T>(T value)
+        public static string Minify<T>(T value, bool minify = true)
         {
             long.TryParse(value.ToString(), out long val);
+
+            if (!minify)
+                return val.ToString();
 
             long thousand = 1000;
             long million = 1000 * thousand;
@@ -110,12 +65,55 @@ namespace Assets.Core
 
             return val.ToString();
         }
-
-        public static string NoFormatting<T>(T value)
+        
+        public static string MinifyToInteger<T>(T value, bool minify = false)
         {
-            return value.ToString();
+            long.TryParse(value.ToString(), out long val);
+
+            long thousand = 1000;
+            long million = 1000 * thousand;
+            long billion = 1000 * million;
+            long trillion = 1000 * billion;
+
+            if (!minify)
+                return val.ToString();
+
+            if (Math.Abs(val) >= trillion)
+                return ShowPrettyValue(val, trillion, "T");
+
+            if (Math.Abs(val) >= billion)
+                return ShowPrettyValue(val, billion, "B");
+
+            if (Math.Abs(val) >= million)
+                return ShowPrettyValue(val, million, "M");
+
+            if (Math.Abs(val) >= thousand)
+                return ShowPrettyValue(val, thousand, "K");
+
+            return val.ToString();
         }
 
+
+        
+        public static string ShowChange(float value)
+        {
+            return value.ToString("+0.0;-#");
+        }
+        private static string ShowMeaningfulValue(long value, long divisor, string litera)
+        {
+            int shortened = Convert.ToInt32(value * 10 / divisor);
+
+            return "" + shortened / 10f + litera;
+        }
+
+        private static string ShowPrettyValue(long value, long divisor, string litera)
+        {
+            int shortened = Convert.ToInt32(value / divisor);
+
+            return "" + shortened + litera;
+        }
+
+        
         // dates
         public static DateDescription GetDateDescription(int date)
         {
@@ -164,26 +162,6 @@ namespace Assets.Core
                 case 11: return "December";
                 default: return "UNKNOWN MONTH";
             }
-        }
-
-
-
-
-
-        // TODO no reference?
-        public static void Print(string action, GameEntity company)
-        {
-            //bool isMyCompany = company.isControlledByPlayer || CompanyUtils.IsCompanyRelatedToPlayer(, company);
-            //bool isMyCompetitor = false; // player != null && company.product.Niche == player.product.Niche;
-
-            //bool canRenderMyCompany = GetLog(LogTypes.MyProductCompany) && isMyCompany;
-            //bool canRenderMyCompetitors = GetLog(LogTypes.MyProductCompanyCompetitors) && isMyCompetitor;
-
-            string companyName = company.company.Name;
-            //if (isMyCompany)
-            companyName = Visuals.Colorize(company.company.Name, Colors.COLOR_COMPANY_WHERE_I_AM_CEO);
-
-            Debug.Log(companyName + " " + action);
         }
     }
 }

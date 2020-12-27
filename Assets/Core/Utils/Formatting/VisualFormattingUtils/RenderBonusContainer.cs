@@ -21,12 +21,12 @@
 
         public static string RenderFloatBonus(string bonusName, float value, string dimension, bool flipColors, BonusType bonusType, bool minifyValue)
         {
-            var text = "";
+            string text;
 
             if (bonusType == BonusType.Multiplicative)
-                text = $"Multiplied by \n{bonusName}: {value.ToString("0.00")}";
+                text = $"Multiplied by \n{bonusName}: {value:0.00}";
             else
-                text = $"{bonusName}: {Format.Sign(value, minifyValue)}{dimension}";
+                text = $"{bonusName}: {Format.Sign(value)}{dimension}";
 
 
 

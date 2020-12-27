@@ -91,7 +91,7 @@ public class AudiencePreview : View
 
             var income = Economy.GetIncomePerSegment(product, segmentId);
 
-            text += $"\n\nIncome: <b>{Visuals.Colorize(Format.MinifyMoney(income), income >= 0)}</b>" +
+            text += $"\n\nIncome: <b>{Visuals.Colorize(Format.Money(income, true), income >= 0)}</b>" +
                 $"\nUsers: <b>{Visuals.Colorize(Format.Minify(clients), clients >= 0)}</b>";
         }
 

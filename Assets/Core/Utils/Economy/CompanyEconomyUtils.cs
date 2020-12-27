@@ -30,8 +30,8 @@ namespace Assets.Core
         {
             if (c.hasProduct)
                 return GetProductMaintenance(c, context);
-            else
-                return GetGroupMaintenance(context, c);
+            
+            return GetGroupMaintenance(context, c);
         }
 
         public static long GetProfit(GameContext context, GameEntity c) => GetProfit(context, c, true).Sum();
@@ -39,46 +39,51 @@ namespace Assets.Core
         {
             var bonus = new Bonus<long>("Profit");
 
-            if (c.hasProduct)
-            {
-                // ** income **
-                // * base income
-                // * investments
-
-                // ** expenses **
-                // * teams
-                // * managers
-                // * marketing
-                // * servers
-
-                // income
-                bonus.Append("Product income", GetProductIncome(c));
-
-                // expenses
-                var maintenance = GetProductCompanyMaintenance(c, true);
-                foreach (var m in maintenance.bonusDescriptions)
-                {
-                    if (m.HideIfZero)
-                        bonus.AppendAndHideIfZero(m.Name, -m.Value);
-                    else
-                        bonus.Append(m.Name, -m.Value);
-                }
-            }
+            ApplyProductEconomyToProfitBonus(c, context, bonus);
 
             // investments
             ApplyInvestmentsToProfitBonus(c, context, bonus);
 
             // group
-            if (Companies.IsGroup(c))
-            {
-                ApplyGroupInvestmentsToProfitBonus(c, context, bonus);
-            }
+            ApplyGroupInvestmentsToProfitBonus(c, context, bonus);
 
             return bonus;
         }
 
+        public static void ApplyProductEconomyToProfitBonus(GameEntity c, GameContext context, Bonus<long> bonus)
+        {
+            if (!c.hasProduct)
+                return;
+            
+            // ** income **
+            // * base income
+            // * investments
+
+            // ** expenses **
+            // * teams
+            // * managers
+            // * marketing
+            // * servers
+
+            // income
+            bonus.Append("Product income", GetProductIncome(c));
+
+            // expenses
+            var maintenance = GetProductCompanyMaintenance(c, true);
+            foreach (var m in maintenance.bonusDescriptions)
+            {
+                if (m.HideIfZero)
+                    bonus.AppendAndHideIfZero(m.Name, -m.Value);
+                else
+                    bonus.Append(m.Name, -m.Value);
+            }
+        }
+
         public static void ApplyGroupInvestmentsToProfitBonus(GameEntity c, GameContext context, Bonus<long> bonus)
         {
+            if (!Companies.IsGroup(c))
+                return;
+            
             var holdings = Investments.GetHoldings(c, context, true);
 
             bool isOnlyHolding = holdings.Count == 1;

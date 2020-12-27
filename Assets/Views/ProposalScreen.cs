@@ -26,8 +26,8 @@ public class ProposalScreen : View
         var portion = proposal.Investment.Portion;
         long futureShareSize = offer * 100 / (offer + Cost);
 
-        Offer.text = $"{Format.MinifyMoney(offer)} for {futureShareSize}% of our company";
-        Portion.text = $"{Format.MinifyMoney(portion)} / week (during {proposal.Investment.RemainingPeriods} weeks)";
+        Offer.text = $"{Format.Money(offer, true)} for {futureShareSize}% of our company";
+        Portion.text = $"{Format.Money(portion, true)} / week (during {proposal.Investment.RemainingPeriods} weeks)";
     }
 
     void RenderProposalStatus()
@@ -45,7 +45,7 @@ public class ProposalScreen : View
         if (IsInvestmentRoundActive)
         {
             //Valuation.text = "$" + Format.Minify(proposal.Investment.Valuation);
-            Valuation.text = Format.MinifyMoney(Economy.CostOf(MyCompany, Q));
+            Valuation.text = Format.Money(Economy.CostOf(MyCompany, Q), true);
         }
     }
 

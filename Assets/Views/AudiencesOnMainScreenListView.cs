@@ -80,13 +80,13 @@ public class AudiencesOnMainScreenListView : ListView
         var income = Economy.GetIncomePerSegment(product, segmentId);
 
         var potentialPhrase = Format.Minify(audience.Size);
-        var marketWorth = Format.MinifyMoney(worth);
+        var marketWorth = Format.Money(worth, true);
 
         var growthPhrase = $"+{Format.Minify(growing)} weekly";
 
         var loyalty = Marketing.GetSegmentLoyalty(product, segmentId, true);
 
-        MainInfo.Title.text          = $"<b>{audience.Name}</b>\nIncome: {Visuals.Positive(Format.MinifyMoney(income))}";
+        MainInfo.Title.text          = $"<b>{audience.Name}</b>\nIncome: {Visuals.Positive(Format.Money(income, true))}";
         AmountOfUsers.Title.text     = $"{Format.Minify(clients)} {audience.Name}\n" + Visuals.Colorize(growthPhrase, growing >= 0);
 
         MainAudienceInfo.Title.text  = "<b>Our main audience</b>";

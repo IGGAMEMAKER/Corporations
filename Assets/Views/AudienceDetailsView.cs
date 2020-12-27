@@ -27,7 +27,7 @@ public class AudienceDetailsView : ParameterView
             $"{primaryAudience}" +
             $"</b>";
         text += $"\n\n<b>Potential Income (Audience)</b>" +
-            $"\n{Format.MinifyMoney(maxIncome)} ({Format.Minify(info.Size)} users)";
+            $"\n{Format.Money(maxIncome, true)} ({Format.Minify(info.Size)} users)";
         //text += $"<b>Audience specs</b>";
 
         foreach (var b in info.Bonuses)
@@ -74,7 +74,7 @@ public class AudienceDetailsView : ParameterView
 
         //$"\n{Random.Range(0, 4)} companies";
         if (averageBudget != 0)
-            text += $"<b>Average budget</b>\n{Format.MinifyMoney(averageBudget)} / week  ({Format.MinifyMoney(maxBudget)} max)";
+            text += $"<b>Average budget</b>\n{Format.Money(averageBudget, true)} / week  ({Format.Money(maxBudget, true)} max)";
         else
             text += "\n" + Visuals.Positive("It's a free segment, you can take it easily!");
 

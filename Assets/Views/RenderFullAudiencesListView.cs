@@ -48,7 +48,7 @@ public class RenderFullAudiencesListView : ListView
         var incomePerUser = (double)Economy.GetBaseIncomeByMonetizationType(company); // 1L * (segmentId + 1);
         var worth = (long)(incomePerUser * audience.Size);
 
-        var worthPhrase = Format.MinifyMoney(worth);
+        var worthPhrase = Format.Money(worth, true);
 
         AudienceDescription.text = segmentName + $"\n\n<size=30>Potential\n{Visuals.Positive(potentialPhrase)}\n\nIncome\n{Visuals.Positive(worthPhrase)}</size>";
         PositionongDescription.text = $"We are making {Marketing.GetPositioningName(company)}";

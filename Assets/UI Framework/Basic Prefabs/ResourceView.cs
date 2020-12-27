@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ResourceView : MonoBehaviour {
     void SetValue<T> (T value, string hint)
     {
-        Set(Format.NoFormatting(value), hint);
+        Set(value.ToString(), hint);
     }
 
     void Set(string text, string hint)

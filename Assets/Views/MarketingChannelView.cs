@@ -62,7 +62,7 @@ public class MarketingChannelView : View
 
         var isFreeChannel = adCost == 0;
 
-        Cost.text = isFreeChannel ? "FREE" : $"{Format.MinifyMoney(adCost)} weekly"; //  (${clientCost.ToString("0.00")} each)
+        Cost.text = isFreeChannel ? "FREE" : $"{Format.Money(adCost, true)} weekly"; //  (${clientCost.ToString("0.00")} each)
         Cost.color = Visuals.GetColorPositiveOrNegative(canMaintain);
 
         CostPerUser.text = $"{clientCost:0.0}$";

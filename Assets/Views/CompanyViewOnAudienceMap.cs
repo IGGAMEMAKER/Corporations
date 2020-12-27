@@ -215,7 +215,7 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
 
         var changeFormatted = $"<b>{Format.SignOf(change) + Format.Minify(change)}</b> weekly";
 
-        var budgetFormatted = Format.MinifyMoney(Economy.GetProductMaintenance(company, Q));
+        var budgetFormatted = Format.Money(Economy.GetProductMaintenance(company, Q), true);
 
         var teamStars    = GetTeamEstimation(company, Q);
         var budgetStars  = GetBudgetEstimation(company, Q);

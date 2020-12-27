@@ -61,10 +61,10 @@ public class NicheTableView : View, IPointerEnterHandler
         var biggestMaintenance  = profitLeader == null ? 0 : Economy.GetMaintenance(Q, profitLeader);
 
         // maintenance
-        Maintenance.text = Visuals.Positive(Format.MinifyMoney(income));
+        Maintenance.text = Visuals.Positive(Format.Money(income, true));
 
         bool canMaintain = Economy.IsCanMaintain(MyCompany, Q, biggestMaintenance);
-        StartCapital.text = Visuals.Colorize(Format.MinifyMoney(biggestMaintenance), canMaintain);
+        StartCapital.text = Visuals.Colorize(Format.Money(biggestMaintenance, true), canMaintain);
         // income
         var ROI = Markets.GetMarketROI(Q, niche);
         

@@ -31,10 +31,10 @@ public class CompanyInIndustryView : View
         var costGrowth = currentMetrics.Valuation - lastMonthMetrics.Valuation;
         var profit = Economy.GetProfit(Q, company);
 
-        ValuationGrowth.text = (costGrowth > 0 ? "+" : "") + Format.MinifyMoney(costGrowth);
+        ValuationGrowth.text = (costGrowth > 0 ? "+" : "") + Format.Money(costGrowth, true);
         ValuationGrowth.color = Visuals.GetColorPositiveOrNegative(costGrowth > 0);
 
-        Profit.text = "Profit: " + Format.MinifyMoney(profit);
+        Profit.text = "Profit: " + Format.Money(profit, true);
         Profit.color = Visuals.GetColorPositiveOrNegative(profit > 0);
 
         var daughters = Companies.GetDaughtersAmount(company, Q);

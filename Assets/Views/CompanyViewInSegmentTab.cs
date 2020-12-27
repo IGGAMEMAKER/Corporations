@@ -40,7 +40,7 @@ public class CompanyViewInSegmentTab : View
             $"<size=40>App quality={Visuals.Positive(appQuality.ToString())}</size>\n\n"+
             $"Weekly Audience Growth:\n{Visuals.Colorize(Format.Minify(change), Visuals.GetColorPositiveOrNegative(change))}" +
             $"\n" +
-            $"Marketing Budget:\n{Format.MinifyMoney(marketingBudget)}"
+            $"Marketing Budget:\n{Format.Money(marketingBudget, true)}"
             );
 
         CompanyName.text = company.company.Name;

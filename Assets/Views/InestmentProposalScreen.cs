@@ -168,7 +168,7 @@ public class InestmentProposalScreen : View
 
         CompanyShare.text = ""; // $"for {percent}% of company";
         PossibleInvestorsPanel.GetComponentInChildren<ShareholderProposalsListView>().ViewRender();
-        TotalOffer.text = $"You will get {Visuals.Positive("+" + Format.Money(weeklyGain))} / week ({Format.MinifyMoney(Sum)} total)";
+        TotalOffer.text = $"You will get {Visuals.Positive("+" + Format.Money(weeklyGain))} / week ({Format.Money(Sum, true)} total)";
     }
 
     public void UpdateStartDates()

@@ -87,7 +87,7 @@ public class PositioningManagerView : View
         RenderSegmentDescription(company);
     }
 
-    string DescribeAudience(long cost, int i) => Visuals.Negative($"{Marketing.GetAudienceInfos()[i].Name} ({Format.MinifyMoney(cost)})");
+    string DescribeAudience(long cost, int i) => Visuals.Negative($"{Marketing.GetAudienceInfos()[i].Name} ({Format.Money(cost, true)})");
 
     void RenderSegmentDescription(GameEntity company)
     {

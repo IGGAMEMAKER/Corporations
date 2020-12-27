@@ -4,6 +4,6 @@ public class RenderCompanyCost : ParameterView
 {
     public override string RenderValue()
     {
-        return Format.MinifyMoney(Economy.CostOf(MyCompany, Q));
+        return Format.Money(Economy.CostOf(MyCompany, Q), true);
     }
 }

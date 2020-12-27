@@ -8,28 +8,19 @@ namespace Assets.Core
     {
         public static long GetProductIncome(GameEntity e)
         {
-            long result = e.marketing.ClientList.Select(l => GetIncomePerSegment(e, l.Key)).Sum();
+            long result = e.marketing.ClientList.Sum(l => GetIncomePerSegment(e, l.Key)); // .Select()
 
             return result * C.PERIOD / 30;
         }
 
         public static float GetMonetizationEfficiency(GameEntity c, int segmentId)
         {
-            try
-            {
-                var audience = Marketing.GetAudienceInfos()[segmentId];
+            var audience = Marketing.GetAudienceInfos()[segmentId];
 
-                var audienceBonus = audience.Bonuses.Where(b => b.isMonetisationFeature).Sum(b => b.Max);
-                var improvements = Products.GetMonetisationFeaturesBenefit(c) * (100 + audienceBonus) / 100f;
+            var audienceBonus = audience.Bonuses.Where(b => b.isMonetisationFeature).Sum(b => b.Max);
+            var improvements = Products.GetMonetisationFeaturesBenefit(c) * (100 + audienceBonus) / 100f;
 
-                return Mathf.Clamp(improvements, 0, 500);
-            }
-            catch
-            {
-                // Debug.LogError("Tried to take monetization from segment " + segmentId + " in company " + c.company.Name);
-            }
-
-            return 0;
+            return Mathf.Clamp(improvements, 0, 500);
         }
 
         public static long GetIncomePerSegment(GameEntity company, int segmentId)

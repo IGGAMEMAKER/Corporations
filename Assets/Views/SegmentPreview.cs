@@ -47,7 +47,7 @@ public class SegmentPreview : View
 
         var positioningColor = isOurPositioning ? Colors.COLOR_CONTROL : Colors.COLOR_WHITE;
 
-        Title.text = $"{positioning.name}\nWorth <size=40><b>{Format.MinifyMoney(worth)}</b></size>";
+        Title.text = $"{positioning.name}\nWorth <size=40><b>{Format.Money(worth, true)}</b></size>";
         Title.color = Visuals.GetColorFromString(positioningColor);
 
         bool ourPositioning = positioning.ID == actualPositioning.ID;
