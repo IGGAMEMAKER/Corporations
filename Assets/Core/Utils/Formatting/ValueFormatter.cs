@@ -24,6 +24,7 @@ namespace Assets.Core
                 return $"${Minify(value)}";
         }
         
+        // sign
         public static string Sign(float value)
         {
             return SignOf(value) + value.ToString("0.00");
@@ -38,6 +39,8 @@ namespace Assets.Core
         {
             return (dynamic)value > 0 ? "+" : "";
         }
+        
+        // sign
 
         public static string Minify<T>(T value, bool minify = true)
         {
