@@ -48,10 +48,8 @@ namespace Assets.Core
             Marketing.AddClients(product, 50, coreId);
 
             // sphere of interest
-            var industry = Markets.GetIndustry(nicheType, context);
-
             AddFocusNiche(product, nicheType, context);
-            AddFocusIndustry(industry, product);
+            AddFocusIndustry(Markets.GetIndustry(nicheType, context), product);
             
             WrapProductWithAdditionalData(product, context);
 
