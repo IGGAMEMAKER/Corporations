@@ -12,6 +12,7 @@ public class PlayerCompaniesListView : ListView
     public override void ViewRender()
     {
         base.ViewRender();
+        return;
 
         var products = Companies.GetDaughters(MyCompany, Q)
             //.OrderByDescending(c => Economy.GetProfit(Q, c))
