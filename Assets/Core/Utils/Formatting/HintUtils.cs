@@ -270,14 +270,29 @@ public class Bonus<T>
             string text;
 
             float f;
-            if (float.TryParse(bonus.Value.ToString(), out f))
+
+            if (value is float)
             {
+                float.TryParse(bonus.Value.ToString(), out f);
                 text = Visuals.RenderFloatBonus(bonus.Name, f, bonus.Dimension + dimension, positiveIsNegative, bonus.BonusType, false); // minifyValues
             }
-            else
+            else if (value is int || value is long)
             {
                 text = Visuals.RenderBonus(bonus.Name, value, bonus.Dimension + dimension, positiveIsNegative, bonus.BonusType, minifyValues);
             }
+            else
+            {
+                text = value.ToString();
+            }
+            
+            // if (float.TryParse(bonus.Value.ToString(), out f))
+            // {
+            //     text = Visuals.RenderFloatBonus(bonus.Name, f, bonus.Dimension + dimension, positiveIsNegative, bonus.BonusType, false); // minifyValues
+            // }
+            // else
+            // {
+            //     text = Visuals.RenderBonus(bonus.Name, value, bonus.Dimension + dimension, positiveIsNegative, bonus.BonusType, minifyValues);
+            // }
 
 
             str.AppendLine(text);

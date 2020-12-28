@@ -62,7 +62,8 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
 
         LinkToProjectView.CompanyId = company.company.Id;
 
-        CompanyHint.SetHint(GetCompanyHint(hasControl));
+        CompanyHint.SetHint("");
+        // CompanyHint.SetHint(GetCompanyHint(hasControl));
     }
 
     void RenderLoyalty()
