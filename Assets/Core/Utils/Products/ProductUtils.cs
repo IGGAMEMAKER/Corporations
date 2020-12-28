@@ -9,6 +9,11 @@
 
         public const int GetMaxFinancing = 2;
 
+        public static int GetExpertiseGain(GameEntity c)
+        {
+            return 2;
+        }
+
         //public static void SetMarketingFinancing(GameEntity product, int level)
         //{
         //    SetFinancing(product, Financing.Marketing, level);

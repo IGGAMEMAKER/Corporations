@@ -15,7 +15,7 @@ public class OpenCompanyInteractionPanel : ButtonController
         // var companyId = f.company.company.Id;
         var companyId = f.CompanyId;
         
-        Debug.Log("Open company interaction panel: " + companyId);
+        // Debug.Log("Open company interaction panel: " + companyId);
         
         // ScreenUtils.SetIntegerWithoutUpdatingScreen(Q, companyId, C.MENU_SELECTED_COMPANY);
         ScreenUtils.SetSelectedCompany(Q, companyId);
