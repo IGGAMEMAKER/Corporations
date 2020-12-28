@@ -9,10 +9,16 @@ public class OpenCompanyInteractionPanel : ButtonController
 {
     public override void Execute()
     {
-        var f = GetComponentInParent<CompanyViewOnAudienceMap>();
-        // var f = GetComponent<LinkToProjectView>();
+        // var f = GetComponentInParent<CompanyViewOnAudienceMap>();
+        var f = GetComponent<LinkToProjectView>();
+
+        // var companyId = f.company.company.Id;
+        var companyId = f.CompanyId;
         
-        ScreenUtils.SetSelectedCompany(Q, f.company.company.Id);
+        Debug.Log("Open company interaction panel: " + companyId);
+        
+        // ScreenUtils.SetIntegerWithoutUpdatingScreen(Q, companyId, C.MENU_SELECTED_COMPANY);
+        ScreenUtils.SetSelectedCompany(Q, companyId);
         
         FindObjectOfType<FriendsPanelAnim>().OnPointerEnter(null);
         

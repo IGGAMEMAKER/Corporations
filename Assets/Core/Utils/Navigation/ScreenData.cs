@@ -10,8 +10,7 @@ namespace Assets.Core
             return GetScreenData(context)[key];
         }
 
-        public static int GetInteger(GameContext context, string key) =>
-            Convert.ToInt32(GetScreenParameter(context, key));
+        public static int GetInteger(GameContext context, string key) => Convert.ToInt32(GetScreenParameter(context, key));
 
         public static Dictionary<string, object> GetScreenData(GameContext context)
         {
@@ -21,18 +20,17 @@ namespace Assets.Core
         // get selected stuff
         public static GameEntity GetSelectedCompany(GameContext gameContext)
         {
-            var obj = GetScreenParameter(gameContext, C.MENU_SELECTED_COMPANY);
+            // var obj = GetScreenParameter(gameContext, C.MENU_SELECTED_COMPANY);
 
-            var companyId = (int)obj;
+            // var companyId = (int)obj;
+            var companyId = GetInteger(gameContext, C.MENU_SELECTED_COMPANY);
 
             return Companies.Get(gameContext, companyId);
         }
 
         public static int GetSelectedTeam(GameContext gameContext)
         {
-            var obj = GetScreenParameter(gameContext, C.MENU_SELECTED_TEAM);
-
-            var companyId = Convert.ToInt32(obj);
+            var companyId = GetInteger(gameContext, C.MENU_SELECTED_TEAM);
 
             return companyId;
         }
@@ -48,9 +46,9 @@ namespace Assets.Core
 
         public static GameEntity GetSelectedHuman(GameContext gameContext)
         {
-            var obj = GetScreenParameter(gameContext, C.MENU_SELECTED_HUMAN);
+            var obj = GetInteger(gameContext, C.MENU_SELECTED_HUMAN);
 
-            var humanId = (int)obj;
+            var humanId = obj;
 
             return Humans.Get(gameContext, humanId);
         }

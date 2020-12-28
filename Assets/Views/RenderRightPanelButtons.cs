@@ -28,7 +28,7 @@ public class RenderRightPanelButtons : View
         Draw(Partnerships, false);
         Draw(NewMarkets, false);
         
-        Draw(ExploreCompanyButton, Companies.IsDirectlyRelatedToPlayer(Q, SelectedCompany));
+        Draw(ExploreCompanyButton, !Companies.IsDirectlyRelatedToPlayer(Q, SelectedCompany));
     }
 
     public void OnExploreCompany()

@@ -20,15 +20,17 @@ namespace Assets.Core
         public static void SetInteger(GameContext gameContext, int value, string parameterName)
         {
             var menu = GetMenu(gameContext);
-
+            
             var data = menu.menu.Data;
+            //
+            // // ??if value didn't change, then do nothing?
+            // if (data.ContainsKey(parameterName) && Convert.ToInt32(data[parameterName]) == value)
+            //     return;
+            //
+            // data[parameterName] = value;
 
-            // ??if value didn't change, then do nothing?
-            if (data.ContainsKey(parameterName) && Convert.ToInt32(data[parameterName]) == value)
-                return;
-
-            data[parameterName] = value;
-
+            // UpdateScreen(gameContext, menu.menu.ScreenMode, data);
+            SetIntegerWithoutUpdatingScreen(gameContext, value, parameterName);
             UpdateScreen(gameContext, menu.menu.ScreenMode, data);
         }
 

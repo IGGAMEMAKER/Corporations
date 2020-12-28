@@ -116,15 +116,6 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
         }
     }
 
-    void RenderGrowth()
-    {
-        var growth = Marketing.GetAudienceChange(company, Q, true);
-        var growthSum = growth.Sum();
-
-        // Growth.text = Visuals.PositiveOrNegativeMinified(growthSum) + " users";
-        Users.GetComponent<Hint>().SetHint("Users will change by " + Visuals.Colorize(growth.Sum()) + " because " + growth.ToString());
-    }
-
     void EmphasizeCompanySize()
     {
         var position = Companies.GetDirectCompetitors(company, Q, true)
