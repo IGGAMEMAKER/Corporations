@@ -211,15 +211,6 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
 
         var changeFormatted = $"<b>{Format.SignOf(change) + Format.Minify(change)}</b> weekly";
 
-        var budgetFormatted = Format.Money(Economy.GetProductMaintenance(company, Q), true);
-
-        var teamStars    = GetTeamEstimation(company, Q);
-        var budgetStars  = GetBudgetEstimation(company, Q);
-        var managerStars = GetManagerEstimation(company, Q);
-
-        var productStrength = (budgetStars + managerStars + teamStars) / 3;
-        //SetAmountOfStars.SetStars(productStrength);
-
         StringBuilder hint = new StringBuilder($"<size=35>{Visuals.Colorize(company.company.Name, hasControl ? Colors.COLOR_CONTROL : Colors.COLOR_NEUTRAL)}</size>");
 
         if (hasControl)
