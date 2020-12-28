@@ -39,6 +39,9 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
     public override void ViewRender()
     {
         base.ViewRender();
+
+        if (company == null)
+            return;
         
         bool hasControl = Companies.GetControlInCompany(MyCompany, company, Q) > 0;
 
@@ -57,16 +60,9 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
         RenderUsers();
         // RenderGrowth();
 
-        // BlinkDaughterCompanyIfThereAreTroublesWithLoyalty();
-
         LinkToProjectView.CompanyId = company.company.Id;
 
         CompanyHint.SetHint(GetCompanyHint(hasControl));
-    }
-
-    void BlinkDaughterCompanyIfThereAreTroublesWithLoyalty()
-    {
-        GetComponent<Blinker>().enabled = company.isFlagship && Marketing.GetAppQuality(company) < 0;
     }
 
     void RenderLoyalty()
