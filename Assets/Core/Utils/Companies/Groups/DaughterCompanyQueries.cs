@@ -30,12 +30,5 @@ namespace Assets.Core
             .Where(p => IsReleaseableApp(p))
             .ToArray();
         }
-
-        public static GameEntity[] GetDaughterUpgradableCompanies(GameContext gameContext, GameEntity company)
-        {
-            return GetDaughterProducts(gameContext, company)
-            .Where(Products.IsHasAvailableProductImprovements)
-            .ToArray();
-        }
     }
 }

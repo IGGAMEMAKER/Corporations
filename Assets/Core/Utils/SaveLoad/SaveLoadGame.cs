@@ -83,6 +83,8 @@ namespace Assets.Core
                     e.RemoveAnyTimerRunningListener();
                 //
 
+                RemoveUselessDataFromProduct(e);
+                
                 var comps = e.GetComponents()
                     //.Where(c => c.GetType() != typeof(INavigationHistoryListener))
                     .ToArray();
@@ -100,6 +102,24 @@ namespace Assets.Core
 
                     Debug.Log("Serialized " + entityData.Count);
                 }
+            }
+        }
+
+        public static void RemoveUselessDataFromProduct(GameEntity e)
+        {
+            if (e.hasProduct)
+            {
+                e.RemoveNicheSegments();
+                e.RemoveChannelInfos();
+                e.RemoveNicheBaseProfile();
+            }
+        }
+
+        public static void AddPerformanceImprovingDataToProduct(GameEntity e, GameContext gameContext)
+        {
+            if (e.hasProduct)
+            {
+                Companies.WrapProductWithAdditionalData(e, gameContext);
             }
         }
 
@@ -160,6 +180,8 @@ namespace Assets.Core
 
                     e.AddComponent(componentIndex, c);
                 }
+
+                AddPerformanceImprovingDataToProduct(e, gameContext);
             }
         }
     }

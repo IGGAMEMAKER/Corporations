@@ -15,7 +15,6 @@ public partial class GameEntity {
         var index = GameComponentsLookup.Features;
         var component = (FeaturesComponent)CreateComponent(index, typeof(FeaturesComponent));
         component.Upgrades = newUpgrades;
-        component.Count = newCount;
         AddComponent(index, component);
     }
 
@@ -23,7 +22,6 @@ public partial class GameEntity {
         var index = GameComponentsLookup.Features;
         var component = (FeaturesComponent)CreateComponent(index, typeof(FeaturesComponent));
         component.Upgrades = newUpgrades;
-        component.Count = newCount;
         ReplaceComponent(index, component);
     }
 

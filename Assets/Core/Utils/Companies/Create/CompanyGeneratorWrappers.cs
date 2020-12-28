@@ -25,18 +25,18 @@ namespace Assets.Core
             return CreateCompany(context, name, companyType, new Dictionary<int, BlockOfShares>(), CEO);
         }
 
-        public static GameEntity GenerateCompanyGroup(GameContext context, string name, GameEntity FormerProductCompany)
+        public static GameEntity GenerateCompanyGroup(GameContext context, string name, GameEntity formerProductCompany)
         {
             var group = GenerateCompanyGroup(context, name);
 
-            CopyShareholders(context, FormerProductCompany, group);
+            CopyShareholders(formerProductCompany, group);
 
             return group;
         }
 
-        public static void CopyShareholders(GameContext gameContext, GameEntity From, GameEntity To)
+        public static void CopyShareholders(GameEntity From, GameEntity to)
         {
-            ReplaceShareholders(To, From.shareholders.Shareholders);
+            ReplaceShareholders(to, From.shareholders.Shareholders);
         }
 
 
@@ -66,18 +66,18 @@ namespace Assets.Core
             return TurnToHolding(context, c.company.Id);
         }
 
-        public static GameEntity GenerateProductCompany(GameContext context, string name, NicheType NicheType)
+        public static GameEntity GenerateProductCompany(GameContext context, string name, NicheType nicheType)
         {
             var c = CreateCompany(context, name, CompanyType.ProductCompany);
 
-            return CreateProduct(context, c, NicheType);
+            return CreateProduct(context, c, nicheType);
         }
 
-        public static GameEntity AutoGenerateProductCompany(NicheType NicheType, GameContext gameContext)
+        public static GameEntity AutoGenerateProductCompany(NicheType nicheType, GameContext gameContext)
         {
-            var playersOnMarket = Markets.GetCompetitorsAmount(NicheType, gameContext);
+            var playersOnMarket = Markets.GetCompetitorsAmount(nicheType, gameContext);
 
-            var c = GenerateProductCompany(gameContext, Enums.GetFormattedNicheName(NicheType) + " " + playersOnMarket, NicheType);
+            var c = GenerateProductCompany(gameContext, Enums.GetFormattedNicheName(nicheType) + " " + playersOnMarket, nicheType);
 
             AutoFillShareholders(gameContext, c, true);
             //SetFounderAmbitionDueToMarketSize(c, gameContext);

@@ -135,7 +135,6 @@ public class FeaturesComponent : IComponent
 
     // string => feature name, float - rating 0...100f
     public Dictionary<string, float> Upgrades;
-    public int Count;
 }
 
 public enum ProductUpgrade

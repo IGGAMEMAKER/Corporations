@@ -5,14 +5,15 @@ namespace Assets.Core
 {
     partial class Companies
     {
-        public static GameEntity CreateProduct(GameContext context, GameEntity product, NicheType niche)
+        public static GameEntity CreateProduct(GameContext context, GameEntity product, NicheType nicheType)
         {
-            product.AddProduct(niche, 0);
+            product.AddProduct(nicheType, 0);
 
             // market state
-            product.AddNicheState(Markets.GetMarketState(context, niche), 100);
-            product.AddNicheSegments(Markets.GetNichePositionings(niche, context));
-            product.AddNicheBaseProfile(Markets.Get(context, product).nicheBaseProfile.Profile);
+            product.AddNicheState(Markets.GetMarketState(context, nicheType), 100);
+            
+            // product.AddNicheSegments(Markets.GetNichePositionings(nicheType, context));
+            // product.AddNicheBaseProfile(Markets.Get(context, product).nicheBaseProfile.Profile);
 
             product.AddProductUpgrades(new Dictionary<ProductUpgrade, bool>
             {
@@ -21,8 +22,6 @@ namespace Assets.Core
             });
 
             // positioning
-            //int positionings = Markets.GetNichePositionings(niche, context).Count;
-
             var audiences = Marketing.GetAudienceInfos();
             var coreId = Random.Range(0, audiences.Count);
 
@@ -30,31 +29,44 @@ namespace Assets.Core
 
             // development
             product.AddFeatures(
-                new Dictionary<string, float> { },
+                new Dictionary<string, float>(),
                 0);
             product.AddSupportUpgrades(new Dictionary<string, int>());
             product.AddExpertise(Random.Range(1, 4));
 
 
-            var serverFeature = Products.GetHighloadFeatures(product)[0];
-            Teams.AddTeamTask(product, ScheduleUtils.GetCurrentDate(context), context, 0, new TeamTaskSupportFeature(serverFeature));
+            // var serverFeature = Products.GetHighloadFeatures(product)[0];
+            // Teams.AddTeamTask(product, ScheduleUtils.GetCurrentDate(context), context, 0, new TeamTaskSupportFeature(serverFeature));
 
             // clients
             product.AddMarketing(new Dictionary<int, long>());
             product.AddSourceOfClients(new Dictionary<int, long>());
             product.AddCompanyMarketingActivities(new Dictionary<int, long>());
 
-            Markets.CopyChannelInfosToProductCompany(product, context);
+            // Markets.CopyChannelInfosToProductCompany(product, context);
 
             Marketing.AddClients(product, 50, coreId);
 
             // sphere of interest
-            var industry = Markets.GetIndustry(niche, context);
+            var industry = Markets.GetIndustry(nicheType, context);
 
-            AddFocusNiche(product, niche, context);
+            AddFocusNiche(product, nicheType, context);
             AddFocusIndustry(industry, product);
+            
+            WrapProductWithAdditionalData(product, context);
 
             return product;
+        }
+
+        public static void WrapProductWithAdditionalData(GameEntity product, GameContext gameContext)
+        {
+            if (!product.hasNicheSegments)
+                product.AddNicheSegments(Markets.GetNichePositionings(product.product.Niche, gameContext));
+            
+            if (!product.hasNicheBaseProfile)
+                product.AddNicheBaseProfile(Markets.Get(gameContext, product).nicheBaseProfile.Profile);
+            
+            Markets.CopyChannelInfosToProductCompany(product, gameContext);
         }
 
 
