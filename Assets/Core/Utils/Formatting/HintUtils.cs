@@ -273,8 +273,8 @@ public class Bonus<T>
 
             if (value is float)
             {
-                float.TryParse(bonus.Value.ToString(), out f);
-                text = Visuals.RenderFloatBonus(bonus.Name, f, bonus.Dimension + dimension, positiveIsNegative, bonus.BonusType, false); // minifyValues
+                // float.TryParse(bonus.Value.ToString(), out f);
+                text = Visuals.RenderFloatBonus(bonus.Name, value, bonus.Dimension + dimension, positiveIsNegative, bonus.BonusType, false); // minifyValues
             }
             else if (value is int || value is long)
             {
@@ -282,7 +282,7 @@ public class Bonus<T>
             }
             else
             {
-                text = value.ToString();
+                text = bonus.Name + ": " + value.ToString();
             }
             
             // if (float.TryParse(bonus.Value.ToString(), out f))

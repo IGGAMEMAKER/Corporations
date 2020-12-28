@@ -1,6 +1,7 @@
 ﻿using Assets.Core;
 using System.Collections.Generic;
 using System.Linq;
+using Michsky.UI.Frost;
 using UnityEngine;
 
 public class DirectCompetitorsListView : ListView
@@ -9,11 +10,9 @@ public class DirectCompetitorsListView : ListView
     {
         t.GetComponent<CompanyViewOnAudienceMap>().SetEntity(entity as GameEntity);
     }
-
     public override void ViewRender()
     {
         base.ViewRender();
-
         
         if (Flagship.isRelease)
         {

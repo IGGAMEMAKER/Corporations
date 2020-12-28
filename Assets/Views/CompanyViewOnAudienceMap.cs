@@ -27,7 +27,7 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
     private int loyaltyClamped = 0;
     private long previousUsers = 0;
     
-    GameEntity company;
+    public GameEntity company;
 
     public void SetEntity(GameEntity c)
     {
