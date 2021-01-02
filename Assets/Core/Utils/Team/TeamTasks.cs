@@ -37,10 +37,31 @@ namespace Assets.Core
         {
             var taskId = product.team.Teams[teamId].Tasks.Count;
 
-            if (!HasFreeSlotForTeamTask(product, task))
+            if (!HasFreeSlotForTeamTask(product, task) || !CanExecuteTeamTask(product, task))
                 task.IsPending = true;
 
             AddTeamTask(product, date, gameContext, teamId, taskId, task);
+        }
+
+        public static int GetFeatureUpgradeCost(GameEntity company, TeamTask teamTask)
+        {
+            var task = teamTask as TeamTaskFeatureUpgrade;
+            var cost = Products.GetFeatureRating(company, task.NewProductFeature.Name);
+
+            return 1 + (int)cost;
+        }
+
+        public static bool CanExecuteTeamTask(GameEntity company, TeamTask teamTask)
+        {
+            if (teamTask.IsFeatureUpgrade)
+            {
+                var have = company.companyResource.Resources.ideaPoints;
+                var cost = GetFeatureUpgradeCost(company, teamTask);
+
+                return have >= cost;
+            }
+
+            return true;
         }
         public static void AddTeamTask(GameEntity product, int date, GameContext gameContext, int teamId, int taskId, TeamTask task)
         {
@@ -72,6 +93,8 @@ namespace Assets.Core
             if (task.IsFeatureUpgrade)
             {
                 Products.AddFeatureCooldown(product, task, date);
+                
+                Companies.SpendResources(product, new TeamResource(0, 0, 0, GetFeatureUpgradeCost(product, task), 0), "feature upgrade");
             }
 
             if (task.IsMarketingTask)
@@ -107,18 +130,20 @@ namespace Assets.Core
 
                 if (date >= task.EndDate)
                 {
-                    Products.IncreaseFeatureLevel(p, task, featureName);
+                    Products.IncreaseFeatureLevel(p, featureName);
 
                     task.StartDate = date;
                     Products.AddFeatureCooldown(p, task, date);
+                    
+                    removableTasks.Add(new SlotInfo {SlotId = slotId, TeamId = teamId});
                 }
 
                 // ----------------------- STOP IF REACHED CAP ------------------------------------
 
-                if (Products.GetFeatureRating(p, featureName) >= Products.GetFeatureRatingCap(p))
-                {
-                    removableTasks.Add(new SlotInfo {SlotId = slotId, TeamId = teamId});
-                }
+                // if (Products.GetFeatureRating(p, featureName) >= Products.GetFeatureRatingCap(p))
+                // {
+                //     removableTasks.Add(new SlotInfo {SlotId = slotId, TeamId = teamId});
+                // }
             }
 
             if (task is TeamTaskChannelActivity)

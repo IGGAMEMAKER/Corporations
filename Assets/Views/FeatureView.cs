@@ -8,6 +8,7 @@ public class FeatureView : View, IPointerEnterHandler, IPointerExitHandler
     public Text Name;
     public Text Benefits;
     public Text Rating;
+    public Text UpgradeCost;
 
     public NewProductFeature NewProductFeature;
 
@@ -61,6 +62,14 @@ public class FeatureView : View, IPointerEnterHandler, IPointerExitHandler
         RenderFeatureUpgradeProgress(product, featureName);
 
         RenderFeatureTypeIcon();
+        
+        RenderFeatureUpgradeCost(product, new TeamTaskFeatureUpgrade(NewProductFeature));
+    }
+
+    void RenderFeatureUpgradeCost(GameEntity company, TeamTask task)
+    {
+        if (UpgradeCost != null)
+            UpgradeCost.text = Teams.GetFeatureUpgradeCost(company, task).ToString();
     }
 
     void RenderFeatureRating(GameEntity product, string featureName)

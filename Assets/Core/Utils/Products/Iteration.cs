@@ -71,7 +71,7 @@ namespace Assets.Core
             //Flagship.features.Upgrades[f.NewProductFeature.Name] = 0;
         }
 
-        public static void IncreaseFeatureLevel(GameEntity product, TeamTask task, string featureName)
+        public static void IncreaseFeatureLevel(GameEntity product, string featureName)
         {
             var gain = GetFeatureRatingGain(product);
             var cap  = GetFeatureRatingCap(product);

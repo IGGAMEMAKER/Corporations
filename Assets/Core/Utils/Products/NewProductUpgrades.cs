@@ -27,7 +27,7 @@ namespace Assets.Core
             //     new List<string> {"Multiplayer", "Different playing strategies", "Locations"},
             //     new List<string> {"Website", "some feature 1"}, 25,
             //     NewProductFeature.SimpleFeature("Ads", hate, 100),
-            //     NewProductFeature.SimpleFeature("Microtransactions", hate / 2, 50),
+            //     NewProductFeature.SimpleFeature("Microtranzactions", hate / 2, 50),
             //     NewProductFeature.SimpleFeature("Skins", hate / 5, 40)
             // );
 
@@ -73,7 +73,7 @@ namespace Assets.Core
         {
             return GetNonMaxedOutFeatures(product)
                 
-                .Where(IsFeatureWillNotDissapointAnyoneSignificant(product))
+                .Where(IsFeatureWillNotDisappointAnyoneSignificant(product))
                 
                 .Take(GetPossibleFeaturesLeft(product, true))
                 ;
@@ -99,7 +99,7 @@ namespace Assets.Core
                 // NO upgrading features
                 .Where(ExcludeUpgradingFeatures(product))
 
-                .Where(IsFeatureWillNotDissapointAnyoneSignificant(product))
+                .Where(IsFeatureWillNotDisappointAnyoneSignificant(product))
                 .Take(GetPossibleFeaturesLeft(product, false))
                 ;
 
@@ -195,12 +195,13 @@ namespace Assets.Core
             var ratingGain = GetFeatureRatingGain(company);
 
             var rating = GetFeatureRating(company, f.Name);
+            ratingCap = 10;
 
             return rating + ratingGain > ratingCap;
         }
         // -----------------------------------
 
-        public static Func<NewProductFeature, bool> IsFeatureWillNotDissapointAnyoneSignificant(GameEntity company) => (NewProductFeature f) =>
+        public static Func<NewProductFeature, bool> IsFeatureWillNotDisappointAnyoneSignificant(GameEntity company) => (NewProductFeature f) =>
         {
             if (IsUpgradingFeature(company, f.Name))
                 return true;

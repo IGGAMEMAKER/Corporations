@@ -90,11 +90,11 @@ public class Styler : MonoBehaviour
 
             case TextStyle.KpiLabel:
                 txt.fontSize = 34;
-                txt.fontStyle = FontStyle.Normal;
+                txt.fontStyle = FontStyle.Bold;
                 break;
             case TextStyle.KpiValue:
                 txt.fontSize = 60;
-                txt.fontStyle = FontStyle.Bold;
+                txt.fontStyle = FontStyle.Normal;
                 break;
 
             case TextStyle.PlainDescription:

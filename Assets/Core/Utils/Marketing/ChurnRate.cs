@@ -139,6 +139,22 @@ namespace Assets.Core
         // and worst loyalty hit for monetization features
 
         // otherwise - upgraded values?
+        public static float GetLoyaltyChangeFromFeature(GameEntity c, NewProductFeature f)
+        {
+            var audiences = GetAudienceInfos();
+
+            var loyaltyChange = 0f;
+
+            foreach (var audience in audiences)
+            {
+                if (IsAimingForSpecificAudience(c, audience.ID))
+                {
+                    loyaltyChange += Marketing.GetLoyaltyChangeFromFeature(c, f, audience.ID, false);
+                }
+            }
+
+            return loyaltyChange;
+        }
         public static float GetLoyaltyChangeFromFeature(GameEntity c, NewProductFeature f, int segmentId, bool maxChange = false)
         {
             var rating = Products.GetFeatureRating(c, f.Name);

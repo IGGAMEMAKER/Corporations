@@ -1,6 +1,4 @@
-﻿using Assets.Core;
-
-public class RenderCompanyGoalView : ParameterView
+﻿public class RenderCompanyGoalView : ParameterView
 {
     public override string RenderValue()
     {
@@ -12,11 +10,6 @@ public class RenderCompanyGoalView : ParameterView
         {
             text += "\n* " + g.GetFormattedName();
         }
-
-        var strongerCompanies = Companies.GetCompanyNames(Companies.GetStrongerCompetitors(SelectedCompany, Q, false));
-        var weakerCompanies = Companies.GetCompanyNames(Companies.GetWeakerCompetitors(SelectedCompany, Q, false));
-
-        text += $"\n\n<b>Stronger</b> than {weakerCompanies}\n\n<b>Weaker</b> than {strongerCompanies}";
 
         return text;
     }

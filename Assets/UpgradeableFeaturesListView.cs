@@ -16,10 +16,15 @@ public class UpgradeableFeaturesListView : ListView
     {
         base.ViewRender();
 
-        bool isMonetizationMission =
-            Flagship.companyGoal.Goals.Any(g => g.InvestorGoalType == InvestorGoalType.ProductStartMonetising);
+        var company = Flagship;
 
-        var features = Products.GetUpgradeableRetentionFeatures(Flagship).Take(1).Where(f => !isMonetizationMission);
+        bool isMonetizationMission =
+            company.companyGoal.Goals.Any(g => g.InvestorGoalType == InvestorGoalType.ProductStartMonetising);
+
+        var features = Products.GetUpgradeableRetentionFeatures(company)
+            .OrderBy(f => Marketing.GetLoyaltyChangeFromFeature(company, f) / Teams.GetFeatureUpgradeCost(company, new TeamTaskFeatureUpgrade(f)))
+            
+            .Take(1).Where(f => !isMonetizationMission);
 
         var featureCount = features.Count();
 
@@ -37,7 +42,7 @@ public class UpgradeableFeaturesListView : ListView
             if (hasFreeSlot)
             {
                 NoAvailableFeaturesText.text =
-                    Visuals.Negative("Increase <b>max feature level</b> to upgrade more features");
+                    Visuals.Negative("Get more <b>expertise</b> to upgrade more features");
             }
             else
             {

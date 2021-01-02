@@ -96,6 +96,8 @@ public class TeamStatusView : View
             TeamStatusLabel.text = "Teams";
         }
 
+        showTeamButtons = showTeamButtons || canPromote;
+
         if (showTeams)
             ShowAll(TeamTabs);
         else
