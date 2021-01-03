@@ -20,13 +20,14 @@ class CustomPrefabEnvironment
 
         if (Application.isPlaying)
         {
+            ScheduleUtils.PauseGame(Contexts.sharedInstance.game);
+
             //SceneManager.UnloadScene(1);
             //Task.Run(() => SceneManager.UnloadSceneAsync(1));
             SceneManager.UnloadScene(1);
             //State.LoadGameScene();
             SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
 
-            ScheduleUtils.PauseGame(Contexts.sharedInstance.game);
 
             //ScreenUtils.UpdateScreen(Contexts.sharedInstance.game);
         }
