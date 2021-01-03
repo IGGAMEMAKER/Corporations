@@ -22,6 +22,14 @@ public struct NewSceneTypeBlah
     public string AssetPath;
 
     public SceneBlahType SceneBlahType;
+
+    public NewSceneTypeBlah(SceneBlahType blahType, string url, string assetPath, string name = "")
+    {
+        SceneBlahType = blahType;
+        Url = url;
+        AssetPath = assetPath;
+        Name = name.Length > 0 ? name : url;
+    }
 }
 
 [ExecuteAlways]
@@ -46,7 +54,7 @@ public class UnityUiNavigation : View
 
         var prefabs = new List<NewSceneTypeBlah>();
         
-        prefabs.Add(new NewSceneTypeBlah { Name = "Holding screen", Url = "/Main", AssetPath = "HoldingScreen.prefab", SceneBlahType = SceneBlahType.Prefab });
+        prefabs.Add(new NewSceneTypeBlah { Name = "Holding screen", Url = "/Main", AssetPath = "HoldingScreen.prefab" });
         prefabs.Add(new NewSceneTypeBlah { Name = "Acquisition screen", Url = "/Acquisitions", AssetPath = "AcquisitionScreen.prefab", SceneBlahType = SceneBlahType.Prefab });
 
         for (var i = 0; i < prefabs.Count; i++)
@@ -110,9 +118,19 @@ public class MyWindow : EditorWindow
         
         // GUI.Label(new Rect(centerX, top, 100, 30), Visuals.Positive("Text"), style);
 
+        RenderPrefabs();
+        
+        // EditorGUILayout.EndToggleGroup ();
+    }
+
+    void RenderPrefabs()
+    {
         var prefabs = new List<NewSceneTypeBlah>();
         
-        prefabs.Add(new NewSceneTypeBlah { Name = "Holding screen", Url = "/Main", AssetPath = "Assets/_Screens/Main Screens/HoldingScreen___.prefab", SceneBlahType = SceneBlahType.Prefab });
+        prefabs.Add(new NewSceneTypeBlah(SceneBlahType.Prefab, "/Main", "Assets/_Screens/Main Screens/HoldingScreen___.prefab", "Holding screen"));
+        // prefabs.Add(new NewSceneTypeBlah { Name = "Holding screen", Url = "/Main", AssetPath = "Assets/_Screens/Main Screens/HoldingScreen___.prefab", SceneBlahType = SceneBlahType.Prefab });
+        prefabs.Add(new NewSceneTypeBlah(SceneBlahType.Prefab, "/Project", "Assets/_Screens/Main Screens/ProjectScreen.prefab", "Project screen"));
+        // prefabs.Add(new NewSceneTypeBlah { Name = "Project screen", Url = "/Project", AssetPath = "Assets/_Screens/Main Screens/ProjectScreen.prefab", SceneBlahType = SceneBlahType.Prefab });
         // prefabs.Add(new NewSceneTypeBlah { Name = "Acquisition screen", Url = "/Acquisitions", AssetPath = "AcquisitionScreen.prefab", SceneBlahType = SceneBlahType.Prefab });
 
         GUILayout.Space(15);
@@ -123,17 +141,20 @@ public class MyWindow : EditorWindow
             var p = prefabs[i];
             
             if (GUILayout.Button($"{p.Url}  - {p.Name}"))
-            // if (GUI.Button(new Rect(rightCorner - 300, top + i * 90, 300, 80), p.Name))
+                // if (GUI.Button(new Rect(rightCorner - 300, top + i * 90, 300, 80), p.Name))
             {
                 Debug.Log("Pressed " + p.Name);
 
-                Selection.activeObject = Resources.Load<GameObject>(p.AssetPath);
+                Selection.activeObject = AssetDatabase.LoadMainAssetAtPath(p.AssetPath);
+                
+                // Selection.activeObject = AssetDatabase.OpenAsset(AssetDatabase.LoadAssetAtPath(p.AssetPath, typeof(GameObject)));
+                // Selection.activeObject.name += "!!!";
+                // Selection.activeObject.name += "!!!";
+                ; // = Resources.Load<GameObject>(p.AssetPath);
                 
                 // PrefabUtility.LoadPrefabContentsIntoPreviewScene(p.AssetPath, SceneManager.GetActiveScene()); // .LoadPrefabContents(p.AssetPath);
                 // PrefabUtility.LoadPrefabContents(p.AssetPath);
             }
         }
-        
-        // EditorGUILayout.EndToggleGroup ();
     }
 }
