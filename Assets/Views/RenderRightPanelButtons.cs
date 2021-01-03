@@ -43,6 +43,6 @@ public class RenderRightPanelButtons : View
 
     public void OnStealFeatures()
     {
-        
+        Flagship.companyResource.Resources.ideaPoints += 10;
     }
 }

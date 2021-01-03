@@ -25,15 +25,20 @@ public class CompanyTaskTypeRelay : View
     public GameObject MissionButton;
     public GameObject OffersButton;
 
-    [Header("Tabs")]
-    public GameObject DevelopmentTab;
-    public GameObject MarketingTab;
-    public GameObject TeamTab;
+    // [Header("Tabs")]
+    public GameObject DevelopmentTab => FindObjectsOfTypeAll<DevelopmentTabView>().First().gameObject;
+
+    public GameObject MarketingTab => FindObjectsOfTypeAll<MarektingTabView>().First().gameObject;
+    public GameObject TeamTab => FindObjectsOfTypeAll<TeamTabView>().First().gameObject;
 
     public List<GameObject> Tabs => new List<GameObject> { DevelopmentTab, MarketingTab, TeamTab };
 
     void OnEnable()
     {
+        // DevelopmentTab = FindObjectOfType<DevelopmentTabView>().gameObject;
+        // MarketingTab = FindObjectOfType<MarektingTabView>().gameObject;
+        // TeamTab = FindObjectOfType<TeamTabView>().gameObject;
+        
         ViewRender();
         HideTabs();
     }
