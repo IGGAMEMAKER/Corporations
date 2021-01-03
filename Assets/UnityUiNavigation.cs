@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Assets;
 using Assets.Core;
 using Entitas;
@@ -26,6 +27,7 @@ public struct NewSceneTypeBlah
     public string Url;
     public string Name;
     public string AssetPath;
+    public long Usages;
 
     public SceneBlahType SceneBlahType;
 
@@ -35,6 +37,8 @@ public struct NewSceneTypeBlah
         Url = url;
         AssetPath = assetPath;
         Name = name.Length > 0 ? name : url;
+
+        Usages = 0;
     }
 }
 
@@ -85,11 +89,11 @@ public class MyWindow : EditorWindow
     bool myBool = true;
     float myFloat = 1.23f;
 
-    private string newUrl;
+    private static string newUrl = "";
     private static string newName = "";
     private static string newPath = "";
     
-    List<NewSceneTypeBlah> prefabs; // = new List<NewSceneTypeBlah>();
+    static List<NewSceneTypeBlah> prefabs; // = new List<NewSceneTypeBlah>();
 
     // Add menu item named "My Window" to the Window menu
     [MenuItem("Window/UI-NAVIGATION")]
@@ -109,7 +113,36 @@ public class MyWindow : EditorWindow
         Debug.Log("Prefab opened: " + obj.prefabContentsRoot.name);
 
         newPath = obj.prefabAssetPath;
-        newName = obj.prefabAssetPath;
+
+        var x = newPath.Split('/').Last();
+        var ind = x.LastIndexOf(".prefab");
+         
+        newName = x.Substring(0, ind);;
+
+
+        TryToIncreaseCurrentPrefabCounter();
+        // var index = prefabs.FindIndex(p => p.AssetPath.Equals(newPath));
+        // var pref = prefabs[index];
+        // newUrl = pref.Url;
+        // newPath = pref.AssetPath;
+        // newName = pref.Name;
+    }
+
+    static void TryToIncreaseCurrentPrefabCounter()
+    {
+        var index = prefabs.FindIndex(p => p.AssetPath.Equals(newPath));
+
+        bool prefabIsUrlAlready = index >= 0;
+
+        if (prefabIsUrlAlready)
+        {
+            var pref = prefabs[index];
+
+            pref.Usages++;
+
+            prefabs[index] = pref;
+            SaveData();
+        }
     }
 
     // static void PrefabStage_prefabSaved(GameObject obj)
@@ -134,7 +167,7 @@ public class MyWindow : EditorWindow
     void OnGUI()
     {
         GUILayout.Label ("SIMPLE UI", EditorStyles.largeLabel);
-        GUILayout.Space(10);
+        Space(10);
         // myString = EditorGUILayout.TextField ("Text Field", myString);
         
         // groupEnabled = EditorGUILayout.BeginToggleGroup ("Optional Settings", groupEnabled);
@@ -158,15 +191,41 @@ public class MyWindow : EditorWindow
         // GUI.Label(new Rect(centerX, top, 100, 30), Visuals.Positive("Text"), style);
 
         RenderPrefabs();
-        RenderAddingNewRoute();
+        
+        bool prefabIsUrlAlready = prefabs.Any(p => p.AssetPath.Equals(newPath));
+        
+        if (prefabIsUrlAlready)
+            RenderEditingPrefab();
+        else
+            RenderAddingNewRoute();
         
         // EditorGUILayout.EndToggleGroup ();
     }
 
-    void RenderAddingNewRoute()
+    void RenderEditingPrefab()
     {
-        GUILayout.Space(15);
-        GUILayout.Label("Add current prefab", EditorStyles.boldLabel);
+        var index = prefabs.FindIndex(p => p.AssetPath.Equals(newPath));
+        var pref = prefabs[index];
+
+        Space();
+        GUILayout.Label("EDIT URL " + pref.Url, EditorStyles.boldLabel);
+
+        Space();
+        if (GUILayout.Button("Remove URL"))
+        {
+            prefabs.RemoveAt(index);
+            SaveData();
+        }
+
+        newUrl = pref.Url;
+        newPath = pref.AssetPath;
+        newName = pref.Name;
+
+        var prevUrl = newUrl;
+        var prevName = newName;
+        var prevPath = newPath;
+        
+        Space();
 
         newUrl = EditorGUILayout.TextField("Url", newUrl);
 
@@ -180,7 +239,66 @@ public class MyWindow : EditorWindow
 
                 if (newPath.Length > 0)
                 {
-                    GUILayout.Space(15);
+                }
+            }
+        }
+        
+        pref.Url = newUrl;
+        pref.Name = newName;
+        pref.AssetPath = newPath;
+
+        // if data changed, save it
+        if (!prevUrl.Equals(newUrl) || !prevPath.Equals(newPath) || !prevName.Equals(newName))
+        {
+            prefabs[index] = pref;
+            
+            SaveData();
+        }
+        
+        Space();
+        if (pref.Usages > 0 && GUILayout.Button("Reset Counter"))
+        {
+            pref.Usages = 0;
+            prefabs[index] = pref;
+
+            SaveData();
+        }
+
+        if (GUILayout.Button("Prioritize"))
+        {
+            pref.Usages = 100;
+            prefabs[index] = pref;
+
+            SaveData();
+        }
+    }
+
+    void Space(int space = 15)
+    {
+        GUILayout.Space(space);
+    }
+
+    void RenderAddingNewRoute()
+    {
+        Space();
+        GUILayout.Label("Add current prefab", EditorStyles.boldLabel);
+
+        newUrl = EditorGUILayout.TextField("Url", newUrl);
+
+        if (newUrl.Length > 0)
+        {
+            if (!newUrl.StartsWith("/"))
+                newUrl = newUrl.Insert(0, "/");
+            
+            newName = EditorGUILayout.TextField("Name", newName);
+
+            if (newName.Length > 0)
+            {
+                newPath = EditorGUILayout.TextField("Asset Path", newPath);
+                
+                if (newPath.Length > 0)
+                {
+                    Space();
                     if (GUILayout.Button("Add prefab!")) //  <" + newName + ">
                     {
                         Debug.Log("Added prefab");
@@ -203,23 +321,23 @@ public class MyWindow : EditorWindow
     {
         LoadData();
         
-        GUILayout.Space(15);
+        Space();
         GUILayout.Label ("Favorite prefabs", EditorStyles.boldLabel);
 
-        for (var i = 0; i < prefabs.Count; i++)
+        foreach (var p in prefabs.OrderByDescending(pp => pp.Usages))
         {
-            var p = prefabs[i];
-            
-            if (GUILayout.Button($"{p.Name}   --- {p.Url}"))
+            if (GUILayout.Button($"{p.Name}   ---   {p.Url}"))
             {
                 Debug.Log("Pressed " + p.Name);
+
+                newPath = p.AssetPath;
 
                 Selection.activeObject = AssetDatabase.LoadMainAssetAtPath(p.AssetPath);
             }
         }
     }
     
-    void SaveData()
+    static void SaveData()
     {
         var fileName = "SimpleUI/SimpleUI.txt";
 
@@ -244,7 +362,7 @@ public class MyWindow : EditorWindow
         }
     }
 
-    void LoadData()
+    static void LoadData()
     {
         var fileName = "SimpleUI/SimpleUI.txt";
 
@@ -254,7 +372,7 @@ public class MyWindow : EditorWindow
             NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
         });
 
-        prefabs = obj;
+        prefabs = obj ?? new List<NewSceneTypeBlah>();
         return;
         ;
         prefabs = new List<NewSceneTypeBlah>();
