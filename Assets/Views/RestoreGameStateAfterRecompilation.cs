@@ -133,7 +133,6 @@ public class RestoreGameStateAfterRecompilation : View
             var accumulator = monthsOfWork;
 
             // niche state promotion
-            var profile = m.nicheBaseProfile.Profile;
 
             while (accumulator > 0)
             {
