@@ -79,9 +79,10 @@ public class MyWindow : EditorWindow
     bool myBool = true;
     float myFloat = 1.23f;
 
-    public int Width = 400;
-    public int Height = 400;
-    
+    private string newUrl;
+    private string newName;
+    private string newRoute;
+
     // Add menu item named "My Window" to the Window menu
     [MenuItem("Window/UI-NAVIGATION")]
     public static void ShowWindow()
@@ -92,9 +93,6 @@ public class MyWindow : EditorWindow
     
     void OnGUI()
     {
-        // GUILayout.Width(Width);
-        // GUILayout.Height(Height);
-        
         GUILayout.Label ("Base Settings", EditorStyles.boldLabel);
         myString = EditorGUILayout.TextField ("Text Field", myString);
         
@@ -119,8 +117,27 @@ public class MyWindow : EditorWindow
         // GUI.Label(new Rect(centerX, top, 100, 30), Visuals.Positive("Text"), style);
 
         RenderPrefabs();
+        RenderAddingNewRoute();
         
         // EditorGUILayout.EndToggleGroup ();
+    }
+
+    void RenderAddingNewRoute()
+    {
+        GUILayout.Space(15);
+        GUILayout.Label("Add current prefab", EditorStyles.boldLabel);
+
+        newUrl = EditorGUILayout.TextField ("Url", newUrl);
+
+        if (newUrl.Length > 0)
+        {
+            newName = EditorGUILayout.TextField ("Name", newName);
+
+            if (GUILayout.Button("Add <" + newName + "> prefab!"))
+            {
+                Debug.Log("Added prefab");
+            }   
+        }
     }
 
     void RenderPrefabs()
