@@ -27,7 +27,9 @@ public struct NewSceneTypeBlah
     public string Url;
     public string Name;
     public string AssetPath;
+    
     public long Usages;
+    public long LastOpened;
 
     public SceneBlahType SceneBlahType;
 
@@ -39,6 +41,7 @@ public struct NewSceneTypeBlah
         Name = name.Length > 0 ? name : url;
 
         Usages = 0;
+        LastOpened = 0;
     }
 }
 
@@ -98,6 +101,7 @@ public class MyWindow : EditorWindow
     private static int ChosenIndex => prefabs.FindIndex(p => p.AssetPath.Equals(newPath));
     private static bool hasChosenPrefab => ChosenIndex >= 0;
 
+    
     // Add menu item named "My Window" to the Window menu
     [MenuItem("Window/UI-NAVIGATION")]
     public static void ShowWindow()
@@ -124,13 +128,17 @@ public class MyWindow : EditorWindow
 
 
         TryToIncreaseCurrentPrefabCounter();
-        // var index = prefabs.FindIndex(p => p.AssetPath.Equals(newPath));
-        // var pref = prefabs[index];
-        // newUrl = pref.Url;
-        // newPath = pref.AssetPath;
-        // newName = pref.Name;
     }
 
+    static void UpdatePrefab(NewSceneTypeBlah prefab)
+    {
+        if (!hasChosenPrefab)
+            return;
+        
+        prefabs[ChosenIndex] = prefab;
+        SaveData();
+    }
+    
     static void TryToIncreaseCurrentPrefabCounter()
     {
         var index = ChosenIndex;
@@ -140,9 +148,9 @@ public class MyWindow : EditorWindow
             var pref = prefabs[index];
 
             pref.Usages++;
+            pref.LastOpened = DateTime.Now.Ticks;
 
-            prefabs[index] = pref;
-            SaveData();
+            UpdatePrefab(pref);
         }
     }
 
@@ -195,6 +203,8 @@ public class MyWindow : EditorWindow
         {
             prefabs.RemoveAt(index);
             SaveData();
+            
+            return;
         }
 
         newUrl = pref.Url;
@@ -230,26 +240,22 @@ public class MyWindow : EditorWindow
         // if data changed, save it
         if (!prevUrl.Equals(newUrl) || !prevPath.Equals(newPath) || !prevName.Equals(newName))
         {
-            prefabs[index] = pref;
-            
-            SaveData();
+            UpdatePrefab(pref);
         }
         
         Space();
         if (pref.Usages > 0 && GUILayout.Button("Reset Counter"))
         {
             pref.Usages = 0;
-            prefabs[index] = pref;
 
-            SaveData();
+            UpdatePrefab(pref);
         }
 
         if (GUILayout.Button("Prioritize"))
         {
             pref.Usages = 100;
-            prefabs[index] = pref;
-
-            SaveData();
+            
+            UpdatePrefab(pref);
         }
     }
 
@@ -304,7 +310,7 @@ public class MyWindow : EditorWindow
         Space();
         GUILayout.Label ("Favorite prefabs", EditorStyles.boldLabel);
 
-        foreach (var p in prefabs.OrderByDescending(pp => pp.Usages))
+        foreach (var p in prefabs.OrderByDescending(pp => pp.Usages).Take(7))
         {
             var c = GUI.color;
 
@@ -315,7 +321,7 @@ public class MyWindow : EditorWindow
             GUI.backgroundColor = color;
             
             
-            if (GUILayout.Button($"{p.Name}   ---   {p.Url} {isChosen}"))
+            if (GUILayout.Button($"{p.Name}   ---   {p.Url}"))
             {
                 Debug.Log("Pressed " + p.Name);
 
