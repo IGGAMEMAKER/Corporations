@@ -11,7 +11,7 @@ public class RenderMarketButtonsTab : View
     {
         base.ViewRender();
 
-        bool hasProducts = Companies.IsHasDaughters(Q, MyCompany);
+        bool hasProducts = Companies.IsHasDaughters(MyCompany);
 
         Funds.SetActive(hasProducts);
         Info.SetActive(hasProducts);

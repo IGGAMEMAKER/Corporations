@@ -17,7 +17,7 @@ public class RenderOpportunityButtons : View
         var screen = CurrentScreen;
         bool isMyCompanyScreen = true; // screen == ScreenMode.GroupManagementScreen || (SelectedCompany.company.Id == MyCompany.company.Id && screen == ScreenMode.ProjectScreen);
 
-        bool hasAtLeastOneCompany = Companies.IsHasDaughters(Q, MyCompany);
+        bool hasAtLeastOneCompany = Companies.IsHasDaughters(MyCompany);
         bool hasReleasedProducts = Companies.IsHasReleasedProducts(Q, MyCompany);
 
         Partnerships

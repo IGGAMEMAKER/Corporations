@@ -25,7 +25,7 @@ public class RenderMarketButtons : View
         bool hasDaughtersOnMarket   = daughtersOnMarket.Count() > 0;
 
 
-        var amountOfCompanies = Companies.GetDaughtersAmount(MyCompany, Q);
+        var amountOfCompanies = Companies.GetDaughtersAmount(MyCompany);
 
 
 

@@ -37,7 +37,7 @@ public class CompanyInIndustryView : View
         Profit.text = "Profit: " + Format.Money(profit, true);
         Profit.color = Visuals.GetColorPositiveOrNegative(profit > 0);
 
-        var daughters = Companies.GetDaughtersAmount(company, Q);
+        var daughters = Companies.GetDaughtersAmount(company);
         NumberOfDaughters.text = daughters < 2 ? "" : daughters.ToString();
 
         // name

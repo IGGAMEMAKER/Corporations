@@ -22,7 +22,7 @@ namespace Assets.Core
 
                 // notify about innovation
                 var player = Companies.GetPlayerCompany(gameContext);
-                var daughters = Companies.GetDaughtersAmount(player, gameContext);
+                var daughters = Companies.GetDaughtersAmount(player);
 
 
                 //if (Companies.IsInPlayerSphereOfInterest(product, gameContext) && Markets.GetCompetitorsAmount(product, gameContext) > 1 && daughters == 1)

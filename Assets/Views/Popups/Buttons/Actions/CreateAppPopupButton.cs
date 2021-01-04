@@ -16,7 +16,7 @@ public class CreateAppPopupButton : PopupButtonController<PopupMessageDoYouWantT
         NotificationUtils.AddPopup(Q, new PopupMessageCreateApp(id));
 
         // had no products before
-        if (Companies.GetDaughtersAmount(MyCompany, Q) == 1)
+        if (Companies.GetDaughtersAmount(MyCompany) == 1)
         {
             Companies.TurnProductToPlayerFlagship(company, Q, nicheType, MyCompany);
 

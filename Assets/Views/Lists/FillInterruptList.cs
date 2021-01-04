@@ -76,7 +76,7 @@ public class FillInterruptList : View
 
     //bool HasOutdatedProducts => Companies.GetDaughterOutdatedCompanies(Q, MyCompany.company.Id).Length > 0;
 
-    bool IsCanRaiseInvestments => hasReleasedProduct && Companies.IsReadyToStartInvestmentRound(MyCompany) && Companies.IsHasDaughters(Q, MyCompany);
+    bool IsCanRaiseInvestments => hasReleasedProduct && Companies.IsReadyToStartInvestmentRound(MyCompany) && Companies.IsHasDaughters(MyCompany);
 
     bool HasUnhappyManagersInCompany (GameEntity company)
     {

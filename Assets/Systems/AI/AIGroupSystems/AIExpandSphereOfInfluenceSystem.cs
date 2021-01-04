@@ -44,7 +44,7 @@ public partial class AIGroupExpansionSystem
     {
         var profit = Economy.GetProfit(gameContext, group);
 
-        var amountOfDaughters = Companies.GetDaughtersAmount(group, gameContext) + 1;
+        var amountOfDaughters = Companies.GetDaughtersAmount(group) + 1;
         var averageProfit = profit / amountOfDaughters;
 
 

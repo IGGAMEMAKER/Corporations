@@ -234,7 +234,7 @@ public partial class PopupView : View
 
 
         var resourceText = "";
-        if (!hasResources && Companies.GetDaughtersAmount(MyCompany, Q) > 0)
+        if (!hasResources && Companies.GetDaughtersAmount(MyCompany) > 0)
             resourceText = Visuals.Negative("\nIt's too expensive!");
 
 

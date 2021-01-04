@@ -22,7 +22,7 @@ public enum SceneBlahType
     Scene
 }
 
-public struct NewSceneTypeBlah
+public struct SimpleUISceneType
 {
     public string Url;
     public string Name;
@@ -33,9 +33,13 @@ public struct NewSceneTypeBlah
 
     public SceneBlahType SceneBlahType;
 
-    public NewSceneTypeBlah(SceneBlahType blahType, string url, string assetPath, string name = "")
+    public SimpleUISceneType(string url, string assetPath, string name = "")
     {
-        SceneBlahType = blahType;
+        SceneBlahType = SceneBlahType.Prefab;
+
+        if (assetPath.EndsWith(".scene"))
+            SceneBlahType = SceneBlahType.Scene;
+        
         Url = url;
         AssetPath = assetPath;
         Name = name.Length > 0 ? name : url;
@@ -44,45 +48,45 @@ public struct NewSceneTypeBlah
         LastOpened = 0;
     }
 }
-
-[ExecuteAlways]
-public class UnityUiNavigation : View
-{
-    private void OnGUI()
-    {
-        var style = new GUIStyle();
-
-        var leftCorner = 0;
-        var rightCorner = 1920;
-
-        var top = 0;
-        var bottom = 1080;
-
-        var centerX = (leftCorner + rightCorner) / 2;
-        var centerY = (top + bottom) / 2;
-
-        style.fontSize = 40;
-        
-        GUI.Label(new Rect(centerX, top, 100, 30), Visuals.Positive("Text"), style);
-
-        var prefabs = new List<NewSceneTypeBlah>();
-        
-        prefabs.Add(new NewSceneTypeBlah { Name = "Holding screen", Url = "/Main", AssetPath = "HoldingScreen.prefab" });
-        prefabs.Add(new NewSceneTypeBlah { Name = "Acquisition screen", Url = "/Acquisitions", AssetPath = "AcquisitionScreen.prefab", SceneBlahType = SceneBlahType.Prefab });
-
-        for (var i = 0; i < prefabs.Count; i++)
-        {
-            var p = prefabs[i];
-            
-            if (GUI.Button(new Rect(rightCorner - 300, top + i * 90, 300, 80), p.Name))
-            {
-                Debug.Log("Pressed " + p.Name);
-                
-                // PlaySound(Sound.Bubble1);
-            }
-        }
-    }
-}
+//
+// [ExecuteAlways]
+// public class UnityUiNavigation : View
+// {
+//     private void OnGUI()
+//     {
+//         var style = new GUIStyle();
+//
+//         var leftCorner = 0;
+//         var rightCorner = 1920;
+//
+//         var top = 0;
+//         var bottom = 1080;
+//
+//         var centerX = (leftCorner + rightCorner) / 2;
+//         var centerY = (top + bottom) / 2;
+//
+//         style.fontSize = 40;
+//         
+//         GUI.Label(new Rect(centerX, top, 100, 30), Visuals.Positive("Text"), style);
+//
+//         var prefabs = new List<NewSceneTypeBlah>();
+//         
+//         prefabs.Add(new NewSceneTypeBlah { Name = "Holding screen", Url = "/Main", AssetPath = "HoldingScreen.prefab" });
+//         prefabs.Add(new NewSceneTypeBlah { Name = "Acquisition screen", Url = "/Acquisitions", AssetPath = "AcquisitionScreen.prefab", SceneBlahType = SceneBlahType.Prefab });
+//
+//         for (var i = 0; i < prefabs.Count; i++)
+//         {
+//             var p = prefabs[i];
+//             
+//             if (GUI.Button(new Rect(rightCorner - 300, top + i * 90, 300, 80), p.Name))
+//             {
+//                 Debug.Log("Pressed " + p.Name);
+//                 
+//                 // PlaySound(Sound.Bubble1);
+//             }
+//         }
+//     }
+// }
 
 
 public class MyWindow : EditorWindow
@@ -96,11 +100,14 @@ public class MyWindow : EditorWindow
     private static string newName = "";
     private static string newPath = "";
     
-    static List<NewSceneTypeBlah> prefabs; // = new List<NewSceneTypeBlah>();
+    static List<SimpleUISceneType> prefabs; // = new List<NewSceneTypeBlah>();
 
     private static int ChosenIndex => prefabs.FindIndex(p => p.AssetPath.Equals(newPath));
     private static bool hasChosenPrefab => ChosenIndex >= 0;
 
+    private bool showTopPrefabs = false;
+    private bool showRecentPrefabs = false;
+    private bool showAllPrefabs = false;
     
     // Add menu item named "My Window" to the Window menu
     [MenuItem("Window/UI-NAVIGATION")]
@@ -114,6 +121,11 @@ public class MyWindow : EditorWindow
     {
         PrefabStage.prefabStageOpened += PrefabStage_prefabSaved;
     }
+
+    // void OnDidOpenScene()
+    // {
+    //     ShowWindow();
+    // }
 
     private static void PrefabStage_prefabSaved(PrefabStage obj)
     {
@@ -130,63 +142,33 @@ public class MyWindow : EditorWindow
         TryToIncreaseCurrentPrefabCounter();
     }
 
-    static void UpdatePrefab(NewSceneTypeBlah prefab)
-    {
-        if (!hasChosenPrefab)
-            return;
-        
-        prefabs[ChosenIndex] = prefab;
-        SaveData();
-    }
-    
-    static void TryToIncreaseCurrentPrefabCounter()
-    {
-        var index = ChosenIndex;
-
-        if (hasChosenPrefab)
-        {
-            var pref = prefabs[index];
-
-            pref.Usages++;
-            pref.LastOpened = DateTime.Now.Ticks;
-
-            UpdatePrefab(pref);
-        }
-    }
-
     void OnGUI()
     {
+        GUILayout.BeginScrollView(new Vector2(0, 0));
         GUILayout.Label ("SIMPLE UI", EditorStyles.largeLabel);
-        Space(10);
-        // myString = EditorGUILayout.TextField ("Text Field", myString);
-        
-        // groupEnabled = EditorGUILayout.BeginToggleGroup ("Optional Settings", groupEnabled);
-        // myBool = EditorGUILayout.Toggle ("Toggle", myBool);
-        // myFloat = EditorGUILayout.Slider ("Slider", myFloat, -3, 3);
-        
-        // -----------
-        var style = new GUIStyle();
-
-        var leftCorner = 0;
-        var rightCorner = 1920;
-
-        var top = 0;
-        var bottom = 1080;
-
-        var centerX = (leftCorner + rightCorner) / 2;
-        var centerY = (top + bottom) / 2;
-
-        style.fontSize = 40;
-        
-        // GUI.Label(new Rect(centerX, top, 100, 30), Visuals.Positive("Text"), style);
 
         RenderPrefabs();
-        
+
         if (hasChosenPrefab)
             RenderEditingPrefab();
         else
             RenderAddingNewRoute();
         
+        GUILayout.EndScrollView();
+    }
+
+    void RenderChooseMode()
+    {
+        
+    }
+
+    void RenderExample()
+    {
+        // myString = EditorGUILayout.TextField ("Text Field", myString);
+        
+        // groupEnabled = EditorGUILayout.BeginToggleGroup ("Optional Settings", groupEnabled);
+        // myBool = EditorGUILayout.Toggle ("Toggle", myBool);
+        // myFloat = EditorGUILayout.Slider ("Slider", myFloat, -3, 3);
         // EditorGUILayout.EndToggleGroup ();
     }
 
@@ -253,15 +235,10 @@ public class MyWindow : EditorWindow
 
         if (GUILayout.Button("Prioritize"))
         {
-            pref.Usages = 100;
+            pref.Usages = prefabs.Max(p => p.Usages) + 100;
             
             UpdatePrefab(pref);
         }
-    }
-
-    void Space(int space = 15)
-    {
-        GUILayout.Space(space);
     }
 
     void RenderAddingNewRoute()
@@ -288,22 +265,17 @@ public class MyWindow : EditorWindow
                     if (GUILayout.Button("Add prefab!")) //  <" + newName + ">
                     {
                         Debug.Log("Added prefab");
-                    
-                        AddNewRoute();
+                        
+                        prefabs.Add(new SimpleUISceneType(newUrl, newPath, newName));
+
+                        SaveData();
                     }
                 }
             }
         }
     }
 
-    void AddNewRoute()
-    {
-        prefabs.Add(new NewSceneTypeBlah(SceneBlahType.Prefab, newUrl, newPath, newName));
-
-        SaveData();
-    }
-
-    void RenderPrefabs(IEnumerable<NewSceneTypeBlah> list)
+    void RenderPrefabs(IEnumerable<SimpleUISceneType> list)
     {
         // prefabs.OrderByDescending(pp => pp.Usages).Take(7)
         foreach (var p in list)
@@ -317,7 +289,7 @@ public class MyWindow : EditorWindow
             GUI.backgroundColor = color;
             
             
-            if (GUILayout.Button($"{p.Name}"))
+            if (GUILayout.Button(p.Name))
             // if (GUILayout.Button($"{p.Name}   ---   {p.Url}"))
             {
                 Debug.Log("Pressed " + p.Name);
@@ -325,6 +297,7 @@ public class MyWindow : EditorWindow
                 newPath = p.AssetPath;
 
                 var asset = AssetDatabase.LoadMainAssetAtPath(p.AssetPath);
+                
                 AssetDatabase.OpenAsset(asset);
                 Selection.activeObject = asset;
                 // AssetDatabase.OpenAsset(AssetDatabase.LoadMainAssetAtPath(p.AssetPath));
@@ -335,20 +308,61 @@ public class MyWindow : EditorWindow
             GUI.backgroundColor = c;            
         }
     }
+
+    void RenderRecentPrefabs()
+    {
+        var recent = prefabs.OrderByDescending(pp => pp.LastOpened).Take(7);
+
+        GUILayout.Label ("Recent prefabs", EditorStyles.boldLabel);
+        RenderPrefabs(recent);
+    }
+
+    void RenderFavoritePrefabs()
+    {
+        var top = prefabs.OrderByDescending(pp => pp.Usages).Take(5);
+
+        GUILayout.Label ("Favorite prefabs", EditorStyles.boldLabel);
+        RenderPrefabs(top);
+    }
+
+    void RenderAllPrefabs()
+    {
+        var top = prefabs.OrderByDescending(pp => pp.Url);
+
+        GUILayout.Label ("All prefabs", EditorStyles.boldLabel);
+        RenderPrefabs(top);
+    }
+    
     void RenderPrefabs()
     {
         LoadData();
         
         Space();
-
-        var top = prefabs.OrderByDescending(pp => pp.Usages).Take(5);
-        var recent = prefabs.OrderByDescending(pp => pp.LastOpened).Take(7);
-
-        GUILayout.Label ("Favorite prefabs", EditorStyles.boldLabel);
-        RenderPrefabs(top);
         
-        GUILayout.Label ("Recent prefabs", EditorStyles.boldLabel);
-        RenderPrefabs(recent);
+        RenderFavoritePrefabs();
+        RenderRecentPrefabs();
+    }
+    
+    
+    // ----- utils -------------
+    void Space(int space = 15)
+    {
+        GUILayout.Space(space);
+    }
+    
+    static void TryToIncreaseCurrentPrefabCounter()
+    {
+        var index = ChosenIndex;
+
+        if (hasChosenPrefab)
+        {
+            var pref = prefabs[index];
+
+            pref.Usages++;
+            pref.LastOpened = DateTime.Now.Ticks;
+
+            UpdatePrefab(pref);
+        }
     }
     
     static void SaveData()
@@ -380,21 +394,21 @@ public class MyWindow : EditorWindow
     {
         var fileName = "SimpleUI/SimpleUI.txt";
 
-        List<NewSceneTypeBlah> obj = Newtonsoft.Json.JsonConvert.DeserializeObject<List<NewSceneTypeBlah>>(File.ReadAllText(fileName), new Newtonsoft.Json.JsonSerializerSettings
+        List<SimpleUISceneType> obj = Newtonsoft.Json.JsonConvert.DeserializeObject<List<SimpleUISceneType>>(File.ReadAllText(fileName), new Newtonsoft.Json.JsonSerializerSettings
         {
             TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto,
             NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
         });
 
-        prefabs = obj ?? new List<NewSceneTypeBlah>();
-        return;
-        ;
-        prefabs = new List<NewSceneTypeBlah>();
+        prefabs = obj ?? new List<SimpleUISceneType>();
+    }
+    
+    static void UpdatePrefab(SimpleUISceneType prefab)
+    {
+        if (!hasChosenPrefab)
+            return;
         
-        prefabs.Add(new NewSceneTypeBlah(SceneBlahType.Prefab, "/Main", "Assets/_Screens/Main Screens/HoldingScreen___.prefab", "Holding screen"));
-        // prefabs.Add(new NewSceneTypeBlah { Name = "Holding screen", Url = "/Main", AssetPath = "Assets/_Screens/Main Screens/HoldingScreen___.prefab", SceneBlahType = SceneBlahType.Prefab });
-        prefabs.Add(new NewSceneTypeBlah(SceneBlahType.Prefab, "/Project", "Assets/_Screens/Main Screens/ProjectScreen.prefab", "Project screen"));
-        // prefabs.Add(new NewSceneTypeBlah { Name = "Project screen", Url = "/Project", AssetPath = "Assets/_Screens/Main Screens/ProjectScreen.prefab", SceneBlahType = SceneBlahType.Prefab });
-        // prefabs.Add(new NewSceneTypeBlah { Name = "Acquisition screen", Url = "/Acquisitions", AssetPath = "AcquisitionScreen.prefab", SceneBlahType = SceneBlahType.Prefab });
+        prefabs[ChosenIndex] = prefab;
+        SaveData();
     }
 }

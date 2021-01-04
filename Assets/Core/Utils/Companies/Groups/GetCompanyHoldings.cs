@@ -24,12 +24,12 @@ namespace Assets.Core
                 .ToArray();
         }
 
-        public static bool IsHasDaughters(GameContext gameContext, GameEntity company)
+        public static bool IsHasDaughters(GameEntity company)
         {
-            return GetDaughtersAmount(company, gameContext) > 0;
+            return GetDaughtersAmount(company) > 0;
         }
 
-        public static int GetDaughtersAmount(GameEntity company, GameContext gameContext)
+        public static int GetDaughtersAmount(GameEntity company)
         {
             return company.hasOwnings ? company.ownings.Holdings.Count() : 0;
         }

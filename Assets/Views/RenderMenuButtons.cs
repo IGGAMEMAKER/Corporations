@@ -27,7 +27,7 @@ public class RenderMenuButtons : View
     {
         base.ViewRender();
 
-        bool hasProduct = Companies.IsHasDaughters(Q, MyCompany);
+        bool hasProduct = Companies.IsHasDaughters(MyCompany);
 
         bool isFirstYear = CurrentIntDate < 360;
 
