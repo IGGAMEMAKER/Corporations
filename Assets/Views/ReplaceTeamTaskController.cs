@@ -8,8 +8,7 @@ public class ReplaceTeamTaskController : ButtonController
 
         var relay = FindObjectOfType<FlagshipRelayInCompanyView>();
 
-        relay.FillSlot(view.TeamId, view.SlotId);
-        relay.ChooseTaskTab();
+        relay.ChooseTaskTab(view.TeamId, view.SlotId);
 
         ScheduleUtils.PauseGame(Q);
     }

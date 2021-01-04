@@ -101,6 +101,15 @@ public partial class BaseClass : MonoBehaviour
         }
         else
         {
+            var queryIndex = url.IndexOf('?');
+            var query = "";
+            
+            if (queryIndex >= 0)
+            {
+                query = url.Substring(queryIndex);
+                url = url.Substring(0, queryIndex);
+            }
+            
             eventHandler.OpenUrl(url);
         }
     }

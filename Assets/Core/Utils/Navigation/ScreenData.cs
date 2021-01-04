@@ -35,15 +35,6 @@ namespace Assets.Core
             return companyId;
         }
 
-        public static int GetMainScreenPanelId(GameContext gameContext)
-        {
-            var obj = GetScreenParameter(gameContext, C.MENU_SELECTED_MAIN_SCREEN_PANEL_ID);
-
-            var companyId = Convert.ToInt32(obj);
-
-            return companyId;
-        }
-
         public static GameEntity GetSelectedHuman(GameContext gameContext)
         {
             var obj = GetInteger(gameContext, C.MENU_SELECTED_HUMAN);

@@ -145,11 +145,11 @@ public class TaskPanelView : View
         relay.ChooseMainScreen();
     }
 
-    public void ShowAssignedTeam()
-    {
-        var relay = FindObjectOfType<FlagshipRelayInCompanyView>();
-
-        if (teamId >= 0)
-            relay.ChooseManagersTabs(teamId);
-    }
+    // public void ShowAssignedTeam()
+    // {
+    //     var relay = FindObjectOfType<FlagshipRelayInCompanyView>();
+    //
+    //     if (teamId >= 0)
+    //         relay.ChooseManagersTabs(teamId);
+    // }
 }

@@ -13,16 +13,11 @@ public class AddTaskForTheTeamController : ButtonController
     {
         var relay = FindObjectOfType<FlagshipRelayInCompanyView>();
 
-        var company = Flagship;
-
-        var team = company.team.Teams[TeamId];
+        var team = Flagship.team.Teams[TeamId];
 
         int SlotId = team.Tasks.Count;
 
-        relay.FillSlot(TeamId, SlotId);
-        relay.ChooseTaskTab();
-
-        CompanyTaskTypeRelay CompanyTaskTypeRelay = FindObjectOfType<CompanyTaskTypeRelay>();
+        relay.ChooseTaskTab(TeamId, SlotId);
 
         ScheduleUtils.PauseGame(Q);
     }

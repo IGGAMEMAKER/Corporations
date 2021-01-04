@@ -4,7 +4,7 @@ public class OpenAudienceMapButton : ButtonController
 {
     public override void Execute()
     {
-        FindObjectOfType<FlagshipRelayInCompanyView>().ChooseAudiencePickingPanel();
+        OpenUrl("/Holding/Positioning");
         ScheduleUtils.PauseGame(Q);
     }
 }

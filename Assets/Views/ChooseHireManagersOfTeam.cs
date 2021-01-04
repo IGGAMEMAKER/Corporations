@@ -12,11 +12,6 @@ public class ChooseHireManagersOfTeam : ButtonController
 
     public override void Execute()
     {
-        var relay = FindObjectOfType<FlagshipRelayInCompanyView>();
-
-        int SlotId = Flagship.team.Teams[TeamId].Tasks.Count;
-
-        //relay.FillSlot(TeamId, SlotId);
-        relay.ChooseManagersTabs(TeamId);
+        NavigateToTeamScreen(TeamId);
     }
 }

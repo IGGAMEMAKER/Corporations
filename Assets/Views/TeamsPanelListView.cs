@@ -21,20 +21,16 @@ public class TeamsPanelListView : ListView
         SetItems(independentTeams);
     }
 
-    // public override void OnItemSelected(int ind)
-    // {
-    //     base.OnItemSelected(ind);
-    //
-    //     FindObjectOfType<FlagshipRelayInCompanyView>().ChooseManagersTabs(ind);
-    //
-    //     ScheduleUtils.PauseGame(Q);
-    // }
-    
     public override void OnItemSelected(int ind)
     {
         base.OnItemSelected(ind);
 
-        FindObjectOfType<FlagshipRelayInCompanyView>().ChooseManagersTabs(Item.GetComponent<TeamPreview>().TeamInfo.ID);
+        var teamId = Item.GetComponent<TeamPreview>().TeamInfo.ID;
+        
+        SetParameter(C.MENU_SELECTED_TEAM, teamId);
+        ScreenUtils.Navigate(Q, ScreenMode.TeamScreen);
+        
+        // FindObjectOfType<FlagshipRelayInCompanyView>().ChooseManagersTabs(teamId);
 
         ScheduleUtils.PauseGame(Q);
     }

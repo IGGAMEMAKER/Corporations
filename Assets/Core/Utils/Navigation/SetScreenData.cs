@@ -41,11 +41,6 @@ namespace Assets.Core
         }
 
 
-        public static void SetMainPanelId(GameContext gameContext, int panelId)
-        {
-            SetInteger(gameContext, panelId, C.MENU_SELECTED_MAIN_SCREEN_PANEL_ID);
-        }
-
         public static void SetSelectedTeam(GameContext gameContext, int teamId)
         {
             SetInteger(gameContext, teamId, C.MENU_SELECTED_TEAM);

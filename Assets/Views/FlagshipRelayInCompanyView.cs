@@ -16,70 +16,25 @@ public class FlagshipRelayInCompanyView : View
 
     public TaskPanelView TaskPanel;
 
-    public NewTeamTypeRelay NewTeamTypeRelay;
-
     public TeamTask TeamTask;
 
     // buttons
     public int ChosenTeamId = -1;
     public int ChosenSlotId = 0;
 
-    //public TeamInfo ChosenTeam => ChosenTeamId >= Flagship.team.Teams.Count ? null : Flagship.team.Teams[ChosenTeamId];
     List<GameObject> Tabs => new List<GameObject> { DevelopmentTab, WorkerInteractions, InvestmentTabs, ManagersTabs, NewTeamTabs, AudiencePickingTab, AssignTaskPanel };
-
-    public void FillSlot(int teamId, int slotId)
-    {
-        ChosenSlotId = slotId;
-        ChosenTeamId = teamId;
-
-        ScreenUtils.SetSelectedTeam(Q, teamId);
-    }
 
     private void OnEnable()
     {
-        var panelId = ScreenUtils.GetScreenParameter(Q, C.MENU_SELECTED_MAIN_SCREEN_PANEL_ID);
-
-        switch (panelId)
-        {
-            case 1:
-                ChooseManagersTabs(SelectedTeam);
-                break;
-
-            default:
-                ChooseMainScreen();
-                break;
-        }
-
+        ChooseMainScreen();
     }
     
     public void ChooseMainScreen()
     {
         HideAll(Tabs);
         OpenUrl("/Holding/Main");
-        return;
-        if (Flagship.isRelease)
-        {
-            ChooseAudiencePickingPanel();
-        }
-        else
-        {
-            //ChooseMainScreen();
-            ChooseWorkerInteractions();
-        }
-
-        //ChooseWorkerInteractions();
     }
     
-    public void ChooseManagersTabs(int teamId)
-    {
-        FillSlot(teamId, 0);
-        // ShowOnly(ManagersTabs, Tabs);
-        //
-        // Hide(TaskPanel);
-
-        ScreenUtils.Navigate(Q, ScreenMode.TeamScreen);
-    }
-
     public void RemoveTask()
     {
         Teams.RemoveTeamTask(Flagship, Q, ChosenTeamId, ChosenSlotId);
@@ -110,43 +65,20 @@ public class FlagshipRelayInCompanyView : View
         }
     }
 
-    public void ChooseAudiencePickingPanel()
+    public void ChooseTaskTab(int teamId, int slotId)
     {
-        ShowOnly(AudiencePickingTab, Tabs);
-    }
+        OpenUrl("/Holding/TaskTab");
+        // return;
 
-    public void ChooseNewTeamTab()
-    {
-        ShowOnly(NewTeamTabs, Tabs);
-        NewTeamTypeRelay.SetTeamTypes();
-    }
-
-    public void ChooseWorkerInteractions()
-    {
-        ChooseAudiencePickingPanel();
-        //ShowOnly(WorkerInteractions, Tabs);
-    }
-
-
-
-    public void ChooseTaskTab()
-    {
+        // teamId = ChosenTeamId;
+        // slotId = ChosenSlotId;
+        
         ShowOnly(DevelopmentTab, Tabs);
 
-        var tasks = Flagship.team.Teams[ChosenTeamId].Tasks;
-        var task = ChosenTeamId >= 0 ? tasks[ChosenSlotId] : null;
-
-
-        //Debug.Log("Choose task tab: team=" + ChosenTeamId + " slot=" + ChosenSlotId);
+        var tasks = Flagship.team.Teams[teamId].Tasks;
+        var task = teamId >= 0 ? tasks[slotId] : null;
 
         if (task != null)
-            TaskPanel.SetEntity(ChosenTeamId, task);
+            TaskPanel.SetEntity(teamId, task);
     }
-
-    public void ChooseInvestmentTab()
-    {
-        ShowOnly(InvestmentTabs, Tabs);
-    }
-
-
 }

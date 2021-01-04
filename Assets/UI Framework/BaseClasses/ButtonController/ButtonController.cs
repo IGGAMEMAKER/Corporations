@@ -89,9 +89,13 @@ public abstract partial class ButtonController
         ScreenUtils.Navigate(Q, screenMode);
     }
 
+    public void NavigateToTeamScreen(int teamId)
+    {
+        Navigate(ScreenMode.TeamScreen, C.MENU_SELECTED_TEAM, teamId);
+    }
+
     public void NavigateToMainScreen()
     {
-        ScreenUtils.SetMainPanelId(Q, 0);
         Navigate(ScreenMode.HoldingScreen);
     }
 

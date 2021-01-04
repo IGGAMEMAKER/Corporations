@@ -34,7 +34,6 @@ public class HireManager : ButtonController
 
         Teams.SetJobOffer(human, company, jobOfferScreen.JobOffer, SelectedTeam, Q);
 
-        ScreenUtils.SetMainPanelId(Q, 1);
         Navigate(ScreenMode.TeamScreen);
 
         //NavigateToMainScreen();
