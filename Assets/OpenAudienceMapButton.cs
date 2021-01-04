@@ -4,7 +4,7 @@ public class OpenAudienceMapButton : ButtonController
 {
     public override void Execute()
     {
-        OpenUrl("/Holding/Positioning");
+        OpenUrl("/Positioning");
         ScheduleUtils.PauseGame(Q);
     }
 }

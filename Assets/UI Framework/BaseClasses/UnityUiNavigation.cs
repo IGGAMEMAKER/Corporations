@@ -14,7 +14,7 @@ using UnityEditor.Experimental.SceneManagement;
 using UnityEngine.SceneManagement;
 
 // https://answers.unity.com/questions/37180/how-to-highlight-or-select-an-asset-in-project-win.html
-
+// https://gist.github.com/rutcreate/0af3c34abd497a2bceed506f953308d7
 
 public enum SceneBlahType
 {
@@ -110,11 +110,11 @@ public class MyWindow : EditorWindow
     private bool showAllPrefabs = false;
     
     // Add menu item named "My Window" to the Window menu
-    [MenuItem("Window/UI-NAVIGATION")]
+    [MenuItem("Window/SIMPLE UI")]
     public static void ShowWindow()
     {
         //Show existing window instance. If one doesn't exist, make one.
-        EditorWindow.GetWindow(typeof(MyWindow));
+        EditorWindow.GetWindow(typeof(MyWindow), false, "Simple UI", true);
     }
     
     static MyWindow()
@@ -153,8 +153,96 @@ public class MyWindow : EditorWindow
             RenderEditingPrefab();
         else
             RenderAddingNewRoute();
+
+        HandleDragAndDrop();
         
         GUILayout.EndScrollView();
+    }
+
+    
+    void HandleDragAndDrop()
+    {
+        if (Event.current.type == EventType.DragUpdated)
+        {
+            DragAndDrop.visualMode = DragAndDropVisualMode.Copy;
+            Event.current.Use();
+        }
+        else if (Event.current.type == EventType.DragPerform)
+        {
+            // To consume drag data.
+            DragAndDrop.AcceptDrag();
+            
+            // GameObjects from hierarchy.
+            if (DragAndDrop.paths.Length == 0 && DragAndDrop.objectReferences.Length > 0)
+            {
+                foreach (var obj in DragAndDrop.objectReferences)
+                {
+                    // var go = obj as GameObject;
+                    bool isPrefab = PrefabUtility.IsPartOfPrefabAsset(obj);
+
+                    if (isPrefab)
+                    {
+                        Debug.Log("prefab - " + obj);
+                    }
+                    else
+                    {
+                        Debug.Log("GameObject - " + obj);
+                    }
+                }
+            }
+            // Object outside project. It mays from File Explorer (Finder in OSX).
+            else if (DragAndDrop.paths.Length > 0 && DragAndDrop.objectReferences.Length == 0)
+            {
+                Debug.Log("File");
+                foreach (string path in DragAndDrop.paths)
+                {
+                    Debug.Log("- " + path);
+                }
+            }
+            // Unity Assets including folder.
+            else if (DragAndDrop.paths.Length == DragAndDrop.objectReferences.Length)
+            {
+                Debug.Log("UnityAsset");
+                for (int i = 0; i < DragAndDrop.objectReferences.Length; i++)
+                {
+                    var obj = DragAndDrop.objectReferences[i];
+                    string path = DragAndDrop.paths[i];
+                    Debug.Log(obj.GetType().Name);
+
+                    // Folder.
+                    if (obj is DefaultAsset)
+                    {
+                        Debug.Log(path);
+                    }
+                    // C# or JavaScript.
+                    else if (obj is MonoScript)
+                    {
+                        Debug.Log(path + "\n" + obj);
+                    }
+                    else if (obj is Texture2D)
+                    {
+						
+                    }
+
+                }
+            }
+            // Log to make sure we cover all cases.
+            else
+            {
+                Debug.Log("Out of reach");
+                Debug.Log("Paths:");
+                foreach (string path in DragAndDrop.paths)
+                {
+                    Debug.Log("- " + path);
+                }
+
+                Debug.Log("ObjectReferences:");
+                foreach (var obj in DragAndDrop.objectReferences)
+                {
+                    Debug.Log("- " + obj);
+                }
+            }
+        }
     }
 
     void RenderChooseMode()
@@ -225,7 +313,6 @@ public class MyWindow : EditorWindow
             UpdatePrefab(pref);
         }
         
-        Space();
         if (pref.Usages > 0 && GUILayout.Button("Reset Counter"))
         {
             pref.Usages = 0;
@@ -235,7 +322,7 @@ public class MyWindow : EditorWindow
 
         if (GUILayout.Button("Prioritize"))
         {
-            pref.Usages = prefabs.Max(p => p.Usages) + 100;
+            pref.Usages = prefabs.Max(p => p.Usages) + 1;
             
             UpdatePrefab(pref);
         }
@@ -292,13 +379,11 @@ public class MyWindow : EditorWindow
             // GUIStyle style = new GUIStyle ();
             GUIStyle style = GUI.skin.FindStyle("Button");
             style.richText = true;
-            
+
             // if (GUILayout.Button(p.Name))
             // if (GUILayout.Button($"{p.Name}   ---   <b>{p.Url}</b>", style))
             if (GUILayout.Button($"<b>{p.Name}</b>\n{p.Url}", style))
             {
-                Debug.Log("Pressed " + p.Name);
-
                 newPath = p.AssetPath;
 
                 var asset = AssetDatabase.LoadMainAssetAtPath(p.AssetPath);
@@ -316,7 +401,7 @@ public class MyWindow : EditorWindow
 
     void RenderRecentPrefabs()
     {
-        var recent = prefabs.OrderByDescending(pp => pp.LastOpened).Take(7);
+        var recent = prefabs.OrderByDescending(pp => pp.LastOpened).Take(6);
 
         GUILayout.Label ("Recent prefabs", EditorStyles.boldLabel);
         RenderPrefabs(recent);
@@ -324,7 +409,7 @@ public class MyWindow : EditorWindow
 
     void RenderFavoritePrefabs()
     {
-        var top = prefabs.OrderByDescending(pp => pp.Usages).Take(5);
+        var top = prefabs.OrderByDescending(pp => pp.Usages).Take(4);
 
         GUILayout.Label ("Favorite prefabs", EditorStyles.boldLabel);
         RenderPrefabs(top);
