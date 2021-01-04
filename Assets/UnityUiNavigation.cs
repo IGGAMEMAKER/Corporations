@@ -324,7 +324,10 @@ public class MyWindow : EditorWindow
 
                 newPath = p.AssetPath;
 
-                Selection.activeObject = AssetDatabase.LoadMainAssetAtPath(p.AssetPath);
+                var asset = AssetDatabase.LoadMainAssetAtPath(p.AssetPath);
+                AssetDatabase.OpenAsset(asset);
+                Selection.activeObject = asset;
+                // AssetDatabase.OpenAsset(AssetDatabase.LoadMainAssetAtPath(p.AssetPath));
             }
             
             GUI.contentColor = c;
