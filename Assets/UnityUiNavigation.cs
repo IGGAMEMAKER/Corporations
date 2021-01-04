@@ -317,7 +317,8 @@ public class MyWindow : EditorWindow
             GUI.backgroundColor = color;
             
             
-            if (GUILayout.Button($"{p.Name}   ---   {p.Url}"))
+            if (GUILayout.Button($"{p.Name}"))
+            // if (GUILayout.Button($"{p.Name}   ---   {p.Url}"))
             {
                 Debug.Log("Pressed " + p.Name);
 
