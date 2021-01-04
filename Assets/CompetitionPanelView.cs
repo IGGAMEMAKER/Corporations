@@ -30,7 +30,7 @@ public class CompetitionPanelView : View
         Draw(ShowCompaniesButton, tg);
         Draw(ShowPositioningPanelButton, !tg);
 
-        Draw(PositioningPanel, tg);
+        // Draw(PositioningPanel, tg);
         Draw(CompaniesPanel, !tg);
         Draw(DaughterCompaniesPanel, !tg);
     }

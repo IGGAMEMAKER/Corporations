@@ -85,6 +85,25 @@ public partial class BaseClass : MonoBehaviour
         return m;
     }
 
+    public void OpenTab(string url)
+    {
+        var eventHandler = FindObjectOfType<SimpleUIEventHandler>();
+        
+        eventHandler.OpenTab(url);
+    }
+    public void OpenUrl(string url)
+    {
+        SimpleUIEventHandler eventHandler = FindObjectOfType<SimpleUIEventHandler>();
+
+        if (eventHandler == null)
+        {
+            Debug.LogError("SimpleUIEventHandler NOT FOUND");
+        }
+        else
+        {
+            eventHandler.OpenUrl(url);
+        }
+    }
 
     public void OpenModal(string ModalTag, bool closeOthers = true)
     {

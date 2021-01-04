@@ -41,10 +41,6 @@ public class FlagshipRelayInCompanyView : View
 
         switch (panelId)
         {
-            case 0:
-                ChooseMainScreen();
-                break;
-
             case 1:
                 ChooseManagersTabs(SelectedTeam);
                 break;
@@ -54,6 +50,34 @@ public class FlagshipRelayInCompanyView : View
                 break;
         }
 
+    }
+    
+    public void ChooseMainScreen()
+    {
+        HideAll(Tabs);
+        OpenUrl("/Holding/Main");
+        return;
+        if (Flagship.isRelease)
+        {
+            ChooseAudiencePickingPanel();
+        }
+        else
+        {
+            //ChooseMainScreen();
+            ChooseWorkerInteractions();
+        }
+
+        //ChooseWorkerInteractions();
+    }
+    
+    public void ChooseManagersTabs(int teamId)
+    {
+        FillSlot(teamId, 0);
+        // ShowOnly(ManagersTabs, Tabs);
+        //
+        // Hide(TaskPanel);
+
+        ScreenUtils.Navigate(Q, ScreenMode.TeamScreen);
     }
 
     public void RemoveTask()
@@ -103,20 +127,7 @@ public class FlagshipRelayInCompanyView : View
         //ShowOnly(WorkerInteractions, Tabs);
     }
 
-    public void ChooseMainScreen()
-    {
-        if (Flagship.isRelease)
-        {
-            ChooseAudiencePickingPanel();
-        }
-        else
-        {
-            //ChooseMainScreen();
-            ChooseWorkerInteractions();
-        }
 
-        //ChooseWorkerInteractions();
-    }
 
     public void ChooseTaskTab()
     {
@@ -137,13 +148,5 @@ public class FlagshipRelayInCompanyView : View
         ShowOnly(InvestmentTabs, Tabs);
     }
 
-    public void ChooseManagersTabs(int teamId)
-    {
-        FillSlot(teamId, 0);
-        ShowOnly(ManagersTabs, Tabs);
 
-        Hide(TaskPanel);
-
-        ScreenUtils.Navigate(Q, ScreenMode.TeamScreen);
-    }
 }
