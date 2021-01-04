@@ -287,10 +287,15 @@ public class MyWindow : EditorWindow
             GUI.contentColor = color;
             GUI.color = color;
             GUI.backgroundColor = color;
+
             
+            // GUIStyle style = new GUIStyle ();
+            GUIStyle style = GUI.skin.FindStyle("Button");
+            style.richText = true;
             
-            if (GUILayout.Button(p.Name))
-            // if (GUILayout.Button($"{p.Name}   ---   {p.Url}"))
+            // if (GUILayout.Button(p.Name))
+            // if (GUILayout.Button($"{p.Name}   ---   <b>{p.Url}</b>", style))
+            if (GUILayout.Button($"<b>{p.Name}</b>\n{p.Url}", style))
             {
                 Debug.Log("Pressed " + p.Name);
 
