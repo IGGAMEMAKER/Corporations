@@ -95,6 +95,9 @@ public class MyWindow : EditorWindow
     
     static List<NewSceneTypeBlah> prefabs; // = new List<NewSceneTypeBlah>();
 
+    private static int ChosenIndex => prefabs.FindIndex(p => p.AssetPath.Equals(newPath));
+    private static bool hasChosenPrefab => ChosenIndex >= 0;
+
     // Add menu item named "My Window" to the Window menu
     [MenuItem("Window/UI-NAVIGATION")]
     public static void ShowWindow()
@@ -130,11 +133,9 @@ public class MyWindow : EditorWindow
 
     static void TryToIncreaseCurrentPrefabCounter()
     {
-        var index = prefabs.FindIndex(p => p.AssetPath.Equals(newPath));
+        var index = ChosenIndex;
 
-        bool prefabIsUrlAlready = index >= 0;
-
-        if (prefabIsUrlAlready)
+        if (hasChosenPrefab)
         {
             var pref = prefabs[index];
 
@@ -145,25 +146,6 @@ public class MyWindow : EditorWindow
         }
     }
 
-    // static void PrefabStage_prefabSaved(GameObject obj)
-    // {
-    //     Debug.Log("Prefab edited: " + obj.name);
-    //
-    //     if (Application.isPlaying)
-    //     {
-    //         ScheduleUtils.PauseGame(Contexts.sharedInstance.game);
-    //
-    //         //SceneManager.UnloadScene(1);
-    //         //Task.Run(() => SceneManager.UnloadSceneAsync(1));
-    //         SceneManager.UnloadScene(1);
-    //         //State.LoadGameScene();
-    //         SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
-    //
-    //
-    //         //ScreenUtils.UpdateScreen(Contexts.sharedInstance.game);
-    //     }
-    // }
-    
     void OnGUI()
     {
         GUILayout.Label ("SIMPLE UI", EditorStyles.largeLabel);
@@ -192,9 +174,7 @@ public class MyWindow : EditorWindow
 
         RenderPrefabs();
         
-        bool prefabIsUrlAlready = prefabs.Any(p => p.AssetPath.Equals(newPath));
-        
-        if (prefabIsUrlAlready)
+        if (hasChosenPrefab)
             RenderEditingPrefab();
         else
             RenderAddingNewRoute();
@@ -204,11 +184,11 @@ public class MyWindow : EditorWindow
 
     void RenderEditingPrefab()
     {
-        var index = prefabs.FindIndex(p => p.AssetPath.Equals(newPath));
+        var index = ChosenIndex;
         var pref = prefabs[index];
 
         Space();
-        GUILayout.Label("EDIT URL " + pref.Url, EditorStyles.boldLabel);
+        GUILayout.Label(pref.Url, EditorStyles.boldLabel);
 
         Space();
         if (GUILayout.Button("Remove URL"))
@@ -326,7 +306,16 @@ public class MyWindow : EditorWindow
 
         foreach (var p in prefabs.OrderByDescending(pp => pp.Usages))
         {
-            if (GUILayout.Button($"{p.Name}   ---   {p.Url}"))
+            var c = GUI.color;
+
+            bool isChosen = hasChosenPrefab && prefabs[ChosenIndex].AssetPath.Equals(p.AssetPath);
+            var color = Visuals.GetColorFromString(isChosen ? Colors.COLOR_YOU : Colors.COLOR_NEUTRAL);
+            GUI.contentColor = color;
+            GUI.color = color;
+            GUI.backgroundColor = color;
+            
+            
+            if (GUILayout.Button($"{p.Name}   ---   {p.Url} {isChosen}"))
             {
                 Debug.Log("Pressed " + p.Name);
 
@@ -334,6 +323,10 @@ public class MyWindow : EditorWindow
 
                 Selection.activeObject = AssetDatabase.LoadMainAssetAtPath(p.AssetPath);
             }
+            
+            GUI.contentColor = c;
+            GUI.color = c;
+            GUI.backgroundColor = c;            
         }
     }
     
