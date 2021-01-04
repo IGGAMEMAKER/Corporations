@@ -303,14 +303,10 @@ public class MyWindow : EditorWindow
         SaveData();
     }
 
-    void RenderPrefabs()
+    void RenderPrefabs(IEnumerable<NewSceneTypeBlah> list)
     {
-        LoadData();
-        
-        Space();
-        GUILayout.Label ("Favorite prefabs", EditorStyles.boldLabel);
-
-        foreach (var p in prefabs.OrderByDescending(pp => pp.Usages).Take(7))
+        // prefabs.OrderByDescending(pp => pp.Usages).Take(7)
+        foreach (var p in list)
         {
             var c = GUI.color;
 
@@ -334,6 +330,21 @@ public class MyWindow : EditorWindow
             GUI.color = c;
             GUI.backgroundColor = c;            
         }
+    }
+    void RenderPrefabs()
+    {
+        LoadData();
+        
+        Space();
+
+        var top = prefabs.OrderByDescending(pp => pp.Usages).Take(5);
+        var recent = prefabs.OrderByDescending(pp => pp.LastOpened).Take(7);
+
+        GUILayout.Label ("Favorite prefabs", EditorStyles.boldLabel);
+        RenderPrefabs(top);
+        
+        GUILayout.Label ("Recent prefabs", EditorStyles.boldLabel);
+        RenderPrefabs(recent);
     }
     
     static void SaveData()
