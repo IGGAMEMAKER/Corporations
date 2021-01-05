@@ -17,6 +17,7 @@ using UnityEngine.SceneManagement;
 // https://gist.github.com/rutcreate/0af3c34abd497a2bceed506f953308d7
 // https://stackoverflow.com/questions/36850296/get-a-prefabs-file-location-in-unity
 // https://forum.unity.com/threads/dropdown-in-inspector.468739/
+// https://forum.unity.com/threads/editorguilayout-scrollview-not-working.143502/
 // optional
 // https://answers.unity.com/questions/201848/how-to-create-a-drop-down-menu-in-editor.html
 
@@ -110,6 +111,8 @@ public class MyWindow : EditorWindow
     bool myBool = true;
     float myFloat = 1.23f;
 
+    private Vector2 recentPrefabsScrollPosition = Vector2.zero;
+
     private static string newUrl = "";
     private static string newName = "";
     private static string newPath = "";
@@ -165,7 +168,7 @@ public class MyWindow : EditorWindow
 
     void OnGUI()
     {
-        GUILayout.BeginScrollView(new Vector2(0, 0));
+        recentPrefabsScrollPosition = GUILayout.BeginScrollView(recentPrefabsScrollPosition);
         GUILayout.Label ("SIMPLE UI", EditorStyles.largeLabel);
 
         RenderPrefabs();

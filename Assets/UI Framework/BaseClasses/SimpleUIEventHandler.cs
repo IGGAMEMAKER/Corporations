@@ -25,14 +25,49 @@ public class SimpleUIEventHandler : MonoBehaviour
     public void OpenUrl(string url)
     {
         LoadData();
+
+        var cUrl = "/";
+        // hide opened stuff
+        foreach (var subPath in CurrentUrl.Split('/'))
+        {
+            cUrl += subPath;
+            
+            // HidePrefab(cUrl);
+            Debug.Log("HIDE prefab by url: " + cUrl);
+        }
+
+        cUrl = "/";
+        // show new stuff
+        // RenderPrefab(cUrl);
+
+        foreach (var subPath in url.Split('/'))
+        {
+            cUrl += subPath;
+            
+            Debug.Log("Render prefab by url: " + cUrl);
+            // RenderPrefab(cUrl);
+        }
         
+        RenderPrefab(url);
+
+        CurrentUrl = url;
+    }
+
+    void RenderPrefab(string url)
+    {
         var p = GetPrefab(url);
         
         if (p != null)
             p.SetActive(true);
-
-        CurrentUrl = url;
     }
+
+    void HidePrefab(string url)
+    {
+        var p = GetPrefab(url);
+        
+        if (p != null)
+            p.SetActive(false);
+    } 
 
     GameObject GetPrefab(string url)
     {
