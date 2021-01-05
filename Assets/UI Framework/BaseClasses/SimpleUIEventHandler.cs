@@ -25,15 +25,23 @@ public class SimpleUIEventHandler : MonoBehaviour
     public void OpenUrl(string url)
     {
         LoadData();
+        
+        Debug.Log($"SHIFTING FROM {CurrentUrl}=>{url}");
+
+        var newUrls = new List<string>();
+        var removableUrls = new List<string>();
+        var commonUrls = new List<string>();
 
         var cUrl = "/";
         // hide opened stuff
         foreach (var subPath in CurrentUrl.Split('/'))
         {
-            cUrl += subPath;
+            if (subPath.StartsWith("/") || cUrl.EndsWith("/"))
+                cUrl += subPath;
+            else
+                cUrl += "/" + subPath;
             
-            // HidePrefab(cUrl);
-            Debug.Log("HIDE prefab by url: " + cUrl);
+            removableUrls.Add(cUrl);
         }
 
         cUrl = "/";
@@ -42,10 +50,41 @@ public class SimpleUIEventHandler : MonoBehaviour
 
         foreach (var subPath in url.Split('/'))
         {
-            cUrl += subPath;
+            if (subPath.StartsWith("/") || cUrl.EndsWith("/"))
+                cUrl += subPath;
+            else
+                cUrl += "/" + subPath;
             
-            Debug.Log("Render prefab by url: " + cUrl);
-            // RenderPrefab(cUrl);
+            newUrls.Add(cUrl);
+        }
+
+        foreach (var removableUrl in removableUrls)
+        {
+            if (newUrls.Contains(removableUrl))
+            {
+                commonUrls.Add(removableUrl);
+                Debug.Log("Common url: " + removableUrl);                
+            }
+        }
+
+        foreach (var commonUrl in commonUrls)
+        {
+            newUrls.RemoveAll(u => u.Equals(commonUrl));
+            removableUrls.RemoveAll(u => u.Equals(commonUrl));
+        }
+        
+        foreach (var removableUrl in removableUrls)
+        {
+            Debug.Log("HIDE prefab by url: " + removableUrl);
+
+            // HidePrefab(removableUrl);
+        }
+
+        foreach (var newUrl in newUrls)
+        {
+            Debug.Log("Render prefab by url: " + newUrl);
+            
+            // RenderPrefab(newUrl);
         }
         
         RenderPrefab(url);
