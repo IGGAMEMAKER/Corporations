@@ -159,9 +159,16 @@ public class CompanyTaskTypeRelay : View
         ShowOnly(DevelopmentTab, Tabs);
     }
 
+    void CloseTabs()
+    {
+        OpenUrl("/Holding/Main");
+        HideTabs();
+    }
+
     public void OnDevelopmentTabLeave()
     {
-        HideTabs();
+        // HideTabs();
+        CloseTabs();
     }
 
     // ------
@@ -173,7 +180,8 @@ public class CompanyTaskTypeRelay : View
 
     public void OnMarketingTabLeave()
     {
-        HideTabs();
+        // HideTabs();
+        CloseTabs();
     }
 
     // -------
@@ -185,7 +193,8 @@ public class CompanyTaskTypeRelay : View
 
     public void OnTeamTabLeave()
     {
-        HideTabs();
+        // HideTabs();
+        CloseTabs();
     }
 
     // ------
