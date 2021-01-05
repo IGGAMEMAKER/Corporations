@@ -179,7 +179,7 @@ public class MenuController : View
         // DisableAllScreens();
         OpenUrl(PrefabScreens[screen]);
 
-        ToggleScreen(screen, true);
+        // ToggleScreen(screen, true);
     }
 
     //[ExecuteInEditMode]
@@ -244,6 +244,6 @@ public class MenuController : View
 
     void SetTitle(ScreenMode screen)
     {
-        ScreenTitle.text = GetScreenTitle(screen);
+        // ScreenTitle.text = GetScreenTitle(screen);
     }
 }
