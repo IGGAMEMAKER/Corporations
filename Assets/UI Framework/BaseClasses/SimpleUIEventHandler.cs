@@ -15,9 +15,6 @@ public class SimpleUIEventHandler : MonoBehaviour
     public string CurrentUrl;
     static List<SimpleUISceneType> prefabs; // = new List<NewSceneTypeBlah>();
 
-    private static int counter = 0;
-    private bool canRenderStuff = true;
-
     // void Start()
     // {
     //     LoadData();
@@ -98,11 +95,11 @@ public class SimpleUIEventHandler : MonoBehaviour
             {
                 Debug.Log("Avoiding miserable url: " + commonUrl);
 
-                var names = prefabs.Select(p => p.Url);
-                Debug.Log(string.Join("\n", names));
-
-                var prefab = prefabs.First(p => p.Url.Equals(commonUrl));
-                Debug.Log("Loaded prefab: " + prefab.Name + " " + prefab.AssetPath);
+                // var names = prefabs.Select(p => p.Url);
+                // Debug.Log(string.Join("\n", names));
+                //
+                // var prefab = prefabs.First(p => p.Url.Equals(commonUrl));
+                // Debug.Log("Loaded prefab: " + prefab.Name + " " + prefab.AssetPath);
 
                 var prefab2 = GetPrefab(commonUrl);
             }
@@ -127,20 +124,10 @@ public class SimpleUIEventHandler : MonoBehaviour
         CurrentUrl = NextUrl;
     }
 
-    void MeasureAttempts(string url)
-    {
-        counter++;
-        
-        if (counter > 100)
-            canRenderStuff = false;
-    }
-
     void RenderPrefab(string url)
     {
         Debug.Log("Render prefab by url: " + url);
 
-        MeasureAttempts(url);
-        
         var p = GetPrefab(url);
         
         if (p != null && !p.activeSelf)
@@ -151,14 +138,17 @@ public class SimpleUIEventHandler : MonoBehaviour
     {
         Debug.Log("HIDE prefab by url: " + url);
 
-        MeasureAttempts(url);
-
         var p = GetPrefab(url);
         
         if (p != null && p.activeSelf)
             p.SetActive(false);
-    } 
+    }
 
+    // GameObject GetAssetByUrl(string url)
+    // {
+    //     
+    // }
+    
     GameObject GetPrefab(string url)
     {
         try
@@ -182,8 +172,6 @@ public class SimpleUIEventHandler : MonoBehaviour
                 
                 if (isTestUrl) Debug.Log("Found data for ROOT prefab");
 
-                // if (isTestUrl) return null;
-
                 var obj = AssetDatabase.LoadAssetAtPath<GameObject>(pre.AssetPath);
                 if (obj == null)
                 {
@@ -191,10 +179,14 @@ public class SimpleUIEventHandler : MonoBehaviour
                     return null;
                 }
                 
-                if (isTestUrl) Debug.Log("Loaded ROOT prefab from assets " + pre.AssetPath);
+                if (isTestUrl) Debug.Log("Loaded ROOT prefab from assets " + pre.AssetPath + " " + obj.name);
                 // if (isTestUrl) return null;
                 
                 // Objects[url] = Instantiate(AssetDatabase.GetMainAssetTypeAtPath(pre.AssetPath));
+
+                if (isTestUrl)
+                    return obj;
+                
                 Objects[url] = Instantiate(obj, transform);
                 
                 if (isTestUrl) Debug.Log("INSTANTIATED ROOT prefab");
