@@ -1,4 +1,5 @@
-﻿using Assets.Core;
+﻿using System;
+using Assets.Core;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -80,7 +81,14 @@ public class TeamTaskView : View
             RenderSupportTask(product);
         }
 
-        RenderTaskProgress(product);
+        try
+        {
+            RenderTaskProgress(product);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError(e);
+        }
     }
 
     void RenderTaskProgress(GameEntity product)

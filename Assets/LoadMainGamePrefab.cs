@@ -7,7 +7,10 @@ public class LoadMainGamePrefab : View
 {
     void Start()
     {
-        OpenUrl("/Holding/Main");
+        OpenUrl("/");
+        OpenUrl("/Holding");
+        // OpenUrl("/Holding/Main");
+        
         // Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/MainGameScreen.prefab"));
 
         // Instantiate(Resources.Load<GameObject>("Prefabs/MainGameScreen"));

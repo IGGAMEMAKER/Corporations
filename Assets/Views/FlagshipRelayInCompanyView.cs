@@ -25,10 +25,10 @@ public class FlagshipRelayInCompanyView : View
     // List<GameObject> Tabs => new List<GameObject> { WorkerInteractions, InvestmentTabs, ManagersTabs, NewTeamTabs, AudiencePickingTab, AssignTaskPanel };
     // List<GameObject> Tabs => new List<GameObject> { DevelopmentTab, WorkerInteractions, InvestmentTabs, ManagersTabs, NewTeamTabs, AudiencePickingTab, AssignTaskPanel };
 
-    private void OnEnable()
-    {
-        ChooseMainScreen();
-    }
+    // private void OnEnable()
+    // {
+    //     ChooseMainScreen();
+    // }
     
     public void ChooseMainScreen()
     {

@@ -67,7 +67,7 @@ public struct SimpleUISceneType
 // }
 
 
-public class MyWindow : EditorWindow
+public class SimpleUI : EditorWindow
 {
     string myString = "Hello World";
     bool groupEnabled;
@@ -105,10 +105,10 @@ public class MyWindow : EditorWindow
     public static void ShowWindow()
     {
         //Show existing window instance. If one doesn't exist, make one.
-        EditorWindow.GetWindow(typeof(MyWindow), false, "Simple UI", true);
+        EditorWindow.GetWindow(typeof(SimpleUI), false, "Simple UI", true);
     }
     
-    static MyWindow()
+    static SimpleUI()
     {
         PrefabStage.prefabStageOpened += PrefabStage_prefabOpened;
     }
