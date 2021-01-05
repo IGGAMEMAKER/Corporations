@@ -1,25 +1,27 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Assets;
 using Assets.Core;
-using Entitas;
 using UnityEngine;
 
 
 using UnityEditor;
 using UnityEditor.Experimental.SceneManagement;
-using UnityEngine.SceneManagement;
+
+// Read
+// Как-работает-editorwindow-ongui-в-unity-3d
+// https://ru.stackoverflow.com/questions/515395/%D0%9A%D0%B0%D0%BA-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%D0%B5%D1%82-editorwindow-ongui-%D0%B2-unity-3d
 
 // https://answers.unity.com/questions/37180/how-to-highlight-or-select-an-asset-in-project-win.html
 // https://gist.github.com/rutcreate/0af3c34abd497a2bceed506f953308d7
 // https://stackoverflow.com/questions/36850296/get-a-prefabs-file-location-in-unity
 // https://forum.unity.com/threads/dropdown-in-inspector.468739/
 // https://forum.unity.com/threads/editorguilayout-scrollview-not-working.143502/
+
 // optional
 // https://answers.unity.com/questions/201848/how-to-create-a-drop-down-menu-in-editor.html
+// https://gist.github.com/bzgeb/3800350
 
 public enum SceneBlahType
 {

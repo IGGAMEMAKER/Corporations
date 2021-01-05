@@ -15,6 +15,16 @@ public class SimpleUIEventHandler : MonoBehaviour
     public string CurrentUrl;
     static List<SimpleUISceneType> prefabs; // = new List<NewSceneTypeBlah>();
 
+    void Start()
+    {
+        LoadData();
+
+        foreach (var prefab in prefabs)
+        {
+            RenderPrefab(prefab.Url);
+            // HidePrefab(prefab.Url);
+        }
+    }
 
     public void OpenTab(string url)
     {
@@ -120,7 +130,6 @@ public class SimpleUIEventHandler : MonoBehaviour
                     return null;
                 }
 
-                Debug.Log("Contains url");
                 var pre = prefabs.First(p => p.Url.Equals(url));
 
                 var obj = AssetDatabase.LoadAssetAtPath<GameObject>(pre.AssetPath);
@@ -130,14 +139,9 @@ public class SimpleUIEventHandler : MonoBehaviour
                     return null;
                 }
 
-                Debug.Log("Has Asset");
-
                 // Objects[url] = Instantiate(AssetDatabase.GetMainAssetTypeAtPath(pre.AssetPath));
                 Objects[url] = Instantiate(obj, transform);
             }
-
-            Debug.Log("Will return value");
-
         }
         catch (Exception e)
         {
