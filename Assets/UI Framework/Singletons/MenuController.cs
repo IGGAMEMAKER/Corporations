@@ -93,10 +93,8 @@ public class MenuController : View
         SetUrl(ScreenMode.PotentialCompaniesScreen, "PotentialCompaniesScreen");
         SetUrl(ScreenMode.AnnualReportScreen, "AnnualReportScreen");
         SetUrl(ScreenMode.StartCampaignScreen, "StartCampaignScreen");
-        
-        SetUrl(ScreenMode.GroupScreen, "ProjectScreen");
-        
-        SetUrl(ScreenMode.HoldingScreen, "CorporateCultureScreen");
+        SetUrl(ScreenMode.GroupScreen, "CorporateCultureScreen");
+        SetUrl(ScreenMode.HoldingScreen, "Holding");
         SetUrl(ScreenMode.CorporationScreen, "CorporationScreen");
         SetUrl(ScreenMode.AcquirableCompaniesOnNicheScreen, "AcquirableCompaniesOnNicheScreen");
         SetUrl(ScreenMode.JoinCorporationScreen, "JoinCorporationScreen");
