@@ -7,8 +7,10 @@ public class MenuController : View
 {
     // prefabs
     Dictionary<ScreenMode, GameObject> Screens;
-    public Dictionary<ScreenMode, GameObject> PrefabScreens;
-
+    
+    // string = url
+    private Dictionary<ScreenMode, string> PrefabScreens;
+    
     public Text ScreenTitle;
 
     public GameObject TechnologyScreen;
@@ -47,82 +49,51 @@ public class MenuController : View
     public GameObject TrendsScreen;
     public GameObject MessageScreen;
 
-    [Header("Prefabs here...")]
-    public GameObject TechnologyScreenPrefab;
-    public GameObject ProjectScreenPrefab;
-    public GameObject InvesmentsScreenPrefab;
-    public GameObject InvesmentProposalScreenPrefab;
-    public GameObject IndustryScreenPrefab;
-    public GameObject NicheScreenPrefab;
-    public GameObject CharacterScreenPrefab;
-    public GameObject GroupManagementScreenPrefab;
-    public GameObject TeamScreenPrefab;
-    public GameObject MarketingScreenPrefab;
-    public GameObject InvestmentOfferScreenPrefab;
-    public GameObject JobOfferScreenPrefab;
-    public GameObject CompanyGoalScreenPrefab;
-    public GameObject EmployeeScreenPrefab;
-    public GameObject ManageCompaniesScreenPrefab;
-    public GameObject BuySharesScreenPrefab;
-    public GameObject CompanyEconomyScreenPrefab;
-    public GameObject MarketExplorationScreenPrefab;
-    public GameObject CompanyExplorationScreenPrefab;
-    public GameObject LeaderboardScreenPrefab;
-    public GameObject ExplorationScreenPrefab;
-    public GameObject NicheInfoScreenPrefab;
-    public GameObject AcquisitionScreenPrefab;
-    public GameObject SalesScreenPrefab;
-    public GameObject PotentialCompaniesScreenPrefab;
-    public GameObject AnnualReportScreenPrefab;
-    public GameObject StartCampaignScreenPrefab;
-    public GameObject GroupScreenPrefab;
-    public GameObject HoldingScreenPrefab;
-    public GameObject CorporationScreenPrefab;
-    public GameObject AcquirableCompaniesOnNicheScreenPrefab;
-    public GameObject JoinCorporationScreenPrefab;
-    public GameObject FormStrategicPartnershipScreenPrefab;
-    public GameObject TrendsScreenPrefab;
-    public GameObject MessageScreenPrefab;
-
+    string GetWrappedUrl(string url)
+    {
+        return "/" + url;
+    }
+    
     void Start()
     {
-        PrefabScreens = new Dictionary<ScreenMode, GameObject>
+        var mockupUrl = GetWrappedUrl("ProjectScreen");
+        PrefabScreens = new Dictionary<ScreenMode, string>
         {
-            [ScreenMode.DevelopmentScreen] = TechnologyScreenPrefab,
-            [ScreenMode.ProjectScreen] = ProjectScreenPrefab,
-            [ScreenMode.InvesmentsScreen] = InvesmentsScreenPrefab,
-            [ScreenMode.InvesmentProposalScreen] = InvesmentProposalScreenPrefab,
-            [ScreenMode.IndustryScreen] = IndustryScreenPrefab,
-            [ScreenMode.NicheScreen] = NicheScreenPrefab,
-            [ScreenMode.CharacterScreen] = CharacterScreenPrefab,
-            [ScreenMode.GroupManagementScreen] = GroupManagementScreenPrefab,
-            [ScreenMode.TeamScreen] = TeamScreenPrefab,
-            [ScreenMode.MarketingScreen] = MarketingScreenPrefab,
-            [ScreenMode.InvestmentOfferScreen] = InvestmentOfferScreenPrefab,
-            [ScreenMode.JobOfferScreen] = JobOfferScreenPrefab,
-            [ScreenMode.CompanyGoalScreen] = CompanyGoalScreenPrefab,
-            [ScreenMode.EmployeeScreen] = EmployeeScreenPrefab,
-            [ScreenMode.ManageCompaniesScreen] = ManageCompaniesScreenPrefab,
-            [ScreenMode.BuySharesScreen] = BuySharesScreenPrefab,
-            [ScreenMode.CompanyEconomyScreen] = CompanyEconomyScreenPrefab,
-            [ScreenMode.MarketExplorationScreen] = MarketExplorationScreenPrefab,
-            [ScreenMode.CompanyExplorationScreen] = CompanyExplorationScreenPrefab,
-            [ScreenMode.LeaderboardScreen] = LeaderboardScreenPrefab,
-            [ScreenMode.ExplorationScreen] = ExplorationScreenPrefab,
-            [ScreenMode.NicheInfoScreen] = NicheInfoScreenPrefab,
-            [ScreenMode.AcquisitionScreen] = AcquisitionScreenPrefab,
-            [ScreenMode.SalesScreen] = SalesScreenPrefab,
-            [ScreenMode.PotentialCompaniesScreen] = PotentialCompaniesScreenPrefab,
-            [ScreenMode.AnnualReportScreen] = AnnualReportScreenPrefab,
-            [ScreenMode.StartCampaignScreen] = StartCampaignScreenPrefab,
-            [ScreenMode.GroupScreen] = GroupScreenPrefab,
-            [ScreenMode.HoldingScreen] = HoldingScreenPrefab,
-            [ScreenMode.CorporationScreen] = CorporationScreenPrefab,
-            [ScreenMode.AcquirableCompaniesOnNicheScreen] = AcquirableCompaniesOnNicheScreenPrefab,
-            [ScreenMode.JoinCorporationScreen] = JoinCorporationScreenPrefab,
-            [ScreenMode.FormStrategicPartnershipScreen] = FormStrategicPartnershipScreenPrefab,
-            [ScreenMode.TrendsScreen] = TrendsScreenPrefab,
-            [ScreenMode.MessageScreen] = MessageScreenPrefab,
+            [ScreenMode.DevelopmentScreen] = GetWrappedUrl("DevelopmentScreen"),
+            [ScreenMode.ProjectScreen] = GetWrappedUrl("ProjectScreen"),
+            [ScreenMode.InvesmentsScreen] = GetWrappedUrl("InvestmentScreen"),
+            [ScreenMode.InvesmentProposalScreen] = GetWrappedUrl("InvestmentRoundsScreen"),
+            [ScreenMode.IndustryScreen] = GetWrappedUrl("IndustryScreen"),
+            [ScreenMode.NicheScreen] = GetWrappedUrl("NicheScreen"),
+            [ScreenMode.CharacterScreen] = GetWrappedUrl("CharacterScreen"),
+            [ScreenMode.GroupManagementScreen] = GetWrappedUrl("ProjectScreen"),
+            [ScreenMode.TeamScreen] = GetWrappedUrl("TeamScreen"),
+            [ScreenMode.MarketingScreen] = GetWrappedUrl("MarketingScreen"),
+            [ScreenMode.InvestmentOfferScreen] = GetWrappedUrl("InvestmentOfferScreen"),
+            [ScreenMode.JobOfferScreen] = GetWrappedUrl("JobOfferScreen"),
+            [ScreenMode.CompanyGoalScreen] = GetWrappedUrl("CompanyGoalScreen"),
+            [ScreenMode.EmployeeScreen] = GetWrappedUrl("EmployeesScreen"),
+            [ScreenMode.ManageCompaniesScreen] = GetWrappedUrl("HierarchyScreen"),
+            [ScreenMode.BuySharesScreen] = GetWrappedUrl("BuySharesScreen"),
+            [ScreenMode.CompanyEconomyScreen] = GetWrappedUrl("EconomyScreen"),
+            [ScreenMode.MarketExplorationScreen] = GetWrappedUrl("MarketResearchScreen"),
+            [ScreenMode.CompanyExplorationScreen] = GetWrappedUrl("CompanyResearchScreen"),
+            [ScreenMode.LeaderboardScreen] = GetWrappedUrl("LeaderboardScreen"),
+            [ScreenMode.ExplorationScreen] = GetWrappedUrl("ExplorationScreen"),
+            [ScreenMode.NicheInfoScreen] = GetWrappedUrl("NicheInfoScreen"),
+            [ScreenMode.AcquisitionScreen] = GetWrappedUrl("AcquisitionScreen"),
+            [ScreenMode.SalesScreen] = GetWrappedUrl("SalesScreen"),
+            [ScreenMode.PotentialCompaniesScreen] = GetWrappedUrl("PotentialCompaniesScreen"),
+            [ScreenMode.AnnualReportScreen] = GetWrappedUrl("AnnualReportScreen"),
+            [ScreenMode.StartCampaignScreen] = GetWrappedUrl("StartCampaignScreen"),
+            [ScreenMode.GroupScreen] = GetWrappedUrl("ProjectScreen"),
+            [ScreenMode.HoldingScreen] = GetWrappedUrl("CorporateCultureScreen"),
+            [ScreenMode.CorporationScreen] = GetWrappedUrl("CorporationScreen"),
+            [ScreenMode.AcquirableCompaniesOnNicheScreen] = GetWrappedUrl("AcquirableCompaniesOnNicheScreen"),
+            [ScreenMode.JoinCorporationScreen] = GetWrappedUrl("JoinCorporationScreen"),
+            [ScreenMode.FormStrategicPartnershipScreen] = GetWrappedUrl("FormStrategicPartnershipScreen"),
+            [ScreenMode.TrendsScreen] = GetWrappedUrl("TrendsScreen"),
+            [ScreenMode.MessageScreen] = GetWrappedUrl("MessageScreen"),
         };
 
         Screens = new Dictionary<ScreenMode, GameObject>

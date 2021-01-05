@@ -55,45 +55,6 @@ public struct SimpleUISceneType
         LastOpened = 0;
     }
 }
-//
-// [ExecuteAlways]
-// public class UnityUiNavigation : View
-// {
-//     private void OnGUI()
-//     {
-//         var style = new GUIStyle();
-//
-//         var leftCorner = 0;
-//         var rightCorner = 1920;
-//
-//         var top = 0;
-//         var bottom = 1080;
-//
-//         var centerX = (leftCorner + rightCorner) / 2;
-//         var centerY = (top + bottom) / 2;
-//
-//         style.fontSize = 40;
-//         
-//         GUI.Label(new Rect(centerX, top, 100, 30), Visuals.Positive("Text"), style);
-//
-//         var prefabs = new List<NewSceneTypeBlah>();
-//         
-//         prefabs.Add(new NewSceneTypeBlah { Name = "Holding screen", Url = "/Main", AssetPath = "HoldingScreen.prefab" });
-//         prefabs.Add(new NewSceneTypeBlah { Name = "Acquisition screen", Url = "/Acquisitions", AssetPath = "AcquisitionScreen.prefab", SceneBlahType = SceneBlahType.Prefab });
-//
-//         for (var i = 0; i < prefabs.Count; i++)
-//         {
-//             var p = prefabs[i];
-//             
-//             if (GUI.Button(new Rect(rightCorner - 300, top + i * 90, 300, 80), p.Name))
-//             {
-//                 Debug.Log("Pressed " + p.Name);
-//                 
-//                 // PlaySound(Sound.Bubble1);
-//             }
-//         }
-//     }
-// }
 
 // void RenderExample()
 // {
@@ -274,7 +235,7 @@ public class MyWindow : EditorWindow
 
         draggedName = GetPrettyNameFromAssetPath(prefabPath);
         draggedPath = prefabPath;
-        draggedUrl = newUrl + "/" + draggedName;
+        draggedUrl = newUrl.TrimEnd('/') + "/" + draggedName.TrimStart('/');
     }
 
     void HandleDraggedGameObject(GameObject go)
@@ -285,7 +246,8 @@ public class MyWindow : EditorWindow
         
         draggedName = go.name;
         draggedPath = "";
-        draggedUrl = newUrl + "/" + draggedName;
+        // draggedUrl = newUrl + "/" + draggedName;
+        draggedUrl = newUrl.TrimEnd('/') + "/" + draggedName.TrimStart('/');
 
         PossiblePrefab = go;
     }
