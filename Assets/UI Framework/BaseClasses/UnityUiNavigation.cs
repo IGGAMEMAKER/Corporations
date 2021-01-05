@@ -16,6 +16,9 @@ using UnityEngine.SceneManagement;
 // https://answers.unity.com/questions/37180/how-to-highlight-or-select-an-asset-in-project-win.html
 // https://gist.github.com/rutcreate/0af3c34abd497a2bceed506f953308d7
 // https://stackoverflow.com/questions/36850296/get-a-prefabs-file-location-in-unity
+// https://forum.unity.com/threads/dropdown-in-inspector.468739/
+// optional
+// https://answers.unity.com/questions/201848/how-to-create-a-drop-down-menu-in-editor.html
 
 public enum SceneBlahType
 {
@@ -99,6 +102,7 @@ public struct SimpleUISceneType
 // // EditorGUILayout.EndToggleGroup ();
 // }
 
+
 public class MyWindow : EditorWindow
 {
     string myString = "Hello World";
@@ -152,6 +156,8 @@ public class MyWindow : EditorWindow
         // var x = newPath.Split('/').Last();
         // var ind = x.LastIndexOf(".prefab");
 
+        // newName = x.Substring(0, ind);
+        
         newName = GetPrettyNameFromAssetPath(newPath); // x.Substring(0, ind);
 
         TryToIncreaseCurrentPrefabCounter();
