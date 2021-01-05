@@ -15,6 +15,7 @@ using UnityEngine.SceneManagement;
 
 // https://answers.unity.com/questions/37180/how-to-highlight-or-select-an-asset-in-project-win.html
 // https://gist.github.com/rutcreate/0af3c34abd497a2bceed506f953308d7
+// https://stackoverflow.com/questions/36850296/get-a-prefabs-file-location-in-unity
 
 public enum SceneBlahType
 {
@@ -88,6 +89,15 @@ public struct SimpleUISceneType
 //     }
 // }
 
+// void RenderExample()
+// {
+// // myString = EditorGUILayout.TextField ("Text Field", myString);
+//         
+// // groupEnabled = EditorGUILayout.BeginToggleGroup ("Optional Settings", groupEnabled);
+// // myBool = EditorGUILayout.Toggle ("Toggle", myBool);
+// // myFloat = EditorGUILayout.Slider ("Slider", myFloat, -3, 3);
+// // EditorGUILayout.EndToggleGroup ();
+// }
 
 public class MyWindow : EditorWindow
 {
@@ -100,6 +110,10 @@ public class MyWindow : EditorWindow
     private static string newName = "";
     private static string newPath = "";
     
+    private static string draggedUrl = "";
+    private static string draggedName = "";
+    private static string draggedPath = "";
+    
     static List<SimpleUISceneType> prefabs; // = new List<NewSceneTypeBlah>();
 
     private static int ChosenIndex => prefabs.FindIndex(p => p.AssetPath.Equals(newPath));
@@ -108,6 +122,11 @@ public class MyWindow : EditorWindow
     private bool showTopPrefabs = false;
     private bool showRecentPrefabs = false;
     private bool showAllPrefabs = false;
+    private bool isDraggedPrefabMode = false;
+
+    private static GameObject CurrentObject;
+
+    private GameObject PossiblePrefab;
     
     // Add menu item named "My Window" to the Window menu
     [MenuItem("Window/SIMPLE UI")]
@@ -119,25 +138,19 @@ public class MyWindow : EditorWindow
     
     static MyWindow()
     {
-        PrefabStage.prefabStageOpened += PrefabStage_prefabSaved;
+        PrefabStage.prefabStageOpened += PrefabStage_prefabOpened;
     }
 
-    // void OnDidOpenScene()
-    // {
-    //     ShowWindow();
-    // }
-
-    private static void PrefabStage_prefabSaved(PrefabStage obj)
+    private static void PrefabStage_prefabOpened(PrefabStage obj)
     {
         Debug.Log("Prefab opened: " + obj.prefabContentsRoot.name);
 
         newPath = obj.prefabAssetPath;
 
-        var x = newPath.Split('/').Last();
-        var ind = x.LastIndexOf(".prefab");
-         
-        newName = x.Substring(0, ind);;
+        // var x = newPath.Split('/').Last();
+        // var ind = x.LastIndexOf(".prefab");
 
+        newName = GetPrettyNameFromAssetPath(newPath); // x.Substring(0, ind);
 
         TryToIncreaseCurrentPrefabCounter();
     }
@@ -149,7 +162,9 @@ public class MyWindow : EditorWindow
 
         RenderPrefabs();
 
-        if (hasChosenPrefab)
+        if (isDraggedPrefabMode)
+            RenderAddingNewRouteFromDraggedPrefab();
+        else if (hasChosenPrefab)
             RenderEditingPrefab();
         else
             RenderAddingNewRoute();
@@ -159,105 +174,61 @@ public class MyWindow : EditorWindow
         GUILayout.EndScrollView();
     }
 
-    
-    void HandleDragAndDrop()
+    string GetValidatedUrl(string url)
     {
-        if (Event.current.type == EventType.DragUpdated)
+        if (!url.StartsWith("/"))
+            return url.Insert(0, "/");
+        
+        return url;
+    }
+
+    void RenderAddingNewRouteFromDraggedPrefab()
+    {
+        Space();
+        GUILayout.Label("Add DRAGGED prefab", EditorStyles.boldLabel);
+
+        draggedUrl = EditorGUILayout.TextField("Url", draggedUrl);
+        draggedName = EditorGUILayout.TextField("Name", draggedName);
+
+        
+        var dataCorrect = draggedUrl.Length > 0 && draggedName.Length > 0; 
+
+        if (dataCorrect && GUILayout.Button("Add DRAGGED prefab!"))
         {
-            DragAndDrop.visualMode = DragAndDropVisualMode.Copy;
-            Event.current.Use();
-        }
-        else if (Event.current.type == EventType.DragPerform)
-        {
-            // To consume drag data.
-            DragAndDrop.AcceptDrag();
+            Space();
+            draggedUrl = GetValidatedUrl(draggedUrl);
+
+            Debug.Log("Added DRAGGED prefab");
             
-            // GameObjects from hierarchy.
-            if (DragAndDrop.paths.Length == 0 && DragAndDrop.objectReferences.Length > 0)
-            {
-                foreach (var obj in DragAndDrop.objectReferences)
-                {
-                    // var go = obj as GameObject;
-                    bool isPrefab = PrefabUtility.IsPartOfPrefabAsset(obj);
+            AddPrefab(draggedUrl, draggedPath, draggedName);
 
-                    if (isPrefab)
-                    {
-                        Debug.Log("prefab - " + obj);
-                    }
-                    else
-                    {
-                        Debug.Log("GameObject - " + obj);
-                    }
-                }
-            }
-            // Object outside project. It mays from File Explorer (Finder in OSX).
-            else if (DragAndDrop.paths.Length > 0 && DragAndDrop.objectReferences.Length == 0)
-            {
-                Debug.Log("File");
-                foreach (string path in DragAndDrop.paths)
-                {
-                    Debug.Log("- " + path);
-                }
-            }
-            // Unity Assets including folder.
-            else if (DragAndDrop.paths.Length == DragAndDrop.objectReferences.Length)
-            {
-                Debug.Log("UnityAsset");
-                for (int i = 0; i < DragAndDrop.objectReferences.Length; i++)
-                {
-                    var obj = DragAndDrop.objectReferences[i];
-                    string path = DragAndDrop.paths[i];
-                    Debug.Log(obj.GetType().Name);
-
-                    // Folder.
-                    if (obj is DefaultAsset)
-                    {
-                        Debug.Log(path);
-                    }
-                    // C# or JavaScript.
-                    else if (obj is MonoScript)
-                    {
-                        Debug.Log(path + "\n" + obj);
-                    }
-                    else if (obj is Texture2D)
-                    {
-						
-                    }
-
-                }
-            }
-            // Log to make sure we cover all cases.
-            else
-            {
-                Debug.Log("Out of reach");
-                Debug.Log("Paths:");
-                foreach (string path in DragAndDrop.paths)
-                {
-                    Debug.Log("- " + path);
-                }
-
-                Debug.Log("ObjectReferences:");
-                foreach (var obj in DragAndDrop.objectReferences)
-                {
-                    Debug.Log("- " + obj);
-                }
-            }
+            SaveData();
         }
     }
 
-    void RenderChooseMode()
+    void HandleDraggedPrefab(GameObject go)
     {
+        isDraggedPrefabMode = true;
+        PossiblePrefab = go;
+                        
+        // var parent = PrefabUtility.GetCorrespondingObjectFromSource(go);
+        // var GameObject2 = PrefabUtility.GetPrefabParent(go);
+        var parent = PrefabUtility.GetCorrespondingObjectFromSource(go);
+        string prefabPath = AssetDatabase.GetAssetPath(parent);
+                        
+        Debug.Log("route = " + prefabPath);
         
+        // try to attach this prefab
+        // to current prefab
+        // newPath =
+        draggedName = GetPrettyNameFromAssetPath(prefabPath);
+        draggedPath = prefabPath;
+        draggedUrl = newUrl + "/" + draggedName;
     }
 
-    void RenderExample()
+    void HandleDraggedGameObject(GameObject go)
     {
-        // myString = EditorGUILayout.TextField ("Text Field", myString);
         
-        // groupEnabled = EditorGUILayout.BeginToggleGroup ("Optional Settings", groupEnabled);
-        // myBool = EditorGUILayout.Toggle ("Toggle", myBool);
-        // myFloat = EditorGUILayout.Slider ("Slider", myFloat, -3, 3);
-        // EditorGUILayout.EndToggleGroup ();
     }
 
     void RenderEditingPrefab()
@@ -335,69 +306,51 @@ public class MyWindow : EditorWindow
 
         newUrl = EditorGUILayout.TextField("Url", newUrl);
 
-        if (newUrl.Length > 0)
+        bool urlOK = newUrl.Length > 0;
+        bool newNameOK = newName.Length > 0;
+        bool pathOK = newPath.Length > 0;
+        
+        if (urlOK)
         {
-            if (!newUrl.StartsWith("/"))
-                newUrl = newUrl.Insert(0, "/");
+            newUrl = GetValidatedUrl(newUrl);
             
             newName = EditorGUILayout.TextField("Name", newName);
-
-            if (newName.Length > 0)
-            {
-                newPath = EditorGUILayout.TextField("Asset Path", newPath);
-                
-                if (newPath.Length > 0)
-                {
-                    Space();
-                    if (GUILayout.Button("Add prefab!")) //  <" + newName + ">
-                    {
-                        Debug.Log("Added prefab");
-                        
-                        prefabs.Add(new SimpleUISceneType(newUrl, newPath, newName));
-
-                        SaveData();
-                    }
-                }
-            }
         }
-    }
-
-    void RenderPrefabs(IEnumerable<SimpleUISceneType> list)
-    {
-        // prefabs.OrderByDescending(pp => pp.Usages).Take(7)
-        foreach (var p in list)
+        
+        if (urlOK && newNameOK)
         {
-            var c = GUI.color;
-
-            bool isChosen = hasChosenPrefab && prefabs[ChosenIndex].AssetPath.Equals(p.AssetPath);
-            var color = Visuals.GetColorFromString(isChosen ? Colors.COLOR_YOU : Colors.COLOR_NEUTRAL);
-            GUI.contentColor = color;
-            GUI.color = color;
-            GUI.backgroundColor = color;
-
-            
-            // GUIStyle style = new GUIStyle ();
-            GUIStyle style = GUI.skin.FindStyle("Button");
-            style.richText = true;
-
-            // if (GUILayout.Button(p.Name))
-            // if (GUILayout.Button($"{p.Name}   ---   <b>{p.Url}</b>", style))
-            if (GUILayout.Button($"<b>{p.Name}</b>\n{p.Url}", style))
+            newPath = EditorGUILayout.TextField("Asset Path", newPath);
+        }
+        
+        if (urlOK && newNameOK && pathOK)
+        {
+            Space();
+            if (GUILayout.Button("Add prefab!")) //  <" + newName + ">
             {
-                newPath = p.AssetPath;
+                Debug.Log("Added prefab");
+                        
+                AddPrefab(newUrl, newPath, newName);
 
-                var asset = AssetDatabase.LoadMainAssetAtPath(p.AssetPath);
-                
-                AssetDatabase.OpenAsset(asset);
-                Selection.activeObject = asset;
-                // AssetDatabase.OpenAsset(AssetDatabase.LoadMainAssetAtPath(p.AssetPath));
+                SaveData();
             }
-            
-            GUI.contentColor = c;
-            GUI.color = c;
-            GUI.backgroundColor = c;            
         }
     }
+
+    void OpenPrefab(SimpleUISceneType p)
+    {
+        newPath = p.AssetPath;
+
+        var asset = AssetDatabase.LoadMainAssetAtPath(p.AssetPath);
+
+        PossiblePrefab = null;
+        isDraggedPrefabMode = false;
+                
+        AssetDatabase.OpenAsset(asset);
+        Selection.activeObject = asset;
+        // AssetDatabase.OpenAsset(AssetDatabase.LoadMainAssetAtPath(p.AssetPath));
+    }
+
+
 
     void RenderRecentPrefabs()
     {
@@ -435,6 +388,50 @@ public class MyWindow : EditorWindow
     
     
     // ----- utils -------------
+    void AddPrefab(string ururu, string papapath, string nananame)
+    {
+        prefabs.Add(new SimpleUISceneType(ururu, papapath, nananame));
+    }
+    
+    static string GetPrettyNameFromAssetPath(string assetPa)
+    {
+        var x = assetPa.Split('/').Last();
+        var ind = x.LastIndexOf(".prefab");
+         
+        return x.Substring(0, ind);
+    }
+    
+    void RenderPrefabs(IEnumerable<SimpleUISceneType> list)
+    {
+        // prefabs.OrderByDescending(pp => pp.Usages).Take(7)
+        foreach (var p in list)
+        {
+            var c = GUI.color;
+
+            bool isChosen = hasChosenPrefab && prefabs[ChosenIndex].AssetPath.Equals(p.AssetPath);
+            var color = Visuals.GetColorFromString(isChosen ? Colors.COLOR_YOU : Colors.COLOR_NEUTRAL);
+            GUI.contentColor = color;
+            GUI.color = color;
+            GUI.backgroundColor = color;
+
+            
+            // GUIStyle style = new GUIStyle ();
+            GUIStyle style = GUI.skin.FindStyle("Button");
+            style.richText = true;
+
+            // if (GUILayout.Button(p.Name))
+            // if (GUILayout.Button($"{p.Name}   ---   <b>{p.Url}</b>", style))
+            if (GUILayout.Button($"<b>{p.Name}</b>\n{p.Url}", style))
+            {
+                OpenPrefab(p);
+            }
+            
+            GUI.contentColor = c;
+            GUI.color = c;
+            GUI.backgroundColor = c;            
+        }
+    }
+    
     void Space(int space = 15)
     {
         GUILayout.Space(space);
@@ -492,6 +489,97 @@ public class MyWindow : EditorWindow
 
         prefabs = obj ?? new List<SimpleUISceneType>();
     }
+    
+    
+    void HandleDragAndDrop()
+    {
+        if (Event.current.type == EventType.DragUpdated)
+        {
+            DragAndDrop.visualMode = DragAndDropVisualMode.Copy;
+            Event.current.Use();
+        }
+        else if (Event.current.type == EventType.DragPerform)
+        {
+            // To consume drag data.
+            DragAndDrop.AcceptDrag();
+            
+            // GameObjects from hierarchy.
+            if (DragAndDrop.paths.Length == 0 && DragAndDrop.objectReferences.Length > 0)
+            {
+                foreach (var obj in DragAndDrop.objectReferences)
+                {
+                    var go = obj as GameObject;
+                    bool isPrefab = PrefabUtility.GetPrefabAssetType(obj) != PrefabAssetType.NotAPrefab;
+
+                    if (isPrefab)
+                    {
+                        Debug.Log("prefab - " + obj);
+
+                        HandleDraggedPrefab(go);
+                    }
+                    else
+                    {
+                        Debug.Log("GameObject - " + obj);
+                        
+                        HandleDraggedGameObject(go);
+                    }
+                }
+            }
+            // Object outside project. It mays from File Explorer (Finder in OSX).
+            else if (DragAndDrop.paths.Length > 0 && DragAndDrop.objectReferences.Length == 0)
+            {
+                Debug.Log("File");
+                foreach (string path in DragAndDrop.paths)
+                {
+                    Debug.Log("- " + path);
+                }
+            }
+            // Unity Assets including folder.
+            else if (DragAndDrop.paths.Length == DragAndDrop.objectReferences.Length)
+            {
+                Debug.Log("UnityAsset");
+                for (int i = 0; i < DragAndDrop.objectReferences.Length; i++)
+                {
+                    var obj = DragAndDrop.objectReferences[i];
+                    string path = DragAndDrop.paths[i];
+                    Debug.Log(obj.GetType().Name);
+
+                    // Folder.
+                    if (obj is DefaultAsset)
+                    {
+                        Debug.Log(path);
+                    }
+                    // C# or JavaScript.
+                    else if (obj is MonoScript)
+                    {
+                        Debug.Log(path + "\n" + obj);
+                    }
+                    else if (obj is Texture2D)
+                    {
+						
+                    }
+
+                }
+            }
+            // Log to make sure we cover all cases.
+            else
+            {
+                Debug.Log("Out of reach");
+                Debug.Log("Paths:");
+                foreach (string path in DragAndDrop.paths)
+                {
+                    Debug.Log("- " + path);
+                }
+
+                Debug.Log("ObjectReferences:");
+                foreach (var obj in DragAndDrop.objectReferences)
+                {
+                    Debug.Log("- " + obj);
+                }
+            }
+        }
+    }
+
     
     static void UpdatePrefab(SimpleUISceneType prefab)
     {
