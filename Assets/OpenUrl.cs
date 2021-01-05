@@ -14,10 +14,13 @@ public class OpenUrl : ButtonController
 
     public override void Execute()
     {
+        var newUrl = "";
         if (Url.StartsWith("/"))
-            OpenUrl(Url);
+            newUrl = Url;
         else
-            OpenUrl("/" + Url);
+            newUrl = "/" + Url;
+        
+        OpenUrl(newUrl);
     }
 }
 

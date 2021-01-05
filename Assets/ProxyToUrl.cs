@@ -9,6 +9,6 @@ public class ProxyToUrl : View
     
     private void OnEnable()
     {
-        OpenUrl(Url);
+        // OpenUrl(Url);
     }
 }

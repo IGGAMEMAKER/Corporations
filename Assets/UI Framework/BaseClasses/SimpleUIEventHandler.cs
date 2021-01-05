@@ -15,6 +15,9 @@ public class SimpleUIEventHandler : MonoBehaviour
     public string CurrentUrl;
     static List<SimpleUISceneType> prefabs; // = new List<NewSceneTypeBlah>();
 
+    private static int counter = 0;
+    private bool canRenderStuff = true;
+
     void Start()
     {
         LoadData();
@@ -32,6 +35,32 @@ public class SimpleUIEventHandler : MonoBehaviour
         
         OpenUrl(CurrentUrl + "/" + trimmedUrl);
     }
+
+    List<string> ParseUrlToSubRoutes(string url)
+    {
+        var urls = new List<string>();
+        
+        var cUrl = "/";
+        
+        // hide opened stuff
+        foreach (var subPath in url.Split('/'))
+        {
+            if (subPath.StartsWith("/") || cUrl.EndsWith("/"))
+                cUrl += subPath;
+            else
+                cUrl += "/" + subPath;
+            
+            urls.Add(cUrl);
+        }
+
+        return urls;
+    }
+
+    void PrintParsedRoute(List<string> urls, string label)
+    {
+        Debug.Log(label + ": " + string.Join("\n", urls));
+    }
+    
     public void OpenUrl(string url)
     {
         if (url.Equals(CurrentUrl))
@@ -41,72 +70,58 @@ public class SimpleUIEventHandler : MonoBehaviour
         
         Debug.Log($"SHIFTING FROM {CurrentUrl}=>{url}");
 
-        var newUrls = new List<string>();
-        var removableUrls = new List<string>();
+        var newUrls = ParseUrlToSubRoutes(url);
+        var oldUrls = ParseUrlToSubRoutes(CurrentUrl);
         var commonUrls = new List<string>();
+        
+        PrintParsedRoute(oldUrls, "OLD routes");
+        PrintParsedRoute(newUrls, "NEW routes");
 
-        var cUrl = "/";
-        // hide opened stuff
-        foreach (var subPath in CurrentUrl.Split('/'))
-        {
-            if (subPath.StartsWith("/") || cUrl.EndsWith("/"))
-                cUrl += subPath;
-            else
-                cUrl += "/" + subPath;
-            
-            removableUrls.Add(cUrl);
-        }
-
-        cUrl = "/";
-        // show new stuff
-        // RenderPrefab(cUrl);
-
-        foreach (var subPath in url.Split('/'))
-        {
-            if (subPath.StartsWith("/") || cUrl.EndsWith("/"))
-                cUrl += subPath;
-            else
-                cUrl += "/" + subPath;
-            
-            newUrls.Add(cUrl);
-        }
-
-        foreach (var removableUrl in removableUrls)
+        foreach (var removableUrl in oldUrls)
         {
             if (newUrls.Contains(removableUrl))
             {
                 commonUrls.Add(removableUrl);
-                Debug.Log("Common url: " + removableUrl);                
             }
         }
 
         foreach (var commonUrl in commonUrls)
         {
             newUrls.RemoveAll(u => u.Equals(commonUrl));
-            removableUrls.RemoveAll(u => u.Equals(commonUrl));
+            oldUrls.RemoveAll(u => u.Equals(commonUrl));
         }
         
-        foreach (var removableUrl in removableUrls)
+        foreach (var removableUrl in oldUrls)
         {
-            Debug.Log("HIDE prefab by url: " + removableUrl);
-
             // HidePrefab(removableUrl);
         }
-
+        
         foreach (var newUrl in newUrls)
         {
-            Debug.Log("Render prefab by url: " + newUrl);
-            
             // RenderPrefab(newUrl);
         }
         
-        RenderPrefab(url);
+        // if attempt overflow, render only necessary stuff
+        // if (!canRenderStuff)
+            RenderPrefab(url);
 
         CurrentUrl = url;
     }
 
+    void MeasureAttempts(string url)
+    {
+        counter++;
+        
+        if (counter > 100)
+            canRenderStuff = false;
+    }
+
     void RenderPrefab(string url)
     {
+        Debug.Log("Render prefab by url: " + url);
+
+        MeasureAttempts(url);
+        
         var p = GetPrefab(url);
         
         if (p != null)
@@ -115,6 +130,10 @@ public class SimpleUIEventHandler : MonoBehaviour
 
     void HidePrefab(string url)
     {
+        Debug.Log("HIDE prefab by url: " + url);
+
+        MeasureAttempts(url);
+
         var p = GetPrefab(url);
         
         if (p != null)

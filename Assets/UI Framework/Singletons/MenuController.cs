@@ -83,6 +83,8 @@ public class MenuController : View
     void EnableScreen(ScreenMode screen)
     {
         LoadMenuMappings();
+        
+        Debug.Log("Enable screen " + screen);
 
         try
         {
@@ -90,7 +92,6 @@ public class MenuController : View
         }
         catch (Exception ex)
         {
-            Debug.LogError($"Cannot open {screen}");
             Debug.LogError($"Cannot open {screen}");
         }
     }

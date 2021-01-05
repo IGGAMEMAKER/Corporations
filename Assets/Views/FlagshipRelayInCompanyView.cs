@@ -5,28 +5,14 @@ using UnityEngine;
 
 public class FlagshipRelayInCompanyView : View
 {
-    // tabs
-    public GameObject WorkerInteractions;
-    public GameObject InvestmentTabs;
-    public GameObject AudiencePickingTab;
-
     public TeamTask TeamTask;
 
     // buttons
     public int ChosenTeamId = -1;
     public int ChosenSlotId = 0;
 
-    // List<GameObject> Tabs => new List<GameObject> { WorkerInteractions, InvestmentTabs, ManagersTabs, NewTeamTabs, AudiencePickingTab, AssignTaskPanel };
-    // List<GameObject> Tabs => new List<GameObject> { DevelopmentTab, WorkerInteractions, InvestmentTabs, ManagersTabs, NewTeamTabs, AudiencePickingTab, AssignTaskPanel };
-
-    // private void OnEnable()
-    // {
-    //     ChooseMainScreen();
-    // }
-    
     public void ChooseMainScreen()
     {
-        // HideAll(Tabs);
         OpenUrl("/Holding/Main");
     }
     
