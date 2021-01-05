@@ -118,12 +118,6 @@ public class SimpleUI : EditorWindow
         Debug.Log("Prefab opened: " + obj.prefabContentsRoot.name);
 
         newPath = obj.prefabAssetPath;
-
-        // var x = newPath.Split('/').Last();
-        // var ind = x.LastIndexOf(".prefab");
-
-        // newName = x.Substring(0, ind);
-        
         newName = GetPrettyNameFromAssetPath(newPath); // x.Substring(0, ind);
 
         TryToIncreaseCurrentPrefabCounter();
@@ -187,14 +181,6 @@ public class SimpleUI : EditorWindow
         }
     }
 
-    string GetValidatedUrl(string url)
-    {
-        if (!url.StartsWith("/"))
-            return url.Insert(0, "/");
-        
-        return url;
-    }
-
     void RenderAddingNewRouteFromDraggedPrefab()
     {
         Space();
@@ -208,15 +194,16 @@ public class SimpleUI : EditorWindow
         if (dataCorrect && GUILayout.Button("Add DRAGGED prefab!"))
         {
             Space();
+            
             draggedUrl = GetValidatedUrl(draggedUrl);
-
-            Debug.Log("Added DRAGGED prefab");
             
             AddPrefab(draggedUrl, draggedPath, draggedName);
 
             isDraggedPrefabMode = false;
-
+            
             SaveData();
+            
+            Debug.Log("Added DRAGGED prefab");
         }
     }
 
@@ -406,6 +393,14 @@ public class SimpleUI : EditorWindow
     
     
     // ----- utils -------------
+    string GetValidatedUrl(string url)
+    {
+        if (!url.StartsWith("/"))
+            return url.Insert(0, "/");
+        
+        return url;
+    }
+    
     void AddPrefab(string ururu, string papapath, string nananame)
     {
         var p = new SimpleUISceneType(ururu, papapath, nananame) {LastOpened = DateTime.Now.Ticks};
