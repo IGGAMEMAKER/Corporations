@@ -192,9 +192,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2303911921886324157}
-  - component: {fileID: 2303911921886324130}
-  - component: {fileID: 2303911921886324131}
-  - component: {fileID: 2303911921886324128}
   m_Layer: 5
   m_Name: MainGameScreen
   m_TagString: Untagged
@@ -211,7 +208,7 @@ RectTransform:
   m_GameObject: {fileID: 2303911921886324129}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4351845280928289623}
   - {fileID: 6067504163782561650}
@@ -220,70 +217,10 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
---- !u!223 &2303911921886324130
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2303911921886324129}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 1
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
---- !u!114 &2303911921886324131
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2303911921886324129}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_UiScaleMode: 1
-  m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1920, y: 1080}
-  m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0.5
-  m_PhysicalUnit: 3
-  m_FallbackScreenDPI: 96
-  m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 1
---- !u!114 &2303911921886324128
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2303911921886324129}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2303911923106564524
 GameObject:
   m_ObjectHideFlags: 0
@@ -508,42 +445,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b8d40d5eaefcb44b9f9bdf81751590e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScreenTitle: {fileID: 0}
-  TechnologyScreen: {fileID: 0}
-  ProjectScreen: {fileID: 0}
-  InvesmentsScreen: {fileID: 0}
-  InvesmentProposalScreen: {fileID: 0}
-  IndustryScreen: {fileID: 0}
-  NicheScreen: {fileID: 0}
-  CharacterScreen: {fileID: 0}
-  GroupManagementScreen: {fileID: 0}
-  TeamScreen: {fileID: 0}
-  MarketingScreen: {fileID: 0}
-  InvestmentOfferScreen: {fileID: 0}
-  JobOfferScreen: {fileID: 0}
-  CompanyGoalScreen: {fileID: 0}
-  EmployeeScreen: {fileID: 0}
-  ManageCompaniesScreen: {fileID: 0}
-  BuySharesScreen: {fileID: 0}
-  CompanyEconomyScreen: {fileID: 0}
-  MarketExplorationScreen: {fileID: 0}
-  CompanyExplorationScreen: {fileID: 0}
-  LeaderboardScreen: {fileID: 0}
-  ExplorationScreen: {fileID: 0}
-  NicheInfoScreen: {fileID: 0}
-  AcquisitionScreen: {fileID: 0}
-  SalesScreen: {fileID: 0}
-  PotentialCompaniesScreen: {fileID: 0}
-  AnnualReportScreen: {fileID: 0}
-  StartCampaignScreen: {fileID: 0}
-  GroupScreen: {fileID: 0}
-  HoldingScreen: {fileID: 0}
-  CorporationScreen: {fileID: 0}
-  AcquirableCompaniesOnNicheScreen: {fileID: 0}
-  JoinCorporationScreen: {fileID: 0}
-  FormStrategicPartnershipScreen: {fileID: 0}
-  TrendsScreen: {fileID: 0}
-  MessageScreen: {fileID: 0}
 --- !u!114 &5571965038465994512
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -6,15 +6,9 @@ using UnityEngine;
 public class FlagshipRelayInCompanyView : View
 {
     // tabs
-    public GameObject DevelopmentTab;
     public GameObject WorkerInteractions;
     public GameObject InvestmentTabs;
-    public GameObject ManagersTabs;
-    public GameObject NewTeamTabs;
     public GameObject AudiencePickingTab;
-    public GameObject AssignTaskPanel;
-
-    public TaskPanelView TaskPanel;
 
     public TeamTask TeamTask;
 

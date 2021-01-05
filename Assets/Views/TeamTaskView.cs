@@ -61,7 +61,7 @@ public class TeamTaskView : View
 
         var product = Flagship;
 
-        if (teamTask == null)
+        if (Task == null)
             return;
 
         if (IsFeatureUpgradeTask)
@@ -88,6 +88,8 @@ public class TeamTaskView : View
         catch (Exception e)
         {
             Debug.LogError(e);
+            Debug.LogError("Troubles with task " + Task.GetPrettyName());
+            Debug.LogError("In company " + product.company.Name);
         }
     }
 
@@ -95,7 +97,7 @@ public class TeamTaskView : View
     {
         ProgressImage.sprite = Icon.sprite;
 
-        if (teamTask.IsPending)
+        if (Task.IsPending)
         {
             ProgressIcon.fillAmount = 1;
             Show(ProgressImage);
@@ -107,13 +109,13 @@ public class TeamTaskView : View
             // active task
             Hide(PendingTaskIcon);
 
-            if (teamTask.IsFeatureUpgrade)
+            if (Task.IsFeatureUpgrade)
             {
                 var featureName = (Task as TeamTaskFeatureUpgrade).NewProductFeature.Name;
 
                 // feature upgrade progress
                 var cooldownName = $"company-{product.company.Id}-upgradeFeature-{featureName}";
-                bool hasCooldown = Cooldowns.HasCooldown(Q, cooldownName, out SimpleCooldown cooldown);
+                Cooldowns.HasCooldown(Q, cooldownName, out SimpleCooldown cooldown);
 
                 var progress = CurrentIntDate - cooldown.StartDate;
                 var percent = (float)progress / (cooldown.EndDate - cooldown.StartDate);

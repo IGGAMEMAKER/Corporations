@@ -26,12 +26,12 @@ public class CompanyTaskTypeRelay : View
     public GameObject OffersButton;
 
     // [Header("Tabs")]
-    public GameObject DevelopmentTab => FindObjectsOfTypeAll<DevelopmentTabView>().First().gameObject;
-
-    public GameObject MarketingTab => FindObjectsOfTypeAll<MarektingTabView>().First().gameObject;
-    public GameObject TeamTab => FindObjectsOfTypeAll<TeamTabView>().First().gameObject;
-
-    public List<GameObject> Tabs => new List<GameObject> { DevelopmentTab, MarketingTab, TeamTab };
+    // public GameObject DevelopmentTab => FindObjectsOfTypeAll<DevelopmentTabView>().First().gameObject;
+    //
+    // public GameObject MarketingTab => FindObjectsOfTypeAll<MarektingTabView>().First().gameObject;
+    // public GameObject TeamTab => FindObjectsOfTypeAll<TeamTabView>().First().gameObject;
+    //
+    // public List<GameObject> Tabs => new List<GameObject> { DevelopmentTab, MarketingTab, TeamTab };
 
     void OnEnable()
     {
@@ -156,7 +156,7 @@ public class CompanyTaskTypeRelay : View
 
     public void OnDevelopmentTabHover()
     {
-        ShowOnly(DevelopmentTab, Tabs);
+        // ShowOnly(DevelopmentTab, Tabs);
     }
 
     void CloseTabs()
@@ -175,7 +175,7 @@ public class CompanyTaskTypeRelay : View
 
     public void OnMarketingTabHover()
     {
-        ShowOnly(MarketingTab, Tabs);
+        // ShowOnly(MarketingTab, Tabs);
     }
 
     public void OnMarketingTabLeave()
@@ -188,7 +188,7 @@ public class CompanyTaskTypeRelay : View
 
     public void OnTeamTabHover()
     {
-        ShowOnly(TeamTab, Tabs);
+        // ShowOnly(TeamTab, Tabs);
     }
 
     public void OnTeamTabLeave()
@@ -200,6 +200,6 @@ public class CompanyTaskTypeRelay : View
     // ------
     void HideTabs()
     {
-        HideAll(Tabs);
+        // HideAll(Tabs);
     }
 }
