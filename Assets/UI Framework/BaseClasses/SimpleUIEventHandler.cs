@@ -55,16 +55,16 @@ public class SimpleUIEventHandler : MonoBehaviour
         Debug.Log(label + $": ({urls.Count})" + string.Join("\n", urls));
     }
     
-    public void OpenUrl(string url)
+    public void OpenUrl(string NextUrl)
     {
-        if (url.Equals(CurrentUrl))
+        if (NextUrl.Equals(CurrentUrl))
             return;
         
         LoadData();
         
-        Debug.Log($"<b>OpenUrl {CurrentUrl} => {url}</b>");
+        Debug.Log($"<b>OpenUrl {CurrentUrl} => {NextUrl}</b>");
 
-        var newUrls = ParseUrlToSubRoutes(url);
+        var newUrls = ParseUrlToSubRoutes(NextUrl);
         var oldUrls = ParseUrlToSubRoutes(CurrentUrl);
 
         PrintParsedRoute(oldUrls, "OLD routes");
@@ -97,6 +97,14 @@ public class SimpleUIEventHandler : MonoBehaviour
             if (counter == 0)
             {
                 Debug.Log("Avoiding miserable url: " + commonUrl);
+                Debug.Log("url length " + commonUrl.Length);
+
+                var names = prefabs.Select(p => p.Url);
+                Debug.Log(string.Join("\n", names));
+                
+                var prefab = GetPrefab(commonUrl);
+
+                Debug.Log("Loaded prefab");
             }
             else
             {
@@ -116,7 +124,7 @@ public class SimpleUIEventHandler : MonoBehaviour
         // if (!canRenderStuff)
             // RenderPrefab(url);
 
-        CurrentUrl = url;
+        CurrentUrl = NextUrl;
     }
 
     void MeasureAttempts(string url)
