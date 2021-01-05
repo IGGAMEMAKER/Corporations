@@ -59,13 +59,13 @@ public class SimpleUIEventHandler : MonoBehaviour
         
         LoadData();
         
-        Debug.Log($"<b>OpenUrl {CurrentUrl} => {NextUrl}</b>");
+        Debug.Log($"<b>OpenUrl {NextUrl}</b> (from {CurrentUrl})");
 
         var newUrls = ParseUrlToSubRoutes(NextUrl);
         var oldUrls = ParseUrlToSubRoutes(CurrentUrl);
 
-        PrintParsedRoute(oldUrls, "OLD routes");
-        PrintParsedRoute(newUrls, "NEW routes");
+        // PrintParsedRoute(oldUrls, "OLD routes");
+        // PrintParsedRoute(newUrls, "NEW routes");
 
         var commonUrls = oldUrls.Where(removableUrl => newUrls.Contains(removableUrl)).ToList();
 
@@ -95,19 +95,15 @@ public class SimpleUIEventHandler : MonoBehaviour
             {
                 Debug.Log("Avoiding miserable url: " + commonUrl);
 
-                // var names = prefabs.Select(p => p.Url);
-                // Debug.Log(string.Join("\n", names));
-                //
-                // var prefab = prefabs.First(p => p.Url.Equals(commonUrl));
-                // Debug.Log("Loaded prefab: " + prefab.Name + " " + prefab.AssetPath);
-
-                var prefab2 = GetPrefab(commonUrl);
             }
             else
             {
                 Debug.Log("Rendering common url: " + commonUrl);
-                RenderPrefab(commonUrl);
+                
+                // RenderPrefab(commonUrl);
             }
+            
+            RenderPrefab(commonUrl);
 
             counter++;
         }
@@ -124,43 +120,36 @@ public class SimpleUIEventHandler : MonoBehaviour
         CurrentUrl = NextUrl;
     }
 
-    void RenderPrefab(string url)
+    void RenderPrefab(string url, bool isTest = false)
     {
         Debug.Log("Render prefab by url: " + url);
 
-        var p = GetPrefab(url);
+        var p = GetPrefab(url, isTest);
         
         if (p != null && !p.activeSelf)
             p.SetActive(true);
     }
 
-    void HidePrefab(string url)
+    void HidePrefab(string url, bool isTest = false)
     {
         Debug.Log("HIDE prefab by url: " + url);
 
-        var p = GetPrefab(url);
+        var p = GetPrefab(url, isTest);
         
         if (p != null && p.activeSelf)
             p.SetActive(false);
     }
 
-    // GameObject GetAssetByUrl(string url)
-    // {
-    //     
-    // }
-    
-    GameObject GetPrefab(string url)
+    GameObject GetPrefab(string url, bool isTestUrl = false)
     {
         try
         {
-            bool isTestUrl = url.Equals("/");
-            
             if (url.Length == 0)
                 return null;
             
             if (!Objects.ContainsKey(url))
             {
-                if (isTestUrl) Debug.Log("ROOT was never loaded as prefab");
+                if (isTestUrl) Debug.Log("Never loaded ROOT as prefab");
                 
                 if (!prefabs.Any(p => p.Url.Equals(url)))
                 {
@@ -180,13 +169,10 @@ public class SimpleUIEventHandler : MonoBehaviour
                 }
                 
                 if (isTestUrl) Debug.Log("Loaded ROOT prefab from assets " + pre.AssetPath + " " + obj.name);
-                // if (isTestUrl) return null;
+                if (isTestUrl) return null;
                 
                 // Objects[url] = Instantiate(AssetDatabase.GetMainAssetTypeAtPath(pre.AssetPath));
 
-                if (isTestUrl)
-                    return obj;
-                
                 Objects[url] = Instantiate(obj, transform);
                 
                 if (isTestUrl) Debug.Log("INSTANTIATED ROOT prefab");
