@@ -91,10 +91,10 @@ public class SimpleUIEventHandler : MonoBehaviour
             HidePrefab(removableUrl);
         }
 
-        foreach (var commonUrl in commonUrls)
-        {
-            RenderPrefab(commonUrl);
-        }
+        // foreach (var commonUrl in commonUrls)
+        // {
+        //     RenderPrefab(commonUrl);
+        // }
         
         foreach (var newUrl in willRender)
         {
@@ -104,7 +104,7 @@ public class SimpleUIEventHandler : MonoBehaviour
         
         // if attempt overflow, render only necessary stuff
         // if (!canRenderStuff)
-            RenderPrefab(url);
+            // RenderPrefab(url);
 
         CurrentUrl = url;
     }
