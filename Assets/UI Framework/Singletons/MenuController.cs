@@ -53,48 +53,56 @@ public class MenuController : View
     {
         return "/" + url;
     }
+
+    void SetUrl(ScreenMode mode, string url)
+    {
+        PrefabScreens[mode] = GetWrappedUrl(url);
+    }
     
     void Start()
     {
         var mockupUrl = GetWrappedUrl("ProjectScreen");
-        PrefabScreens = new Dictionary<ScreenMode, string>
-        {
-            [ScreenMode.DevelopmentScreen] = GetWrappedUrl("DevelopmentScreen"),
-            [ScreenMode.ProjectScreen] = GetWrappedUrl("ProjectScreen"),
-            [ScreenMode.InvesmentsScreen] = GetWrappedUrl("InvestmentScreen"),
-            [ScreenMode.InvesmentProposalScreen] = GetWrappedUrl("InvestmentRoundsScreen"),
-            [ScreenMode.IndustryScreen] = GetWrappedUrl("IndustryScreen"),
-            [ScreenMode.NicheScreen] = GetWrappedUrl("NicheScreen"),
-            [ScreenMode.CharacterScreen] = GetWrappedUrl("CharacterScreen"),
-            [ScreenMode.GroupManagementScreen] = GetWrappedUrl("ProjectScreen"),
-            [ScreenMode.TeamScreen] = GetWrappedUrl("TeamScreen"),
-            [ScreenMode.MarketingScreen] = GetWrappedUrl("MarketingScreen"),
-            [ScreenMode.InvestmentOfferScreen] = GetWrappedUrl("InvestmentOfferScreen"),
-            [ScreenMode.JobOfferScreen] = GetWrappedUrl("JobOfferScreen"),
-            [ScreenMode.CompanyGoalScreen] = GetWrappedUrl("CompanyGoalScreen"),
-            [ScreenMode.EmployeeScreen] = GetWrappedUrl("EmployeesScreen"),
-            [ScreenMode.ManageCompaniesScreen] = GetWrappedUrl("HierarchyScreen"),
-            [ScreenMode.BuySharesScreen] = GetWrappedUrl("BuySharesScreen"),
-            [ScreenMode.CompanyEconomyScreen] = GetWrappedUrl("EconomyScreen"),
-            [ScreenMode.MarketExplorationScreen] = GetWrappedUrl("MarketResearchScreen"),
-            [ScreenMode.CompanyExplorationScreen] = GetWrappedUrl("CompanyResearchScreen"),
-            [ScreenMode.LeaderboardScreen] = GetWrappedUrl("LeaderboardScreen"),
-            [ScreenMode.ExplorationScreen] = GetWrappedUrl("ExplorationScreen"),
-            [ScreenMode.NicheInfoScreen] = GetWrappedUrl("NicheInfoScreen"),
-            [ScreenMode.AcquisitionScreen] = GetWrappedUrl("AcquisitionScreen"),
-            [ScreenMode.SalesScreen] = GetWrappedUrl("SalesScreen"),
-            [ScreenMode.PotentialCompaniesScreen] = GetWrappedUrl("PotentialCompaniesScreen"),
-            [ScreenMode.AnnualReportScreen] = GetWrappedUrl("AnnualReportScreen"),
-            [ScreenMode.StartCampaignScreen] = GetWrappedUrl("StartCampaignScreen"),
-            [ScreenMode.GroupScreen] = GetWrappedUrl("ProjectScreen"),
-            [ScreenMode.HoldingScreen] = GetWrappedUrl("CorporateCultureScreen"),
-            [ScreenMode.CorporationScreen] = GetWrappedUrl("CorporationScreen"),
-            [ScreenMode.AcquirableCompaniesOnNicheScreen] = GetWrappedUrl("AcquirableCompaniesOnNicheScreen"),
-            [ScreenMode.JoinCorporationScreen] = GetWrappedUrl("JoinCorporationScreen"),
-            [ScreenMode.FormStrategicPartnershipScreen] = GetWrappedUrl("FormStrategicPartnershipScreen"),
-            [ScreenMode.TrendsScreen] = GetWrappedUrl("TrendsScreen"),
-            [ScreenMode.MessageScreen] = GetWrappedUrl("MessageScreen"),
-        };
+        PrefabScreens = new Dictionary<ScreenMode, string>();
+
+        SetUrl(ScreenMode.DevelopmentScreen, "DevelopmentScreen");
+        SetUrl(ScreenMode.ProjectScreen, "ProjectScreen");
+        SetUrl(ScreenMode.InvesmentsScreen, "InvestmentScreen");
+        SetUrl(ScreenMode.InvesmentProposalScreen, "InvestmentRoundsScreen");
+        SetUrl(ScreenMode.IndustryScreen, "IndustryScreen");
+        SetUrl(ScreenMode.NicheScreen, "NicheScreen");
+        SetUrl(ScreenMode.TeamScreen, "TeamScreen");
+        SetUrl(ScreenMode.CharacterScreen, "CharacterScreen");
+        
+        SetUrl(ScreenMode.GroupManagementScreen, "ProjectScreen");
+        
+        SetUrl(ScreenMode.MarketingScreen, "MarketingScreen");
+        SetUrl(ScreenMode.InvestmentOfferScreen, "InvestmentOfferScreen");
+        SetUrl(ScreenMode.JobOfferScreen, "JobOfferScreen");
+        SetUrl(ScreenMode.CompanyGoalScreen, "CompanyGoalScreen");
+        SetUrl(ScreenMode.EmployeeScreen, "EmployeesScreen");
+        SetUrl(ScreenMode.ManageCompaniesScreen, "HierarchyScreen");
+        SetUrl(ScreenMode.BuySharesScreen, "BuySharesScreen");
+        SetUrl(ScreenMode.CompanyEconomyScreen, "EconomyScreen");
+        SetUrl(ScreenMode.MarketExplorationScreen, "MarketResearchScreen");
+        SetUrl(ScreenMode.CompanyExplorationScreen, "CompanyResearchScreen");
+        SetUrl(ScreenMode.LeaderboardScreen, "LeaderboardScreen");
+        SetUrl(ScreenMode.ExplorationScreen, "ExplorationScreen");
+        SetUrl(ScreenMode.NicheInfoScreen, "NicheInfoScreen");
+        SetUrl(ScreenMode.AcquisitionScreen, "AcquisitionScreen");
+        SetUrl(ScreenMode.SalesScreen, "SalesScreen");
+        SetUrl(ScreenMode.PotentialCompaniesScreen, "PotentialCompaniesScreen");
+        SetUrl(ScreenMode.AnnualReportScreen, "AnnualReportScreen");
+        SetUrl(ScreenMode.StartCampaignScreen, "StartCampaignScreen");
+        
+        SetUrl(ScreenMode.GroupScreen, "ProjectScreen");
+        
+        SetUrl(ScreenMode.HoldingScreen, "CorporateCultureScreen");
+        SetUrl(ScreenMode.CorporationScreen, "CorporationScreen");
+        SetUrl(ScreenMode.AcquirableCompaniesOnNicheScreen, "AcquirableCompaniesOnNicheScreen");
+        SetUrl(ScreenMode.JoinCorporationScreen, "JoinCorporationScreen");
+        SetUrl(ScreenMode.FormStrategicPartnershipScreen, "FormStrategicPartnershipScreen");
+        SetUrl(ScreenMode.TrendsScreen, "TrendsScreen");
+        SetUrl(ScreenMode.MessageScreen, "MessageScreen");
 
         Screens = new Dictionary<ScreenMode, GameObject>
         {
@@ -168,7 +176,8 @@ public class MenuController : View
     void EnableScreen(ScreenMode screen)
     {
         SetTitle(screen);
-        DisableAllScreens();
+        // DisableAllScreens();
+        OpenUrl(PrefabScreens[screen]);
 
         ToggleScreen(screen, true);
     }
