@@ -8,6 +8,6 @@ public class ShowMarketingTab : View, IPointerEnterHandler, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        FindObjectOfType<CompanyTaskTypeRelay>().OnMarketingTabHover();
+        // FindObjectOfType<CompanyTaskTypeRelay>().OnMarketingTabHover();
     }
 }

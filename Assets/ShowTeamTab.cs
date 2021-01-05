@@ -8,6 +8,6 @@ public class ShowTeamTab : View, IPointerEnterHandler, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        FindObjectOfType<CompanyTaskTypeRelay>().OnTeamTabHover();
+        // FindObjectOfType<CompanyTaskTypeRelay>().OnTeamTabHover();
     }
 }

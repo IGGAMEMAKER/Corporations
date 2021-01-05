@@ -35,8 +35,8 @@ public partial class BaseClass : MonoBehaviour
 
 
     public GameEntity MyGroupEntity => Companies.GetPlayerControlledGroupCompany(Q);
-    public GameEntity MyCompany => MyGroupEntity ?? null;
-    public GameEntity Flagship => Companies.GetFlagship(Q, MyCompany) ?? null;
+    public GameEntity MyCompany => MyGroupEntity;
+    public GameEntity Flagship => Companies.GetFlagship(Q, MyCompany);
 
     public bool HasCompany => MyCompany != null;
 
@@ -71,26 +71,14 @@ public partial class BaseClass : MonoBehaviour
         SoundManager.Play(sound);
     }
 
-    private MyModalWindow GetModal(string ModalTag)
-    {
-        var m = FindObjectsOfTypeAll<MyModalWindow>().FirstOrDefault(w => w.ModalTag == ModalTag);
 
-        if (m == null)
-        {
-            Debug.LogError("Modal " + ModalTag + " not found!");
-
-            return null;
-        }
-
-        return m;
-    }
-
-    public void OpenTab(string url)
-    {
-        var eventHandler = FindObjectOfType<SimpleUIEventHandler>();
-        
-        eventHandler.OpenTab(url);
-    }
+    // public void OpenTab(string url)
+    // {
+    //     var eventHandler = FindObjectOfType<SimpleUIEventHandler>();
+    //     
+    //     eventHandler.OpenTab(url);
+    // }
+    
     public void OpenUrl(string url)
     {
         SimpleUIEventHandler eventHandler = FindObjectOfType<SimpleUIEventHandler>();
@@ -137,6 +125,21 @@ public partial class BaseClass : MonoBehaviour
         //    ScheduleUtils.PauseGame(Q);
         //}
     }
+    
+    private MyModalWindow GetModal(string ModalTag)
+    {
+        var m = FindObjectsOfTypeAll<MyModalWindow>().FirstOrDefault(w => w.ModalTag == ModalTag);
+
+        if (m == null)
+        {
+            Debug.LogError("Modal " + ModalTag + " not found!");
+
+            return null;
+        }
+
+        return m;
+    }
+
 
     public bool Contains<T>(GameObject obj = null)
     {

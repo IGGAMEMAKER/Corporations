@@ -23,12 +23,12 @@ public class SimpleUIEventHandler : MonoBehaviour
     //     LoadData();
     // }
 
-    public void OpenTab(string url)
-    {
-        var trimmedUrl = url.StartsWith("/") ? url.TrimStart('/') : url; 
-        
-        OpenUrl(CurrentUrl + "/" + trimmedUrl);
-    }
+    // public void OpenTab(string url)
+    // {
+    //     var trimmedUrl = url.StartsWith("/") ? url.TrimStart('/') : url; 
+    //     
+    //     OpenUrl(CurrentUrl + "/" + trimmedUrl);
+    // }
 
     List<string> ParseUrlToSubRoutes(string url)
     {
@@ -90,11 +90,16 @@ public class SimpleUIEventHandler : MonoBehaviour
         {
             HidePrefab(removableUrl);
         }
+
+        foreach (var commonUrl in commonUrls)
+        {
+            RenderPrefab(commonUrl);
+        }
         
         foreach (var newUrl in willRender)
         {
-            // RenderPrefab(newUrl);
-            Debug.Log("Mockingly rendered new route: " + newUrl);
+            RenderPrefab(newUrl);
+            // Debug.Log("Mockingly rendered new route: " + newUrl);
         }
         
         // if attempt overflow, render only necessary stuff
@@ -120,7 +125,7 @@ public class SimpleUIEventHandler : MonoBehaviour
         
         var p = GetPrefab(url);
         
-        if (p != null)
+        if (p != null && !p.activeSelf)
             p.SetActive(true);
     }
 
@@ -132,7 +137,7 @@ public class SimpleUIEventHandler : MonoBehaviour
 
         var p = GetPrefab(url);
         
-        if (p != null)
+        if (p != null && p.activeSelf)
             p.SetActive(false);
     } 
 

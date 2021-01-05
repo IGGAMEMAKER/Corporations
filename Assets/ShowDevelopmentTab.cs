@@ -8,6 +8,6 @@ public class ShowDevelopmentTab : View, IPointerEnterHandler, IPointerClickHandl
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        FindObjectOfType<CompanyTaskTypeRelay>().OnDevelopmentTabHover();
+        // FindObjectOfType<CompanyTaskTypeRelay>().OnDevelopmentTabHover();
     }
 }
