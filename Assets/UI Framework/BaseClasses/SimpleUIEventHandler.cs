@@ -97,14 +97,14 @@ public class SimpleUIEventHandler : MonoBehaviour
             if (counter == 0)
             {
                 Debug.Log("Avoiding miserable url: " + commonUrl);
-                Debug.Log("url length " + commonUrl.Length);
 
                 var names = prefabs.Select(p => p.Url);
                 Debug.Log(string.Join("\n", names));
-                
-                var prefab = GetPrefab(commonUrl);
 
-                Debug.Log("Loaded prefab");
+                var prefab = prefabs.First(p => p.Url.Equals(commonUrl));
+                Debug.Log("Loaded prefab: " + prefab.Name + " " + prefab.AssetPath);
+
+                var prefab2 = GetPrefab(commonUrl);
             }
             else
             {
@@ -163,11 +163,15 @@ public class SimpleUIEventHandler : MonoBehaviour
     {
         try
         {
+            bool isTestUrl = url.Equals("/");
+            
             if (url.Length == 0)
                 return null;
             
             if (!Objects.ContainsKey(url))
             {
+                if (isTestUrl) Debug.Log("ROOT was never loaded as prefab");
+                
                 if (!prefabs.Any(p => p.Url.Equals(url)))
                 {
                     Debug.LogError("URL " + url + " not found");
@@ -175,6 +179,10 @@ public class SimpleUIEventHandler : MonoBehaviour
                 }
 
                 var pre = prefabs.First(p => p.Url.Equals(url));
+                
+                if (isTestUrl) Debug.Log("Found data for ROOT prefab");
+
+                // if (isTestUrl) return null;
 
                 var obj = AssetDatabase.LoadAssetAtPath<GameObject>(pre.AssetPath);
                 if (obj == null)
@@ -182,18 +190,25 @@ public class SimpleUIEventHandler : MonoBehaviour
                     Debug.LogError("Prefab in route " + pre.AssetPath + " not found");
                     return null;
                 }
-
+                
+                if (isTestUrl) Debug.Log("Loaded ROOT prefab from assets " + pre.AssetPath);
+                // if (isTestUrl) return null;
+                
                 // Objects[url] = Instantiate(AssetDatabase.GetMainAssetTypeAtPath(pre.AssetPath));
                 Objects[url] = Instantiate(obj, transform);
+                
+                if (isTestUrl) Debug.Log("INSTANTIATED ROOT prefab");
+                if (isTestUrl) return null;
             }
+            
+            return Objects[url];
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
-            throw;
+            
+            return null;
         }
-
-        return Objects[url];
     }
 
     static void LoadData()
