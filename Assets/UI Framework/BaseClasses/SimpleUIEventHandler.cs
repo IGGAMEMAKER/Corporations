@@ -19,11 +19,11 @@ public class SimpleUIEventHandler : MonoBehaviour
     {
         LoadData();
 
-        foreach (var prefab in prefabs)
-        {
-            RenderPrefab(prefab.Url);
-            // HidePrefab(prefab.Url);
-        }
+        // foreach (var prefab in prefabs)
+        // {
+        //     RenderPrefab(prefab.Url);
+        //     // HidePrefab(prefab.Url);
+        // }
     }
 
     public void OpenTab(string url)
@@ -34,6 +34,9 @@ public class SimpleUIEventHandler : MonoBehaviour
     }
     public void OpenUrl(string url)
     {
+        if (url.Equals(CurrentUrl))
+            return;
+        
         LoadData();
         
         Debug.Log($"SHIFTING FROM {CurrentUrl}=>{url}");
