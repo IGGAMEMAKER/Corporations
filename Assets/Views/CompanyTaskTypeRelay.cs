@@ -143,7 +143,7 @@ public class CompanyTaskTypeRelay : View
 
     void CloseTabs()
     {
-        // OpenUrl("/Holding/Main");
+        OpenUrl("/Holding/Main");
     }
 
     public void OnDevelopmentTabLeave()

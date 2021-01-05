@@ -52,7 +52,7 @@ public class SimpleUIEventHandler : MonoBehaviour
 
     void PrintParsedRoute(List<string> urls, string label)
     {
-        Debug.Log(label + ": " + string.Join("\n", urls));
+        Debug.Log(label + $": ({urls.Count})" + string.Join("\n", urls));
     }
     
     public void OpenUrl(string url)
@@ -91,15 +91,25 @@ public class SimpleUIEventHandler : MonoBehaviour
             HidePrefab(removableUrl);
         }
 
-        // foreach (var commonUrl in commonUrls)
-        // {
-        //     RenderPrefab(commonUrl);
-        // }
+        int counter = 0;
+        foreach (var commonUrl in commonUrls)
+        {
+            if (counter == 0)
+            {
+                Debug.Log("Avoiding miserable url: " + commonUrl);
+            }
+            else
+            {
+                Debug.Log("Rendering common url: " + commonUrl);
+                RenderPrefab(commonUrl);
+            }
+
+            counter++;
+        }
         
         foreach (var newUrl in willRender)
         {
             RenderPrefab(newUrl);
-            // Debug.Log("Mockingly rendered new route: " + newUrl);
         }
         
         // if attempt overflow, render only necessary stuff
@@ -145,6 +155,9 @@ public class SimpleUIEventHandler : MonoBehaviour
     {
         try
         {
+            if (url.Length == 0)
+                return null;
+            
             if (!Objects.ContainsKey(url))
             {
                 if (!prefabs.Any(p => p.Url.Equals(url)))
