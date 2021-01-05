@@ -15,6 +15,8 @@ public class SimpleUIEventHandler : MonoBehaviour
     public string CurrentUrl;
     static List<SimpleUISceneType> prefabs; // = new List<NewSceneTypeBlah>();
 
+    private static int counter = 0; 
+
     // void Start()
     // {
     //     LoadData();
@@ -54,6 +56,14 @@ public class SimpleUIEventHandler : MonoBehaviour
     
     public void OpenUrl(string NextUrl)
     {
+        counter++;
+
+        if (counter > 10)
+        {
+            Debug.LogError("INFINITE LOOP");
+            return;
+        }
+        
         if (NextUrl.Equals(CurrentUrl))
             return;
         
@@ -88,24 +98,9 @@ public class SimpleUIEventHandler : MonoBehaviour
             HidePrefab(removableUrl);
         }
 
-        int counter = 0;
         foreach (var commonUrl in commonUrls)
         {
-            if (counter == 0)
-            {
-                Debug.Log("Avoiding miserable url: " + commonUrl);
-
-            }
-            else
-            {
-                Debug.Log("Rendering common url: " + commonUrl);
-                
-                // RenderPrefab(commonUrl);
-            }
-            
             RenderPrefab(commonUrl);
-
-            counter++;
         }
         
         foreach (var newUrl in willRender)
