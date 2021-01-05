@@ -186,10 +186,9 @@ public class MyWindow : EditorWindow
     {
         Space();
         GUILayout.Label("Add DRAGGED prefab", EditorStyles.boldLabel);
-
-        draggedUrl = EditorGUILayout.TextField("Url", draggedUrl);
+        
         draggedName = EditorGUILayout.TextField("Name", draggedName);
-
+        draggedUrl = EditorGUILayout.TextField("Url", draggedUrl);
         
         var dataCorrect = draggedUrl.Length > 0 && draggedName.Length > 0; 
 
