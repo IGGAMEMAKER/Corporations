@@ -180,15 +180,12 @@ public class MyWindow : EditorWindow
 
     private void RenderMakingAPrefabFromGameObject()
     {
-        var pName = possiblePrefabName;
+        Space();
         possiblePrefabName = EditorGUILayout.TextField("Name", possiblePrefabName);
         
-        // if (possiblePrefabName.Equals(pName))
-        //     return;
-
-        var u = $"Assets/Prefabs/{possiblePrefabName}.prefab";
+        var path = $"Assets/Prefabs/{possiblePrefabName}.prefab";
         
-        bool hasSameNamePrefabAlready = AssetDatabase.LoadAssetAtPath<GameObject>(u) != null;
+        bool hasSameNamePrefabAlready = AssetDatabase.LoadAssetAtPath<GameObject>(path) != null;
         bool isEmpty = possiblePrefabName.Length == 0;
         bool isDefaultName = possiblePrefabName.ToLower().Equals("gameobject");
 
@@ -196,19 +193,25 @@ public class MyWindow : EditorWindow
 
         if (!isNameOK)
         {
-            EditorGUILayout.LabelField($"!!!Bad prefab name: empty: {isEmpty}, name=gameobject: {isDefaultName}, prefab already exists: {hasSameNamePrefabAlready}");
+            if (isDefaultName)
+                EditorGUILayout.LabelField($"!!!Bad prefab name: You cannot name new prefab GameObject, cause it's easy to confuse name");
+            
+            if (hasSameNamePrefabAlready)
+                EditorGUILayout.LabelField($"!!!Bad prefab name: prefab ({path}) already exists)");
+            // EditorGUILayout.LabelField($"!!!Bad prefab name: empty: {isEmpty}, name=gameobject: {isDefaultName}, prefab already exists: {hasSameNamePrefabAlready}");
         }
-        
+
         if (isNameOK && GUILayout.Button("CREATE prefab!"))
         {
-            bool success;
-        
-            PrefabUtility.SaveAsPrefabAssetAndConnect(PossiblePrefab, u, InteractionMode.UserAction, out success);
+            PrefabUtility.SaveAsPrefabAssetAndConnect(PossiblePrefab, path, InteractionMode.UserAction, out var success);
         
             Debug.Log("Prefab saving " + success);
 
-            isDraggedGameObjectMode = false;
-            HandleDraggedPrefab(PossiblePrefab);
+            if (success)
+            {
+                isDraggedGameObjectMode = false;
+                HandleDraggedPrefab(PossiblePrefab);
+            }
         }
     }
 
@@ -239,6 +242,8 @@ public class MyWindow : EditorWindow
             
             AddPrefab(draggedUrl, draggedPath, draggedName);
 
+            isDraggedPrefabMode = false;
+
             SaveData();
         }
     }
@@ -248,8 +253,6 @@ public class MyWindow : EditorWindow
         isDraggedPrefabMode = true;
         PossiblePrefab = go;
                         
-        // var parent = PrefabUtility.GetCorrespondingObjectFromSource(go);
-        // var GameObject2 = PrefabUtility.GetPrefabParent(go);
         var parent = PrefabUtility.GetCorrespondingObjectFromSource(go);
         string prefabPath = AssetDatabase.GetAssetPath(parent);
                         
@@ -268,6 +271,7 @@ public class MyWindow : EditorWindow
         isDraggedGameObjectMode = true;
 
         possiblePrefabName = go.name;
+        
         draggedName = go.name;
         draggedPath = "";
         draggedUrl = newUrl + "/" + draggedName;
@@ -431,7 +435,9 @@ public class MyWindow : EditorWindow
     // ----- utils -------------
     void AddPrefab(string ururu, string papapath, string nananame)
     {
-        prefabs.Add(new SimpleUISceneType(ururu, papapath, nananame));
+        var p = new SimpleUISceneType(ururu, papapath, nananame) {LastOpened = DateTime.Now.Ticks};
+
+        prefabs.Add(p);
     }
     
     static string GetPrettyNameFromAssetPath(string assetPa)
