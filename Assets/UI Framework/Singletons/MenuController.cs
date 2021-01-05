@@ -68,10 +68,10 @@ public class MenuController : View
         SetUrl(ScreenMode.MessageScreen, "MessageScreen");
     }
     
-    void Start()
-    {
-        EnableScreen(ScreenMode.HoldingScreen);
-    }
+    // void Start()
+    // {
+    //     EnableScreen(ScreenMode.HoldingScreen);
+    // }
 
     public override void ViewRender()
     {

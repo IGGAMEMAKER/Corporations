@@ -18,16 +18,10 @@ public class SimpleUIEventHandler : MonoBehaviour
     private static int counter = 0;
     private bool canRenderStuff = true;
 
-    void Start()
-    {
-        LoadData();
-
-        // foreach (var prefab in prefabs)
-        // {
-        //     RenderPrefab(prefab.Url);
-        //     // HidePrefab(prefab.Url);
-        // }
-    }
+    // void Start()
+    // {
+    //     LoadData();
+    // }
 
     public void OpenTab(string url)
     {
@@ -68,37 +62,39 @@ public class SimpleUIEventHandler : MonoBehaviour
         
         LoadData();
         
-        Debug.Log($"SHIFTING FROM {CurrentUrl}=>{url}");
+        Debug.Log($"<b>OpenUrl {CurrentUrl} => {url}</b>");
 
         var newUrls = ParseUrlToSubRoutes(url);
         var oldUrls = ParseUrlToSubRoutes(CurrentUrl);
-        var commonUrls = new List<string>();
-        
+
         PrintParsedRoute(oldUrls, "OLD routes");
         PrintParsedRoute(newUrls, "NEW routes");
 
-        foreach (var removableUrl in oldUrls)
-        {
-            if (newUrls.Contains(removableUrl))
-            {
-                commonUrls.Add(removableUrl);
-            }
-        }
+        var commonUrls = oldUrls.Where(removableUrl => newUrls.Contains(removableUrl)).ToList();
 
+        var willRender = newUrls;
+        var willHide = oldUrls;
+        
         foreach (var commonUrl in commonUrls)
         {
-            newUrls.RemoveAll(u => u.Equals(commonUrl));
-            oldUrls.RemoveAll(u => u.Equals(commonUrl));
+            willRender.RemoveAll(u => u.Equals(commonUrl));
+            willHide.RemoveAll(u => u.Equals(commonUrl));
         }
+
+        PrintParsedRoute(commonUrls, "no change");
+
+        PrintParsedRoute(willHide, "will HIDE");
+        PrintParsedRoute(willRender, "will RENDER");
         
-        foreach (var removableUrl in oldUrls)
+        foreach (var removableUrl in willHide)
         {
-            // HidePrefab(removableUrl);
+            HidePrefab(removableUrl);
         }
         
-        foreach (var newUrl in newUrls)
+        foreach (var newUrl in willRender)
         {
             // RenderPrefab(newUrl);
+            Debug.Log("Mockingly rendered new route: " + newUrl);
         }
         
         // if attempt overflow, render only necessary stuff
@@ -176,6 +172,9 @@ public class SimpleUIEventHandler : MonoBehaviour
 
     static void LoadData()
     {
+        if (prefabs != null)
+            return;
+        
         var fileName = "SimpleUI/SimpleUI.txt";
 
         List<SimpleUISceneType> obj = Newtonsoft.Json.JsonConvert.DeserializeObject<List<SimpleUISceneType>>(
