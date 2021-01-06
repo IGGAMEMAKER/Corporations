@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -601,6 +602,22 @@ public class SimpleUI : EditorWindow
             }
         }
     }
+
+    public static bool HasOverridenProperties<T>(T component, GameObject rootGameObject)
+    {
+        return false;
+    }
+    public static bool HasNoPrefabsBetweenObjects<T>(T component, GameObject rootGameObject)
+    {
+        // is directly attached to root prefab object with no in between prefabs
+
+        return true;
+    }
+
+    public static bool IsAddedAsOverridenComponent<T>(T component, GameObject rootGameObject)
+    {
+        return false;
+    }
     
     public static void WhatUsesComponent<T>()
     {
@@ -608,7 +625,6 @@ public class SimpleUI : EditorWindow
 
         Debug.Log("Finding all Prefabs and scenes that have the component" + typeToSearch + "…");
 
-        // var excludeFolders = new[] {"Assets/Standard Assets"};
         var excludeFolders = new[] {"Assets/Standard Assets"};
         var guids = AssetDatabase.FindAssets("t:scene t:prefab", new []{ "Assets"});
 
@@ -616,7 +632,7 @@ public class SimpleUI : EditorWindow
         var removedPaths = paths.RemoveAll(guid => excludeFolders.Any(guid.Contains));
 
         var matchingPrefabs = new List<string>();
-        var matchingComponents = new List<string>();
+        List<T> matchingComponents = new List<T>();
         
         foreach (var path in paths)
         {
@@ -629,7 +645,15 @@ public class SimpleUI : EditorWindow
                 Debug.LogError("Cannot load prefab at path: " + path);
                 continue;
             }
-            var components = asset.GetComponentsInChildren<T>(true);
+            
+            List<T> components = asset.GetComponentsInChildren<T>(true).ToList();
+            var self = asset.GetComponent<T>();
+
+            if (self != null)
+            {
+                components.Add(self);
+            }
+            
             if (components.Any())
             {
                 matchingPrefabs.Add(path);
@@ -637,7 +661,36 @@ public class SimpleUI : EditorWindow
 
             foreach (var component in components)
             {
-                
+                bool isAttachedToRootPrefab = HasNoPrefabsBetweenObjects(component, asset);
+                bool isAttachedToNestedPrefab = !isAttachedToRootPrefab;
+
+                if (isAttachedToRootPrefab)
+                {
+                    Debug.Log($"Component {typeToSearch} appears in {path} and is attached to ROOT prefab"); // {(component as GameObject).name}
+                }
+
+                if (isAttachedToNestedPrefab)
+                {
+                    bool isAddedAndMarkedBlue = IsAddedAsOverridenComponent(component, asset);
+                    bool isNormallyAddedToNestedPrefab = !isAddedAndMarkedBlue;
+
+                    if (isAddedAndMarkedBlue)
+                    {
+                        // added, but not saved in that prefab
+                        // so prefab will not see this component in itself
+                        
+                        // but you need to keep an eye if you will make changes in this component
+                        
+                        Debug.Log($"Component {typeToSearch} appears in {path}, cause it is attached to subPrefab, but it is NOT SAVED in that prefab");
+                    }
+
+                    if (isNormallyAddedToNestedPrefab)
+                    {
+                        // so you might need to check Overriden Properties
+                        
+                        Debug.Log($"Component {typeToSearch} appears in {path}, cause it is attached to subPrefab");
+                    }
+                }
             }
         }
         
