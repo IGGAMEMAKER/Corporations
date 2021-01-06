@@ -15,7 +15,9 @@ public class SimpleUIEventHandler : MonoBehaviour
     public string CurrentUrl;
     static List<SimpleUISceneType> prefabs; // = new List<NewSceneTypeBlah>();
 
-    private static int counter = 0; 
+    private static int counter = 0;
+    private static int sameUrlCounter = 0;
+    private static int counterThreshold = 4;
 
     // void Start()
     // {
@@ -28,6 +30,11 @@ public class SimpleUIEventHandler : MonoBehaviour
     //     
     //     OpenUrl(CurrentUrl + "/" + trimmedUrl);
     // }
+
+    private void Update()
+    {
+        counter = 0;
+    }
 
     List<string> ParseUrlToSubRoutes(string url)
     {
@@ -58,14 +65,23 @@ public class SimpleUIEventHandler : MonoBehaviour
     {
         counter++;
 
-        if (counter > 10)
+        if (counter > counterThreshold)
         {
-            Debug.LogError("INFINITE LOOP");
+            Debug.LogError($"INFINITE LOOP: {NextUrl} => {CurrentUrl}");
             return;
         }
-        
+
         if (NextUrl.Equals(CurrentUrl))
+        {
+            Debug.LogError($"SAME URL INFINITE LOOP: {CurrentUrl}");
+            sameUrlCounter++;
+
             return;
+        }
+        else
+        {
+            sameUrlCounter = 0;
+        }
         
         LoadData();
         
@@ -73,9 +89,6 @@ public class SimpleUIEventHandler : MonoBehaviour
 
         var newUrls = ParseUrlToSubRoutes(NextUrl);
         var oldUrls = ParseUrlToSubRoutes(CurrentUrl);
-
-        // PrintParsedRoute(oldUrls, "OLD routes");
-        // PrintParsedRoute(newUrls, "NEW routes");
 
         var commonUrls = oldUrls.Where(removableUrl => newUrls.Contains(removableUrl)).ToList();
 
@@ -108,9 +121,7 @@ public class SimpleUIEventHandler : MonoBehaviour
             RenderPrefab(newUrl);
         }
         
-        // if attempt overflow, render only necessary stuff
-        // if (!canRenderStuff)
-            // RenderPrefab(url);
+        // RenderPrefab(url);
 
         CurrentUrl = NextUrl;
     }

@@ -59,7 +59,7 @@ public class MenuController : View
         SetUrl(ScreenMode.StartCampaignScreen, "StartCampaignScreen");
         SetUrl(ScreenMode.GroupScreen, "CorporateCultureScreen");
         
-        SetUrl(ScreenMode.HoldingScreen, "Holding");
+        SetUrl(ScreenMode.HoldingScreen, "Holding/Main");
         
         SetUrl(ScreenMode.CorporationScreen, "CorporationScreen");
         SetUrl(ScreenMode.AcquirableCompaniesOnNicheScreen, "AcquirableCompaniesOnNicheScreen");
@@ -84,10 +84,9 @@ public class MenuController : View
         
         Debug.Log("Enable screen " + screen);
 
-        return;
         try
         {
-                OpenUrl(PrefabScreens[screen]);
+            OpenUrl(PrefabScreens[screen]);
 
             PrevScreen = screen;
         }
