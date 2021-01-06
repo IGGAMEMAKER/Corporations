@@ -614,6 +614,29 @@ public class SimpleUI : EditorWindow
         // -> NonPrefab2 GO
         // -> -> NonPrefab3 GO with our component
 
+        // PrefabUtility.IsAnyPrefabInstanceRoot(component.gameObject);
+        // PrefabUtility.IsOutermostPrefabInstanceRoot(component.gameObject);
+        // PrefabUtility.IsPartOfAnyPrefab(component.gameObject);
+        // PrefabUtility.IsPartOfPrefabAsset(component.gameObject);
+        // PrefabUtility.IsPartOfPrefabInstance(component.gameObject);
+        // PrefabUtility.IsPartOfRegularPrefab(component.gameObject);
+        // PrefabUtility.IsPartOfNonAssetPrefabInstance(component.gameObject);
+
+        var rootOf = PrefabUtility.GetPrefabAssetPathOfNearestInstanceRoot(root);
+        var pathOfComponent = PrefabUtility.GetPrefabAssetPathOfNearestInstanceRoot(component);
+
+        var r = rootOf.Equals(pathOfComponent);
+
+        var attachedStr = r ? "IS" : "Is NOT";
+        // PrintArbitraryInfo(null, $"{component.gameObject.name} {attachedStr} Directly attached to {root.gameObject.name}");
+
+        if (!r)
+        {
+            // PrintArbitraryInfo(null, $"cause it's part of {pathOfComponent} prefab");
+        }
+
+        return r;
+
         var nearestRoot = PrefabUtility.GetNearestPrefabInstanceRoot(component);
         var outerRoot = PrefabUtility.GetOutermostPrefabInstanceRoot(component);
 
@@ -635,16 +658,40 @@ public class SimpleUI : EditorWindow
     public static bool IsAddedAsOverridenComponent(MonoBehaviour component, GameObject root)
     {
         return PrefabUtility.IsAddedComponentOverride(component);
-        return false;
     }
     
     public static bool HasOverridenProperties(MonoBehaviour component, GameObject root)
     {
-        var result = PrefabUtility.HasPrefabInstanceAnyOverrides(root, false);
+        var result = PrefabUtility.HasPrefabInstanceAnyOverrides(component.gameObject, false);
+        var nearestPrefab = PrefabUtility.GetCorrespondingObjectFromSource(component);
+        // PrefabUtility.GetPropertyModifications()
         
-        Debug.Log($"<b>{result}</b>?Does {component.gameObject.name} has any overrides? ({root.gameObject.name})");
+        Debug.Log("Corresponding object for " + component.gameObject.name + " is " + nearestPrefab.name);
+
+        var str = result ? "HAS" : "Has NO";
+        
+        // PrintArbitraryInfo(null, $"{component.gameObject.name} {str} overrides"); // ({root.gameObject.name})
         
         return result;
+    }
+    
+    public class PrefabComponentMatcher
+    {
+        
+    }
+    
+    public class PrefabMatchInfo
+    {
+        public string PrefabAssetPath;
+        public string ComponentName;
+
+        public bool IsDirectMatch; // with no nested prefabs, can apply changes directly. (Both on root and it's childs)
+        
+        public bool IsNormalPartOfNestedPrefab; // absolutely normal prefab part with NO overrides. No actions required
+        public bool IsOverridenPartOfNestedPrefab => IsOverridenAsAddedComponent || IsOverridenAsComponentProperty; // is overriden somehow: maybe there is not saved Added component or Overriden Parameters in component itself
+
+        public bool IsOverridenAsComponentProperty;
+        public bool IsOverridenAsAddedComponent;
     }
     
     public static void WhatUsesComponent<T>()
@@ -661,7 +708,7 @@ public class SimpleUI : EditorWindow
         var removedPaths = paths.RemoveAll(guid => excludeFolders.Any(guid.Contains));
 
         var matchingPrefabs = new List<string>();
-        List<T> matchingComponents = new List<T>();
+        List<PrefabMatchInfo> matchingComponents = new List<PrefabMatchInfo>();
         
         var componentNotes = new List<string>();
         
@@ -688,25 +735,29 @@ public class SimpleUI : EditorWindow
             if (components.Any())
             {
                 matchingPrefabs.Add(path);
-                componentNotes.Add("Found component " + typeToSearch + " in file <b>" + path + "</b>");
+                // PrintBlah(componentNotes, "<b>----------------------------</b>");
+                PrintBlah(componentNotes, "Found component " + typeToSearch + " in file <b>" + path + "</b>");
             }
 
             foreach (var component1 in components)
             {
                 var component = component1 as MonoBehaviour;
-                
+
+                var matchInfo = new PrefabMatchInfo {PrefabAssetPath = path, ComponentName = component.gameObject.name};
+
                 bool isAttachedToRootPrefab = HasNoPrefabsBetweenObjects(component, asset);
                 bool isAttachedToNestedPrefab = !isAttachedToRootPrefab;
 
                 if (isAttachedToRootPrefab)
                 {
-                    componentNotes.Add($"{typeToSearch} appears in {path} and is attached to <b>ROOT</b> prefab");
+                    // PrintBlah(componentNotes, $"{component.gameObject.name}.{typeToSearch} is attached to <b>ROOT</b> without any overrides and complex prefab stuff");
+                    matchInfo.IsDirectMatch = true;
                 }
 
                 if (isAttachedToNestedPrefab)
                 {
                     bool isAddedAndMarkedBlue = IsAddedAsOverridenComponent(component, asset);
-                    bool isNormallyAddedToNestedPrefab = !isAddedAndMarkedBlue;
+                    bool isPartOfNestedPrefab = !isAddedAndMarkedBlue;
 
                     if (isAddedAndMarkedBlue)
                     {
@@ -715,21 +766,29 @@ public class SimpleUI : EditorWindow
                         
                         // but you need to keep an eye if you will make changes in this component
                  
-                        componentNotes.Add($"{typeToSearch} appears in {path}, cause it is <b>WEAKLY attached</b> to <b>subPrefab</b>");
+                        // PrintBlah(componentNotes, $"{component.gameObject.name}.{typeToSearch} is <b>{Visuals.Colorize("ADDITIVELY", Color.blue)}</b> attached to <b>nested prefab</b>");
+                        matchInfo.IsOverridenAsAddedComponent = true;
                     }
 
-                    if (isNormallyAddedToNestedPrefab)
+                    if (isPartOfNestedPrefab)
                     {
                         // so you might need to check Overriden Properties
                         
-                        componentNotes.Add($"{typeToSearch} appears in {path}, cause it is <b>STRONGLY attached</b> to <b>subPrefab</b>");
+                        // PrintBlah(componentNotes, $"{component.gameObject.name}.{typeToSearch} is <b>Normally</b> attached to <b>nested prefab</b>");
 
                         if (HasOverridenProperties(component, asset))
                         {
-                            componentNotes.Add("Has some overriden properties");
+                            // PrintBlah(componentNotes, "Has some overriden properties");
+                            matchInfo.IsOverridenAsComponentProperty = true;
+                        }
+                        else
+                        {
+                            matchInfo.IsNormalPartOfNestedPrefab = true;
                         }
                     }
                 }
+                
+                matchingComponents.Add(matchInfo);
             }
         }
         
@@ -743,8 +802,30 @@ public class SimpleUI : EditorWindow
         {
             Debug.Log(componentNote);
         }
-        
-        
+
+        foreach (var matchingComponent in matchingComponents)
+        {
+            if (matchingComponent.IsDirectMatch)
+            {
+                PrintBlah(null, $"Directly occurs as {matchingComponent.ComponentName} in " + matchingComponent.PrefabAssetPath + " so you can upgrade it and safely save ur prefab");
+            }
+            else if (matchingComponent.IsOverridenPartOfNestedPrefab)
+            {
+                if (matchingComponent.IsOverridenAsAddedComponent)
+                {
+                    PrintBlah(null, $"{matchingComponent.ComponentName} Is <b>ADDITIONALLY ATTACHED</b> to some nested prefab in {matchingComponent.PrefabAssetPath}");
+                }
+                else if (matchingComponent.IsOverridenAsComponentProperty)
+                {
+                    PrintBlah(null, $"root prefab ({matchingComponent.PrefabAssetPath}) <b>OVERRIDES VALUES</b> of component {matchingComponent.ComponentName}");
+                }
+            }
+            else if (matchingComponent.IsNormalPartOfNestedPrefab)
+            {
+                PrintBlah(null, "Occurs as nested prefab in " + matchingComponent.PrefabAssetPath);
+                PrintArbitraryInfo(null, "No changes necessary");
+            }
+        }
 
 
         // int count = 0;
@@ -772,6 +853,16 @@ public class SimpleUI : EditorWindow
     // }
 
 }
+
+    static void PrintArbitraryInfo(List<string> list, string text)
+    {
+        Debug.Log(Visuals.Colorize(text, Color.gray));
+    }
+    static void PrintBlah(List<string> list, string text)
+    {
+        Debug.Log(text);
+        // componentNotes.Add($"{typeToSearch} appears in {path}, cause it is <b>STRONGLY attached</b> to <b>subPrefab</b>");
+    }
 
     static void UpdatePrefab(SimpleUISceneType prefab)
     {
