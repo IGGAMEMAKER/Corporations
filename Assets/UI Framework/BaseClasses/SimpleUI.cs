@@ -11,6 +11,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditor.Experimental.SceneManagement;
 using UnityEditor.SceneManagement;
+using Object = UnityEngine.Object;
 
 // Read
 // Как-работает-editorwindow-ongui-в-unity-3d
@@ -603,20 +604,47 @@ public class SimpleUI : EditorWindow
         }
     }
 
-    public static bool HasOverridenProperties<T>(T component, GameObject rootGameObject)
-    {
-        return false;
-    }
-    public static bool HasNoPrefabsBetweenObjects<T>(T component, GameObject rootGameObject)
+
+    public static bool HasNoPrefabsBetweenObjects(MonoBehaviour component, GameObject root)
     {
         // is directly attached to root prefab object with no in between prefabs
+        
+        // root GO
+        // -> NonPrefab1 GO
+        // -> NonPrefab2 GO
+        // -> -> NonPrefab3 GO with our component
 
-        return true;
+        var nearestRoot = PrefabUtility.GetNearestPrefabInstanceRoot(component);
+        var outerRoot = PrefabUtility.GetOutermostPrefabInstanceRoot(component);
+
+        var rootId = root.GetInstanceID();
+        
+        var nearestId = nearestRoot.GetInstanceID();
+        var outerId = outerRoot.GetInstanceID();
+        
+        var result = nearestId == outerId;
+        
+        // Debug.Log($"isDirectly attached to root prefab? <b>{result}</b> c={component.gameObject.name}, root={root.gameObject.name}\n" 
+        //           + $"\n<b>nearest prefab ({nearestId}): </b>" + nearestRoot.name 
+        //           + $"\n<b>outer prefab ({outerId}): </b>" + outerRoot.name 
+        //           + $"\n\nroot instance ID={rootId}");
+
+        return result;
     }
 
-    public static bool IsAddedAsOverridenComponent<T>(T component, GameObject rootGameObject)
+    public static bool IsAddedAsOverridenComponent(MonoBehaviour component, GameObject root)
     {
+        return PrefabUtility.IsAddedComponentOverride(component);
         return false;
+    }
+    
+    public static bool HasOverridenProperties(MonoBehaviour component, GameObject root)
+    {
+        var result = PrefabUtility.HasPrefabInstanceAnyOverrides(root, false);
+        
+        Debug.Log($"<b>{result}</b>?Does {component.gameObject.name} has any overrides? ({root.gameObject.name})");
+        
+        return result;
     }
     
     public static void WhatUsesComponent<T>()
@@ -626,7 +654,8 @@ public class SimpleUI : EditorWindow
         Debug.Log("Finding all Prefabs and scenes that have the component" + typeToSearch + "…");
 
         var excludeFolders = new[] {"Assets/Standard Assets"};
-        var guids = AssetDatabase.FindAssets("t:scene t:prefab", new []{ "Assets"});
+        var guids = AssetDatabase.FindAssets("t:prefab", new []{ "Assets"});
+        // var guids = AssetDatabase.FindAssets("t:scene t:prefab", new []{ "Assets"});
 
         var paths = guids.Select(AssetDatabase.GUIDToAssetPath).ToList();
         var removedPaths = paths.RemoveAll(guid => excludeFolders.Any(guid.Contains));
@@ -634,9 +663,11 @@ public class SimpleUI : EditorWindow
         var matchingPrefabs = new List<string>();
         List<T> matchingComponents = new List<T>();
         
+        var componentNotes = new List<string>();
+        
         foreach (var path in paths)
         {
-            Debug.Log("Found prefab: " + path);
+            // Debug.Log("Found prefab: " + path);
 
             var asset = AssetDatabase.LoadAssetAtPath<GameObject>(path);
 
@@ -657,16 +688,19 @@ public class SimpleUI : EditorWindow
             if (components.Any())
             {
                 matchingPrefabs.Add(path);
+                componentNotes.Add("Found component " + typeToSearch + " in file <b>" + path + "</b>");
             }
 
-            foreach (var component in components)
+            foreach (var component1 in components)
             {
+                var component = component1 as MonoBehaviour;
+                
                 bool isAttachedToRootPrefab = HasNoPrefabsBetweenObjects(component, asset);
                 bool isAttachedToNestedPrefab = !isAttachedToRootPrefab;
 
                 if (isAttachedToRootPrefab)
                 {
-                    Debug.Log($"Component {typeToSearch} appears in {path} and is attached to ROOT prefab"); // {(component as GameObject).name}
+                    componentNotes.Add($"{typeToSearch} appears in {path} and is attached to <b>ROOT</b> prefab");
                 }
 
                 if (isAttachedToNestedPrefab)
@@ -680,19 +714,19 @@ public class SimpleUI : EditorWindow
                         // so prefab will not see this component in itself
                         
                         // but you need to keep an eye if you will make changes in this component
-                        
-                        Debug.Log($"Component {typeToSearch} appears in {path}, cause it is attached to subPrefab, but it is NOT SAVED in that prefab");
+                 
+                        componentNotes.Add($"{typeToSearch} appears in {path}, cause it is <b>WEAKLY attached</b> to <b>subPrefab</b>");
                     }
 
                     if (isNormallyAddedToNestedPrefab)
                     {
                         // so you might need to check Overriden Properties
                         
-                        Debug.Log($"Component {typeToSearch} appears in {path}, cause it is attached to subPrefab");
+                        componentNotes.Add($"{typeToSearch} appears in {path}, cause it is <b>STRONGLY attached</b> to <b>subPrefab</b>");
 
                         if (HasOverridenProperties(component, asset))
                         {
-                            Debug.Log("Has some overriden properties");
+                            componentNotes.Add("Has some overriden properties");
                         }
                     }
                 }
@@ -702,7 +736,12 @@ public class SimpleUI : EditorWindow
         Debug.Log($"<b>Found {removedPaths} removed guids</b>");
         foreach (var matchingPrefab in matchingPrefabs)
         {
-            Debug.Log("Found component " + typeToSearch + " in file <b>" + matchingPrefab + "</b>");
+            // Debug.Log("Found component " + typeToSearch + " in file <b>" + matchingPrefab + "</b>");
+        }
+
+        foreach (var componentNote in componentNotes)
+        {
+            Debug.Log(componentNote);
         }
         
         
