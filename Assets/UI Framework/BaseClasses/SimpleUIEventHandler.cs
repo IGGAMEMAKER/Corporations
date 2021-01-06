@@ -29,6 +29,7 @@ public class SimpleUIEventHandler : MonoBehaviour
     private void Update()
     {
         counter = 0;
+        sameUrlCounter = 0;
     }
 
     List<string> ParseUrlToSubRoutes(string url)
