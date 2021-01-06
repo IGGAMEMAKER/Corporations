@@ -19,11 +19,6 @@ public class SimpleUIEventHandler : MonoBehaviour
     private static int sameUrlCounter = 0;
     private static int counterThreshold = 4;
 
-    // void Start()
-    // {
-    //     LoadData();
-    // }
-
     // public void OpenTab(string url)
     // {
     //     var trimmedUrl = url.StartsWith("/") ? url.TrimStart('/') : url; 
@@ -101,10 +96,10 @@ public class SimpleUIEventHandler : MonoBehaviour
             willHide.RemoveAll(u => u.Equals(commonUrl));
         }
 
-        PrintParsedRoute(commonUrls, "no change");
-
-        PrintParsedRoute(willHide, "will HIDE");
-        PrintParsedRoute(willRender, "will RENDER");
+        // PrintParsedRoute(commonUrls, "no change");
+        //
+        // PrintParsedRoute(willHide, "will HIDE");
+        // PrintParsedRoute(willRender, "will RENDER");
         
         foreach (var removableUrl in willHide)
         {
@@ -126,27 +121,27 @@ public class SimpleUIEventHandler : MonoBehaviour
         CurrentUrl = NextUrl;
     }
 
-    void RenderPrefab(string url, bool isTest = false)
+    void RenderPrefab(string url)
     {
         Debug.Log("Render prefab by url: " + url);
 
-        var p = GetPrefab(url, isTest);
+        var p = GetPrefab(url);
         
         if (p != null && !p.activeSelf)
             p.SetActive(true);
     }
 
-    void HidePrefab(string url, bool isTest = false)
+    void HidePrefab(string url)
     {
         Debug.Log("HIDE prefab by url: " + url);
 
-        var p = GetPrefab(url, isTest);
+        var p = GetPrefab(url);
         
         if (p != null && p.activeSelf)
             p.SetActive(false);
     }
 
-    GameObject GetPrefab(string url, bool isTestUrl = false)
+    GameObject GetPrefab(string url)
     {
         try
         {
@@ -155,8 +150,6 @@ public class SimpleUIEventHandler : MonoBehaviour
             
             if (!Objects.ContainsKey(url))
             {
-                if (isTestUrl) Debug.Log("Never loaded ROOT as prefab");
-                
                 if (!prefabs.Any(p => p.Url.Equals(url)))
                 {
                     Debug.LogError("URL " + url + " not found");
@@ -165,8 +158,6 @@ public class SimpleUIEventHandler : MonoBehaviour
 
                 var pre = prefabs.First(p => p.Url.Equals(url));
                 
-                if (isTestUrl) Debug.Log("Found data for ROOT prefab");
-
                 var obj = AssetDatabase.LoadAssetAtPath<GameObject>(pre.AssetPath);
                 if (obj == null)
                 {
@@ -174,15 +165,9 @@ public class SimpleUIEventHandler : MonoBehaviour
                     return null;
                 }
                 
-                if (isTestUrl) Debug.Log("Loaded ROOT prefab from assets " + pre.AssetPath + " " + obj.name);
-                if (isTestUrl) return null;
-                
                 // Objects[url] = Instantiate(AssetDatabase.GetMainAssetTypeAtPath(pre.AssetPath));
 
                 Objects[url] = Instantiate(obj, transform);
-                
-                if (isTestUrl) Debug.Log("INSTANTIATED ROOT prefab");
-                if (isTestUrl) return null;
             }
             
             return Objects[url];

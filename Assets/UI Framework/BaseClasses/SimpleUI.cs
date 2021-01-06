@@ -494,6 +494,9 @@ public class SimpleUI : EditorWindow
 
     static void LoadData()
     {
+        if (prefabs != null && prefabs.Count == 0)
+            return;
+        
         var fileName = "SimpleUI/SimpleUI.txt";
 
         List<SimpleUISceneType> obj = Newtonsoft.Json.JsonConvert.DeserializeObject<List<SimpleUISceneType>>(File.ReadAllText(fileName), new Newtonsoft.Json.JsonSerializerSettings

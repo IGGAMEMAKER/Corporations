@@ -1,5 +1,6 @@
 ﻿using System;
 using Assets.Core;
+using UnityEngine;
 
 public abstract class Controller : BaseClass
 {
@@ -68,6 +69,11 @@ public abstract class Controller : BaseClass
                 
                 Companies.Measure(view.name, startTime, MyProfiler, "Views");
             // }
+
+            if (view.name == "Gameplay")
+            {
+                Debug.Log("Rendering Gameplay object");
+            }
         }
 
         foreach (var view in buttonViews)

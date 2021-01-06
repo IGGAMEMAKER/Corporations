@@ -41,10 +41,12 @@ namespace Assets.Core
             return menu;
         }
 
-        // update menues
+        // update menus
         public static void UpdateScreen(GameContext context, ScreenMode screenMode, Dictionary<string, object> data)
         {
-            GetMenu(context).ReplaceMenu(screenMode, data);
+            var menu = GetMenu(context);
+                
+            menu.ReplaceMenu(screenMode, data);
         }
 
         public static void UpdateScreen(GameContext context)

@@ -11,10 +11,19 @@ public class MenuController : View
     // string = url
     public Dictionary<ScreenMode, string> PrefabScreens = new Dictionary<ScreenMode, string>();
 
-    private ScreenMode PrevScreen;
     string GetWrappedUrl(string url)
     {
         return "/" + url;
+    }
+
+    private void OnEnable()
+    {
+        Debug.Log("OnEnable MenuController");
+    }
+
+    private void OnDisable()
+    {
+        Debug.Log("OnDisable MenuController");
     }
 
     void SetUrl(ScreenMode mode, string url)
@@ -78,21 +87,10 @@ public class MenuController : View
 
     void EnableScreen(ScreenMode screen)
     {
-        bool needToRender = PrefabScreens.Count == 0 || screen != PrevScreen;
-
         LoadMenuMappings();
         
         Debug.Log("Enable screen " + screen);
 
-        try
-        {
-            OpenUrl(PrefabScreens[screen]);
-
-            PrevScreen = screen;
-        }
-        catch (Exception ex)
-        {
-            Debug.LogError($"Cannot open {screen}");
-        }
+        OpenUrl(PrefabScreens[screen]);
     }
 }

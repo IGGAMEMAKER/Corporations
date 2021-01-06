@@ -1,5 +1,6 @@
 ﻿using Entitas;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets.Core
 {
@@ -12,6 +13,7 @@ namespace Assets.Core
 
         public static void UpdateHistory(GameContext context, ScreenMode screenMode, Dictionary<string, object> data)
         {
+            Debug.Log("Update History => Navigate");
             var history = GetNavigationHistory(context);
 
             var q = history.navigationHistory.Queries;
@@ -26,8 +28,6 @@ namespace Assets.Core
 
             UpdateHistory(context, menu.menu.ScreenMode, menu.menu.Data);
             UpdateScreen(context, newScreen, newData);
-
-            //SoundManager.Play(Sound.Hover);
         }
 
         public static void Navigate(GameContext context, ScreenMode screenMode)
