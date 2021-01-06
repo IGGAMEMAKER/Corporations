@@ -13,7 +13,6 @@ namespace Assets.Core
 
         public static void UpdateHistory(GameContext context, ScreenMode screenMode, Dictionary<string, object> data)
         {
-            Debug.Log("Update History => Navigate");
             var history = GetNavigationHistory(context);
 
             var q = history.navigationHistory.Queries;

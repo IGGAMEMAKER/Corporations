@@ -1,5 +1,6 @@
 ﻿using Assets.Core;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class LazyUpdate : Controller
     , IDateListener
@@ -9,22 +10,22 @@ public class LazyUpdate : Controller
     , IAnyTimerRunningListener
     , IAnyGamePausedListener
 {
-    [UnityEngine.Header("Everyday changes")]
+    [Header("Everyday changes")]
     public bool DateChanges = true;
 
-    [UnityEngine.Header("Periodical changes")]
+    [Header("Periodical changes")]
     public bool OnPeriodChange = false;
 
-    [UnityEngine.Header("Button clicks")]
+    [Header("Button clicks")]
     public bool MenuChanges = true;
 
-    [UnityEngine.Header("Navigation")]
+    [Header("Navigation")]
     public bool NavigationChanges = true;
 
-    [UnityEngine.Header("GameEvents")]
+    [Header("GameEvents")]
     public bool ListenGameEvents = false;
 
-    [UnityEngine.Header("Pause")]
+    [Header("Pause")]
     public bool ListenPauseEvents = false;
 
     public override void AttachListeners()

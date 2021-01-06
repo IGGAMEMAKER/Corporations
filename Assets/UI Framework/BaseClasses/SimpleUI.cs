@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Assets.Core;
+using NUnit.Framework;
 using UnityEngine;
 
 
 using UnityEditor;
 using UnityEditor.Experimental.SceneManagement;
+using UnityEditor.SceneManagement;
 
 // Read
 // Как-работает-editorwindow-ongui-в-unity-3d
@@ -353,6 +355,8 @@ public class SimpleUI : EditorWindow
         AssetDatabase.OpenAsset(asset);
         Selection.activeObject = asset;
         // AssetDatabase.OpenAsset(AssetDatabase.LoadMainAssetAtPath(p.AssetPath));
+
+        WhatUsesComponent<OpenUrl>();
     }
 
 
@@ -597,8 +601,81 @@ public class SimpleUI : EditorWindow
             }
         }
     }
-
     
+    public static void WhatUsesComponent<T>()
+    {
+        var typeToSearch = typeof(T);
+
+        Debug.Log("Finding all Prefabs and scenes that have the component" + typeToSearch + "…");
+
+        // var excludeFolders = new[] {"Assets/Standard Assets"};
+        var excludeFolders = new[] {"Assets/Standard Assets"};
+        var guids = AssetDatabase.FindAssets("t:scene t:prefab", new []{ "Assets"});
+
+        var paths = guids.Select(AssetDatabase.GUIDToAssetPath).ToList();
+        var removedPaths = paths.RemoveAll(guid => excludeFolders.Any(guid.Contains));
+
+        var matchingPrefabs = new List<string>();
+        var matchingComponents = new List<string>();
+        
+        foreach (var path in paths)
+        {
+            Debug.Log("Found prefab: " + path);
+
+            var asset = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+
+            if (asset == null)
+            {
+                Debug.LogError("Cannot load prefab at path: " + path);
+                continue;
+            }
+            var components = asset.GetComponentsInChildren<T>(true);
+            if (components.Any())
+            {
+                matchingPrefabs.Add(path);
+            }
+
+            foreach (var component in components)
+            {
+                
+            }
+        }
+        
+        Debug.Log($"<b>Found {removedPaths} removed guids</b>");
+        foreach (var matchingPrefab in matchingPrefabs)
+        {
+            Debug.Log("Found component " + typeToSearch + " in file <b>" + matchingPrefab + "</b>");
+        }
+        
+        
+
+
+        // int count = 0;
+
+    //     for (int i = 0; i g.GetComponentsInChildren(typeToSearch, true)).ToArray();
+    // }
+    // else {
+    //     myObjs = AssetDatabase.LoadAllAssetsAtPath(myObjectPath);
+    // }
+
+    // if (EditorUtility.DisplayCancelableProgressBar($"Searching in scenes/prefabs… {count} matches. Progress: {i} / {guids.Length}. Current: {asset.name}, {i} / (guids.Length – 1f))) {
+    //     goto End;
+    // }
+
+    // foreach (Object thisObject in myObjs) {
+    //     if (typeToSearch.IsAssignableFrom(thisObject.GetType())) {
+    //         Debug.Log(“” + typeString + ” Found in ” + thisObject.name + ” at ” + myObjectPath, asset);
+    //         count++;
+    //         break;
+    //     }
+    // }
+    //
+    // if (asset is SceneAsset) {
+    //     EditorSceneManager.ClosePreviewScene(s);
+    // }
+
+}
+
     static void UpdatePrefab(SimpleUISceneType prefab)
     {
         if (!hasChosenPrefab)

@@ -1,9 +1,14 @@
 ﻿using System;
+using System.Runtime.Remoting.Messaging;
 using Assets.Core;
 using UnityEngine;
 
 public abstract class Controller : BaseClass
 {
+    [Header("Always true except MenuController")]
+    public bool TriggerOnEnable = true;
+    [Space(30)]
+
     private View[] Views;
     private ButtonView[] buttonViews;
 
