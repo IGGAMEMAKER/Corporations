@@ -689,6 +689,11 @@ public class SimpleUI : EditorWindow
                         // so you might need to check Overriden Properties
                         
                         Debug.Log($"Component {typeToSearch} appears in {path}, cause it is attached to subPrefab");
+
+                        if (HasOverridenProperties(component, asset))
+                        {
+                            Debug.Log("Has some overriden properties");
+                        }
                     }
                 }
             }
