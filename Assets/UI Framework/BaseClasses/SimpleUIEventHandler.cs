@@ -17,7 +17,7 @@ public class SimpleUIEventHandler : MonoBehaviour
 
     private static int counter = 0;
     private static int sameUrlCounter = 0;
-    private static int counterThreshold = 4;
+    private static int counterThreshold = 8;
 
     // public void OpenTab(string url)
     // {
@@ -68,8 +68,12 @@ public class SimpleUIEventHandler : MonoBehaviour
 
         if (NextUrl.Equals(CurrentUrl))
         {
-            Debug.LogError($"SAME URL INFINITE LOOP: {CurrentUrl}");
             sameUrlCounter++;
+
+            if (sameUrlCounter > counterThreshold / 2)
+            {
+                Debug.LogError($"SAME URL INFINITE LOOP: {CurrentUrl}");
+            }
 
             return;
         }
@@ -121,24 +125,28 @@ public class SimpleUIEventHandler : MonoBehaviour
         CurrentUrl = NextUrl;
     }
 
+    void DrawPrefab(string url, bool show)
+    {
+        var p = GetPrefab(url);
+
+        if (p != null)
+        {
+            if (p.activeSelf != show) p.SetActive(show);
+        }
+    }
+
     void RenderPrefab(string url)
     {
         Debug.Log("Render prefab by url: " + url);
 
-        var p = GetPrefab(url);
-        
-        if (p != null && !p.activeSelf)
-            p.SetActive(true);
+        DrawPrefab(url, true);
     }
 
     void HidePrefab(string url)
     {
         Debug.Log("HIDE prefab by url: " + url);
 
-        var p = GetPrefab(url);
-        
-        if (p != null && p.activeSelf)
-            p.SetActive(false);
+        DrawPrefab(url, false);
     }
 
     GameObject GetPrefab(string url)
