@@ -703,32 +703,49 @@ public class SimpleUI : EditorWindow
     }
 
     // path - RootAssetPath
-    public static PrefabMatchInfo GetPrefabMatchInfo(MonoBehaviour component, GameObject root, string path, string[] properties)
+    public static PrefabMatchInfo GetPrefabMatchInfo(MonoBehaviour component, GameObject root, string path, string[] matchingProperties)
     {
         var matchInfo = new PrefabMatchInfo {PrefabAssetPath = path, ComponentName = component.gameObject.name};
 
-        // var c = component.gameObject;
-
-        var parent = PrefabUtility.GetCorrespondingObjectFromSource(component.gameObject);
+        string text;
         
-        var changes = PrefabUtility.GetPropertyModifications(component);
-        var propertyChanges = changes.ToList()
-            .Where(p => !p.propertyPath.Contains("m_"))
+        var parent = PrefabUtility.GetCorrespondingObjectFromSource(component.gameObject);
+
+        var objectOverrides = PrefabUtility.GetObjectOverrides(component.gameObject).Where(change => change.instanceObject.GetType() == typeof(OpenUrl));
+        var propertyChanges = PrefabUtility.GetPropertyModifications(component.gameObject).Where(p => !p.propertyPath.Contains("m_"));
+
+        var nearest = PrefabUtility.GetNearestPrefabInstanceRoot(component);
+        var outermost = PrefabUtility.GetOutermostPrefabInstanceRoot(component);
+        
+        var urlChanges = propertyChanges
             // .Where(p => p.target.GetInstanceID() == c.GetInstanceID())
-            .Where(p => properties.Contains(p.propertyPath))
+            .Where(p => matchingProperties.Contains(p.propertyPath))
             // .Where(p => p.target.GetType() == typeof(OpenUrl))
             ;
 
-        bool hasOverrides = propertyChanges.Any();
+        if (urlChanges.Any())
+            text = $"<b>HAS</b> {urlChanges.Count()} URL overrides of {component.gameObject.name} in {root.name}";
+        else
+            text = $"<b>NO</b> url overrides of {component.gameObject.name} in {root.name}, while propertyChanges={propertyChanges.Count()}";
 
-        foreach (var propertyChange in propertyChanges)
-        {
-            PrintBlah(null, $"parent object is {parent}");
-            PrintBlah(null, $"modified {propertyChange.propertyPath} in {propertyChange.target}");
-        }
+        // PrintArbitraryInfo(null, $"parent object is {parent}");
+
+        // foreach (var change in urlChanges)
+        // {
+        //     PrintBlah(null, $"modified {change.propertyPath} in {change.target}");
+        // }
+
+        var concatObjectOverrides = string.Join(", \n", objectOverrides.Select(change => change.instanceObject.name + " (" +change.instanceObject.GetType() + ")"));
+
+        text += $"\n\nparent={parent}\nnearest prefab={nearest.gameObject.name}\nouter prefab={outermost.gameObject.name}";
+        text += "\n\n" + Gray($"({objectOverrides.Count()}) Object Overrides on: {component.gameObject.name}")+ "\n\n" + concatObjectOverrides;
+
+        Debug.Log(text);
         
-        PrintBlah(null, $"Search overrides of {component.gameObject.name} in {root.name}. propertyChanges={propertyChanges.Count()} hasOverrides=<b>{hasOverrides}</b>");
+        // PrintBlah(null, $"<b>NO</b> url overrides of {component.gameObject.name} in {root.name}. propertyChanges={urlChanges.Count()} hasOverrides=<b>{hasOverrides}</b>");
 
+        
+        // var c = component.gameObject;
         // var routeToRoot = new List<GameObject>();
         //
         // routeToRoot.Add(c);
@@ -829,7 +846,7 @@ public class SimpleUI : EditorWindow
             {
                 matchingPrefabs.Add(path);
                 // PrintBlah(componentNotes, "<b>----------------------------</b>");
-                PrintBlah(componentNotes, "Found component " + typeToSearch + " in file <b>" + path + "</b>");
+                Print(componentNotes, "Found component " + typeToSearch + " in file <b>" + path + "</b>");
             }
 
             foreach (var component1 in components)
@@ -903,22 +920,22 @@ public class SimpleUI : EditorWindow
         {
             if (matchingComponent.IsDirectMatch)
             {
-                PrintBlah(null, $"Directly occurs as {matchingComponent.ComponentName} in " + matchingComponent.PrefabAssetPath + " so you can upgrade it and safely save ur prefab");
+                Print(null, $"Directly occurs as {matchingComponent.ComponentName} in " + matchingComponent.PrefabAssetPath + " so you can upgrade it and safely save ur prefab");
             }
             else if (matchingComponent.IsOverridenPartOfNestedPrefab)
             {
                 if (matchingComponent.IsOverridenAsAddedComponent)
                 {
-                    PrintBlah(null, $"{matchingComponent.ComponentName} Is <b>ADDITIONALLY ATTACHED</b> to some nested prefab in {matchingComponent.PrefabAssetPath}");
+                    Print(null, $"{matchingComponent.ComponentName} Is <b>ADDITIONALLY ATTACHED</b> to some nested prefab in {matchingComponent.PrefabAssetPath}");
                 }
                 else if (matchingComponent.IsOverridenAsComponentProperty)
                 {
-                    PrintBlah(null, $"root prefab ({matchingComponent.PrefabAssetPath}) <b>OVERRIDES VALUES</b> of component {matchingComponent.ComponentName}");
+                    Print(null, $"root prefab ({matchingComponent.PrefabAssetPath}) <b>OVERRIDES VALUES</b> of component {matchingComponent.ComponentName}");
                 }
             }
             else if (matchingComponent.IsNormalPartOfNestedPrefab)
             {
-                PrintBlah(null, "Occurs as nested prefab in " + matchingComponent.PrefabAssetPath);
+                Print(null, "Occurs as nested prefab in " + matchingComponent.PrefabAssetPath);
                 PrintArbitraryInfo(null, "No changes necessary");
             }
         }
@@ -950,11 +967,16 @@ public class SimpleUI : EditorWindow
 
 }
 
+    static string Gray(string text)
+    {
+        return Visuals.Colorize(text, Color.gray);
+    }
+    
     static void PrintArbitraryInfo(List<string> list, string text)
     {
         Debug.Log(Visuals.Colorize(text, Color.gray));
     }
-    static void PrintBlah(List<string> list, string text)
+    static void Print(List<string> list, string text)
     {
         Debug.Log(text);
         // componentNotes.Add($"{typeToSearch} appears in {path}, cause it is <b>STRONGLY attached</b> to <b>subPrefab</b>");
