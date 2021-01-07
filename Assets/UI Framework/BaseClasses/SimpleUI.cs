@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Assets.Core;
-using NUnit.Framework;
 using UnityEngine;
 
 
@@ -26,6 +25,7 @@ using Object = UnityEngine.Object;
 // optional
 // https://answers.unity.com/questions/201848/how-to-create-a-drop-down-menu-in-editor.html
 // https://gist.github.com/bzgeb/3800350
+// GUID http://www.unity3d.ru/distribution/viewtopic.php?f=18&t=4640
 
 public enum SceneBlahType
 {
@@ -660,12 +660,39 @@ public class SimpleUI : EditorWindow
         return PrefabUtility.IsAddedComponentOverride(component);
     }
     
-    public static bool HasOverridenProperties(MonoBehaviour component, GameObject root)
+    public static bool HasOverridenProperties(MonoBehaviour component, string[] properties)
     {
         var result = PrefabUtility.HasPrefabInstanceAnyOverrides(component.gameObject, false);
-        var nearestPrefab = PrefabUtility.GetCorrespondingObjectFromSource(component);
-        // PrefabUtility.GetPropertyModifications()
+
         
+        var overrides = PrefabUtility.GetObjectOverrides(component.gameObject);
+
+        foreach (var ovr in overrides)
+        {
+        }
+        
+        //
+        // var wat = overrides.First().coupledOverride.GetAssetObject();
+        // Debug.Log("first override " + wat);
+        
+        var nearestPrefab = PrefabUtility.GetCorrespondingObjectFromSource(component);
+
+        Debug.Log($"Check overrides for component {component.gameObject.name}");
+        
+        foreach (var modification in PrefabUtility.GetPropertyModifications(component))
+        {
+            if (modification.propertyPath.Contains("m_"))
+                continue;
+
+            if (properties.Contains(modification.propertyPath))
+                return true;
+            // Debug.Log($"Property: {modification.propertyPath}");
+            // Debug.Log($"Value: {modification.value}");
+            // Debug.Log(modification.target);
+        }
+
+        return false;
+
         Debug.Log("Corresponding object for " + component.gameObject.name + " is " + nearestPrefab.name);
 
         var str = result ? "HAS" : "Has NO";
@@ -674,12 +701,66 @@ public class SimpleUI : EditorWindow
         
         return result;
     }
-    
-    public class PrefabComponentMatcher
+
+    // path - RootAssetPath
+    public static PrefabMatchInfo GetPrefabMatchInfo(MonoBehaviour component, GameObject root, string path, string[] properties)
     {
-        
+        var matchInfo = new PrefabMatchInfo {PrefabAssetPath = path, ComponentName = component.gameObject.name};
+
+        var c = component.gameObject;
+
+        var changes = PrefabUtility.GetPropertyModifications(root.gameObject);
+        var propertyChanges = changes.ToList()
+            .Where(p => !p.propertyPath.Contains("m_"))
+            // .Where(p => p.target.GetType() == typeof(OpenUrl))
+            ;
+
+        Debug.Log("took property changes");
+        bool hasOverrides = propertyChanges.Where(p => p.target.GetInstanceID() == c.GetInstanceID()).Where(p => properties.Contains(p.propertyPath)).Any();
+                
+        PrintBlah(null, $"Search overrides of {c.name} in {root.name}. propertyChanges={propertyChanges.Count()} hasOverrides=<b>{hasOverrides}</b>");
+
+        // var routeToRoot = new List<GameObject>();
+        //
+        // routeToRoot.Add(c);
+        //
+        // int counter = 0;
+        // while (c.transform.parent != null && counter < 10)
+        // {
+        //     c = c.transform.parent.gameObject; 
+        //     
+        //     routeToRoot.Add(c);
+        //
+        //     counter++;
+        // }
+        //
+        // if (counter == 10)
+        // {
+        //     PrintBlah(null, "<B>OVERFLOW</B>");
+        // }
+        // else
+        // {
+        //     routeToRoot.Reverse();
+        //     foreach (var o in routeToRoot)
+        //     {
+        //         bool isRoot = root.GetInstanceID() == o.GetInstanceID();
+        //         bool isPrefabSelf = PrefabUtility.IsAnyPrefabInstanceRoot(o);
+        //         bool isPrefabVariantSelf = PrefabUtility.IsPartOfVariantPrefab(o);
+        //
+        //         var propertyChanges = PrefabUtility.GetPropertyModifications(o).ToList()
+        //             .Where(p => !p.propertyPath.Contains("m_"))
+        //             .Where(p => properties.Contains(p.propertyPath))
+        //             .Where(p => p.target.GetType() == typeof(OpenUrl));
+        //
+        //         bool hasOverrides = false;
+        //         
+        //         PrintBlah(null, $"{o.name} - {o.GetInstanceID()}. isRoot={isRoot}, isPrefab={isPrefabSelf}, hasOverrides={hasOverrides}");
+        //     }
+        // }
+
+        return matchInfo;
     }
-    
+
     public class PrefabMatchInfo
     {
         public string PrefabAssetPath;
@@ -711,12 +792,15 @@ public class SimpleUI : EditorWindow
         List<PrefabMatchInfo> matchingComponents = new List<PrefabMatchInfo>();
         
         var componentNotes = new List<string>();
+
+        var properties = new[] {"Url"};
         
         foreach (var path in paths)
         {
             // Debug.Log("Found prefab: " + path);
 
-            var asset = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+            var asset = PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>(path)) as GameObject;
+            // AssetDatabase.LoadMainAssetAtPath(path);
 
             if (asset == null)
             {
@@ -743,7 +827,10 @@ public class SimpleUI : EditorWindow
             {
                 var component = component1 as MonoBehaviour;
 
-                var matchInfo = new PrefabMatchInfo {PrefabAssetPath = path, ComponentName = component.gameObject.name};
+                // var matchInfo = new PrefabMatchInfo {PrefabAssetPath = path, ComponentName = component.gameObject.name};
+                var matchInfo = GetPrefabMatchInfo(component, asset, path, properties); // new PrefabMatchInfo {PrefabAssetPath = path, ComponentName = component.gameObject.name};
+                matchingComponents.Add(matchInfo);
+                continue;
 
                 bool isAttachedToRootPrefab = HasNoPrefabsBetweenObjects(component, asset);
                 bool isAttachedToNestedPrefab = !isAttachedToRootPrefab;
@@ -776,7 +863,7 @@ public class SimpleUI : EditorWindow
                         
                         // PrintBlah(componentNotes, $"{component.gameObject.name}.{typeToSearch} is <b>Normally</b> attached to <b>nested prefab</b>");
 
-                        if (HasOverridenProperties(component, asset))
+                        if (HasOverridenProperties(component, properties))
                         {
                             // PrintBlah(componentNotes, "Has some overriden properties");
                             matchInfo.IsOverridenAsComponentProperty = true;
