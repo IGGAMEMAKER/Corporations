@@ -707,18 +707,27 @@ public class SimpleUI : EditorWindow
     {
         var matchInfo = new PrefabMatchInfo {PrefabAssetPath = path, ComponentName = component.gameObject.name};
 
-        var c = component.gameObject;
+        // var c = component.gameObject;
 
-        var changes = PrefabUtility.GetPropertyModifications(root.gameObject);
+        var parent = PrefabUtility.GetCorrespondingObjectFromSource(component.gameObject);
+        
+        var changes = PrefabUtility.GetPropertyModifications(component);
         var propertyChanges = changes.ToList()
             .Where(p => !p.propertyPath.Contains("m_"))
+            // .Where(p => p.target.GetInstanceID() == c.GetInstanceID())
+            .Where(p => properties.Contains(p.propertyPath))
             // .Where(p => p.target.GetType() == typeof(OpenUrl))
             ;
 
-        Debug.Log("took property changes");
-        bool hasOverrides = propertyChanges.Where(p => p.target.GetInstanceID() == c.GetInstanceID()).Where(p => properties.Contains(p.propertyPath)).Any();
-                
-        PrintBlah(null, $"Search overrides of {c.name} in {root.name}. propertyChanges={propertyChanges.Count()} hasOverrides=<b>{hasOverrides}</b>");
+        bool hasOverrides = propertyChanges.Any();
+
+        foreach (var propertyChange in propertyChanges)
+        {
+            PrintBlah(null, $"parent object is {parent}");
+            PrintBlah(null, $"modified {propertyChange.propertyPath} in {propertyChange.target}");
+        }
+        
+        PrintBlah(null, $"Search overrides of {component.gameObject.name} in {root.name}. propertyChanges={propertyChanges.Count()} hasOverrides=<b>{hasOverrides}</b>");
 
         // var routeToRoot = new List<GameObject>();
         //
@@ -799,7 +808,7 @@ public class SimpleUI : EditorWindow
         {
             // Debug.Log("Found prefab: " + path);
 
-            var asset = PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>(path)) as GameObject;
+            var asset = AssetDatabase.LoadAssetAtPath<GameObject>(path);
             // AssetDatabase.LoadMainAssetAtPath(path);
 
             if (asset == null)
