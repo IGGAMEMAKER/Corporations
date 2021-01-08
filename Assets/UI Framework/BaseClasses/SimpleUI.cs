@@ -660,6 +660,25 @@ public class SimpleUI : EditorWindow
     }
 
 
+    public static bool IsRootOverridenProperties2(MonoBehaviour component, GameObject root, string[] properties)
+    {
+        var outermost = PrefabUtility.GetOutermostPrefabInstanceRoot(component);
+
+        // var propertyOverrides = PrefabUtility.GetPropertyModifications(outermost)
+        var objectOverrides = PrefabUtility.GetObjectOverrides(outermost)
+            .Where(modification => modification.instanceObject.GetType() == typeof(OpenUrl))
+            .Where(modification => modification.instanceObject.GetInstanceID() == component.GetInstanceID());
+        // .Where(modification => modification.target.GetType() == typeof(OpenUrl));
+        // modification.target.GetInstanceID() == component.GetInstanceID() &&
+        // properties.Contains(modification.propertyPath)
+        // );
+
+        var propsFormatted = string.Join("\n", objectOverrides.Select(modification => modification.instanceObject.GetType()));
+        Print("IsRoot overriding properties: " + propsFormatted);
+
+        return objectOverrides.Any();
+    }
+
     public static bool IsRootOverridenProperties(MonoBehaviour component, GameObject root, string[] properties)
     {
         var fastFilter = new Func<PropertyModification, bool>(p => properties.Contains(p.propertyPath));
@@ -939,7 +958,7 @@ public class SimpleUI : EditorWindow
                     {
                         // so you might need to check Overriden Properties
 
-                        if (IsRootOverridenProperties(component, asset, properties))
+                        if (IsRootOverridenProperties2(component, asset, properties))
                         {
                             // update property and just save root prefab
 
