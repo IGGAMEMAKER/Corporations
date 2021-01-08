@@ -649,14 +649,12 @@ public class SimpleUI : EditorWindow
         return result;
     }
 
-    public static bool IsAddedAsOverridenComponent(MonoBehaviour component, GameObject root)
+    public static bool IsAddedAsOverridenComponent(MonoBehaviour component)
     {
         var outermost = PrefabUtility.GetOutermostPrefabInstanceRoot(component);
 
         return PrefabUtility.GetAddedComponents(outermost).Any(ac => component.GetInstanceID() == ac.instanceComponent.GetInstanceID());
         // return !PrefabUtility.GetAddedComponents(outermost).Any(ac => ac.GetType() == component.GetType() && component.GetInstanceID() == ac.instanceComponent.GetInstanceID());
-        var objectOverrides = PrefabUtility.GetObjectOverrides(outermost);
-        // objectOverrides[0].instanceObject
         
         return PrefabUtility.IsAddedComponentOverride(component);
     }
@@ -921,7 +919,7 @@ public class SimpleUI : EditorWindow
 
                 if (isAttachedToNestedPrefab)
                 {
-                    bool isAddedByRoot = IsAddedAsOverridenComponent(component, asset);
+                    bool isAddedByRoot = IsAddedAsOverridenComponent(component);
                     bool isPartOfNestedPrefab = !isAddedByRoot;
 
                     if (isAddedByRoot)
