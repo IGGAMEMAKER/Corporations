@@ -666,7 +666,7 @@ public class SimpleUI : EditorWindow
 
         // var propertyOverrides = PrefabUtility.GetPropertyModifications(outermost)
         var objectOverrides = PrefabUtility.GetObjectOverrides(outermost)
-            .Where(modification => modification.instanceObject.GetType() == typeof(OpenUrl))
+            // .Where(modification => modification.instanceObject.GetType() == typeof(OpenUrl))
             .Where(modification => modification.instanceObject.GetInstanceID() == component.GetInstanceID());
         // .Where(modification => modification.target.GetType() == typeof(OpenUrl));
         // modification.target.GetInstanceID() == component.GetInstanceID() &&
@@ -674,7 +674,7 @@ public class SimpleUI : EditorWindow
         // );
 
         var propsFormatted = string.Join("\n", objectOverrides.Select(modification => modification.instanceObject.GetType()));
-        Print("IsRoot overriding properties: " + propsFormatted);
+        // Print("IsRoot overriding properties: " + propsFormatted);
 
         return objectOverrides.Any();
     }
@@ -963,7 +963,7 @@ public class SimpleUI : EditorWindow
                             // update property and just save root prefab
 
                             matchingComponent.IsOverridenAsComponentProperty = true;
-                            Print($"root <b>OVERRIDES VALUES</b> on {matchingComponent.ComponentName}");
+                            Print($"Root <b>OVERRIDES VALUES</b> on {matchingComponent.ComponentName}");
                         }
                         else
                         {
@@ -971,7 +971,7 @@ public class SimpleUI : EditorWindow
                             // no actions are necessary for root prefab
 
                             matchingComponent.IsNormalPartOfNestedPrefab = true;
-                            Print("Added normally to nested prefab in " + matchingComponent.PrefabAssetPath);
+                            Print($"{matchingComponent.ComponentName} is <b>part of a nested prefab</b>");
                         }
                     }
                 }
