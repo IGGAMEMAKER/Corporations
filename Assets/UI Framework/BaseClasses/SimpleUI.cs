@@ -107,7 +107,11 @@ public class SimpleUI : EditorWindow
     public static void ShowWindow()
     {
         //Show existing window instance. If one doesn't exist, make one.
-        EditorWindow.GetWindow(typeof(SimpleUI), false, "Simple UI", true);
+        // EditorWindow.GetWindow(typeof(SimpleUI), false, "Simple UI", true);
+        var w = EditorWindow.GetWindow(typeof(SimpleUI));
+        // w.minSize = new Vector2(200, 100);
+
+        // EditorWindow.CreateWindow<SimpleUI>();
     }
 
     static SimpleUI()
@@ -763,8 +767,68 @@ public class SimpleUI : EditorWindow
     }
 
     // path - RootAssetPath
-    public static PrefabMatchInfo GetPrefabMatchInfo(MonoBehaviour component, GameObject root, string path,
-        string[] matchingProperties)
+    public static PrefabMatchInfo GetPrefabMatchInfo2(MonoBehaviour component, GameObject asset, string path,
+        string[] properties)
+    {
+        var matchingComponent = new PrefabMatchInfo {PrefabAssetPath = path, ComponentName = component.gameObject.name};
+
+        bool isAttachedToRootPrefab = HasNoPrefabsBetweenObjects(component, asset);
+        bool isAttachedToNestedPrefab = !isAttachedToRootPrefab;
+
+        if (isAttachedToRootPrefab)
+        {
+            // directly appears in prefab
+            // so you can upgrade it and safely save ur prefab
+
+            matchingComponent.IsDirectMatch = true;
+            Print($"Directly occurs as {matchingComponent.ComponentName} in {matchingComponent.PrefabAssetPath}");
+        }
+
+        if (isAttachedToNestedPrefab)
+        {
+            bool isAddedByRoot = IsAddedAsOverridenComponent(component);
+            bool isPartOfNestedPrefab = !isAddedByRoot;
+
+            if (isAddedByRoot)
+            {
+                // added, but not saved in that prefab
+                // so prefab will not see this component in itself
+
+                // you need to update URL of this component here, but don't accidentally apply changes to prefab, which this component sits on
+                // you can safely save changes in root prefab as well
+                var outer = PrefabUtility.GetOutermostPrefabInstanceRoot(component);
+
+                matchingComponent.IsOverridenAsAddedComponent = true;
+                Print(
+                    $"{matchingComponent.ComponentName} Is <b>ATTACHED</b> to some nested prefab\n\nouter={outer.name} {ParseAddedComponents(outer)}, {component.GetInstanceID()}");
+            }
+
+            if (isPartOfNestedPrefab)
+            {
+                // so you might need to check Overriden Properties
+
+                if (IsRootOverridenProperties2(component, asset, properties))
+                {
+                    // update property and just save root prefab
+
+                    matchingComponent.IsOverridenAsComponentProperty = true;
+                    Print($"Root <b>OVERRIDES VALUES</b> on {matchingComponent.ComponentName}");
+                }
+                else
+                {
+                    // you will upgrade value in it's own prefab
+                    // no actions are necessary for root prefab
+
+                    matchingComponent.IsNormalPartOfNestedPrefab = true;
+                    Print($"{matchingComponent.ComponentName} is <b>part of a nested prefab</b>");
+                }
+            }
+        }
+
+        return matchingComponent;
+    }
+
+    public static PrefabMatchInfo GetPrefabMatchInfo(MonoBehaviour component, GameObject root, string path, string[] matchingProperties)
     {
         var matchInfo = new PrefabMatchInfo {PrefabAssetPath = path, ComponentName = component.gameObject.name};
         return matchInfo;
@@ -913,68 +977,16 @@ public class SimpleUI : EditorWindow
             {
                 matchingPrefabs.Add(path);
                 Print("<b>----------------------------------------</b>");
-                Print("Found component " + typeToSearch + " in file <b>" + path + "</b>");
+                Print("Found component(s) " + typeToSearch + $" ({components.Count}) in file <b>" + path + "</b>");
             }
 
             foreach (var component1 in components)
             {
                 var component = component1 as MonoBehaviour;
 
-                var matchingComponent = GetPrefabMatchInfo(component, asset, path, properties);
-                // matchingComponents.Add(matchInfo);
-                // continue;
+                var matchingComponent = GetPrefabMatchInfo2(component, asset, path, properties);
 
-                bool isAttachedToRootPrefab = HasNoPrefabsBetweenObjects(component, asset);
-                bool isAttachedToNestedPrefab = !isAttachedToRootPrefab;
 
-                if (isAttachedToRootPrefab)
-                {
-                    // directly appears in prefab
-                    // so you can upgrade it and safely save ur prefab
-
-                    matchingComponent.IsDirectMatch = true;
-                    Print($"Directly occurs as {matchingComponent.ComponentName} in {matchingComponent.PrefabAssetPath}");
-                }
-
-                if (isAttachedToNestedPrefab)
-                {
-                    bool isAddedByRoot = IsAddedAsOverridenComponent(component);
-                    bool isPartOfNestedPrefab = !isAddedByRoot;
-
-                    if (isAddedByRoot)
-                    {
-                        // added, but not saved in that prefab
-                        // so prefab will not see this component in itself
-
-                        // you need to update URL of this component here, but don't accidentally apply changes to prefab, which this component sits on
-                        // you can safely save changes in root prefab as well
-                        var outer = PrefabUtility.GetOutermostPrefabInstanceRoot(component);
-
-                        matchingComponent.IsOverridenAsAddedComponent = true;
-                        Print($"{matchingComponent.ComponentName} Is <b>ATTACHED</b> to some nested prefab\n\nouter={outer.name} {ParseAddedComponents(outer)}, {component.GetInstanceID()}, ");
-                    }
-
-                    if (isPartOfNestedPrefab)
-                    {
-                        // so you might need to check Overriden Properties
-
-                        if (IsRootOverridenProperties2(component, asset, properties))
-                        {
-                            // update property and just save root prefab
-
-                            matchingComponent.IsOverridenAsComponentProperty = true;
-                            Print($"Root <b>OVERRIDES VALUES</b> on {matchingComponent.ComponentName}");
-                        }
-                        else
-                        {
-                            // you will upgrade value in it's own prefab
-                            // no actions are necessary for root prefab
-
-                            matchingComponent.IsNormalPartOfNestedPrefab = true;
-                            Print($"{matchingComponent.ComponentName} is <b>part of a nested prefab</b>");
-                        }
-                    }
-                }
 
                 matchingComponents.Add(matchingComponent);
             }
