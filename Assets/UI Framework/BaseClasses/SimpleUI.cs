@@ -97,6 +97,7 @@ public class SimpleUI : EditorWindow
     private bool isDraggedPrefabMode = false;
     private bool isDraggedGameObjectMode = false;
     private bool isUrlEditingMode = false;
+    private bool isPrefabChosenMode = false;
 
     private static GameObject CurrentObject;
 
@@ -130,19 +131,58 @@ public class SimpleUI : EditorWindow
         TryToIncreaseCurrentPrefabCounter();
     }
 
+    bool Button(string text)
+    {
+        GUIStyle style = GUI.skin.FindStyle("Button");
+        style.richText = true;
+
+        if (!text.Contains("\n"))
+            text += "\n";
+        
+        return GUILayout.Button($"<b>{text}</b>", style);
+    }
+
+    void Label(string text)
+    {
+        Space();
+        GUILayout.Label(text, EditorStyles.boldLabel);
+    }
+
     void OnGUI()
     {
         recentPrefabsScrollPosition = GUILayout.BeginScrollView(recentPrefabsScrollPosition);
         GUILayout.Label("SIMPLE UI", EditorStyles.largeLabel);
 
-        RenderPrefabs();
+        LoadData();
+
+        if (!hasChosenPrefab)
+            RenderPrefabs();
 
         if (isDraggedGameObjectMode)
             RenderMakingAPrefabFromGameObject();
         else if (isDraggedPrefabMode)
             RenderAddingNewRouteFromDraggedPrefab();
         else if (hasChosenPrefab)
-            RenderEditingPrefab();
+        {
+            if (isUrlEditingMode)
+                RenderEditingPrefab();
+            else
+            {
+                var index = ChosenIndex;
+                var pref = prefabs[index];
+                
+                
+                Label(pref.Url);
+
+                if (Button("Edit prefab"))
+                {
+                    isUrlEditingMode = true;
+                }
+                
+                Space();
+                RenderPrefabs();
+            }
+        }
         else
             RenderAddingNewRoute();
 
@@ -175,7 +215,7 @@ public class SimpleUI : EditorWindow
             // EditorGUILayout.LabelField($"!!!Bad prefab name: empty: {isEmpty}, name=gameobject: {isDefaultName}, prefab already exists: {hasSameNamePrefabAlready}");
         }
 
-        if (isNameOK && GUILayout.Button("CREATE prefab!"))
+        if (isNameOK && Button("CREATE prefab!"))
         {
             PrefabUtility.SaveAsPrefabAssetAndConnect(PossiblePrefab, path, InteractionMode.UserAction,
                 out var success);
@@ -248,22 +288,23 @@ public class SimpleUI : EditorWindow
         PossiblePrefab = go;
     }
 
+    void RenderEditingPrefabHeader()
+    {
+        
+    }
+
     void RenderEditingPrefab()
     {
         var index = ChosenIndex;
         var pref = prefabs[index];
 
-        Space();
-        GUILayout.Label(pref.Url, EditorStyles.boldLabel);
+        Label(pref.Url);
 
-        Space();
-        if (GUILayout.Button("Remove URL"))
+        if (Button("Go back"))
         {
-            prefabs.RemoveAt(index);
-            SaveData();
-
-            return;
+            isUrlEditingMode = false;
         }
+
 
         newUrl = pref.Url;
         newPath = pref.AssetPath;
@@ -275,6 +316,7 @@ public class SimpleUI : EditorWindow
 
         Space();
 
+        Label("Edit url");
         newUrl = EditorGUILayout.TextField("Url", newUrl);
 
         if (newUrl.Length > 0)
@@ -297,6 +339,8 @@ public class SimpleUI : EditorWindow
             UpdatePrefab(pref);
         }
 
+        Space();
+        Space();
         if (pref.Usages > 0 && GUILayout.Button("Reset Counter"))
         {
             pref.Usages = 0;
@@ -310,6 +354,13 @@ public class SimpleUI : EditorWindow
             pref.Usages = maxUsages + 1;
 
             UpdatePrefab(pref);
+        }
+        
+        Space(450);
+        if (GUILayout.Button("Remove URL"))
+        {
+            prefabs.RemoveAt(index);
+            SaveData();
         }
     }
 
@@ -362,8 +413,6 @@ public class SimpleUI : EditorWindow
         AssetDatabase.OpenAsset(asset);
         Selection.activeObject = asset;
         // AssetDatabase.OpenAsset(AssetDatabase.LoadMainAssetAtPath(p.AssetPath));
-
-        WhatUsesComponent<OpenUrl>();
     }
 
 
@@ -393,7 +442,6 @@ public class SimpleUI : EditorWindow
 
     void RenderPrefabs()
     {
-        LoadData();
 
         Space();
 
@@ -449,6 +497,8 @@ public class SimpleUI : EditorWindow
             if (GUILayout.Button($"<b>{p.Name}</b>\n{p.Url}", style))
             {
                 OpenPrefab(p);
+                
+                WhatUsesComponent<OpenUrl>();
             }
 
             GUI.contentColor = c;
@@ -949,9 +999,8 @@ public class SimpleUI : EditorWindow
         // var guids = AssetDatabase.FindAssets("t:scene t:prefab", new []{ "Assets"});
 
         var paths = guids.Select(AssetDatabase.GUIDToAssetPath).ToList();
-        var removedPaths = paths.RemoveAll(guid => excludeFolders.Any(guid.Contains));
+        // var removedPaths = paths.RemoveAll(guid => excludeFolders.Any(guid.Contains));
 
-        var matchingPrefabs = new List<string>();
         List<PrefabMatchInfo> matchingComponents = new List<PrefabMatchInfo>();
 
         var properties = new[] {"Url"};
@@ -976,7 +1025,6 @@ public class SimpleUI : EditorWindow
 
             if (components.Any())
             {
-                matchingPrefabs.Add(path);
                 Print("<b>----------------------------------------</b>");
                 Print("Found component(s) " + typeToSearch + $" ({components.Count}) in file <b>" + path + "</b>");
             }
