@@ -188,7 +188,7 @@ public abstract class ListView : View // MonoBehaviour
     {
         if (index >= Items.Count)
         {
-            //var o = Instantiate(Prefab, transform, false);
+            //var o = Instantiat(Prefab, transform, false);
             Items.Add(_NewInstance);
 
             listWasChanged = true;
@@ -218,10 +218,10 @@ public abstract class ListView : View // MonoBehaviour
                 o.AddComponent<CanvasGroup>();
         }
 
-            if (o.GetComponent<NotifyListIfElementWasChosen>() == null)
-                o.AddComponent<NotifyListIfElementWasChosen>();
+        if (o.GetComponent<NotifyListIfElementWasChosen>() == null)
+            o.AddComponent<NotifyListIfElementWasChosen>();
 
-            o.GetComponent<NotifyListIfElementWasChosen>().SetEntity(index, this);
+        o.GetComponent<NotifyListIfElementWasChosen>().SetEntity(index, this);
     }
 
     IEnumerator ScrollDown()

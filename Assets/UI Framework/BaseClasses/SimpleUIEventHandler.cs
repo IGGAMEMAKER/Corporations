@@ -174,7 +174,7 @@ public class SimpleUIEventHandler : MonoBehaviour
                     return null;
                 }
                 
-                // Objects[url] = Instantiate(AssetDatabase.GetMainAssetTypeAtPath(pre.AssetPath));
+                // Objects[url] = AssetDatabase.GetMainAssetTypeAtPath(pre.AssetPath));
 
                 Objects[url] = Instantiate(obj, transform);
             }

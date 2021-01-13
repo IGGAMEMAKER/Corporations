@@ -8,14 +8,25 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+// https://gist.github.com/Happsson/af02d7a644db6b44bc834c8699bf3495
+
 public class UnusedAssets : MonoBehaviour
 {
 }
 
+public class UnusedPrefabs : EditorWindow
+{
+    [MenuItem("Window/Clean up Prefabs")]
+    public static void ShowWindow()
+    {
+        EditorWindow.GetWindow<UnusedPrefabs>("Clean up Prefabs");
+    }
+}
 public class InactiveCodeDetector : EditorWindow
 {
     private bool isDone = false;
     private List<string> paths = new List<string>();
+    private List<string> prefabs = new List<string>();
     private List<Scene> allScenes = new List<Scene>();
 
     private Scene currentlyOpenScene;
@@ -38,14 +49,16 @@ public class InactiveCodeDetector : EditorWindow
         GUILayout.Label("Find possibly unused scripts.");
         if (GUILayout.Button("Search"))
         {
+            Console.Clear();
             isDone = false;
             unusedAssets.Clear();
+            CleanUp();
             currentlyOpenScene = EditorSceneManager.GetActiveScene();
             FindAll();
             CheckAllScenes();
             Compare();
             CloseScenes();
-            CleanUp();
+            // CleanUp();
             isDone = true;
         }
 
@@ -58,14 +71,20 @@ public class InactiveCodeDetector : EditorWindow
 
     private void PromtUser()
     {
-
-        string content = "The following scripts are not found on any GameObject in this project.";
+        Debug.ClearDeveloperConsole();
+        string content = $"{unusedAssets.Count} / {allUsedComponents.Count} scripts are not found on any GameObject in this project.";
         string warning =
             "NOTE - This does NOT mean it is safe to delete. The script could still be accessed via code or on a prefab";
+        string foundPrefabs = $"Found {prefabs.Count} prefabs";
 
         scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition);
         GUILayout.Label(content);
+        GUILayout.Label(foundPrefabs);
         GUILayout.Label(warning, EditorStyles.boldLabel);
+        foreach (var usedComponent in allUsedComponents)
+        {
+            Debug.Log("AllUsedComponent " + usedComponent);
+        }
         foreach (string s in unusedAssets)
         {
             GUILayout.Label(s);
@@ -85,6 +104,7 @@ public class InactiveCodeDetector : EditorWindow
         paths.Clear();
         allScenes.Clear();
         allUsedComponents.Clear();
+        prefabs.Clear();
 
     }
 
@@ -92,10 +112,10 @@ public class InactiveCodeDetector : EditorWindow
     {
         foreach (string filename in paths)
         {
-            string formated = filename.Split('/').Last();
-            if (formated != "InactiveCodeDetector.cs")
+            string formatted = filename.Split('/').Last();
+            if (formatted != "InactiveCodeDetector.cs")
             {
-                string isUsed = (from string s in allUsedComponents where s.ToLower() == formated.ToLower() select s)
+                string isUsed = (from string s in allUsedComponents where s.ToLower() == formatted.ToLower() select s)
                     .FirstOrDefault();
 
                 if (isUsed == null)
@@ -116,6 +136,7 @@ public class InactiveCodeDetector : EditorWindow
 
 
             GameObject[] rootObjectsInScene = scenes[i].GetRootGameObjects();
+            Debug.Log($"Root objects in scene {scenes[i].name}: " + string.Join("\n", rootObjectsInScene.Select(r => r.name)));
             foreach (GameObject g in rootObjectsInScene)
             {
                 foreach (Component c in g.GetComponents<Component>())
@@ -163,9 +184,13 @@ public class InactiveCodeDetector : EditorWindow
 
             if (filename.EndsWith(".unity"))
             {
-
                 Scene scene = EditorSceneManager.OpenScene(filename, OpenSceneMode.Additive);
                 allScenes.Add(scene);
+            }
+
+            if (filename.EndsWith(".prefab"))
+            {
+                prefabs.Add(filename);
             }
         }
 
