@@ -86,6 +86,9 @@ public class SimpleUI : EditorWindow
     private static string draggedName = "";
     private static string draggedPath = "";
 
+    static string searchUrl = "";
+    static Vector2 searchScrollPosition = Vector2.zero;
+
     static List<SimpleUISceneType> prefabs; // = new List<NewSceneTypeBlah>();
 
     private static int ChosenIndex => prefabs.FindIndex(p => p.AssetPath.Equals(newPath));
@@ -177,8 +180,9 @@ public class SimpleUI : EditorWindow
                 if (Button("Edit prefab"))
                 {
                     isUrlEditingMode = true;
+                    WhatUsesComponent<OpenUrl>();
                 }
-                
+
                 Space();
                 RenderPrefabs();
             }
@@ -415,13 +419,35 @@ public class SimpleUI : EditorWindow
         // AssetDatabase.OpenAsset(AssetDatabase.LoadMainAssetAtPath(p.AssetPath));
     }
 
+    bool Contains(string text1, string searching)
+    {
+        return text1.ToLower().Contains(searching.ToLower());
+    }
 
     void RenderRecentPrefabs()
     {
-        var recent = prefabs.OrderByDescending(pp => pp.LastOpened).Take(6);
+        var sortedByOpenings = prefabs.OrderByDescending(pp => pp.LastOpened);
+        var recent = sortedByOpenings.Take(6);
 
         GUILayout.Label("Recent prefabs", EditorStyles.boldLabel);
-        RenderPrefabs(recent);
+        searchUrl = EditorGUILayout.TextField("Search", searchUrl);
+
+        searchScrollPosition = GUILayout.BeginScrollView(searchScrollPosition);
+
+        if (searchUrl.Length == 0)
+            RenderPrefabs(recent);
+        else
+        {
+            if (Button("Clear"))
+            {
+                searchUrl = "";
+            }
+
+            Space();
+            RenderPrefabs(sortedByOpenings.Where(p => Contains(p.Url, searchUrl) || Contains(p.Name, searchUrl)));
+        }
+
+        GUILayout.EndScrollView();
     }
 
     void RenderFavoritePrefabs()
@@ -497,8 +523,6 @@ public class SimpleUI : EditorWindow
             if (GUILayout.Button($"<b>{p.Name}</b>\n{p.Url}", style))
             {
                 OpenPrefab(p);
-                
-                WhatUsesComponent<OpenUrl>();
             }
 
             GUI.contentColor = c;
@@ -767,11 +791,6 @@ public class SimpleUI : EditorWindow
 
         var overrides = PrefabUtility.GetObjectOverrides(component.gameObject);
 
-        foreach (var ovr in overrides)
-        {
-        }
-
-        //
         // var wat = overrides.First().coupledOverride.GetAssetObject();
         // Debug.Log("first override " + wat);
 

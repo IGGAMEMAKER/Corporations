@@ -44,7 +44,7 @@ public class MenuController : View
         SetUrl(ScreenMode.IndustryScreen, "IndustryScreen");
         SetUrl(ScreenMode.NicheScreen, "NicheScreen");
         SetUrl(ScreenMode.TeamScreen, "TeamScreen");
-        SetUrl(ScreenMode.CharacterScreen, "CharacterScreen");
+        SetUrl(ScreenMode.CharacterScreen, "CharacterScreen/CharacterInfo");
         
         SetUrl(ScreenMode.GroupManagementScreen, "ProjectScreen");
         

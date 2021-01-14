@@ -2,13 +2,16 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+
 namespace Michsky.UI.Frost
 {
+    [ExecuteAlways]
     public class LayoutGroupPositionFix : MonoBehaviour
     {
         public LayoutGroup layoutGroup;
 
-        void Start()
+        [ExecuteAlways]
+        void OnEnable()
         {
             if(layoutGroup == null)
             {
