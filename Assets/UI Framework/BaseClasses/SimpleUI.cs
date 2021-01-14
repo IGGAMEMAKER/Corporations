@@ -134,22 +134,6 @@ public class SimpleUI : EditorWindow
         TryToIncreaseCurrentPrefabCounter();
     }
 
-    bool Button(string text)
-    {
-        GUIStyle style = GUI.skin.FindStyle("Button");
-        style.richText = true;
-
-        if (!text.Contains("\n"))
-            text += "\n";
-        
-        return GUILayout.Button($"<b>{text}</b>", style);
-    }
-
-    void Label(string text)
-    {
-        Space();
-        GUILayout.Label(text, EditorStyles.boldLabel);
-    }
 
     void OnGUI()
     {
@@ -170,22 +154,7 @@ public class SimpleUI : EditorWindow
             if (isUrlEditingMode)
                 RenderEditingPrefab();
             else
-            {
-                var index = ChosenIndex;
-                var pref = prefabs[index];
-                
-                
-                Label(pref.Url);
-
-                if (Button("Edit prefab"))
-                {
-                    isUrlEditingMode = true;
-                    WhatUsesComponent<OpenUrl>();
-                }
-
-                Space();
-                RenderPrefabs();
-            }
+                RenderLinkToEditing();
         }
         else
             RenderAddingNewRoute();
@@ -194,6 +163,279 @@ public class SimpleUI : EditorWindow
 
         GUILayout.EndScrollView();
     }
+
+    #region UI shortcuts
+    bool Button(string text)
+    {
+        GUIStyle style = GUI.skin.FindStyle("Button");
+        style.richText = true;
+
+        if (!text.Contains("\n"))
+            text += "\n";
+        
+        return GUILayout.Button($"<b>{text}</b>", style);
+    }
+
+    void Label(string text)
+    {
+        Space();
+        GUILayout.Label(text, EditorStyles.boldLabel);
+    }
+
+    void Space(int space = 15)
+    {
+        GUILayout.Space(space);
+    }
+    #endregion
+    #region string utils
+    bool isSubRouteOf(string url, string subUrl)
+    {
+        return url.StartsWith(subUrl) && !url.Equals(subUrl);
+    }
+
+    static string GetPrettyNameFromAssetPath(string assetPa)
+    {
+        var x = assetPa.Split('/').Last();
+        var ind = x.LastIndexOf(".prefab");
+
+        return x.Substring(0, ind);
+    }
+
+    string GetUpperUrl(string url)
+    {
+        var index = url.LastIndexOf("/");
+
+        if (index <= 0)
+            return "/";
+
+        return url.Substring(0, index);
+    }
+
+    bool Contains(string text1, string searching)
+    {
+        return text1.ToLower().Contains(searching.ToLower());
+    }
+
+    string GetValidatedUrl(string url)
+    {
+        if (!url.StartsWith("/"))
+            return url.Insert(0, "/");
+
+        return url;
+    }
+    #endregion
+
+
+    void RenderLinkToEditing()
+    {
+        var index = ChosenIndex;
+        var pref = prefabs[index];
+
+        Label(pref.Url);
+
+        if (Button("Edit prefab"))
+        {
+            isUrlEditingMode = true;
+        }
+
+        Space();
+        RenderPrefabs();
+    }
+
+    void RenderEditingPrefab()
+    {
+        var index = ChosenIndex;
+        var pref = prefabs[index];
+
+        Label(pref.Url);
+
+        if (Button("Go back"))
+        {
+            isUrlEditingMode = false;
+        }
+
+        RenderRootPrefab();
+
+        RenderSubroutes();
+
+
+
+        newUrl = pref.Url;
+        newPath = pref.AssetPath;
+        newName = pref.Name;
+
+        var prevUrl = newUrl;
+        var prevName = newName;
+        var prevPath = newPath;
+
+        Space();
+
+        Label("Edit url");
+        newUrl = EditorGUILayout.TextField("Url", newUrl);
+
+        if (newUrl.Length > 0)
+        {
+            newName = EditorGUILayout.TextField("Name", newName);
+
+            if (newName.Length > 0)
+            {
+                newPath = EditorGUILayout.TextField("Asset Path", newPath);
+            }
+        }
+
+        pref.Url = newUrl;
+        pref.Name = newName;
+        pref.AssetPath = newPath;
+
+        // if data changed, save it
+        if (!prevUrl.Equals(newUrl) || !prevPath.Equals(newPath) || !prevName.Equals(newName))
+        {
+            UpdatePrefab(pref);
+        }
+
+        Space();
+        Space();
+        if (pref.Usages > 0 && GUILayout.Button("Reset Counter"))
+        {
+            pref.Usages = 0;
+
+            UpdatePrefab(pref);
+        }
+
+        var maxUsages = prefabs.Max(p => p.Usages);
+        if (pref.Usages < maxUsages && GUILayout.Button("Prioritize"))
+        {
+            pref.Usages = maxUsages + 1;
+
+            UpdatePrefab(pref);
+        }
+        
+        Space(450);
+        if (GUILayout.Button("Remove URL"))
+        {
+            prefabs.RemoveAt(index);
+            SaveData();
+        }
+    }
+
+    void RenderAddingNewRoute()
+    {
+        Space();
+        GUILayout.Label("Add current prefab", EditorStyles.boldLabel);
+
+        newUrl = EditorGUILayout.TextField("Url", newUrl);
+
+        bool urlOK = newUrl.Length > 0;
+        bool newNameOK = newName.Length > 0;
+        bool pathOK = newPath.Length > 0;
+
+        if (urlOK)
+        {
+            newUrl = GetValidatedUrl(newUrl);
+
+            newName = EditorGUILayout.TextField("Name", newName);
+        }
+
+        if (urlOK && newNameOK)
+        {
+            newPath = EditorGUILayout.TextField("Asset Path", newPath);
+        }
+
+        if (urlOK && newNameOK && pathOK)
+        {
+            Space();
+            if (GUILayout.Button("Add prefab!")) //  <" + newName + ">
+            {
+                Debug.Log("Added prefab");
+
+                AddPrefab(newUrl, newPath, newName);
+
+                SaveData();
+            }
+        }
+    }
+
+
+
+    #region Render prefabs
+    void RenderRecentPrefabs()
+    {
+        var sortedByOpenings = prefabs.OrderByDescending(pp => pp.LastOpened);
+        var recent = sortedByOpenings.Take(6);
+
+        GUILayout.Label("Recent prefabs", EditorStyles.boldLabel);
+        searchUrl = EditorGUILayout.TextField("Search", searchUrl);
+
+        searchScrollPosition = GUILayout.BeginScrollView(searchScrollPosition);
+
+        if (searchUrl.Length == 0)
+            RenderPrefabs(recent);
+        else
+        {
+            if (Button("Clear"))
+            {
+                searchUrl = "";
+            }
+
+            Space();
+            RenderPrefabs(sortedByOpenings.Where(p => Contains(p.Url, searchUrl) || Contains(p.Name, searchUrl)));
+        }
+
+        GUILayout.EndScrollView();
+    }
+
+    void RenderFavoritePrefabs()
+    {
+        var top = prefabs.OrderByDescending(pp => pp.Usages).Take(4);
+
+        GUILayout.Label("Favorite prefabs", EditorStyles.boldLabel);
+        RenderPrefabs(top);
+    }
+
+    void RenderAllPrefabs()
+    {
+        var top = prefabs.OrderByDescending(pp => pp.Url);
+
+        GUILayout.Label("All prefabs", EditorStyles.boldLabel);
+        RenderPrefabs(top);
+    }
+
+    void RenderRootPrefab()
+    {
+        var upperUrl = GetUpperUrl(newUrl);
+
+        if (!newUrl.Equals(upperUrl))
+        {
+            Label("Root");
+
+            var root = GetPrefab(upperUrl);
+            RenderPrefabs(new List<SimpleUISceneType> { root });
+        }
+    }
+
+    void RenderSubroutes()
+    {
+        var subUrls = prefabs.Where(p => isSubRouteOf(p.Url, newUrl));
+
+        if (subUrls.Count() > 0)
+        {
+            Label("SubRoutes");
+            RenderPrefabs(subUrls, newUrl);
+        }
+    }
+
+    void RenderPrefabs()
+    {
+
+        Space();
+
+        RenderFavoritePrefabs();
+        RenderRecentPrefabs();
+    }
+    #endregion
+
+
+    #region dragging prefabs
 
     private void RenderMakingAPrefabFromGameObject()
     {
@@ -292,117 +534,13 @@ public class SimpleUI : EditorWindow
         PossiblePrefab = go;
     }
 
-    void RenderEditingPrefabHeader()
+    #endregion
+
+    // ----- utils -------------
+    #region Utils
+    SimpleUISceneType GetPrefab(string urlPath)
     {
-        
-    }
-
-    void RenderEditingPrefab()
-    {
-        var index = ChosenIndex;
-        var pref = prefabs[index];
-
-        Label(pref.Url);
-
-        if (Button("Go back"))
-        {
-            isUrlEditingMode = false;
-        }
-
-
-        newUrl = pref.Url;
-        newPath = pref.AssetPath;
-        newName = pref.Name;
-
-        var prevUrl = newUrl;
-        var prevName = newName;
-        var prevPath = newPath;
-
-        Space();
-
-        Label("Edit url");
-        newUrl = EditorGUILayout.TextField("Url", newUrl);
-
-        if (newUrl.Length > 0)
-        {
-            newName = EditorGUILayout.TextField("Name", newName);
-
-            if (newName.Length > 0)
-            {
-                newPath = EditorGUILayout.TextField("Asset Path", newPath);
-            }
-        }
-
-        pref.Url = newUrl;
-        pref.Name = newName;
-        pref.AssetPath = newPath;
-
-        // if data changed, save it
-        if (!prevUrl.Equals(newUrl) || !prevPath.Equals(newPath) || !prevName.Equals(newName))
-        {
-            UpdatePrefab(pref);
-        }
-
-        Space();
-        Space();
-        if (pref.Usages > 0 && GUILayout.Button("Reset Counter"))
-        {
-            pref.Usages = 0;
-
-            UpdatePrefab(pref);
-        }
-
-        var maxUsages = prefabs.Max(p => p.Usages);
-        if (pref.Usages < maxUsages && GUILayout.Button("Prioritize"))
-        {
-            pref.Usages = maxUsages + 1;
-
-            UpdatePrefab(pref);
-        }
-        
-        Space(450);
-        if (GUILayout.Button("Remove URL"))
-        {
-            prefabs.RemoveAt(index);
-            SaveData();
-        }
-    }
-
-    void RenderAddingNewRoute()
-    {
-        Space();
-        GUILayout.Label("Add current prefab", EditorStyles.boldLabel);
-
-        newUrl = EditorGUILayout.TextField("Url", newUrl);
-
-        bool urlOK = newUrl.Length > 0;
-        bool newNameOK = newName.Length > 0;
-        bool pathOK = newPath.Length > 0;
-
-        if (urlOK)
-        {
-            newUrl = GetValidatedUrl(newUrl);
-
-            newName = EditorGUILayout.TextField("Name", newName);
-        }
-
-        if (urlOK && newNameOK)
-        {
-            newPath = EditorGUILayout.TextField("Asset Path", newPath);
-        }
-
-        if (urlOK && newNameOK && pathOK)
-        {
-            Space();
-            if (GUILayout.Button("Add prefab!")) //  <" + newName + ">
-            {
-                Debug.Log("Added prefab");
-
-                AddPrefab(newUrl, newPath, newName);
-
-                SaveData();
-            }
-        }
+        return prefabs.FirstOrDefault(p => p.Url.Equals(urlPath));
     }
 
     void OpenPrefab(SimpleUISceneType p)
@@ -419,72 +557,6 @@ public class SimpleUI : EditorWindow
         // AssetDatabase.OpenAsset(AssetDatabase.LoadMainAssetAtPath(p.AssetPath));
     }
 
-    bool Contains(string text1, string searching)
-    {
-        return text1.ToLower().Contains(searching.ToLower());
-    }
-
-    void RenderRecentPrefabs()
-    {
-        var sortedByOpenings = prefabs.OrderByDescending(pp => pp.LastOpened);
-        var recent = sortedByOpenings.Take(6);
-
-        GUILayout.Label("Recent prefabs", EditorStyles.boldLabel);
-        searchUrl = EditorGUILayout.TextField("Search", searchUrl);
-
-        searchScrollPosition = GUILayout.BeginScrollView(searchScrollPosition);
-
-        if (searchUrl.Length == 0)
-            RenderPrefabs(recent);
-        else
-        {
-            if (Button("Clear"))
-            {
-                searchUrl = "";
-            }
-
-            Space();
-            RenderPrefabs(sortedByOpenings.Where(p => Contains(p.Url, searchUrl) || Contains(p.Name, searchUrl)));
-        }
-
-        GUILayout.EndScrollView();
-    }
-
-    void RenderFavoritePrefabs()
-    {
-        var top = prefabs.OrderByDescending(pp => pp.Usages).Take(4);
-
-        GUILayout.Label("Favorite prefabs", EditorStyles.boldLabel);
-        RenderPrefabs(top);
-    }
-
-    void RenderAllPrefabs()
-    {
-        var top = prefabs.OrderByDescending(pp => pp.Url);
-
-        GUILayout.Label("All prefabs", EditorStyles.boldLabel);
-        RenderPrefabs(top);
-    }
-
-    void RenderPrefabs()
-    {
-
-        Space();
-
-        RenderFavoritePrefabs();
-        RenderRecentPrefabs();
-    }
-
-
-    // ----- utils -------------
-    string GetValidatedUrl(string url)
-    {
-        if (!url.StartsWith("/"))
-            return url.Insert(0, "/");
-
-        return url;
-    }
-
     void AddPrefab(string ururu, string papapath, string nananame)
     {
         var p = new SimpleUISceneType(ururu, papapath, nananame) {LastOpened = DateTime.Now.Ticks};
@@ -492,15 +564,7 @@ public class SimpleUI : EditorWindow
         prefabs.Add(p);
     }
 
-    static string GetPrettyNameFromAssetPath(string assetPa)
-    {
-        var x = assetPa.Split('/').Last();
-        var ind = x.LastIndexOf(".prefab");
-
-        return x.Substring(0, ind);
-    }
-
-    void RenderPrefabs(IEnumerable<SimpleUISceneType> list)
+    void RenderPrefabs(IEnumerable<SimpleUISceneType> list, string trimStart = "")
     {
         // prefabs.OrderByDescending(pp => pp.Usages).Take(7)
         foreach (var p in list)
@@ -518,9 +582,12 @@ public class SimpleUI : EditorWindow
             GUIStyle style = GUI.skin.FindStyle("Button");
             style.richText = true;
 
-            // if (GUILayout.Button(p.Name))
-            // if (GUILayout.Button($"{p.Name}   ---   <b>{p.Url}</b>", style))
-            if (GUILayout.Button($"<b>{p.Name}</b>\n{p.Url}", style))
+            string trimmedUrl = p.Url;
+            
+            if (trimStart.Length > 0)
+                trimmedUrl = trimmedUrl.Trim(trimStart.ToCharArray());
+
+            if (GUILayout.Button($"<b>{p.Name}</b>\n{trimmedUrl}", style))
             {
                 OpenPrefab(p);
             }
@@ -529,11 +596,6 @@ public class SimpleUI : EditorWindow
             GUI.color = c;
             GUI.backgroundColor = c;
         }
-    }
-
-    void Space(int space = 15)
-    {
-        GUILayout.Space(space);
     }
 
     static void TryToIncreaseCurrentPrefabCounter()
@@ -680,8 +742,9 @@ public class SimpleUI : EditorWindow
             }
         }
     }
+    #endregion
 
-
+    #region What Uses Component OpenUrl
     public static bool HasNoPrefabsBetweenObjects(MonoBehaviour component, GameObject root)
     {
         // is directly attached to root prefab object with no in between prefabs
@@ -1061,21 +1124,16 @@ public class SimpleUI : EditorWindow
         }
     }
 
+    #endregion
+
     static string Gray(string text)
     {
         return Visuals.Colorize(text, Color.gray);
     }
 
-    static void PrintArbitraryInfo(List<string> list, string text)
-    {
-        Debug.Log(Visuals.Colorize(text, Color.gray));
-    }
-
-    static void Print(List<string> list, string text) => Print(text);
     static void Print(string text)
     {
         Debug.Log(text);
-        // componentNotes.Add($"{typeToSearch} appears in {path}, cause it is <b>STRONGLY attached</b> to <b>subPrefab</b>");
     }
 
     static void UpdatePrefab(SimpleUISceneType prefab)
