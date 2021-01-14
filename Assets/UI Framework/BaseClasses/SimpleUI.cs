@@ -366,7 +366,7 @@ public class SimpleUI : EditorWindow
         GUILayout.Label("Recent prefabs", EditorStyles.boldLabel);
         searchUrl = EditorGUILayout.TextField("Search", searchUrl);
 
-        searchScrollPosition = GUILayout.BeginScrollView(searchScrollPosition);
+        //searchScrollPosition = GUILayout.BeginScrollView(searchScrollPosition);
 
         if (searchUrl.Length == 0)
             RenderPrefabs(recent);
@@ -381,7 +381,7 @@ public class SimpleUI : EditorWindow
             RenderPrefabs(sortedByOpenings.Where(p => Contains(p.Url, searchUrl) || Contains(p.Name, searchUrl)));
         }
 
-        GUILayout.EndScrollView();
+        //GUILayout.EndScrollView();
     }
 
     void RenderFavoritePrefabs()
