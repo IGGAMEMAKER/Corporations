@@ -80,7 +80,7 @@ class ProjectInfo
         "Holding Attention", "Getting Attention",
         "Why wanna play", "Why wanna buy", "Why wanna feedback", "Feedback type",
 
-        "Why will they like it", "Who will be a superfan", "How to work w them",
+        "Why will they like it", "Who will be a superfan", "How to work w superfans",
         "What's the challenge", "What's the game essence"
     };
 

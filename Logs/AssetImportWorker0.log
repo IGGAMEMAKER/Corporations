@@ -15,11 +15,11 @@ C:/Users/Gaga/Documents/StartupMania
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-51887
+60900
 Successfully changed project path to: C:/Users/Gaga/Documents/StartupMania
 C:/Users/Gaga/Documents/StartupMania
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 2157.96 ms, found 0 plugins.
+Refreshing native plugins compatible for Editor in 138.71 ms, found 0 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.2.1f1 (270dd8c3da1c)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.2.1f1/Editor/Data/Resources/UnitySubsystems
@@ -35,23 +35,99 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.2.1f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.2.1f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.2.1f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56312
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56020
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
-Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.2.1f1/Editor/Data/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll
-Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.2.1f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.2.1f1/Editor/Data/PlaybackEngines/LinuxStandaloneSupport/UnityEditor.LinuxStandalone.Extensions.dll
-Registered in 0.011620 seconds.
-Native extension for LinuxStandalone target not found
-Native extension for WindowsStandalone target not found
-Native extension for OSXStandalone target not found
-Refreshing native plugins compatible for Editor in 315.85 ms, found 0 plugins.
+Registered in 0.005168 seconds.
+Refreshing native plugins compatible for Editor in 105.31 ms, found 0 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Invoked RoslynAnalysisRunner static constructor.
 RoslynAnalysisRunner will not be running.
 RoslynAnalysisRunner has terminated.
 Mono: successfully reloaded assembly
-- Completed reload, in 19.856 seconds
+- Completed reload, in  3.149 seconds
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.174612 seconds.
+Registered in 0.039090 seconds.
+Begin MonoManager ReloadAssembly
+Refreshing native plugins compatible for Editor in 1.38 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.836 seconds
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.11 seconds
+Refreshing native plugins compatible for Editor in 1.47 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2745 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.6 MB.
+System memory in use after: 102.8 MB.
+
+Unloading 55 unused Assets to reduce memory usage. Loaded Objects now: 3167.
+Total: 2.801800 ms (FindLiveObjects: 0.329800 ms CreateObjectMapping: 0.152500 ms MarkObjects: 2.222700 ms  DeleteObjects: 0.095300 ms)
+
+========================================================================
+Received Import Request.
+  path: Assets/Prefabs/Main screen/AudiencePanel___.prefab
+  artifactKey: Guid(49d6d1ddbe8423d4dbe7de55fc039422) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Main screen/AudiencePanel___.prefab using Guid(49d6d1ddbe8423d4dbe7de55fc039422) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5544fba00187a97e8b61628e45aae0dd') in 0.655350 seconds
+  Import took 0.679083 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 10355.551130 seconds.
+  path: Assets/Prefabs/MainGameScreen.prefab
+  artifactKey: Guid(5d96f89e052be1b4da2f86ff3df55b2b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/MainGameScreen.prefab using Guid(5d96f89e052be1b4da2f86ff3df55b2b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c254013bb92ea12c8d9bf20efb7d77a9') in 1.085714 seconds
+  Import took 1.275916 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 63.820028 seconds.
+  path: Assets/Prefabs/CharacterInfo.prefab
+  artifactKey: Guid(7b03f2a287754f746a3dbf1fc719b555) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/CharacterInfo.prefab using Guid(7b03f2a287754f746a3dbf1fc719b555) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8ff46e55f7effc2f0e40d50f2fea5acb') in 0.085150 seconds
+  Import took 0.094491 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.827542 seconds.
+  path: Assets/_Screens/CharacterScreen.prefab
+  artifactKey: Guid(f9a9bb353c9e1974db262699d485634f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Screens/CharacterScreen.prefab using Guid(f9a9bb353c9e1974db262699d485634f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f239b53756a2192d27cc4fb75dd231b6') in 0.075101 seconds
+  Import took 0.084069 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 91.518086 seconds.
+  path: Assets/_Screens/CharacterScreen.prefab
+  artifactKey: Guid(f9a9bb353c9e1974db262699d485634f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Screens/CharacterScreen.prefab using Guid(f9a9bb353c9e1974db262699d485634f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2b1992f24cf50a42094ca025e0a95bd4') in 0.030007 seconds
+  Import took 0.039082 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.042165 seconds.
+Begin MonoManager ReloadAssembly
+Refreshing native plugins compatible for Editor in 1.93 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.470 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.22 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2726 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 106.4 MB.
+System memory in use after: 106.6 MB.
+
+Unloading 50 unused Assets to reduce memory usage. Loaded Objects now: 3171.
+Total: 16.220300 ms (FindLiveObjects: 0.689400 ms CreateObjectMapping: 0.181900 ms MarkObjects: 12.796400 ms  DeleteObjects: 2.549500 ms)
+
