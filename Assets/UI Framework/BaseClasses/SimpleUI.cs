@@ -9,6 +9,7 @@ using UnityEditor;
 using UnityEditor.Experimental.SceneManagement;
 using UnityEditor.SceneManagement;
 using Object = UnityEngine.Object;
+using static UnityEngine.UIElements.VisualElement;
 
 // Read
 // Как-работает-editorwindow-ongui-в-unity-3d
@@ -561,7 +562,41 @@ public class SimpleUI : EditorWindow
 
         AssetDatabase.OpenAsset(asset);
         Selection.activeObject = asset;
+        isUrlEditingMode = false;
         // AssetDatabase.OpenAsset(AssetDatabase.LoadMainAssetAtPath(p.AssetPath));
+
+        RenderScriptsAttachedToThisPrefab(p);
+    }
+
+    void RenderScriptsAttachedToThisPrefab(SimpleUISceneType p)
+    {
+        var GO = Selection.activeObject as GameObject;
+        var scripts = new Dictionary<string, int>();
+
+        RenderScriptsAttachedToThisGameObject(GO.transform, ref scripts);
+
+        Debug.Log("Scripts, attached to PREFAB");
+
+        foreach (var s in scripts)
+            Debug.Log(s.Key);
+    }
+
+    void RenderScriptsAttachedToThisGameObject(Transform GO, ref Dictionary<string, int> scripts)
+    {
+        foreach (Transform go in GO.transform)
+        {
+            foreach (Component c in go.GetComponents<Component>())
+            {
+                string name = ObjectNames.GetInspectorTitle(c);
+                if (name.EndsWith("(Script)"))
+                {
+                    string formated = name.Replace("(Script)", String.Empty).Replace(" ", String.Empty) + ".cs";
+                    scripts[formated] = 1;
+                }
+            }
+
+            RenderScriptsAttachedToThisGameObject(go, ref scripts);
+        }
     }
 
     void AddPrefab(string ururu, string papapath, string nananame)
