@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 namespace Michsky.UI.Frost
 {
-    [ExecuteAlways]
+    //[ExecuteAlways]
     public class LayoutGroupPositionFix : MonoBehaviour
     {
         public LayoutGroup layoutGroup;
 
-        [ExecuteAlways]
+        //[ExecuteAlways]
         void OnEnable()
         {
             if(layoutGroup == null)

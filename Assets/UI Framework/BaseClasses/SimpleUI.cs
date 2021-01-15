@@ -128,7 +128,7 @@ public class SimpleUI : EditorWindow
     {
         Debug.Log("Prefab opened: " + obj.prefabContentsRoot.name);
 
-        newPath = obj.prefabAssetPath;
+        newPath = obj.assetPath;
         newName = GetPrettyNameFromAssetPath(newPath); // x.Substring(0, ind);
 
         TryToIncreaseCurrentPrefabCounter();
@@ -254,12 +254,6 @@ public class SimpleUI : EditorWindow
             isUrlEditingMode = false;
         }
 
-        RenderRootPrefab();
-
-        RenderSubroutes();
-
-
-
         newUrl = pref.Url;
         newPath = pref.AssetPath;
         newName = pref.Name;
@@ -267,6 +261,15 @@ public class SimpleUI : EditorWindow
         var prevUrl = newUrl;
         var prevName = newName;
         var prevPath = newPath;
+
+        RenderRootPrefab();
+
+        RenderSubroutes();
+
+        bool changedUrl = !newPath.Equals(prevPath);
+
+        if (changedUrl)
+            return;
 
         Space();
 
@@ -404,11 +407,15 @@ public class SimpleUI : EditorWindow
     {
         var upperUrl = GetUpperUrl(newUrl);
 
-        if (!newUrl.Equals(upperUrl))
-        {
-            Label("Root");
+        bool isTopRoute = newUrl.Equals("/");
 
+        //if (!newUrl.Equals(upperUrl) && upperUrl.Length > 0 && newUrl.Length > 0)
+        if (!isTopRoute)
+        {
             var root = GetPrefab(upperUrl);
+            
+            Label($"Root");
+
             RenderPrefabs(new List<SimpleUISceneType> { root });
         }
     }
