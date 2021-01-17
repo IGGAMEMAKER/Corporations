@@ -99,12 +99,13 @@ public class SimpleUI : EditorWindow
     private bool isUrlEditingMode = false;
     private bool isPrefabChosenMode = false;
 
+    static bool isConcreteUrlChosen = false;
+
     private static GameObject CurrentObject;
 
     private GameObject PossiblePrefab;
     private static string possiblePrefabName = "";
-
-    // Add menu item named "My Window" to the Window menu
+    
     [MenuItem("Window/SIMPLE UI")]
     public static void ShowWindow()
     {
@@ -129,15 +130,32 @@ public class SimpleUI : EditorWindow
         newName = GetPrettyNameFromAssetPath(newPath); // x.Substring(0, ind);
 
         TryToIncreaseCurrentPrefabCounter();
+
+        // choose URL
+        var urls = prefabs.Where(p => p.AssetPath.Equals(newPath));
+
+        if (urls.Count() == 1)
+        {
+            newUrl = urls.First().Url;
+            isConcreteUrlChosen = true;
+        }
+
+        if (urls.Count() > 1)
+        {
+            // pick first automatically or do nothing?
+            isConcreteUrlChosen = false;
+        }
     }
 
     void OpenPrefab(SimpleUISceneType p)
     {
         newPath = p.AssetPath;
+        newUrl = p.Url;
 
         PossiblePrefab = null;
         isDraggedPrefabMode = false;
         isUrlEditingMode = false;
+        isConcreteUrlChosen = true;
 
         var asset = AssetDatabase.LoadMainAssetAtPath(p.AssetPath);
         AssetDatabase.OpenAsset(asset);
@@ -162,10 +180,18 @@ public class SimpleUI : EditorWindow
             RenderAddingNewRouteFromDraggedPrefab();
         else if (hasChosenPrefab)
         {
-            if (isUrlEditingMode)
-                RenderEditingPrefab();
+            if (!isConcreteUrlChosen)
+            {
+                // pick concrete URL
+                RenderUrlsWhichAreAttachedToSamePrefab();
+            }
             else
-                RenderLinkToEditing();
+            {
+                if (isUrlEditingMode)
+                    RenderEditingPrefab();
+                else
+                    RenderLinkToEditing();
+            }
         }
         else
             RenderAddingNewRoute();
@@ -251,6 +277,17 @@ public class SimpleUI : EditorWindow
 
         Space();
         RenderPrefabs();
+    }
+
+    void RenderUrlsWhichAreAttachedToSamePrefab()
+    {
+        var chosenPrefab = prefabs[ChosenIndex];
+        var samePrefabUrls = prefabs.Where(p => p.AssetPath.Equals(chosenPrefab.AssetPath));
+
+        Label("Prefab " + chosenPrefab.Name + " is attached to these urls");
+        Label("Choose proper one!");
+        Space();
+        RenderPrefabs(samePrefabUrls);
     }
 
     void RenderEditingPrefab()
