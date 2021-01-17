@@ -98,6 +98,9 @@ public class SimpleUI : EditorWindow
 
     static bool isConcreteUrlChosen = false;
 
+    bool _isSceneMode = true;
+    bool _isPrefabMode => !_isSceneMode;
+
     private static GameObject CurrentObject;
 
     private GameObject PossiblePrefab;
@@ -134,11 +137,27 @@ public class SimpleUI : EditorWindow
 
     private void OnInspectorUpdate()
     {
-        var path = PrefabStageUtility.GetCurrentPrefabStage().assetPath;
-
-        if (!newPath.Equals(path))
+        if (PrefabStageUtility.GetCurrentPrefabStage() == null)
         {
-            Print("Prefab chosen: " + path);
+            if (_isPrefabMode)
+            {
+                _isSceneMode = true;
+                Debug.Log("Scene is opened");
+            }
+        }
+        else
+        {
+            _isSceneMode = false;
+
+            var path = PrefabStageUtility.GetCurrentPrefabStage().assetPath;
+
+            if (!newPath.Equals(path))
+            {
+                Print("Prefab chosen: " + path);
+                newPath = path;
+
+                ChooseUrlFromPickedPrefab();
+            }
         }
     }
 
@@ -236,6 +255,7 @@ public class SimpleUI : EditorWindow
         GUILayout.Space(space);
     }
     #endregion
+    
     #region string utils
     bool isSubRouteOf(string url, string subUrl)
     {
@@ -713,10 +733,9 @@ public class SimpleUI : EditorWindow
         {
             if (entityData.Count > 0)
             {
-                Debug.Log("Serializing data " + entityData.Count);
+                //Debug.Log("Serializing data " + entityData.Count);
                 serializer.Serialize(writer, entityData);
-
-                Debug.Log("Serialized " + entityData.Count);
+                //Debug.Log("Serialized " + entityData.Count);
             }
         }
     }
