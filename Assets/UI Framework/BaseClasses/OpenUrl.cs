@@ -30,9 +30,13 @@ public class UrlPickerEditor : Editor
 {
     static string[] _choices; // = { "foo", "foobar" };
     static int _choiceIndex = 0;
- 
+
+    static List<SimpleUISceneType> prefabs;
+
     public override void OnInspectorGUI ()
     {
+        GUILayout.Space(15);
+        GUILayout.Label("Specify URL manually (WORST scenario)", EditorStyles.boldLabel);
         // Draw the default inspector
         DrawDefaultInspector();
         
@@ -45,7 +49,9 @@ public class UrlPickerEditor : Editor
         if (_choiceIndex < 0)
             _choiceIndex = 0;
         
-        EditorGUILayout.Separator();
+        //EditorGUILayout.Separator();
+        GUILayout.Space(15);
+        GUILayout.Label("OR choose from list", EditorStyles.boldLabel);
         _choiceIndex = EditorGUILayout.Popup(_choiceIndex, _choices);
 
         // Update the selected choice in the underlying object
@@ -56,12 +62,25 @@ public class UrlPickerEditor : Editor
             // Save the changes back to the object
             EditorUtility.SetDirty(target);
         }
+
+        var sortedByOpenings = prefabs.OrderByDescending(pp => pp.LastOpened);
+        var recent = sortedByOpenings.Take(6);
+
+        GUILayout.Space(15);
+        GUILayout.Label("OR Choose from RECENTLY added prefabs", EditorStyles.boldLabel);
+        foreach (var r in recent)
+        {
+            if (GUILayout.Button($"{r.Name} \n{r.Url}"))
+            {
+                someClass.Url = MakeProperUrl(r.Url);
+            }
+        }
     }
+
+    static string MakeProperUrl(string url) => url.Trim('/');
 
     private void OnEnable()
     {
-        // Debug.Log("OnEnable");
-        
         LoadData();
     }
 
@@ -76,9 +95,9 @@ public class UrlPickerEditor : Editor
                 NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
             });
 
-        var prefabs = obj ?? new List<SimpleUISceneType>();
+        prefabs = obj ?? new List<SimpleUISceneType>();
 
-        _choices = prefabs.Select(p => p.Url.Trim('/')).ToArray();
+        _choices = prefabs.Select(p => MakeProperUrl(p.Url)).ToArray();
     }
 }
 
@@ -117,8 +136,6 @@ public class ProxyUrlPickerEditor : Editor
 
     private void OnEnable()
     {
-        // Debug.Log("OnEnable");
-        
         LoadData();
     }
 

@@ -59,6 +59,10 @@ public struct SimpleUISceneType
     }
 }
 
+//string myString = "Hello World";
+//bool groupEnabled;
+//bool myBool = true;
+//float myFloat = 1.23f;
 // void RenderExample()
 // {
 // // myString = EditorGUILayout.TextField ("Text Field", myString);
@@ -72,11 +76,6 @@ public struct SimpleUISceneType
 
 public class SimpleUI : EditorWindow
 {
-    string myString = "Hello World";
-    bool groupEnabled;
-    bool myBool = true;
-    float myFloat = 1.23f;
-
     private Vector2 recentPrefabsScrollPosition = Vector2.zero;
 
     private static string newUrl = "";
@@ -610,6 +609,7 @@ public class SimpleUI : EditorWindow
         {
             var c = GUI.color;
 
+            // set color
             bool isChosen = hasChosenPrefab && prefabs[ChosenIndex].AssetPath.Equals(p.AssetPath);
             var color = Visuals.GetColorFromString(isChosen ? Colors.COLOR_YOU : Colors.COLOR_NEUTRAL);
             GUI.contentColor = color;
@@ -617,7 +617,6 @@ public class SimpleUI : EditorWindow
             GUI.backgroundColor = color;
 
 
-            // GUIStyle style = new GUIStyle ();
             GUIStyle style = GUI.skin.FindStyle("Button");
             style.richText = true;
 
@@ -631,6 +630,7 @@ public class SimpleUI : EditorWindow
                 OpenPrefab(p);
             }
 
+            // restore colors
             GUI.contentColor = c;
             GUI.color = c;
             GUI.backgroundColor = c;
@@ -639,11 +639,9 @@ public class SimpleUI : EditorWindow
 
     static void TryToIncreaseCurrentPrefabCounter()
     {
-        var index = ChosenIndex;
-
         if (hasChosenPrefab)
         {
-            var pref = prefabs[index];
+            var pref = prefabs[ChosenIndex];
 
             pref.Usages++;
             pref.LastOpened = DateTime.Now.Ticks;
