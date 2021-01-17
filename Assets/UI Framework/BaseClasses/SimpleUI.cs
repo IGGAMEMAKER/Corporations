@@ -88,7 +88,8 @@ public class SimpleUI : EditorWindow
 
     static List<SimpleUISceneType> prefabs; // = new List<NewSceneTypeBlah>();
 
-    private static int ChosenIndex => prefabs.FindIndex(p => p.AssetPath.Equals(newPath));
+    private static int ChosenIndex => prefabs.FindIndex(p => p.Url.Equals(newUrl));
+    //private static int ChosenIndex => prefabs.FindIndex(p => p.AssetPath.Equals(newPath));
     private static bool hasChosenPrefab => ChosenIndex >= 0;
 
     private bool isDraggedPrefabMode = false;
@@ -100,6 +101,8 @@ public class SimpleUI : EditorWindow
 
     bool _isSceneMode = true;
     bool _isPrefabMode => !_isSceneMode;
+
+    bool _urlChanged = false;
 
     private static GameObject CurrentObject;
 
@@ -128,11 +131,11 @@ public class SimpleUI : EditorWindow
 
         newPath = obj.assetPath;
         newName = GetPrettyNameFromAssetPath(newPath); // x.Substring(0, ind);
-
-        TryToIncreaseCurrentPrefabCounter();
-
+        
         // choose URL
         ChooseUrlFromPickedPrefab();
+
+        TryToIncreaseCurrentPrefabCounter();
     }
 
     private void OnInspectorUpdate()
@@ -151,7 +154,7 @@ public class SimpleUI : EditorWindow
 
             var path = PrefabStageUtility.GetCurrentPrefabStage().assetPath;
 
-            if (!newPath.Equals(path))
+            if (!newPath.Equals(path) || newUrl.Length == 0)
             {
                 Print("Prefab chosen: " + path);
                 newPath = path;
@@ -201,6 +204,8 @@ public class SimpleUI : EditorWindow
         GUILayout.Label("SIMPLE UI", EditorStyles.largeLabel);
 
         LoadData();
+
+        //Label($"Url={newUrl}\nasset={newPath}\nname={newName}");
 
         if (!hasChosenPrefab)
             RenderPrefabs();
@@ -526,6 +531,8 @@ public class SimpleUI : EditorWindow
 
     private void RenderMakingAPrefabFromGameObject()
     {
+        const string defaultPrefabName = "Bad prefab name: You cannot name new prefab GameObject, cause it's easy to confuse name";
+
         Space();
         possiblePrefabName = EditorGUILayout.TextField("Name", possiblePrefabName);
 
@@ -540,11 +547,11 @@ public class SimpleUI : EditorWindow
         if (!isNameOK)
         {
             if (isDefaultName)
-                EditorGUILayout.LabelField(
-                    $"!!!Bad prefab name: You cannot name new prefab GameObject, cause it's easy to confuse name");
+                EditorGUILayout.HelpBox(defaultPrefabName, MessageType.Error);
+                //EditorGUILayout.LabelField(defaultPrefabName);
 
             if (hasSameNamePrefabAlready)
-                EditorGUILayout.LabelField($"!!!Bad prefab name: prefab ({path}) already exists)");
+                EditorGUILayout.HelpBox($"Bad prefab name: prefab ({path}) already exists)", MessageType.Error);
             // EditorGUILayout.LabelField($"!!!Bad prefab name: empty: {isEmpty}, name=gameobject: {isDefaultName}, prefab already exists: {hasSameNamePrefabAlready}");
         }
 
@@ -560,6 +567,12 @@ public class SimpleUI : EditorWindow
                 isDraggedGameObjectMode = false;
                 HandleDraggedPrefab(PossiblePrefab);
             }
+        }
+
+        if (Button("Go Back"))
+        {
+            isDraggedGameObjectMode = false;
+            isDraggedPrefabMode = false;
         }
     }
 

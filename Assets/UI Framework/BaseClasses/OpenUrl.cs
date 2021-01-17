@@ -31,6 +31,8 @@ public class UrlPickerEditor : Editor
     static string[] _choices; // = { "foo", "foobar" };
     static int _choiceIndex = 0;
 
+    static Vector2 scroll = Vector2.zero;
+
     static List<SimpleUISceneType> prefabs;
 
     public override void OnInspectorGUI ()
@@ -64,17 +66,24 @@ public class UrlPickerEditor : Editor
         }
 
         var sortedByOpenings = prefabs.OrderByDescending(pp => pp.LastOpened);
-        var recent = sortedByOpenings.Take(6);
+        var recent = sortedByOpenings.Take(15);
 
         GUILayout.Space(15);
         GUILayout.Label("OR Choose from RECENTLY added prefabs", EditorStyles.boldLabel);
+
+        GUIStyle style = GUI.skin.FindStyle("Button");
+        style.richText = true;
+
+        scroll = EditorGUILayout.BeginScrollView(scroll);
         foreach (var r in recent)
         {
-            if (GUILayout.Button($"{r.Name} \n{r.Url}"))
+            if (GUILayout.Button($"<b>{r.Name}</b>\n", style)) // \n{r.Url}
             {
                 someClass.Url = MakeProperUrl(r.Url);
             }
         }
+
+        EditorGUILayout.EndScrollView();
     }
 
     static string MakeProperUrl(string url) => url.Trim('/');
