@@ -37,8 +37,10 @@ public class MenuController : View
         if (PrefabScreens.Count > 0)
             return;
 
+        var project = "ProjectScreen/CompanyMainInfo";
+
         SetUrl(ScreenMode.DevelopmentScreen, "DevelopmentScreen");
-        SetUrl(ScreenMode.ProjectScreen, "ProjectScreen");
+        SetUrl(ScreenMode.ProjectScreen, project);
         SetUrl(ScreenMode.InvesmentsScreen, "InvestmentScreen");
         SetUrl(ScreenMode.InvesmentProposalScreen, "InvestmentRoundsScreen");
         SetUrl(ScreenMode.IndustryScreen, "IndustryScreen");
@@ -46,7 +48,7 @@ public class MenuController : View
         SetUrl(ScreenMode.TeamScreen, "TeamScreen");
         SetUrl(ScreenMode.CharacterScreen, "CharacterScreen/CharacterInfo");
         
-        SetUrl(ScreenMode.GroupManagementScreen, "ProjectScreen");
+        SetUrl(ScreenMode.GroupManagementScreen, project);
         
         SetUrl(ScreenMode.MarketingScreen, "MarketingScreen");
         SetUrl(ScreenMode.InvestmentOfferScreen, "InvestmentOfferScreen");
