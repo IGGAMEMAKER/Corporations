@@ -557,8 +557,7 @@ public class SimpleUI : EditorWindow
 
         if (isNameOK && Button("CREATE prefab!"))
         {
-            PrefabUtility.SaveAsPrefabAssetAndConnect(PossiblePrefab, path, InteractionMode.UserAction,
-                out var success);
+            PrefabUtility.SaveAsPrefabAssetAndConnect(PossiblePrefab, path, InteractionMode.UserAction, out var success);
 
             Debug.Log("Prefab saving " + success);
 
