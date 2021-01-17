@@ -689,7 +689,6 @@ public class SimpleUI : EditorWindow
 
     void RenderPrefabs(IEnumerable<SimpleUISceneType> list, string trimStart = "")
     {
-        // prefabs.OrderByDescending(pp => pp.Usages).Take(7)
         foreach (var p in list)
         {
             var c = GUI.color;
@@ -706,9 +705,14 @@ public class SimpleUI : EditorWindow
             style.richText = true;
 
             string trimmedUrl = p.Url;
-            
+
             if (trimStart.Length > 0)
-                trimmedUrl = trimmedUrl.Trim(trimStart.ToCharArray());
+            {
+                var lastDashIndex = trimmedUrl.LastIndexOf('/');
+
+                trimmedUrl = trimmedUrl.Substring(lastDashIndex);
+                //trimmedUrl = trimmedUrl.Trim(trimStart.ToCharArray());
+            }
 
             if (GUILayout.Button($"<b>{p.Name}</b>\n{trimmedUrl}", style))
             {
