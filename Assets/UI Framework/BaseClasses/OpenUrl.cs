@@ -36,8 +36,6 @@ public class UrlPickerEditor : Editor
         // Draw the default inspector
         DrawDefaultInspector();
         
-        PrintChoices(_choices);
-        
         var someClass = target as OpenUrl;
 
         var prevValue = someClass.Url;
@@ -80,18 +78,7 @@ public class UrlPickerEditor : Editor
 
         var prefabs = obj ?? new List<SimpleUISceneType>();
 
-        var x = prefabs.Select(p => p.Url.Trim('/')).ToArray();
-        PrintChoices(x);
-
-        _choices = new [] { "foo", "foobar" };
-        _choices = x;
-        
-        PrintChoices(_choices);
-    }
-
-    static void PrintChoices(string[] ch)
-    {
-        // Debug.Log(string.Join("\n", ch));
+        _choices = prefabs.Select(p => p.Url.Trim('/')).ToArray();
     }
 }
 

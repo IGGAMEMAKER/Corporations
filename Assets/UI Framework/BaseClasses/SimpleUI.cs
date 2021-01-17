@@ -95,9 +95,6 @@ public class SimpleUI : EditorWindow
     private static int ChosenIndex => prefabs.FindIndex(p => p.AssetPath.Equals(newPath));
     private static bool hasChosenPrefab => ChosenIndex >= 0;
 
-    private bool showTopPrefabs = false;
-    private bool showRecentPrefabs = false;
-    private bool showAllPrefabs = false;
     private bool isDraggedPrefabMode = false;
     private bool isDraggedGameObjectMode = false;
     private bool isUrlEditingMode = false;
