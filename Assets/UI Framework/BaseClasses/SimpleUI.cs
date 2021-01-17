@@ -131,6 +131,20 @@ public class SimpleUI : EditorWindow
         TryToIncreaseCurrentPrefabCounter();
     }
 
+    void OpenPrefab(SimpleUISceneType p)
+    {
+        newPath = p.AssetPath;
+
+        PossiblePrefab = null;
+        isDraggedPrefabMode = false;
+        isUrlEditingMode = false;
+
+        var asset = AssetDatabase.LoadMainAssetAtPath(p.AssetPath);
+        AssetDatabase.OpenAsset(asset);
+        Selection.activeObject = asset;
+        
+        //RenderScriptsAttachedToThisPrefab(p);
+    }
 
     void OnGUI()
     {
@@ -545,23 +559,6 @@ public class SimpleUI : EditorWindow
     SimpleUISceneType GetPrefab(string urlPath)
     {
         return prefabs.FirstOrDefault(p => p.Url.Equals(urlPath));
-    }
-
-    void OpenPrefab(SimpleUISceneType p)
-    {
-        newPath = p.AssetPath;
-
-        var asset = AssetDatabase.LoadMainAssetAtPath(p.AssetPath);
-
-        PossiblePrefab = null;
-        isDraggedPrefabMode = false;
-
-        AssetDatabase.OpenAsset(asset);
-        Selection.activeObject = asset;
-        isUrlEditingMode = false;
-        // AssetDatabase.OpenAsset(AssetDatabase.LoadMainAssetAtPath(p.AssetPath));
-
-        RenderScriptsAttachedToThisPrefab(p);
     }
 
     void RenderScriptsAttachedToThisPrefab(SimpleUISceneType p)
