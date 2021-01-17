@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,8 +7,6 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditor.Experimental.SceneManagement;
 using UnityEditor.SceneManagement;
-using Object = UnityEngine.Object;
-using static UnityEngine.UIElements.VisualElement;
 
 // Read
 // Как-работает-editorwindow-ongui-в-unity-3d
@@ -132,6 +129,21 @@ public class SimpleUI : EditorWindow
         TryToIncreaseCurrentPrefabCounter();
 
         // choose URL
+        ChooseUrlFromPickedPrefab();
+    }
+
+    private void OnInspectorUpdate()
+    {
+        var path = PrefabStageUtility.GetCurrentPrefabStage().assetPath;
+
+        if (!newPath.Equals(path))
+        {
+            Print("Prefab chosen: " + path);
+        }
+    }
+
+    static void ChooseUrlFromPickedPrefab()
+    {
         var urls = prefabs.Where(p => p.AssetPath.Equals(newPath));
 
         if (urls.Count() == 1)
