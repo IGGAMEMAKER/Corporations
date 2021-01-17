@@ -568,6 +568,7 @@ public class SimpleUI : EditorWindow
             }
         }
 
+        Space();
         if (Button("Go Back"))
         {
             isDraggedGameObjectMode = false;
@@ -598,6 +599,12 @@ public class SimpleUI : EditorWindow
             SaveData();
 
             Debug.Log("Added DRAGGED prefab");
+
+            DestroyImmediate(PossiblePrefab);
+
+            PossiblePrefab = null;
+
+            Debug.Log("Removed object too");
         }
     }
 
