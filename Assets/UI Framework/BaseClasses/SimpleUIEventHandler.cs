@@ -84,8 +84,8 @@ public class SimpleUIEventHandler : MonoBehaviour
         }
         
         LoadData();
-        
-        Debug.Log($"<b>OpenUrl {NextUrl}</b> (from {CurrentUrl})");
+
+        Print($"<b>OpenUrl {NextUrl}</b> (from {CurrentUrl})");
 
         var newUrls = ParseUrlToSubRoutes(NextUrl);
         var oldUrls = ParseUrlToSubRoutes(CurrentUrl);
@@ -138,16 +138,21 @@ public class SimpleUIEventHandler : MonoBehaviour
 
     void RenderPrefab(string url)
     {
-        Debug.Log("Render prefab by url: " + url);
+        Print("Render prefab by url: " + url);
 
         DrawPrefab(url, true);
     }
 
     public void HidePrefab(string url)
     {
-        Debug.Log("HIDE prefab by url: " + url);
+        Print("HIDE prefab by url: " + url);
 
         DrawPrefab(url, false);
+    }
+
+    void Print(string text)
+    {
+        //Debug.Log(text);
     }
 
     GameObject GetPrefab(string url)

@@ -136,7 +136,7 @@ public class SimpleUI : EditorWindow
 
     private static void PrefabStage_prefabOpened(PrefabStage obj)
     {
-        Debug.Log("Prefab opened: " + obj.prefabContentsRoot.name);
+        //Debug.Log("Prefab opened: " + obj.prefabContentsRoot.name);
 
         obj.prefabContentsRoot.AddComponent<DisplayConnectedUrls>();
         Selection.activeGameObject = obj.prefabContentsRoot;
@@ -159,7 +159,7 @@ public class SimpleUI : EditorWindow
             if (_isPrefabMode)
             {
                 _isSceneMode = true;
-                Debug.Log("Scene is opened");
+                //Debug.Log("Scene is opened");
             }
         }
         else
@@ -170,7 +170,7 @@ public class SimpleUI : EditorWindow
 
             if (!newPath.Equals(path) || newUrl.Length == 0)
             {
-                Print("Prefab chosen: " + path);
+                //Print("Prefab chosen: " + path);
                 newPath = path;
 
                 ChooseUrlFromPickedPrefab();
@@ -214,7 +214,8 @@ public class SimpleUI : EditorWindow
         var asset = AssetDatabase.LoadMainAssetAtPath(p.AssetPath);
         AssetDatabase.OpenAsset(asset);
         //Selection.activeObject = asset;
-        Debug.Log("OpenPrefab " + asset.name);
+
+        //Debug.Log("OpenPrefab " + asset.name);
         
         //RenderScriptsAttachedToThisPrefab(p);
     }

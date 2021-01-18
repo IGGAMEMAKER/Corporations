@@ -11,10 +11,9 @@ public class DisplayCompleteUrlEditor : Editor
     float pickSize = 50f;
     float diff = 75f;
 
-
     private void OnEnable()
     {
-        Debug.Log("Enable DisplayCompleteUrlEditor");
+        //Debug.Log("Enable DisplayCompleteUrlEditor");
     }
 
     private void OnSceneGUI()
@@ -25,20 +24,29 @@ public class DisplayCompleteUrlEditor : Editor
         //Handles.Button(Vector3.one * 10, Quaternion.identity, 200, 200, Handles.RectangleHandleCap);
         //Handles.Label(Vector3.zero, "Editor");
 
+        var trg = target as DisplayConnectedUrls;
+
         var buttonExample = Selection.activeGameObject; // target as GameObject;
 
-        Vector3 position = buttonExample.transform.position;
+        var globalPos = buttonExample.transform.position;
         var localPos = buttonExample.transform.localPosition;
 
+        var pivot = buttonExample.GetComponent<RectTransform>().anchoredPosition;
 
-        Debug.Log("Position: " + position + " local=" + localPos);
+        var Vector22 = trg.Vector22;
+
+        var sum = globalPos + localPos;
+        Vector3 position = new Vector3(-sum.x, sum.y);
+        position = new Vector2(0, 0) + Vector22; // - localPos + new Vector3(0, Screen.height);
+
+        Debug.Log("Position: " + position + " local=" + localPos + " pivot=" + pivot + " w=" + Screen.width + " h=" + Screen.height);
 
         SimpleUI ui = EditorWindow.GetWindow<SimpleUI>();
 
         var currentUrl = ui.GetCurrentUrl();
 
-        RenderSubRoutes(ui, currentUrl, position);
 
+        RenderSubRoutes(ui, currentUrl, position);
         RenderRootLink(ui, currentUrl, position);
 
         Handles.EndGUI();
@@ -100,6 +108,8 @@ public class DisplayCompleteUrlEditor : Editor
 
 public class DisplayConnectedUrls : MonoBehaviour
 {
+    public Vector2 Vector22;
+
     // Start is called before the first frame update
     void Start()
     {
