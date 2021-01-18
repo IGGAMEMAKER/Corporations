@@ -120,18 +120,25 @@ public class SimpleUI : EditorWindow
         // EditorWindow.CreateWindow<SimpleUI>();
     }
 
+    public string GetCurrentUrl() => newUrl;
+    public IEnumerable<SimpleUISceneType> GetSubUrls(string url) => prefabs.Where(p => isSubRouteOf(p.Url, url));
+
     static SimpleUI()
     {
         PrefabStage.prefabStageOpened += PrefabStage_prefabOpened;
+        PrefabStage.prefabStageClosing += PrefabStage_prefabClosed;
     }
 
-    public string GetCurrentUrl() => newUrl;
-
-    public IEnumerable<SimpleUISceneType> GetSubUrls(string url) => prefabs.Where(p => isSubRouteOf(p.Url, url));
+    private static void PrefabStage_prefabClosed(PrefabStage obj)
+    {
+        
+    }
 
     private static void PrefabStage_prefabOpened(PrefabStage obj)
     {
         Debug.Log("Prefab opened: " + obj.prefabContentsRoot.name);
+        
+        //obj.openedFromInstanceRoot.AddComponent<DisplayConnectedUrls>();
 
         newPath = obj.assetPath;
         newName = GetPrettyNameFromAssetPath(newPath); // x.Substring(0, ind);
