@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ public class DisplayCompleteUrlEditor : Editor
     }
     private void OnSceneGUI()
     {
-        Debug.Log("OnGUI: DisplayCompleteUrlEditor");
+        //Debug.Log("OnGUI: DisplayCompleteUrlEditor");
         Handles.BeginGUI();
 
         //Handles.Button(Vector3.one * 10, Quaternion.identity, 200, 200, Handles.RectangleHandleCap);
@@ -21,12 +22,49 @@ public class DisplayCompleteUrlEditor : Editor
         Handles.EndGUI();
         var buttonExample = Selection.activeGameObject; // target as GameObject;
 
-        Vector3 position = buttonExample.transform.position + Vector3.up * 2f; // 
-        float size = 200f;
-        float pickSize = size * 2f;
+        Vector3 position = buttonExample.transform.position; // 
+        float size = 100f;
+        float pickSize = size;
 
-        if (Handles.Button(position, Quaternion.identity, size, pickSize, Handles.RectangleHandleCap))
-            Debug.Log("The button was pressed!");
+        SimpleUI ui = EditorWindow.GetWindow<SimpleUI>();
+
+        var currentUrl = ui.GetCurrentUrl();
+
+        var subRoutes = ui.GetSubUrls(currentUrl);
+        var root = ui.GetUpperUrl(currentUrl);
+
+        var diff = 75f;
+
+        var subUrlPosition = position + Vector3.down * diff;
+        var rootPosition = position + Vector3.up * diff;
+
+        bool hasSubUrl = subRoutes.Any();
+        bool hasRoot = !root.Equals(currentUrl);
+
+        if (hasSubUrl)
+        {
+            Handles.Label(subUrlPosition, "SubRoute");
+
+            if (Handles.Button(subUrlPosition, Quaternion.identity, size, pickSize, Handles.RectangleHandleCap))
+            {
+                Debug.Log("Forward");
+
+                ui.OpenPrefab(subRoutes.First().Url);
+            }
+        }
+
+
+        if (hasRoot)
+        {
+            Handles.Label(rootPosition, "Root");
+
+            if (Handles.Button(rootPosition, Quaternion.identity, size, pickSize, Handles.RectangleHandleCap))
+            {
+                Debug.Log("Go UP");
+
+                ui.OpenPrefab(root);
+            }
+        }
     }
 }
 

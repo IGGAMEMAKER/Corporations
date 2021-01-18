@@ -185,6 +185,12 @@ public class SimpleUI : EditorWindow
         }
     }
 
+    public void OpenPrefab(string url)
+    {
+        var p1 = prefabs.First(p => p.Url.Equals(url));
+
+        OpenPrefab(p1);
+    }
     void OpenPrefab(SimpleUISceneType p)
     {
         newPath = p.AssetPath;
