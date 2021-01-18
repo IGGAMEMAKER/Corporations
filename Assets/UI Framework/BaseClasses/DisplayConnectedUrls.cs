@@ -7,6 +7,11 @@ using UnityEngine;
 [CustomEditor(typeof(DisplayConnectedUrls))]
 public class DisplayCompleteUrlEditor : Editor
 {
+    float size = 50f;
+    float pickSize = 50f;
+    float diff = 75f;
+
+
     private void OnEnable()
     {
         Debug.Log("Enable DisplayCompleteUrlEditor");
@@ -23,26 +28,31 @@ public class DisplayCompleteUrlEditor : Editor
         var buttonExample = Selection.activeGameObject; // target as GameObject;
 
         Vector3 position = buttonExample.transform.position;
-        float size = 50f;
-        float pickSize = size;
+        var localPos = buttonExample.transform.localPosition;
+
+
+        Debug.Log("Position: " + position + " local=" + localPos);
 
         SimpleUI ui = EditorWindow.GetWindow<SimpleUI>();
 
         var currentUrl = ui.GetCurrentUrl();
 
+        RenderSubRoutes(ui, currentUrl, position);
+
+        RenderRootLink(ui, currentUrl, position);
+
+        Handles.EndGUI();
+    }
+
+    void RenderSubRoutes(SimpleUI ui, string currentUrl, Vector3 position)
+    {
         var subRoutes = ui.GetSubUrls(currentUrl).ToList();
-        var root = ui.GetUpperUrl(currentUrl);
-
-        var diff = 75f;
-
-        var subUrlPosition = position + Vector3.down * diff;
-        var rootPosition = position + Vector3.up * diff;
 
         bool hasSubUrl = subRoutes.Any();
-        bool hasRoot = !root.Equals(currentUrl);
-
         if (hasSubUrl)
         {
+            var subUrlPosition = position + Vector3.down * diff;
+
             for (var i = 0; i < subRoutes.Count(); i++)
             {
                 var pref = subRoutes[i];
@@ -53,25 +63,38 @@ public class DisplayCompleteUrlEditor : Editor
 
                 Handles.Label(pos + new Vector3(-textSize * 2f, 0, 0), pref.Name);
 
-                if (Handles.Button(pos, Quaternion.identity, size, pickSize, Handles.RectangleHandleCap))
+                if (BBBtn(pos))
                 {
                     ui.OpenPrefab(pref.Url);
                 }
             }
         }
+    }
 
+    void RenderRootLink(SimpleUI ui, string currentUrl, Vector3 position)
+    {
+        var root = ui.GetUpperUrl(currentUrl);
 
+        bool hasRoot = !root.Equals(currentUrl);
         if (hasRoot)
         {
+            var rootPosition = position + Vector3.up * diff;
+
             Handles.Label(rootPosition, $"UP ({root})");
 
-            if (Handles.Button(rootPosition, Quaternion.identity, size, pickSize, Handles.RectangleHandleCap))
+            if (BBBtn(rootPosition))
             {
                 ui.OpenPrefab(root);
             }
         }
+    }
 
-        Handles.EndGUI();
+    bool BBBtn(Vector3 pos)
+    {
+        float size = 50f;
+        float pickSize = size;
+
+        return Handles.Button(pos, Quaternion.identity, size, pickSize, Handles.RectangleHandleCap);
     }
 }
 

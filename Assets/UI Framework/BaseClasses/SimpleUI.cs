@@ -131,13 +131,16 @@ public class SimpleUI : EditorWindow
 
     private static void PrefabStage_prefabClosed(PrefabStage obj)
     {
-        
+        DestroyImmediate(obj.prefabContentsRoot.GetComponent<DisplayConnectedUrls>());
     }
 
     private static void PrefabStage_prefabOpened(PrefabStage obj)
     {
         Debug.Log("Prefab opened: " + obj.prefabContentsRoot.name);
-        
+
+        obj.prefabContentsRoot.AddComponent<DisplayConnectedUrls>();
+        Selection.activeGameObject = obj.prefabContentsRoot;
+
         //obj.openedFromInstanceRoot.AddComponent<DisplayConnectedUrls>();
 
         newPath = obj.assetPath;
@@ -210,7 +213,8 @@ public class SimpleUI : EditorWindow
 
         var asset = AssetDatabase.LoadMainAssetAtPath(p.AssetPath);
         AssetDatabase.OpenAsset(asset);
-        Selection.activeObject = asset;
+        //Selection.activeObject = asset;
+        Debug.Log("OpenPrefab " + asset.name);
         
         //RenderScriptsAttachedToThisPrefab(p);
     }
