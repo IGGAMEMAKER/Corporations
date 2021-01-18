@@ -15,10 +15,18 @@ public class DisplayCompleteUrlEditor : Editor
         Debug.Log("OnGUI: DisplayCompleteUrlEditor");
         Handles.BeginGUI();
 
-        Handles.Button(Vector3.one * 10, Quaternion.identity, 200, 200, Handles.RectangleHandleCap);
+        //Handles.Button(Vector3.one * 10, Quaternion.identity, 200, 200, Handles.RectangleHandleCap);
         Handles.Label(Vector3.zero, "Editor");
 
         Handles.EndGUI();
+        var buttonExample = Selection.activeGameObject; // target as GameObject;
+
+        Vector3 position = buttonExample.transform.position + Vector3.up * 2f; // 
+        float size = 200f;
+        float pickSize = size * 2f;
+
+        if (Handles.Button(position, Quaternion.identity, size, pickSize, Handles.RectangleHandleCap))
+            Debug.Log("The button was pressed!");
     }
 }
 
