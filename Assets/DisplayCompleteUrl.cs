@@ -17,9 +17,8 @@ public class DisplayCompleteUrlEditor : Editor
         Handles.BeginGUI();
 
         //Handles.Button(Vector3.one * 10, Quaternion.identity, 200, 200, Handles.RectangleHandleCap);
-        Handles.Label(Vector3.zero, "Editor");
+        //Handles.Label(Vector3.zero, "Editor");
 
-        Handles.EndGUI();
         var buttonExample = Selection.activeGameObject; // target as GameObject;
 
         Vector3 position = buttonExample.transform.position; // 
@@ -49,7 +48,9 @@ public class DisplayCompleteUrlEditor : Editor
 
                 var pos = subUrlPosition + new Vector3(i * (size + diff), 0, 0);
 
-                Handles.Label(pos, pref.Name);
+                var textSize = pref.Name.Length;
+
+                Handles.Label(pos + new Vector3(-textSize * 2f, 0, 0), pref.Name);
 
                 if (Handles.Button(pos, Quaternion.identity, size, pickSize, Handles.RectangleHandleCap))
                 {
@@ -61,13 +62,16 @@ public class DisplayCompleteUrlEditor : Editor
 
         if (hasRoot)
         {
-            Handles.Label(rootPosition, "Root");
+            Handles.Label(rootPosition, $"UP ({root})");
 
             if (Handles.Button(rootPosition, Quaternion.identity, size, pickSize, Handles.RectangleHandleCap))
             {
                 ui.OpenPrefab(root);
             }
         }
+
+        Handles.EndGUI();
+
     }
 }
 
