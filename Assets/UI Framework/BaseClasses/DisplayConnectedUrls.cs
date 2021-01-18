@@ -28,18 +28,18 @@ public class DisplayCompleteUrlEditor : Editor
 
         var buttonExample = Selection.activeGameObject; // target as GameObject;
 
-        var globalPos = buttonExample.transform.position;
-        var localPos = buttonExample.transform.localPosition;
+        var globalPos = (Vector2)buttonExample.transform.position;
+        var localPos = (Vector2)buttonExample.transform.localPosition;
 
         var pivot = buttonExample.GetComponent<RectTransform>().anchoredPosition;
 
         var Vector22 = trg.Vector22;
 
         var sum = globalPos + localPos;
-        Vector3 position = new Vector3(-sum.x, sum.y);
+        var position = new Vector2(-sum.x, sum.y);
         position = new Vector2(0, 0) + Vector22; // - localPos + new Vector3(0, Screen.height);
 
-        Debug.Log("Position: " + position + " local=" + localPos + " pivot=" + pivot + " w=" + Screen.width + " h=" + Screen.height);
+        Debug.Log("Position: " + position + " local=" + localPos + " global=" + globalPos); //  + " w=" + Screen.width + " h=" + Screen.height
 
         SimpleUI ui = EditorWindow.GetWindow<SimpleUI>();
 
