@@ -3,7 +3,26 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[ExecuteInEditMode]
+[CustomEditor(typeof(DisplayCompleteUrl))]
+public class DisplayCompleteUrlEditor : Editor
+{
+    private void OnEnable()
+    {
+        Debug.Log("Enable DisplayCompleteUrlEditor");
+    }
+    private void OnSceneGUI()
+    {
+        Debug.Log("OnGUI: DisplayCompleteUrlEditor");
+        Handles.BeginGUI();
+
+        Handles.Button(Vector3.one * 10, Quaternion.identity, 200, 200, Handles.RectangleHandleCap);
+        Handles.Label(Vector3.zero, "Editor");
+
+        Handles.EndGUI();
+    }
+}
+
+[ExecuteAlways]
 public class DisplayCompleteUrl : MonoBehaviour
 {
     public SimpleUIEventHandler SimpleUIEventHandler;
@@ -24,7 +43,7 @@ public class DisplayCompleteUrl : MonoBehaviour
         var root = ui.GetUpperUrl(url);
 
         Debug.Log("<b>Show url</b>: " + url);
-        return;
+        //return;
 
         if (SimpleUIEventHandler == null)
         {
@@ -41,9 +60,9 @@ public class DisplayCompleteUrl : MonoBehaviour
     //[ExecuteAlways]
     private void OnGUI()
     {
-        if (GUI.Button(new Rect(0f, 0f, 350f, 150f), "button"))
-        {
-            Debug.Log("I am doing something!");
-        }
+        //if (GUI.Button(new Rect(0f, 0f, 350f, 150f), "button"))
+        //{
+        //    Debug.Log("I am doing something!");
+        //}
     }
 }
