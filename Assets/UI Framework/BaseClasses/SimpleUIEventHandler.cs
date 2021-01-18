@@ -143,7 +143,7 @@ public class SimpleUIEventHandler : MonoBehaviour
         DrawPrefab(url, true);
     }
 
-    void HidePrefab(string url)
+    public void HidePrefab(string url)
     {
         Debug.Log("HIDE prefab by url: " + url);
 

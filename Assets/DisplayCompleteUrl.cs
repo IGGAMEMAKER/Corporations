@@ -3,43 +3,47 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-#if UNITY_EDITOR
-using UnityEditor.Experimental.SceneManagement;
-
-[InitializeOnLoad]
-public static class DisplayCompleteUrl
+[ExecuteInEditMode]
+public class DisplayCompleteUrl : MonoBehaviour
 {
-    static EditorWindow Window;
-    static SimpleUI SimpleUI;
+    public SimpleUIEventHandler SimpleUIEventHandler;
 
-    private static void SetWindow()
+    // Start is called before the first frame update
+    void Start()
     {
-        Window = EditorWindow.GetWindow(typeof(SimpleUI));
-
-        SimpleUI = Window as SimpleUI;
-
-        Debug.Log("Drawing " + SimpleUI.newUrl);
+        ShowCurrentPrefab();
     }
 
-    static DisplayCompleteUrl()
+    void ShowCurrentPrefab()
     {
-        PrefabStage.prefabStageOpened += DummyMethod;
+        SimpleUI ui = EditorWindow.GetWindow<SimpleUI>();
+
+        var url = ui.GetCurrentUrl();
+
+        var subUrls = ui.GetSubUrls(url);
+        var root = ui.GetUpperUrl(url);
+
+        Debug.Log("<b>Show url</b>: " + url);
+        return;
+
+        if (SimpleUIEventHandler == null)
+        {
+            SimpleUIEventHandler = GetComponent<SimpleUIEventHandler>();
+        }
+
+        if (SimpleUIEventHandler != null)
+        {
+            SimpleUIEventHandler.OpenUrl(url);
+            SimpleUIEventHandler.HidePrefab(url);
+        }
     }
 
-    static void DummyMethod(PrefabStage stage) {
-        SetWindow();
+    //[ExecuteAlways]
+    private void OnGUI()
+    {
+        if (GUI.Button(new Rect(0f, 0f, 350f, 150f), "button"))
+        {
+            Debug.Log("I am doing something!");
+        }
     }
 }
-
-
- 
-//public static class FixUnpackEnvironmentUIParent
-//{
-//    static FixUnpackEnvironmentUIParent()
-//    {
-//        PrefabStage.prefabStageOpened += DummyMethod;
-//    }
-
-//    static void DummyMethod(PrefabStage stage) { }
-//}
-#endif

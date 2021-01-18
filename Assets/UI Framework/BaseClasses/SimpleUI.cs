@@ -125,6 +125,10 @@ public class SimpleUI : EditorWindow
         PrefabStage.prefabStageOpened += PrefabStage_prefabOpened;
     }
 
+    public string GetCurrentUrl() => newUrl;
+
+    public IEnumerable<SimpleUISceneType> GetSubUrls(string url) => prefabs.Where(p => isSubRouteOf(p.Url, url));
+
     private static void PrefabStage_prefabOpened(PrefabStage obj)
     {
         Debug.Log("Prefab opened: " + obj.prefabContentsRoot.name);
@@ -275,7 +279,7 @@ public class SimpleUI : EditorWindow
         return x.Substring(0, ind);
     }
 
-    string GetUpperUrl(string url)
+    public string GetUpperUrl(string url)
     {
         var index = url.LastIndexOf("/");
 
@@ -299,33 +303,6 @@ public class SimpleUI : EditorWindow
     }
     #endregion
 
-
-    void RenderLinkToEditing()
-    {
-        var index = ChosenIndex;
-        var pref = prefabs[index];
-
-        Label(pref.Url);
-
-        if (Button("Edit prefab"))
-        {
-            isUrlEditingMode = true;
-        }
-
-        Space();
-        RenderPrefabs();
-    }
-
-    void RenderUrlsWhichAreAttachedToSamePrefab()
-    {
-        var chosenPrefab = prefabs[ChosenIndex];
-        var samePrefabUrls = prefabs.Where(p => p.AssetPath.Equals(chosenPrefab.AssetPath));
-
-        Label("Prefab " + chosenPrefab.Name + " is attached to these urls");
-        Label("Choose proper one!");
-        Space();
-        RenderPrefabs(samePrefabUrls);
-    }
 
     void RenderEditingPrefab()
     {
@@ -446,6 +423,34 @@ public class SimpleUI : EditorWindow
 
 
     #region Render prefabs
+    void RenderLinkToEditing()
+    {
+        var index = ChosenIndex;
+        var pref = prefabs[index];
+
+        Label(pref.Url);
+
+        if (Button("Edit prefab"))
+        {
+            isUrlEditingMode = true;
+        }
+
+        Space();
+        RenderPrefabs();
+    }
+
+    void RenderUrlsWhichAreAttachedToSamePrefab()
+    {
+        var chosenPrefab = prefabs[ChosenIndex];
+        var samePrefabUrls = prefabs.Where(p => p.AssetPath.Equals(chosenPrefab.AssetPath));
+
+        Label("Prefab " + chosenPrefab.Name + " is attached to these urls");
+        Label("Choose proper one!");
+
+        Space();
+        RenderPrefabs(samePrefabUrls);
+    }
+
     void RenderRecentPrefabs()
     {
         var sortedByOpenings = prefabs.OrderByDescending(pp => pp.LastOpened);
@@ -503,7 +508,7 @@ public class SimpleUI : EditorWindow
 
     void RenderSubroutes()
     {
-        var subUrls = prefabs.Where(p => isSubRouteOf(p.Url, newUrl));
+        var subUrls = GetSubUrls(newUrl);
 
         if (subUrls.Count() > 0)
         {
