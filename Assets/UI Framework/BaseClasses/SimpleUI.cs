@@ -75,9 +75,9 @@ public class SimpleUI : EditorWindow
 {
     private Vector2 recentPrefabsScrollPosition = Vector2.zero;
 
-    private static string newUrl = "";
-    private static string newName = "";
-    private static string newPath = "";
+    public static string newUrl = "";
+    public static string newName = "";
+    public static string newPath = "";
 
     private static string draggedUrl = "";
     private static string draggedName = "";
@@ -454,8 +454,6 @@ public class SimpleUI : EditorWindow
         GUILayout.Label("Recent prefabs", EditorStyles.boldLabel);
         searchUrl = EditorGUILayout.TextField("Search", searchUrl);
 
-        //searchScrollPosition = GUILayout.BeginScrollView(searchScrollPosition);
-
         if (searchUrl.Length == 0)
             RenderPrefabs(recent);
         else
@@ -468,8 +466,6 @@ public class SimpleUI : EditorWindow
             Space();
             RenderPrefabs(sortedByOpenings.Where(p => Contains(p.Url, searchUrl) || Contains(p.Name, searchUrl)));
         }
-
-        //GUILayout.EndScrollView();
     }
 
     void RenderFavoritePrefabs()
