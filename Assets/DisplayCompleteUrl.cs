@@ -23,14 +23,14 @@ public class DisplayCompleteUrlEditor : Editor
         var buttonExample = Selection.activeGameObject; // target as GameObject;
 
         Vector3 position = buttonExample.transform.position; // 
-        float size = 100f;
+        float size = 50f;
         float pickSize = size;
 
         SimpleUI ui = EditorWindow.GetWindow<SimpleUI>();
 
         var currentUrl = ui.GetCurrentUrl();
 
-        var subRoutes = ui.GetSubUrls(currentUrl);
+        var subRoutes = ui.GetSubUrls(currentUrl).ToList();
         var root = ui.GetUpperUrl(currentUrl);
 
         var diff = 75f;
@@ -43,13 +43,18 @@ public class DisplayCompleteUrlEditor : Editor
 
         if (hasSubUrl)
         {
-            Handles.Label(subUrlPosition, "SubRoute");
-
-            if (Handles.Button(subUrlPosition, Quaternion.identity, size, pickSize, Handles.RectangleHandleCap))
+            for (var i = 0; i < subRoutes.Count(); i++)
             {
-                Debug.Log("Forward");
+                var pref = subRoutes[i];
 
-                ui.OpenPrefab(subRoutes.First().Url);
+                var pos = subUrlPosition + new Vector3(i * (size + diff), 0, 0);
+
+                Handles.Label(pos, pref.Name);
+
+                if (Handles.Button(pos, Quaternion.identity, size, pickSize, Handles.RectangleHandleCap))
+                {
+                    ui.OpenPrefab(pref.Url);
+                }
             }
         }
 
@@ -60,8 +65,6 @@ public class DisplayCompleteUrlEditor : Editor
 
             if (Handles.Button(rootPosition, Quaternion.identity, size, pickSize, Handles.RectangleHandleCap))
             {
-                Debug.Log("Go UP");
-
                 ui.OpenPrefab(root);
             }
         }
