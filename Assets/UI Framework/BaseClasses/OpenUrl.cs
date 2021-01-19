@@ -23,6 +23,16 @@ public class OpenUrl : ButtonController
         
         OpenUrl(newUrl);
     }
+
+    //private void OnGUI()
+    //{
+    //    Handles.Button(transform.position, Quaternion.identity, 50, 50, Handles.RectangleHandleCap);
+    //}
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawCube(transform.position, Vector3.one * 20);
+    }
 }
 
 [CustomEditor(typeof(OpenUrl))]
@@ -82,6 +92,9 @@ public class UrlPickerEditor : Editor
                 someClass.Url = MakeProperUrl(r.Url);
             }
         }
+
+        //var obj = (target as OpenUrl);
+        //Handles.Button(obj.transform.position, Quaternion.identity, 50, 50, Handles.RectangleHandleCap);
 
         EditorGUILayout.EndScrollView();
     }
