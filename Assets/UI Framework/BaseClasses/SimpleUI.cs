@@ -121,7 +121,7 @@ public class SimpleUI : EditorWindow
     }
 
     public string GetCurrentUrl() => newUrl;
-    public IEnumerable<SimpleUISceneType> GetSubUrls(string url) => prefabs.Where(p => isSubRouteOf(p.Url, url));
+    public IEnumerable<SimpleUISceneType> GetSubUrls(string url, bool recursive) => prefabs.Where(p => isSubRouteOf(p.Url, url, recursive));
 
     static SimpleUI()
     {
@@ -136,12 +136,14 @@ public class SimpleUI : EditorWindow
 
     private static void PrefabStage_prefabOpened(PrefabStage obj)
     {
-        //Debug.Log("Prefab opened: " + obj.prefabContentsRoot.name);
+        Debug.Log("Prefab opened: " + obj.prefabContentsRoot.name);
+        Debug.Log("Upper obect is: " + obj.prefabContentsRoot.transform.root.name);
 
-        obj.prefabContentsRoot.AddComponent<DisplayConnectedUrls>();
-        Selection.activeGameObject = obj.prefabContentsRoot;
+        //var component = obj.prefabContentsRoot.AddComponent<DisplayConnectedUrls>();
+        //Selection.activeGameObject = obj.prefabContentsRoot;
 
-        //obj.openedFromInstanceRoot.AddComponent<DisplayConnectedUrls>();
+        //component.Vector22 = -obj.prefabContentsRoot.transform.root.position;
+
 
         newPath = obj.assetPath;
         newName = GetPrettyNameFromAssetPath(newPath); // x.Substring(0, ind);
@@ -150,6 +152,8 @@ public class SimpleUI : EditorWindow
         ChooseUrlFromPickedPrefab();
 
         TryToIncreaseCurrentPrefabCounter();
+
+        //Selection.activeTransform = obj.prefabContentsRoot.transform.root;
     }
 
     private void OnInspectorUpdate()
@@ -284,9 +288,22 @@ public class SimpleUI : EditorWindow
     #endregion
     
     #region string utils
-    bool isSubRouteOf(string url, string subUrl)
+    /// <summary>
+    /// if recursive == false
+    /// function will return true ONLY for DIRECT subroutes
+    /// 
+    /// otherwise it will return true for sub/sub routes too
+    /// </summary>
+    /// <param name="url"></param>
+    /// <param name="subUrl"></param>
+    /// <param name="recursive"></param>
+    /// <returns></returns>
+    bool isSubRouteOf(string url, string subUrl, bool recursive)
     {
-        return url.StartsWith(subUrl) && !url.Equals(subUrl);
+        if (url.Equals(subUrl))
+            return false;
+
+        return url.StartsWith(subUrl);
     }
 
     static string GetPrettyNameFromAssetPath(string assetPa)

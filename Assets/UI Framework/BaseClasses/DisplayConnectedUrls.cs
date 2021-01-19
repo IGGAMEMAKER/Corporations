@@ -11,15 +11,19 @@ public class DisplayCompleteUrlEditor : Editor
     float pickSize = 50f;
     float diff = 75f;
 
+    static Vector2 scrollPosition = Vector2.zero;
+
     private void OnEnable()
     {
-        //Debug.Log("Enable DisplayCompleteUrlEditor");
+        Debug.Log("Enable DisplayCompleteUrlEditor");
     }
 
     private void OnSceneGUI()
     {
         //Debug.Log("OnGUI: DisplayCompleteUrlEditor");
         Handles.BeginGUI();
+
+        //Handles.DrawSolidRectangleWithOutline(new Rect(0, 0, 250, 150), Color.red, Color.blue);
 
         //Handles.Button(Vector3.one * 10, Quaternion.identity, 200, 200, Handles.RectangleHandleCap);
         //Handles.Label(Vector3.zero, "Editor");
@@ -45,9 +49,14 @@ public class DisplayCompleteUrlEditor : Editor
 
         var currentUrl = ui.GetCurrentUrl();
 
+        scrollPosition = GUILayout.BeginScrollView(scrollPosition, "");
 
-        RenderSubRoutes(ui, currentUrl, position);
         RenderRootLink(ui, currentUrl, position);
+
+        GUILayout.Space(15);
+        RenderSubRoutes(ui, currentUrl, position);
+
+        GUILayout.EndScrollView();
 
         Handles.EndGUI();
     }
@@ -65,13 +74,13 @@ public class DisplayCompleteUrlEditor : Editor
             {
                 var pref = subRoutes[i];
 
-                var pos = subUrlPosition + new Vector3(i * (size + diff), 0, 0);
+                var pos = subUrlPosition + new Vector3(0, -i * (size + diff), 0);
 
                 var textSize = pref.Name.Length;
 
-                Handles.Label(pos + new Vector3(-textSize * 2f, 0, 0), pref.Name);
+                //Handles.Label(pos + new Vector3(-textSize * 2f, 0, 0), $"\u2198 {pref.Name}");
 
-                if (BBBtn(pos))
+                if (BBBtn(pos, $"\u2198 {pref.Name}"))
                 {
                     ui.OpenPrefab(pref.Url);
                 }
@@ -88,19 +97,24 @@ public class DisplayCompleteUrlEditor : Editor
         {
             var rootPosition = position + Vector3.up * diff;
 
-            Handles.Label(rootPosition, $"UP ({root})");
+            //Handles.Label(rootPosition, $"\u2B06 ({root})");
 
-            if (BBBtn(rootPosition))
+            if (BBBtn(rootPosition, $"\u2B06 ({root})"))
             {
                 ui.OpenPrefab(root);
             }
         }
     }
 
-    bool BBBtn(Vector3 pos)
+    bool BBBtn(Vector3 pos, string text)
     {
         float size = 50f;
         float pickSize = size;
+
+        return GUILayout.Button(text);
+        //{
+        //    Debug.Log("Butt");
+        //}
 
         return Handles.Button(pos, Quaternion.identity, size, pickSize, Handles.RectangleHandleCap);
     }
