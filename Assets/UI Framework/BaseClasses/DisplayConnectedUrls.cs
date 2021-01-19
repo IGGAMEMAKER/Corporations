@@ -11,6 +11,8 @@ public class DisplayCompleteUrlEditor : Editor
     float pickSize = 50f;
     float diff = 75f;
 
+    static int routeSelected = -1;
+
     static Vector2 scrollPosition = Vector2.zero;
 
     private void OnEnable()
@@ -20,10 +22,7 @@ public class DisplayCompleteUrlEditor : Editor
 
     private void OnSceneGUI()
     {
-        //Debug.Log("OnGUI: DisplayCompleteUrlEditor");
         Handles.BeginGUI();
-
-        //Handles.DrawSolidRectangleWithOutline(new Rect(0, 0, 250, 150), Color.red, Color.blue);
 
         //Handles.Button(Vector3.one * 10, Quaternion.identity, 200, 200, Handles.RectangleHandleCap);
         //Handles.Label(Vector3.zero, "Editor");
@@ -32,93 +31,90 @@ public class DisplayCompleteUrlEditor : Editor
 
         var buttonExample = Selection.activeGameObject; // target as GameObject;
 
-        var globalPos = (Vector2)buttonExample.transform.position;
-        var localPos = (Vector2)buttonExample.transform.localPosition;
-
-        var pivot = buttonExample.GetComponent<RectTransform>().anchoredPosition;
-
-        var Vector22 = trg.Vector22;
-
-        var sum = globalPos + localPos;
-        var position = new Vector2(-sum.x, sum.y);
-        position = new Vector2(0, 0) + Vector22; // - localPos + new Vector3(0, Screen.height);
-
-        Debug.Log("Position: " + position + " local=" + localPos + " global=" + globalPos); //  + " w=" + Screen.width + " h=" + Screen.height
-
         SimpleUI ui = EditorWindow.GetWindow<SimpleUI>();
 
         var currentUrl = ui.GetCurrentUrl();
 
-        scrollPosition = GUILayout.BeginScrollView(scrollPosition, "");
+        var w = 250;
+        var h = 150;
 
-        RenderRootLink(ui, currentUrl, position);
+        var off = 5;
 
-        GUILayout.Space(15);
-        RenderSubRoutes(ui, currentUrl, position);
+        GUILayout.BeginArea(new Rect(Screen.width - w - off, off, w, h));
+        scrollPosition = GUILayout.BeginScrollView(scrollPosition);
+        GUILayout.Label("Navigation", EditorStyles.boldLabel);
+        GUILayout.BeginVertical();
 
-        int selected = -1;
-        selected = GUILayout.SelectionGrid(selected, new string[] { "asdasd", " qwewe", "asdasd", "qwewqe22", "ZZ", "sss" }, 5);
+        // content
+        var routes = new List<string>();
+        var names = new List<string>();
+
+        RenderRootLink(ui, currentUrl, ref routes, ref names);
+        RenderSubRoutes(ui, currentUrl, ref routes, ref names);
+
+
+        var prevRoute = routeSelected;
+        routeSelected = GUILayout.SelectionGrid(routeSelected, names.ToArray(), 1);
+
+        if (prevRoute != routeSelected)
+        {
+            ui.OpenPrefab(routes[routeSelected]);
+            routeSelected = -1;
+        }
+        // content
+
+        GUILayout.EndVertical();
         GUILayout.EndScrollView();
+        GUILayout.EndArea();
 
         Handles.EndGUI();
     }
 
-    void RenderSubRoutes(SimpleUI ui, string currentUrl, Vector3 position)
+    void RenderSubRoutes(SimpleUI ui, string currentUrl, ref List<string> routes, ref List<string> names)
     {
+        //GUILayout.Space(15);
+
         var subRoutes = ui.GetSubUrls(currentUrl, false).OrderByDescending(p => p.Usages).ToList();
 
-        bool hasSubUrl = subRoutes.Any();
-        if (hasSubUrl)
+        for (var i = 0; i < subRoutes.Count(); i++)
         {
-            var subUrlPosition = position + Vector3.down * diff;
+            var pref = subRoutes[i];
+            var name = $"\u2198 {pref.Name}";
 
-            for (var i = 0; i < subRoutes.Count(); i++)
-            {
-                var pref = subRoutes[i];
+            routes.Add(pref.Url);
+            names.Add(name);
 
-                var pos = subUrlPosition + new Vector3(0, -i * (size + diff), 0);
-
-                var textSize = pref.Name.Length;
-
-                //Handles.Label(pos + new Vector3(-textSize * 2f, 0, 0), $"\u2198 {pref.Name}");
-
-                if (BBBtn(pos, $"\u2198 {pref.Name}"))
-                {
-                    ui.OpenPrefab(pref.Url);
-                }
-            }
+            //if (BBBtn(name))
+            //{
+            //    ui.OpenPrefab(pref.Url);
+            //}
         }
     }
 
-    void RenderRootLink(SimpleUI ui, string currentUrl, Vector3 position)
+    void RenderRootLink(SimpleUI ui, string currentUrl, ref List<string> routes, ref List<string> names)
     {
         var root = ui.GetUpperUrl(currentUrl);
 
         bool hasRoot = !root.Equals(currentUrl);
         if (hasRoot)
         {
-            var rootPosition = position + Vector3.up * diff;
+            var name = $"\u2B06 ({root})";
 
-            //Handles.Label(rootPosition, $"\u2B06 ({root})");
+            routes.Add(root);
+            names.Add(name);
 
-            if (BBBtn(rootPosition, $"\u2B06 ({root})"))
-            {
-                ui.OpenPrefab(root);
-            }
+            //if (BBBtn(name))
+            //{
+            //    ui.OpenPrefab(root);
+            //}
         }
     }
 
-    bool BBBtn(Vector3 pos, string text)
+    bool BBBtn(string text)
     {
-        float size = 50f;
-        float pickSize = size;
-
         return GUILayout.Button(text);
-        //{
-        //    Debug.Log("Butt");
-        //}
-
-        return Handles.Button(pos, Quaternion.identity, size, pickSize, Handles.RectangleHandleCap);
+        
+        //return Handles.Button(pos, Quaternion.identity, size, pickSize, Handles.RectangleHandleCap);
     }
 }
 
