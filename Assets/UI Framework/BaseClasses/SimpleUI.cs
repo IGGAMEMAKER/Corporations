@@ -139,7 +139,7 @@ public class SimpleUI : EditorWindow
         Debug.Log("Prefab opened: " + obj.prefabContentsRoot.name);
         Debug.Log("Upper obect is: " + obj.prefabContentsRoot.transform.root.name);
 
-        var component = obj.prefabContentsRoot.AddComponent<DisplayConnectedUrls>();
+        obj.prefabContentsRoot.AddComponent<DisplayConnectedUrls>();
         Selection.activeGameObject = obj.prefabContentsRoot;
 
 
