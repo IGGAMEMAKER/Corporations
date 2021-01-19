@@ -142,8 +142,6 @@ public class SimpleUI : EditorWindow
         var component = obj.prefabContentsRoot.AddComponent<DisplayConnectedUrls>();
         Selection.activeGameObject = obj.prefabContentsRoot;
 
-        //component.Vector22 = -obj.prefabContentsRoot.transform.root.position;
-
 
         newPath = obj.assetPath;
         newName = GetPrettyNameFromAssetPath(newPath); // x.Substring(0, ind);
@@ -152,8 +150,6 @@ public class SimpleUI : EditorWindow
         ChooseUrlFromPickedPrefab();
 
         TryToIncreaseCurrentPrefabCounter();
-
-        //Selection.activeTransform = obj.prefabContentsRoot.transform.root;
     }
 
     private void OnInspectorUpdate()
