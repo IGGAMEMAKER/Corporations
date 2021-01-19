@@ -120,17 +120,4 @@ public class DisplayCompleteUrlEditor : Editor
 
 public class DisplayConnectedUrls : MonoBehaviour
 {
-    public Vector2 Vector22;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
