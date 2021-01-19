@@ -56,6 +56,8 @@ public class DisplayCompleteUrlEditor : Editor
         GUILayout.Space(15);
         RenderSubRoutes(ui, currentUrl, position);
 
+        int selected = -1;
+        selected = GUILayout.SelectionGrid(selected, new string[] { "asdasd", " qwewe", "asdasd", "qwewqe22", "ZZ", "sss" }, 5);
         GUILayout.EndScrollView();
 
         Handles.EndGUI();
@@ -63,7 +65,7 @@ public class DisplayCompleteUrlEditor : Editor
 
     void RenderSubRoutes(SimpleUI ui, string currentUrl, Vector3 position)
     {
-        var subRoutes = ui.GetSubUrls(currentUrl).ToList();
+        var subRoutes = ui.GetSubUrls(currentUrl, false).OrderByDescending(p => p.Usages).ToList();
 
         bool hasSubUrl = subRoutes.Any();
         if (hasSubUrl)

@@ -294,16 +294,43 @@ public class SimpleUI : EditorWindow
     /// 
     /// otherwise it will return true for sub/sub routes too
     /// </summary>
-    /// <param name="url"></param>
     /// <param name="subUrl"></param>
+    /// <param name="root"></param>
     /// <param name="recursive"></param>
     /// <returns></returns>
-    bool isSubRouteOf(string url, string subUrl, bool recursive)
+    bool isSubRouteOf(string subUrl, string root, bool recursive)
     {
-        if (url.Equals(subUrl))
+        if (subUrl.Equals(root))
             return false;
 
-        return url.StartsWith(subUrl);
+        bool startsWith = subUrl.StartsWith(root);
+
+        if (!startsWith)
+            return false;
+
+        var subStr = subUrl.Substring(root.Length);
+
+        if (root.Equals("/"))
+            subStr = subUrl;
+
+        bool isUrlItself = subStr.IndexOf('/') == 0;
+
+        if (!isUrlItself)
+            return false;
+
+        bool isDirectSubroute = subStr.LastIndexOf('/') <= 0;
+        bool isSubSubRoute = subStr.LastIndexOf('/') > 0;
+
+        if (!recursive)
+            return isDirectSubroute;
+        else
+            return isSubSubRoute;
+
+        //var result = isUrlItself && subStr.LastIndexOf('/') > 0;
+
+        //Debug.Log($"<b>{result}</b> {root} ... {subUrl} ... substr={subStr}");
+
+        return startsWith;
     }
 
     static string GetPrettyNameFromAssetPath(string assetPa)
@@ -543,7 +570,7 @@ public class SimpleUI : EditorWindow
 
     void RenderSubroutes()
     {
-        var subUrls = GetSubUrls(newUrl);
+        var subUrls = GetSubUrls(newUrl, false);
 
         if (subUrls.Count() > 0)
         {

@@ -18,7 +18,7 @@ public class DisplayCompleteUrl : MonoBehaviour
 
         var url = ui.GetCurrentUrl();
 
-        var subUrls = ui.GetSubUrls(url);
+        var subUrls = ui.GetSubUrls(url, false);
         var root = ui.GetUpperUrl(url);
 
         //Debug.Log("<b>Show url</b>: " + url);
