@@ -64,6 +64,8 @@ public class SimpleUIEventHandler : MonoBehaviour
         {
             RenderPrefab(newUrl);
         }
+
+        // RenderPrefab(url);
     }
 
     public void OpenUrl(string NextUrl)
@@ -94,8 +96,6 @@ public class SimpleUIEventHandler : MonoBehaviour
 
         RenderUrls(NextUrl);
         
-        // RenderPrefab(url);
-
         CurrentUrl = NextUrl;
     }
 

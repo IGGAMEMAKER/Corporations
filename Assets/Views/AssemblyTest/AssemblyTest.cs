@@ -8,7 +8,6 @@ public class AssemblyTest : MonoBehaviour
     void Start()
     {
         Debug.Log("Test");
-
     }
 
     // Update is called once per frame

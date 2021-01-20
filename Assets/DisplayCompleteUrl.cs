@@ -21,8 +21,6 @@ public class DisplayCompleteUrl : MonoBehaviour
         var subUrls = ui.GetSubUrls(url, false);
         var root = ui.GetUpperUrl(url);
 
-        //Debug.Log("<b>Show url</b>: " + url);
-
         if (SimpleUIEventHandler == null)
         {
             SimpleUIEventHandler = GetComponent<SimpleUIEventHandler>();

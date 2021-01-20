@@ -5,24 +5,22 @@ using UnityEditor;
 using UnityEngine;
 
 [CustomEditor(typeof(DisplayConnectedUrls))]
-public class DisplayCompleteUrlEditor : Editor
+public class DisplayConnectedUrlsEditor : Editor
 {
+    int w = 250;
+    int h = 150;
+    int off = 5;
+
     static int routeSelected = -1;
 
     static Vector2 scrollPosition = Vector2.zero;
 
     SimpleUI ui;
+    //Handles.Button(Vector3.one * 10, Quaternion.identity, 200, 200, Handles.RectangleHandleCap);
 
     private void OnSceneGUI()
     {
-        //Handles.Button(Vector3.one * 10, Quaternion.identity, 200, 200, Handles.RectangleHandleCap);
-
         ui = EditorWindow.GetWindow<SimpleUI>();
-
-        var w = 250;
-        var h = 150;
-
-        var off = 5;
 
         GUILayout.Label("Navigation", EditorStyles.boldLabel);
 
