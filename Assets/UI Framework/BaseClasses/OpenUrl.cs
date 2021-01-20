@@ -32,25 +32,23 @@ public class OpenUrl : ButtonController
 [CustomEditor(typeof(OpenUrl))]
 public class UrlPickerEditor : Editor
 {
-    static string[] _choices => prefabs.Select(p => MakeProperUrl(p.Url)).ToArray();
-    // = { "foo", "foobar" };
     static int _choiceIndex = 0;
 
     static Vector2 scroll = Vector2.zero;
 
     static List<SimpleUISceneType> prefabs => SimpleUI.prefabs;
+    static string[] _choices => prefabs.Select(p => MakeProperUrl(p.Url)).ToArray();
+    // = { "foo", "foobar" };
 
     public override void OnInspectorGUI ()
     {
         GUILayout.Space(15);
-        GUILayout.Label("Specify URL manually (WORST scenario)", EditorStyles.boldLabel);
+        GUILayout.Label("Specify URL manually (NOT RECOMMENDED)", EditorStyles.boldLabel);
         
-        // Draw the default inspector
         DrawDefaultInspector();
 
         var openUrl = target as OpenUrl;
 
-        //EditorGUILayout.Separator();
         GUILayout.Space(15);
         GUILayout.Label("OR choose from list", EditorStyles.boldLabel);
 
