@@ -37,6 +37,7 @@ public struct SimpleUISceneType
 
     public long Usages;
     public long LastOpened;
+    public string GUID;
 
     public SceneBlahType SceneBlahType;
 
@@ -50,6 +51,7 @@ public struct SimpleUISceneType
         Url = url;
         AssetPath = assetPath;
         Name = name.Length > 0 ? name : url;
+        GUID = "";
 
         Usages = 0;
         LastOpened = 0;
@@ -71,7 +73,7 @@ public struct SimpleUISceneType
 // }
 
 
-public class SimpleUI : EditorWindow
+public partial class SimpleUI : EditorWindow
 {
     private Vector2 recentPrefabsScrollPosition = Vector2.zero;
 
@@ -86,10 +88,10 @@ public class SimpleUI : EditorWindow
     static string searchUrl = "";
     static Vector2 searchScrollPosition = Vector2.zero;
 
-    static List<SimpleUISceneType> prefabs; // = new List<NewSceneTypeBlah>();
+
+    public static List<SimpleUISceneType> prefabs; // = new List<NewSceneTypeBlah>();
 
     private static int ChosenIndex => prefabs.FindIndex(p => p.Url.Equals(newUrl));
-    //private static int ChosenIndex => prefabs.FindIndex(p => p.AssetPath.Equals(newPath));
     private static bool hasChosenPrefab => ChosenIndex >= 0;
 
     private bool isDraggedPrefabMode = false;
@@ -150,7 +152,7 @@ public class SimpleUI : EditorWindow
         TryToIncreaseCurrentPrefabCounter();
     }
 
-    private void OnInspectorUpdate()
+    void OnInspectorUpdate()
     {
         if (PrefabStageUtility.GetCurrentPrefabStage() == null)
         {
@@ -193,12 +195,15 @@ public class SimpleUI : EditorWindow
         }
     }
 
+
+
     public void OpenPrefab(string url)
     {
         var p1 = prefabs.First(p => p.Url.Equals(url));
 
         OpenPrefab(p1);
     }
+
     void OpenPrefab(SimpleUISceneType p)
     {
         newPath = p.AssetPath;
@@ -213,9 +218,7 @@ public class SimpleUI : EditorWindow
         AssetDatabase.OpenAsset(asset);
         //Selection.activeObject = asset;
 
-        //Debug.Log("OpenPrefab " + asset.name);
-        
-        //RenderScriptsAttachedToThisPrefab(p);
+        //Print("OpenPrefab " + asset.name);
     }
 
     void OnGUI()
@@ -319,12 +322,6 @@ public class SimpleUI : EditorWindow
             return isDirectSubroute;
         else
             return isSubSubRoute;
-
-        //var result = isUrlItself && subStr.LastIndexOf('/') > 0;
-
-        //Debug.Log($"<b>{result}</b> {root} ... {subUrl} ... substr={subStr}");
-
-        return startsWith;
     }
 
     static string GetPrettyNameFromAssetPath(string assetPa)
@@ -554,7 +551,7 @@ public class SimpleUI : EditorWindow
         //if (!newUrl.Equals(upperUrl) && upperUrl.Length > 0 && newUrl.Length > 0)
         if (!isTopRoute)
         {
-            var root = GetPrefab(upperUrl);
+            var root = GetPrefabByUrl(upperUrl);
             
             Label($"Root");
 
@@ -701,7 +698,7 @@ public class SimpleUI : EditorWindow
 
     // ----- utils -------------
     #region Utils
-    SimpleUISceneType GetPrefab(string urlPath)
+    SimpleUISceneType GetPrefabByUrl(string urlPath)
     {
         return prefabs.FirstOrDefault(p => p.Url.Equals(urlPath));
     }
@@ -926,6 +923,29 @@ public class SimpleUI : EditorWindow
     }
     #endregion
 
+    static string Gray(string text)
+    {
+        return Visuals.Colorize(text, Color.gray);
+    }
+
+    static void Print(string text)
+    {
+        Debug.Log(text);
+    }
+
+    static void UpdatePrefab(SimpleUISceneType prefab)
+    {
+        if (!hasChosenPrefab)
+            return;
+
+        prefabs[ChosenIndex] = prefab;
+        SaveData();
+    }
+}
+
+// what uses component
+public partial class SimpleUI : EditorWindow
+{
     #region What Uses Component OpenUrl
     public static bool HasNoPrefabsBetweenObjects(MonoBehaviour component, GameObject root)
     {
@@ -936,12 +956,12 @@ public class SimpleUI : EditorWindow
         // -> NonPrefab2 GO
         // -> -> NonPrefab3 GO with our component
         // returns true
-        
+
         // -> NonPrefab1 GO
         // -> Prefab2
         // -> -> NonPrefab3 Go with our component
         // returns false
-        
+
         // PrefabUtility.IsAnyPrefabInstanceRoot(component.gameObject);
         // PrefabUtility.IsOutermostPrefabInstanceRoot(component.gameObject);
         // PrefabUtility.IsPartOfAnyPrefab(component.gameObject);
@@ -979,7 +999,7 @@ public class SimpleUI : EditorWindow
 
         return PrefabUtility.GetAddedComponents(outermost).Any(ac => component.GetInstanceID() == ac.instanceComponent.GetInstanceID());
         // return !PrefabUtility.GetAddedComponents(outermost).Any(ac => ac.GetType() == component.GetType() && component.GetInstanceID() == ac.instanceComponent.GetInstanceID());
-        
+
         return PrefabUtility.IsAddedComponentOverride(component);
     }
 
@@ -1001,32 +1021,6 @@ public class SimpleUI : EditorWindow
         // Print("IsRoot overriding properties: " + propsFormatted);
 
         return objectOverrides.Any();
-    }
-
-    public static bool IsRootOverridenProperties(MonoBehaviour component, GameObject root, string[] properties)
-    {
-        var fastFilter = new Func<PropertyModification, bool>(p => properties.Contains(p.propertyPath));
-        var print = new Func<IEnumerable<PropertyModification>, string>(p => string.Join(", ", p.Select(pp => pp.propertyPath).ToList()));
-
-        var outermost = PrefabUtility.GetOutermostPrefabInstanceRoot(component);
-        var outermostPropertyChanges = PrefabUtility.GetPropertyModifications(outermost).Where(fastFilter);
-
-        var outermostPath = AssetDatabase.GetAssetPath(outermost);
-        var outermostAsset = AssetDatabase.LoadMainAssetAtPath(outermostPath);
-
-        // var objectOverrides = PrefabUtility.GetObjectOverrides(component.gameObject).Where(change => change.instanceObject.GetType() == typeof(OpenUrl));
-        // var propertyChanges = PrefabUtility.GetPropertyModifications(component.gameObject).Where(p => !p.propertyPath.Contains("m_") && properties.Contains(p.propertyPath));
-        // PrefabUtility.HasPrefabInstanceAnyOverrides()
-        var propertyChanges = PrefabUtility.GetPropertyModifications(component.gameObject).Where(fastFilter);
-
-        var text = $"Outermost changes {outermost.name} hasAnyChanges={PrefabUtility.HasPrefabInstanceAnyOverrides(outermost, false)}, {outermostPath}\n";
-        text += print(outermostPropertyChanges);
-        text += "\nComponent changes\n";
-        text += print(propertyChanges);
-        
-        Debug.Log(text);
-
-        return propertyChanges.Any();
     }
 
     public static bool HasOverridenProperties(MonoBehaviour component, string[] properties)
@@ -1085,7 +1079,7 @@ public class SimpleUI : EditorWindow
     public static PrefabMatchInfo GetPrefabMatchInfo2(MonoBehaviour component, GameObject asset, string path,
         string[] properties)
     {
-        var matchingComponent = new PrefabMatchInfo {PrefabAssetPath = path, ComponentName = component.gameObject.name};
+        var matchingComponent = new PrefabMatchInfo { PrefabAssetPath = path, ComponentName = component.gameObject.name };
 
         bool isAttachedToRootPrefab = HasNoPrefabsBetweenObjects(component, asset);
         bool isAttachedToNestedPrefab = !isAttachedToRootPrefab;
@@ -1143,9 +1137,110 @@ public class SimpleUI : EditorWindow
         return matchingComponent;
     }
 
+    public class PrefabMatchInfo
+    {
+        public string PrefabAssetPath;
+        public string ComponentName;
+
+        public bool IsDirectMatch; // with no nested prefabs, can apply changes directly. (Both on root and it's childs)
+
+        public bool IsNormalPartOfNestedPrefab; // absolutely normal prefab part with NO overrides. No actions required
+
+        public bool IsOverridenPartOfNestedPrefab =>
+            IsOverridenAsAddedComponent ||
+            IsOverridenAsComponentProperty; // is overriden somehow: maybe there is not saved Added component or Overriden Parameters in component itself
+
+        public bool IsOverridenAsComponentProperty;
+        public bool IsOverridenAsAddedComponent;
+    }
+
+    public static void WhatUsesComponent<T>()
+    {
+        var typeToSearch = typeof(T);
+
+        Debug.Log("Finding all Prefabs and scenes that have the component" + typeToSearch + "…");
+
+        var excludeFolders = new[] { "Assets/Standard Assets" };
+        var guids = AssetDatabase.FindAssets("t:prefab", new[] { "Assets" });
+        // var guids = AssetDatabase.FindAssets("t:scene t:prefab", new []{ "Assets"});
+
+        var paths = guids.Select(AssetDatabase.GUIDToAssetPath).ToList();
+        // var removedPaths = paths.RemoveAll(guid => excludeFolders.Any(guid.Contains));
+
+        List<PrefabMatchInfo> matchingComponents = new List<PrefabMatchInfo>();
+
+        var properties = new[] { "Url" };
+
+        foreach (var path in paths)
+        {
+            var asset = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+
+            if (asset == null)
+            {
+                Debug.LogError("Cannot load prefab at path: " + path);
+                continue;
+            }
+
+            List<T> components = asset.GetComponentsInChildren<T>(true).ToList();
+            var self = asset.GetComponent<T>();
+
+            if (self != null)
+            {
+                components.Add(self);
+            }
+
+            if (components.Any())
+            {
+                Print("<b>----------------------------------------</b>");
+                Print("Found component(s) " + typeToSearch + $" ({components.Count}) in file <b>" + path + "</b>");
+            }
+
+            foreach (var component1 in components)
+            {
+                var component = component1 as MonoBehaviour;
+
+                var matchingComponent = GetPrefabMatchInfo2(component, asset, path, properties);
+
+
+
+                matchingComponents.Add(matchingComponent);
+            }
+        }
+    }
+
+    #endregion
+
+
+    //
+    public static bool IsRootOverridenProperties(MonoBehaviour component, GameObject root, string[] properties)
+    {
+        var fastFilter = new Func<PropertyModification, bool>(p => properties.Contains(p.propertyPath));
+        var print = new Func<IEnumerable<PropertyModification>, string>(p => string.Join(", ", p.Select(pp => pp.propertyPath).ToList()));
+
+        var outermost = PrefabUtility.GetOutermostPrefabInstanceRoot(component);
+        var outermostPropertyChanges = PrefabUtility.GetPropertyModifications(outermost).Where(fastFilter);
+
+        var outermostPath = AssetDatabase.GetAssetPath(outermost);
+        var outermostAsset = AssetDatabase.LoadMainAssetAtPath(outermostPath);
+
+        // var objectOverrides = PrefabUtility.GetObjectOverrides(component.gameObject).Where(change => change.instanceObject.GetType() == typeof(OpenUrl));
+        // var propertyChanges = PrefabUtility.GetPropertyModifications(component.gameObject).Where(p => !p.propertyPath.Contains("m_") && properties.Contains(p.propertyPath));
+        // PrefabUtility.HasPrefabInstanceAnyOverrides()
+        var propertyChanges = PrefabUtility.GetPropertyModifications(component.gameObject).Where(fastFilter);
+
+        var text = $"Outermost changes {outermost.name} hasAnyChanges={PrefabUtility.HasPrefabInstanceAnyOverrides(outermost, false)}, {outermostPath}\n";
+        text += print(outermostPropertyChanges);
+        text += "\nComponent changes\n";
+        text += print(propertyChanges);
+
+        Debug.Log(text);
+
+        return propertyChanges.Any();
+    }
+
     public static PrefabMatchInfo GetPrefabMatchInfo(MonoBehaviour component, GameObject root, string path, string[] matchingProperties)
     {
-        var matchInfo = new PrefabMatchInfo {PrefabAssetPath = path, ComponentName = component.gameObject.name};
+        var matchInfo = new PrefabMatchInfo { PrefabAssetPath = path, ComponentName = component.gameObject.name };
         return matchInfo;
         string text;
 
@@ -1233,97 +1328,5 @@ public class SimpleUI : EditorWindow
         // }
 
         return matchInfo;
-    }
-
-    public class PrefabMatchInfo
-    {
-        public string PrefabAssetPath;
-        public string ComponentName;
-
-        public bool IsDirectMatch; // with no nested prefabs, can apply changes directly. (Both on root and it's childs)
-
-        public bool IsNormalPartOfNestedPrefab; // absolutely normal prefab part with NO overrides. No actions required
-
-        public bool IsOverridenPartOfNestedPrefab =>
-            IsOverridenAsAddedComponent ||
-            IsOverridenAsComponentProperty; // is overriden somehow: maybe there is not saved Added component or Overriden Parameters in component itself
-
-        public bool IsOverridenAsComponentProperty;
-        public bool IsOverridenAsAddedComponent;
-    }
-
-    public static void WhatUsesComponent<T>()
-    {
-        var typeToSearch = typeof(T);
-
-        Debug.Log("Finding all Prefabs and scenes that have the component" + typeToSearch + "…");
-
-        var excludeFolders = new[] {"Assets/Standard Assets"};
-        var guids = AssetDatabase.FindAssets("t:prefab", new[] {"Assets"});
-        // var guids = AssetDatabase.FindAssets("t:scene t:prefab", new []{ "Assets"});
-
-        var paths = guids.Select(AssetDatabase.GUIDToAssetPath).ToList();
-        // var removedPaths = paths.RemoveAll(guid => excludeFolders.Any(guid.Contains));
-
-        List<PrefabMatchInfo> matchingComponents = new List<PrefabMatchInfo>();
-
-        var properties = new[] {"Url"};
-
-        foreach (var path in paths)
-        {
-            var asset = AssetDatabase.LoadAssetAtPath<GameObject>(path);
-
-            if (asset == null)
-            {
-                Debug.LogError("Cannot load prefab at path: " + path);
-                continue;
-            }
-
-            List<T> components = asset.GetComponentsInChildren<T>(true).ToList();
-            var self = asset.GetComponent<T>();
-
-            if (self != null)
-            {
-                components.Add(self);
-            }
-
-            if (components.Any())
-            {
-                Print("<b>----------------------------------------</b>");
-                Print("Found component(s) " + typeToSearch + $" ({components.Count}) in file <b>" + path + "</b>");
-            }
-
-            foreach (var component1 in components)
-            {
-                var component = component1 as MonoBehaviour;
-
-                var matchingComponent = GetPrefabMatchInfo2(component, asset, path, properties);
-
-
-
-                matchingComponents.Add(matchingComponent);
-            }
-        }
-    }
-
-    #endregion
-
-    static string Gray(string text)
-    {
-        return Visuals.Colorize(text, Color.gray);
-    }
-
-    static void Print(string text)
-    {
-        Debug.Log(text);
-    }
-
-    static void UpdatePrefab(SimpleUISceneType prefab)
-    {
-        if (!hasChosenPrefab)
-            return;
-
-        prefabs[ChosenIndex] = prefab;
-        SaveData();
     }
 }
