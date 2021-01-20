@@ -11,27 +11,39 @@ public class DisplayCompleteUrlEditor : Editor
 
     static Vector2 scrollPosition = Vector2.zero;
 
+    SimpleUI ui;
+
     private void OnSceneGUI()
     {
         //Handles.Button(Vector3.one * 10, Quaternion.identity, 200, 200, Handles.RectangleHandleCap);
 
-        SimpleUI ui = EditorWindow.GetWindow<SimpleUI>();
+        ui = EditorWindow.GetWindow<SimpleUI>();
 
         var w = 250;
         var h = 150;
 
         var off = 5;
 
+        GUILayout.Label("Navigation", EditorStyles.boldLabel);
+
         GUILayout.BeginArea(new Rect(Screen.width - w - off, off, w, h));
         scrollPosition = GUILayout.BeginScrollView(scrollPosition);
-        GUILayout.Label("Navigation", EditorStyles.boldLabel);
         GUILayout.BeginVertical();
 
-        // content
+        RenderRoutes();
+
+        GUILayout.EndVertical();
+        GUILayout.EndScrollView();
+        GUILayout.EndArea();
+    }
+
+    void RenderRoutes()
+    {
         var routes = new List<string>();
         var names = new List<string>();
 
         var currentUrl = ui.GetCurrentUrl();
+
         RenderRootLink(ui, currentUrl, ref routes, ref names);
         RenderSubRoutes(ui, currentUrl, ref routes, ref names);
 
@@ -44,11 +56,6 @@ public class DisplayCompleteUrlEditor : Editor
             ui.OpenPrefab(routes[routeSelected]);
             routeSelected = -1;
         }
-        // content
-
-        GUILayout.EndVertical();
-        GUILayout.EndScrollView();
-        GUILayout.EndArea();
     }
 
     void RenderSubRoutes(SimpleUI ui, string currentUrl, ref List<string> routes, ref List<string> names)

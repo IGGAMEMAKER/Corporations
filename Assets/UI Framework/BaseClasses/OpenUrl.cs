@@ -108,17 +108,17 @@ public class UrlPickerEditor : Editor
 
     static void LoadData()
     {
-        var fileName = "SimpleUI/SimpleUI.txt";
+        //var fileName = "SimpleUI/SimpleUI.txt";
 
-        List<SimpleUISceneType> obj = Newtonsoft.Json.JsonConvert.DeserializeObject<List<SimpleUISceneType>>(
-            File.ReadAllText(fileName), new Newtonsoft.Json.JsonSerializerSettings
-            {
-                TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto,
-                NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
-            });
+        //List<SimpleUISceneType> obj = Newtonsoft.Json.JsonConvert.DeserializeObject<List<SimpleUISceneType>>(
+        //    File.ReadAllText(fileName), new Newtonsoft.Json.JsonSerializerSettings
+        //    {
+        //        TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto,
+        //        NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+        //    });
 
-        prefabs = obj ?? new List<SimpleUISceneType>();
-
+        //prefabs = obj ?? new List<SimpleUISceneType>();
+        prefabs = SimpleUI.prefabs;
         _choices = prefabs.Select(p => MakeProperUrl(p.Url)).ToArray();
     }
 }

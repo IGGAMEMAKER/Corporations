@@ -88,8 +88,25 @@ public partial class SimpleUI : EditorWindow
     static string searchUrl = "";
     static Vector2 searchScrollPosition = Vector2.zero;
 
+    static List<SimpleUISceneType> _prefabs;
+    public static List<SimpleUISceneType> prefabs
+    {
+        get
+        {
+            if (_prefabs == null || _prefabs.Count == 0)
+            {
+                LoadData();
+            }
+            //    return;
+            //if (_prefabs.Count == 0)
+            //{
 
-    public static List<SimpleUISceneType> prefabs; // = new List<NewSceneTypeBlah>();
+            //}
+
+            return _prefabs;
+        }
+    }
+    // = new List<NewSceneTypeBlah>();
 
     private static int ChosenIndex => prefabs.FindIndex(p => p.Url.Equals(newUrl));
     private static bool hasChosenPrefab => ChosenIndex >= 0;
@@ -221,7 +238,7 @@ public partial class SimpleUI : EditorWindow
         recentPrefabsScrollPosition = GUILayout.BeginScrollView(recentPrefabsScrollPosition);
         GUILayout.Label("SIMPLE UI", EditorStyles.largeLabel);
 
-        LoadData();
+        //LoadData();
 
         //Label($"Url={newUrl}\nasset={newPath}\nname={newName}");
 
@@ -796,7 +813,8 @@ public partial class SimpleUI : EditorWindow
         serializer.TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto;
         serializer.Formatting = Newtonsoft.Json.Formatting.Indented;
 
-        var entityData = prefabs; // new Dictionary<int, IComponent[]>();
+        var entityData = _prefabs;
+        //var entityData = prefabs; // new Dictionary<int, IComponent[]>();
 
         using (StreamWriter sw = new StreamWriter(fileName))
         using (Newtonsoft.Json.JsonWriter writer = new Newtonsoft.Json.JsonTextWriter(sw))
@@ -812,8 +830,8 @@ public partial class SimpleUI : EditorWindow
 
     static void LoadData()
     {
-        if (prefabs != null && prefabs.Count == 0)
-            return;
+        //if (prefabs != null && prefabs.Count == 0)
+        //    return;
 
         var fileName = "SimpleUI/SimpleUI.txt";
 
@@ -824,7 +842,8 @@ public partial class SimpleUI : EditorWindow
                 NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
             });
 
-        prefabs = obj ?? new List<SimpleUISceneType>();
+        _prefabs = obj ?? new List<SimpleUISceneType>();
+        //prefabs = obj ?? new List<SimpleUISceneType>();
     }
 
 
