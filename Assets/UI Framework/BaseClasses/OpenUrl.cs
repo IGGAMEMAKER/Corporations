@@ -48,51 +48,57 @@ public class UrlPickerEditor : Editor
         // Draw the default inspector
         DrawDefaultInspector();
 
+        var openUrl = target as OpenUrl;
+
         //EditorGUILayout.Separator();
         GUILayout.Space(15);
         GUILayout.Label("OR choose from list", EditorStyles.boldLabel);
 
+        PickFromDropdown(openUrl);
 
-        var openUrl = target as OpenUrl;
+        GUILayout.Space(15);
+        GUILayout.Label("OR Choose from RECENTLY added prefabs", EditorStyles.boldLabel);
 
+        PickRecentUrls(openUrl);
+    }
+
+    void PickFromDropdown(OpenUrl openUrl)
+    {
         var prevValue = openUrl.Url;
         _choiceIndex = Array.IndexOf(_choices, prevValue);
- 
+
         // If the choice is not in the array then the _choiceIndex will be -1 so set back to 0
         if (_choiceIndex < 0)
             _choiceIndex = 0;
-        
+
 
         _choiceIndex = EditorGUILayout.Popup(_choiceIndex, _choices);
 
         // Update the selected choice in the underlying object
         openUrl.Url = _choices[_choiceIndex];
-        
+
         if (!prevValue.Equals(openUrl.Url))
         {
             // Save the changes back to the object
             EditorUtility.SetDirty(target);
         }
+    }
 
-        var recent = prefabs.OrderByDescending(pp => pp.LastOpened).Take(15);
-
-        GUILayout.Space(15);
-        GUILayout.Label("OR Choose from RECENTLY added prefabs", EditorStyles.boldLabel);
-
+    void PickRecentUrls(OpenUrl openUrl)
+    {
         GUIStyle style = GUI.skin.FindStyle("Button");
         style.richText = true;
 
         scroll = EditorGUILayout.BeginScrollView(scroll);
+
+        var recent = prefabs.OrderByDescending(pp => pp.LastOpened).Take(15);
         foreach (var r in recent)
         {
-            if (GUILayout.Button($"<b>{r.Name}</b>\n", style)) // \n{r.Url}
+            if (GUILayout.Button($"<b>{r.Name}</b>\n", style))
             {
                 openUrl.Url = MakeProperUrl(r.Url);
             }
         }
-
-        //var obj = (target as OpenUrl);
-        //Handles.Button(obj.transform.position, Quaternion.identity, 50, 50, Handles.RectangleHandleCap);
 
         EditorGUILayout.EndScrollView();
     }
