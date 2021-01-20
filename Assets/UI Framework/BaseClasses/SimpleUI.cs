@@ -98,6 +98,7 @@ public partial class SimpleUI : EditorWindow
     private bool isDraggedGameObjectMode = false;
     private bool isUrlEditingMode = false;
     private bool isPrefabChosenMode = false;
+    bool isShowingUrlDetailsMode = false;
 
     static bool isConcreteUrlChosen = false;
 
@@ -213,7 +214,6 @@ public partial class SimpleUI : EditorWindow
 
         var asset = AssetDatabase.LoadMainAssetAtPath(p.AssetPath);
         AssetDatabase.OpenAsset(asset);
-        //Selection.activeObject = asset;
     }
 
     void OnGUI()
@@ -691,9 +691,9 @@ public partial class SimpleUI : EditorWindow
 
     // ----- utils -------------
     #region Utils
-    SimpleUISceneType GetPrefabByUrl(string urlPath)
+    SimpleUISceneType GetPrefabByUrl(string url)
     {
-        return prefabs.FirstOrDefault(p => p.Url.Equals(urlPath));
+        return prefabs.FirstOrDefault(p => p.Url.Equals(url));
     }
 
     void RenderScriptsAttachedToThisPrefab(SimpleUISceneType p)

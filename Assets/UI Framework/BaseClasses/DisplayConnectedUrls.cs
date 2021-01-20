@@ -7,33 +7,15 @@ using UnityEngine;
 [CustomEditor(typeof(DisplayConnectedUrls))]
 public class DisplayCompleteUrlEditor : Editor
 {
-    float size = 50f;
-    float pickSize = 50f;
-    float diff = 75f;
-
     static int routeSelected = -1;
 
     static Vector2 scrollPosition = Vector2.zero;
 
-    private void OnEnable()
-    {
-        Debug.Log("Enable DisplayCompleteUrlEditor");
-    }
-
     private void OnSceneGUI()
     {
-        Handles.BeginGUI();
-
         //Handles.Button(Vector3.one * 10, Quaternion.identity, 200, 200, Handles.RectangleHandleCap);
-        //Handles.Label(Vector3.zero, "Editor");
-
-        var trg = target as DisplayConnectedUrls;
-
-        var buttonExample = Selection.activeGameObject; // target as GameObject;
 
         SimpleUI ui = EditorWindow.GetWindow<SimpleUI>();
-
-        var currentUrl = ui.GetCurrentUrl();
 
         var w = 250;
         var h = 150;
@@ -49,6 +31,7 @@ public class DisplayCompleteUrlEditor : Editor
         var routes = new List<string>();
         var names = new List<string>();
 
+        var currentUrl = ui.GetCurrentUrl();
         RenderRootLink(ui, currentUrl, ref routes, ref names);
         RenderSubRoutes(ui, currentUrl, ref routes, ref names);
 
@@ -66,14 +49,10 @@ public class DisplayCompleteUrlEditor : Editor
         GUILayout.EndVertical();
         GUILayout.EndScrollView();
         GUILayout.EndArea();
-
-        Handles.EndGUI();
     }
 
     void RenderSubRoutes(SimpleUI ui, string currentUrl, ref List<string> routes, ref List<string> names)
     {
-        //GUILayout.Space(15);
-
         var subRoutes = ui.GetSubUrls(currentUrl, false).OrderByDescending(p => p.Usages).ToList();
 
         for (var i = 0; i < subRoutes.Count(); i++)
@@ -83,11 +62,6 @@ public class DisplayCompleteUrlEditor : Editor
 
             routes.Add(pref.Url);
             names.Add(name);
-
-            //if (BBBtn(name))
-            //{
-            //    ui.OpenPrefab(pref.Url);
-            //}
         }
     }
 
@@ -102,19 +76,7 @@ public class DisplayCompleteUrlEditor : Editor
 
             routes.Add(root);
             names.Add(name);
-
-            //if (BBBtn(name))
-            //{
-            //    ui.OpenPrefab(root);
-            //}
         }
-    }
-
-    bool BBBtn(string text)
-    {
-        return GUILayout.Button(text);
-        
-        //return Handles.Button(pos, Quaternion.identity, size, pickSize, Handles.RectangleHandleCap);
     }
 }
 
