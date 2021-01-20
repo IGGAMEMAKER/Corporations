@@ -38,6 +38,11 @@ public class AcquisitionScreen : View
 
     private void OnEnable()
     {
+        ProxyToMainScreenIfCompanyBoughtAlready();
+    }
+
+    void ProxyToMainScreenIfCompanyBoughtAlready()
+    {
         if (Companies.IsDaughterOf(MyCompany, SelectedCompany))
         {
             ProposalStatus.text = "It is OUR COMPANY ALREADY!";

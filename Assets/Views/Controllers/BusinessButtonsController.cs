@@ -14,6 +14,11 @@ public class BusinessButtonsController : View
 
     private void OnEnable()
     {
+        RenderButtons();
+    }
+
+    void RenderButtons()
+    {
         bool isProductCompany = SelectedCompany.hasProduct;
         bool isCorporation = MyCompany.company.CompanyType == CompanyType.Corporation;
 

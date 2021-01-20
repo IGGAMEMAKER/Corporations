@@ -6,11 +6,6 @@ public class BasicProjectInfoView : View
     public Text CEONameLabel;
     public Text PublicityStatus;
 
-    private void OnEnable()
-    {
-        //Render();
-    }
-
     void RenderCEO()
     {
         var human = Humans.Get(Q, SelectedCompany.cEO.HumanId).human;

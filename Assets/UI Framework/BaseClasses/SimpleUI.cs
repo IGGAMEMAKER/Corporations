@@ -137,7 +137,6 @@ public class SimpleUI : EditorWindow
     private static void PrefabStage_prefabOpened(PrefabStage obj)
     {
         Debug.Log("Prefab opened: " + obj.prefabContentsRoot.name);
-        Debug.Log("Upper obect is: " + obj.prefabContentsRoot.transform.root.name);
 
         obj.prefabContentsRoot.AddComponent<DisplayConnectedUrls>();
         Selection.activeGameObject = obj.prefabContentsRoot;
@@ -148,7 +147,6 @@ public class SimpleUI : EditorWindow
         
         // choose URL
         ChooseUrlFromPickedPrefab();
-
         TryToIncreaseCurrentPrefabCounter();
     }
 
