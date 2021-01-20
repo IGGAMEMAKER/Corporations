@@ -104,9 +104,6 @@ public partial class SimpleUI : EditorWindow
     bool _isSceneMode = true;
     bool _isPrefabMode => !_isSceneMode;
 
-    bool _urlChanged = false;
-
-    private static GameObject CurrentObject;
 
     private GameObject PossiblePrefab;
     private static string possiblePrefabName = "";
@@ -217,8 +214,6 @@ public partial class SimpleUI : EditorWindow
         var asset = AssetDatabase.LoadMainAssetAtPath(p.AssetPath);
         AssetDatabase.OpenAsset(asset);
         //Selection.activeObject = asset;
-
-        //Print("OpenPrefab " + asset.name);
     }
 
     void OnGUI()
@@ -548,7 +543,6 @@ public partial class SimpleUI : EditorWindow
 
         bool isTopRoute = newUrl.Equals("/");
 
-        //if (!newUrl.Equals(upperUrl) && upperUrl.Length > 0 && newUrl.Length > 0)
         if (!isTopRoute)
         {
             var root = GetPrefabByUrl(upperUrl);
@@ -572,7 +566,6 @@ public partial class SimpleUI : EditorWindow
 
     void RenderPrefabs()
     {
-
         Space();
 
         RenderFavoritePrefabs();
