@@ -91,8 +91,6 @@ public class SimpleUIEventHandler : MonoBehaviour
         {
             sameUrlCounter = 0;
         }
-        
-        LoadData();
 
         RenderUrls(NextUrl);
         
@@ -188,22 +186,5 @@ public class SimpleUIEventHandler : MonoBehaviour
         }
 
         return Objects[url];
-    }
-
-    static void LoadData()
-    {
-        //if (prefabs != null)
-        //    return;
-        
-        //var fileName = "SimpleUI/SimpleUI.txt";
-
-        //List<SimpleUISceneType> obj = Newtonsoft.Json.JsonConvert.DeserializeObject<List<SimpleUISceneType>>(
-        //    File.ReadAllText(fileName), new Newtonsoft.Json.JsonSerializerSettings
-        //    {
-        //        TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto,
-        //        NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
-        //    });
-
-        //prefabs = obj ?? new List<SimpleUISceneType>();
     }
 }
