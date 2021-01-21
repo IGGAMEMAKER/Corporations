@@ -29,6 +29,7 @@ public enum SceneBlahType
     Scene
 }
 
+
 public struct SimpleUISceneType
 {
     public string Url;
