@@ -9,8 +9,8 @@ public class ExpertiseView2 : UpgradedParameterView
     {
         var company = Flagship;
 
+        //return company.expertise.ExpertiseLevel.ToString();
         return company.companyResource.Resources.ideaPoints + " (" + Format.Sign(Products.GetExpertiseGain(company)) + ")";
-        return company.expertise.ExpertiseLevel.ToString();
     }
 
     public override string RenderHint()

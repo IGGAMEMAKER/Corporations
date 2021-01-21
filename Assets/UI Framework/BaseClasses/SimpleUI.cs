@@ -88,26 +88,6 @@ public partial class SimpleUI : EditorWindow
     static string searchUrl = "";
     static Vector2 searchScrollPosition = Vector2.zero;
 
-    static List<SimpleUISceneType> _prefabs;
-    public static List<SimpleUISceneType> prefabs
-    {
-        get
-        {
-            if (_prefabs == null || _prefabs.Count == 0)
-            {
-                LoadData();
-            }
-            //    return;
-            //if (_prefabs.Count == 0)
-            //{
-
-            //}
-
-            return _prefabs;
-        }
-    }
-    // = new List<NewSceneTypeBlah>();
-
     private static int ChosenIndex => prefabs.FindIndex(p => p.Url.Equals(newUrl));
     private static bool hasChosenPrefab => ChosenIndex >= 0;
 
@@ -713,37 +693,6 @@ public partial class SimpleUI : EditorWindow
         return prefabs.FirstOrDefault(p => p.Url.Equals(url));
     }
 
-    void RenderScriptsAttachedToThisPrefab(SimpleUISceneType p)
-    {
-        var GO = Selection.activeObject as GameObject;
-        var scripts = new Dictionary<string, int>();
-
-        RenderScriptsAttachedToThisGameObject(GO.transform, ref scripts);
-
-        Debug.Log("Scripts, attached to PREFAB");
-
-        foreach (var s in scripts)
-            Debug.Log(s.Key);
-    }
-
-    void RenderScriptsAttachedToThisGameObject(Transform GO, ref Dictionary<string, int> scripts)
-    {
-        foreach (Transform go in GO.transform)
-        {
-            foreach (Component c in go.GetComponents<Component>())
-            {
-                string name = ObjectNames.GetInspectorTitle(c);
-                if (name.EndsWith("(Script)"))
-                {
-                    string formated = name.Replace("(Script)", String.Empty).Replace(" ", String.Empty) + ".cs";
-                    scripts[formated] = 1;
-                }
-            }
-
-            RenderScriptsAttachedToThisGameObject(go, ref scripts);
-        }
-    }
-
     void AddPrefab(string ururu, string papapath, string nananame)
     {
         var p = new SimpleUISceneType(ururu, papapath, nananame) {LastOpened = DateTime.Now.Ticks};
@@ -801,49 +750,6 @@ public partial class SimpleUI : EditorWindow
 
             UpdatePrefab(pref);
         }
-    }
-
-    static void SaveData()
-    {
-        var fileName = "SimpleUI/SimpleUI.txt";
-
-        Newtonsoft.Json.JsonSerializer serializer = new Newtonsoft.Json.JsonSerializer();
-        serializer.Converters.Add(new Newtonsoft.Json.Converters.JavaScriptDateTimeConverter());
-        serializer.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
-        serializer.TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto;
-        serializer.Formatting = Newtonsoft.Json.Formatting.Indented;
-
-        var entityData = _prefabs;
-        //var entityData = prefabs; // new Dictionary<int, IComponent[]>();
-
-        using (StreamWriter sw = new StreamWriter(fileName))
-        using (Newtonsoft.Json.JsonWriter writer = new Newtonsoft.Json.JsonTextWriter(sw))
-        {
-            if (entityData.Count > 0)
-            {
-                //Debug.Log("Serializing data " + entityData.Count);
-                serializer.Serialize(writer, entityData);
-                //Debug.Log("Serialized " + entityData.Count);
-            }
-        }
-    }
-
-    static void LoadData()
-    {
-        //if (prefabs != null && prefabs.Count == 0)
-        //    return;
-
-        var fileName = "SimpleUI/SimpleUI.txt";
-
-        List<SimpleUISceneType> obj = Newtonsoft.Json.JsonConvert.DeserializeObject<List<SimpleUISceneType>>(
-            File.ReadAllText(fileName), new Newtonsoft.Json.JsonSerializerSettings
-            {
-                TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto,
-                NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
-            });
-
-        _prefabs = obj ?? new List<SimpleUISceneType>();
-        //prefabs = obj ?? new List<SimpleUISceneType>();
     }
 
 
@@ -944,6 +850,68 @@ public partial class SimpleUI : EditorWindow
     {
         Debug.Log(text);
     }
+}
+
+// Save/Load info
+public partial class SimpleUI
+{
+    static List<SimpleUISceneType> _prefabs;
+    public static List<SimpleUISceneType> prefabs
+    {
+        get
+        {
+            if (_prefabs == null || _prefabs.Count == 0)
+            {
+                LoadData();
+            }
+
+            return _prefabs;
+        }
+    }
+    // = new List<NewSceneTypeBlah>();
+
+    static void SaveData()
+    {
+        var fileName = "SimpleUI/SimpleUI.txt";
+
+        Newtonsoft.Json.JsonSerializer serializer = new Newtonsoft.Json.JsonSerializer();
+        serializer.Converters.Add(new Newtonsoft.Json.Converters.JavaScriptDateTimeConverter());
+        serializer.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+        serializer.TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto;
+        serializer.Formatting = Newtonsoft.Json.Formatting.Indented;
+
+        var entityData = _prefabs;
+        //var entityData = prefabs; // new Dictionary<int, IComponent[]>();
+
+        using (StreamWriter sw = new StreamWriter(fileName))
+        using (Newtonsoft.Json.JsonWriter writer = new Newtonsoft.Json.JsonTextWriter(sw))
+        {
+            if (entityData.Count > 0)
+            {
+                //Debug.Log("Serializing data " + entityData.Count);
+                serializer.Serialize(writer, entityData);
+                //Debug.Log("Serialized " + entityData.Count);
+            }
+        }
+    }
+
+    static void LoadData()
+    {
+        //if (prefabs != null && prefabs.Count == 0)
+        //    return;
+
+        var fileName = "SimpleUI/SimpleUI.txt";
+
+        List<SimpleUISceneType> obj = Newtonsoft.Json.JsonConvert.DeserializeObject<List<SimpleUISceneType>>(
+            File.ReadAllText(fileName), new Newtonsoft.Json.JsonSerializerSettings
+            {
+                TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto,
+                NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+            });
+
+        _prefabs = obj ?? new List<SimpleUISceneType>();
+        //prefabs = obj ?? new List<SimpleUISceneType>();
+    }
 
     static void UpdatePrefab(SimpleUISceneType prefab)
     {
@@ -952,6 +920,40 @@ public partial class SimpleUI : EditorWindow
 
         prefabs[ChosenIndex] = prefab;
         SaveData();
+    }
+}
+
+public partial class SimpleUI
+{
+    void RenderScriptsAttachedToThisPrefab(SimpleUISceneType p)
+    {
+        var GO = Selection.activeObject as GameObject;
+        var scripts = new Dictionary<string, int>();
+
+        RenderScriptsAttachedToThisGameObject(GO.transform, ref scripts);
+
+        Debug.Log("Scripts, attached to PREFAB");
+
+        foreach (var s in scripts)
+            Debug.Log(s.Key);
+    }
+
+    void RenderScriptsAttachedToThisGameObject(Transform GO, ref Dictionary<string, int> scripts)
+    {
+        foreach (Transform go in GO.transform)
+        {
+            foreach (Component c in go.GetComponents<Component>())
+            {
+                string name = ObjectNames.GetInspectorTitle(c);
+                if (name.EndsWith("(Script)"))
+                {
+                    string formated = name.Replace("(Script)", String.Empty).Replace(" ", String.Empty) + ".cs";
+                    scripts[formated] = 1;
+                }
+            }
+
+            RenderScriptsAttachedToThisGameObject(go, ref scripts);
+        }
     }
 }
 
@@ -982,37 +984,38 @@ public partial class SimpleUI : EditorWindow
         // PrefabUtility.IsPartOfRegularPrefab(component.gameObject);
         // PrefabUtility.IsPartOfNonAssetPrefabInstance(component.gameObject);
 
+        //var nearestRoot = PrefabUtility.GetNearestPrefabInstanceRoot(component);
+        //var outerRoot = PrefabUtility.GetOutermostPrefabInstanceRoot(component);
+
+        //var rootId = root.GetInstanceID();
+
+        //var nearestId = nearestRoot.GetInstanceID();
+        //var outerId = outerRoot.GetInstanceID();
+
+        //var result = nearestId == outerId;
+
+        //// Debug.Log($"isDirectly attached to root prefab? <b>{result}</b> c={component.gameObject.name}, root={root.gameObject.name}\n" 
+        ////           + $"\n<b>nearest prefab ({nearestId}): </b>" + nearestRoot.name 
+        ////           + $"\n<b>outer prefab ({outerId}): </b>" + outerRoot.name 
+        ////           + $"\n\nroot instance ID={rootId}");
+
+        //return result;
+
         var rootOf = PrefabUtility.GetPrefabAssetPathOfNearestInstanceRoot(root);
         var pathOfComponent = PrefabUtility.GetPrefabAssetPathOfNearestInstanceRoot(component);
 
         return rootOf.Equals(pathOfComponent);
-
-        var nearestRoot = PrefabUtility.GetNearestPrefabInstanceRoot(component);
-        var outerRoot = PrefabUtility.GetOutermostPrefabInstanceRoot(component);
-
-        var rootId = root.GetInstanceID();
-
-        var nearestId = nearestRoot.GetInstanceID();
-        var outerId = outerRoot.GetInstanceID();
-
-        var result = nearestId == outerId;
-
-        // Debug.Log($"isDirectly attached to root prefab? <b>{result}</b> c={component.gameObject.name}, root={root.gameObject.name}\n" 
-        //           + $"\n<b>nearest prefab ({nearestId}): </b>" + nearestRoot.name 
-        //           + $"\n<b>outer prefab ({outerId}): </b>" + outerRoot.name 
-        //           + $"\n\nroot instance ID={rootId}");
-
-        return result;
     }
 
     public static bool IsAddedAsOverridenComponent(MonoBehaviour component)
     {
         var outermost = PrefabUtility.GetOutermostPrefabInstanceRoot(component);
 
-        return PrefabUtility.GetAddedComponents(outermost).Any(ac => component.GetInstanceID() == ac.instanceComponent.GetInstanceID());
-        // return !PrefabUtility.GetAddedComponents(outermost).Any(ac => ac.GetType() == component.GetType() && component.GetInstanceID() == ac.instanceComponent.GetInstanceID());
+        //// return !PrefabUtility.GetAddedComponents(outermost).Any(ac => ac.GetType() == component.GetType() && component.GetInstanceID() == ac.instanceComponent.GetInstanceID());
 
-        return PrefabUtility.IsAddedComponentOverride(component);
+        //return PrefabUtility.IsAddedComponentOverride(component);
+
+        return PrefabUtility.GetAddedComponents(outermost).Any(ac => component.GetInstanceID() == ac.instanceComponent.GetInstanceID());
     }
 
 
@@ -1061,15 +1064,15 @@ public partial class SimpleUI : EditorWindow
             // Debug.Log(modification.target);
         }
 
+        //Debug.Log("Corresponding object for " + component.gameObject.name + " is " + nearestPrefab.name);
+
+        //var str = result ? "HAS" : "Has NO";
+
+        //// PrintArbitraryInfo(null, $"{component.gameObject.name} {str} overrides"); // ({root.gameObject.name})
+
+        //return result;
+
         return false;
-
-        Debug.Log("Corresponding object for " + component.gameObject.name + " is " + nearestPrefab.name);
-
-        var str = result ? "HAS" : "Has NO";
-
-        // PrintArbitraryInfo(null, $"{component.gameObject.name} {str} overrides"); // ({root.gameObject.name})
-
-        return result;
     }
 
     static string ParseAddedComponents(GameObject parent)

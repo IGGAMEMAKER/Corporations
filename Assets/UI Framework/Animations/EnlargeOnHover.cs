@@ -14,36 +14,6 @@ public class EnlargeOnHover : MonoBehaviour
 
     [SerializeField] bool DisableSound = false;
 
-    Texture2D _cursorTexture;
-    Texture2D clickCursor
-    {
-        get
-        {
-            if (_cursorTexture == null)
-            {
-                _cursorTexture = Resources.Load<Texture2D>("cursor"); // clickCursor
-            }
-
-            return _cursorTexture;
-        }
-    }
-    Texture2D _normalCursorTexture;
-    Texture2D normalCursor
-    {
-        get
-        {
-            return clickCursor;
-            if (_normalCursorTexture == null)
-            {
-                _normalCursorTexture = Resources.Load<Texture2D>("normalCursor");
-            }
-
-            return _normalCursorTexture;
-        }
-    }
-    CursorMode cursorMode = CursorMode.Auto;
-    Vector2 hotSpot = Vector2.zero;
-
     void Update()
     {
         if (!hovered && duration == 0)
