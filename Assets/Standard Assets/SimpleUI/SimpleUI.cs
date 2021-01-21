@@ -29,7 +29,6 @@ public enum SceneBlahType
     Scene
 }
 
-
 public struct SimpleUISceneType
 {
     public string Url;
@@ -595,7 +594,8 @@ public partial class SimpleUI : EditorWindow
             // set color
             bool isChosen = hasChosenPrefab && prefabs[ChosenIndex].AssetPath.Equals(p.AssetPath);
 
-            ColorUtility.TryParseHtmlString(isChosen ? "gold" : "white", out Color color);
+            var color = isChosen ? Color.yellow : Color.white;
+            //ColorUtility.TryParseHtmlString(isChosen ? "gold" : "white", out Color color);
             //var color = ColorUtility.TryParseHtmlString(isChosen ? "#FFAB04" Visuals.GetColorFromString(isChosen ? Colors.COLOR_YOU : Colors.COLOR_NEUTRAL);
             GUI.contentColor = color;
             GUI.color = color;
@@ -640,6 +640,42 @@ public partial class SimpleUI : EditorWindow
         }
     }
 
+
+    #endregion
+
+    static void Print(string text)
+    {
+        Debug.Log(text);
+    }
+
+    public static void OpenUrl(string url)
+    {
+        SimpleUIEventHandler eventHandler = FindObjectOfType<SimpleUIEventHandler>();
+
+        if (eventHandler == null)
+        {
+            Debug.LogError("SimpleUIEventHandler NOT FOUND");
+        }
+        else
+        {
+            var queryIndex = url.IndexOf('?');
+            var query = "";
+
+            if (queryIndex >= 0)
+            {
+                query = url.Substring(queryIndex);
+                url = url.Substring(0, queryIndex);
+            }
+
+            eventHandler.OpenUrl(url);
+        }
+    }
+}
+
+// dragging prefabs
+public partial class SimpleUI
+{
+    #region dragging prefabs
 
     void HandleDragAndDrop()
     {
@@ -727,42 +763,6 @@ public partial class SimpleUI : EditorWindow
             }
         }
     }
-    #endregion
-
-    static void Print(string text)
-    {
-        Debug.Log(text);
-    }
-
-    public static void OpenUrl(string url)
-    {
-        SimpleUIEventHandler eventHandler = FindObjectOfType<SimpleUIEventHandler>();
-
-        if (eventHandler == null)
-        {
-            Debug.LogError("SimpleUIEventHandler NOT FOUND");
-        }
-        else
-        {
-            var queryIndex = url.IndexOf('?');
-            var query = "";
-
-            if (queryIndex >= 0)
-            {
-                query = url.Substring(queryIndex);
-                url = url.Substring(0, queryIndex);
-            }
-
-            eventHandler.OpenUrl(url);
-        }
-    }
-}
-
-// dragging prefabs
-public partial class SimpleUI
-{
-
-    #region dragging prefabs
 
     private void RenderMakingAPrefabFromGameObject()
     {

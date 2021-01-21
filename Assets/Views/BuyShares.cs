@@ -14,7 +14,6 @@ public class BuyShares : ButtonController
 
         long bid = Companies.GetSharesCost(Q, company, investor);
 
-
         Companies.BuyShares(Q, company, MyCompany, investor, amountOfShares, bid);
 
         //GoBack();
