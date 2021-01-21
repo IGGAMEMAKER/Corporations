@@ -72,15 +72,10 @@ public partial class BaseClass : MonoBehaviour
     }
 
 
-    // public void OpenTab(string url)
-    // {
-    //     var eventHandler = FindObjectOfType<SimpleUIEventHandler>();
-    //     
-    //     eventHandler.OpenTab(url);
-    // }
-    
     public void OpenUrl(string url)
     {
+        SimpleUI.OpenUrl(url);
+        return;
         SimpleUIEventHandler eventHandler = FindObjectOfType<SimpleUIEventHandler>();
 
         if (eventHandler == null)
@@ -91,13 +86,13 @@ public partial class BaseClass : MonoBehaviour
         {
             var queryIndex = url.IndexOf('?');
             var query = "";
-            
+
             if (queryIndex >= 0)
             {
                 query = url.Substring(queryIndex);
                 url = url.Substring(0, queryIndex);
             }
-            
+
             eventHandler.OpenUrl(url);
         }
     }

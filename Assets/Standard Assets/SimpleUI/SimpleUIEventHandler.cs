@@ -19,13 +19,6 @@ public class SimpleUIEventHandler : MonoBehaviour
     private static int sameUrlCounter = 0;
     private static int counterThreshold = 8;
 
-    // public void OpenTab(string url)
-    // {
-    //     var trimmedUrl = url.StartsWith("/") ? url.TrimStart('/') : url; 
-    //     
-    //     OpenUrl(CurrentUrl + "/" + trimmedUrl);
-    // }
-
     private void Update()
     {
         counter = 0;

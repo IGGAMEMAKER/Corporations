@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Assets.Core;
+//using Assets.Core;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.Experimental.SceneManagement;
@@ -571,121 +571,6 @@ public partial class SimpleUI : EditorWindow
     #endregion
 
 
-    #region dragging prefabs
-
-    private void RenderMakingAPrefabFromGameObject()
-    {
-        const string defaultPrefabName = "Bad prefab name: You cannot name new prefab GameObject, cause it's easy to confuse name";
-
-        Space();
-        possiblePrefabName = EditorGUILayout.TextField("Name", possiblePrefabName);
-
-        var path = $"Assets/Prefabs/{possiblePrefabName}.prefab";
-
-        bool hasSameNamePrefabAlready = AssetDatabase.LoadAssetAtPath<GameObject>(path) != null;
-        bool isEmpty = possiblePrefabName.Length == 0;
-        bool isDefaultName = possiblePrefabName.ToLower().Equals("gameobject");
-
-        bool isNameOK = !isEmpty && !isDefaultName && !hasSameNamePrefabAlready;
-
-        if (!isNameOK)
-        {
-            if (isDefaultName)
-                EditorGUILayout.HelpBox(defaultPrefabName, MessageType.Error);
-                //EditorGUILayout.LabelField(defaultPrefabName);
-
-            if (hasSameNamePrefabAlready)
-                EditorGUILayout.HelpBox($"Bad prefab name: prefab ({path}) already exists)", MessageType.Error);
-            // EditorGUILayout.LabelField($"!!!Bad prefab name: empty: {isEmpty}, name=gameobject: {isDefaultName}, prefab already exists: {hasSameNamePrefabAlready}");
-        }
-
-        if (isNameOK && Button("CREATE prefab!"))
-        {
-            PrefabUtility.SaveAsPrefabAssetAndConnect(PossiblePrefab, path, InteractionMode.UserAction, out var success);
-
-            Debug.Log("Prefab saving " + success);
-
-            if (success)
-            {
-                isDraggedGameObjectMode = false;
-                HandleDraggedPrefab(PossiblePrefab);
-            }
-        }
-
-        Space();
-        if (Button("Go Back"))
-        {
-            isDraggedGameObjectMode = false;
-            isDraggedPrefabMode = false;
-        }
-    }
-
-    void RenderAddingNewRouteFromDraggedPrefab()
-    {
-        Space();
-        GUILayout.Label("Add DRAGGED prefab", EditorStyles.boldLabel);
-
-        draggedName = EditorGUILayout.TextField("Name", draggedName);
-        draggedUrl = EditorGUILayout.TextField("Url", draggedUrl);
-
-        var dataCorrect = draggedUrl.Length > 0 && draggedName.Length > 0;
-
-        if (dataCorrect && GUILayout.Button("Add DRAGGED prefab!"))
-        {
-            Space();
-
-            draggedUrl = GetValidatedUrl(draggedUrl);
-
-            AddPrefab(draggedUrl, draggedPath, draggedName);
-
-            isDraggedPrefabMode = false;
-
-            SaveData();
-
-            Debug.Log("Added DRAGGED prefab");
-
-            DestroyImmediate(PossiblePrefab);
-
-            PossiblePrefab = null;
-
-            Debug.Log("Removed object too");
-        }
-    }
-
-    void HandleDraggedPrefab(GameObject go)
-    {
-        isDraggedPrefabMode = true;
-        PossiblePrefab = go;
-
-        var parent = PrefabUtility.GetCorrespondingObjectFromSource(go);
-        string prefabPath = AssetDatabase.GetAssetPath(parent);
-
-        Debug.Log("route = " + prefabPath);
-
-        // try to attach this prefab
-        // to current prefab
-
-        draggedName = GetPrettyNameFromAssetPath(prefabPath);
-        draggedPath = prefabPath;
-        draggedUrl = newUrl.TrimEnd('/') + "/" + draggedName.TrimStart('/');
-    }
-
-    void HandleDraggedGameObject(GameObject go)
-    {
-        isDraggedGameObjectMode = true;
-
-        possiblePrefabName = go.name;
-
-        draggedName = go.name;
-        draggedPath = "";
-        // draggedUrl = newUrl + "/" + draggedName;
-        draggedUrl = newUrl.TrimEnd('/') + "/" + draggedName.TrimStart('/');
-
-        PossiblePrefab = go;
-    }
-
-    #endregion
-
     // ----- utils -------------
     #region Utils
     SimpleUISceneType GetPrefabByUrl(string url)
@@ -708,7 +593,9 @@ public partial class SimpleUI : EditorWindow
 
             // set color
             bool isChosen = hasChosenPrefab && prefabs[ChosenIndex].AssetPath.Equals(p.AssetPath);
-            var color = Visuals.GetColorFromString(isChosen ? Colors.COLOR_YOU : Colors.COLOR_NEUTRAL);
+
+            ColorUtility.TryParseHtmlString(isChosen ? "gold" : "white", out Color color);
+            //var color = ColorUtility.TryParseHtmlString(isChosen ? "#FFAB04" Visuals.GetColorFromString(isChosen ? Colors.COLOR_YOU : Colors.COLOR_NEUTRAL);
             GUI.contentColor = color;
             GUI.color = color;
             GUI.backgroundColor = color;
@@ -841,16 +728,155 @@ public partial class SimpleUI : EditorWindow
     }
     #endregion
 
-    static string Gray(string text)
-    {
-        return Visuals.Colorize(text, Color.gray);
-    }
-
     static void Print(string text)
     {
         Debug.Log(text);
     }
+
+    public static void OpenUrl(string url)
+    {
+        SimpleUIEventHandler eventHandler = FindObjectOfType<SimpleUIEventHandler>();
+
+        if (eventHandler == null)
+        {
+            Debug.LogError("SimpleUIEventHandler NOT FOUND");
+        }
+        else
+        {
+            var queryIndex = url.IndexOf('?');
+            var query = "";
+
+            if (queryIndex >= 0)
+            {
+                query = url.Substring(queryIndex);
+                url = url.Substring(0, queryIndex);
+            }
+
+            eventHandler.OpenUrl(url);
+        }
+    }
 }
+
+// dragging prefabs
+public partial class SimpleUI
+{
+
+    #region dragging prefabs
+
+    private void RenderMakingAPrefabFromGameObject()
+    {
+        const string defaultPrefabName = "Bad prefab name: You cannot name new prefab GameObject, cause it's easy to confuse name";
+
+        Space();
+        possiblePrefabName = EditorGUILayout.TextField("Name", possiblePrefabName);
+
+        var path = $"Assets/Prefabs/{possiblePrefabName}.prefab";
+
+        bool hasSameNamePrefabAlready = AssetDatabase.LoadAssetAtPath<GameObject>(path) != null;
+        bool isEmpty = possiblePrefabName.Length == 0;
+        bool isDefaultName = possiblePrefabName.ToLower().Equals("gameobject");
+
+        bool isNameOK = !isEmpty && !isDefaultName && !hasSameNamePrefabAlready;
+
+        if (!isNameOK)
+        {
+            if (isDefaultName)
+                EditorGUILayout.HelpBox(defaultPrefabName, MessageType.Error);
+            //EditorGUILayout.LabelField(defaultPrefabName);
+
+            if (hasSameNamePrefabAlready)
+                EditorGUILayout.HelpBox($"Bad prefab name: prefab ({path}) already exists)", MessageType.Error);
+            // EditorGUILayout.LabelField($"!!!Bad prefab name: empty: {isEmpty}, name=gameobject: {isDefaultName}, prefab already exists: {hasSameNamePrefabAlready}");
+        }
+
+        if (isNameOK && Button("CREATE prefab!"))
+        {
+            PrefabUtility.SaveAsPrefabAssetAndConnect(PossiblePrefab, path, InteractionMode.UserAction, out var success);
+
+            Debug.Log("Prefab saving " + success);
+
+            if (success)
+            {
+                isDraggedGameObjectMode = false;
+                HandleDraggedPrefab(PossiblePrefab);
+            }
+        }
+
+        Space();
+        if (Button("Go Back"))
+        {
+            isDraggedGameObjectMode = false;
+            isDraggedPrefabMode = false;
+        }
+    }
+
+    void RenderAddingNewRouteFromDraggedPrefab()
+    {
+        Space();
+        GUILayout.Label("Add DRAGGED prefab", EditorStyles.boldLabel);
+
+        draggedName = EditorGUILayout.TextField("Name", draggedName);
+        draggedUrl = EditorGUILayout.TextField("Url", draggedUrl);
+
+        var dataCorrect = draggedUrl.Length > 0 && draggedName.Length > 0;
+
+        if (dataCorrect && GUILayout.Button("Add DRAGGED prefab!"))
+        {
+            Space();
+
+            draggedUrl = GetValidatedUrl(draggedUrl);
+
+            AddPrefab(draggedUrl, draggedPath, draggedName);
+
+            isDraggedPrefabMode = false;
+
+            SaveData();
+
+            Debug.Log("Added DRAGGED prefab");
+
+            DestroyImmediate(PossiblePrefab);
+
+            PossiblePrefab = null;
+
+            Debug.Log("Removed object too");
+        }
+    }
+
+    void HandleDraggedPrefab(GameObject go)
+    {
+        isDraggedPrefabMode = true;
+        PossiblePrefab = go;
+
+        var parent = PrefabUtility.GetCorrespondingObjectFromSource(go);
+        string prefabPath = AssetDatabase.GetAssetPath(parent);
+
+        Debug.Log("route = " + prefabPath);
+
+        // try to attach this prefab
+        // to current prefab
+
+        draggedName = GetPrettyNameFromAssetPath(prefabPath);
+        draggedPath = prefabPath;
+        draggedUrl = newUrl.TrimEnd('/') + "/" + draggedName.TrimStart('/');
+    }
+
+    void HandleDraggedGameObject(GameObject go)
+    {
+        isDraggedGameObjectMode = true;
+
+        possiblePrefabName = go.name;
+
+        draggedName = go.name;
+        draggedPath = "";
+        // draggedUrl = newUrl + "/" + draggedName;
+        draggedUrl = newUrl.TrimEnd('/') + "/" + draggedName.TrimStart('/');
+
+        PossiblePrefab = go;
+    }
+
+    #endregion
+}
+
 
 // Save/Load info
 public partial class SimpleUI
@@ -923,6 +949,7 @@ public partial class SimpleUI
     }
 }
 
+// Scripts, attached to prefab
 public partial class SimpleUI
 {
     void RenderScriptsAttachedToThisPrefab(SimpleUISceneType p)
@@ -957,7 +984,7 @@ public partial class SimpleUI
     }
 }
 
-// what uses component
+// what uses component OpenUrl
 public partial class SimpleUI : EditorWindow
 {
     #region What Uses Component OpenUrl
@@ -1288,7 +1315,7 @@ public partial class SimpleUI : EditorWindow
 
         var concatObjectOverrides = string.Join(", \n",
             objectOverrides.Select(change =>
-                Gray(change.instanceObject.name + " (" + change.instanceObject.name + ")")));
+                (change.instanceObject.name + " (" + change.instanceObject.name + ")")));
 
         text += "\n\n" + $"({objectOverrides.Count()}) Object Overrides on: {component.gameObject.name}" + "\n\n" +
                 concatObjectOverrides;

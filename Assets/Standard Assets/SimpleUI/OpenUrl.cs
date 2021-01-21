@@ -8,11 +8,33 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Button))]
-public class OpenUrl : ButtonController
+public class OpenUrl : MonoBehaviour
 {
     public string Url;
 
-    public override void Execute()
+    Button Button;
+
+    void OnEnable()
+    {
+        Button = GetComponentInChildren<Button>() ?? GetComponent<Button>();
+
+        Button.onClick.AddListener(Execute);
+    }
+
+    void OnDisable()
+    {
+        RemoveListener();
+    }
+
+    void RemoveListener()
+    {
+        if (Button)
+            Button.onClick.RemoveListener(Execute);
+        else
+            Debug.LogWarning("This component is not assigned to Button. It is assigned to " + gameObject.name);
+    }
+
+    public void Execute()
     {
         var newUrl = "";
         if (Url.StartsWith("/"))
@@ -20,7 +42,7 @@ public class OpenUrl : ButtonController
         else
             newUrl = "/" + Url;
         
-        OpenUrl(newUrl);
+        SimpleUI.OpenUrl(newUrl);
     }
 
     private void OnDrawGizmosSelected()
@@ -30,7 +52,7 @@ public class OpenUrl : ButtonController
 }
 
 [CustomEditor(typeof(OpenUrl))]
-public class UrlPickerEditor : Editor
+public class OpenUrlEditor : Editor
 {
     static int _choiceIndex = 0;
 
