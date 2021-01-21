@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using Assets.Core;
+using System.Linq;
 using UnityEngine;
 
 public class CurrentGoalRequirementsListView : ListView
@@ -23,11 +24,11 @@ public class CurrentGoalRequirementsListView : ListView
         else
         {
             var goal = goals.First();
-            var executor = goal.GetExecutor(MyCompany, Q);
+            var executor = Investments.GetExecutor(goal, MyCompany, Q);
 
-            var requirements = goal.GetGoalRequirements(executor, Q);
+            var requirements = Investments.GetGoalRequirements(goal, executor, Q);
 
-            SetItems(requirements.Where(r => !goal.IsRequirementMet(r, executor, Q)));
+            SetItems(requirements.Where(r => !Investments.IsRequirementMet(r, executor, Q)));
         }
     }
 }

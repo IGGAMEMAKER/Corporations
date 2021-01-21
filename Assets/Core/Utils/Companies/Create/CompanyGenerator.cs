@@ -28,9 +28,7 @@ namespace Assets.Core
             product.AddProductPositioning(coreId);
 
             // development
-            product.AddFeatures(
-                new Dictionary<string, float>(),
-                0);
+            product.AddFeatures(new Dictionary<string, float>());
             product.AddSupportUpgrades(new Dictionary<string, int>());
             product.AddExpertise(Random.Range(1, 4));
 

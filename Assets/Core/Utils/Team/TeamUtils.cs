@@ -53,7 +53,7 @@ namespace Assets.Core
 
         public static bool IsCanReceiveTeams(TeamInfo team)
         {
-            return team.isFullTeam && team.Rank == TeamRank.Department;
+            return Teams.IsFullTeam(team) && team.Rank == TeamRank.Department;
         }
 
         public static IEnumerable<TeamInfo> GetMergingCandidates(TeamInfo team, GameEntity company)
@@ -139,7 +139,7 @@ namespace Assets.Core
 
             var enoughManagementPoints = managerPoints >= promotionCost;
 
-            return hasLeadManager && team.isFullTeam && enoughManagementPoints && team.Rank < TeamRank.Department;
+            return hasLeadManager && Teams.IsFullTeam(team) && enoughManagementPoints && team.Rank < TeamRank.Department;
         }
 
         public static TeamRank GetNextTeamRank(TeamRank teamRank)

@@ -1,4 +1,6 @@
-﻿public class CompanyGoalButtonView : CompanyUpgradeButton
+﻿using Assets.Core;
+
+public class CompanyGoalButtonView : CompanyUpgradeButton
 {
     InvestorGoalType InvestorGoal;
     InvestmentGoal Goal; // => Investments.GetInvestmentGoal(MyCompany, Q, InvestorGoal);
@@ -21,7 +23,7 @@
     {
         if (Goal == null)
             return "";
-        return Goal.GetFormattedRequirements(MyCompany, Q);
+        return Investments.GetFormattedRequirements(Goal, MyCompany, Q);
     }
 
     public override bool GetState()

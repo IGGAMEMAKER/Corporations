@@ -62,8 +62,8 @@
 
         public static void AddCompanyGoal(GameEntity company, GameContext gameContext, InvestmentGoal goal)
         {
-            var executor = goal.GetExecutor(company, gameContext);
-            var controller = goal.GetController(company, gameContext);
+            var executor = GetExecutor(goal, company, gameContext);
+            var controller = GetController(goal, company, gameContext);
 
             if (goal.NeedsReport)
             {

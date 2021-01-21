@@ -29,7 +29,7 @@ public class NewGoalView : View
         Draw(Requirements, true);
 
         Title.text = InvestmentGoal.GetFormattedName();
-        Requirements.text = InvestmentGoal.GetFormattedRequirements(MyCompany, Q);
+        Requirements.text = Investments.GetFormattedRequirements(InvestmentGoal, MyCompany, Q);
         Number.text = $"#{index + 1}";
     }
 

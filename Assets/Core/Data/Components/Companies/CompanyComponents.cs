@@ -95,11 +95,6 @@ public class ResourceTransaction
     public string Tag;
     public long TeamResource;
     public int Date;
-
-    public string Print()
-    {
-        return ScheduleUtils.GetFormattedDate(Date) + " " + Tag + ": " + Visuals.PositiveOrNegativeMinified(TeamResource);
-    }
 }
 
 public class CompanyResourceHistoryComponent : IComponent
@@ -377,7 +372,6 @@ public class TeamInfo
     public bool isCoreTeam => ID == 0;
     public bool isAttachable => !isCoreTeam && ParentID == -1;
     public bool isIndependentTeam => isCoreTeam || ParentID == -1;
-    public bool isFullTeam => Teams.IsFullTeam(this);
 }
 
 public enum TeamType

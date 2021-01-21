@@ -94,7 +94,9 @@ namespace Assets.Core
         }
         public static void LogFinancialTransactions(GameEntity company)
         {
-            Log(company, string.Join("\n", company.companyResourceHistory.Actions.Select(r => r.Print())));
+            var historyFormatted = company.companyResourceHistory.Actions.Select(r => $"{ScheduleUtils.GetFormattedDate(r.Date)} {r.Tag}: {Visuals.PositiveOrNegativeMinified(r.TeamResource)}");
+
+            Log(company, string.Join("\n", historyFormatted));
         }
 
         public static bool IsObservableCompany(GameEntity company)

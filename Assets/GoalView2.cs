@@ -105,7 +105,7 @@ public class GoalView2 : View
         Draw(ProgressImage, !completed);
 
         Title.text = InvestmentGoal.GetFormattedName();
-        Requirements.text = InvestmentGoal.GetFormattedRequirements(executor, Q);
+        Requirements.text = Investments.GetFormattedRequirements(InvestmentGoal, executor, Q);
         Number.text = $"#{index + 1}";
 
         //var requirements = InvestmentGoal.GetGoalRequirements(executor, Q);
