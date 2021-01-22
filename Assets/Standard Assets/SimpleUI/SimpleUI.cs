@@ -1349,7 +1349,7 @@ public partial class SimpleUI : EditorWindow
                 continue;
             }
 
-            bool directMatch = false;
+            bool directMatch = true;
             var searchString = '"' + url;
 
             if (directMatch)

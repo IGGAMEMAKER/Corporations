@@ -11,11 +11,6 @@ public class MenuController : View
     // string = url
     public Dictionary<ScreenMode, string> PrefabScreens = new Dictionary<ScreenMode, string>();
 
-    string GetWrappedUrl(string url)
-    {
-        return "/" + url;
-    }
-
     private void OnEnable()
     {
         Debug.Log("OnEnable MenuController");
@@ -28,7 +23,7 @@ public class MenuController : View
 
     void SetUrl(ScreenMode mode, string url)
     {
-        PrefabScreens[mode] = GetWrappedUrl(url);
+        PrefabScreens[mode] = url;
     }
 
     void LoadMenuMappings()
