@@ -435,6 +435,11 @@ public partial class SimpleUI : EditorWindow
 
         Space();
 
+        if (Button("Print OpenUrl info"))
+        {
+            PrintMatchInfo(WhatUsesComponent<OpenUrl>());
+        }
+
         Label("Edit url");
         newUrl = EditorGUILayout.TextField("Url", newUrl);
 
@@ -1276,6 +1281,8 @@ public partial class SimpleUI : EditorWindow
                     }
                 }
             }
+
+            //Print("linkTo=" + matchingComponent.URL);
         }
     }
 

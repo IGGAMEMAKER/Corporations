@@ -34,7 +34,9 @@ public class UpdateAssetPathIfAssetWasMoved : AssetPostprocessor
     static void MovingUsedPrefab(string oldPath, string newPath)
     {
         var prefabs = SimpleUI.prefabs;
+
         //if (SimpleUI.prefabs.Any(p => p.AssetPath.Equals(newPath)))
+
         for (var i = 0; i < prefabs.Count; i++)
         {
             var p = prefabs[i];
