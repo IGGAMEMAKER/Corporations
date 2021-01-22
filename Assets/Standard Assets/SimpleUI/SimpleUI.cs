@@ -1246,12 +1246,11 @@ public partial class SimpleUI : EditorWindow
         public string URL;
 
         public bool IsDirectMatch; // with no nested prefabs, can apply changes directly. (Both on root and it's childs)
-
         public bool IsNormalPartOfNestedPrefab; // absolutely normal prefab part with NO overrides. No actions required
 
-        public bool IsOverridenPartOfNestedPrefab =>
-            IsOverridenAsAddedComponent ||
-            IsOverridenAsComponentProperty; // is overriden somehow: maybe there is not saved Added component or Overriden Parameters in component itself
+        //public bool IsOverridenPartOfNestedPrefab =>
+        //    IsOverridenAsAddedComponent ||
+        //    IsOverridenAsComponentProperty; // is overriden somehow: maybe there is not saved Added component or Overriden Parameters in component itself
 
         public bool IsOverridenAsComponentProperty;
         public bool IsOverridenAsAddedComponent;
@@ -1326,6 +1325,7 @@ public partial class SimpleUI : EditorWindow
 
         Debug.Log("Finding all scrips, that call " + url);
 
+
         var excludeFolders = new[] { "Assets/Standard Assets/Frost UI", "Assets/Standard Assets/SimpleUI", "Assets/Standard Assets/Libraries", "Assets/Systems", "Assets/Core" };
         var guids = AssetDatabase.FindAssets("t:Script", new[] { "Assets" });
 
@@ -1333,6 +1333,12 @@ public partial class SimpleUI : EditorWindow
         var paths = guids.Select(AssetDatabase.GUIDToAssetPath).ToList();
 
         paths.RemoveAll(guid => excludeFolders.Any(guid.Contains));
+
+        bool directMatch = true;
+        var searchString = '"' + url;
+
+        if (directMatch)
+            searchString += '"';
 
         foreach (var path in paths)
         {
@@ -1348,12 +1354,6 @@ public partial class SimpleUI : EditorWindow
 
                 continue;
             }
-
-            bool directMatch = true;
-            var searchString = '"' + url;
-
-            if (directMatch)
-                searchString += '"';
 
             if (txt.Contains(searchString))
             {
