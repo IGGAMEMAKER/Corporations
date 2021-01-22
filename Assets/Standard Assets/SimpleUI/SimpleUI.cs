@@ -34,10 +34,10 @@ public struct SimpleUISceneType
     public string Url;
     public string Name;
     public string AssetPath;
+    public bool Exists;
 
     public long Usages;
     public long LastOpened;
-    public string GUID;
 
     public SceneBlahType SceneBlahType;
 
@@ -51,7 +51,7 @@ public struct SimpleUISceneType
         Url = url;
         AssetPath = assetPath;
         Name = name.Length > 0 ? name : url;
-        GUID = "";
+        Exists = Directory.Exists(assetPath);
 
         Usages = 0;
         LastOpened = 0;
@@ -95,6 +95,7 @@ public partial class SimpleUI : EditorWindow
     private static bool isDraggedGameObjectMode = false;
     private static bool isUrlEditingMode = false;
     private static bool isPrefabChosenMode = false;
+
     bool isShowingUrlDetailsMode = false;
 
     static bool isConcreteUrlChosen = false;
@@ -220,8 +221,9 @@ public partial class SimpleUI : EditorWindow
         isUrlEditingMode = false;
         isConcreteUrlChosen = true;
 
-        var asset = AssetDatabase.LoadMainAssetAtPath(p.AssetPath);
-        AssetDatabase.OpenAsset(asset);
+        OpenPrefabByAssetPath(p.AssetPath);
+        //var asset = AssetDatabase.LoadMainAssetAtPath(p.AssetPath);
+        //AssetDatabase.OpenAsset(asset);
     }
 
     void OnGUI()
@@ -235,6 +237,8 @@ public partial class SimpleUI : EditorWindow
 
         if (!hasChosenPrefab)
             RenderPrefabs();
+
+        RenderMissingAssets();
 
         if (isDraggedGameObjectMode)
             RenderMakingAPrefabFromGameObject();
@@ -366,6 +370,40 @@ public partial class SimpleUI : EditorWindow
     }
     #endregion
 
+    void FindMissingAssets()
+    {
+        var prefs = prefabs;
+
+        for (var i = 0; i < prefs.Count; i++)
+        {
+            var p = prefs[i];
+
+            p.Exists = AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(p.AssetPath) != null; // Directory.Exists(p.AssetPath);
+
+            Debug.Log($"Check prefab {p.AssetPath}: " + p.Exists);
+
+            UpdatePrefab(p, i);
+        }
+    }
+
+    void RenderMissingAssets()
+    {
+        if (GUILayout.Button("Find missing assets"))
+        {
+            FindMissingAssets();
+        }
+
+        Space();
+        var missingUrls = prefabs.FindAll(p => !p.Exists);
+
+        if (missingUrls.Any())
+            Label("These urls are missing assets");
+
+        foreach (var missing in missingUrls)
+        {
+            EditorGUILayout.HelpBox($"Url {missing.Url} is missing an asset {missing.AssetPath}", MessageType.Error, true);
+        }
+    }
 
     void RenderEditingPrefab()
     {
@@ -962,12 +1000,13 @@ public partial class SimpleUI
         //prefabs = obj ?? new List<SimpleUISceneType>();
     }
 
-    static void UpdatePrefab(SimpleUISceneType prefab)
+    static void UpdatePrefab(SimpleUISceneType prefab) => UpdatePrefab(prefab, ChosenIndex);
+    static void UpdatePrefab(SimpleUISceneType prefab, int index)
     {
         if (!hasChosenPrefab)
             return;
 
-        prefabs[ChosenIndex] = prefab;
+        prefabs[index] = prefab;
         SaveData();
     }
 }
