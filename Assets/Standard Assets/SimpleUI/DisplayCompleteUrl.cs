@@ -14,12 +14,10 @@ public class DisplayCompleteUrl : MonoBehaviour
 
     void ShowCurrentPrefab()
     {
-        SimpleUI ui = EditorWindow.GetWindow<SimpleUI>();
+        var url = SimpleUI.GetCurrentUrl();
 
-        var url = ui.GetCurrentUrl();
-
-        var subUrls = ui.GetSubUrls(url, false);
-        var root = ui.GetUpperUrl(url);
+        var subUrls = SimpleUI.GetSubUrls(url, false);
+        var root = SimpleUI.GetUpperUrl(url);
 
         if (SimpleUIEventHandler == null)
         {

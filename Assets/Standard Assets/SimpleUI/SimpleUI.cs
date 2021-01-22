@@ -91,10 +91,10 @@ public partial class SimpleUI : EditorWindow
     private static int ChosenIndex => prefabs.FindIndex(p => p.Url.Equals(newUrl));
     private static bool hasChosenPrefab => ChosenIndex >= 0;
 
-    private bool isDraggedPrefabMode = false;
-    private bool isDraggedGameObjectMode = false;
-    private bool isUrlEditingMode = false;
-    private bool isPrefabChosenMode = false;
+    private static bool isDraggedPrefabMode = false;
+    private static bool isDraggedGameObjectMode = false;
+    private static bool isUrlEditingMode = false;
+    private static bool isPrefabChosenMode = false;
     bool isShowingUrlDetailsMode = false;
 
     static bool isConcreteUrlChosen = false;
@@ -103,7 +103,7 @@ public partial class SimpleUI : EditorWindow
     bool _isPrefabMode => !_isSceneMode;
 
 
-    private GameObject PossiblePrefab;
+    private static GameObject PossiblePrefab;
     private static string possiblePrefabName = "";
     
     [MenuItem("Window/SIMPLE UI")]
@@ -117,9 +117,9 @@ public partial class SimpleUI : EditorWindow
         // EditorWindow.CreateWindow<SimpleUI>();
     }
 
-    public string GetCurrentUrl() => newUrl.StartsWith("/") ? newUrl : "/" + newUrl;
-    public string GetCurrentAssetPath() => newPath;
-    public IEnumerable<SimpleUISceneType> GetSubUrls(string url, bool recursive) => prefabs.Where(p => isSubRouteOf(p.Url, url, recursive));
+    public static string GetCurrentUrl() => newUrl.StartsWith("/") ? newUrl : "/" + newUrl;
+    public static string GetCurrentAssetPath() => newPath;
+    public static IEnumerable<SimpleUISceneType> GetSubUrls(string url, bool recursive) => prefabs.Where(p => isSubRouteOf(p.Url, url, recursive));
 
     static SimpleUI()
     {
@@ -193,12 +193,12 @@ public partial class SimpleUI : EditorWindow
 
 
 
-    public void OpenPrefabByAssetPath(string path)
+    public static void OpenPrefabByAssetPath(string path)
     {
         AssetDatabase.OpenAsset(AssetDatabase.LoadMainAssetAtPath(path));
     }
 
-    public void OpenPrefab(string url)
+    public static void OpenPrefab(string url)
     {
         Debug.Log("Trying to open prefab by url: " + url);
 
@@ -210,7 +210,7 @@ public partial class SimpleUI : EditorWindow
         OpenPrefab(p1);
     }
 
-    void OpenPrefab(SimpleUISceneType p)
+    static void OpenPrefab(SimpleUISceneType p)
     {
         newPath = p.AssetPath;
         newUrl = p.Url;
@@ -275,10 +275,6 @@ public partial class SimpleUI : EditorWindow
         return GUILayout.Button($"<b>{text}</b>", style);
     }
 
-    public static void LightLabel(string text)
-    {
-        GUILayout.Label(text, EditorStyles.whiteBoldLabel);
-    }
     public static void Label(string text)
     {
         Space();
@@ -346,7 +342,7 @@ public partial class SimpleUI : EditorWindow
         return prefab.Name;
     }
 
-    public string GetUpperUrl(string url)
+    public static string GetUpperUrl(string url)
     {
         var index = url.LastIndexOf("/");
 

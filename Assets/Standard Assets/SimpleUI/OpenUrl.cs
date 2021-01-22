@@ -45,7 +45,7 @@ public class OpenUrl : MonoBehaviour
         Gizmos.DrawCube(transform.position, Vector3.one * 20);
 
         Handles.BeginGUI();
-        Handles.Label(new Vector3(0, -250, 0), SimpleUI.GetPrettyNameForExistingUrl(Url)); // transform.position - new Vector3(0, -250, 0)
+        Handles.Label(transform.position - new Vector3(0, -250, 0), SimpleUI.GetPrettyNameForExistingUrl(Url)); // transform.position - new Vector3(0, -250, 0)
         Handles.EndGUI();
     }
 }

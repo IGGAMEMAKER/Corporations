@@ -19,30 +19,24 @@ public class DisplayConnectedUrlsEditor : Editor
     static Vector2 scrollPosition2 = Vector2.zero;
     static Vector2 scrollPosition3 = Vector2.zero;
 
-    SimpleUI ui;
     //Handles.Button(Vector3.one * 10, Quaternion.identity, 200, 200, Handles.RectangleHandleCap);
 
     // Cached data
     List<SimpleUI.PrefabMatchInfo> matches1;
 
+    string currentUrl => SimpleUI.GetCurrentUrl();
+
     private void OnSceneGUI()
     {
-        ui = EditorWindow.GetWindow<SimpleUI>();
-        var currentUrl = ui.GetCurrentUrl();
-
-
         RenderUpperAndLowerRoutes(currentUrl);
-
         RenderReferencesToUrl(currentUrl);
         RenderReferencesFromUrl(currentUrl);
     }
 
     private void OnEnable()
     {
-        ui = EditorWindow.GetWindow<SimpleUI>();
-        var currentUrl = ui.GetCurrentUrl();
-
-        matches1 = SimpleUI.WhatUsesComponent<OpenUrl>();
+        //if (!EditorApplication.isCompiling)
+            matches1 = SimpleUI.WhatUsesComponent<OpenUrl>();
     }
 
     private void OnDisable()
@@ -61,7 +55,10 @@ public class DisplayConnectedUrlsEditor : Editor
 
     void Label(string text)
     {
-        SimpleUI.LightLabel(text);
+        GUIStyle localStyle = new GUIStyle(GUI.skin.label);
+        localStyle.normal.textColor = Color.white;
+
+        GUILayout.Label(text, localStyle);
     }
 
     void RenderReferencesFromUrl(string currentUrl)
@@ -69,7 +66,7 @@ public class DisplayConnectedUrlsEditor : Editor
         GUILayout.BeginArea(new Rect(Screen.width - w - off, off + h + off, w, h));
         //GUILayout.BeginArea(new Rect(off, off + h, w, h));
 
-        var matches = matches1.Where(m => m.PrefabAssetPath.Equals(ui.GetCurrentAssetPath())).ToList();
+        var matches = matches1.Where(m => m.PrefabAssetPath.Equals(SimpleUI.GetCurrentAssetPath())).ToList();
 
         if (matches.Any())
             Label("References FROM url");
@@ -81,7 +78,7 @@ public class DisplayConnectedUrlsEditor : Editor
 
         if (prevRoute != referenceSelected)
         {
-            ui.OpenPrefab(matches[referenceSelected].URL);
+            SimpleUI.OpenPrefab(matches[referenceSelected].URL);
             referenceSelected = -1;
         }
 
@@ -124,7 +121,7 @@ public class DisplayConnectedUrlsEditor : Editor
     {
         GUILayout.BeginArea(new Rect(off, off, w, h));
 
-        var matches = matches1.Where(m => m.URL.Equals(ui.GetCurrentUrl().TrimStart('/'))).ToList();
+        var matches = matches1.Where(m => m.URL.Equals(currentUrl.TrimStart('/'))).ToList();
 
         if (matches.Any())
             Label("References to THIS url");
@@ -137,7 +134,7 @@ public class DisplayConnectedUrlsEditor : Editor
 
         if (prevRoute != referenceFromSelected)
         {
-            ui.OpenPrefabByAssetPath(matches[referenceFromSelected].PrefabAssetPath);
+            SimpleUI.OpenPrefabByAssetPath(matches[referenceFromSelected].PrefabAssetPath);
             referenceFromSelected = -1;
         }
 
@@ -151,6 +148,7 @@ public class DisplayConnectedUrlsEditor : Editor
 
         Label("Navigation");
         Label(currentUrl);
+
         scrollPosition = GUILayout.BeginScrollView(scrollPosition);
 
         GUILayout.BeginVertical();
@@ -159,8 +157,8 @@ public class DisplayConnectedUrlsEditor : Editor
         var routes = new List<string>();
         var names = new List<string>();
 
-        RenderRootLink(ui, currentUrl, ref routes, ref names);
-        RenderSubRoutes(ui, currentUrl, ref routes, ref names);
+        RenderRootLink(currentUrl, ref routes, ref names);
+        RenderSubRoutes(currentUrl, ref routes, ref names);
 
 
         var prevRoute = routeSelected;
@@ -168,7 +166,7 @@ public class DisplayConnectedUrlsEditor : Editor
 
         if (prevRoute != routeSelected)
         {
-            ui.OpenPrefab(routes[routeSelected]);
+            SimpleUI.OpenPrefab(routes[routeSelected]);
             routeSelected = -1;
         }
 
@@ -177,9 +175,9 @@ public class DisplayConnectedUrlsEditor : Editor
         GUILayout.EndArea();
     }
 
-    void RenderSubRoutes(SimpleUI ui, string currentUrl, ref List<string> routes, ref List<string> names)
+    void RenderSubRoutes(string currentUrl, ref List<string> routes, ref List<string> names)
     {
-        var subRoutes = ui.GetSubUrls(currentUrl, false).OrderByDescending(p => p.Usages).ToList();
+        var subRoutes = SimpleUI.GetSubUrls(currentUrl, false).OrderByDescending(p => p.Usages).ToList();
 
         for (var i = 0; i < subRoutes.Count(); i++)
         {
@@ -190,9 +188,10 @@ public class DisplayConnectedUrlsEditor : Editor
             names.Add(name);
         }
     }
-    void RenderRootLink(SimpleUI ui, string currentUrl, ref List<string> routes, ref List<string> names)
+
+    void RenderRootLink(string currentUrl, ref List<string> routes, ref List<string> names)
     {
-        var root = ui.GetUpperUrl(currentUrl);
+        var root = SimpleUI.GetUpperUrl(currentUrl);
 
         bool hasRoot = !root.Equals(currentUrl);
         if (hasRoot)
