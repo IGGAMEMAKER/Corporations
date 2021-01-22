@@ -49,17 +49,5 @@ public class FlagshipRelayInCompanyView : View
     public void ChooseTaskTab(int teamId, int slotId)
     {
         OpenUrl("/Holding/TaskTab");
-        return;
-
-        // // teamId = ChosenTeamId;
-        // // slotId = ChosenSlotId;
-        //
-        // ShowOnly(DevelopmentTab, Tabs);
-        //
-        // var tasks = Flagship.team.Teams[teamId].Tasks;
-        // var task = teamId >= 0 ? tasks[slotId] : null;
-        //
-        // if (task != null)
-        //     TaskPanel.SetEntity(teamId, task);
     }
 }
