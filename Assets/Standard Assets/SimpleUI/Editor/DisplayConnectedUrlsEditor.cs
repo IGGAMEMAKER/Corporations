@@ -68,6 +68,7 @@ public class DisplayConnectedUrlsEditor : Editor
     {
         GUILayout.BeginArea(new Rect(Screen.width - w - off, off + h + off, w, h));
         //GUILayout.BeginArea(new Rect(off, off + h, w, h));
+
         var matches = matches1.Where(m => m.PrefabAssetPath.Equals(ui.GetCurrentAssetPath())).ToList();
 
         if (matches.Any())
@@ -76,7 +77,7 @@ public class DisplayConnectedUrlsEditor : Editor
         scrollPosition3 = GUILayout.BeginScrollView(scrollPosition3);
 
         var prevRoute = referenceSelected;
-        referenceSelected = GUILayout.SelectionGrid(referenceSelected, matches.Select(m => SimpleUI.GetPrettyNameForExistingUrl("/" + m.URL)).ToArray(), 1);
+        referenceSelected = GUILayout.SelectionGrid(referenceSelected, matches.Select(m => GetPrettyNameForUrl(m.URL, currentUrl)).ToArray(), 1);
 
         if (prevRoute != referenceSelected)
         {
@@ -88,6 +89,37 @@ public class DisplayConnectedUrlsEditor : Editor
         GUILayout.EndArea();
     }
 
+    string Urlify(string url)
+    {
+        if (!url.StartsWith("/"))
+            url = "/" + url;
+
+        return url;
+    }
+
+    string GetPrettyNameForUrl(string url, string currentUrl)
+    {
+        url = Urlify(url);
+
+        bool isDirectSubUrl = SimpleUI.isSubRouteOf(url, currentUrl, false);
+        bool isSubSubUrl = !isDirectSubUrl && SimpleUI.isSubRouteOf(url, currentUrl, true);
+
+        var prefix = "<- ";
+
+        if (isDirectSubUrl)
+        {
+            prefix = "\u2198 ";
+        }
+
+        if (isSubSubUrl)
+        {
+            prefix = "\u2198 \u2198 ";
+        }
+
+
+        return prefix + SimpleUI.GetPrettyNameForExistingUrl(url);
+    }
+
     void RenderReferencesToUrl(string currentUrl)
     {
         GUILayout.BeginArea(new Rect(off, off, w, h));
@@ -96,6 +128,7 @@ public class DisplayConnectedUrlsEditor : Editor
 
         if (matches.Any())
             Label("References to THIS url");
+
         scrollPosition2 = GUILayout.BeginScrollView(scrollPosition2);
 
 

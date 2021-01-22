@@ -117,7 +117,7 @@ public partial class SimpleUI : EditorWindow
         // EditorWindow.CreateWindow<SimpleUI>();
     }
 
-    public string GetCurrentUrl() => newUrl;
+    public string GetCurrentUrl() => newUrl.StartsWith("/") ? newUrl : "/" + newUrl;
     public string GetCurrentAssetPath() => newPath;
     public IEnumerable<SimpleUISceneType> GetSubUrls(string url, bool recursive) => prefabs.Where(p => isSubRouteOf(p.Url, url, recursive));
 
@@ -302,7 +302,7 @@ public partial class SimpleUI : EditorWindow
     /// <param name="root"></param>
     /// <param name="recursive"></param>
     /// <returns></returns>
-    bool isSubRouteOf(string subUrl, string root, bool recursive)
+    public static bool isSubRouteOf(string subUrl, string root, bool recursive)
     {
         if (subUrl.Equals(root))
             return false;
