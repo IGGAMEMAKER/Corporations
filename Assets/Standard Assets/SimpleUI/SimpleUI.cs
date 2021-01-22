@@ -370,7 +370,7 @@ public partial class SimpleUI : EditorWindow
     }
     #endregion
 
-    void FindMissingAssets()
+    public static void FindMissingAssets()
     {
         var prefs = prefabs;
 
