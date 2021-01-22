@@ -1349,7 +1349,13 @@ public partial class SimpleUI : EditorWindow
                 continue;
             }
 
-            if (txt.Contains(url))
+            bool directMatch = false;
+            var searchString = '"' + url;
+
+            if (directMatch)
+                searchString += '"';
+
+            if (txt.Contains(searchString))
             {
                 Debug.Log($"Found url {url} in text " + path);
                 list.Add(new UsageInfo { Line = 1, ScriptName = path });

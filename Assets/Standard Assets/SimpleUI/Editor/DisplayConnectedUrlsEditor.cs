@@ -137,14 +137,14 @@ public class DisplayConnectedUrlsEditor : Editor
         scrollPosition2 = GUILayout.BeginScrollView(scrollPosition2);
         //urlMatchesInCode1
 
-        var names = matches.Select(m => m.PrefabAssetPath.Substring(m.PrefabAssetPath.LastIndexOf("/"))).ToList();
+        var names = matches.Select(m => "<b>Prefab </b>" + m.PrefabAssetPath.Substring(m.PrefabAssetPath.LastIndexOf("/"))).ToList();
         var routes = matches.Select(m => m.PrefabAssetPath).ToList();
 
         foreach (var occurence in urlMatchesInCode1)
         {
             var trimmedScriptName = occurence.ScriptName.Substring(occurence.ScriptName.LastIndexOf('/'));
 
-            names.Add(trimmedScriptName + " #" + occurence.Line);
+            names.Add("<b>Script </b>" + trimmedScriptName + " #" + occurence.Line);
             routes.Add(occurence.ScriptName);
         }
 
