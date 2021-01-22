@@ -118,6 +118,7 @@ public partial class SimpleUI : EditorWindow
     }
 
     public string GetCurrentUrl() => newUrl;
+    public string GetCurrentAssetPath() => newPath;
     public IEnumerable<SimpleUISceneType> GetSubUrls(string url, bool recursive) => prefabs.Where(p => isSubRouteOf(p.Url, url, recursive));
 
     static SimpleUI()
@@ -192,8 +193,18 @@ public partial class SimpleUI : EditorWindow
 
 
 
+    public void OpenPrefabByAssetPath(string path)
+    {
+        AssetDatabase.OpenAsset(AssetDatabase.LoadMainAssetAtPath(path));
+    }
+
     public void OpenPrefab(string url)
     {
+        Debug.Log("Trying to open prefab by url: " + url);
+
+        if (!url.StartsWith("/"))
+            url = "/" + url;
+
         var p1 = prefabs.First(p => p.Url.Equals(url));
 
         OpenPrefab(p1);
@@ -253,7 +264,7 @@ public partial class SimpleUI : EditorWindow
     }
 
     #region UI shortcuts
-    bool Button(string text)
+    public static bool Button(string text)
     {
         GUIStyle style = GUI.skin.FindStyle("Button");
         style.richText = true;
@@ -264,13 +275,17 @@ public partial class SimpleUI : EditorWindow
         return GUILayout.Button($"<b>{text}</b>", style);
     }
 
-    void Label(string text)
+    public static void LightLabel(string text)
+    {
+        GUILayout.Label(text, EditorStyles.whiteBoldLabel);
+    }
+    public static void Label(string text)
     {
         Space();
         GUILayout.Label(text, EditorStyles.boldLabel);
     }
 
-    void Space(int space = 15)
+    public static void Space(int space = 15)
     {
         GUILayout.Space(space);
     }
@@ -316,12 +331,19 @@ public partial class SimpleUI : EditorWindow
             return isSubSubRoute;
     }
 
-    static string GetPrettyNameFromAssetPath(string assetPa)
+    static string GetPrettyNameFromAssetPath(string path)
     {
-        var x = assetPa.Split('/').Last();
+        var x = path.Split('/').Last();
         var ind = x.LastIndexOf(".prefab");
 
         return x.Substring(0, ind);
+    }
+
+    public static string GetPrettyNameForExistingUrl(string url)
+    {
+        var prefab = GetPrefabByUrl(url);
+
+        return prefab.Name;
     }
 
     public string GetUpperUrl(string url)
@@ -573,7 +595,7 @@ public partial class SimpleUI : EditorWindow
 
     // ----- utils -------------
     #region Utils
-    SimpleUISceneType GetPrefabByUrl(string url)
+    static SimpleUISceneType GetPrefabByUrl(string url)
     {
         return prefabs.FirstOrDefault(p => p.Url.Equals(url));
     }
@@ -643,6 +665,10 @@ public partial class SimpleUI : EditorWindow
 
     #endregion
 
+    static void Print2(string text)
+    {
+        //Print(text);
+    }
     static void Print(string text)
     {
         Debug.Log(text);
@@ -1119,8 +1145,7 @@ public partial class SimpleUI : EditorWindow
     }
 
     // path - RootAssetPath
-    public static PrefabMatchInfo GetPrefabMatchInfo2(MonoBehaviour component, GameObject asset, string path,
-        string[] properties)
+    public static PrefabMatchInfo GetPrefabMatchInfo2(MonoBehaviour component, GameObject asset, string path, string[] properties)
     {
         var matchingComponent = new PrefabMatchInfo { PrefabAssetPath = path, ComponentName = component.gameObject.name };
 
@@ -1133,7 +1158,7 @@ public partial class SimpleUI : EditorWindow
             // so you can upgrade it and safely save ur prefab
 
             matchingComponent.IsDirectMatch = true;
-            Print($"Directly occurs as {matchingComponent.ComponentName} in {matchingComponent.PrefabAssetPath}");
+            Print2($"Directly occurs as {matchingComponent.ComponentName} in {matchingComponent.PrefabAssetPath}");
         }
 
         if (isAttachedToNestedPrefab)
@@ -1151,7 +1176,7 @@ public partial class SimpleUI : EditorWindow
                 var outer = PrefabUtility.GetOutermostPrefabInstanceRoot(component);
 
                 matchingComponent.IsOverridenAsAddedComponent = true;
-                Print(
+                Print2(
                     $"{matchingComponent.ComponentName} Is <b>ATTACHED</b> to some nested prefab\n\nouter={outer.name} {ParseAddedComponents(outer)}, {component.GetInstanceID()}");
             }
 
@@ -1164,7 +1189,7 @@ public partial class SimpleUI : EditorWindow
                     // update property and just save root prefab
 
                     matchingComponent.IsOverridenAsComponentProperty = true;
-                    Print($"Root <b>OVERRIDES VALUES</b> on {matchingComponent.ComponentName}");
+                    Print2($"Root <b>OVERRIDES VALUES</b> on {matchingComponent.ComponentName}");
                 }
                 else
                 {
@@ -1172,7 +1197,7 @@ public partial class SimpleUI : EditorWindow
                     // no actions are necessary for root prefab
 
                     matchingComponent.IsNormalPartOfNestedPrefab = true;
-                    Print($"{matchingComponent.ComponentName} is <b>part of a nested prefab</b>");
+                    Print2($"{matchingComponent.ComponentName} is <b>part of a nested prefab</b>");
                 }
             }
         }
@@ -1180,10 +1205,49 @@ public partial class SimpleUI : EditorWindow
         return matchingComponent;
     }
 
+    public static void PrintMatchInfo(IEnumerable<PrefabMatchInfo> matches)
+    {
+        foreach (var matchingComponent in matches)
+        {
+            if (matchingComponent.IsDirectMatch)
+            {
+                // directly appears in prefab
+                // so you can upgrade it and safely save ur prefab
+
+                Print($"Directly occurs as {matchingComponent.ComponentName} in {matchingComponent.PrefabAssetPath}");
+            }
+            else
+            {
+                // appears somewhere in nested prefabs
+
+                if (matchingComponent.IsOverridenAsAddedComponent)
+                {
+                    // is added by root component
+
+                    Print($"{matchingComponent.ComponentName} Is <b>ATTACHED BY ROOT</b> to some nested prefab\n");
+                }
+                else
+                {
+                    // is part of nested prefab
+                    if (matchingComponent.IsOverridenAsComponentProperty)
+                    {
+                        Print($"Root <b>OVERRIDES VALUES</b> on {matchingComponent.ComponentName}");
+                    }
+
+                    if (matchingComponent.IsNormalPartOfNestedPrefab)
+                    {
+                        Print($"{matchingComponent.ComponentName} is <b>part of a nested prefab</b>");
+                    }
+                }
+            }
+        }
+    }
+
     public class PrefabMatchInfo
     {
         public string PrefabAssetPath;
         public string ComponentName;
+        public string URL;
 
         public bool IsDirectMatch; // with no nested prefabs, can apply changes directly. (Both on root and it's childs)
 
@@ -1197,7 +1261,7 @@ public partial class SimpleUI : EditorWindow
         public bool IsOverridenAsAddedComponent;
     }
 
-    public static void WhatUsesComponent<T>()
+    public static List<PrefabMatchInfo> WhatUsesComponent<T>()
     {
         var typeToSearch = typeof(T);
 
@@ -1234,8 +1298,8 @@ public partial class SimpleUI : EditorWindow
 
             if (components.Any())
             {
-                Print("<b>----------------------------------------</b>");
-                Print("Found component(s) " + typeToSearch + $" ({components.Count}) in file <b>" + path + "</b>");
+                Print2("<b>----------------------------------------</b>");
+                Print2("Found component(s) " + typeToSearch + $" ({components.Count}) in file <b>" + path + "</b>");
             }
 
             foreach (var component1 in components)
@@ -1243,12 +1307,14 @@ public partial class SimpleUI : EditorWindow
                 var component = component1 as MonoBehaviour;
 
                 var matchingComponent = GetPrefabMatchInfo2(component, asset, path, properties);
-
+                matchingComponent.URL = (component as OpenUrl).Url;
 
 
                 matchingComponents.Add(matchingComponent);
             }
         }
+
+        return matchingComponents;
     }
 
     #endregion
