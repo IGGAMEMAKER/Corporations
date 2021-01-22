@@ -1326,7 +1326,7 @@ public partial class SimpleUI : EditorWindow
 
         Debug.Log("Finding all scrips, that call " + url);
 
-        var excludeFolders = new[] { "Assets/Standard Assets", "Assets/Systems", "Assets/Core" };
+        var excludeFolders = new[] { "Assets/Standard Assets/Frost UI", "Assets/Standard Assets/SimpleUI", "Assets/Standard Assets/Libraries", "Assets/Systems", "Assets/Core" };
         var guids = AssetDatabase.FindAssets("t:Script", new[] { "Assets" });
 
         Debug.Log($"Found {guids.Count()} scripts");

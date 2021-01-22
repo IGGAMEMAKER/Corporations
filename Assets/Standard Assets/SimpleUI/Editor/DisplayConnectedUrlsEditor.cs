@@ -131,7 +131,7 @@ public class DisplayConnectedUrlsEditor : Editor
 
         var matches = matches1.Where(m => m.URL.Equals(currentUrl.TrimStart('/'))).ToList();
 
-        if (matches.Any())
+        if (matches.Any() || urlMatchesInCode1.Any())
             Label("References to THIS url");
 
         scrollPosition2 = GUILayout.BeginScrollView(scrollPosition2);
