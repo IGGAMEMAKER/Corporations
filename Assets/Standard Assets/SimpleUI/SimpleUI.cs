@@ -51,7 +51,7 @@ public struct SimpleUISceneType
         Url = url;
         AssetPath = assetPath;
         Name = name.Length > 0 ? name : url;
-        Exists = Directory.Exists(assetPath);
+        Exists = AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(assetPath) != null;
 
         Usages = 0;
         LastOpened = 0;
@@ -380,8 +380,6 @@ public partial class SimpleUI : EditorWindow
 
             p.Exists = AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(p.AssetPath) != null; // Directory.Exists(p.AssetPath);
 
-            Debug.Log($"Check prefab {p.AssetPath}: " + p.Exists);
-
             UpdatePrefab(p, i);
         }
     }
@@ -402,6 +400,7 @@ public partial class SimpleUI : EditorWindow
         foreach (var missing in missingUrls)
         {
             EditorGUILayout.HelpBox($"Url {missing.Url} is missing an asset {missing.AssetPath}", MessageType.Error, true);
+            //if (GUILayout.Button(""))
         }
     }
 
@@ -651,8 +650,10 @@ public partial class SimpleUI : EditorWindow
             bool isChosen = hasChosenPrefab && prefabs[ChosenIndex].AssetPath.Equals(p.AssetPath);
 
             var color = isChosen ? Color.yellow : Color.white;
+
             //ColorUtility.TryParseHtmlString(isChosen ? "gold" : "white", out Color color);
             //var color = ColorUtility.TryParseHtmlString(isChosen ? "#FFAB04" Visuals.GetColorFromString(isChosen ? Colors.COLOR_YOU : Colors.COLOR_NEUTRAL);
+
             GUI.contentColor = color;
             GUI.color = color;
             GUI.backgroundColor = color;
@@ -1001,7 +1002,7 @@ public partial class SimpleUI
     }
 
     static void UpdatePrefab(SimpleUISceneType prefab) => UpdatePrefab(prefab, ChosenIndex);
-    static void UpdatePrefab(SimpleUISceneType prefab, int index)
+    public static void UpdatePrefab(SimpleUISceneType prefab, int index)
     {
         if (!hasChosenPrefab)
             return;

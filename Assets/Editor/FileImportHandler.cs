@@ -9,8 +9,7 @@
 ////purpose of this postprocessor is to ensure that listed file extensions
 //// are not in certain filepaths, when they are they are moved to a 
 ////specified default path
-//public class FileImportHandler :
-//    AssetPostprocessor
+//public class FileImportHandler : AssetPostprocessor
 //{
 //    //only evaluate files imported into these paths
 //    static List<string> pathsToMoveFrom = new List<string>()
@@ -39,7 +38,7 @@
 //         ////like images, there are sub folders that the user must manage
 //         //{".wav",    "Assets/Audio/Sources"}, 
 //         //like images, there are sub folders that the user must manage
-//         {".cs",     "Assets/Views/"},
+//         {".cs",     "Assets/"},
 //         //{".shader", "Assets/Dev/Shaders"},
 //         //{".cginc",  "Assets/Dev/Shaders"}
 //     };
@@ -71,9 +70,12 @@
 //            Debug.Log(string.Format("Moving asset ({0}) from {2} to path: {1}", filename, newPath, oldFilePath));
 //        }
 
-//        for (var i = 0; i < oldFilePaths.Count; i++)
-//        {
-//            File.Move(oldFilePaths[i], newFilePaths[i]);
-//        }
+//        //for (var i = 0; i < oldFilePaths.Count; i++)
+//        //{
+//        //    File.Move(oldFilePaths[i], newFilePaths[i]);
+//        //}
+
+
 //    }
+
 //}
