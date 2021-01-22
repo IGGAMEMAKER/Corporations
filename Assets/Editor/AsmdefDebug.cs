@@ -7,6 +7,9 @@ using UnityEditor;
 using UnityEditor.Compilation;
 using UnityEngine;
 
+
+//https://gist.github.com/filod/ba1e1522c1821cd24ca1a0c9090eb440#file-asmdefdebug-cs-L59
+
 /// <summary>
 /// https://gist.github.com/karljj1/9c6cce803096b5cd4511cf0819ff517b
 /// </summary>
@@ -63,6 +66,7 @@ public class AsmdefDebug
         CultureInfo ci = (CultureInfo)CultureInfo.CurrentCulture.Clone();
         ci.NumberFormat.CurrencyDecimalSeparator = ".";
 
+        // https://stackoverflow.com/questions/1014535/float-parse-doesnt-work-the-way-i-wanted
         var totalCompilationTimeSeconds = float.Parse(str, NumberStyles.Any, ci);
 
 
