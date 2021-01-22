@@ -79,5 +79,22 @@ public class OpenUrlEditor : Editor
         EditorGUILayout.EndScrollView();
     }
 
+    private void OnSceneGUI()
+    {
+        Handles.BeginGUI();
+
+        var openUrl = target as OpenUrl;
+        var pos = openUrl.transform.position - new Vector3(0, -250, 0);
+
+        Handles.Label(pos, SimpleUI.GetPrettyNameForExistingUrl("/" + openUrl.Url)); // transform.position - new Vector3(0, -250, 0)
+
+        if (GUILayout.Button(openUrl.Url))
+        {
+            SimpleUI.OpenPrefab(openUrl.Url);
+        }
+
+        Handles.EndGUI();
+    }
+
     static string MakeProperUrl(string url) => url.Trim('/');
 }

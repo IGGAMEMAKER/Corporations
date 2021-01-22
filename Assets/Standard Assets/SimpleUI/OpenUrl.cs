@@ -42,10 +42,11 @@ public class OpenUrl : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawCube(transform.position, Vector3.one * 20);
+        var pos = transform.position - new Vector3(0, -250, 0);
 
-        Handles.BeginGUI();
-        Handles.Label(transform.position - new Vector3(0, -250, 0), SimpleUI.GetPrettyNameForExistingUrl(Url)); // transform.position - new Vector3(0, -250, 0)
-        Handles.EndGUI();
+        Gizmos.DrawCube(pos - Vector3.one * 20, Vector3.one * 20);
+
+        //Debug.Log($"Position of /{Url}={pos}");
+        //Handles.Label(pos, SimpleUI.GetPrettyNameForExistingUrl("/" + Url)); // transform.position - new Vector3(0, -250, 0)
     }
 }

@@ -23,20 +23,28 @@ public class DisplayConnectedUrlsEditor : Editor
 
     // Cached data
     List<SimpleUI.PrefabMatchInfo> matches1;
+    List<SimpleUI.UsageInfo> urlMatchesInCode1;
 
     string currentUrl => SimpleUI.GetCurrentUrl();
 
     private void OnSceneGUI()
     {
+        if (EditorApplication.isCompiling)
+            return;
+
         RenderUpperAndLowerRoutes(currentUrl);
         RenderReferencesToUrl(currentUrl);
         RenderReferencesFromUrl(currentUrl);
     }
 
+    // TODO make this call asynchronous
     private void OnEnable()
     {
-        //if (!EditorApplication.isCompiling)
-            matches1 = SimpleUI.WhatUsesComponent<OpenUrl>();
+        if (EditorApplication.isCompiling)
+            return;
+
+        matches1 = SimpleUI.WhatUsesComponent<OpenUrl>();
+        urlMatchesInCode1 = SimpleUI.WhatReferencesConcreteUrl(currentUrl);
     }
 
     private void OnDisable()
@@ -127,14 +135,23 @@ public class DisplayConnectedUrlsEditor : Editor
             Label("References to THIS url");
 
         scrollPosition2 = GUILayout.BeginScrollView(scrollPosition2);
+        //urlMatchesInCode1
 
+        var names = matches.Select(m => m.PrefabAssetPath.Substring(m.PrefabAssetPath.LastIndexOf("/"))).ToList();
+        var routes = matches.Select(m => m.PrefabAssetPath).ToList();
+
+        foreach (var occurence in urlMatchesInCode1)
+        {
+            names.Add(occurence.ScriptName + " " + occurence.Line);
+            routes.Add(occurence.ScriptName);
+        }
 
         var prevRoute = referenceFromSelected;
-        referenceFromSelected = GUILayout.SelectionGrid(referenceFromSelected, matches.Select(m => m.PrefabAssetPath).ToArray(), 1);
+        referenceFromSelected = GUILayout.SelectionGrid(referenceFromSelected, names.ToArray(), 1);
 
         if (prevRoute != referenceFromSelected)
         {
-            SimpleUI.OpenPrefabByAssetPath(matches[referenceFromSelected].PrefabAssetPath);
+            SimpleUI.OpenPrefabByAssetPath(routes[referenceFromSelected]);
             referenceFromSelected = -1;
         }
 
