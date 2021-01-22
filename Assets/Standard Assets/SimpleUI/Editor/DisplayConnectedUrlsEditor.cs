@@ -142,7 +142,9 @@ public class DisplayConnectedUrlsEditor : Editor
 
         foreach (var occurence in urlMatchesInCode1)
         {
-            names.Add(occurence.ScriptName + " " + occurence.Line);
+            var trimmedScriptName = occurence.ScriptName.Substring(occurence.ScriptName.LastIndexOf('/'));
+
+            names.Add(trimmedScriptName + " #" + occurence.Line);
             routes.Add(occurence.ScriptName);
         }
 

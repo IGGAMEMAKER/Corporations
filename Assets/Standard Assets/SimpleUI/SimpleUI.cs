@@ -1325,29 +1325,33 @@ public partial class SimpleUI : EditorWindow
         var list = new List<UsageInfo>();
 
         Debug.Log("Finding all scrips, that call " + url);
-        Debug.Log("Finding all scrips, that call2 " + url);
 
-        var excludeFolders = new[] { "Assets/Standard Assets" };
-        var guids = AssetDatabase.FindAssets("t:Script"); // new[] { "Assets" }
+        var excludeFolders = new[] { "Assets/Standard Assets", "Assets/Systems", "Assets/Core" };
+        var guids = AssetDatabase.FindAssets("t:Script", new[] { "Assets" });
 
         Debug.Log($"Found {guids.Count()} scripts");
         var paths = guids.Select(AssetDatabase.GUIDToAssetPath).ToList();
 
-
+        paths.RemoveAll(guid => excludeFolders.Any(guid.Contains));
 
         foreach (var path in paths)
         {
-            Debug.Log("found script: " + path);
             var asset = AssetDatabase.LoadAssetAtPath<MonoScript>(path);
+
+            var txt = asset != null ? ("\n" + asset.text) : "";
+
+            //Debug.Log("found script: " + path + txt);
 
             if (asset == null)
             {
                 Debug.LogError("Cannot load prefab at path: " + path);
+
                 continue;
             }
 
-            if (UnityEngine.Random.Range(3, 100) < 3)
+            if (txt.Contains(url))
             {
+                Debug.Log($"Found url {url} in text " + path);
                 list.Add(new UsageInfo { Line = 1, ScriptName = path });
             }
         }
