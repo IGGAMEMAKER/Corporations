@@ -121,8 +121,6 @@ public partial class SimpleUI : EditorWindow
         // EditorWindow.GetWindow(typeof(SimpleUI), false, "Simple UI", true);
         var w = EditorWindow.GetWindow(typeof(SimpleUI));
         // w.minSize = new Vector2(200, 100);
-
-        // EditorWindow.CreateWindow<SimpleUI>();
     }
 
 
@@ -132,19 +130,6 @@ public partial class SimpleUI : EditorWindow
     {
         PrefabStage.prefabStageOpened += PrefabStage_prefabOpened;
         PrefabStage.prefabStageClosing += PrefabStage_prefabClosed;
-
-        SceneManager.sceneLoaded += SceneEvent_sceneOpened;
-        SceneManager.sceneUnloaded += SceneEvent_sceneClosed;
-    }
-
-    private static void SceneEvent_sceneClosed(Scene arg0)
-    {
-        Debug.Log("Scene unloaded");
-    }
-
-    private static void SceneEvent_sceneOpened(Scene arg0, LoadSceneMode arg1)
-    {
-        Debug.Log("Scene loaded");
     }
 
     private static void PrefabStage_prefabClosed(PrefabStage obj)
@@ -233,7 +218,6 @@ public partial class SimpleUI : EditorWindow
 
         OpenPrefab(p1);
     }
-
     static void OpenPrefab(SimpleUISceneType p)
     {
         newPath = p.AssetPath;
