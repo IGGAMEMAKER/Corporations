@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditor.Experimental.SceneManagement;
 using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
 
 // Read
 // Как-работает-editorwindow-ongui-в-unity-3d
@@ -32,7 +33,7 @@ public enum SceneBlahType
 public struct UrlOpeningAttempt
 {
     public string ScriptName;
-    public string FunctionName;
+    public string PreviousUrl;
 }
 
 public struct SimpleUISceneType
@@ -51,7 +52,7 @@ public struct SimpleUISceneType
     {
         SceneBlahType = SceneBlahType.Prefab;
 
-        if (assetPath.EndsWith(".scene"))
+        if (assetPath.EndsWith(".scene") || assetPath.EndsWith(".unity"))
             SceneBlahType = SceneBlahType.Scene;
 
         Url = url;
@@ -155,6 +156,16 @@ public partial class SimpleUI : EditorWindow
         TryToIncreaseCurrentPrefabCounter();
     }
 
+    string GetOpenedAssetPath()
+    {
+        if (_isPrefabMode)
+        {
+            return PrefabStageUtility.GetCurrentPrefabStage().assetPath;
+        }
+
+        return SceneManager.GetActiveScene().path; // "RandomScene.unity";
+    }
+
     void OnInspectorUpdate()
     {
         if (PrefabStageUtility.GetCurrentPrefabStage() == null)
@@ -237,12 +248,12 @@ public partial class SimpleUI : EditorWindow
         recentPrefabsScrollPosition = GUILayout.BeginScrollView(recentPrefabsScrollPosition);
         GUILayout.Label("SIMPLE UI", EditorStyles.largeLabel);
 
+        RenderExistingTroubles();
+
         //Label($"Url={newUrl}\nasset={newPath}\nname={newName}");
 
         if (!hasChosenPrefab)
             RenderPrefabs();
-
-        RenderMissingAssets();
 
         if (isDraggedGameObjectMode)
             RenderMakingAPrefabFromGameObject();
@@ -340,6 +351,11 @@ public partial class SimpleUI : EditorWindow
         var x = path.Split('/').Last();
         var ind = x.LastIndexOf(".prefab");
 
+        if (ind == -1)
+        {
+            ind = x.LastIndexOf(".unity");
+        }
+
         return x.Substring(0, ind);
     }
 
@@ -393,7 +409,7 @@ public partial class SimpleUI : EditorWindow
         if (!UrlOpeningAttempts.ContainsKey(url))
             UrlOpeningAttempts[url] = new List<UrlOpeningAttempt>();
 
-        UrlOpeningAttempts[url].Add(new UrlOpeningAttempt { FunctionName = "", ScriptName = scriptName });
+        UrlOpeningAttempts[url].Add(new UrlOpeningAttempt { PreviousUrl = GetCurrentUrl(), ScriptName = scriptName });
 
         SaveData();
     }
@@ -406,22 +422,29 @@ public partial class SimpleUI : EditorWindow
         Space();
         foreach (var missing in UrlOpeningAttempts)
         {
-            var scripts = string.Join("\n", missing.Value.Select(m => m.FunctionName));
+            var scripts = string.Join("\n", missing.Value.Select(m => m.PreviousUrl));
 
             EditorGUILayout.HelpBox($"Tried to open url <b>{missing.Key}</b> from, but failed", MessageType.Error, true);
             EditorGUILayout.HelpBox($"Did that from {scripts}", MessageType.Warning);
         }
     }
 
-    void RenderMissingAssets()
+    void RenderExistingTroubles()
     {
+        if (prefabs.Count == 0)
+            return;
+
         if (GUILayout.Button("Find missing assets"))
         {
             FindMissingAssets();
         }
 
         RenderMissingUrls();
+        RenderMissingAssets();
+    }
 
+    void RenderMissingAssets()
+    {
         Space();
         var missingAssets = prefabs.FindAll(p => !p.Exists);
 
@@ -453,6 +476,12 @@ public partial class SimpleUI : EditorWindow
             isUrlEditingMode = false;
         }
 
+        Space();
+        if (Button("Print OpenUrl info"))
+        {
+            PrintMatchInfo(WhatUsesComponent<OpenUrl>());
+        }
+
         newUrl = pref.Url;
         newPath = pref.AssetPath;
         newName = pref.Name;
@@ -472,10 +501,7 @@ public partial class SimpleUI : EditorWindow
 
         Space();
 
-        if (Button("Print OpenUrl info"))
-        {
-            PrintMatchInfo(WhatUsesComponent<OpenUrl>());
-        }
+
 
         Label("Edit url");
         newUrl = EditorGUILayout.TextField("Url", newUrl);
@@ -528,7 +554,11 @@ public partial class SimpleUI : EditorWindow
     void RenderAddingNewRoute()
     {
         Space();
-        GUILayout.Label("Add current prefab", EditorStyles.boldLabel);
+
+        var assetType = _isPrefabMode ? "prefab" : "SCENE";
+
+        var assetPath = GetCurrentAssetPath();
+        GUILayout.Label($"Add current asset ({assetType})", EditorStyles.boldLabel);
 
         newUrl = EditorGUILayout.TextField("Url", newUrl);
 
@@ -551,11 +581,11 @@ public partial class SimpleUI : EditorWindow
         if (urlOK && newNameOK && pathOK)
         {
             Space();
-            if (GUILayout.Button("Add prefab!")) //  <" + newName + ">
+            if (GUILayout.Button("Add asset!")) //  <" + newName + ">
             {
-                Debug.Log("Added prefab");
+                Debug.Log("Added asset");
 
-                AddPrefab(newUrl, newPath, newName);
+                AddAsset(newUrl, newPath, newName);
 
                 SaveData();
             }
@@ -675,11 +705,9 @@ public partial class SimpleUI : EditorWindow
         return prefabs.FirstOrDefault(p => p.Url.Equals(url));
     }
 
-    void AddPrefab(string ururu, string papapath, string nananame)
+    void AddAsset(string url, string assetPath, string name)
     {
-        var p = new SimpleUISceneType(ururu, papapath, nananame) {LastOpened = DateTime.Now.Ticks};
-
-        prefabs.Add(p);
+        prefabs.Add(new SimpleUISceneType(url, assetPath, name) { LastOpened = DateTime.Now.Ticks });
     }
 
     void RenderPrefabs(IEnumerable<SimpleUISceneType> list, string trimStart = "")
@@ -751,11 +779,6 @@ public partial class SimpleUI : EditorWindow
         Debug.Log(text);
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="url"></param>
-    /// <param name="obj">Optional. Type "this" if you want to get notified, if this part of the code will call missing URL</param>
     public static void OpenUrl(string url, string scriptName)
     {
         SimpleUIEventHandler eventHandler = FindObjectOfType<SimpleUIEventHandler>();
@@ -935,7 +958,7 @@ public partial class SimpleUI
 
             draggedUrl = GetValidatedUrl(draggedUrl);
 
-            AddPrefab(draggedUrl, draggedPath, draggedName);
+            AddAsset(draggedUrl, draggedPath, draggedName);
 
             isDraggedPrefabMode = false;
 
