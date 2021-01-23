@@ -86,23 +86,23 @@ public partial class SimpleUI : EditorWindow
 {
     private Vector2 recentPrefabsScrollPosition = Vector2.zero;
 
-    static int ChosenIndex => prefabs.FindIndex(p => p.Url.Equals(newUrl)); // GetCurrentUrl()
-    static bool hasChosenPrefab => ChosenIndex >= 0;
-
     static bool isDraggedPrefabMode = false;
     static bool isDraggedGameObjectMode = false;
     static bool isUrlEditingMode = false;
     static bool isPrefabChosenMode = false;
-
-    static bool isShowingUrlDetailsMode = false;
-
+    static bool isUrlAddingMode = false;
     static bool isConcreteUrlChosen = false;
 
     static bool _isSceneMode = true;
     static bool _isPrefabMode => !_isSceneMode;
 
+    static int ChosenIndex => prefabs.FindIndex(p => p.Url.Equals(currentUrl)); // GetCurrentUrl()
+    static bool hasChosenPrefab => ChosenIndex >= 0;
+
+    static string currentUrl => GetCurrentUrl();
+
     public static string GetCurrentUrl() => newUrl.StartsWith("/") ? newUrl : "/" + newUrl;
-    public static string GetCurrentAssetPath() => newPath; // GetOpenedAssetPath()
+    public static string GetCurrentAssetPath() => GetOpenedAssetPath(); // newPath
 
     static string GetOpenedAssetPath()
     {
@@ -111,7 +111,7 @@ public partial class SimpleUI : EditorWindow
             return PrefabStageUtility.GetCurrentPrefabStage().assetPath;
         }
 
-        return SceneManager.GetActiveScene().path; // "RandomScene.unity";
+        return SceneManager.GetActiveScene().path;
     }
 
     [MenuItem("Window/SIMPLE UI")]
@@ -124,7 +124,6 @@ public partial class SimpleUI : EditorWindow
     }
 
 
-    public static IEnumerable<SimpleUISceneType> GetSubUrls(string url, bool recursive) => prefabs.Where(p => isSubRouteOf(p.Url, url, recursive));
 
     static SimpleUI()
     {
@@ -201,7 +200,7 @@ public partial class SimpleUI : EditorWindow
     }
 
 
-
+    #region Open Asset
     public static void OpenPrefabByAssetPath(string path)
     {
         AssetDatabase.OpenAsset(AssetDatabase.LoadMainAssetAtPath(path));
@@ -230,6 +229,7 @@ public partial class SimpleUI : EditorWindow
 
         OpenPrefabByAssetPath(p.AssetPath);
     }
+    #endregion
 
     void OnGUI()
     {
@@ -278,8 +278,11 @@ public partial class SimpleUI : EditorWindow
         GUILayout.Space(space);
     }
     #endregion
-    
+
     #region string utils
+    public static IEnumerable<SimpleUISceneType> GetSubUrls(string url, bool recursive) => prefabs.Where(p => isSubRouteOf(p.Url, url, recursive));
+
+
     /// <summary>
     /// if recursive == false
     /// function will return true ONLY for DIRECT subroutes
@@ -443,6 +446,21 @@ public partial class SimpleUI : EditorWindow
 
     void RenderAddingNewRoute()
     {
+        if (!isUrlAddingMode)
+        {
+            var path = GetCurrentAssetPath();
+
+            // pick values from asset path
+            newName = GetPrettyNameFromAssetPath(path);
+
+            if (!newUrl.EndsWith("/"))
+                newUrl += "/";
+
+            newUrl += newName;
+
+            isUrlAddingMode = true;
+        }
+
         Space();
 
         var assetType = _isPrefabMode ? "prefab" : "SCENE";
@@ -452,30 +470,28 @@ public partial class SimpleUI : EditorWindow
 
         newUrl = EditorGUILayout.TextField("Url", newUrl);
 
-        bool urlOK = newUrl.Length > 0;
+        var url = newUrl;
+
+        bool urlOK = url.StartsWith("/");
         bool newNameOK = newName.Length > 0;
-        bool pathOK = newPath.Length > 0;
 
         if (urlOK)
         {
-            newUrl = GetValidatedUrl(newUrl);
-
             newName = EditorGUILayout.TextField("Name", newName);
+        }
+        else
+        {
+            EditorGUILayout.HelpBox("Url needs to start with /", MessageType.Error);
         }
 
         if (urlOK && newNameOK)
-        {
-            newPath = EditorGUILayout.TextField("Asset Path", newPath);
-        }
-
-        if (urlOK && newNameOK && pathOK)
         {
             Space();
             if (GUILayout.Button("Add asset!")) //  <" + newName + ">
             {
                 Debug.Log("Added asset");
 
-                AddAsset(newUrl, newPath, newName);
+                AddAsset(url, assetPath, newName);
 
                 SaveData();
             }
