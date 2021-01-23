@@ -24,6 +24,23 @@ using UnityEngine.SceneManagement;
 // https://gist.github.com/bzgeb/3800350
 // GUID http://www.unity3d.ru/distribution/viewtopic.php?f=18&t=4640
 
+
+//string myString = "Hello World";
+//bool groupEnabled;
+//bool myBool = true;
+//float myFloat = 1.23f;
+// void RenderExample()
+// {
+// // myString = EditorGUILayout.TextField ("Text Field", myString);
+//         
+// // groupEnabled = EditorGUILayout.BeginToggleGroup ("Optional Settings", groupEnabled);
+// // myBool = EditorGUILayout.Toggle ("Toggle", myBool);
+// // myFloat = EditorGUILayout.Slider ("Slider", myFloat, -3, 3);
+// // EditorGUILayout.EndToggleGroup ();
+// }
+
+
+
 public enum SceneBlahType
 {
     Prefab,
@@ -65,55 +82,38 @@ public struct SimpleUISceneType
     }
 }
 
-//string myString = "Hello World";
-//bool groupEnabled;
-//bool myBool = true;
-//float myFloat = 1.23f;
-// void RenderExample()
-// {
-// // myString = EditorGUILayout.TextField ("Text Field", myString);
-//         
-// // groupEnabled = EditorGUILayout.BeginToggleGroup ("Optional Settings", groupEnabled);
-// // myBool = EditorGUILayout.Toggle ("Toggle", myBool);
-// // myFloat = EditorGUILayout.Slider ("Slider", myFloat, -3, 3);
-// // EditorGUILayout.EndToggleGroup ();
-// }
-
-
 public partial class SimpleUI : EditorWindow
 {
     private Vector2 recentPrefabsScrollPosition = Vector2.zero;
 
-    public static string newUrl = "";
-    public static string newName = "";
-    public static string newPath = "";
+    static int ChosenIndex => prefabs.FindIndex(p => p.Url.Equals(newUrl)); // GetCurrentUrl()
+    static bool hasChosenPrefab => ChosenIndex >= 0;
 
-    private static string draggedUrl = "";
-    private static string draggedName = "";
-    private static string draggedPath = "";
+    static bool isDraggedPrefabMode = false;
+    static bool isDraggedGameObjectMode = false;
+    static bool isUrlEditingMode = false;
+    static bool isPrefabChosenMode = false;
 
-    static string searchUrl = "";
-    static Vector2 searchScrollPosition = Vector2.zero;
-
-    private static int ChosenIndex => prefabs.FindIndex(p => p.Url.Equals(newUrl));
-    private static bool hasChosenPrefab => ChosenIndex >= 0;
-
-    private static bool isDraggedPrefabMode = false;
-    private static bool isDraggedGameObjectMode = false;
-    private static bool isUrlEditingMode = false;
-    private static bool isPrefabChosenMode = false;
-
-    bool isShowingUrlDetailsMode = false;
+    static bool isShowingUrlDetailsMode = false;
 
     static bool isConcreteUrlChosen = false;
 
-    bool _isSceneMode = true;
-    bool _isPrefabMode => !_isSceneMode;
+    static bool _isSceneMode = true;
+    static bool _isPrefabMode => !_isSceneMode;
 
+    public static string GetCurrentUrl() => newUrl.StartsWith("/") ? newUrl : "/" + newUrl;
+    public static string GetCurrentAssetPath() => newPath; // GetOpenedAssetPath()
 
-    private static GameObject PossiblePrefab;
-    private static string possiblePrefabName = "";
-    
+    static string GetOpenedAssetPath()
+    {
+        if (_isPrefabMode)
+        {
+            return PrefabStageUtility.GetCurrentPrefabStage().assetPath;
+        }
+
+        return SceneManager.GetActiveScene().path; // "RandomScene.unity";
+    }
+
     [MenuItem("Window/SIMPLE UI")]
     public static void ShowWindow()
     {
@@ -125,8 +125,7 @@ public partial class SimpleUI : EditorWindow
         // EditorWindow.CreateWindow<SimpleUI>();
     }
 
-    public static string GetCurrentUrl() => newUrl.StartsWith("/") ? newUrl : "/" + newUrl;
-    public static string GetCurrentAssetPath() => newPath;
+
     public static IEnumerable<SimpleUISceneType> GetSubUrls(string url, bool recursive) => prefabs.Where(p => isSubRouteOf(p.Url, url, recursive));
 
     static SimpleUI()
@@ -170,16 +169,6 @@ public partial class SimpleUI : EditorWindow
         TryToIncreaseCurrentPrefabCounter();
     }
 
-    string GetOpenedAssetPath()
-    {
-        if (_isPrefabMode)
-        {
-            return PrefabStageUtility.GetCurrentPrefabStage().assetPath;
-        }
-
-        return SceneManager.GetActiveScene().path; // "RandomScene.unity";
-    }
-
     void OnInspectorUpdate()
     {
         if (PrefabStageUtility.GetCurrentPrefabStage() == null)
@@ -194,8 +183,9 @@ public partial class SimpleUI : EditorWindow
         {
             _isSceneMode = false;
 
-            var path = PrefabStageUtility.GetCurrentPrefabStage().assetPath;
+            var path = GetCurrentAssetPath();
 
+            // on change
             if (!newPath.Equals(path) || newUrl.Length == 0)
             {
                 //Print("Prefab chosen: " + path);
@@ -255,8 +245,6 @@ public partial class SimpleUI : EditorWindow
         isConcreteUrlChosen = true;
 
         OpenPrefabByAssetPath(p.AssetPath);
-        //var asset = AssetDatabase.LoadMainAssetAtPath(p.AssetPath);
-        //AssetDatabase.OpenAsset(asset);
     }
 
     void OnGUI()
@@ -266,8 +254,6 @@ public partial class SimpleUI : EditorWindow
 
         RenderExistingTroubles();
 
-        //Label($"Url={newUrl}\nasset={newPath}\nname={newName}");
-
         if (!hasChosenPrefab)
             RenderPrefabs();
 
@@ -276,20 +262,7 @@ public partial class SimpleUI : EditorWindow
         else if (isDraggedPrefabMode)
             RenderAddingNewRouteFromDraggedPrefab();
         else if (hasChosenPrefab)
-        {
-            if (!isConcreteUrlChosen)
-            {
-                // pick concrete URL
-                RenderUrlsWhichAreAttachedToSamePrefab();
-            }
-            else
-            {
-                if (isUrlEditingMode)
-                    RenderEditingPrefabMode();
-                else
-                    RenderLinkToEditing();
-            }
-        }
+            RenderChosenPrefab();
         else
             RenderAddingNewRoute();
 
@@ -483,92 +456,6 @@ public partial class SimpleUI : EditorWindow
     }
     #endregion
 
-    void RenderEditingPrefabMode()
-    {
-        var index = ChosenIndex;
-        var pref = prefabs[index];
-
-        Label(pref.Url);
-
-        if (Button("Go back"))
-        {
-            isUrlEditingMode = false;
-        }
-
-        Space();
-        if (Button("Print OpenUrl info"))
-        {
-            PrintMatchInfo(WhatUsesComponent<OpenUrl>());
-        }
-
-        newUrl = pref.Url;
-        newPath = pref.AssetPath;
-        newName = pref.Name;
-
-        var prevUrl = newUrl;
-        var prevName = newName;
-        var prevPath = newPath;
-
-        RenderRootPrefab();
-
-        RenderSubroutes();
-
-        bool changedUrl = !newPath.Equals(prevPath);
-
-        if (changedUrl)
-            return;
-
-        Space();
-
-
-
-        Label("Edit url");
-        newUrl = EditorGUILayout.TextField("Url", newUrl);
-
-        if (newUrl.Length > 0)
-        {
-            newName = EditorGUILayout.TextField("Name", newName);
-
-            if (newName.Length > 0)
-            {
-                newPath = EditorGUILayout.TextField("Asset Path", newPath);
-            }
-        }
-
-        pref.Url = newUrl;
-        pref.Name = newName;
-        pref.AssetPath = newPath;
-
-        // if data changed, save it
-        if (!prevUrl.Equals(newUrl) || !prevPath.Equals(newPath) || !prevName.Equals(newName))
-        {
-            UpdatePrefab(pref);
-        }
-
-        Space();
-        Space();
-        if (pref.Usages > 0 && GUILayout.Button("Reset Counter"))
-        {
-            pref.Usages = 0;
-
-            UpdatePrefab(pref);
-        }
-
-        var maxUsages = prefabs.Max(p => p.Usages);
-        if (pref.Usages < maxUsages && GUILayout.Button("Prioritize"))
-        {
-            pref.Usages = maxUsages + 1;
-
-            UpdatePrefab(pref);
-        }
-        
-        Space(450);
-        if (GUILayout.Button("Remove URL"))
-        {
-            prefabs.RemoveAt(index);
-            SaveData();
-        }
-    }
 
     void RenderAddingNewRoute()
     {
@@ -614,34 +501,6 @@ public partial class SimpleUI : EditorWindow
 
 
     #region Render prefabs
-    void RenderLinkToEditing()
-    {
-        var index = ChosenIndex;
-        var pref = prefabs[index];
-
-        Label(pref.Url);
-
-        if (Button("Edit prefab"))
-        {
-            isUrlEditingMode = true;
-        }
-
-        Space();
-        RenderPrefabs();
-    }
-
-    void RenderUrlsWhichAreAttachedToSamePrefab()
-    {
-        var chosenPrefab = prefabs[ChosenIndex];
-        var samePrefabUrls = prefabs.Where(p => p.AssetPath.Equals(chosenPrefab.AssetPath));
-
-        Label("Prefab " + chosenPrefab.Name + " is attached to these urls");
-        Label("Choose proper one!");
-
-        Space();
-        RenderPrefabs(samePrefabUrls);
-    }
-
     void RenderRecentPrefabs()
     {
         var sortedByOpenings = prefabs.OrderByDescending(pp => pp.LastOpened);
@@ -822,10 +681,167 @@ public partial class SimpleUI : EditorWindow
     }
 }
 
+// editing route mode
+public partial class SimpleUI
+{
+    static string searchUrl = "";
+    static Vector2 searchScrollPosition = Vector2.zero;
+
+    public static string newUrl = "";
+    public static string newName = "";
+    public static string newPath = "";
+
+    void RenderChosenPrefab()
+    {
+        if (!isConcreteUrlChosen)
+        {
+            // pick concrete URL
+            RenderUrlsWhichAreAttachedToSamePrefab();
+        }
+        else
+        {
+            if (isUrlEditingMode)
+                RenderEditingPrefabMode();
+            else
+                RenderLinkToEditing();
+        }
+    }
+
+    void RenderUrlsWhichAreAttachedToSamePrefab()
+    {
+        var chosenPrefab = prefabs[ChosenIndex];
+        var samePrefabUrls = prefabs.Where(p => p.AssetPath.Equals(chosenPrefab.AssetPath));
+
+        Label("Prefab " + chosenPrefab.Name + " is attached to these urls");
+        Label("Choose proper one!");
+
+        Space();
+        RenderPrefabs(samePrefabUrls);
+    }
+
+    void RenderLinkToEditing()
+    {
+        var index = ChosenIndex;
+        var pref = prefabs[index];
+
+        Label(pref.Url);
+
+        if (Button("Edit prefab"))
+        {
+            isUrlEditingMode = true;
+        }
+
+        Space();
+        RenderPrefabs();
+    }
+
+    void RenderStatButtons(SimpleUISceneType pref)
+    {
+        Space();
+        Space();
+        if (pref.Usages > 0 && GUILayout.Button("Reset Counter"))
+        {
+            pref.Usages = 0;
+
+            UpdatePrefab(pref);
+        }
+
+        var maxUsages = prefabs.Max(p => p.Usages);
+        if (pref.Usages < maxUsages && GUILayout.Button("Prioritize"))
+        {
+            pref.Usages = maxUsages + 1;
+
+            UpdatePrefab(pref);
+        }
+    }
+
+    void RenderEditingPrefabMode()
+    {
+        var index = ChosenIndex;
+        var pref = prefabs[index];
+
+        Label(pref.Url);
+
+        if (Button("Go back"))
+        {
+            isUrlEditingMode = false;
+        }
+
+        Space();
+        if (Button("Print OpenUrl info"))
+        {
+            PrintMatchInfo(WhatUsesComponent<OpenUrl>());
+        }
+
+        newUrl = pref.Url;
+        newPath = pref.AssetPath;
+        newName = pref.Name;
+
+        var prevUrl = newUrl;
+        var prevName = newName;
+        var prevPath = newPath;
+
+        RenderRootPrefab();
+
+        RenderSubroutes();
+
+        bool changedUrl = !newPath.Equals(prevPath);
+
+        if (changedUrl)
+            return;
+
+        Space();
+
+
+
+        Label("Edit url");
+        newUrl = EditorGUILayout.TextField("Url", newUrl);
+
+        if (newUrl.Length > 0)
+        {
+            newName = EditorGUILayout.TextField("Name", newName);
+
+            if (newName.Length > 0)
+            {
+                newPath = EditorGUILayout.TextField("Asset Path", newPath);
+            }
+        }
+
+        pref.Url = newUrl;
+        pref.Name = newName;
+        pref.AssetPath = newPath;
+
+        // if data changed, save it
+        if (!prevUrl.Equals(newUrl) || !prevPath.Equals(newPath) || !prevName.Equals(newName))
+        {
+            UpdatePrefab(pref);
+        }
+
+        RenderStatButtons(pref);
+
+        Space(450);
+        if (GUILayout.Button("Remove URL"))
+        {
+            prefabs.RemoveAt(index);
+            SaveData();
+        }
+    }
+
+}
+
+// adding new routes
+public partial class SimpleUI
+{
+    private static GameObject PossiblePrefab;
+    private static string possiblePrefabName = "";
+}
+
 // dragging prefabs
 public partial class SimpleUI
 {
-    #region dragging prefabs
+    private static string draggedUrl = "";
+    private static string draggedName = "";
+    private static string draggedPath = "";
 
     void HandleDragAndDrop()
     {
@@ -1042,8 +1058,6 @@ public partial class SimpleUI
 
         PossiblePrefab = go;
     }
-
-    #endregion
 }
 
 
