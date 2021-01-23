@@ -87,6 +87,11 @@ public class SimpleUIEventHandler : MonoBehaviour
             sameUrlCounter = 0;
         }
 
+        if (!SimpleUI.prefabs.Any(p => p.Url.Equals(NextUrl)))
+        {
+            SimpleUI.AddMissingUrl(NextUrl, "XXX");
+        }
+
         RenderUrls(NextUrl);
         
         CurrentUrl = NextUrl;

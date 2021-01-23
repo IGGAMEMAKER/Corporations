@@ -29,6 +29,12 @@ public enum SceneBlahType
     Scene
 }
 
+public struct UrlOpeningAttempt
+{
+    public string ScriptName;
+    public string FunctionName;
+}
+
 public struct SimpleUISceneType
 {
     public string Url;
@@ -231,8 +237,6 @@ public partial class SimpleUI : EditorWindow
         recentPrefabsScrollPosition = GUILayout.BeginScrollView(recentPrefabsScrollPosition);
         GUILayout.Label("SIMPLE UI", EditorStyles.largeLabel);
 
-        //LoadData();
-
         //Label($"Url={newUrl}\nasset={newPath}\nname={newName}");
 
         if (!hasChosenPrefab)
@@ -384,6 +388,31 @@ public partial class SimpleUI : EditorWindow
         }
     }
 
+    public static void AddMissingUrl(string url, string scriptName)
+    {
+        if (!UrlOpeningAttempts.ContainsKey(url))
+            UrlOpeningAttempts[url] = new List<UrlOpeningAttempt>();
+
+        UrlOpeningAttempts[url].Add(new UrlOpeningAttempt { FunctionName = "", ScriptName = scriptName });
+
+        SaveData();
+    }
+
+    void RenderMissingUrls()
+    {
+        if (UrlOpeningAttempts.Any())
+            Label("Failed to open these URLs from code");
+
+        Space();
+        foreach (var missing in UrlOpeningAttempts)
+        {
+            var scripts = string.Join("\n", missing.Value.Select(m => m.FunctionName));
+
+            EditorGUILayout.HelpBox($"Tried to open url <b>{missing.Key}</b> from, but failed", MessageType.Error, true);
+            EditorGUILayout.HelpBox($"Did that from {scripts}", MessageType.Warning);
+        }
+    }
+
     void RenderMissingAssets()
     {
         if (GUILayout.Button("Find missing assets"))
@@ -391,16 +420,24 @@ public partial class SimpleUI : EditorWindow
             FindMissingAssets();
         }
 
-        Space();
-        var missingUrls = prefabs.FindAll(p => !p.Exists);
+        RenderMissingUrls();
 
-        if (missingUrls.Any())
+        Space();
+        var missingAssets = prefabs.FindAll(p => !p.Exists);
+
+        if (missingAssets.Any())
             Label("These urls are missing assets");
 
-        foreach (var missing in missingUrls)
+        foreach (var missing in missingAssets)
         {
             EditorGUILayout.HelpBox($"Url {missing.Url} is missing an asset {missing.AssetPath}", MessageType.Error, true);
-            //if (GUILayout.Button(""))
+            EditorGUILayout.HelpBox($"You can fix the link to the asset or move the asset to path {missing.AssetPath}", MessageType.Info, true);
+
+            if (GUILayout.Button("Fix the issue"))
+            {
+                isUrlEditingMode = true;
+                OpenPrefab(missing);
+            }
         }
     }
 
@@ -949,6 +986,8 @@ public partial class SimpleUI
 public partial class SimpleUI
 {
     static List<SimpleUISceneType> _prefabs;
+    static Dictionary<string, List<UrlOpeningAttempt>> UrlOpeningAttempts;
+
     public static List<SimpleUISceneType> prefabs
     {
         get
@@ -966,6 +1005,7 @@ public partial class SimpleUI
     static void SaveData()
     {
         var fileName = "SimpleUI/SimpleUI.txt";
+        var missingUrls = "SimpleUI/SimpleUI-MissingUrls.txt";
 
         Newtonsoft.Json.JsonSerializer serializer = new Newtonsoft.Json.JsonSerializer();
         serializer.Converters.Add(new Newtonsoft.Json.Converters.JavaScriptDateTimeConverter());
@@ -981,9 +1021,17 @@ public partial class SimpleUI
         {
             if (entityData.Count > 0)
             {
-                //Debug.Log("Serializing data " + entityData.Count);
                 serializer.Serialize(writer, entityData);
-                //Debug.Log("Serialized " + entityData.Count);
+            }
+        }
+
+        var data = missingUrls;
+        using (StreamWriter sw = new StreamWriter(missingUrls))
+        using (Newtonsoft.Json.JsonWriter writer = new Newtonsoft.Json.JsonTextWriter(sw))
+        {
+            if (missingUrls.Count() > 0)
+            {
+                serializer.Serialize(writer, missingUrls);
             }
         }
     }
@@ -994,16 +1042,19 @@ public partial class SimpleUI
         //    return;
 
         var fileName = "SimpleUI/SimpleUI.txt";
+        var missingUrls = "SimpleUI/SimpleUI-MissingUrls.txt";
 
-        List<SimpleUISceneType> obj = Newtonsoft.Json.JsonConvert.DeserializeObject<List<SimpleUISceneType>>(
-            File.ReadAllText(fileName), new Newtonsoft.Json.JsonSerializerSettings
-            {
-                TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto,
-                NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
-            });
+        var settings = new Newtonsoft.Json.JsonSerializerSettings
+        {
+            TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto,
+            NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+        };
+
+        var obj = Newtonsoft.Json.JsonConvert.DeserializeObject<List<SimpleUISceneType>>(File.ReadAllText(fileName), settings);
+        var obj2 = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, List<UrlOpeningAttempt>>>(File.ReadAllText(missingUrls), settings);
 
         _prefabs = obj ?? new List<SimpleUISceneType>();
-        //prefabs = obj ?? new List<SimpleUISceneType>();
+        UrlOpeningAttempts = obj2 ?? new Dictionary<string, List<UrlOpeningAttempt>>();
     }
 
     static void UpdatePrefab(SimpleUISceneType prefab) => UpdatePrefab(prefab, ChosenIndex);
