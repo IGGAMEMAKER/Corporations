@@ -13,9 +13,15 @@ public class FlagshipRelayInCompanyView : View
 
     public void ChooseMainScreen()
     {
+        OpenUrl("/Holding/Main2");
         OpenUrl("/Holding/Main");
     }
-    
+
+    public void ChooseTaskTab(int teamId, int slotId)
+    {
+        OpenUrl("/Holding/TaskTab");
+    }
+
     public void RemoveTask()
     {
         Teams.RemoveTeamTask(Flagship, Q, ChosenTeamId, ChosenSlotId);
@@ -44,10 +50,5 @@ public class FlagshipRelayInCompanyView : View
         {
             SoundManager.Play(Sound.ServerTask);
         }
-    }
-
-    public void ChooseTaskTab(int teamId, int slotId)
-    {
-        OpenUrl("/Holding/TaskTab");
     }
 }
