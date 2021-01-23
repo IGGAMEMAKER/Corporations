@@ -133,10 +133,24 @@ public partial class SimpleUI : EditorWindow
     {
         PrefabStage.prefabStageOpened += PrefabStage_prefabOpened;
         PrefabStage.prefabStageClosing += PrefabStage_prefabClosed;
+
+        SceneManager.sceneLoaded += SceneEvent_sceneOpened;
+        SceneManager.sceneUnloaded += SceneEvent_sceneClosed;
+    }
+
+    private static void SceneEvent_sceneClosed(Scene arg0)
+    {
+        Debug.Log("Scene unloaded");
+    }
+
+    private static void SceneEvent_sceneOpened(Scene arg0, LoadSceneMode arg1)
+    {
+        Debug.Log("Scene loaded");
     }
 
     private static void PrefabStage_prefabClosed(PrefabStage obj)
     {
+        Debug.Log("prefab closed");
         DestroyImmediate(obj.prefabContentsRoot.GetComponent<DisplayConnectedUrls>());
     }
 
@@ -173,7 +187,7 @@ public partial class SimpleUI : EditorWindow
             if (_isPrefabMode)
             {
                 _isSceneMode = true;
-                //Debug.Log("Scene is opened");
+                Debug.Log("Scene is opened");
             }
         }
         else
@@ -390,6 +404,8 @@ public partial class SimpleUI : EditorWindow
     }
     #endregion
 
+
+    #region Troubleshooting
     public static void FindMissingAssets()
     {
         var prefs = prefabs;
@@ -463,6 +479,7 @@ public partial class SimpleUI : EditorWindow
             }
         }
     }
+    #endregion
 
     void RenderEditingPrefab()
     {
@@ -1038,7 +1055,7 @@ public partial class SimpleUI
     static void SaveData()
     {
         var fileName = "SimpleUI/SimpleUI.txt";
-        var missingUrls = "SimpleUI/SimpleUI-MissingUrls.txt";
+        var fileName2 = "SimpleUI/SimpleUI-MissingUrls.txt";
 
         Newtonsoft.Json.JsonSerializer serializer = new Newtonsoft.Json.JsonSerializer();
         serializer.Converters.Add(new Newtonsoft.Json.Converters.JavaScriptDateTimeConverter());
@@ -1058,13 +1075,14 @@ public partial class SimpleUI
             }
         }
 
-        var data = missingUrls;
-        using (StreamWriter sw = new StreamWriter(missingUrls))
+        var data = UrlOpeningAttempts;
+
+        using (StreamWriter sw = new StreamWriter(fileName2))
         using (Newtonsoft.Json.JsonWriter writer = new Newtonsoft.Json.JsonTextWriter(sw))
         {
-            if (missingUrls.Count() > 0)
+            if (data.Count() > 0)
             {
-                serializer.Serialize(writer, missingUrls);
+                serializer.Serialize(writer, data);
             }
         }
     }
