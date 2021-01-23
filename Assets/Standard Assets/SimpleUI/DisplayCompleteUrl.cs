@@ -23,7 +23,7 @@ public class DisplayCompleteUrl : MonoBehaviour
 
         if (SimpleUIEventHandler != null)
         {
-            SimpleUIEventHandler.OpenUrl(url);
+            SimpleUIEventHandler.OpenUrl(url, GetType().ToString());
             SimpleUIEventHandler.HidePrefab(url);
         }
     }

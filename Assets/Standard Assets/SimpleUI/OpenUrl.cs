@@ -37,7 +37,7 @@ public class OpenUrl : MonoBehaviour
         else
             newUrl = "/" + Url;
         
-        SimpleUI.OpenUrl(newUrl);
+        SimpleUI.OpenUrl(newUrl, "OpenUrl.cs");
     }
 
     private void OnDrawGizmos()

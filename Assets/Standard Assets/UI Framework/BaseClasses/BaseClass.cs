@@ -2,6 +2,7 @@
 using Assets.Core;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -74,27 +75,8 @@ public partial class BaseClass : MonoBehaviour
 
     public void OpenUrl(string url)
     {
-        SimpleUI.OpenUrl(url);
-        return;
-        SimpleUIEventHandler eventHandler = FindObjectOfType<SimpleUIEventHandler>();
-
-        if (eventHandler == null)
-        {
-            Debug.LogError("SimpleUIEventHandler NOT FOUND");
-        }
-        else
-        {
-            var queryIndex = url.IndexOf('?');
-            var query = "";
-
-            if (queryIndex >= 0)
-            {
-                query = url.Substring(queryIndex);
-                url = url.Substring(0, queryIndex);
-            }
-
-            eventHandler.OpenUrl(url);
-        }
+        StackTrace trace = new StackTrace();
+        SimpleUI.OpenUrl(url, trace.GetFrames()[0].GetFileName());
     }
 
     public void OpenModal(string ModalTag, bool closeOthers = true)
@@ -127,7 +109,7 @@ public partial class BaseClass : MonoBehaviour
 
         if (m == null)
         {
-            Debug.LogError("Modal " + ModalTag + " not found!");
+            UnityEngine.Debug.LogError("Modal " + ModalTag + " not found!");
 
             return null;
         }

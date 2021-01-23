@@ -61,7 +61,7 @@ public class SimpleUIEventHandler : MonoBehaviour
         // RenderPrefab(url);
     }
 
-    public void OpenUrl(string NextUrl)
+    public void OpenUrl(string NextUrl, string scriptName)
     {
         counter++;
 
@@ -87,9 +87,9 @@ public class SimpleUIEventHandler : MonoBehaviour
             sameUrlCounter = 0;
         }
 
-        if (!SimpleUI.prefabs.Any(p => p.Url.Equals(NextUrl)))
+        if (!SimpleUI.IsUrlExist(NextUrl))
         {
-            SimpleUI.AddMissingUrl(NextUrl, "XXX");
+            SimpleUI.AddMissingUrl(NextUrl, scriptName, "");
         }
 
         RenderUrls(NextUrl);

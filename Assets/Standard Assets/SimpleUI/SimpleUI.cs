@@ -388,7 +388,7 @@ public partial class SimpleUI : EditorWindow
         }
     }
 
-    public static void AddMissingUrl(string url, string scriptName)
+    public static void AddMissingUrl(string url, string scriptName, string FunctionName)
     {
         if (!UrlOpeningAttempts.ContainsKey(url))
             UrlOpeningAttempts[url] = new List<UrlOpeningAttempt>();
@@ -751,7 +751,12 @@ public partial class SimpleUI : EditorWindow
         Debug.Log(text);
     }
 
-    public static void OpenUrl(string url)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="url"></param>
+    /// <param name="obj">Optional. Type "this" if you want to get notified, if this part of the code will call missing URL</param>
+    public static void OpenUrl(string url, string scriptName)
     {
         SimpleUIEventHandler eventHandler = FindObjectOfType<SimpleUIEventHandler>();
 
@@ -770,7 +775,7 @@ public partial class SimpleUI : EditorWindow
                 url = url.Substring(0, queryIndex);
             }
 
-            eventHandler.OpenUrl(url);
+            eventHandler.OpenUrl(url, scriptName);
         }
     }
 }
@@ -999,6 +1004,11 @@ public partial class SimpleUI
 
             return _prefabs;
         }
+    }
+
+    public static bool IsUrlExist(string url)
+    {
+        return prefabs.Any(p => p.Url.Equals(url));
     }
     // = new List<NewSceneTypeBlah>();
 
