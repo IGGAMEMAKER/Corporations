@@ -52,7 +52,7 @@ public struct SimpleUISceneType
     {
         SceneBlahType = SceneBlahType.Prefab;
 
-        if (assetPath.EndsWith(".scene") || assetPath.EndsWith(".unity"))
+        if (SimpleUI.isSceneAsset(assetPath))
             SceneBlahType = SceneBlahType.Scene;
 
         Url = url;
@@ -204,6 +204,8 @@ public partial class SimpleUI : EditorWindow
                 ChooseUrlFromPickedPrefab();
             }
         }
+
+        //Debug.Log("GetOpenedAssetPath: " + GetOpenedAssetPath());
     }
 
     static void ChooseUrlFromPickedPrefab()
@@ -283,7 +285,7 @@ public partial class SimpleUI : EditorWindow
             else
             {
                 if (isUrlEditingMode)
-                    RenderEditingPrefab();
+                    RenderEditingPrefabMode();
                 else
                     RenderLinkToEditing();
             }
@@ -365,7 +367,7 @@ public partial class SimpleUI : EditorWindow
         var x = path.Split('/').Last();
         var ind = x.LastIndexOf(".prefab");
 
-        if (ind == -1)
+        if (isSceneAsset(x))
         {
             ind = x.LastIndexOf(".unity");
         }
@@ -481,7 +483,7 @@ public partial class SimpleUI : EditorWindow
     }
     #endregion
 
-    void RenderEditingPrefab()
+    void RenderEditingPrefabMode()
     {
         var index = ChosenIndex;
         var pref = prefabs[index];
@@ -865,7 +867,16 @@ public partial class SimpleUI
                 Debug.Log("File");
                 foreach (string path in DragAndDrop.paths)
                 {
-                    Debug.Log("- " + path);
+                    if (isSceneAsset(path))
+                    {
+                        Debug.Log("- Dragging Scene! " + path);
+
+                        HandleDraggedScene(path);
+                    }
+                    else
+                    {
+                        Debug.Log("- " + path);
+                    }
                 }
             }
             // Unity Assets including folder.
@@ -991,6 +1002,9 @@ public partial class SimpleUI
         }
     }
 
+    public static bool isSceneAsset(string path) => path.EndsWith(".unity");
+    public static bool isPrefabAsset(string path) => path.EndsWith(".prefab");
+
     void HandleDraggedPrefab(GameObject go)
     {
         isDraggedPrefabMode = true;
@@ -1009,6 +1023,13 @@ public partial class SimpleUI
         draggedUrl = newUrl.TrimEnd('/') + "/" + draggedName.TrimStart('/');
     }
 
+    void HandleDraggedScene(string path)
+    {
+        draggedName = GetPrettyNameFromAssetPath(path);
+        draggedPath = path;
+        draggedUrl = newUrl.TrimEnd('/') + "/" + draggedName.TrimStart('/');
+    }
+
     void HandleDraggedGameObject(GameObject go)
     {
         isDraggedGameObjectMode = true;
@@ -1017,8 +1038,7 @@ public partial class SimpleUI
 
         draggedName = go.name;
         draggedPath = "";
-        // draggedUrl = newUrl + "/" + draggedName;
-        draggedUrl = newUrl.TrimEnd('/') + "/" + draggedName.TrimStart('/');
+        draggedUrl = newUrl.TrimEnd('/') + "/" + draggedName.TrimStart('/'); // draggedUrl = newUrl + "/" + draggedName;
 
         PossiblePrefab = go;
     }
