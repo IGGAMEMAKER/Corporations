@@ -63,15 +63,10 @@ public struct SimpleUISceneType
     public long Usages;
     public long LastOpened;
 
-    public SceneBlahType SceneBlahType;
+    public SceneBlahType AssetType => SimpleUI.isPrefabAsset(AssetPath) ? SceneBlahType.Prefab : SceneBlahType.Scene;
 
     public SimpleUISceneType(string url, string assetPath, string name = "")
     {
-        SceneBlahType = SceneBlahType.Prefab;
-
-        if (SimpleUI.isSceneAsset(assetPath))
-            SceneBlahType = SceneBlahType.Scene;
-
         Url = url;
         AssetPath = assetPath;
         Name = name.Length > 0 ? name : url;
@@ -93,20 +88,21 @@ public partial class SimpleUI : EditorWindow
     static bool isUrlAddingMode = false;
     static bool isConcreteUrlChosen = false;
 
-    static bool _isSceneMode = true;
-    static bool _isPrefabMode => !_isSceneMode;
+    static bool wasOpenedFromProject = false;
 
-    static int ChosenIndex => prefabs.FindIndex(p => p.Url.Equals(currentUrl)); // GetCurrentUrl()
+    //static bool _isSceneMode = true;
+
+    static bool isPrefabMode => PrefabStageUtility.GetCurrentPrefabStage() != null;
+
+    static int ChosenIndex => prefabs.FindIndex(p => p.Url.Equals(GetCurrentUrl())); // GetCurrentUrl()
     static bool hasChosenPrefab => ChosenIndex >= 0;
-
-    static string currentUrl => GetCurrentUrl();
 
     public static string GetCurrentUrl() => newUrl.StartsWith("/") ? newUrl : "/" + newUrl;
     public static string GetCurrentAssetPath() => GetOpenedAssetPath(); // newPath
 
     static string GetOpenedAssetPath()
     {
-        if (_isPrefabMode)
+        if (isPrefabMode)
         {
             return PrefabStageUtility.GetCurrentPrefabStage().assetPath;
         }
@@ -123,12 +119,54 @@ public partial class SimpleUI : EditorWindow
         // w.minSize = new Vector2(200, 100);
     }
 
-
-
     static SimpleUI()
     {
         PrefabStage.prefabStageOpened += PrefabStage_prefabOpened;
         PrefabStage.prefabStageClosing += PrefabStage_prefabClosed;
+
+        SceneManager.sceneLoaded += SceneManager_sceneLoaded;
+        SceneManager.sceneUnloaded += SceneManager_sceneUnloaded;
+        SceneManager.activeSceneChanged += SceneManager_sceneChanged;
+    }
+
+    private static void SceneManager_sceneChanged(Scene arg0, Scene arg1)
+    {
+        Debug.Log($"Scene changed from {arg0.name} to {arg1.name}");
+
+        //SceneManager_sceneUnloaded(arg0);
+        //SceneManager_sceneLoaded(arg0, LoadSceneMode.Additive);
+    }
+
+    private static void SceneManager_sceneUnloaded(Scene arg0)
+    {
+        Debug.Log("Scene unloaded");
+
+        DestroyImmediate(FindObjectOfType<DisplayConnectedUrls>());
+    }
+
+    static GameObject WrapSceneWithMenu()
+    {
+        if (FindObjectOfType<DisplayConnectedUrls>() != null)
+            return null;
+
+        if (!prefabs.Any(p => p.AssetPath.Equals(GetCurrentAssetPath())))
+        {
+            // this scene was not attached to any url
+            return null;
+        }
+
+        var go = new GameObject("SimpleUI Menu", typeof(DisplayConnectedUrls));
+        go.transform.SetAsFirstSibling();
+
+        return go;
+    }
+
+    private static void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
+    {
+        Debug.Log("Scene loaded");
+
+        var go = WrapSceneWithMenu();
+        Selection.activeGameObject = go;
     }
 
     private static void PrefabStage_prefabClosed(PrefabStage obj)
@@ -141,6 +179,7 @@ public partial class SimpleUI : EditorWindow
     {
         Debug.Log("Prefab opened: " + obj.prefabContentsRoot.name);
 
+        // Wrap with SimpleUI menues
         obj.prefabContentsRoot.AddComponent<DisplayConnectedUrls>();
         Selection.activeGameObject = obj.prefabContentsRoot;
 
@@ -155,36 +194,89 @@ public partial class SimpleUI : EditorWindow
 
     void OnInspectorUpdate()
     {
-        if (PrefabStageUtility.GetCurrentPrefabStage() == null)
+        var url = newUrl;
+        var path = GetOpenedAssetPath();
+        ChooseUrlFromPickedPrefab();
+
+        // no matching urls
+        if (newUrl.Equals(""))
+            SetAddingRouteMode();
+
+        bool objectChanged = !newPath.Equals(path); // || !newUrl.Equals(url);
+
+        if (objectChanged)
         {
-            if (_isPrefabMode)
-            {
-                _isSceneMode = true;
-                Debug.Log("Scene is opened");
-            }
+            Debug.Log("Object changed");
+            newPath = path;
+
+            TryToIncreaseCurrentPrefabCounter();
         }
-        else
+
+        if (!isPrefabMode)
         {
-            _isSceneMode = false;
-
-            var path = GetCurrentAssetPath();
-
-            // on change
-            if (!newPath.Equals(path) || newUrl.Length == 0)
-            {
-                //Print("Prefab chosen: " + path);
-                newPath = path;
-
-                ChooseUrlFromPickedPrefab();
-            }
+            WrapSceneWithMenu();
         }
+        //if (isPrefabMode)
+        //{
+        //    ////_isSceneMode = false;
+
+        //    ////var path = GetOpenedAssetPath();
+
+        //    //// on change
+        //    //if (!newPath.Equals(path) || newUrl.Equals(""))
+        //    //{
+        //    //    //Print("Prefab chosen: " + path);
+        //    //    newPath = path;
+
+        //    //    ChooseUrlFromPickedPrefab();
+        //    //}
+        //}
+        //else
+        //{
+        //    //_isSceneMode = true;
+        //    newPath = GetOpenedAssetPath();
+
+        //    ChooseUrlFromPickedPrefab();
+
+
+        //}
+
+        return;
+        //if (PrefabStageUtility.GetCurrentPrefabStage() == null)
+        //{
+        //    if (!_isSceneMode)
+        //    {
+        //        //OnSceneOpened();
+        //    }
+        //}
+        //else
+        //{
+        //    _isSceneMode = false;
+
+        //    var path = GetOpenedAssetPath();
+
+        //    // on change
+        //    if (!newPath.Equals(path) || newUrl.Length == 0)
+        //    {
+        //        //Print("Prefab chosen: " + path);
+        //        newPath = path;
+
+        //        ChooseUrlFromPickedPrefab();
+        //    }
+        //}
 
         //Debug.Log("GetOpenedAssetPath: " + GetOpenedAssetPath());
     }
 
     static void ChooseUrlFromPickedPrefab()
     {
-        var urls = prefabs.Where(p => p.AssetPath.Equals(newPath));
+        var path = GetOpenedAssetPath();
+        var urls = prefabs.Where(p => p.AssetPath.Equals(path));
+
+        if (urls.Count() == 0)
+        {
+            newUrl = "";
+        }
 
         if (urls.Count() == 1)
         {
@@ -405,6 +497,16 @@ public partial class SimpleUI : EditorWindow
             EditorGUILayout.HelpBox($"Tried to open url <b>{missing.Key}</b> from, but failed", MessageType.Error, true);
             EditorGUILayout.HelpBox($"Did that from {scripts}", MessageType.Warning);
         }
+
+        if (UrlOpeningAttempts.Any())
+        {
+            Space();
+            if (Button("Dismiss warnings"))
+            {
+                UrlOpeningAttempts.Clear();
+                SaveData();
+            }
+        }
     }
 
     void RenderExistingTroubles()
@@ -443,27 +545,31 @@ public partial class SimpleUI : EditorWindow
     }
     #endregion
 
+    static void SetAddingRouteMode()
+    {
+        var path = GetOpenedAssetPath();
+
+        // pick values from asset path
+        newName = GetPrettyNameFromAssetPath(path);
+
+        if (!newUrl.EndsWith("/"))
+            newUrl += "/";
+
+        newUrl += newName;
+
+        isUrlAddingMode = true;
+    }
 
     void RenderAddingNewRoute()
     {
         if (!isUrlAddingMode)
         {
-            var path = GetCurrentAssetPath();
-
-            // pick values from asset path
-            newName = GetPrettyNameFromAssetPath(path);
-
-            if (!newUrl.EndsWith("/"))
-                newUrl += "/";
-
-            newUrl += newName;
-
-            isUrlAddingMode = true;
+            SetAddingRouteMode();
         }
 
         Space();
 
-        var assetType = _isPrefabMode ? "prefab" : "SCENE";
+        var assetType = isPrefabMode ? "prefab" : "SCENE";
 
         var assetPath = GetCurrentAssetPath();
         GUILayout.Label($"Add current asset ({assetType})", EditorStyles.boldLabel);

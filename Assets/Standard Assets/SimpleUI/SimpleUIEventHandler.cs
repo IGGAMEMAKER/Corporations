@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SimpleUIEventHandler : MonoBehaviour
 {
@@ -99,13 +101,53 @@ public class SimpleUIEventHandler : MonoBehaviour
 
     void DrawPrefab(string url, bool show)
     {
+        var asset = SimpleUI.prefabs.Find(p => p.Url.Equals(url));
+
         try
         {
-            var p = GetPrefab(url);
-
-            if (p != null)
+            if (asset.AssetType == SceneBlahType.Prefab)
             {
-                if (p.activeSelf != show) p.SetActive(show);
+                // prefabs
+                var p = GetPrefab(url);
+
+                if (p != null)
+                {
+                    if (p.activeSelf != show) p.SetActive(show);
+                }
+            }
+            else
+            {
+                // scenes
+                if (asset.AssetType == SceneBlahType.Scene)
+                {
+                    Debug.Log("DRAW SCENE " + asset.AssetPath);
+
+                    //var asset2 = AssetDatabase.LoadMainAssetAtPath(asset.AssetPath);
+                    var scene = SceneManager.GetSceneByPath(asset.AssetPath);
+
+                    var sceneName = scene.name;
+                    var buildIndex = scene.buildIndex;
+
+                    if (show)
+                    {
+                        if (!scene.isLoaded)
+                        {
+                            EditorSceneManager.LoadScene(buildIndex, LoadSceneMode.Additive);
+                            SceneManager.LoadScene(buildIndex, LoadSceneMode.Additive);
+
+                            EditorSceneManager.SetActiveScene(scene);
+                        }
+                    }
+                    else
+                    {
+                        if (scene.isLoaded)
+                        {
+                            EditorSceneManager.UnloadScene(buildIndex);
+                            SceneManager.UnloadScene(buildIndex);
+                            //SceneManager.LoadScene(buildIndex, LoadSceneMode.Additive);
+                        }
+                    }
+                }
             }
         }
         catch (Exception e)
@@ -153,7 +195,7 @@ public class SimpleUIEventHandler : MonoBehaviour
         return urls;
     }
 
-
+    // get asset
     GameObject GetPrefab(string url)
     {
         if (url.Length == 0)
@@ -169,7 +211,9 @@ public class SimpleUIEventHandler : MonoBehaviour
                 return null;
             }
 
-            var path = matching.First().AssetPath;
+            var asset = matching.First();
+
+            var path = asset.AssetPath;
 
             var obj = AssetDatabase.LoadAssetAtPath<GameObject>(path);
             if (obj == null)
@@ -177,8 +221,6 @@ public class SimpleUIEventHandler : MonoBehaviour
                 Debug.LogError("Prefab in route " + path + " not found");
                 return null;
             }
-
-            // Objects[url] = AssetDatabase.GetMainAssetTypeAtPath(pre.AssetPath));
 
             Objects[url] = Instantiate(obj, transform);
         }
