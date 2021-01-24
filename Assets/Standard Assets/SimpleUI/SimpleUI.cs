@@ -124,32 +124,63 @@ public partial class SimpleUI : EditorWindow
         PrefabStage.prefabStageOpened += PrefabStage_prefabOpened;
         PrefabStage.prefabStageClosing += PrefabStage_prefabClosed;
 
-        SceneManager.sceneLoaded += SceneManager_sceneLoaded;
-        SceneManager.sceneUnloaded += SceneManager_sceneUnloaded;
-        SceneManager.activeSceneChanged += SceneManager_sceneChanged;
+        EditorSceneManager.activeSceneChangedInEditMode += EditorSceneManager_activeSceneChangedInEditMode;
+        EditorSceneManager.sceneOpened += EditorSceneManager_sceneOpened;
+        //EditorSceneManager.sceneLoaded += EditorSceneManager_sceneLoaded;
+
+        //SceneManager.sceneLoaded += SceneManager_sceneLoaded;
+        //SceneManager.sceneUnloaded += SceneManager_sceneUnloaded;
+        //SceneManager.activeSceneChanged += SceneManager_sceneChanged;
     }
 
-    private static void SceneManager_sceneChanged(Scene arg0, Scene arg1)
+    //private static void EditorSceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
+    //{
+    //    Debug.Log("Editor scene LOADED");
+    //}
+
+    private static void EditorSceneManager_sceneOpened(Scene scene, OpenSceneMode mode)
     {
-        Debug.Log($"Scene changed from {arg0.name} to {arg1.name}");
-
-        //SceneManager_sceneUnloaded(arg0);
-        //SceneManager_sceneLoaded(arg0, LoadSceneMode.Additive);
+        Debug.Log("Editor scene OPENED " + scene.name);
+        //scene.GetRootGameObjects().First();
     }
 
-    private static void SceneManager_sceneUnloaded(Scene arg0)
+    private static void EditorSceneManager_activeSceneChangedInEditMode(Scene arg0, Scene arg1)
     {
-        Debug.Log("Scene unloaded");
+        Debug.Log($"Editor scene CHANGED from {arg0.name} to {arg1.name}");
 
-        DestroyImmediate(FindObjectOfType<DisplayConnectedUrls>());
+        var obj = WrapSceneWithMenu();
+        Selection.activeGameObject = obj;
     }
+
+    //private static void SceneManager_sceneChanged(Scene arg0, Scene arg1)
+    //{
+    //    Debug.Log($"Scene changed from {arg0.name} to {arg1.name}");
+
+    //    //SceneManager_sceneUnloaded(arg0);
+    //    //SceneManager_sceneLoaded(arg0, LoadSceneMode.Additive);
+    //}
+
+    //private static void SceneManager_sceneUnloaded(Scene arg0)
+    //{
+    //    Debug.Log("Scene unloaded");
+
+    //    DestroyImmediate(FindObjectOfType<DisplayConnectedUrls>());
+    //}
+
+    //private static void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
+    //{
+    //    Debug.Log("Scene loaded");
+
+    //    var go = WrapSceneWithMenu();
+    //    Selection.activeGameObject = go;
+    //}
 
     static GameObject WrapSceneWithMenu()
     {
         if (FindObjectOfType<DisplayConnectedUrls>() != null)
             return null;
 
-        if (!prefabs.Any(p => p.AssetPath.Equals(GetCurrentAssetPath())))
+        if (!IsAssetPathExists(GetCurrentAssetPath()))
         {
             // this scene was not attached to any url
             return null;
@@ -159,14 +190,6 @@ public partial class SimpleUI : EditorWindow
         go.transform.SetAsFirstSibling();
 
         return go;
-    }
-
-    private static void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
-    {
-        Debug.Log("Scene loaded");
-
-        var go = WrapSceneWithMenu();
-        Selection.activeGameObject = go;
     }
 
     private static void PrefabStage_prefabClosed(PrefabStage obj)
@@ -1186,6 +1209,10 @@ public partial class SimpleUI
         }
     }
 
+    public static bool IsAssetPathExists(string path)
+    {
+        return prefabs.Any(p => p.AssetPath.Equals(path));
+    }
     public static bool IsUrlExist(string url)
     {
         return prefabs.Any(p => p.Url.Equals(url));

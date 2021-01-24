@@ -120,7 +120,7 @@ public class SimpleUIEventHandler : MonoBehaviour
                 // scenes
                 if (asset.AssetType == SceneBlahType.Scene)
                 {
-                    Debug.Log("DRAW SCENE " + asset.AssetPath);
+                    //Debug.Log("DRAW SCENE " + asset.AssetPath);
 
                     //var asset2 = AssetDatabase.LoadMainAssetAtPath(asset.AssetPath);
                     var scene = SceneManager.GetSceneByPath(asset.AssetPath);
