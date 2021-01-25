@@ -116,7 +116,7 @@ public class DisplayConnectedUrlsEditor : Editor
         var matches = matches1.Where(m => m.PrefabAssetPath.Equals(SimpleUI.GetCurrentAssetPath())).ToList();
 
         if (matches.Any())
-            Label("References FROM url");
+            Label("Navigate to...");
 
         scrollPosition3 = GUILayout.BeginScrollView(scrollPosition3);
 
