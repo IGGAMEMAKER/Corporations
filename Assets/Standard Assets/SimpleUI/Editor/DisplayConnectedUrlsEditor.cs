@@ -44,7 +44,7 @@ public class DisplayConnectedUrlsEditor : Editor
             return;
 
         matches1 = SimpleUI.WhatUsesComponent<OpenUrl>();
-        urlMatchesInCode1 = SimpleUI.WhatReferencesConcreteUrl(currentUrl);
+        urlMatchesInCode1 = SimpleUI.WhatScriptReferencesConcreteUrl(currentUrl);
     }
 
     private void OnDisable()
