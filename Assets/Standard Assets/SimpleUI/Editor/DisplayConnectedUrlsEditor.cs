@@ -164,9 +164,14 @@ public class DisplayConnectedUrlsEditor : Editor
 
         if (prevRoute != referenceFromSelected)
         {
+            GUILayout.EndScrollView();
+            GUILayout.EndArea();
+
             SimpleUI.OpenPrefabByAssetPath(routes[referenceFromSelected]);
             //SimpleUI.OpenAssetByPath(routes[referenceFromSelected]);
             referenceFromSelected = -1;
+
+            return;
         }
 
         GUILayout.EndScrollView();
@@ -197,8 +202,14 @@ public class DisplayConnectedUrlsEditor : Editor
 
         if (prevRoute != routeSelected)
         {
+            GUILayout.EndVertical();
+            GUILayout.EndScrollView();
+            GUILayout.EndArea();
+
             SimpleUI.OpenPrefabByUrl(routes[routeSelected]);
             routeSelected = -1;
+
+            return;
         }
 
         GUILayout.EndVertical();
