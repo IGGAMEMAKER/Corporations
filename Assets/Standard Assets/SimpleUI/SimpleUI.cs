@@ -124,13 +124,13 @@ public partial class SimpleUI : EditorWindow
         PrefabStage.prefabStageOpened += PrefabStage_prefabOpened;
         PrefabStage.prefabStageClosing += PrefabStage_prefabClosed;
 
-        EditorSceneManager.activeSceneChangedInEditMode += EditorSceneManager_activeSceneChangedInEditMode;
-        EditorSceneManager.sceneOpened += EditorSceneManager_sceneOpened;
-        //EditorSceneManager.sceneLoaded += EditorSceneManager_sceneLoaded;
+        //EditorSceneManager.activeSceneChangedInEditMode += EditorSceneManager_activeSceneChangedInEditMode;
+        //EditorSceneManager.sceneOpened += EditorSceneManager_sceneOpened;
+        ////EditorSceneManager.sceneLoaded += EditorSceneManager_sceneLoaded;
 
-        //SceneManager.sceneLoaded += SceneManager_sceneLoaded;
-        //SceneManager.sceneUnloaded += SceneManager_sceneUnloaded;
-        //SceneManager.activeSceneChanged += SceneManager_sceneChanged;
+        ////SceneManager.sceneLoaded += SceneManager_sceneLoaded;
+        ////SceneManager.sceneUnloaded += SceneManager_sceneUnloaded;
+        ////SceneManager.activeSceneChanged += SceneManager_sceneChanged;
     }
 
     //private static void EditorSceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
@@ -352,6 +352,11 @@ public partial class SimpleUI : EditorWindow
         GUILayout.Label("SIMPLE UI", EditorStyles.largeLabel);
 
         RenderExistingTroubles();
+        Space();
+        if (Button("Print OpenUrl info"))
+        {
+            PrintMatchInfo(WhatUsesComponent<OpenUrl>());
+        }
 
         if (!hasChosenPrefab)
             RenderPrefabs();
@@ -593,6 +598,9 @@ public partial class SimpleUI : EditorWindow
         Space();
 
         var assetType = isPrefabMode ? "prefab" : "SCENE";
+
+        if (!isPrefabMode)
+            return;
 
         var assetPath = GetCurrentAssetPath();
         GUILayout.Label($"Add current asset ({assetType})", EditorStyles.boldLabel);
@@ -894,12 +902,6 @@ public partial class SimpleUI
         if (Button("Go back"))
         {
             isUrlEditingMode = false;
-        }
-
-        Space();
-        if (Button("Print OpenUrl info"))
-        {
-            PrintMatchInfo(WhatUsesComponent<OpenUrl>());
         }
 
         newUrl = pref.Url;
@@ -1579,11 +1581,11 @@ public partial class SimpleUI : EditorWindow
         Debug.Log("Finding all Prefabs and scenes that have the component" + typeToSearch + "…");
 
         var excludeFolders = new[] { "Assets/Standard Assets" };
-        var guids = AssetDatabase.FindAssets("t:prefab", new[] { "Assets" });
-        // var guids = AssetDatabase.FindAssets("t:scene t:prefab", new []{ "Assets"});
+        //var guids = AssetDatabase.FindAssets("t:prefab", new[] { "Assets" });
+        var guids = AssetDatabase.FindAssets("t:scene t:prefab", new[] { "Assets" });
 
         var paths = guids.Select(AssetDatabase.GUIDToAssetPath).ToList();
-        // var removedPaths = paths.RemoveAll(guid => excludeFolders.Any(guid.Contains));
+        var removedPaths = paths.RemoveAll(guid => excludeFolders.Any(guid.Contains));
 
         List<PrefabMatchInfo> matchingComponents = new List<PrefabMatchInfo>();
 
@@ -1591,26 +1593,61 @@ public partial class SimpleUI : EditorWindow
 
         foreach (var path in paths)
         {
-            var asset = AssetDatabase.LoadAssetAtPath<GameObject>(path);
-
-            if (asset == null)
+            if (isPrefabAsset(path))
             {
-                Debug.LogError("Cannot load prefab at path: " + path);
-                continue;
+                GetMatchingComponentsFromPrefab<T>(matchingComponents, path, typeToSearch, properties);
             }
+            else
+            {
+                GetMatchingComponentsFromScene<T>(matchingComponents, path, typeToSearch, properties);
+            }
+        }
 
+        return matchingComponents;
+    }
+
+    static void GetMatchingComponentsFromScene<T>(List<PrefabMatchInfo> matchingComponents, string path, Type typeToSearch, string[] properties)
+    {
+        var asset1 = AssetDatabase.LoadAssetAtPath<SceneAsset>(path);
+
+        if (asset1 == null)
+        {
+            Debug.LogError("Cannot load SCENE at path: " + path);
+            return;
+        }
+
+        var scene = EditorSceneManager.GetSceneByPath(path);
+        var index = scene.buildIndex;
+
+        SceneManager.LoadScene(index);
+
+        if (!scene.isLoaded)
+        {
+            Debug.Log("Scene not loaded: " + path);
+        }
+
+        if (!scene.IsValid())
+        {
+            Debug.LogError(asset1);
+            Debug.LogError(asset1.name);
+            Debug.LogError("Scene " + path + " is invalid");
+            return;
+        }
+
+        foreach (var asset in scene.GetRootGameObjects())
+        {
             List<T> components = asset.GetComponentsInChildren<T>(true).ToList();
-            var self = asset.GetComponent<T>();
+            //var self = asset.GetComponent<T>();
 
-            if (self != null)
-            {
-                components.Add(self);
-            }
+            //if (self != null)
+            //{
+            //    components.Add(self);
+            //}
 
             if (components.Any())
             {
                 Print2("<b>----------------------------------------</b>");
-                Print2("Found component(s) " + typeToSearch + $" ({components.Count}) in file <b>" + path + "</b>");
+                Print2("Found component(s) " + typeToSearch + $" ({components.Count}) in SCENE <b>" + path + "</b>");
             }
 
             foreach (var component1 in components)
@@ -1624,8 +1661,42 @@ public partial class SimpleUI : EditorWindow
                 matchingComponents.Add(matchingComponent);
             }
         }
+    }
 
-        return matchingComponents;
+    static void GetMatchingComponentsFromPrefab<T>(List<PrefabMatchInfo> matchingComponents, string path, Type typeToSearch, string[] properties)
+    {
+        var asset = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+
+        if (asset == null)
+        {
+            Debug.LogError("Cannot load prefab at path: " + path);
+            return;
+        }
+
+        List<T> components = asset.GetComponentsInChildren<T>(true).ToList();
+        var self = asset.GetComponent<T>();
+
+        if (self != null)
+        {
+            components.Add(self);
+        }
+
+        if (components.Any())
+        {
+            Print2("<b>----------------------------------------</b>");
+            Print2("Found component(s) " + typeToSearch + $" ({components.Count}) in file <b>" + path + "</b>");
+        }
+
+        foreach (var component1 in components)
+        {
+            var component = component1 as MonoBehaviour;
+
+            var matchingComponent = GetPrefabMatchInfo2(component, asset, path, properties);
+            matchingComponent.URL = (component as OpenUrl).Url;
+
+
+            matchingComponents.Add(matchingComponent);
+        }
     }
 
     public struct UsageInfo
