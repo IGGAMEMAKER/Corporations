@@ -123,14 +123,14 @@ public class DisplayConnectedUrlsEditor : Editor
         var prevRoute = referenceSelected;
         referenceSelected = GUILayout.SelectionGrid(referenceSelected, matches.Select(m => GetPrettyNameForUrl(m.URL, currentUrl)).ToArray(), 1);
 
+        GUILayout.EndScrollView();
+        GUILayout.EndArea();
+
         if (prevRoute != referenceSelected)
         {
             SimpleUI.OpenPrefabByUrl(matches[referenceSelected].URL);
             referenceSelected = -1;
         }
-
-        GUILayout.EndScrollView();
-        GUILayout.EndArea();
     }
 
     void RenderReferencesToUrl(string currentUrl)
@@ -162,20 +162,15 @@ public class DisplayConnectedUrlsEditor : Editor
         var prevRoute = referenceFromSelected;
         referenceFromSelected = GUILayout.SelectionGrid(referenceFromSelected, names.ToArray(), 1);
 
+        GUILayout.EndScrollView();
+        GUILayout.EndArea();
+
         if (prevRoute != referenceFromSelected)
         {
-            GUILayout.EndScrollView();
-            GUILayout.EndArea();
-
             SimpleUI.OpenPrefabByAssetPath(routes[referenceFromSelected]);
             //SimpleUI.OpenAssetByPath(routes[referenceFromSelected]);
             referenceFromSelected = -1;
-
-            return;
         }
-
-        GUILayout.EndScrollView();
-        GUILayout.EndArea();
     }
 
     void RenderUpperAndLowerRoutes(string currentUrl)
@@ -200,21 +195,15 @@ public class DisplayConnectedUrlsEditor : Editor
         var prevRoute = routeSelected;
         routeSelected = GUILayout.SelectionGrid(routeSelected, names.ToArray(), 1);
 
-        if (prevRoute != routeSelected)
-        {
-            GUILayout.EndVertical();
-            GUILayout.EndScrollView();
-            GUILayout.EndArea();
-
-            SimpleUI.OpenPrefabByUrl(routes[routeSelected]);
-            routeSelected = -1;
-
-            return;
-        }
-
         GUILayout.EndVertical();
         GUILayout.EndScrollView();
         GUILayout.EndArea();
+
+        if (prevRoute != routeSelected)
+        {
+            SimpleUI.OpenPrefabByUrl(routes[routeSelected]);
+            routeSelected = -1;
+        }
     }
 
     void RenderSubRoutes(string currentUrl, ref List<string> routes, ref List<string> names)
