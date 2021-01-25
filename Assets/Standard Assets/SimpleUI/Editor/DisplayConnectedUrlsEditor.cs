@@ -104,11 +104,11 @@ public class DisplayConnectedUrlsEditor : Editor
 
     void RenderReferencesFromUrl(string currentUrl)
     {
-        GUILayout.BeginArea(new Rect(Screen.width - w - off, off + h + off, w, h));
-        //GUILayout.BeginArea(new Rect(off, off + h, w, h));
-
         if (matches1 == null)
             return;
+
+        GUILayout.BeginArea(new Rect(Screen.width - w - off, off + h + off, w, h));
+        //GUILayout.BeginArea(new Rect(off, off + h, w, h));
 
         var matches = matches1.Where(m => m.PrefabAssetPath.Equals(SimpleUI.GetCurrentAssetPath())).ToList();
 
@@ -132,10 +132,10 @@ public class DisplayConnectedUrlsEditor : Editor
 
     void RenderReferencesToUrl(string currentUrl)
     {
-        GUILayout.BeginArea(new Rect(off, off, w, h));
-
         if (matches1 == null)
             return;
+
+        GUILayout.BeginArea(new Rect(off, off, w, h));
 
         var matches = matches1.Where(m => m.URL.Equals(currentUrl.TrimStart('/'))).ToList();
 
