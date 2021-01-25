@@ -90,6 +90,9 @@ public partial class SimpleUI : EditorWindow
 
     static bool wasOpenedFromProject = false;
 
+    public static List<SimpleUI.PrefabMatchInfo> matches1;
+    public static List<SimpleUI.UsageInfo> urlMatchesInCode1;
+
     //static bool _isSceneMode = true;
 
     static bool isPrefabMode => PrefabStageUtility.GetCurrentPrefabStage() != null;
@@ -373,7 +376,11 @@ public partial class SimpleUI : EditorWindow
         isUrlEditingMode = false;
         isConcreteUrlChosen = true;
 
-        OpenPrefabByAssetPath(p.AssetPath);
+        // calculate previous DisplayConnectuedUrlsEditor.OnEnable() here
+        matches1 = WhatUsesComponent(newUrl);
+        urlMatchesInCode1 = WhatScriptReferencesConcreteUrl(newUrl);
+
+        OpenPrefabByAssetPath(newPath);
     }
     #endregion
 
@@ -959,22 +966,21 @@ public partial class SimpleUI
             SaveData();
         }
     }
-
 }
 
 // adding new routes
+// dragging prefabs
 public partial class SimpleUI
 {
     private static GameObject PossiblePrefab;
     private static string possiblePrefabName = "";
-}
 
-// dragging prefabs
-public partial class SimpleUI
-{
     private static string draggedUrl = "";
     private static string draggedName = "";
     private static string draggedPath = "";
+
+    public static bool isSceneAsset(string path) => path.EndsWith(".unity");
+    public static bool isPrefabAsset(string path) => path.EndsWith(".prefab");
 
     void HandleDragAndDrop()
     {
@@ -1151,9 +1157,6 @@ public partial class SimpleUI
         }
     }
 
-    public static bool isSceneAsset(string path) => path.EndsWith(".unity");
-    public static bool isPrefabAsset(string path) => path.EndsWith(".prefab");
-
     void HandleDraggedPrefab(GameObject go)
     {
         isDraggedPrefabMode = true;
@@ -1217,6 +1220,7 @@ public partial class SimpleUI
     {
         return prefabs.Any(p => p.AssetPath.Equals(path));
     }
+
     public static bool IsUrlExist(string url)
     {
         return prefabs.Any(p => p.Url.Equals(url));
@@ -1325,10 +1329,10 @@ public partial class SimpleUI
     }
 }
 
+
 // what uses component OpenUrl
 public partial class SimpleUI : EditorWindow
 {
-    #region What Uses Component OpenUrl
     public static bool HasNoPrefabsBetweenObjects(MonoBehaviour component, GameObject root)
     {
         // is directly attached to root prefab object with no in between prefabs
@@ -1577,6 +1581,13 @@ public partial class SimpleUI : EditorWindow
         public bool IsOverridenAsAddedComponent;
     }
 
+    public static List<PrefabMatchInfo> WhatUsesComponent(string url)
+    {
+        var matches = SimpleUI.WhatUsesComponent<OpenUrl>().Where(a => a.URL.Equals(url));
+
+        return matches.ToList();
+    }
+
     public static List<PrefabMatchInfo> WhatUsesComponent<T>()
     {
         var typeToSearch = typeof(T);
@@ -1584,8 +1595,8 @@ public partial class SimpleUI : EditorWindow
         Debug.Log("Finding all Prefabs and scenes that have the component" + typeToSearch + "…");
 
         var excludeFolders = new[] { "Assets/Standard Assets" };
-        var guids = AssetDatabase.FindAssets("t:prefab", new[] { "Assets" });
-        //var guids = AssetDatabase.FindAssets("t:scene t:prefab", new[] { "Assets" });
+        //var guids = AssetDatabase.FindAssets("t:prefab", new[] { "Assets" });
+        var guids = AssetDatabase.FindAssets("t:scene t:prefab", new[] { "Assets" });
 
         var paths = guids.Select(AssetDatabase.GUIDToAssetPath).ToList();
         var removedPaths = paths.RemoveAll(guid => excludeFolders.Any(guid.Contains));
@@ -1771,10 +1782,8 @@ public partial class SimpleUI : EditorWindow
 
         return list;
     }
-    #endregion
 
 
-    //
     public static bool IsRootOverridenProperties(MonoBehaviour component, GameObject root, string[] properties)
     {
         var fastFilter = new Func<PropertyModification, bool>(p => properties.Contains(p.propertyPath));

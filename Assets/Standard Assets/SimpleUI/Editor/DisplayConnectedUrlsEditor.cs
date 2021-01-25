@@ -43,8 +43,11 @@ public class DisplayConnectedUrlsEditor : Editor
         if (EditorApplication.isCompiling)
             return;
 
-        matches1 = SimpleUI.WhatUsesComponent<OpenUrl>();
-        urlMatchesInCode1 = SimpleUI.WhatScriptReferencesConcreteUrl(currentUrl);
+        matches1 = SimpleUI.matches1;
+        urlMatchesInCode1 = SimpleUI.urlMatchesInCode1;
+
+        //matches1 = SimpleUI.WhatUsesComponent<OpenUrl>(currentUrl);
+        //urlMatchesInCode1 = SimpleUI.WhatScriptReferencesConcreteUrl(currentUrl);
     }
 
     private void OnDisable()
@@ -54,8 +57,6 @@ public class DisplayConnectedUrlsEditor : Editor
 
     void ClearData()
     {
-        matches1.Clear();
-
         routeSelected = -1;
         referenceSelected = -1;
         referenceFromSelected = -1;
@@ -67,31 +68,6 @@ public class DisplayConnectedUrlsEditor : Editor
         localStyle.normal.textColor = Color.white;
 
         GUILayout.Label(text, localStyle);
-    }
-
-    void RenderReferencesFromUrl(string currentUrl)
-    {
-        GUILayout.BeginArea(new Rect(Screen.width - w - off, off + h + off, w, h));
-        //GUILayout.BeginArea(new Rect(off, off + h, w, h));
-
-        var matches = matches1.Where(m => m.PrefabAssetPath.Equals(SimpleUI.GetCurrentAssetPath())).ToList();
-
-        if (matches.Any())
-            Label("References FROM url");
-
-        scrollPosition3 = GUILayout.BeginScrollView(scrollPosition3);
-
-        var prevRoute = referenceSelected;
-        referenceSelected = GUILayout.SelectionGrid(referenceSelected, matches.Select(m => GetPrettyNameForUrl(m.URL, currentUrl)).ToArray(), 1);
-
-        if (prevRoute != referenceSelected)
-        {
-            SimpleUI.OpenPrefab(matches[referenceSelected].URL);
-            referenceSelected = -1;
-        }
-
-        GUILayout.EndScrollView();
-        GUILayout.EndArea();
     }
 
     string Urlify(string url)
@@ -125,9 +101,41 @@ public class DisplayConnectedUrlsEditor : Editor
         return prefix + SimpleUI.GetPrettyNameForExistingUrl(url);
     }
 
+
+    void RenderReferencesFromUrl(string currentUrl)
+    {
+        GUILayout.BeginArea(new Rect(Screen.width - w - off, off + h + off, w, h));
+        //GUILayout.BeginArea(new Rect(off, off + h, w, h));
+
+        if (matches1 == null)
+            return;
+
+        var matches = matches1.Where(m => m.PrefabAssetPath.Equals(SimpleUI.GetCurrentAssetPath())).ToList();
+
+        if (matches.Any())
+            Label("References FROM url");
+
+        scrollPosition3 = GUILayout.BeginScrollView(scrollPosition3);
+
+        var prevRoute = referenceSelected;
+        referenceSelected = GUILayout.SelectionGrid(referenceSelected, matches.Select(m => GetPrettyNameForUrl(m.URL, currentUrl)).ToArray(), 1);
+
+        if (prevRoute != referenceSelected)
+        {
+            SimpleUI.OpenPrefab(matches[referenceSelected].URL);
+            referenceSelected = -1;
+        }
+
+        GUILayout.EndScrollView();
+        GUILayout.EndArea();
+    }
+
     void RenderReferencesToUrl(string currentUrl)
     {
         GUILayout.BeginArea(new Rect(off, off, w, h));
+
+        if (matches1 == null)
+            return;
 
         var matches = matches1.Where(m => m.URL.Equals(currentUrl.TrimStart('/'))).ToList();
 
