@@ -23,7 +23,7 @@ public class DisplayConnectedUrlsEditor : Editor
 
     // Cached data
     List<SimpleUI.PrefabMatchInfo> matches1;
-    List<SimpleUI.UsageInfo> urlMatchesInCode1;
+    List<SimpleUI.UsageInfo> referencesFromCode;
 
     string currentUrl => SimpleUI.GetCurrentUrl();
 
@@ -32,23 +32,26 @@ public class DisplayConnectedUrlsEditor : Editor
         if (EditorApplication.isCompiling)
             return;
 
+        matches1 = SimpleUI.matches1;
+        referencesFromCode = SimpleUI.urlMatchesInCode1;
+
         RenderUpperAndLowerRoutes(currentUrl);
         RenderReferencesToUrl(currentUrl);
         RenderReferencesFromUrl(currentUrl);
     }
 
-    // TODO make this call asynchronous
-    private void OnEnable()
-    {
-        if (EditorApplication.isCompiling)
-            return;
+    //// TODO make this call asynchronous
+    //private void OnEnable()
+    //{
+    //    if (EditorApplication.isCompiling)
+    //        return;
 
-        matches1 = SimpleUI.matches1;
-        urlMatchesInCode1 = SimpleUI.urlMatchesInCode1;
+    //    matches1 = SimpleUI.matches1;
+    //    urlMatchesInCode1 = SimpleUI.urlMatchesInCode1;
 
-        //matches1 = SimpleUI.WhatUsesComponent<OpenUrl>(currentUrl);
-        //urlMatchesInCode1 = SimpleUI.WhatScriptReferencesConcreteUrl(currentUrl);
-    }
+    //    //matches1 = SimpleUI.WhatUsesComponent<OpenUrl>(currentUrl);
+    //    //urlMatchesInCode1 = SimpleUI.WhatScriptReferencesConcreteUrl(currentUrl);
+    //}
 
     private void OnDisable()
     {
@@ -110,7 +113,7 @@ public class DisplayConnectedUrlsEditor : Editor
         GUILayout.BeginArea(new Rect(Screen.width - w - off, off + h + off, w, h));
         //GUILayout.BeginArea(new Rect(off, off + h, w, h));
 
-        var matches = matches1.Where(m => m.PrefabAssetPath.Equals(SimpleUI.GetCurrentAssetPath())).ToList();
+        var matches = matches1; //.Where(m => m.PrefabAssetPath.Equals(SimpleUI.GetCurrentAssetPath())).ToList();
 
         if (matches.Any())
             Label("References FROM url");
@@ -122,7 +125,7 @@ public class DisplayConnectedUrlsEditor : Editor
 
         if (prevRoute != referenceSelected)
         {
-            SimpleUI.OpenPrefab(matches[referenceSelected].URL);
+            SimpleUI.OpenPrefabByUrl(matches[referenceSelected].URL);
             referenceSelected = -1;
         }
 
@@ -137,9 +140,9 @@ public class DisplayConnectedUrlsEditor : Editor
 
         GUILayout.BeginArea(new Rect(off, off, w, h));
 
-        var matches = matches1.Where(m => m.URL.Equals(currentUrl.TrimStart('/'))).ToList();
+        var matches = matches1; //.Where(m => m.URL.Equals(currentUrl.TrimStart('/'))).ToList();
 
-        if (matches.Any() || urlMatchesInCode1.Any())
+        if (matches.Any() || referencesFromCode.Any())
             Label("References to THIS url");
 
         scrollPosition2 = GUILayout.BeginScrollView(scrollPosition2);
@@ -148,7 +151,7 @@ public class DisplayConnectedUrlsEditor : Editor
         var names = matches.Select(m => "<b>Prefab </b>" + m.PrefabAssetPath.Substring(m.PrefabAssetPath.LastIndexOf("/"))).ToList();
         var routes = matches.Select(m => m.PrefabAssetPath).ToList();
 
-        foreach (var occurence in urlMatchesInCode1)
+        foreach (var occurence in referencesFromCode)
         {
             var trimmedScriptName = occurence.ScriptName.Substring(occurence.ScriptName.LastIndexOf('/'));
 
@@ -162,6 +165,7 @@ public class DisplayConnectedUrlsEditor : Editor
         if (prevRoute != referenceFromSelected)
         {
             SimpleUI.OpenPrefabByAssetPath(routes[referenceFromSelected]);
+            //SimpleUI.OpenAssetByPath(routes[referenceFromSelected]);
             referenceFromSelected = -1;
         }
 
@@ -193,7 +197,7 @@ public class DisplayConnectedUrlsEditor : Editor
 
         if (prevRoute != routeSelected)
         {
-            SimpleUI.OpenPrefab(routes[routeSelected]);
+            SimpleUI.OpenPrefabByUrl(routes[routeSelected]);
             routeSelected = -1;
         }
 

@@ -90,7 +90,7 @@ public class OpenUrlEditor : Editor
 
         if (GUILayout.Button(openUrl.Url))
         {
-            SimpleUI.OpenPrefab(openUrl.Url);
+            SimpleUI.OpenPrefabByUrl(openUrl.Url);
         }
 
         Handles.EndGUI();

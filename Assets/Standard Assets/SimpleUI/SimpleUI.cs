@@ -273,56 +273,6 @@ public partial class SimpleUI : EditorWindow
         {
             WrapSceneWithMenu();
         }
-        //if (isPrefabMode)
-        //{
-        //    ////_isSceneMode = false;
-
-        //    ////var path = GetOpenedAssetPath();
-
-        //    //// on change
-        //    //if (!newPath.Equals(path) || newUrl.Equals(""))
-        //    //{
-        //    //    //Print("Prefab chosen: " + path);
-        //    //    newPath = path;
-
-        //    //    ChooseUrlFromPickedPrefab();
-        //    //}
-        //}
-        //else
-        //{
-        //    //_isSceneMode = true;
-        //    newPath = GetOpenedAssetPath();
-
-        //    ChooseUrlFromPickedPrefab();
-
-
-        //}
-
-        return;
-        //if (PrefabStageUtility.GetCurrentPrefabStage() == null)
-        //{
-        //    if (!_isSceneMode)
-        //    {
-        //        //OnSceneOpened();
-        //    }
-        //}
-        //else
-        //{
-        //    _isSceneMode = false;
-
-        //    var path = GetOpenedAssetPath();
-
-        //    // on change
-        //    if (!newPath.Equals(path) || newUrl.Length == 0)
-        //    {
-        //        //Print("Prefab chosen: " + path);
-        //        newPath = path;
-
-        //        ChooseUrlFromPickedPrefab();
-        //    }
-        //}
-
-        //Debug.Log("GetOpenedAssetPath: " + GetOpenedAssetPath());
     }
 
     static void ChooseUrlFromPickedPrefab()
@@ -350,12 +300,18 @@ public partial class SimpleUI : EditorWindow
 
 
     #region Open Asset
-    public static void OpenPrefabByAssetPath(string path)
+    public static void OpenAssetByPath(string path)
     {
         AssetDatabase.OpenAsset(AssetDatabase.LoadMainAssetAtPath(path));
     }
 
-    public static void OpenPrefab(string url)
+    public static void OpenPrefabByAssetPath(string path)
+    {
+        var p1 = prefabs.First(p => p.AssetPath.Equals(path));
+
+        OpenPrefab(p1);
+    }
+    public static void OpenPrefabByUrl(string url)
     {
         Debug.Log("Trying to open prefab by url: " + url);
 
@@ -380,7 +336,7 @@ public partial class SimpleUI : EditorWindow
         matches1 = WhatUsesComponent(newUrl);
         urlMatchesInCode1 = WhatScriptReferencesConcreteUrl(newUrl);
 
-        OpenPrefabByAssetPath(newPath);
+        OpenAssetByPath(newPath);
     }
     #endregion
 
@@ -796,7 +752,7 @@ public partial class SimpleUI : EditorWindow
 
     static void Print2(string text)
     {
-        //Print(text);
+        Print("PRT2: " + text);
     }
     static void Print(string text)
     {
@@ -1583,9 +1539,9 @@ public partial class SimpleUI : EditorWindow
 
     public static List<PrefabMatchInfo> WhatUsesComponent(string url)
     {
-        var matches = SimpleUI.WhatUsesComponent<OpenUrl>().Where(a => a.URL.Equals(url));
-
-        return matches.ToList();
+        return WhatUsesComponent<OpenUrl>()
+            .Where(a => a.URL.Equals(url))
+            .ToList();
     }
 
     public static List<PrefabMatchInfo> WhatUsesComponent<T>()
@@ -1599,7 +1555,7 @@ public partial class SimpleUI : EditorWindow
         var guids = AssetDatabase.FindAssets("t:scene t:prefab", new[] { "Assets" });
 
         var paths = guids.Select(AssetDatabase.GUIDToAssetPath).ToList();
-        var removedPaths = paths.RemoveAll(guid => excludeFolders.Any(guid.Contains));
+        paths.RemoveAll(guid => excludeFolders.Any(guid.Contains));
 
         List<PrefabMatchInfo> matchingComponents = new List<PrefabMatchInfo>();
 
@@ -1608,14 +1564,17 @@ public partial class SimpleUI : EditorWindow
         // save state
         bool isPrefabWasOpened = isPrefabMode;
 
-        var sceneCount = EditorSceneManager.sceneCount;
-        List<Scene> scenes = new List<Scene>();
         var activeScene = EditorSceneManager.GetActiveScene();
 
-        for (var i = 0; i < sceneCount; i++)
-        {
-            scenes.Add(EditorSceneManager.GetSceneAt(i));
-        }
+        var sceneCount = EditorSceneManager.sceneCount;
+
+        List<Scene> scenes = new List<Scene>();
+
+        //for (var i = 0; i < sceneCount; i++)
+        //{
+        //    scenes.Add(EditorSceneManager.GetSceneAt(i));
+        //    Debug.Log("Loaded scene: " + scenes[i].name);
+        //}
 
         foreach (var path in paths)
         {
@@ -1632,7 +1591,7 @@ public partial class SimpleUI : EditorWindow
         // restore state if scenes were opened
 
         // restore scene
-        EditorSceneManager.SetActiveScene(activeScene);
+        //EditorSceneManager.SetActiveScene(activeScene);
 
         // restore prefab if was open
 
@@ -1656,21 +1615,21 @@ public partial class SimpleUI : EditorWindow
         bool isOpenedAlready = openedScenes.Any(s => s.path.Equals(path));
         var scene = isOpenedAlready ? openedScenes.First(s => s.path.Equals(path)) : EditorSceneManager.OpenScene(path, OpenSceneMode.Additive);
 
-        if (!scene.isLoaded)
-        {
-            Debug.LogError("Scene not loaded: " + path);
+        //if (!scene.isLoaded)
+        //{
+        //    Debug.LogError("Scene not loaded: " + path);
 
-            return;
-        }
+        //    return;
+        //}
 
-        if (!scene.IsValid())
-        {
-            Debug.LogError(asset1);
-            Debug.LogError(asset1.name);
-            Debug.LogError("Scene " + path + " is invalid");
+        //if (!scene.IsValid())
+        //{
+        //    Debug.LogError(asset1);
+        //    Debug.LogError(asset1.name);
+        //    Debug.LogError("Scene " + path + " is invalid");
 
-            return;
-        }
+        //    return;
+        //}
 
         foreach (var asset in scene.GetRootGameObjects())
         {
@@ -1776,6 +1735,7 @@ public partial class SimpleUI : EditorWindow
             if (txt.Contains(searchString))
             {
                 Debug.Log($"Found url {url} in text " + path);
+
                 list.Add(new UsageInfo { Line = 1, ScriptName = path });
             }
         }
