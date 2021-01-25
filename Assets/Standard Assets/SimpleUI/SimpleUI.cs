@@ -1616,10 +1616,9 @@ public partial class SimpleUI : EditorWindow
             return;
         }
 
-        var scene = EditorSceneManager.GetSceneByPath(path);
-        var index = scene.buildIndex;
+        //var scene = EditorSceneManager.GetSceneByPath(path);
 
-        SceneManager.LoadScene(index);
+        var scene = EditorSceneManager.OpenScene(path, OpenSceneMode.Additive);
 
         if (!scene.isLoaded)
         {
@@ -1631,6 +1630,7 @@ public partial class SimpleUI : EditorWindow
             Debug.LogError(asset1);
             Debug.LogError(asset1.name);
             Debug.LogError("Scene " + path + " is invalid");
+
             return;
         }
 
@@ -1647,7 +1647,7 @@ public partial class SimpleUI : EditorWindow
             if (components.Any())
             {
                 Print2("<b>----------------------------------------</b>");
-                Print2("Found component(s) " + typeToSearch + $" ({components.Count}) in SCENE <b>" + path + "</b>");
+                Print2("SCENE: Found component(s) " + typeToSearch + $" ({components.Count}) in file <b>" + path + "</b>");
             }
 
             foreach (var component1 in components)
@@ -1661,6 +1661,8 @@ public partial class SimpleUI : EditorWindow
                 matchingComponents.Add(matchingComponent);
             }
         }
+
+        EditorSceneManager.CloseScene(scene, true);
     }
 
     static void GetMatchingComponentsFromPrefab<T>(List<PrefabMatchInfo> matchingComponents, string path, Type typeToSearch, string[] properties)
@@ -1684,7 +1686,7 @@ public partial class SimpleUI : EditorWindow
         if (components.Any())
         {
             Print2("<b>----------------------------------------</b>");
-            Print2("Found component(s) " + typeToSearch + $" ({components.Count}) in file <b>" + path + "</b>");
+            Print2("PREFAB: Found component(s) " + typeToSearch + $" ({components.Count}) in file <b>" + path + "</b>");
         }
 
         foreach (var component1 in components)
