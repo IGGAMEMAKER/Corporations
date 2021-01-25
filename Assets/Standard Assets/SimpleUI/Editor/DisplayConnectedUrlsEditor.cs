@@ -113,7 +113,7 @@ public class DisplayConnectedUrlsEditor : Editor
         GUILayout.BeginArea(new Rect(Screen.width - w - off, off + h + off, w, h));
         //GUILayout.BeginArea(new Rect(off, off + h, w, h));
 
-        var matches = matches1; //.Where(m => m.PrefabAssetPath.Equals(SimpleUI.GetCurrentAssetPath())).ToList();
+        var matches = matches1.Where(m => m.PrefabAssetPath.Equals(SimpleUI.GetCurrentAssetPath())).ToList();
 
         if (matches.Any())
             Label("References FROM url");
@@ -140,7 +140,7 @@ public class DisplayConnectedUrlsEditor : Editor
 
         GUILayout.BeginArea(new Rect(off, off, w, h));
 
-        var matches = matches1; //.Where(m => m.URL.Equals(currentUrl.TrimStart('/'))).ToList();
+        var matches = matches1.Where(m => m.URL.Equals(currentUrl.TrimStart('/'))).ToList();
 
         if (matches.Any() || referencesFromCode.Any())
             Label("References to THIS url");
@@ -148,7 +148,7 @@ public class DisplayConnectedUrlsEditor : Editor
         scrollPosition2 = GUILayout.BeginScrollView(scrollPosition2);
         //urlMatchesInCode1
 
-        var names = matches.Select(m => "<b>Prefab </b>" + m.PrefabAssetPath.Substring(m.PrefabAssetPath.LastIndexOf("/"))).ToList();
+        var names = matches.Select(m => $"<b>{SimpleUI.GetPrettyAssetType(m.PrefabAssetPath)} </b>" + m.PrefabAssetPath.Substring(m.PrefabAssetPath.LastIndexOf("/"))).ToList();
         var routes = matches.Select(m => m.PrefabAssetPath).ToList();
 
         foreach (var occurence in referencesFromCode)

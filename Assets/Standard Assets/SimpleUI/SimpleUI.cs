@@ -307,6 +307,13 @@ public partial class SimpleUI : EditorWindow
 
     public static void OpenPrefabByAssetPath(string path)
     {
+        if (!SimpleUI.IsAssetPathExists(path))
+        {
+            //Debug.LogError("Failed to OpenPrefabByAssetPath() " + path);
+            OpenAssetByPath(path);
+            return;
+        }
+
         var p1 = prefabs.First(p => p.AssetPath.Equals(path));
 
         OpenPrefab(p1);
@@ -333,7 +340,7 @@ public partial class SimpleUI : EditorWindow
         isConcreteUrlChosen = true;
 
         // calculate previous DisplayConnectuedUrlsEditor.OnEnable() here
-        matches1 = WhatUsesComponent(newUrl);
+        matches1 = WhatUsesComponent<OpenUrl>();
         urlMatchesInCode1 = WhatScriptReferencesConcreteUrl(newUrl);
 
         OpenAssetByPath(newPath);
@@ -937,6 +944,7 @@ public partial class SimpleUI
 
     public static bool isSceneAsset(string path) => path.EndsWith(".unity");
     public static bool isPrefabAsset(string path) => path.EndsWith(".prefab");
+    public static string GetPrettyAssetType(string path) => isSceneAsset(path) ? "Scene" : "Prefab";
 
     void HandleDragAndDrop()
     {
@@ -1422,6 +1430,7 @@ public partial class SimpleUI : EditorWindow
     public static PrefabMatchInfo GetPrefabMatchInfo2(MonoBehaviour component, GameObject asset, string path, string[] properties)
     {
         var matchingComponent = new PrefabMatchInfo { PrefabAssetPath = path, ComponentName = component.gameObject.name };
+        matchingComponent.URL = (component as OpenUrl).Url;
 
         bool isAttachedToRootPrefab = HasNoPrefabsBetweenObjects(component, asset);
         bool isAttachedToNestedPrefab = !isAttachedToRootPrefab;
@@ -1432,7 +1441,7 @@ public partial class SimpleUI : EditorWindow
             // so you can upgrade it and safely save ur prefab
 
             matchingComponent.IsDirectMatch = true;
-            Print2($"Directly occurs as {matchingComponent.ComponentName} in {matchingComponent.PrefabAssetPath}");
+            Print2($"Directly occurs as {matchingComponent.ComponentName} in {matchingComponent.PrefabAssetPath} {matchingComponent.URL}");
         }
 
         if (isAttachedToNestedPrefab)
@@ -1476,7 +1485,6 @@ public partial class SimpleUI : EditorWindow
             }
         }
 
-        matchingComponent.URL = (component as OpenUrl).Url;
         return matchingComponent;
     }
 
@@ -1537,12 +1545,12 @@ public partial class SimpleUI : EditorWindow
         public bool IsOverridenAsAddedComponent;
     }
 
-    public static List<PrefabMatchInfo> WhatUsesComponent(string url)
-    {
-        return WhatUsesComponent<OpenUrl>()
-            .Where(a => a.URL.Equals(url))
-            .ToList();
-    }
+    //public static List<PrefabMatchInfo> WhatUsesComponent(string url)
+    //{
+    //    return WhatUsesComponent<OpenUrl>()
+    //        .Where(a => a.URL.Equals(url.TrimStart('/')))
+    //        .ToList();
+    //}
 
     public static List<PrefabMatchInfo> WhatUsesComponent<T>()
     {
