@@ -129,12 +129,12 @@ public partial class SimpleUI : EditorWindow
         GUILayout.Label("newUrl " + newUrl);
         GUILayout.Label("newPath " + newPath);
 
-        RenderExistingTroubles();
-        Space();
-        if (Button("Print OpenUrl info"))
-        {
-            PrintMatchInfo(WhatUsesComponent<OpenUrl>());
-        }
+        //RenderExistingTroubles();
+        //Space();
+        //if (Button("Print OpenUrl info"))
+        //{
+        //    PrintMatchInfo(WhatUsesComponent<OpenUrl>());
+        //}
 
         if (!hasChosenPrefab)
             RenderPrefabs();
@@ -341,7 +341,7 @@ public partial class SimpleUI : EditorWindow
 
         // calculate previous DisplayConnectuedUrlsEditor.OnEnable() here
         matches1 = WhatUsesComponent<OpenUrl>();
-        urlMatchesInCode1 = WhatScriptReferencesConcreteUrl(newUrl);
+        urlMatchesInCode1 = WhichScriptReferencesConcreteUrl(newUrl);
 
         OpenAssetByPath(newPath);
     }
@@ -362,6 +362,11 @@ public partial class SimpleUI : EditorWindow
     public static void Label(string text)
     {
         Space();
+        BoldLabel(text);
+    }
+
+    public static void BoldLabel(string text)
+    {
         GUILayout.Label(text, EditorStyles.boldLabel);
     }
 
@@ -796,6 +801,9 @@ public partial class SimpleUI
     static string searchUrl = "";
     static Vector2 searchScrollPosition = Vector2.zero;
 
+    public static bool renameSubroutes = true;
+    public static string newEditingUrl = "";
+
     public static string newUrl = "";
     public static string newName = "";
     public static string newPath = "";
@@ -831,13 +839,18 @@ public partial class SimpleUI
     void RenderLinkToEditing()
     {
         var index = ChosenIndex;
-        var pref = prefabs[index];
+        var prefab = prefabs[index];
 
-        Label(pref.Url);
+        Label(prefab.Url);
 
         if (Button("Edit prefab"))
         {
             isUrlEditingMode = true;
+
+            newUrl = prefab.Url;
+            newEditingUrl = newUrl;
+            newPath = prefab.AssetPath;
+            newName = prefab.Name;
         }
 
         Space();
@@ -864,43 +877,66 @@ public partial class SimpleUI
         }
     }
 
+    void RenderRenameUrlButton(SimpleUISceneType prefab)
+    {
+        Space();
+
+        if (renameSubroutes)
+            EditorGUILayout.HelpBox("Renaming this url will lead to renaming these urls too...", MessageType.Warning);
+        else
+            EditorGUILayout.HelpBox("Will only rename THIS url", MessageType.Warning);
+
+        renameSubroutes = EditorGUILayout.ToggleLeft("Rename subroutes too", renameSubroutes);
+
+        if (renameSubroutes)
+        {
+            Space();
+            var subroutes = GetSubUrls(prefab.Url, false);
+
+            foreach (var route in subroutes)
+            {
+                BoldLabel(route.Url);
+                EditorGUILayout.LabelField(route.Name);
+            }
+        }
+
+        var phrase = renameSubroutes ? "Rename url & subUrls" : "Rename THIS url";
+
+        Space();
+        if (Button(phrase))
+        {
+            prefab.Url = newEditingUrl;
+            prefab.Name = newName;
+            prefab.AssetPath = newPath;
+
+            UpdatePrefab(prefab);
+        }
+    }
+
     void RenderEditingPrefabMode()
     {
         var index = ChosenIndex;
-        var pref = prefabs[index];
+        var prefab = prefabs[index];
 
-        Label(pref.Url);
+        Label(prefab.Url);
 
         if (Button("Go back"))
         {
             isUrlEditingMode = false;
         }
 
-        newUrl = pref.Url;
-        newPath = pref.AssetPath;
-        newName = pref.Name;
-
         var prevUrl = newUrl;
         var prevName = newName;
         var prevPath = newPath;
-
-        RenderRootPrefab();
-
-        RenderSubroutes();
-
-        bool changedUrl = !newPath.Equals(prevPath);
-
-        if (changedUrl)
-            return;
 
         Space();
 
 
 
         Label("Edit url");
-        newUrl = EditorGUILayout.TextField("Url", newUrl);
+        newEditingUrl = EditorGUILayout.TextField("Url", newEditingUrl);
 
-        if (newUrl.Length > 0)
+        if (newEditingUrl.Length > 0)
         {
             newName = EditorGUILayout.TextField("Name", newName);
 
@@ -910,17 +946,34 @@ public partial class SimpleUI
             }
         }
 
-        pref.Url = newUrl;
-        pref.Name = newName;
-        pref.AssetPath = newPath;
+
 
         // if data changed, save it
-        if (!prevUrl.Equals(newUrl) || !prevPath.Equals(newPath) || !prevName.Equals(newName))
+        if (!prevPath.Equals(newPath) || !prevName.Equals(newName))
         {
-            UpdatePrefab(pref);
+            //prefab.Url = newEditingUrl;
+            prefab.Name = newName;
+            prefab.AssetPath = newPath;
+
+            UpdatePrefab(prefab);
         }
 
-        RenderStatButtons(pref);
+        // if Url changed, rename everything
+        if (!newUrl.Equals(newEditingUrl))
+        {
+            RenderRenameUrlButton(prefab);
+        }
+
+        Space();
+        RenderRootPrefab();
+        RenderSubroutes();
+
+        // TODO url or path?
+        // opened another url
+        if (!newPath.Equals(prevPath))
+            return;
+
+        RenderStatButtons(prefab);
 
         Space(450);
         if (GUILayout.Button("Remove URL"))
@@ -1703,7 +1756,7 @@ public partial class SimpleUI : EditorWindow
         public int Line;
     }
 
-    public static List<UsageInfo> WhatScriptReferencesConcreteUrl(string url)
+    public static List<UsageInfo> WhichScriptReferencesConcreteUrl(string url)
     {
         var directory = "Assets/";
         var list = new List<UsageInfo>();
@@ -1739,6 +1792,7 @@ public partial class SimpleUI : EditorWindow
 
                 continue;
             }
+
 
             if (txt.Contains(searchString))
             {
