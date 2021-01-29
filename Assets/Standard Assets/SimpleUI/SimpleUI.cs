@@ -90,8 +90,8 @@ public partial class SimpleUI : EditorWindow
 
     static bool wasOpenedFromProject = false;
 
-    public static List<SimpleUI.PrefabMatchInfo> matches1;
-    public static List<SimpleUI.UsageInfo> urlMatchesInCode1;
+    public static List<SimpleUI.PrefabMatchInfo> allReferencesFromAssets;
+    public static List<SimpleUI.UsageInfo> referencesFromCode;
 
     //static bool _isSceneMode = true;
 
@@ -340,8 +340,8 @@ public partial class SimpleUI : EditorWindow
         isConcreteUrlChosen = true;
 
         // calculate previous DisplayConnectuedUrlsEditor.OnEnable() here
-        matches1 = WhatUsesComponent<OpenUrl>();
-        urlMatchesInCode1 = WhichScriptReferencesConcreteUrl(newUrl);
+        allReferencesFromAssets = WhatUsesComponent<OpenUrl>();
+        referencesFromCode = WhichScriptReferencesConcreteUrl(newUrl);
 
         OpenAssetByPath(newPath);
     }
@@ -392,12 +392,14 @@ public partial class SimpleUI : EditorWindow
     /// <returns></returns>
     public static bool isSubRouteOf(string subUrl, string root, bool recursive)
     {
-        if (subUrl.Equals(root))
+        // searching for /ProjectScreen descendants
+
+        // filter /Abracadabra
+        if (!subUrl.StartsWith(root))
             return false;
 
-        bool startsWith = subUrl.StartsWith(root);
-
-        if (!startsWith)
+        // filter self
+        if (subUrl.Equals(root))
             return false;
 
         var subStr = subUrl.Substring(root.Length);
@@ -407,16 +409,25 @@ public partial class SimpleUI : EditorWindow
 
         bool isUrlItself = subStr.IndexOf('/') == 0;
 
+        // filter /ProjectScreenBLAH
         if (!isUrlItself)
             return false;
 
-        bool isDirectSubroute = subStr.LastIndexOf('/') <= 0;
+        // remaining urls are
+        // /ProjectScreen/Blah
+        // /ProjectScreen/Blah/Blah
+
+        // subStrs
+        // /Blah
+        // /Blah/Blah
+
+        bool isDirectSubroute = subStr.LastIndexOf('/') == 0;
         bool isSubSubRoute = subStr.LastIndexOf('/') > 0;
 
         if (!recursive)
             return isDirectSubroute;
         else
-            return isSubSubRoute;
+            return true;
     }
 
     static string GetPrettyNameFromAssetPath(string path)
@@ -624,7 +635,9 @@ public partial class SimpleUI : EditorWindow
         searchUrl = EditorGUILayout.TextField("Search", searchUrl);
 
         if (searchUrl.Length == 0)
+        {
             RenderPrefabs(recent);
+        }
         else
         {
             if (Button("Clear"))
@@ -881,35 +894,62 @@ public partial class SimpleUI
     {
         Space();
 
+        renameSubroutes = EditorGUILayout.ToggleLeft("Rename subroutes too", renameSubroutes);
+
+        Space();
         if (renameSubroutes)
             EditorGUILayout.HelpBox("Renaming this url will lead to renaming these urls too...", MessageType.Warning);
         else
             EditorGUILayout.HelpBox("Will only rename THIS url", MessageType.Warning);
 
-        renameSubroutes = EditorGUILayout.ToggleLeft("Rename subroutes too", renameSubroutes);
-
+        List<string> RenamingUrls = new List<string>();
         if (renameSubroutes)
         {
             Space();
-            var subroutes = GetSubUrls(prefab.Url, false);
+            var subroutes = GetSubUrls(prefab.Url, true);
+
+            RenamingUrls.Add(prefab.Url);
+            BoldLabel(prefab.Url);
 
             foreach (var route in subroutes)
             {
+                RenamingUrls.Add(route.Url);
                 BoldLabel(route.Url);
-                EditorGUILayout.LabelField(route.Name);
+                //EditorGUILayout.LabelField(route.Name);
             }
         }
 
         var phrase = renameSubroutes ? "Rename url & subUrls" : "Rename THIS url";
 
+        var matches = allReferencesFromAssets.Where(m => m.URL.Equals(newUrl.TrimStart('/'))).ToList();
+
+
+        // references from prefabs & scenes
+        var names = matches.Select(m => $"<b>{SimpleUI.GetPrettyAssetType(m.PrefabAssetPath)} </b>" + SimpleUI.GetTrimmedPath(m.PrefabAssetPath)).ToList();
+        var routes = matches.Select(m => m.PrefabAssetPath).ToList();
+
+        // references from code
+        foreach (var occurence in referencesFromCode)
+        {
+            names.Add($"<b>Script </b>{SimpleUI.GetTrimmedPath(occurence.ScriptName)} #{occurence.Line}");
+            routes.Add(occurence.ScriptName);
+        }
+
         Space();
         if (Button(phrase))
         {
-            prefab.Url = newEditingUrl;
-            prefab.Name = newName;
-            prefab.AssetPath = newPath;
+            if (EditorUtility.DisplayDialog("Do you want to rename url " + prefab.Url, "This action will rename url and subUrls in X prefabs, Y scenes and Z script files", "Rename", "Cancel"))
+            {
+                Debug.Log("Rename starts now!");
 
-            UpdatePrefab(prefab);
+
+                EditorUtility.DisplayProgressBar("Renaming url", "Info", UnityEngine.Random.Range(0, 1f));
+            }
+            //prefab.Url = newEditingUrl;
+            //prefab.Name = newName;
+            //prefab.AssetPath = newPath;
+
+            //UpdatePrefab(prefab);
         }
     }
 
@@ -998,6 +1038,18 @@ public partial class SimpleUI
     public static bool isSceneAsset(string path) => path.EndsWith(".unity");
     public static bool isPrefabAsset(string path) => path.EndsWith(".prefab");
     public static string GetPrettyAssetType(string path) => isSceneAsset(path) ? "Scene" : "Prefab";
+
+    /// <summary>
+    /// cuts directory name / url begginings: 
+    /// /blah/test.jpeg => test.jpeg
+    /// /blah/test => test
+    /// </summary>
+    /// <param name="path"></param>
+    /// <returns></returns>
+
+    //var trimmedScriptName = SimpleUI.GetTrimmedPathName(occurence.ScriptName.Substring(occurence.ScriptName.LastIndexOf('/'));
+    //var names = matches.Select(m => $"<b>{SimpleUI.GetPrettyAssetType(m.PrefabAssetPath)} </b>" + SimpleUI.GetLastPathName(m.PrefabAssetPath.Substring(m.PrefabAssetPath.LastIndexOf("/"))).ToList();
+    public static string GetTrimmedPath(string path) => path.Substring(path.LastIndexOf("/"));
 
     void HandleDragAndDrop()
     {
@@ -1598,13 +1650,24 @@ public partial class SimpleUI : EditorWindow
         public bool IsOverridenAsAddedComponent;
     }
 
+    public static List<PrefabMatchInfo> WhatUsesComponent(string url, List<PrefabMatchInfo> matchInfos)
+    {
+        return matchInfos.Where(m => m.URL.Equals(url.TrimStart('/'))).ToList();
+    }
     //public static List<PrefabMatchInfo> WhatUsesComponent(string url)
     //{
-    //    return WhatUsesComponent<OpenUrl>()
-    //        .Where(a => a.URL.Equals(url.TrimStart('/')))
-    //        .ToList();
+    //    var matches = WhatUsesComponent<OpenUrl>();
+
+    //    return WhatUsesComponent(url, matches);
+    //        //.Where(a => a.URL.Equals(url.TrimStart('/')))
+    //        //.ToList();
     //}
 
+    /// <summary>
+    /// Only works if T is OpenUrl
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
     public static List<PrefabMatchInfo> WhatUsesComponent<T>()
     {
         var typeToSearch = typeof(T);

@@ -22,7 +22,7 @@ public class DisplayConnectedUrlsEditor : Editor
     //Handles.Button(Vector3.one * 10, Quaternion.identity, 200, 200, Handles.RectangleHandleCap);
 
     // Cached data
-    List<SimpleUI.PrefabMatchInfo> matches1;
+    List<SimpleUI.PrefabMatchInfo> referencesFromAssets;
     List<SimpleUI.UsageInfo> referencesFromCode;
 
     string currentUrl => SimpleUI.GetCurrentUrl();
@@ -32,8 +32,8 @@ public class DisplayConnectedUrlsEditor : Editor
         if (EditorApplication.isCompiling)
             return;
 
-        matches1 = SimpleUI.matches1;
-        referencesFromCode = SimpleUI.urlMatchesInCode1;
+        referencesFromAssets = SimpleUI.allReferencesFromAssets;
+        referencesFromCode = SimpleUI.referencesFromCode;
 
         RenderUpperAndLowerRoutes(currentUrl);
         RenderReferencesToUrl(currentUrl);
@@ -107,13 +107,13 @@ public class DisplayConnectedUrlsEditor : Editor
 
     void RenderReferencesFromUrl(string currentUrl)
     {
-        if (matches1 == null)
+        if (referencesFromAssets == null)
             return;
 
         GUILayout.BeginArea(new Rect(Screen.width - w - off, off + h + off, w, h));
         //GUILayout.BeginArea(new Rect(off, off + h, w, h));
 
-        var matches = matches1.Where(m => m.PrefabAssetPath.Equals(SimpleUI.GetCurrentAssetPath())).ToList();
+        var matches = referencesFromAssets.Where(m => m.PrefabAssetPath.Equals(SimpleUI.GetCurrentAssetPath())).ToList();
 
         if (matches.Any())
             Label("Forward links...");
@@ -135,30 +135,30 @@ public class DisplayConnectedUrlsEditor : Editor
 
     void RenderReferencesToUrl(string currentUrl)
     {
-        if (matches1 == null)
+        if (referencesFromAssets == null)
             return;
 
         GUILayout.BeginArea(new Rect(off, off, w, h));
 
-        var matches = matches1.Where(m => m.URL.Equals(currentUrl.TrimStart('/'))).ToList();
+        var matches = SimpleUI.WhatUsesComponent(currentUrl, referencesFromAssets); // referencesFromAssets.Where(m => m.URL.Equals(currentUrl.TrimStart('/'))).ToList();
 
         if (matches.Any() || referencesFromCode.Any())
             Label("References to THIS url");
 
         scrollPosition2 = GUILayout.BeginScrollView(scrollPosition2);
-        //urlMatchesInCode1
 
-        var names = matches.Select(m => $"<b>{SimpleUI.GetPrettyAssetType(m.PrefabAssetPath)} </b>" + m.PrefabAssetPath.Substring(m.PrefabAssetPath.LastIndexOf("/"))).ToList();
+        // references from prefabs & scenes
+        var names = matches.Select(m => $"<b>{SimpleUI.GetPrettyAssetType(m.PrefabAssetPath)} </b>" + SimpleUI.GetTrimmedPath(m.PrefabAssetPath)).ToList();
         var routes = matches.Select(m => m.PrefabAssetPath).ToList();
 
+        // references from code
         foreach (var occurence in referencesFromCode)
         {
-            var trimmedScriptName = occurence.ScriptName.Substring(occurence.ScriptName.LastIndexOf('/'));
-
-            names.Add("<b>Script </b>" + trimmedScriptName + " #" + occurence.Line);
+            names.Add($"<b>Script </b>{SimpleUI.GetTrimmedPath(occurence.ScriptName)} #{occurence.Line}");
             routes.Add(occurence.ScriptName);
         }
 
+        // navigate to one of these assets
         var prevRoute = referenceFromSelected;
         referenceFromSelected = GUILayout.SelectionGrid(referenceFromSelected, names.ToArray(), 1);
 
