@@ -183,7 +183,9 @@ public partial class SimpleUI : EditorWindow
     {
         var matchingComponent = new PrefabMatchInfo { PrefabAssetPath = path, ComponentName = component.gameObject.name };
         matchingComponent.URL = (component as OpenUrl).Url;
-        matchingComponent.InstanceID = component.gameObject.GetInstanceID();
+        matchingComponent.Asset = asset;
+        matchingComponent.Component = component as OpenUrl;
+        //matchingComponent.InstanceID = component.gameObject.GetInstanceID();
 
 
         //component.gameObject.transform.GetSiblingIndex();
@@ -289,7 +291,9 @@ public partial class SimpleUI : EditorWindow
         public string PrefabAssetPath;
         public string ComponentName;
         public string URL;
-        public int InstanceID;
+
+        public GameObject Asset;
+        public OpenUrl Component;
 
         public bool IsDirectMatch; // with no nested prefabs, can apply changes directly. (Both on root and it's childs)
         public bool IsNormalPartOfNestedPrefab; // absolutely normal prefab part with NO overrides. No actions required
@@ -520,7 +524,7 @@ public partial class SimpleUI : EditorWindow
         return list;
     }
 
-
+    // not used
     public static bool IsRootOverridenProperties(MonoBehaviour component, GameObject root, string[] properties)
     {
         var fastFilter = new Func<PropertyModification, bool>(p => properties.Contains(p.propertyPath));
@@ -547,6 +551,7 @@ public partial class SimpleUI : EditorWindow
         return propertyChanges.Any();
     }
 
+    // not used
     public static PrefabMatchInfo GetPrefabMatchInfo(MonoBehaviour component, GameObject root, string path, string[] matchingProperties)
     {
         var matchInfo = new PrefabMatchInfo { PrefabAssetPath = path, ComponentName = component.gameObject.name };

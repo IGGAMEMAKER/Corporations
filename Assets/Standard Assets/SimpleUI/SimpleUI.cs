@@ -82,6 +82,7 @@ public partial class SimpleUI : EditorWindow
 
     static bool wasOpenedFromProject = false;
 
+    //public static List<GameObject> allComponentsWithOpenUrl;
     public static List<SimpleUI.PrefabMatchInfo> allReferencesFromAssets;
     public static List<SimpleUI.UsageInfo> referencesFromCode;
 

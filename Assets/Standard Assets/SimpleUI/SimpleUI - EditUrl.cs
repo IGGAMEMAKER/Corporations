@@ -72,20 +72,23 @@ public partial class SimpleUI
         try
         {
             //AssetDatabase.StartAssetEditing();
+            Debug.Log("Renaming " + from + " to " + to);
 
             foreach (var match in matches)
             {
-                var asset = AssetDatabase.LoadAssetAtPath<GameObject>(match.PrefabAssetPath);
+                var asset = match.Asset;
+                //var asset = AssetDatabase.LoadAssetAtPath<GameObject>(match.PrefabAssetPath);
                 //var asset = AssetDatabase.OpenAsset(AssetDatabase.LoadMainAssetAtPath(match.PrefabAssetPath));
 
-                var component = asset.GetComponentsInChildren<OpenUrl>().First(a => a.Url.Contains(from));
+                var component = match.Component;
+                //var component = asset.GetComponentsInChildren<OpenUrl>().First(a => a.Url.Contains(from));
                 //var component = asset.GetComponents<OpenUrl>().First(a => a.GetInstanceID() == match.InstanceID);
 
                 if (component != null && component.Url.Contains(from))
                 {
                     var newUrl2 = component.Url.Replace(from, to);
 
-                    Debug.Log("Renaming " + component.Url + " to " + newUrl2);
+                    Debug.Log($"Renaming component in {match.PrefabAssetPath} to {newUrl2}");
                 }
             }
         }
@@ -172,7 +175,8 @@ public partial class SimpleUI
 
                 foreach (var url in RenamingUrls)
                 {
-                    RenameUrl(url, url);
+                    Debug.Log("Renaming " + url);
+                    RenameUrl(url, newEditingUrl);
                 }
             }
             //prefab.Url = newEditingUrl;
