@@ -39,18 +39,10 @@ using UnityEngine.SceneManagement;
 // // EditorGUILayout.EndToggleGroup ();
 // }
 
-
-
 public enum SceneBlahType
 {
     Prefab,
     Scene
-}
-
-public struct UrlOpeningAttempt
-{
-    public string ScriptName;
-    public string PreviousUrl;
 }
 
 public struct SimpleUISceneType
@@ -103,6 +95,9 @@ public partial class SimpleUI : EditorWindow
     public static string GetCurrentUrl() => newUrl.StartsWith("/") ? newUrl : "/" + newUrl;
     public static string GetCurrentAssetPath() => GetOpenedAssetPath(); // newPath
 
+    public static bool isFirstGUI = true;
+    public static bool isFirstInspectorGUI = true;
+
     static string GetOpenedAssetPath()
     {
         if (isPrefabMode)
@@ -122,7 +117,37 @@ public partial class SimpleUI : EditorWindow
         // w.minSize = new Vector2(200, 100);
     }
 
+    static SimpleUI()
+    {
+        PrefabStage.prefabStageOpened += PrefabStage_prefabOpened;
+        PrefabStage.prefabStageClosing += PrefabStage_prefabClosed;
+
+        //EditorSceneManager.activeSceneChangedInEditMode += EditorSceneManager_activeSceneChangedInEditMode;
+        //EditorSceneManager.sceneOpened += EditorSceneManager_sceneOpened;
+        ////EditorSceneManager.sceneLoaded += EditorSceneManager_sceneLoaded;
+
+        ////SceneManager.sceneLoaded += SceneManager_sceneLoaded;
+        ////SceneManager.sceneUnloaded += SceneManager_sceneUnloaded;
+        ////SceneManager.activeSceneChanged += SceneManager_sceneChanged;
+    }
+
     void OnGUI()
+    {
+        if (!isFirstGUI)
+            RenderGUI();
+
+        isFirstGUI = false;
+    }
+
+    void OnInspectorUpdate()
+    {
+        if (!isFirstInspectorGUI)
+            RenderInspectorGUI();
+
+        isFirstInspectorGUI = false;
+    }
+
+    void RenderGUI()
     {
         recentPrefabsScrollPosition = GUILayout.BeginScrollView(recentPrefabsScrollPosition);
         GUILayout.Label("SIMPLE UI", EditorStyles.largeLabel);
@@ -153,21 +178,7 @@ public partial class SimpleUI : EditorWindow
         GUILayout.EndScrollView();
     }
 
-    static SimpleUI()
-    {
-        PrefabStage.prefabStageOpened += PrefabStage_prefabOpened;
-        PrefabStage.prefabStageClosing += PrefabStage_prefabClosed;
-
-        //EditorSceneManager.activeSceneChangedInEditMode += EditorSceneManager_activeSceneChangedInEditMode;
-        //EditorSceneManager.sceneOpened += EditorSceneManager_sceneOpened;
-        ////EditorSceneManager.sceneLoaded += EditorSceneManager_sceneLoaded;
-
-        ////SceneManager.sceneLoaded += SceneManager_sceneLoaded;
-        ////SceneManager.sceneUnloaded += SceneManager_sceneUnloaded;
-        ////SceneManager.activeSceneChanged += SceneManager_sceneChanged;
-    }
-
-    void OnInspectorUpdate()
+    void RenderInspectorGUI()
     {
         var url = newUrl;
         var path = GetOpenedAssetPath();
@@ -254,7 +265,7 @@ public partial class SimpleUI : EditorWindow
     {
         var subUrls = GetSubUrls(newUrl, false);
 
-        if (subUrls.Count() > 0)
+        if (subUrls.Any())
         {
             Label("SubRoutes");
             RenderPrefabs(subUrls, newUrl);

@@ -9,6 +9,13 @@ using UnityEditor.Experimental.SceneManagement;
 using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
 
+
+public struct UrlOpeningAttempt
+{
+    public string ScriptName;
+    public string PreviousUrl;
+}
+
 // Troubleshooting
 public partial class SimpleUI
 {
