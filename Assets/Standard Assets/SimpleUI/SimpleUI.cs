@@ -870,6 +870,35 @@ public partial class SimpleUI
         RenderPrefabs();
     }
 
+    void RenameUrl(string from, string to)
+    {
+        var matches = WhatUsesComponent(from, allReferencesFromAssets);
+
+        try
+        {
+            //AssetDatabase.StartAssetEditing();
+
+            foreach (var match in matches)
+            {
+                var asset = AssetDatabase.LoadAssetAtPath<GameObject>(match.PrefabAssetPath);
+                //var asset = AssetDatabase.OpenAsset(AssetDatabase.LoadMainAssetAtPath(match.PrefabAssetPath));
+
+                var component = asset.GetComponents<OpenUrl>().First(a => a.GetInstanceID() == match.InstanceID);
+
+                if (component != null && component.Url.Contains(from))
+                {
+                    var newUrl2 = component.Url.Replace(from, to);
+
+                    Debug.Log("Renaming " + component.Url + " to " + newUrl2);
+                }
+            }
+        }
+        finally
+        {
+            //AssetDatabase.StopAssetEditing();
+        }
+    }
+
     void RenderStatButtons(SimpleUISceneType pref)
     {
         Space();
@@ -909,13 +938,16 @@ public partial class SimpleUI
             var subroutes = GetSubUrls(prefab.Url, true);
 
             RenamingUrls.Add(prefab.Url);
-            BoldLabel(prefab.Url);
 
             foreach (var route in subroutes)
             {
                 RenamingUrls.Add(route.Url);
-                BoldLabel(route.Url);
-                //EditorGUILayout.LabelField(route.Name);
+            }
+
+            // render
+            foreach (var route in RenamingUrls)
+            {
+                BoldLabel(route);
             }
         }
 
@@ -938,11 +970,14 @@ public partial class SimpleUI
         Space();
         if (Button(phrase))
         {
-            if (EditorUtility.DisplayDialog("Do you want to rename url " + prefab.Url, "This action will rename url and subUrls in X prefabs, Y scenes and Z script files", "Rename", "Cancel"))
+            if (EditorUtility.DisplayDialog("Do you want to rename url " + prefab.Url, "This action will rename url and subUrls in X prefabs, Y scenes and Z script files.\n\nPRESS CANCEL IF YOU HAVE UNSAVED PREFAB OR SCENE OR CODE CHANGES", "Rename", "Cancel"))
             {
                 Debug.Log("Rename starts now!");
 
-
+                foreach (var url in RenamingUrls)
+                {
+                    RenameUrl(url, url);
+                }
             }
             //prefab.Url = newEditingUrl;
             //prefab.Name = newName;
@@ -1537,6 +1572,10 @@ public partial class SimpleUI : EditorWindow
     {
         var matchingComponent = new PrefabMatchInfo { PrefabAssetPath = path, ComponentName = component.gameObject.name };
         matchingComponent.URL = (component as OpenUrl).Url;
+        matchingComponent.InstanceID = component.gameObject.GetInstanceID();
+
+
+        //component.gameObject.transform.GetSiblingIndex();
 
         bool isAttachedToRootPrefab = HasNoPrefabsBetweenObjects(component, asset);
         bool isAttachedToNestedPrefab = !isAttachedToRootPrefab;
@@ -1639,6 +1678,7 @@ public partial class SimpleUI : EditorWindow
         public string PrefabAssetPath;
         public string ComponentName;
         public string URL;
+        public int InstanceID;
 
         public bool IsDirectMatch; // with no nested prefabs, can apply changes directly. (Both on root and it's childs)
         public bool IsNormalPartOfNestedPrefab; // absolutely normal prefab part with NO overrides. No actions required
