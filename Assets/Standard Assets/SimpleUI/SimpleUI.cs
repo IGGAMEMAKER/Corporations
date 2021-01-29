@@ -63,7 +63,7 @@ public struct SimpleUISceneType
     public long Usages;
     public long LastOpened;
 
-    public SceneBlahType AssetType => SimpleUI.isPrefabAsset(AssetPath) ? SceneBlahType.Prefab : SceneBlahType.Scene;
+    //public SceneBlahType AssetType => SimpleUI.isPrefabAsset(AssetPath) ? SceneBlahType.Prefab : SceneBlahType.Scene;
 
     public SimpleUISceneType(string url, string assetPath, string name = "")
     {

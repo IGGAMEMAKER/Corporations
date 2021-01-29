@@ -105,7 +105,8 @@ public class SimpleUIEventHandler : MonoBehaviour
 
         try
         {
-            if (asset.AssetType == SceneBlahType.Prefab)
+            // asset.AssetType == SceneBlahType.Prefab
+            if (SimpleUI.isPrefabAsset(asset.AssetPath))
             {
                 // prefabs
                 var p = GetPrefab(url);
@@ -118,7 +119,9 @@ public class SimpleUIEventHandler : MonoBehaviour
             else
             {
                 // scenes
-                if (asset.AssetType == SceneBlahType.Scene)
+                //if (asset.AssetType == SceneBlahType.Scene)
+
+                if (SimpleUI.isSceneAsset(asset.AssetPath))
                 {
                     //Debug.Log("DRAW SCENE " + asset.AssetPath);
 
