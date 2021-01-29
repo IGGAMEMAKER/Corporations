@@ -921,17 +921,17 @@ public partial class SimpleUI
 
         var phrase = renameSubroutes ? "Rename url & subUrls" : "Rename THIS url";
 
-        var matches = allReferencesFromAssets.Where(m => m.URL.Equals(newUrl.TrimStart('/'))).ToList();
+        var matches = WhatUsesComponent(newUrl, allReferencesFromAssets);
 
 
         // references from prefabs & scenes
-        var names = matches.Select(m => $"<b>{SimpleUI.GetPrettyAssetType(m.PrefabAssetPath)} </b>" + SimpleUI.GetTrimmedPath(m.PrefabAssetPath)).ToList();
+        var names = matches.Select(m => $"<b>{SimpleUI.GetPrettyAssetType(m.PrefabAssetPath)}</b> " + SimpleUI.GetTrimmedPath(m.PrefabAssetPath)).ToList();
         var routes = matches.Select(m => m.PrefabAssetPath).ToList();
 
         // references from code
         foreach (var occurence in referencesFromCode)
         {
-            names.Add($"<b>Script </b>{SimpleUI.GetTrimmedPath(occurence.ScriptName)} #{occurence.Line}");
+            names.Add($"<b>Code</b> {SimpleUI.GetTrimmedPath(occurence.ScriptName)}");
             routes.Add(occurence.ScriptName);
         }
 
@@ -943,7 +943,6 @@ public partial class SimpleUI
                 Debug.Log("Rename starts now!");
 
 
-                EditorUtility.DisplayProgressBar("Renaming url", "Info", UnityEngine.Random.Range(0, 1f));
             }
             //prefab.Url = newEditingUrl;
             //prefab.Name = newName;
@@ -951,6 +950,8 @@ public partial class SimpleUI
 
             //UpdatePrefab(prefab);
         }
+
+        //EditorUtility.DisplayProgressBar("Renaming url", "Info", UnityEngine.Random.Range(0, 1f));
     }
 
     void RenderEditingPrefabMode()

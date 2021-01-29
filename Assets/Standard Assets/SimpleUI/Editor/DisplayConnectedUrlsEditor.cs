@@ -142,19 +142,20 @@ public class DisplayConnectedUrlsEditor : Editor
 
         var matches = SimpleUI.WhatUsesComponent(currentUrl, referencesFromAssets); // referencesFromAssets.Where(m => m.URL.Equals(currentUrl.TrimStart('/'))).ToList();
 
+
         if (matches.Any() || referencesFromCode.Any())
             Label("References to THIS url");
 
         scrollPosition2 = GUILayout.BeginScrollView(scrollPosition2);
 
         // references from prefabs & scenes
-        var names = matches.Select(m => $"<b>{SimpleUI.GetPrettyAssetType(m.PrefabAssetPath)} </b>" + SimpleUI.GetTrimmedPath(m.PrefabAssetPath)).ToList();
+        var names = matches.Select(m => $"<b>{SimpleUI.GetPrettyAssetType(m.PrefabAssetPath)}</b> " + SimpleUI.GetTrimmedPath(m.PrefabAssetPath)).ToList();
         var routes = matches.Select(m => m.PrefabAssetPath).ToList();
 
         // references from code
         foreach (var occurence in referencesFromCode)
         {
-            names.Add($"<b>Script </b>{SimpleUI.GetTrimmedPath(occurence.ScriptName)} #{occurence.Line}");
+            names.Add($"<b>Code</b> {SimpleUI.GetTrimmedPath(occurence.ScriptName)}");
             routes.Add(occurence.ScriptName);
         }
 
