@@ -65,14 +65,14 @@ public partial class SimpleUI
         RenderPrefabs();
     }
 
-    void RenameUrl(string from, string to)
+    void RenameUrl(string route, string from, string to)
     {
-        var matches = WhatUsesComponent(from, allReferencesFromAssets);
+        var matches = WhatUsesComponent(route, allReferencesFromAssets);
 
         try
         {
             //AssetDatabase.StartAssetEditing();
-            Debug.Log("Renaming " + from + " to " + to);
+            Debug.Log($"Replacing {from} to {to} in {route}");
 
             foreach (var match in matches)
             {
@@ -84,12 +84,21 @@ public partial class SimpleUI
                 //var component = asset.GetComponentsInChildren<OpenUrl>().First(a => a.Url.Contains(from));
                 //var component = asset.GetComponents<OpenUrl>().First(a => a.GetInstanceID() == match.InstanceID);
 
-                if (component != null && component.Url.Contains(from))
+                //if (component != null && component.Url.Contains(from))
+                //{
+                bool addedSlash = false;
+                var formattedUrl = component.Url;
+                if (!formattedUrl.StartsWith("/"))
                 {
-                    var newUrl2 = component.Url.Replace(from, to);
-
-                    Debug.Log($"Renaming component in {match.PrefabAssetPath} to {newUrl2}");
+                    addedSlash = true;
+                    formattedUrl = "/" + formattedUrl;
                 }
+                var newUrl2 = formattedUrl.Replace(from, to);
+                if (addedSlash)
+                    newUrl2 = newUrl2.TrimStart('/');
+
+                Debug.Log($"Renaming {component.Url} => {newUrl2} on component in {match.PrefabAssetPath}");
+                //}
             }
         }
         finally
@@ -171,12 +180,13 @@ public partial class SimpleUI
         {
             if (EditorUtility.DisplayDialog("Do you want to rename url " + prefab.Url, "This action will rename url and subUrls in X prefabs, Y scenes and Z script files.\n\nPRESS CANCEL IF YOU HAVE UNSAVED PREFAB OR SCENE OR CODE CHANGES", "Rename", "Cancel"))
             {
-                Debug.Log("Rename starts now!");
+                Print("Rename starts now!");
 
                 foreach (var url in RenamingUrls)
                 {
-                    Debug.Log("Renaming " + url);
-                    RenameUrl(url, newEditingUrl);
+                    Print("Scanning URL" + url);
+                    RenameUrl(url, newUrl, newEditingUrl);
+                    Print("----------------");
                 }
             }
             //prefab.Url = newEditingUrl;
