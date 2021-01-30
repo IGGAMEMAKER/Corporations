@@ -67,11 +67,15 @@ public partial class SimpleUI
 
     void RenameUrl(string route, string from, string to)
     {
+        //route = "/Holding/Main/DevTab";
+        //from = "/Holding/Main/DevTab";
+        //to = "/Holding/Main/DevTab1";
+
         var matches = WhatUsesComponent(route, allReferencesFromAssets);
 
         try
         {
-            //AssetDatabase.StartAssetEditing();
+            AssetDatabase.StartAssetEditing();
             Debug.Log($"Replacing {from} to {to} in {route}");
 
             foreach (var match in matches)
@@ -96,14 +100,23 @@ public partial class SimpleUI
                 var newUrl2 = formattedUrl.Replace(from, to);
                 if (addedSlash)
                     newUrl2 = newUrl2.TrimStart('/');
-
+                
                 Debug.Log($"Renaming {component.Url} => {newUrl2} on component in {match.PrefabAssetPath}");
+                component.Url = newUrl2;
+
+                
                 //}
             }
         }
         finally
         {
-            //AssetDatabase.StopAssetEditing();
+            AssetDatabase.SaveAssets();
+            AssetDatabase.StopAssetEditing();
+
+            var prefab = GetPrefabByUrl(route);
+            prefab.Url = newEditingUrl;
+
+            UpdatePrefab(prefab);
         }
     }
 
@@ -140,6 +153,8 @@ public partial class SimpleUI
             EditorGUILayout.HelpBox("Will only rename THIS url", MessageType.Warning);
 
         List<string> RenamingUrls = new List<string>();
+        List<string> RenamingCodeUrls = new List<string>();
+
         if (renameSubroutes)
         {
             Space();
@@ -157,6 +172,11 @@ public partial class SimpleUI
             {
                 BoldLabel(route);
             }
+
+            //foreach (var script in referencesFromCode)
+            //{
+            //    RenamingCodeUrls.Add(script)
+            //}
         }
 
         var phrase = renameSubroutes ? "Rename url & subUrls" : "Rename THIS url";
@@ -184,16 +204,11 @@ public partial class SimpleUI
 
                 foreach (var url in RenamingUrls)
                 {
-                    Print("Scanning URL" + url);
+                    Print("Scanning URL " + url);
                     RenameUrl(url, newUrl, newEditingUrl);
                     Print("----------------");
                 }
             }
-            //prefab.Url = newEditingUrl;
-            //prefab.Name = newName;
-            //prefab.AssetPath = newPath;
-
-            //UpdatePrefab(prefab);
         }
 
         //EditorUtility.DisplayProgressBar("Renaming url", "Info", UnityEngine.Random.Range(0, 1f));
