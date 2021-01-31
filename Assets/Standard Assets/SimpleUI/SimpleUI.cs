@@ -162,6 +162,8 @@ public partial class SimpleUI : EditorWindow
             LoadData();
 
             LoadOpenUrlReferences(u);
+
+            OpenPrefabByUrl(u);
         }
 
         //RenderExistingTroubles();

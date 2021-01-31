@@ -114,21 +114,23 @@ public partial class SimpleUI
                     // https://forum.unity.com/threads/scripted-scene-changes-not-being-saved.526453/
 
                     EditorUtility.SetDirty(component);
-                    var saved = EditorSceneManager.SaveScene(asset.scene);
+                    Debug.Log("Set scene as dirty");
+                    //var saved = EditorSceneManager.SaveScene(asset.scene);
 
-                    if (saved)
-                        Debug.Log("SUCCEED Save changes in scene: " + match.PrefabAssetPath);
-                    else
-                        Debug.Log("FAILED Save changes in scene: " + match.PrefabAssetPath);
+                    //if (saved)
+                    //    Debug.Log("SUCCEED Save changes in scene: " + match.PrefabAssetPath);
+                    //else
+                    //    Debug.Log("FAILED Save changes in scene: " + match.PrefabAssetPath);
                 }
 
                 if (isPrefabAsset(match.PrefabAssetPath))
                 {
-                    continue;
+                    EditorUtility.SetDirty(component);
                     // if prefab
                     // save change in prefab
 
                     GameObjectUtility.RemoveMonoBehavioursWithMissingScript(asset);
+
                     PrefabUtility.SaveAsPrefabAsset(asset, match.PrefabAssetPath);
                     PrefabUtility.UnloadPrefabContents(asset);
                 }
@@ -138,7 +140,7 @@ public partial class SimpleUI
         }
         finally
         {
-            //AssetDatabase.SaveAssets();
+            AssetDatabase.SaveAssets();
             AssetDatabase.StopAssetEditing();
 
             var prefab = GetPrefabByUrl(route);
