@@ -111,6 +111,8 @@ public partial class SimpleUI
                     // if scene
                     // save change in scene
 
+                    // https://forum.unity.com/threads/scripted-scene-changes-not-being-saved.526453/
+
                     EditorUtility.SetDirty(component);
                     var saved = EditorSceneManager.SaveScene(asset.scene);
 

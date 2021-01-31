@@ -155,6 +155,14 @@ public partial class SimpleUI : EditorWindow
         GUILayout.Label("newUrl " + newUrl);
         GUILayout.Label("newPath " + newPath);
 
+        if (Button("Refresh"))
+        {
+            var u = newUrl;
+            LoadData();
+
+            LoadOpenUrlReferences(u);
+        }
+
         //RenderExistingTroubles();
         //Space();
         //if (Button("Print OpenUrl info"))
