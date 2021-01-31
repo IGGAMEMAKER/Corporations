@@ -185,10 +185,7 @@ public partial class SimpleUI : EditorWindow
         matchingComponent.URL = (component as OpenUrl).Url;
         matchingComponent.Asset = asset;
         matchingComponent.Component = component as OpenUrl;
-        //matchingComponent.InstanceID = component.gameObject.GetInstanceID();
 
-
-        //component.gameObject.transform.GetSiblingIndex();
 
         bool isAttachedToRootPrefab = HasNoPrefabsBetweenObjects(component, asset);
         bool isAttachedToNestedPrefab = !isAttachedToRootPrefab;
@@ -297,10 +294,6 @@ public partial class SimpleUI : EditorWindow
 
         public bool IsDirectMatch; // with no nested prefabs, can apply changes directly. (Both on root and it's childs)
         public bool IsNormalPartOfNestedPrefab; // absolutely normal prefab part with NO overrides. No actions required
-
-        //public bool IsOverridenPartOfNestedPrefab =>
-        //    IsOverridenAsAddedComponent ||
-        //    IsOverridenAsComponentProperty; // is overriden somehow: maybe there is not saved Added component or Overriden Parameters in component itself
 
         public bool IsOverridenAsComponentProperty;
         public bool IsOverridenAsAddedComponent;
