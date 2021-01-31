@@ -74,9 +74,32 @@ public partial class SimpleUI
 
         var matches = WhatUsesComponent(route, allReferencesFromAssets);
 
+        bool savingWillBeSafe = true;
         try
         {
             AssetDatabase.StartAssetEditing();
+            AssetDatabase.SaveAssets();
+        }
+        catch (System.Exception ex)
+        {
+            savingWillBeSafe = false;
+            Debug.LogError(ex);
+        }
+        finally
+        {
+            AssetDatabase.StopAssetEditing();
+        }
+
+        if (!savingWillBeSafe)
+        {
+            Debug.Log("Renaming failed cause saving assets via AssetDatabase will cause errors (listed above)");
+            return;
+        }
+
+        try
+        {
+            AssetDatabase.StartAssetEditing();
+
             Debug.Log($"Replacing {from} to {to} in {route}");
 
             foreach (var match in matches)
@@ -90,8 +113,7 @@ public partial class SimpleUI
 
                 var component = match.Component;
 
-                //if (component != null && component.Url.Contains(from))
-                //{
+                // edit URL property
                 bool addedSlash = false;
                 var formattedUrl = component.Url;
                 if (!formattedUrl.StartsWith("/"))
@@ -106,6 +128,8 @@ public partial class SimpleUI
                 Debug.Log($"Renaming {component.Url} => {newUrl2} on component in {match.PrefabAssetPath}");
                 component.Url = newUrl2;
 
+
+                // saving changes
                 if (isSceneAsset(match.PrefabAssetPath))
                 {
                     // if scene
@@ -134,13 +158,13 @@ public partial class SimpleUI
                     PrefabUtility.SaveAsPrefabAsset(asset, match.PrefabAssetPath);
                     PrefabUtility.UnloadPrefabContents(asset);
                 }
-                //EditorUtility.SetDirty(component);
-                //}
             }
+
+            AssetDatabase.SaveAssets();
         }
         finally
         {
-            AssetDatabase.SaveAssets();
+            //EditorSceneManager.GetSceneManagerSetup().First()
             AssetDatabase.StopAssetEditing();
 
             var prefab = GetPrefabByUrl(route);
