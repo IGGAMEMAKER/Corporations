@@ -157,6 +157,7 @@ public partial class SimpleUI : EditorWindow
 
         if (Button("Refresh"))
         {
+            AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
             var u = newUrl;
             LoadData();
 
