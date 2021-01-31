@@ -83,14 +83,6 @@ public partial class SimpleUI
                 if (match.IsNormalPartOfNestedPrefab)
                     continue;
 
-                if (match.IsDirectMatch)
-                {
-                    // if scene
-                    // save change in scene
-
-                    // if prefab
-                    // save change in prefab
-                }
                 var asset = match.Asset;
                 //var asset = AssetDatabase.LoadAssetAtPath<GameObject>(match.PrefabAssetPath);
                 //var asset = AssetDatabase.OpenAsset(AssetDatabase.LoadMainAssetAtPath(match.PrefabAssetPath));
@@ -113,6 +105,23 @@ public partial class SimpleUI
                 Debug.Log($"Renaming {component.Url} => {newUrl2} on component in {match.PrefabAssetPath}");
                 component.Url = newUrl2;
 
+                if (isSceneAsset(match.PrefabAssetPath))
+                {
+                    // if scene
+                    // save change in scene
+
+                    Debug.Log("Save changes in scene: " + match.PrefabAssetPath);
+                }
+
+                if (isPrefabAsset(match.PrefabAssetPath))
+                {
+                    // if prefab
+                    // save change in prefab
+
+                    GameObjectUtility.RemoveMonoBehavioursWithMissingScript(asset);
+                    PrefabUtility.SaveAsPrefabAsset(asset, match.PrefabAssetPath);
+                    PrefabUtility.UnloadPrefabContents(asset);
+                }
                 //EditorUtility.SetDirty(component);
                 //}
             }
