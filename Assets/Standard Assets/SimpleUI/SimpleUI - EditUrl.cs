@@ -121,7 +121,7 @@ public partial class SimpleUI
                 if (addedSlash)
                     newUrl2 = newUrl2.TrimStart('/');
 
-                Debug.Log($"Renaming {component.Url} => {newUrl2} on component in {match.PrefabAssetPath}");
+                Debug.Log($"Renaming {component.Url} => {newUrl2} on component {match.ComponentName} in {match.PrefabAssetPath}");
                 component.Url = newUrl2;
 
 
@@ -260,7 +260,7 @@ public partial class SimpleUI
 
                 foreach (var url in RenamingUrls)
                 {
-                    Print("Scanning URL " + url);
+                    Print("Rename URL " + url);
                     RenameUrl(url, newUrl, newEditingUrl);
                     Print("----------------");
                 }
