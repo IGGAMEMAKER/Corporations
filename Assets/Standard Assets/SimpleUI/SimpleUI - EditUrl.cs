@@ -68,33 +68,29 @@ public partial class SimpleUI
 
     void RenameUrl(string route, string from, string to)
     {
-        //route = "/Holding/Main/DevTab";
-        //from = "/Holding/Main/DevTab";
-        //to = "/Holding/Main/DevTab1";
-
         var matches = WhatUsesComponent(route, allReferencesFromAssets);
 
-        bool savingWillBeSafe = true;
-        try
-        {
-            AssetDatabase.StartAssetEditing();
-            AssetDatabase.SaveAssets();
-        }
-        catch (System.Exception ex)
-        {
-            savingWillBeSafe = false;
-            Debug.LogError(ex);
-        }
-        finally
-        {
-            AssetDatabase.StopAssetEditing();
-        }
+        //bool savingWillBeSafe = true;
+        //try
+        //{
+        //    AssetDatabase.StartAssetEditing();
+        //    AssetDatabase.SaveAssets();
+        //}
+        //catch (System.Exception ex)
+        //{
+        //    savingWillBeSafe = false;
+        //    Debug.LogError(ex);
+        //}
+        //finally
+        //{
+        //    AssetDatabase.StopAssetEditing();
+        //}
 
-        if (!savingWillBeSafe)
-        {
-            Debug.Log("Renaming failed cause saving assets via AssetDatabase will cause errors (listed above)");
-            return;
-        }
+        //if (!savingWillBeSafe)
+        //{
+        //    Debug.Log("Renaming failed cause saving assets via AssetDatabase will cause errors (listed above)");
+        //    return;
+        //}
 
         try
         {
@@ -160,10 +156,11 @@ public partial class SimpleUI
                 }
             }
 
-            AssetDatabase.SaveAssets();
         }
         finally
         {
+            AssetDatabase.SaveAssets();
+
             //EditorSceneManager.GetSceneManagerSetup().First()
             AssetDatabase.StopAssetEditing();
 
