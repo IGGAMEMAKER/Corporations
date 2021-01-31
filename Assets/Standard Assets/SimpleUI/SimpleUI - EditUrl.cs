@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 // editing route mode
@@ -110,11 +111,18 @@ public partial class SimpleUI
                     // if scene
                     // save change in scene
 
-                    Debug.Log("Save changes in scene: " + match.PrefabAssetPath);
+                    EditorUtility.SetDirty(component);
+                    var saved = EditorSceneManager.SaveScene(asset.scene);
+
+                    if (saved)
+                        Debug.Log("SUCCEED Save changes in scene: " + match.PrefabAssetPath);
+                    else
+                        Debug.Log("FAILED Save changes in scene: " + match.PrefabAssetPath);
                 }
 
                 if (isPrefabAsset(match.PrefabAssetPath))
                 {
+                    continue;
                     // if prefab
                     // save change in prefab
 
@@ -128,7 +136,7 @@ public partial class SimpleUI
         }
         finally
         {
-            AssetDatabase.SaveAssets();
+            //AssetDatabase.SaveAssets();
             AssetDatabase.StopAssetEditing();
 
             var prefab = GetPrefabByUrl(route);
