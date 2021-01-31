@@ -80,13 +80,22 @@ public partial class SimpleUI
 
             foreach (var match in matches)
             {
+                if (match.IsNormalPartOfNestedPrefab)
+                    continue;
+
+                if (match.IsDirectMatch)
+                {
+                    // if scene
+                    // save change in scene
+
+                    // if prefab
+                    // save change in prefab
+                }
                 var asset = match.Asset;
                 //var asset = AssetDatabase.LoadAssetAtPath<GameObject>(match.PrefabAssetPath);
                 //var asset = AssetDatabase.OpenAsset(AssetDatabase.LoadMainAssetAtPath(match.PrefabAssetPath));
 
                 var component = match.Component;
-                //var component = asset.GetComponentsInChildren<OpenUrl>().First(a => a.Url.Contains(from));
-                //var component = asset.GetComponents<OpenUrl>().First(a => a.GetInstanceID() == match.InstanceID);
 
                 //if (component != null && component.Url.Contains(from))
                 //{
@@ -100,11 +109,11 @@ public partial class SimpleUI
                 var newUrl2 = formattedUrl.Replace(from, to);
                 if (addedSlash)
                     newUrl2 = newUrl2.TrimStart('/');
-                
+
                 Debug.Log($"Renaming {component.Url} => {newUrl2} on component in {match.PrefabAssetPath}");
                 component.Url = newUrl2;
 
-                
+                //EditorUtility.SetDirty(component);
                 //}
             }
         }
