@@ -287,6 +287,7 @@ public partial class SimpleUI : EditorWindow
     {
         public string PrefabAssetPath;
         public string ComponentName;
+        public int ComponentID;
         public string URL;
 
         public GameObject Asset;
@@ -444,6 +445,7 @@ public partial class SimpleUI : EditorWindow
         if (self != null)
         {
             components.Add(self);
+            Debug.Log("Add SELF COMPONENT");
         }
 
         if (components.Any())
@@ -452,13 +454,16 @@ public partial class SimpleUI : EditorWindow
             Print2("PREFAB: Found component(s) " + typeToSearch + $" ({components.Count}) in file <b>" + path + "</b>");
         }
 
+        int componentId = 0;
         foreach (var component1 in components)
         {
             var component = component1 as MonoBehaviour;
 
             var matchingComponent = GetPrefabMatchInfo2(component, asset, path, properties);
+            matchingComponent.ComponentID = componentId;
 
             matchingComponents.Add(matchingComponent);
+            componentId++;
         }
     }
 

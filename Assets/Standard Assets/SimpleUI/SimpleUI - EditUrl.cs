@@ -122,7 +122,7 @@ public partial class SimpleUI
                     newUrl2 = newUrl2.TrimStart('/');
 
                 Debug.Log($"Renaming {component.Url} => {newUrl2} on component {match.ComponentName} in {match.PrefabAssetPath}");
-                component.Url = newUrl2;
+                //component.Url = newUrl2;
 
 
                 // saving changes
@@ -134,6 +134,7 @@ public partial class SimpleUI
                     // https://forum.unity.com/threads/scripted-scene-changes-not-being-saved.526453/
 
                     Debug.Log("Set scene as dirty");
+                    component.Url = newUrl2;
 
                     EditorUtility.SetDirty(component);
 
@@ -152,7 +153,17 @@ public partial class SimpleUI
 
                     Debug.Log("Saving prefab: " + match.ComponentName);
 
-                    EditorUtility.SetDirty(component);
+                    //EditorUtility.SetDirty(component);
+
+                    // https://docs.unity3d.com/2020.1/Documentation/ScriptReference/PrefabUtility.EditPrefabContentsScope.html
+                    using (var editingScope = new PrefabUtility.EditPrefabContentsScope(match.PrefabAssetPath))
+                    {
+                        var prefabRoot = editingScope.prefabContentsRoot;
+
+                        var prefabbedComponent = prefabRoot.GetComponentsInChildren<OpenUrl>(true)[match.ComponentID];
+
+                        prefabbedComponent.Url = newUrl2;
+                    }
 
                     //GameObjectUtility.RemoveMonoBehavioursWithMissingScript(asset);
 
