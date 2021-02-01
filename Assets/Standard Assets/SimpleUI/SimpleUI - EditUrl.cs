@@ -137,6 +137,8 @@ public partial class SimpleUI
                     component.Url = newUrl2;
 
                     EditorUtility.SetDirty(component);
+                    //GameObjectUtility.RemoveMonoBehavioursWithMissingScript(asset);
+                    EditorSceneManager.SaveScene(asset.scene);
 
                     //var saved = EditorSceneManager.SaveScene(asset.scene);
 
@@ -162,7 +164,11 @@ public partial class SimpleUI
 
                         var prefabbedComponent = prefabRoot.GetComponentsInChildren<OpenUrl>(true)[match.ComponentID];
 
+                        Debug.Log($"Renaming component with url={prefabbedComponent.Url} to {newUrl2}");
+
                         prefabbedComponent.Url = newUrl2;
+
+                        GameObjectUtility.RemoveMonoBehavioursWithMissingScript(prefabRoot);
                     }
 
                     //GameObjectUtility.RemoveMonoBehavioursWithMissingScript(asset);
@@ -175,7 +181,7 @@ public partial class SimpleUI
         }
         finally
         {
-            AssetDatabase.SaveAssets();
+            //AssetDatabase.SaveAssets();
 
             //EditorSceneManager.GetSceneManagerSetup().First()
             AssetDatabase.StopAssetEditing();
