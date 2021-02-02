@@ -192,12 +192,10 @@ public partial class SimpleUI
             {
                 var script = AssetDatabase.LoadAssetAtPath<MonoScript>(match.ScriptName);
 
-                var content = script.text;
-
-                var replacedText = ReplaceUrlInCode(content, from, to);
+                var replacedText = ReplaceUrlInCode(script.text, from, to);
 
                 StreamWriter writer = new StreamWriter(match.ScriptName, false);
-                writer.WriteLine(replacedText);
+                writer.Write(replacedText);
                 writer.Close();
             }
         }
