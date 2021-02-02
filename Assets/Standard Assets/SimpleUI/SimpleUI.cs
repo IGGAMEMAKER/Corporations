@@ -76,6 +76,7 @@ public partial class SimpleUI : EditorWindow
     static bool isDraggedPrefabMode = false;
     static bool isDraggedGameObjectMode = false;
     static bool isUrlEditingMode = false;
+    static bool isUrlRemovingMode = false;
     static bool isPrefabChosenMode = false;
     static bool isUrlAddingMode = false;
     static bool isConcreteUrlChosen = false;

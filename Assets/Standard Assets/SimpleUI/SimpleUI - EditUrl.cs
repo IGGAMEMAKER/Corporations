@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEditor;
@@ -28,7 +29,16 @@ public partial class SimpleUI
         else
         {
             if (isUrlEditingMode)
-                RenderEditingPrefabMode();
+            {
+                if (isUrlRemovingMode)
+                {
+                    RenderUrlRemovingMode();
+                }
+                else
+                {
+                    RenderEditingPrefabMode();
+                }
+            }
             else
                 RenderLinkToEditing();
         }
@@ -113,10 +123,10 @@ public partial class SimpleUI
         // ==
         // /a/b/c/
 
-        txt = txt.Replace(WrapStringWithTwoSlashes(from), WrapStringWithTwoSlashes(to)); // two slashes
-        txt = txt.Replace(WrapStringWithLeftSlash(from), WrapStringWithLeftSlash(to)); // left slashes
-        txt = txt.Replace(WrapStringWithRightSlash(from), WrapStringWithRightSlash(to)); // right slashes
-        txt = txt.Replace(TrimSlashes(from), TrimSlashes(to)); // no slashes
+        //txt = txt.Replace(WrapStringWithTwoSlashes(from), WrapStringWithTwoSlashes(to)); // two slashes
+        //txt = txt.Replace(WrapStringWithLeftSlash(from), WrapStringWithLeftSlash(to)); // left slashes
+        //txt = txt.Replace(WrapStringWithRightSlash(from), WrapStringWithRightSlash(to)); // right slashes
+        //txt = txt.Replace(TrimSlashes(from), TrimSlashes(to)); // no slashes
 
         return text.Replace(from, to);
     }
@@ -421,8 +431,9 @@ public partial class SimpleUI
         Space(450);
         if (GUILayout.Button("Remove URL"))
         {
-            prefabs.RemoveAt(index);
-            SaveData();
+            isUrlRemovingMode = true;
+            //prefabs.RemoveAt(index);
+            //SaveData();
         }
     }
 }
