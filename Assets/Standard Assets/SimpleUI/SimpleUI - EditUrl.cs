@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -66,9 +67,16 @@ public partial class SimpleUI
         RenderPrefabs();
     }
 
+    string ReplaceUrlInCode(string text, string from, string to)
+    {
+        return text.Replace(from, to);
+    }
+
     void RenameUrl(string route, string from, string to)
     {
         var matches = WhatUsesComponent(route, allReferencesFromAssets);
+        var codeRefs = WhichScriptReferencesConcreteUrl(route);
+
 
         //bool savingWillBeSafe = true;
         //try
@@ -98,6 +106,7 @@ public partial class SimpleUI
 
             Debug.Log($"Replacing {from} to {to} in {route}");
 
+            Print("Rename in assets");
             foreach (var match in matches)
             {
                 if (match.IsNormalPartOfNestedPrefab)
@@ -178,6 +187,19 @@ public partial class SimpleUI
                 }
             }
 
+            Print("Rename in code");
+            foreach (var match in codeRefs)
+            {
+                var script = AssetDatabase.LoadAssetAtPath<MonoScript>(match.ScriptName);
+
+                var content = script.text;
+
+                var replacedText = ReplaceUrlInCode(content, from, to);
+
+                StreamWriter writer = new StreamWriter(match.ScriptName, false);
+                writer.WriteLine(replacedText);
+                writer.Close();
+            }
         }
         finally
         {

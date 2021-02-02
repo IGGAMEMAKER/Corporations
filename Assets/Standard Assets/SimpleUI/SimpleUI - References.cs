@@ -473,6 +473,28 @@ public partial class SimpleUI : EditorWindow
         public int Line;
     }
 
+    /// <summary>
+    /// returns array of matching indicies
+    /// </summary>
+    /// <param name="text"></param>
+    /// <param name="url"></param>
+    /// <param name="directMatch"></param>
+    /// <returns></returns>
+    //public static int[] GetUrlMatchesInText(string text, string url, bool directMatch)
+    //{
+
+    //}
+    public static bool IsTextContainsUrl(string text, string url, bool directMatch)
+    {
+        //bool directMatch = true;
+        var searchString = '"' + url;
+
+        if (directMatch)
+            searchString += '"';
+
+        return text.Contains(searchString);
+    }
+
     public static List<UsageInfo> WhichScriptReferencesConcreteUrl(string url)
     {
         var directory = "Assets/";
@@ -489,12 +511,6 @@ public partial class SimpleUI : EditorWindow
 
         paths.RemoveAll(guid => excludeFolders.Any(guid.Contains));
 
-        bool directMatch = true;
-        var searchString = '"' + url;
-
-        if (directMatch)
-            searchString += '"';
-
         foreach (var path in paths)
         {
             var asset = AssetDatabase.LoadAssetAtPath<MonoScript>(path);
@@ -510,8 +526,7 @@ public partial class SimpleUI : EditorWindow
                 continue;
             }
 
-
-            if (txt.Contains(searchString))
+            if (IsTextContainsUrl(txt, url, true))
             {
                 Debug.Log($"Found url {url} in text " + path);
 

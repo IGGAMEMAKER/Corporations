@@ -33,6 +33,8 @@ public class MenuController : View
             return;
 
         var project = "/ProjectScreen/CompanyMainInfo";
+        var testUrl = "/Holding/Main/DevTab";
+
 
         SetUrl(ScreenMode.DevelopmentScreen, "/DevelopmentScreen");
         SetUrl(ScreenMode.ProjectScreen, project);
