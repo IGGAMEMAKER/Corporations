@@ -67,8 +67,57 @@ public partial class SimpleUI
         RenderPrefabs();
     }
 
+    string WrapStringWithTwoSlashes(string str)
+    {
+        str = WrapStringWithLeftSlash(str);
+        str = WrapStringWithRightSlash(str);
+
+        return str;
+    }
+
+    string WrapStringWithLeftSlash(string str)
+    {
+        if (!str.StartsWith("/"))
+            str = "/" + str;
+
+        return str;
+    }
+
+    string WrapStringWithRightSlash(string str)
+    {
+        if (!str.EndsWith("/"))
+            str = str + "/";
+
+        return str;
+    }
+
+    string TrimSlashes(string str)
+    {
+        // no trimming in / route
+        if (str.Equals("/"))
+            return str;
+
+        return str.TrimStart('/').TrimEnd('/');
+    }
+
+
     string ReplaceUrlInCode(string text, string from, string to)
     {
+        var txt = text;
+
+        // a/b/c
+        // ==
+        // a/b/c/
+        // ==
+        // /a/b/c
+        // ==
+        // /a/b/c/
+
+        txt = txt.Replace(WrapStringWithTwoSlashes(from), WrapStringWithTwoSlashes(to)); // two slashes
+        txt = txt.Replace(WrapStringWithLeftSlash(from), WrapStringWithLeftSlash(to)); // left slashes
+        txt = txt.Replace(WrapStringWithRightSlash(from), WrapStringWithRightSlash(to)); // right slashes
+        txt = txt.Replace(TrimSlashes(from), TrimSlashes(to)); // no slashes
+
         return text.Replace(from, to);
     }
 
