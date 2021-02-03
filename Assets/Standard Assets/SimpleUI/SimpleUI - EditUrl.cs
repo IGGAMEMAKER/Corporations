@@ -66,6 +66,7 @@ public partial class SimpleUI
         if (Button("Edit prefab"))
         {
             isUrlEditingMode = true;
+            isUrlRemovingMode = false;
 
             newUrl = prefab.Url;
             newEditingUrl = newUrl;

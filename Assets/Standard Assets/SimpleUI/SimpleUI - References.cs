@@ -495,13 +495,11 @@ public partial class SimpleUI : EditorWindow
         return text.Contains(searchString);
     }
 
-    public static List<UsageInfo> WhichScriptReferencesConcreteUrl(string url)
+    //public static List<MonoScript> GetAllScriptPaths()
+    public static List<string> GetAllScriptPaths()
     {
         var directory = "Assets/";
         var list = new List<UsageInfo>();
-
-        Debug.Log("Finding all scrips, that call " + url);
-
 
         var excludeFolders = new[] { "Assets/Standard Assets/Frost UI", "Assets/Standard Assets/SimpleUI", "Assets/Standard Assets/Libraries", "Assets/Systems", "Assets/Core" };
         var guids = AssetDatabase.FindAssets("t:Script", new[] { "Assets" });
@@ -511,20 +509,28 @@ public partial class SimpleUI : EditorWindow
 
         paths.RemoveAll(guid => excludeFolders.Any(guid.Contains));
 
-        foreach (var path in paths)
+        return paths;
+        //return paths.Select(path => AssetDatabase.LoadAssetAtPath<MonoScript>(path)).ToList();
+    }
+
+    public static List<UsageInfo> WhichScriptReferencesConcreteUrl(string url)
+    {
+        Debug.Log("Finding all scrips, that call " + url);
+
+        var list = new List<UsageInfo>();
+
+        foreach (var path in GetAllScriptPaths())
         {
             var asset = AssetDatabase.LoadAssetAtPath<MonoScript>(path);
 
             var txt = asset != null ? ("\n" + asset.text) : "";
 
-            //Debug.Log("found script: " + path + txt);
+            //if (asset == null)
+            //{
+            //    Debug.LogError("Cannot load prefab at path: " + path);
 
-            if (asset == null)
-            {
-                Debug.LogError("Cannot load prefab at path: " + path);
-
-                continue;
-            }
+            //    continue;
+            //}
 
             if (IsTextContainsUrl(txt, url, true))
             {
