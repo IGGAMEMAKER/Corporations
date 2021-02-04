@@ -19,6 +19,7 @@
           <e p="IndustryButtons.cs" t="Include" />
           <e p="NewCampaignController.cs" t="Include" />
           <e p="PrintAmountOfListeners.cs" t="Include" />
+          <e p="ReloadGameIfPrefabChanged.cs" t="Include" />
           <e p="SetInitialIndustry.cs" t="Include" />
           <e p="SetInitialNiche.cs" t="Include" />
           <e p="StartCampaignButton.cs" t="Include" />
@@ -39,263 +40,266 @@
         <e p="CompareCompaniesView.cs" t="Include" />
         <e p="CompetitionPanelView.cs" t="Include" />
         <e p="Core" t="Include">
-          <e p="Components" t="Include">
-            <e p="Companies" t="Include">
-              <e p="CompanyComponents.cs" t="Include" />
-              <e p="CompanyReportsMetricsAndHistory.cs" t="Include" />
-              <e p="CompanyStrategyComponents.cs" t="Include" />
-              <e p="ProductComponents.cs" t="Include" />
+          <e p="Data" t="Include">
+            <e p="Components" t="Include">
+              <e p="Companies" t="Include">
+                <e p="CompanyComponents.cs" t="Include" />
+                <e p="CompanyReportsMetricsAndHistory.cs" t="Include" />
+                <e p="CompanyStrategyComponents.cs" t="Include" />
+                <e p="ProductComponents.cs" t="Include" />
+              </e>
+              <e p="Components.cs" t="Include" />
+              <e p="CooldownsAndTasks" t="Include">
+                <e p="CooldownsAndTaskComponents.cs" t="Include" />
+              </e>
+              <e p="Data.cs" t="Include" />
+              <e p="Enums.cs" t="Include" />
+              <e p="Humans" t="Include">
+                <e p="HumanComponents.cs" t="Include" />
+              </e>
+              <e p="InvestmentGoals.cs" t="Include" />
+              <e p="Markets" t="Include">
+                <e p="MarketComponents.cs" t="Include" />
+                <e p="MarketCreator.cs" t="Include" />
+              </e>
+              <e p="Notifications.cs" t="Include" />
+              <e p="Popups.cs" t="Include" />
+              <e p="TeamResource.cs" t="Include" />
             </e>
-            <e p="Components.cs" t="Include" />
-            <e p="CooldownsAndTasks" t="Include">
-              <e p="CooldownsAndTaskComponents.cs" t="Include" />
+            <e p="Generated" t="Include">
+              <e p="Contexts.cs" t="Include" />
+              <e p="Events" t="Include">
+                <e p="Components" t="Include">
+                  <e p="AnyCompanyGoalListenerComponent.cs" t="Include" />
+                  <e p="AnyCompanyListenerComponent.cs" t="Include" />
+                  <e p="AnyDateListenerComponent.cs" t="Include" />
+                  <e p="AnyGameEventContainerListenerComponent.cs" t="Include" />
+                  <e p="AnyGamePausedListenerComponent.cs" t="Include" />
+                  <e p="AnyNotificationsListenerComponent.cs" t="Include" />
+                  <e p="AnyShareholdersListenerComponent.cs" t="Include" />
+                  <e p="AnyTargetDateListenerComponent.cs" t="Include" />
+                  <e p="AnyTechnologyLeaderListenerComponent.cs" t="Include" />
+                  <e p="AnyTimerRunningListenerComponent.cs" t="Include" />
+                  <e p="BrandingListenerComponent.cs" t="Include" />
+                  <e p="CompanyGoalListenerComponent.cs" t="Include" />
+                  <e p="CompanyListenerComponent.cs" t="Include" />
+                  <e p="CompanyResourceListenerComponent.cs" t="Include" />
+                  <e p="CrunchingListenerComponent.cs" t="Include" />
+                  <e p="DateListenerComponent.cs" t="Include" />
+                  <e p="EventContainerListenerComponent.cs" t="Include" />
+                  <e p="MarketingListenerComponent.cs" t="Include" />
+                  <e p="MenuListenerComponent.cs" t="Include" />
+                  <e p="NavigationHistoryListenerComponent.cs" t="Include" />
+                  <e p="ProductListenerComponent.cs" t="Include" />
+                  <e p="ReleaseListenerComponent.cs" t="Include" />
+                  <e p="ShareholdersListenerComponent.cs" t="Include" />
+                  <e p="TeamListenerComponent.cs" t="Include" />
+                  <e p="TechnologyLeaderListenerComponent.cs" t="Include" />
+                  <e p="TutorialListenerComponent.cs" t="Include" />
+                </e>
+                <e p="GameEventSystems.cs" t="Include" />
+                <e p="Interfaces" t="Include">
+                  <e p="IAnyCompanyGoalListener.cs" t="Include" />
+                  <e p="IAnyCompanyListener.cs" t="Include" />
+                  <e p="IAnyDateListener.cs" t="Include" />
+                  <e p="IAnyGameEventContainerListener.cs" t="Include" />
+                  <e p="IAnyGamePausedListener.cs" t="Include" />
+                  <e p="IAnyNotificationsListener.cs" t="Include" />
+                  <e p="IAnyShareholdersListener.cs" t="Include" />
+                  <e p="IAnyTargetDateListener.cs" t="Include" />
+                  <e p="IAnyTechnologyLeaderListener.cs" t="Include" />
+                  <e p="IAnyTimerRunningListener.cs" t="Include" />
+                  <e p="IBrandingListener.cs" t="Include" />
+                  <e p="ICompanyGoalListener.cs" t="Include" />
+                  <e p="ICompanyListener.cs" t="Include" />
+                  <e p="ICompanyResourceListener.cs" t="Include" />
+                  <e p="ICrunchingListener.cs" t="Include" />
+                  <e p="IDateListener.cs" t="Include" />
+                  <e p="IEventContainerListener.cs" t="Include" />
+                  <e p="IMarketingListener.cs" t="Include" />
+                  <e p="IMenuListener.cs" t="Include" />
+                  <e p="INavigationHistoryListener.cs" t="Include" />
+                  <e p="IProductListener.cs" t="Include" />
+                  <e p="IReleaseListener.cs" t="Include" />
+                  <e p="IShareholdersListener.cs" t="Include" />
+                  <e p="ITeamListener.cs" t="Include" />
+                  <e p="ITechnologyLeaderListener.cs" t="Include" />
+                  <e p="ITutorialListener.cs" t="Include" />
+                </e>
+                <e p="Systems" t="Include">
+                  <e p="AnyCompanyEventSystem.cs" t="Include" />
+                  <e p="AnyCompanyGoalEventSystem.cs" t="Include" />
+                  <e p="AnyDateEventSystem.cs" t="Include" />
+                  <e p="AnyGameEventContainerEventSystem.cs" t="Include" />
+                  <e p="AnyGamePausedEventSystem.cs" t="Include" />
+                  <e p="AnyNotificationsEventSystem.cs" t="Include" />
+                  <e p="AnyShareholdersEventSystem.cs" t="Include" />
+                  <e p="AnyTargetDateEventSystem.cs" t="Include" />
+                  <e p="AnyTechnologyLeaderEventSystem.cs" t="Include" />
+                  <e p="AnyTimerRunningEventSystem.cs" t="Include" />
+                  <e p="BrandingEventSystem.cs" t="Include" />
+                  <e p="CompanyEventSystem.cs" t="Include" />
+                  <e p="CompanyGoalEventSystem.cs" t="Include" />
+                  <e p="CompanyResourceEventSystem.cs" t="Include" />
+                  <e p="CrunchingEventSystem.cs" t="Include" />
+                  <e p="DateEventSystem.cs" t="Include" />
+                  <e p="EventContainerEventSystem.cs" t="Include" />
+                  <e p="MarketingEventSystem.cs" t="Include" />
+                  <e p="MenuEventSystem.cs" t="Include" />
+                  <e p="NavigationHistoryEventSystem.cs" t="Include" />
+                  <e p="ProductEventSystem.cs" t="Include" />
+                  <e p="ReleaseEventSystem.cs" t="Include" />
+                  <e p="ShareholdersEventSystem.cs" t="Include" />
+                  <e p="TeamEventSystem.cs" t="Include" />
+                  <e p="TechnologyLeaderEventSystem.cs" t="Include" />
+                  <e p="TutorialEventSystem.cs" t="Include" />
+                </e>
+              </e>
+              <e p="Feature.cs" t="Include" />
+              <e p="Game" t="Include">
+                <e p="Components" t="Include">
+                  <e p="GameAcceptsInvestmentsComponent.cs" t="Include" />
+                  <e p="GameAcquisitionOfferComponent.cs" t="Include" />
+                  <e p="GameAliveComponent.cs" t="Include" />
+                  <e p="GameAnyCompanyGoalListenerComponent.cs" t="Include" />
+                  <e p="GameAnyCompanyListenerComponent.cs" t="Include" />
+                  <e p="GameAnyDateListenerComponent.cs" t="Include" />
+                  <e p="GameAnyGameEventContainerListenerComponent.cs" t="Include" />
+                  <e p="GameAnyGamePausedListenerComponent.cs" t="Include" />
+                  <e p="GameAnyNotificationsListenerComponent.cs" t="Include" />
+                  <e p="GameAnyShareholdersListenerComponent.cs" t="Include" />
+                  <e p="GameAnyTargetDateListenerComponent.cs" t="Include" />
+                  <e p="GameAnyTechnologyLeaderListenerComponent.cs" t="Include" />
+                  <e p="GameAnyTimerRunningListenerComponent.cs" t="Include" />
+                  <e p="GameAutomaticInvestmentsComponent.cs" t="Include" />
+                  <e p="GameBankruptComponent.cs" t="Include" />
+                  <e p="GameBrandingComponent.cs" t="Include" />
+                  <e p="GameBrandingListenerComponent.cs" t="Include" />
+                  <e p="GameCampaignStatsComponent.cs" t="Include" />
+                  <e p="GameCEOComponent.cs" t="Include" />
+                  <e p="GameChannelExplorationComponent.cs" t="Include" />
+                  <e p="GameChannelInfosComponent.cs" t="Include" />
+                  <e p="GameChannelMarketingActivitiesComponent.cs" t="Include" />
+                  <e p="GameCompanyComponent.cs" t="Include" />
+                  <e p="GameCompanyFocusComponent.cs" t="Include" />
+                  <e p="GameCompanyGoalComponent.cs" t="Include" />
+                  <e p="GameCompanyGoalListenerComponent.cs" t="Include" />
+                  <e p="GameCompanyListenerComponent.cs" t="Include" />
+                  <e p="GameCompanyMarketingActivitiesComponent.cs" t="Include" />
+                  <e p="GameCompanyResourceComponent.cs" t="Include" />
+                  <e p="GameCompanyResourceHistoryComponent.cs" t="Include" />
+                  <e p="GameCompanyResourceListenerComponent.cs" t="Include" />
+                  <e p="GameCompanyStrategiesComponent.cs" t="Include" />
+                  <e p="GameCompletedGoalsComponent.cs" t="Include" />
+                  <e p="GameControlledByPlayerComponent.cs" t="Include" />
+                  <e p="GameCooldownComponent.cs" t="Include" />
+                  <e p="GameCorporateCultureComponent.cs" t="Include" />
+                  <e p="GameCrunchingComponent.cs" t="Include" />
+                  <e p="GameCrunchingListenerComponent.cs" t="Include" />
+                  <e p="GameDateComponent.cs" t="Include" />
+                  <e p="GameDateListenerComponent.cs" t="Include" />
+                  <e p="GameDeadComponent.cs" t="Include" />
+                  <e p="GameDumpingComponent.cs" t="Include" />
+                  <e p="GameEmployeeComponent.cs" t="Include" />
+                  <e p="GameEventContainerComponent.cs" t="Include" />
+                  <e p="GameEventContainerListenerComponent.cs" t="Include" />
+                  <e p="GameExpertiseComponent.cs" t="Include" />
+                  <e p="GameFeaturesComponent.cs" t="Include" />
+                  <e p="GameFinancingComponent.cs" t="Include" />
+                  <e p="GameFlagshipComponent.cs" t="Include" />
+                  <e p="GameFollowComponent.cs" t="Include" />
+                  <e p="GameFollowingComponent.cs" t="Include" />
+                  <e p="GameGameEventContainerComponent.cs" t="Include" />
+                  <e p="GameGamePausedComponent.cs" t="Include" />
+                  <e p="GameHumanCompanyRelationshipComponent.cs" t="Include" />
+                  <e p="GameHumanComponent.cs" t="Include" />
+                  <e p="GameHumanSkillsComponent.cs" t="Include" />
+                  <e p="GameHumanUpgradedSkillsComponent.cs" t="Include" />
+                  <e p="GameIndependentCompanyComponent.cs" t="Include" />
+                  <e p="GameIndustryComponent.cs" t="Include" />
+                  <e p="GameInvestmentProposalsComponent.cs" t="Include" />
+                  <e p="GameInvestmentRoundsComponent.cs" t="Include" />
+                  <e p="GameInvestmentStrategyComponent.cs" t="Include" />
+                  <e p="GameLoggingComponent.cs" t="Include" />
+                  <e p="GameManagingCompanyComponent.cs" t="Include" />
+                  <e p="GameMarketingChannelComponent.cs" t="Include" />
+                  <e p="GameMarketingComponent.cs" t="Include" />
+                  <e p="GameMarketingListenerComponent.cs" t="Include" />
+                  <e p="GameMenuComponent.cs" t="Include" />
+                  <e p="GameMenuListenerComponent.cs" t="Include" />
+                  <e p="GameMetricsHistoryComponent.cs" t="Include" />
+                  <e p="GameNavigationHistoryComponent.cs" t="Include" />
+                  <e p="GameNavigationHistoryListenerComponent.cs" t="Include" />
+                  <e p="GameNicheBaseProfileComponent.cs" t="Include" />
+                  <e p="GameNicheClientsContainerComponent.cs" t="Include" />
+                  <e p="GameNicheComponent.cs" t="Include" />
+                  <e p="GameNicheCostsComponent.cs" t="Include" />
+                  <e p="GameNicheLifecycleComponent.cs" t="Include" />
+                  <e p="GameNicheSegmentsComponent.cs" t="Include" />
+                  <e p="GameNicheStateComponent.cs" t="Include" />
+                  <e p="GameNotificationsComponent.cs" t="Include" />
+                  <e p="GameOnSalesComponent.cs" t="Include" />
+                  <e p="GameOwningsComponent.cs" t="Include" />
+                  <e p="GamePartnershipsComponent.cs" t="Include" />
+                  <e p="GamePersonalRelationshipsComponent.cs" t="Include" />
+                  <e p="GamePlayerComponent.cs" t="Include" />
+                  <e p="GamePopupComponent.cs" t="Include" />
+                  <e p="GamePreviousAcquisitionOffersComponent.cs" t="Include" />
+                  <e p="GameProductComponent.cs" t="Include" />
+                  <e p="GameProductListenerComponent.cs" t="Include" />
+                  <e p="GameProductPositioningComponent.cs" t="Include" />
+                  <e p="GameProductUpgradesComponent.cs" t="Include" />
+                  <e p="GameProfilingComponent.cs" t="Include" />
+                  <e p="GamePseudoHumanComponent.cs" t="Include" />
+                  <e p="GamePublicCompanyComponent.cs" t="Include" />
+                  <e p="GameRelatedToPlayerComponent.cs" t="Include" />
+                  <e p="GameReleaseComponent.cs" t="Include" />
+                  <e p="GameReleaseListenerComponent.cs" t="Include" />
+                  <e p="GameReportsComponent.cs" t="Include" />
+                  <e p="GameResearchComponent.cs" t="Include" />
+                  <e p="GameSeenPopupsComponent.cs" t="Include" />
+                  <e p="GameSegmentComponent.cs" t="Include" />
+                  <e p="GameServerAttackComponent.cs" t="Include" />
+                  <e p="GameShareholderComponent.cs" t="Include" />
+                  <e p="GameShareholdersComponent.cs" t="Include" />
+                  <e p="GameShareholdersListenerComponent.cs" t="Include" />
+                  <e p="GameSimpleCooldownContainerComponent.cs" t="Include" />
+                  <e p="GameSourceOfClientsComponent.cs" t="Include" />
+                  <e p="GameSpeedComponent.cs" t="Include" />
+                  <e p="GameSupportUpgradesComponent.cs" t="Include" />
+                  <e p="GameTargetDateComponent.cs" t="Include" />
+                  <e p="GameTaskComponent.cs" t="Include" />
+                  <e p="GameTeamComponent.cs" t="Include" />
+                  <e p="GameTeamEfficiencyComponent.cs" t="Include" />
+                  <e p="GameTeamListenerComponent.cs" t="Include" />
+                  <e p="GameTechnologyLeaderComponent.cs" t="Include" />
+                  <e p="GameTechnologyLeaderListenerComponent.cs" t="Include" />
+                  <e p="GameTestComponent.cs" t="Include" />
+                  <e p="GameTimedActionComponent.cs" t="Include" />
+                  <e p="GameTimerRunningComponent.cs" t="Include" />
+                  <e p="GameTutorialComponent.cs" t="Include" />
+                  <e p="GameTutorialListenerComponent.cs" t="Include" />
+                  <e p="GameUniversalListenerComponent.cs" t="Include" />
+                  <e p="GameWantsToExpandComponent.cs" t="Include" />
+                  <e p="GameWorkerComponent.cs" t="Include" />
+                  <e p="GameWorkerOffersComponent.cs" t="Include" />
+                </e>
+                <e p="GameAttribute.cs" t="Include" />
+                <e p="GameComponentsLookup.cs" t="Include" />
+                <e p="GameContext.cs" t="Include" />
+                <e p="GameEntity.cs" t="Include" />
+                <e p="GameMatcher.cs" t="Include" />
+              </e>
+              <e p="Input" t="Include">
+                <e p="InputAttribute.cs" t="Include" />
+                <e p="InputComponentsLookup.cs" t="Include" />
+                <e p="InputContext.cs" t="Include" />
+                <e p="InputEntity.cs" t="Include" />
+                <e p="InputMatcher.cs" t="Include" />
+              </e>
             </e>
-            <e p="Data.cs" t="Include" />
-            <e p="Enums.cs" t="Include" />
-            <e p="Humans" t="Include">
-              <e p="HumanComponents.cs" t="Include" />
-            </e>
-            <e p="InvestmentGoals.cs" t="Include" />
-            <e p="Markets" t="Include">
-              <e p="MarketComponents.cs" t="Include" />
-              <e p="MarketCreator.cs" t="Include" />
-            </e>
-            <e p="Notifications.cs" t="Include" />
-            <e p="Popups.cs" t="Include" />
-            <e p="TeamResource.cs" t="Include" />
           </e>
-          <e p="Generated" t="Include">
-            <e p="Contexts.cs" t="Include" />
-            <e p="Events" t="Include">
-              <e p="Components" t="Include">
-                <e p="AnyCompanyGoalListenerComponent.cs" t="Include" />
-                <e p="AnyCompanyListenerComponent.cs" t="Include" />
-                <e p="AnyDateListenerComponent.cs" t="Include" />
-                <e p="AnyGameEventContainerListenerComponent.cs" t="Include" />
-                <e p="AnyGamePausedListenerComponent.cs" t="Include" />
-                <e p="AnyNotificationsListenerComponent.cs" t="Include" />
-                <e p="AnyShareholdersListenerComponent.cs" t="Include" />
-                <e p="AnyTargetDateListenerComponent.cs" t="Include" />
-                <e p="AnyTechnologyLeaderListenerComponent.cs" t="Include" />
-                <e p="AnyTimerRunningListenerComponent.cs" t="Include" />
-                <e p="BrandingListenerComponent.cs" t="Include" />
-                <e p="CompanyGoalListenerComponent.cs" t="Include" />
-                <e p="CompanyListenerComponent.cs" t="Include" />
-                <e p="CompanyResourceListenerComponent.cs" t="Include" />
-                <e p="CrunchingListenerComponent.cs" t="Include" />
-                <e p="DateListenerComponent.cs" t="Include" />
-                <e p="EventContainerListenerComponent.cs" t="Include" />
-                <e p="MarketingListenerComponent.cs" t="Include" />
-                <e p="MenuListenerComponent.cs" t="Include" />
-                <e p="NavigationHistoryListenerComponent.cs" t="Include" />
-                <e p="ProductListenerComponent.cs" t="Include" />
-                <e p="ReleaseListenerComponent.cs" t="Include" />
-                <e p="ShareholdersListenerComponent.cs" t="Include" />
-                <e p="TeamListenerComponent.cs" t="Include" />
-                <e p="TechnologyLeaderListenerComponent.cs" t="Include" />
-                <e p="TutorialListenerComponent.cs" t="Include" />
-              </e>
-              <e p="GameEventSystems.cs" t="Include" />
-              <e p="Interfaces" t="Include">
-                <e p="IAnyCompanyGoalListener.cs" t="Include" />
-                <e p="IAnyCompanyListener.cs" t="Include" />
-                <e p="IAnyDateListener.cs" t="Include" />
-                <e p="IAnyGameEventContainerListener.cs" t="Include" />
-                <e p="IAnyGamePausedListener.cs" t="Include" />
-                <e p="IAnyNotificationsListener.cs" t="Include" />
-                <e p="IAnyShareholdersListener.cs" t="Include" />
-                <e p="IAnyTargetDateListener.cs" t="Include" />
-                <e p="IAnyTechnologyLeaderListener.cs" t="Include" />
-                <e p="IAnyTimerRunningListener.cs" t="Include" />
-                <e p="IBrandingListener.cs" t="Include" />
-                <e p="ICompanyGoalListener.cs" t="Include" />
-                <e p="ICompanyListener.cs" t="Include" />
-                <e p="ICompanyResourceListener.cs" t="Include" />
-                <e p="ICrunchingListener.cs" t="Include" />
-                <e p="IDateListener.cs" t="Include" />
-                <e p="IEventContainerListener.cs" t="Include" />
-                <e p="IMarketingListener.cs" t="Include" />
-                <e p="IMenuListener.cs" t="Include" />
-                <e p="INavigationHistoryListener.cs" t="Include" />
-                <e p="IProductListener.cs" t="Include" />
-                <e p="IReleaseListener.cs" t="Include" />
-                <e p="IShareholdersListener.cs" t="Include" />
-                <e p="ITeamListener.cs" t="Include" />
-                <e p="ITechnologyLeaderListener.cs" t="Include" />
-                <e p="ITutorialListener.cs" t="Include" />
-              </e>
-              <e p="Systems" t="Include">
-                <e p="AnyCompanyEventSystem.cs" t="Include" />
-                <e p="AnyCompanyGoalEventSystem.cs" t="Include" />
-                <e p="AnyDateEventSystem.cs" t="Include" />
-                <e p="AnyGameEventContainerEventSystem.cs" t="Include" />
-                <e p="AnyGamePausedEventSystem.cs" t="Include" />
-                <e p="AnyNotificationsEventSystem.cs" t="Include" />
-                <e p="AnyShareholdersEventSystem.cs" t="Include" />
-                <e p="AnyTargetDateEventSystem.cs" t="Include" />
-                <e p="AnyTechnologyLeaderEventSystem.cs" t="Include" />
-                <e p="AnyTimerRunningEventSystem.cs" t="Include" />
-                <e p="BrandingEventSystem.cs" t="Include" />
-                <e p="CompanyEventSystem.cs" t="Include" />
-                <e p="CompanyGoalEventSystem.cs" t="Include" />
-                <e p="CompanyResourceEventSystem.cs" t="Include" />
-                <e p="CrunchingEventSystem.cs" t="Include" />
-                <e p="DateEventSystem.cs" t="Include" />
-                <e p="EventContainerEventSystem.cs" t="Include" />
-                <e p="MarketingEventSystem.cs" t="Include" />
-                <e p="MenuEventSystem.cs" t="Include" />
-                <e p="NavigationHistoryEventSystem.cs" t="Include" />
-                <e p="ProductEventSystem.cs" t="Include" />
-                <e p="ReleaseEventSystem.cs" t="Include" />
-                <e p="ShareholdersEventSystem.cs" t="Include" />
-                <e p="TeamEventSystem.cs" t="Include" />
-                <e p="TechnologyLeaderEventSystem.cs" t="Include" />
-                <e p="TutorialEventSystem.cs" t="Include" />
-              </e>
-            </e>
-            <e p="Feature.cs" t="Include" />
-            <e p="Game" t="Include">
-              <e p="Components" t="Include">
-                <e p="GameAcceptsInvestmentsComponent.cs" t="Include" />
-                <e p="GameAcquisitionOfferComponent.cs" t="Include" />
-                <e p="GameAliveComponent.cs" t="Include" />
-                <e p="GameAnyCompanyGoalListenerComponent.cs" t="Include" />
-                <e p="GameAnyCompanyListenerComponent.cs" t="Include" />
-                <e p="GameAnyDateListenerComponent.cs" t="Include" />
-                <e p="GameAnyGameEventContainerListenerComponent.cs" t="Include" />
-                <e p="GameAnyGamePausedListenerComponent.cs" t="Include" />
-                <e p="GameAnyNotificationsListenerComponent.cs" t="Include" />
-                <e p="GameAnyShareholdersListenerComponent.cs" t="Include" />
-                <e p="GameAnyTargetDateListenerComponent.cs" t="Include" />
-                <e p="GameAnyTechnologyLeaderListenerComponent.cs" t="Include" />
-                <e p="GameAnyTimerRunningListenerComponent.cs" t="Include" />
-                <e p="GameAutomaticInvestmentsComponent.cs" t="Include" />
-                <e p="GameBankruptComponent.cs" t="Include" />
-                <e p="GameBrandingComponent.cs" t="Include" />
-                <e p="GameBrandingListenerComponent.cs" t="Include" />
-                <e p="GameCampaignStatsComponent.cs" t="Include" />
-                <e p="GameCEOComponent.cs" t="Include" />
-                <e p="GameChannelExplorationComponent.cs" t="Include" />
-                <e p="GameChannelInfosComponent.cs" t="Include" />
-                <e p="GameChannelMarketingActivitiesComponent.cs" t="Include" />
-                <e p="GameCompanyComponent.cs" t="Include" />
-                <e p="GameCompanyFocusComponent.cs" t="Include" />
-                <e p="GameCompanyGoalComponent.cs" t="Include" />
-                <e p="GameCompanyGoalListenerComponent.cs" t="Include" />
-                <e p="GameCompanyListenerComponent.cs" t="Include" />
-                <e p="GameCompanyMarketingActivitiesComponent.cs" t="Include" />
-                <e p="GameCompanyResourceComponent.cs" t="Include" />
-                <e p="GameCompanyResourceHistoryComponent.cs" t="Include" />
-                <e p="GameCompanyResourceListenerComponent.cs" t="Include" />
-                <e p="GameCompanyStrategiesComponent.cs" t="Include" />
-                <e p="GameCompletedGoalsComponent.cs" t="Include" />
-                <e p="GameControlledByPlayerComponent.cs" t="Include" />
-                <e p="GameCooldownComponent.cs" t="Include" />
-                <e p="GameCorporateCultureComponent.cs" t="Include" />
-                <e p="GameCrunchingComponent.cs" t="Include" />
-                <e p="GameCrunchingListenerComponent.cs" t="Include" />
-                <e p="GameDateComponent.cs" t="Include" />
-                <e p="GameDateListenerComponent.cs" t="Include" />
-                <e p="GameDeadComponent.cs" t="Include" />
-                <e p="GameDumpingComponent.cs" t="Include" />
-                <e p="GameEmployeeComponent.cs" t="Include" />
-                <e p="GameEventContainerComponent.cs" t="Include" />
-                <e p="GameEventContainerListenerComponent.cs" t="Include" />
-                <e p="GameExpertiseComponent.cs" t="Include" />
-                <e p="GameFeaturesComponent.cs" t="Include" />
-                <e p="GameFinancingComponent.cs" t="Include" />
-                <e p="GameFlagshipComponent.cs" t="Include" />
-                <e p="GameFollowComponent.cs" t="Include" />
-                <e p="GameFollowingComponent.cs" t="Include" />
-                <e p="GameGameEventContainerComponent.cs" t="Include" />
-                <e p="GameGamePausedComponent.cs" t="Include" />
-                <e p="GameHumanCompanyRelationshipComponent.cs" t="Include" />
-                <e p="GameHumanComponent.cs" t="Include" />
-                <e p="GameHumanSkillsComponent.cs" t="Include" />
-                <e p="GameHumanUpgradedSkillsComponent.cs" t="Include" />
-                <e p="GameIndependentCompanyComponent.cs" t="Include" />
-                <e p="GameIndustryComponent.cs" t="Include" />
-                <e p="GameInvestmentProposalsComponent.cs" t="Include" />
-                <e p="GameInvestmentRoundsComponent.cs" t="Include" />
-                <e p="GameInvestmentStrategyComponent.cs" t="Include" />
-                <e p="GameLoggingComponent.cs" t="Include" />
-                <e p="GameManagingCompanyComponent.cs" t="Include" />
-                <e p="GameMarketingChannelComponent.cs" t="Include" />
-                <e p="GameMarketingComponent.cs" t="Include" />
-                <e p="GameMarketingListenerComponent.cs" t="Include" />
-                <e p="GameMenuComponent.cs" t="Include" />
-                <e p="GameMenuListenerComponent.cs" t="Include" />
-                <e p="GameMetricsHistoryComponent.cs" t="Include" />
-                <e p="GameNavigationHistoryComponent.cs" t="Include" />
-                <e p="GameNavigationHistoryListenerComponent.cs" t="Include" />
-                <e p="GameNicheBaseProfileComponent.cs" t="Include" />
-                <e p="GameNicheClientsContainerComponent.cs" t="Include" />
-                <e p="GameNicheComponent.cs" t="Include" />
-                <e p="GameNicheCostsComponent.cs" t="Include" />
-                <e p="GameNicheLifecycleComponent.cs" t="Include" />
-                <e p="GameNicheSegmentsComponent.cs" t="Include" />
-                <e p="GameNicheStateComponent.cs" t="Include" />
-                <e p="GameNotificationsComponent.cs" t="Include" />
-                <e p="GameOnSalesComponent.cs" t="Include" />
-                <e p="GameOwningsComponent.cs" t="Include" />
-                <e p="GamePartnershipsComponent.cs" t="Include" />
-                <e p="GamePersonalRelationshipsComponent.cs" t="Include" />
-                <e p="GamePlayerComponent.cs" t="Include" />
-                <e p="GamePopupComponent.cs" t="Include" />
-                <e p="GamePreviousAcquisitionOffersComponent.cs" t="Include" />
-                <e p="GameProductComponent.cs" t="Include" />
-                <e p="GameProductListenerComponent.cs" t="Include" />
-                <e p="GameProductPositioningComponent.cs" t="Include" />
-                <e p="GameProductUpgradesComponent.cs" t="Include" />
-                <e p="GameProfilingComponent.cs" t="Include" />
-                <e p="GamePseudoHumanComponent.cs" t="Include" />
-                <e p="GamePublicCompanyComponent.cs" t="Include" />
-                <e p="GameRelatedToPlayerComponent.cs" t="Include" />
-                <e p="GameReleaseComponent.cs" t="Include" />
-                <e p="GameReleaseListenerComponent.cs" t="Include" />
-                <e p="GameReportsComponent.cs" t="Include" />
-                <e p="GameResearchComponent.cs" t="Include" />
-                <e p="GameSeenPopupsComponent.cs" t="Include" />
-                <e p="GameSegmentComponent.cs" t="Include" />
-                <e p="GameServerAttackComponent.cs" t="Include" />
-                <e p="GameShareholderComponent.cs" t="Include" />
-                <e p="GameShareholdersComponent.cs" t="Include" />
-                <e p="GameShareholdersListenerComponent.cs" t="Include" />
-                <e p="GameSimpleCooldownContainerComponent.cs" t="Include" />
-                <e p="GameSourceOfClientsComponent.cs" t="Include" />
-                <e p="GameSpeedComponent.cs" t="Include" />
-                <e p="GameSupportUpgradesComponent.cs" t="Include" />
-                <e p="GameTargetDateComponent.cs" t="Include" />
-                <e p="GameTaskComponent.cs" t="Include" />
-                <e p="GameTeamComponent.cs" t="Include" />
-                <e p="GameTeamEfficiencyComponent.cs" t="Include" />
-                <e p="GameTeamListenerComponent.cs" t="Include" />
-                <e p="GameTechnologyLeaderComponent.cs" t="Include" />
-                <e p="GameTechnologyLeaderListenerComponent.cs" t="Include" />
-                <e p="GameTestComponent.cs" t="Include" />
-                <e p="GameTimedActionComponent.cs" t="Include" />
-                <e p="GameTimerRunningComponent.cs" t="Include" />
-                <e p="GameTutorialComponent.cs" t="Include" />
-                <e p="GameTutorialListenerComponent.cs" t="Include" />
-                <e p="GameUniversalListenerComponent.cs" t="Include" />
-                <e p="GameWantsToExpandComponent.cs" t="Include" />
-                <e p="GameWorkerComponent.cs" t="Include" />
-                <e p="GameWorkerOffersComponent.cs" t="Include" />
-              </e>
-              <e p="GameAttribute.cs" t="Include" />
-              <e p="GameComponentsLookup.cs" t="Include" />
-              <e p="GameContext.cs" t="Include" />
-              <e p="GameEntity.cs" t="Include" />
-              <e p="GameMatcher.cs" t="Include" />
-            </e>
-            <e p="Input" t="Include">
-              <e p="InputAttribute.cs" t="Include" />
-              <e p="InputComponentsLookup.cs" t="Include" />
-              <e p="InputContext.cs" t="Include" />
-              <e p="InputEntity.cs" t="Include" />
-              <e p="InputMatcher.cs" t="Include" />
-            </e>
-          </e>
+          <e p="NoWarningsPlease.cs" t="Include" />
           <e p="Utils" t="Include">
             <e p="Companies" t="Include">
               <e p="Acquisitions" t="Include">
@@ -542,11 +546,11 @@
         <e p="DependantTeamsListView.cs" t="Include" />
         <e p="DirectCompetitorsListView.cs" t="Include" />
         <e p="Editor" t="Include">
+          <e p="AsmdefDebug.cs" t="Include" />
           <e p="CompileTimeMeasurer.cs" t="Include" />
           <e p="FileImportHandler.cs" t="Include" />
           <e p="NewBehaviourScript.cs" t="Include" />
           <e p="NewScriptDefaultPathWindow.cs" t="Include" />
-          <e p="ReloadGameIfPrefabChanged.cs" t="Include" />
           <e p="RoslynDomainGenerator.cs" t="Include" />
           <e p="VisualStudioProjectGenerationPostProcess.cs" t="Include" />
         </e>
@@ -671,6 +675,127 @@
             <e p="Entitas" t="Include">
               <e p="Entitas.xml" t="Include" />
               <e p="LICENSE.txt" t="Include" />
+            </e>
+          </e>
+          <e p="SimpleUI" t="Include">
+            <e p="DisplayCompleteUrl.cs" t="Include" />
+            <e p="DisplayConnectedUrls.cs" t="Include" />
+            <e p="Editor" t="Include">
+              <e p="DisplayConnectedUrlsEditor.cs" t="Include" />
+              <e p="OpenUrlEditor.cs" t="Include" />
+              <e p="UpdateAssetPathIfAssetWasMoved.cs" t="Include" />
+            </e>
+            <e p="OpenUrl.cs" t="Include" />
+            <e p="SimpleUI - AddingNewUrl.cs" t="Include" />
+            <e p="SimpleUI - EditUrl.cs" t="Include" />
+            <e p="SimpleUI - Navigation.cs" t="Include" />
+            <e p="SimpleUI - References.cs" t="Include" />
+            <e p="SimpleUI - RemoveUrl.cs" t="Include" />
+            <e p="SimpleUI - Troubleshooting.cs" t="Include" />
+            <e p="SimpleUI - Utils.cs" t="Include" />
+            <e p="SimpleUI.cs" t="Include" />
+            <e p="SimpleUIEventHandler.cs" t="Include" />
+          </e>
+          <e p="UI Framework" t="Include">
+            <e p="AnimatedText.cs" t="Include" />
+            <e p="Animations" t="Include">
+              <e p="EnlargeOnDemand.cs" t="Include" />
+              <e p="EnlargeOnHover.cs" t="Include" />
+              <e p="EnlargeOnPeriodTick.cs" t="Include" />
+            </e>
+            <e p="AnimationSpawner.cs" t="Include" />
+            <e p="BaseClasses" t="Include">
+              <e p="BaseClass.cs" t="Include" />
+              <e p="BlinkOrDestroyOnSomeCondition.cs" t="Include" />
+              <e p="ButtonController" t="Include">
+                <e p="ButtonController.cs" t="Include" />
+              </e>
+              <e p="Controller.cs" t="Include" />
+              <e p="FollowableCompany.cs" t="Include" />
+              <e p="FollowCompanyChanges.cs" t="Include" />
+              <e p="HideOnSomeCondition.cs" t="Include" />
+              <e p="HideTaskView.cs" t="Include" />
+              <e p="IterateOverCompaniesButtonController.cs" t="Include" />
+              <e p="LazyUpdate.cs" t="Include" />
+              <e p="ListContentManager.cs" t="Include" />
+              <e p="Listeners" t="Include">
+                <e p="ListenAnyCompanyChanges.cs" t="Include" />
+                <e p="ListenDateChanges.cs" t="Include" />
+                <e p="ListenFlagshipCompetitorSpawn.cs" t="Include" />
+                <e p="ListenMenuChanges.cs" t="Include" />
+                <e p="ListenNotificationChanges.cs" t="Include" />
+                <e p="ListenPopupChanges.cs" t="Include" />
+                <e p="ListenTeamChanges.cs" t="Include" />
+                <e p="ListenTutorialChanges.cs" t="Include" />
+              </e>
+              <e p="ListView.cs" t="Include" />
+              <e p="MonthlyUpdate.cs" t="Include" />
+              <e p="MyModalManager.cs" t="Include" />
+              <e p="MyModalWindow.cs" t="Include" />
+              <e p="NotificationContainerView.cs" t="Include" />
+              <e p="NotificationRenderer.cs" t="Include" />
+              <e p="NotifyListIfElementWasChosen.cs" t="Include" />
+              <e p="ParameterDynamicView.cs" t="Include" />
+              <e p="ParameterView.cs" t="Include" />
+              <e p="PlaySoundOnClick.cs" t="Include" />
+              <e p="PopupController.cs" t="Include" />
+              <e p="ResourceChecker.cs" t="Include" />
+              <e p="ScreenController.cs" t="Include" />
+              <e p="SimpleParameterView.cs" t="Include" />
+              <e p="ToggleOnSomeCondition.cs" t="Include" />
+              <e p="UnusedAssets.cs" t="Include" />
+              <e p="UpgradedParameterView.cs" t="Include" />
+              <e p="View" t="Include">
+                <e p="TimedButton.cs" t="Include" />
+                <e p="ToggleButton.cs" t="Include" />
+                <e p="UpgradedButtonController.cs" t="Include" />
+                <e p="View.cs" t="Include" />
+              </e>
+            </e>
+            <e p="Basic Prefabs" t="Include">
+              <e p="MenuResourceView.cs" t="Include" />
+              <e p="NotImplemented.cs" t="Include" />
+              <e p="ResourceView.cs" t="Include" />
+              <e p="TaskView.cs" t="Include" />
+            </e>
+            <e p="Graphs and Charts" t="Include">
+              <e p="GraphDot.cs" t="Include" />
+              <e p="GraphMark.cs" t="Include" />
+            </e>
+            <e p="Interrupts" t="Include">
+              <e p="InterruptIcon.cs" t="Include" />
+            </e>
+            <e p="JumpingAnimation.cs" t="Include" />
+            <e p="ProgressBars" t="Include">
+              <e p="TaggedProgressBar.cs" t="Include" />
+            </e>
+            <e p="Singletons" t="Include">
+              <e p="ApplicationSettings.cs" t="Include" />
+              <e p="AudioManager.cs" t="Include" />
+              <e p="Cheats.cs" t="Include" />
+              <e p="DataManager.cs" t="Include" />
+              <e p="Exit.cs" t="Include" />
+              <e p="Game.cs" t="Include" />
+              <e p="MenuController.cs" t="Include" />
+              <e p="PaintItRed.cs" t="Include" />
+              <e p="SoundManager.cs" t="Include" />
+            </e>
+            <e p="Visuals" t="Include">
+              <e p="Blinker.cs" t="Include" />
+              <e p="BlinkOnSomeCondition.cs" t="Include" />
+              <e p="ColoredValue.cs" t="Include" />
+              <e p="ColoredValueGradient.cs" t="Include" />
+              <e p="ColoredValuePositiveOrNegative.cs" t="Include" />
+              <e p="ColorNegative.cs" t="Include" />
+              <e p="ColorPositive.cs" t="Include" />
+              <e p="CooldownView.cs" t="Include" />
+              <e p="DroppableAnimation.cs" t="Include" />
+              <e p="EnlargeOnAppearance.cs" t="Include" />
+              <e p="Hint.cs" t="Include" />
+              <e p="IsChosenComponent.cs" t="Include" />
+              <e p="ProgressBar.cs" t="Include" />
+              <e p="TextBlink.cs" t="Include" />
+              <e p="ValueAmplifierAnimation.cs" t="Include" />
             </e>
           </e>
         </e>
@@ -805,112 +930,6 @@
         <e p="TeamSpeedView.cs" t="Include" />
         <e p="TeamStatusView.cs" t="Include" />
         <e p="TeamTabButtonsView.cs" t="Include" />
-        <e p="UI Framework" t="Include">
-          <e p="AnimatedText.cs" t="Include" />
-          <e p="Animations" t="Include">
-            <e p="EnlargeOnDemand.cs" t="Include" />
-            <e p="EnlargeOnHover.cs" t="Include" />
-            <e p="EnlargeOnPeriodTick.cs" t="Include" />
-          </e>
-          <e p="AnimationSpawner.cs" t="Include" />
-          <e p="BaseClasses" t="Include">
-            <e p="BaseClass.cs" t="Include" />
-            <e p="BlinkOrDestroyOnSomeCondition.cs" t="Include" />
-            <e p="ButtonController" t="Include">
-              <e p="ButtonController.cs" t="Include" />
-            </e>
-            <e p="Controller.cs" t="Include" />
-            <e p="FollowableCompany.cs" t="Include" />
-            <e p="FollowCompanyChanges.cs" t="Include" />
-            <e p="HideOnSomeCondition.cs" t="Include" />
-            <e p="HideTaskView.cs" t="Include" />
-            <e p="IterateOverCompaniesButtonController.cs" t="Include" />
-            <e p="LazyUpdate.cs" t="Include" />
-            <e p="ListContentManager.cs" t="Include" />
-            <e p="Listeners" t="Include">
-              <e p="ListenAnyCompanyChanges.cs" t="Include" />
-              <e p="ListenDateChanges.cs" t="Include" />
-              <e p="ListenFlagshipCompetitorSpawn.cs" t="Include" />
-              <e p="ListenMenuChanges.cs" t="Include" />
-              <e p="ListenNotificationChanges.cs" t="Include" />
-              <e p="ListenPopupChanges.cs" t="Include" />
-              <e p="ListenTeamChanges.cs" t="Include" />
-              <e p="ListenTutorialChanges.cs" t="Include" />
-            </e>
-            <e p="ListView.cs" t="Include" />
-            <e p="MonthlyUpdate.cs" t="Include" />
-            <e p="MyModalManager.cs" t="Include" />
-            <e p="MyModalWindow.cs" t="Include" />
-            <e p="NotificationContainerView.cs" t="Include" />
-            <e p="NotificationRenderer.cs" t="Include" />
-            <e p="NotifyListIfElementWasChosen.cs" t="Include" />
-            <e p="OpenUrl.cs" t="Include" />
-            <e p="ParameterDynamicView.cs" t="Include" />
-            <e p="ParameterView.cs" t="Include" />
-            <e p="PlaySoundOnClick.cs" t="Include" />
-            <e p="PopupController.cs" t="Include" />
-            <e p="ProxyToUrl.cs" t="Include" />
-            <e p="ResourceChecker.cs" t="Include" />
-            <e p="ScreenController.cs" t="Include" />
-            <e p="SimpleParameterView.cs" t="Include" />
-            <e p="SimpleUI.cs" t="Include" />
-            <e p="SimpleUIEventHandler.cs" t="Include" />
-            <e p="ToggleOnSomeCondition.cs" t="Include" />
-            <e p="UnusedAssets.cs" t="Include" />
-            <e p="UpgradedParameterView.cs" t="Include" />
-            <e p="View" t="Include">
-              <e p="TimedButton.cs" t="Include" />
-              <e p="ToggleButton.cs" t="Include" />
-              <e p="UpgradedButtonController.cs" t="Include" />
-              <e p="View.cs" t="Include" />
-            </e>
-          </e>
-          <e p="Basic Prefabs" t="Include">
-            <e p="MenuResourceView.cs" t="Include" />
-            <e p="NotImplemented.cs" t="Include" />
-            <e p="ResourceView.cs" t="Include" />
-            <e p="TaskView.cs" t="Include" />
-          </e>
-          <e p="Graphs and Charts" t="Include">
-            <e p="GraphDot.cs" t="Include" />
-            <e p="GraphMark.cs" t="Include" />
-          </e>
-          <e p="Interrupts" t="Include">
-            <e p="InterruptIcon.cs" t="Include" />
-          </e>
-          <e p="JumpingAnimation.cs" t="Include" />
-          <e p="ProgressBars" t="Include">
-            <e p="TaggedProgressBar.cs" t="Include" />
-          </e>
-          <e p="Singletons" t="Include">
-            <e p="ApplicationSettings.cs" t="Include" />
-            <e p="AudioManager.cs" t="Include" />
-            <e p="Cheats.cs" t="Include" />
-            <e p="DataManager.cs" t="Include" />
-            <e p="Exit.cs" t="Include" />
-            <e p="Game.cs" t="Include" />
-            <e p="MenuController.cs" t="Include" />
-            <e p="PaintItRed.cs" t="Include" />
-            <e p="SoundManager.cs" t="Include" />
-          </e>
-          <e p="Visuals" t="Include">
-            <e p="Blinker.cs" t="Include" />
-            <e p="BlinkOnSomeCondition.cs" t="Include" />
-            <e p="ColoredValue.cs" t="Include" />
-            <e p="ColoredValueGradient.cs" t="Include" />
-            <e p="ColoredValuePositiveOrNegative.cs" t="Include" />
-            <e p="ColorNegative.cs" t="Include" />
-            <e p="ColorPositive.cs" t="Include" />
-            <e p="CooldownView.cs" t="Include" />
-            <e p="DroppableAnimation.cs" t="Include" />
-            <e p="EnlargeOnAppearance.cs" t="Include" />
-            <e p="Hint.cs" t="Include" />
-            <e p="IsChosenComponent.cs" t="Include" />
-            <e p="ProgressBar.cs" t="Include" />
-            <e p="TextBlink.cs" t="Include" />
-            <e p="ValueAmplifierAnimation.cs" t="Include" />
-          </e>
-        </e>
         <e p="UpgradeableFeaturesListView.cs" t="Include" />
         <e p="UpgradeableMonetizationFeaturesListView.cs" t="Include" />
         <e p="Views" t="Include">
@@ -926,6 +945,9 @@
           <e p="AnnualReportView.cs" t="Include" />
           <e p="ApplyCompanySearchFilters.cs" t="Include" />
           <e p="ArcRender.cs" t="Include" />
+          <e p="AssemblyTest" t="Include">
+            <e p="AssemblyTest.cs" t="Include" />
+          </e>
           <e p="AudienceDetailsView.cs" t="Include" />
           <e p="AudienceListView.cs" t="Include" />
           <e p="AudienceMapView.cs" t="Include" />
@@ -1021,7 +1043,6 @@
               <e p="LinkToSelectedTeam.cs" t="Include" />
               <e p="LinkToUnhappyTeam.cs" t="Include" />
               <e p="LinkToUpgradeableCompanies.cs" t="Include" />
-              <e p="NewAssemblyReference.asmref" t="Include" />
             </e>
             <e p="ManageHoldingsScreenController.cs" t="Include" />
             <e p="NotificationsClearController.cs" t="Include" />
@@ -1565,14 +1586,16 @@
         </e>
       </e>
       <e p="Corporations.Core.csproj" t="IncludeRecursive" />
+      <e p="Corporations.Data.csproj" t="IncludeRecursive" />
+      <e p="Corporations.DB.csproj" t="IncludeRecursive" />
       <e p="Corporations.Systems.csproj" t="IncludeRecursive" />
       <e p="Corporations.UI.csproj" t="IncludeRecursive" />
-      <e p="Corporations.Views.csproj" t="IncludeRecursive" />
       <e p="Editor.csproj" t="IncludeRecursive" />
       <e p="EntitasLibraries.csproj" t="IncludeRecursive" />
       <e p="MichSky.csproj" t="IncludeRecursive" />
       <e p="obj" t="ExcludeRecursive" />
       <e p="Packages" t="ExcludeRecursive" />
+      <e p="SimpleUI.csproj" t="IncludeRecursive" />
       <e p="StartupMania.sln" t="IncludeFlat" />
       <e p="Temp\bin" t="ExcludeRecursive" />
     </e>
