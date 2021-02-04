@@ -15,7 +15,7 @@ public class SimpleUIEventHandler : MonoBehaviour
     public Dictionary<string, GameObject> Objects = new Dictionary<string, GameObject>();
 
     public string CurrentUrl;
-    static List<SimpleUISceneType> prefabs => SimpleUI.prefabs; // = new List<NewSceneTypeBlah>();
+    static List<SimpleUISceneType> prefabs => SimpleUI.prefabs;
 
     private static int counter = 0;
     private static int sameUrlCounter = 0;
