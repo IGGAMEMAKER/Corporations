@@ -39,12 +39,6 @@ using UnityEngine.SceneManagement;
 // // EditorGUILayout.EndToggleGroup ();
 // }
 
-public enum SceneBlahType
-{
-    Prefab,
-    Scene
-}
-
 public struct SimpleUISceneType
 {
     public string Url;
@@ -54,8 +48,6 @@ public struct SimpleUISceneType
 
     public long Usages;
     public long LastOpened;
-
-    //public SceneBlahType AssetType => SimpleUI.isPrefabAsset(AssetPath) ? SceneBlahType.Prefab : SceneBlahType.Scene;
 
     public SimpleUISceneType(string url, string assetPath, string name = "")
     {
@@ -149,6 +141,21 @@ public partial class SimpleUI : EditorWindow
         isFirstInspectorGUI = false;
     }
 
+    void RenderRefreshButton()
+    {
+        if (Button("Refresh"))
+        {
+            AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
+
+            var u = newUrl;
+            LoadData();
+
+            LoadReferences(u);
+
+            OpenPrefabByUrl(u);
+        }
+    }
+
     void RenderGUI()
     {
         recentPrefabsScrollPosition = GUILayout.BeginScrollView(recentPrefabsScrollPosition);
@@ -156,16 +163,7 @@ public partial class SimpleUI : EditorWindow
         GUILayout.Label("newUrl " + newUrl);
         GUILayout.Label("newPath " + newPath);
 
-        if (Button("Refresh"))
-        {
-            AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
-            var u = newUrl;
-            LoadData();
-
-            LoadOpenUrlReferences(u);
-
-            OpenPrefabByUrl(u);
-        }
+        //RenderRefreshButton();
 
         //RenderExistingTroubles();
         //Space();

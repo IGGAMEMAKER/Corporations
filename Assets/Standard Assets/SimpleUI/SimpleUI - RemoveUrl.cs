@@ -71,7 +71,7 @@ public partial class SimpleUI
 
         if (removingUrlObstacles == 0)
         {
-            EditorGUILayout.HelpBox("You can safely remove this url", MessageType.Info);
+            EditorGUILayout.HelpBox("You can safely remove this url!", MessageType.Info);
 
             Space();
             if (Button("REMOVE URL!"))
@@ -81,9 +81,6 @@ public partial class SimpleUI
 
                 RemoveUrl(currentUrl);
                 SaveData();
-
-                //prefabs.RemoveAt(index);
-                //SaveData();
             }
         }
 
