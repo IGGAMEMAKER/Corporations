@@ -73,15 +73,9 @@ public partial class SimpleUI : EditorWindow
     static bool isUrlAddingMode = false;
     static bool isConcreteUrlChosen = false;
 
-    static bool wasOpenedFromProject = false;
-
     //public static List<GameObject> allComponentsWithOpenUrl;
     public static List<SimpleUI.PrefabMatchInfo> allReferencesFromAssets;
     public static Dictionary<string, MonoScript> allScripts;
-
-    public static List<SimpleUI.UsageInfo> referencesFromCode;
-
-    //static bool _isSceneMode = true;
 
     static bool isPrefabMode => PrefabStageUtility.GetCurrentPrefabStage() != null;
 
@@ -143,19 +137,15 @@ public partial class SimpleUI : EditorWindow
         isFirstInspectorGUI = false;
     }
 
-    void RenderRefreshButton()
+    static void LoadAssets()
     {
-        if (Button("Refresh"))
-        {
-            AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
+        allReferencesFromAssets = WhatUsesComponent<OpenUrl>();
+        allScripts = GetAllScripts();
+    }
 
-            var u = newUrl;
-            LoadData();
-
-            LoadReferences(u);
-
-            OpenPrefabByUrl(u);
-        }
+    static void LoadReferences(string url)
+    {
+        LoadAssets();
     }
 
     void RenderGUI()
@@ -214,6 +204,21 @@ public partial class SimpleUI : EditorWindow
         if (!isPrefabMode)
         {
             WrapSceneWithMenu();
+        }
+    }
+
+    void RenderRefreshButton()
+    {
+        if (Button("Refresh"))
+        {
+            AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
+
+            var u = newUrl;
+            LoadData();
+
+            LoadReferences(u);
+
+            OpenPrefabByUrl(u);
         }
     }
 

@@ -52,17 +52,9 @@ public partial class SimpleUI
         isConcreteUrlChosen = true;
 
         // calculate previous DisplayConnectuedUrlsEditor.OnEnable() here
-        //LoadReferences(newUrl);
+        LoadReferences(newUrl);
 
         OpenAssetByPath(newPath);
-    }
-
-    static void LoadReferences(string url)
-    {
-        allReferencesFromAssets = WhatUsesComponent<OpenUrl>();
-        allScripts = GetAllScripts();
-
-        referencesFromCode = WhichScriptReferencesConcreteUrl(url);
     }
 
     //private static void EditorSceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)

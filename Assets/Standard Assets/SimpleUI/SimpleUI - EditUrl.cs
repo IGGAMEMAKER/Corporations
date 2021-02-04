@@ -313,7 +313,7 @@ public partial class SimpleUI
         var phrase = renameUrlRecursively ? "Rename url & subUrls" : "Rename THIS url";
 
         var matches = WhatUsesComponent(newUrl, allReferencesFromAssets);
-
+        var referencesFromCode = WhichScriptReferencesConcreteUrl(prefab.Url);
 
         // references from prefabs & scenes
         var names = matches.Select(m => $"<b>{SimpleUI.GetPrettyAssetType(m.PrefabAssetPath)}</b> " + SimpleUI.GetTrimmedPath(m.PrefabAssetPath)).ToList();
