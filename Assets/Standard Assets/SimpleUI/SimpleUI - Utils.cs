@@ -31,10 +31,12 @@ public partial class SimpleUI
 
 
     #region UI shortcuts
+
     static void Print2(string text)
     {
         Print("PRT2: " + text);
     }
+
     static void Print(string text)
     {
         Debug.Log(text);
@@ -66,11 +68,14 @@ public partial class SimpleUI
     {
         GUILayout.Space(space);
     }
+
     #endregion
 
 
     #region string utils
-    public static IEnumerable<SimpleUISceneType> GetSubUrls(string url, bool recursive) => prefabs.Where(p => isSubRouteOf(p.Url, url, recursive));
+
+    public static IEnumerable<SimpleUISceneType> GetSubUrls(string url, bool recursive) =>
+        prefabs.Where(p => isSubRouteOf(p.Url, url, recursive));
 
 
     /// <summary>
@@ -165,6 +170,7 @@ public partial class SimpleUI
 
         return url;
     }
+
     #endregion
 
     public static bool IsAssetPathExists(string path)
@@ -229,14 +235,18 @@ public partial class SimpleUI
             NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
         };
 
-        var obj = Newtonsoft.Json.JsonConvert.DeserializeObject<List<SimpleUISceneType>>(File.ReadAllText(fileName), settings);
-        var obj2 = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, List<UrlOpeningAttempt>>>(File.ReadAllText(missingUrls), settings);
+        var obj = Newtonsoft.Json.JsonConvert.DeserializeObject<List<SimpleUISceneType>>(File.ReadAllText(fileName),
+            settings);
+        var obj2 =
+            Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, List<UrlOpeningAttempt>>>(
+                File.ReadAllText(missingUrls), settings);
 
         _prefabs = obj ?? new List<SimpleUISceneType>();
         UrlOpeningAttempts = obj2 ?? new Dictionary<string, List<UrlOpeningAttempt>>();
     }
 
     static void UpdatePrefab(SimpleUISceneType prefab) => UpdatePrefab(prefab, ChosenIndex);
+
     public static void UpdatePrefab(SimpleUISceneType prefab, int index)
     {
         if (!hasChosenPrefab)
@@ -309,27 +319,32 @@ public partial class SimpleUI
         return prefabs.FirstOrDefault(p => p.Url.Equals(url));
     }
 
-    public static void OpenUrl(string url, string scriptName)
+    public static void OpenUrl(string url)
     {
         SimpleUIEventHandler eventHandler = FindObjectOfType<SimpleUIEventHandler>();
 
         if (eventHandler == null)
         {
             Debug.LogError("SimpleUIEventHandler NOT FOUND");
+            
+            return;
         }
-        else
+
+        var queryIndex = url.IndexOf('?');
+        var query = "";
+
+        if (queryIndex >= 0)
         {
-            var queryIndex = url.IndexOf('?');
-            var query = "";
-
-            if (queryIndex >= 0)
-            {
-                query = url.Substring(queryIndex);
-                url = url.Substring(0, queryIndex);
-            }
-
-            eventHandler.OpenUrl(url, scriptName);
+            query = url.Substring(queryIndex);
+            url = url.Substring(0, queryIndex);
         }
+
+        eventHandler.OpenUrl(url);
+    }
+
+    static void BoldPrint(string text)
+    {
+        Debug.Log($"<b>{text}</b>");
     }
 
 }

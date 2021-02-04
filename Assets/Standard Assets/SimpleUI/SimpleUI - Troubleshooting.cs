@@ -12,7 +12,6 @@ using UnityEngine.SceneManagement;
 
 public struct UrlOpeningAttempt
 {
-    public string ScriptName;
     public string PreviousUrl;
 }
 
@@ -33,12 +32,12 @@ public partial class SimpleUI
         }
     }
 
-    public static void AddMissingUrl(string url, string scriptName, string FunctionName)
+    public static void AddMissingUrl(string url)
     {
         if (!UrlOpeningAttempts.ContainsKey(url))
             UrlOpeningAttempts[url] = new List<UrlOpeningAttempt>();
 
-        UrlOpeningAttempts[url].Add(new UrlOpeningAttempt { PreviousUrl = GetCurrentUrl(), ScriptName = scriptName });
+        UrlOpeningAttempts[url].Add(new UrlOpeningAttempt { PreviousUrl = GetCurrentUrl() });
 
         SaveData();
     }

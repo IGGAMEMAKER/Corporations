@@ -14,8 +14,6 @@ public class DisplayCompleteUrl : MonoBehaviour
 
     void ShowCurrentPrefab()
     {
-        var url = SimpleUI.GetCurrentUrl();
-
         if (SimpleUIEventHandler == null)
         {
             SimpleUIEventHandler = GetComponent<SimpleUIEventHandler>();
@@ -23,7 +21,9 @@ public class DisplayCompleteUrl : MonoBehaviour
 
         if (SimpleUIEventHandler != null)
         {
-            SimpleUIEventHandler.OpenUrl(url, GetType().ToString());
+            var url = SimpleUI.GetCurrentUrl();
+
+            SimpleUIEventHandler.OpenUrl(url);
             SimpleUIEventHandler.HidePrefab(url);
         }
     }

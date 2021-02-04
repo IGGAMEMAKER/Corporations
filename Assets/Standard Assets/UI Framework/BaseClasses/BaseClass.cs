@@ -76,7 +76,7 @@ public partial class BaseClass : MonoBehaviour
     public void OpenUrl(string url)
     {
         StackTrace trace = new StackTrace();
-        SimpleUI.OpenUrl(url, trace.GetFrames()[0].GetFileName());
+        SimpleUI.OpenUrl(url);
     }
 
     public void OpenModal(string ModalTag, bool closeOthers = true)

@@ -63,13 +63,14 @@ public class SimpleUIEventHandler : MonoBehaviour
         // RenderPrefab(url);
     }
 
-    public void OpenUrl(string NextUrl, string scriptName)
+    public void OpenUrl(string NextUrl)
     {
         counter++;
 
         if (counter > counterThreshold)
         {
             Debug.LogError($"INFINITE LOOP: {NextUrl} => {CurrentUrl}");
+            
             return;
         }
 
@@ -84,14 +85,12 @@ public class SimpleUIEventHandler : MonoBehaviour
 
             return;
         }
-        else
-        {
-            sameUrlCounter = 0;
-        }
+
+        sameUrlCounter = 0;
 
         if (!SimpleUI.IsUrlExist(NextUrl))
         {
-            SimpleUI.AddMissingUrl(NextUrl, scriptName, "");
+            SimpleUI.AddMissingUrl(NextUrl);
         }
 
         RenderUrls(NextUrl);
@@ -99,58 +98,20 @@ public class SimpleUIEventHandler : MonoBehaviour
         CurrentUrl = NextUrl;
     }
 
-    void DrawPrefab(string url, bool show)
+    void DrawAsset(string url, bool show)
     {
         var asset = SimpleUI.prefabs.Find(p => p.Url.Equals(url));
 
         try
         {
-            // asset.AssetType == SceneBlahType.Prefab
             if (SimpleUI.isPrefabAsset(asset.AssetPath))
             {
-                // prefabs
-                var p = GetPrefab(url);
-
-                if (p != null)
-                {
-                    if (p.activeSelf != show) p.SetActive(show);
-                }
+                DrawPrefab(show, asset.Url);
             }
-            else
+
+            if (SimpleUI.isSceneAsset(asset.AssetPath))
             {
-                // scenes
-                //if (asset.AssetType == SceneBlahType.Scene)
-
-                if (SimpleUI.isSceneAsset(asset.AssetPath))
-                {
-                    //Debug.Log("DRAW SCENE " + asset.AssetPath);
-
-                    //var asset2 = AssetDatabase.LoadMainAssetAtPath(asset.AssetPath);
-                    var scene = SceneManager.GetSceneByPath(asset.AssetPath);
-
-                    var sceneName = scene.name;
-                    var buildIndex = scene.buildIndex;
-
-                    if (show)
-                    {
-                        if (!scene.isLoaded)
-                        {
-                            EditorSceneManager.LoadScene(buildIndex, LoadSceneMode.Additive);
-                            SceneManager.LoadScene(buildIndex, LoadSceneMode.Additive);
-
-                            EditorSceneManager.SetActiveScene(scene);
-                        }
-                    }
-                    else
-                    {
-                        if (scene.isLoaded)
-                        {
-                            EditorSceneManager.UnloadScene(buildIndex);
-                            SceneManager.UnloadScene(buildIndex);
-                            //SceneManager.LoadScene(buildIndex, LoadSceneMode.Additive);
-                        }
-                    }
-                }
+                DrawScene(show, asset);
             }
         }
         catch (Exception e)
@@ -159,18 +120,59 @@ public class SimpleUIEventHandler : MonoBehaviour
         }
     }
 
+    void DrawPrefab(bool show, string url)
+    {
+        var p = GetPrefab(url);
+
+        if (p != null)
+        {
+            if (p.activeSelf != show) p.SetActive(show);
+        }
+    }
+
+    void DrawScene(bool show, SimpleUISceneType asset)
+    {
+        //Debug.Log("DRAW SCENE " + asset.AssetPath);
+
+        //var asset2 = AssetDatabase.LoadMainAssetAtPath(asset.AssetPath);
+        var scene = SceneManager.GetSceneByPath(asset.AssetPath);
+
+        var sceneName = scene.name;
+        var buildIndex = scene.buildIndex;
+
+        if (show)
+        {
+            if (!scene.isLoaded)
+            {
+                EditorSceneManager.LoadScene(buildIndex, LoadSceneMode.Additive);
+                SceneManager.LoadScene(buildIndex, LoadSceneMode.Additive);
+
+                EditorSceneManager.SetActiveScene(scene);
+            }
+        }
+        else
+        {
+            if (scene.isLoaded)
+            {
+                EditorSceneManager.UnloadScene(buildIndex);
+                SceneManager.UnloadScene(buildIndex);
+                //SceneManager.LoadScene(buildIndex, LoadSceneMode.Additive);
+            }
+        }
+    }
+
     void RenderPrefab(string url)
     {
         Print("Render prefab by url: " + url);
 
-        DrawPrefab(url, true);
+        DrawAsset(url, true);
     }
 
     public void HidePrefab(string url)
     {
         Print("HIDE prefab by url: " + url);
 
-        DrawPrefab(url, false);
+        DrawAsset(url, false);
     }
 
     void Print(string text)

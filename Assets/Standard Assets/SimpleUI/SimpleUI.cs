@@ -89,6 +89,8 @@ public partial class SimpleUI : EditorWindow
     public static bool isFirstGUI = true;
     public static bool isFirstInspectorGUI = true;
 
+    private static bool isProjectScanned = false;
+
     static string GetOpenedAssetPath()
     {
         if (isPrefabMode)
@@ -122,21 +124,13 @@ public partial class SimpleUI : EditorWindow
         ////SceneManager.activeSceneChanged += SceneManager_sceneChanged;
     }
 
-    void OnEnable()
+    private void Update()
     {
-        BoldPrint("ENABLE");
-        LoadAssets();
-    }
-
-    private void Awake()
-    {
-        BoldPrint("AWAKE");
-        LoadAssets();
-    }
-
-    static void BoldPrint(string text)
-    {
-        Debug.Log($"<b>{text}</b>");
+        if (!isProjectScanned)
+        {
+            LoadAssets();
+            isProjectScanned = true;
+        }
     }
 
     void OnGUI()
@@ -165,8 +159,6 @@ public partial class SimpleUI : EditorWindow
 
     static void LoadReferences(string url)
     {
-        // LoadAssets();
-
         referencesFromCode = WhichScriptReferencesConcreteUrl(url);
     }
 
@@ -203,9 +195,10 @@ public partial class SimpleUI : EditorWindow
         GUILayout.EndScrollView();
     }
 
+
+
     void RenderInspectorGUI()
     {
-        var url = newUrl;
         var path = GetOpenedAssetPath();
         ChooseUrlFromPickedPrefab();
 

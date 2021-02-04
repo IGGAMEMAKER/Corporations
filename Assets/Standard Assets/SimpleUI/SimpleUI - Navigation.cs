@@ -144,7 +144,7 @@ public partial class SimpleUI
         var path = GetOpenedAssetPath();
         var urls = prefabs.Where(p => p.AssetPath.Equals(path));
 
-        if (urls.Count() == 0)
+        if (!urls.Any())
         {
             newUrl = "";
         }
