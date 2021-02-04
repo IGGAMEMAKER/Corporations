@@ -218,6 +218,8 @@ public partial class SimpleUI
         //if (prefabs != null && prefabs.Count == 0)
         //    return;
 
+        Print("<B>LOAD DATA</B>");
+
         var fileName = "SimpleUI/SimpleUI.txt";
         var missingUrls = "SimpleUI/SimpleUI-MissingUrls.txt";
 
