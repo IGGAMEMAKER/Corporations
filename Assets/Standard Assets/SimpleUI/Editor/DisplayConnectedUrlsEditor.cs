@@ -25,12 +25,13 @@ public class DisplayConnectedUrlsEditor : Editor
 
     private void OnSceneGUI()
     {
-        if (EditorApplication.isCompiling)
+        if (EditorApplication.isCompiling || EditorApplication.isUpdating)
             return;
 
         referencesFromAssets = SimpleUI.allReferencesFromAssets;
-        referencesFromCode = SimpleUI.WhichScriptReferencesConcreteUrl(currentUrl);
+        referencesFromCode = SimpleUI.referencesFromCode;
 
+        
         RenderUpperAndLowerRoutes(currentUrl);
         RenderReferencesToUrl(currentUrl);
         RenderReferencesFromUrl(currentUrl);
@@ -78,9 +79,6 @@ public class DisplayConnectedUrlsEditor : Editor
 
     void RenderReferencesFromUrl(string currentUrl)
     {
-        if (referencesFromAssets == null)
-            return;
-
         GUILayout.BeginArea(new Rect(Screen.width - w - off, off + h + off, w, h));
         //GUILayout.BeginArea(new Rect(off, off + h, w, h));
 
@@ -104,9 +102,6 @@ public class DisplayConnectedUrlsEditor : Editor
 
     void RenderReferencesToUrl(string currentUrl)
     {
-        if (referencesFromAssets == null)
-            return;
-
         GUILayout.BeginArea(new Rect(off, off, w, h));
 
         var matches = SimpleUI.WhatUsesComponent(currentUrl, referencesFromAssets); // referencesFromAssets.Where(m => m.URL.Equals(currentUrl.TrimStart('/'))).ToList();

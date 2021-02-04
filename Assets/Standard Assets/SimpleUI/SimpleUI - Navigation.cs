@@ -51,7 +51,7 @@ public partial class SimpleUI
         isUrlEditingMode = false;
         isConcreteUrlChosen = true;
 
-        // calculate previous DisplayConnectuedUrlsEditor.OnEnable() here
+        // calculate previous DisplayConnectedUrlsEditor.OnEnable() here
         LoadReferences(newUrl);
 
         OpenAssetByPath(newPath);

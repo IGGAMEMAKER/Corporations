@@ -74,8 +74,9 @@ public partial class SimpleUI : EditorWindow
     static bool isConcreteUrlChosen = false;
 
     //public static List<GameObject> allComponentsWithOpenUrl;
-    public static List<SimpleUI.PrefabMatchInfo> allReferencesFromAssets;
-    public static Dictionary<string, MonoScript> allScripts;
+    public static List<SimpleUI.PrefabMatchInfo> allReferencesFromAssets = new List<PrefabMatchInfo>();
+    public static Dictionary<string, MonoScript> allScripts = new Dictionary<string, MonoScript>();
+    public static List<UsageInfo> referencesFromCode = new List<UsageInfo>();
 
     static bool isPrefabMode => PrefabStageUtility.GetCurrentPrefabStage() != null;
 
@@ -121,6 +122,23 @@ public partial class SimpleUI : EditorWindow
         ////SceneManager.activeSceneChanged += SceneManager_sceneChanged;
     }
 
+    void OnEnable()
+    {
+        BoldPrint("ENABLE");
+        LoadAssets();
+    }
+
+    private void Awake()
+    {
+        BoldPrint("AWAKE");
+        LoadAssets();
+    }
+
+    static void BoldPrint(string text)
+    {
+        Debug.Log($"<b>{text}</b>");
+    }
+
     void OnGUI()
     {
         if (!isFirstGUI)
@@ -139,13 +157,17 @@ public partial class SimpleUI : EditorWindow
 
     static void LoadAssets()
     {
+        BoldPrint("Load assets");
+
         allReferencesFromAssets = WhatUsesComponent<OpenUrl>();
         allScripts = GetAllScripts();
     }
 
     static void LoadReferences(string url)
     {
-        LoadAssets();
+        // LoadAssets();
+
+        referencesFromCode = WhichScriptReferencesConcreteUrl(url);
     }
 
     void RenderGUI()

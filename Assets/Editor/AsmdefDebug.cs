@@ -36,6 +36,9 @@ public class AsmdefDebug
 
     static void CompilationPipelineOnAssemblyCompilationStarted(string assembly)
     {
+        Debug.Log($"Starting recompile CompilationPipelineOnAssemblyCompilationStarted");
+
+        
         s_StartTimes[assembly] = DateTime.UtcNow;
     }
 
@@ -49,6 +52,8 @@ public class AsmdefDebug
 
     static void AssemblyReloadEventsOnBeforeAssemblyReload()
     {
+        Debug.Log($"Starting recompile AssemblyReloadEventsOnBeforeAssemblyReload");
+
         var totalCompilationTimeSeconds = s_CompilationTotalTime / 1000f;
         s_BuildEvents.AppendFormat("compilation total: {0:0.00}s\n", totalCompilationTimeSeconds);
 

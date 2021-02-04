@@ -512,23 +512,21 @@ public partial class SimpleUI : EditorWindow
     public static List<string> GetAllScriptPaths()
     {
         var directory = "Assets/";
-        var list = new List<UsageInfo>();
 
         var excludeFolders = new[] { "Assets/Standard Assets/Frost UI", "Assets/Standard Assets/SimpleUI", "Assets/Standard Assets/Libraries", "Assets/Systems", "Assets/Core" };
         var guids = AssetDatabase.FindAssets("t:Script", new[] { "Assets" });
 
-        Debug.Log($"Found {guids.Count()} scripts");
+        Debug.Log($"Found {guids.Length} scripts");
         var paths = guids.Select(AssetDatabase.GUIDToAssetPath).ToList();
 
         paths.RemoveAll(guid => excludeFolders.Any(guid.Contains));
 
         return paths;
-        //return paths.Select(path => AssetDatabase.LoadAssetAtPath<MonoScript>(path)).ToList();
     }
 
     public static List<UsageInfo> WhichScriptReferencesConcreteUrl(string url)
     {
-        Debug.Log("Finding all scrips, that call " + url);
+        // Debug.Log("Finding all scrips, that call " + url);
 
         var list = new List<UsageInfo>();
 
@@ -551,7 +549,7 @@ public partial class SimpleUI : EditorWindow
 
             if (IsTextContainsUrl(txt, url, true))
             {
-                Debug.Log($"Found url {url} in text " + path);
+                // Debug.Log($"Found url {url} in text " + path);
 
                 list.Add(new UsageInfo { Line = 1, ScriptName = path });
             }
