@@ -12,7 +12,7 @@ public partial class SimpleUI
     static string searchUrl = "";
     static Vector2 searchScrollPosition = Vector2.zero;
 
-    public static bool renameSubroutes = true;
+    public static bool renameUrlRecursively = true;
     public static string newEditingUrl = "";
 
     public static string newUrl = "";
@@ -132,33 +132,10 @@ public partial class SimpleUI
         return text.Replace(from, to);
     }
 
-    void RenameUrl(string route, string from, string to)
+    bool RenameUrl(string route, string from, string to)
     {
         var matches = WhatUsesComponent(route, allReferencesFromAssets);
         var codeRefs = WhichScriptReferencesConcreteUrl(route);
-
-
-        //bool savingWillBeSafe = true;
-        //try
-        //{
-        //    AssetDatabase.StartAssetEditing();
-        //    AssetDatabase.SaveAssets();
-        //}
-        //catch (System.Exception ex)
-        //{
-        //    savingWillBeSafe = false;
-        //    Debug.LogError(ex);
-        //}
-        //finally
-        //{
-        //    AssetDatabase.StopAssetEditing();
-        //}
-
-        //if (!savingWillBeSafe)
-        //{
-        //    Debug.Log("Renaming failed cause saving assets via AssetDatabase will cause errors (listed above)");
-        //    return;
-        //}
 
         try
         {
@@ -259,11 +236,15 @@ public partial class SimpleUI
                 writer.Close();
             }
         }
+        catch (Exception ex)
+        {
+            Debug.LogError("Error occured during renaming " + route);
+
+            return false;
+        }
         finally
         {
             //AssetDatabase.SaveAssets();
-
-            //EditorSceneManager.GetSceneManagerSetup().First()
             AssetDatabase.StopAssetEditing();
 
             var prefab = GetPrefabByUrl(route);
@@ -271,6 +252,8 @@ public partial class SimpleUI
 
             UpdatePrefab(prefab);
         }
+
+        return true;
     }
 
     void RenderStatButtons(SimpleUISceneType pref)
@@ -297,10 +280,10 @@ public partial class SimpleUI
     {
         Space();
 
-        renameSubroutes = EditorGUILayout.ToggleLeft("Rename subroutes too", renameSubroutes);
+        renameUrlRecursively = EditorGUILayout.ToggleLeft("Rename subroutes too", renameUrlRecursively);
 
         Space();
-        if (renameSubroutes)
+        if (renameUrlRecursively)
             EditorGUILayout.HelpBox("Renaming this url will lead to renaming these urls too...", MessageType.Warning);
         else
             EditorGUILayout.HelpBox("Will only rename THIS url", MessageType.Warning);
@@ -308,7 +291,7 @@ public partial class SimpleUI
         List<string> RenamingUrls = new List<string>();
         List<string> RenamingCodeUrls = new List<string>();
 
-        if (renameSubroutes)
+        if (renameUrlRecursively)
         {
             Space();
             var subroutes = GetSubUrls(prefab.Url, true);
@@ -325,14 +308,9 @@ public partial class SimpleUI
             {
                 BoldLabel(route);
             }
-
-            //foreach (var script in referencesFromCode)
-            //{
-            //    RenamingCodeUrls.Add(script)
-            //}
         }
 
-        var phrase = renameSubroutes ? "Rename url & subUrls" : "Rename THIS url";
+        var phrase = renameUrlRecursively ? "Rename url & subUrls" : "Rename THIS url";
 
         var matches = WhatUsesComponent(newUrl, allReferencesFromAssets);
 
