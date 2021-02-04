@@ -22,9 +22,11 @@ public partial class SimpleUI
 
         if (removeUrlRecursively)
         {
-            foreach (var r in GetSubUrls(url, false))
+            var suburls = GetSubUrls(url, false).ToList();
+
+            for (var i = 0; i < suburls.Count(); i++)
             {
-                RemoveUrl(r.Url);
+                RemoveUrl(suburls[i].Url);
             }
         }
     }
