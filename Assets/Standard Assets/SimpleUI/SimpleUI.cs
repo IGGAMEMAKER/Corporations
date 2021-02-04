@@ -77,6 +77,8 @@ public partial class SimpleUI : EditorWindow
 
     //public static List<GameObject> allComponentsWithOpenUrl;
     public static List<SimpleUI.PrefabMatchInfo> allReferencesFromAssets;
+    public static Dictionary<string, MonoScript> allScripts;
+
     public static List<SimpleUI.UsageInfo> referencesFromCode;
 
     //static bool _isSceneMode = true;
