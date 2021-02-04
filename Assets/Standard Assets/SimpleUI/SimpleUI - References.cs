@@ -495,7 +495,20 @@ public partial class SimpleUI : EditorWindow
         return text.Contains(searchString);
     }
 
-    //public static List<MonoScript> GetAllScriptPaths()
+    public static Dictionary<string, MonoScript> GetAllScripts()
+    {
+        var dict = new Dictionary<string, MonoScript>();
+
+        foreach (var path in GetAllScriptPaths())
+        {
+            var asset = AssetDatabase.LoadAssetAtPath<MonoScript>(path);
+
+            dict[path] = asset;
+        }
+
+        return dict;
+    }
+
     public static List<string> GetAllScriptPaths()
     {
         var directory = "Assets/";
@@ -519,9 +532,13 @@ public partial class SimpleUI : EditorWindow
 
         var list = new List<UsageInfo>();
 
-        foreach (var path in GetAllScriptPaths())
+        //foreach (var path in GetAllScriptPaths())
+        foreach (var script in allScripts)
         {
-            var asset = AssetDatabase.LoadAssetAtPath<MonoScript>(path);
+            //var asset = AssetDatabase.LoadAssetAtPath<MonoScript>(path);
+            var asset = script.Value;
+            var path = script.Key;
+
 
             var txt = asset != null ? ("\n" + asset.text) : "";
 

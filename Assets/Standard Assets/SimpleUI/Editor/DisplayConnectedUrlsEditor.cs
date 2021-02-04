@@ -11,10 +11,6 @@ public class DisplayConnectedUrlsEditor : Editor
     int h = 150;
     int off = 5;
 
-    static int routeSelected = -1;
-    static int referenceSelected = -1;
-    static int referenceFromSelected = -1;
-
     static Vector2 scrollPosition = Vector2.zero;
     static Vector2 scrollPosition2 = Vector2.zero;
     static Vector2 scrollPosition3 = Vector2.zero;
@@ -33,38 +29,13 @@ public class DisplayConnectedUrlsEditor : Editor
             return;
 
         referencesFromAssets = SimpleUI.allReferencesFromAssets;
-        referencesFromCode = SimpleUI.referencesFromCode;
+        referencesFromCode = SimpleUI.WhichScriptReferencesConcreteUrl(currentUrl);
 
         RenderUpperAndLowerRoutes(currentUrl);
         RenderReferencesToUrl(currentUrl);
         RenderReferencesFromUrl(currentUrl);
     }
-
-    //// TODO make this call asynchronous
-    //private void OnEnable()
-    //{
-    //    if (EditorApplication.isCompiling)
-    //        return;
-
-    //    matches1 = SimpleUI.matches1;
-    //    urlMatchesInCode1 = SimpleUI.urlMatchesInCode1;
-
-    //    //matches1 = SimpleUI.WhatUsesComponent<OpenUrl>(currentUrl);
-    //    //urlMatchesInCode1 = SimpleUI.WhatScriptReferencesConcreteUrl(currentUrl);
-    //}
-
-    private void OnDisable()
-    {
-        ClearData();
-    }
-
-    void ClearData()
-    {
-        routeSelected = -1;
-        referenceSelected = -1;
-        referenceFromSelected = -1;
-    }
-
+    
     void Label(string text)
     {
         GUIStyle localStyle = new GUIStyle(GUI.skin.label);
@@ -120,16 +91,14 @@ public class DisplayConnectedUrlsEditor : Editor
 
         scrollPosition3 = GUILayout.BeginScrollView(scrollPosition3);
 
-        var prevRoute = referenceSelected;
-        referenceSelected = GUILayout.SelectionGrid(referenceSelected, matches.Select(m => GetPrettyNameForUrl(m.URL, currentUrl)).ToArray(), 1);
+        var referenceSelected = GUILayout.SelectionGrid(-1, matches.Select(m => GetPrettyNameForUrl(m.URL, currentUrl)).ToArray(), 1);
 
         GUILayout.EndScrollView();
         GUILayout.EndArea();
 
-        if (prevRoute != referenceSelected)
+        if (referenceSelected != -1)
         {
             SimpleUI.OpenPrefabByUrl(matches[referenceSelected].URL);
-            referenceSelected = -1;
         }
     }
 
@@ -160,17 +129,14 @@ public class DisplayConnectedUrlsEditor : Editor
         }
 
         // navigate to one of these assets
-        var prevRoute = referenceFromSelected;
-        referenceFromSelected = GUILayout.SelectionGrid(referenceFromSelected, names.ToArray(), 1);
+        var referenceSelected = GUILayout.SelectionGrid(-1, names.ToArray(), 1);
 
         GUILayout.EndScrollView();
         GUILayout.EndArea();
 
-        if (prevRoute != referenceFromSelected)
+        if (referenceSelected != -1)
         {
-            SimpleUI.OpenPrefabByAssetPath(routes[referenceFromSelected]);
-            //SimpleUI.OpenAssetByPath(routes[referenceFromSelected]);
-            referenceFromSelected = -1;
+            SimpleUI.OpenPrefabByAssetPath(routes[referenceSelected]);
         }
     }
 
@@ -193,17 +159,15 @@ public class DisplayConnectedUrlsEditor : Editor
         RenderSubRoutes(currentUrl, ref routes, ref names);
 
 
-        var prevRoute = routeSelected;
-        routeSelected = GUILayout.SelectionGrid(routeSelected, names.ToArray(), 1);
+        var routeSelected = GUILayout.SelectionGrid(-1, names.ToArray(), 1);
 
         GUILayout.EndVertical();
         GUILayout.EndScrollView();
         GUILayout.EndArea();
 
-        if (prevRoute != routeSelected)
+        if (routeSelected != -1)
         {
             SimpleUI.OpenPrefabByUrl(routes[routeSelected]);
-            routeSelected = -1;
         }
     }
 
