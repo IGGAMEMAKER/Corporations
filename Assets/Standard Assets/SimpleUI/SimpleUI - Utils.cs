@@ -182,7 +182,6 @@ public partial class SimpleUI
     {
         return prefabs.Any(p => p.Url.Equals(url));
     }
-    // = new List<NewSceneTypeBlah>();
 
     static void SaveData()
     {

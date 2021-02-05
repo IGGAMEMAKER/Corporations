@@ -126,7 +126,7 @@ public partial class SimpleUI
     {
         Debug.Log("Prefab opened: " + obj.prefabContentsRoot.name);
 
-        // Wrap with SimpleUI menues
+        // Wrap with SimpleUI menus
         obj.prefabContentsRoot.AddComponent<DisplayConnectedUrls>();
         Selection.activeGameObject = obj.prefabContentsRoot;
 
@@ -161,5 +161,4 @@ public partial class SimpleUI
             isConcreteUrlChosen = false;
         }
     }
-
 }

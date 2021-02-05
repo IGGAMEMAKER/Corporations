@@ -278,8 +278,6 @@ public partial class SimpleUI : EditorWindow
                     }
                 }
             }
-
-            //Print("linkTo=" + matchingComponent.URL);
         }
     }
 
@@ -336,19 +334,7 @@ public partial class SimpleUI : EditorWindow
         var properties = new[] { "Url" };
 
         // save state
-        bool isPrefabWasOpened = isPrefabMode;
-
-        var activeScene = EditorSceneManager.GetActiveScene();
-
-        var sceneCount = EditorSceneManager.sceneCount;
-
         List<Scene> scenes = new List<Scene>();
-
-        //for (var i = 0; i < sceneCount; i++)
-        //{
-        //    scenes.Add(EditorSceneManager.GetSceneAt(i));
-        //    Debug.Log("Loaded scene: " + scenes[i].name);
-        //}
 
         foreach (var path in paths)
         {
@@ -363,10 +349,7 @@ public partial class SimpleUI : EditorWindow
         }
 
         // restore state if scenes were opened
-
         // restore scene
-        //EditorSceneManager.SetActiveScene(activeScene);
-
         // restore prefab if was open
 
         return matchingComponents;
@@ -470,7 +453,6 @@ public partial class SimpleUI : EditorWindow
     public struct UsageInfo
     {
         public string ScriptName;
-        public int Line;
     }
 
     /// <summary>
@@ -551,7 +533,7 @@ public partial class SimpleUI : EditorWindow
             {
                 // Debug.Log($"Found url {url} in text " + path);
 
-                list.Add(new UsageInfo { Line = 1, ScriptName = path });
+                list.Add(new UsageInfo { ScriptName = path });
             }
         }
 
