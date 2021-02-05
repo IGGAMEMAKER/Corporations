@@ -110,7 +110,7 @@ public class SimpleUIEventHandler : MonoBehaviour
 
     void DrawAsset(string url, bool show)
     {
-        var asset = SimpleUI.prefabs.Find(p => p.Url.Equals(url));
+        var asset = prefabs.Find(p => p.Url.Equals(url));
 
         try
         {

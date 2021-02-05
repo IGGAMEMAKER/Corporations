@@ -163,6 +163,7 @@ public partial class SimpleUI
             var prefabbedComponent = prefabRoot.GetComponentsInChildren<OpenUrl>(true)[match.ComponentID];
             prefabbedComponent.Url = newFormattedUrl;
 
+            // https://forum.unity.com/threads/remove-all-missing-components-in-prefabs.897761/
             GameObjectUtility.RemoveMonoBehavioursWithMissingScript(prefabRoot);
         }
     }
