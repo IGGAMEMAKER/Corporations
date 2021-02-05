@@ -118,7 +118,7 @@ public partial class SimpleUI
 
     private static void PrefabStage_prefabClosed(PrefabStage obj)
     {
-        Debug.Log("prefab closed");
+        //Debug.Log("prefab closed");
         DestroyImmediate(obj.prefabContentsRoot.GetComponent<DisplayConnectedUrls>());
     }
 

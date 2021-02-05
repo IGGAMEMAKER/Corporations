@@ -40,7 +40,9 @@ public partial class SimpleUI
                 }
             }
             else
+            {
                 RenderLinkToEditing();
+            }
         }
     }
 
@@ -132,7 +134,61 @@ public partial class SimpleUI
         return text.Replace(from, to);
     }
 
-    bool RenameUrl(string route, string from, string to)
+    string GetUrlFormattedToOpenUrl(OpenUrl component, string from, string to)
+    {
+        bool addedSlash = false;
+        var formattedUrl = component.Url;
+
+        if (!formattedUrl.StartsWith("/"))
+        {
+            addedSlash = true;
+            formattedUrl = "/" + formattedUrl;
+        }
+
+        var newUrl2 = formattedUrl.Replace(from, to);
+
+        if (addedSlash)
+            newUrl2 = newUrl2.TrimStart('/');
+
+        return newUrl2;
+    }
+
+    void RenameUrlInPrefab(OpenUrl component, string newFormattedUrl, PrefabMatchInfo match)
+    {
+        // https://forum.unity.com/threads/how-do-i-edit-prefabs-from-scripts.685711/#post-4591885
+        using (var editingScope = new PrefabUtility.EditPrefabContentsScope(match.PrefabAssetPath))
+        {
+            var prefabRoot = editingScope.prefabContentsRoot;
+
+            var prefabbedComponent = prefabRoot.GetComponentsInChildren<OpenUrl>(true)[match.ComponentID];
+            prefabbedComponent.Url = newFormattedUrl;
+
+            GameObjectUtility.RemoveMonoBehavioursWithMissingScript(prefabRoot);
+        }
+    }
+
+    void RenameUrlInScene(OpenUrl component, string newFormattedUrl, GameObject asset)
+    {
+        // https://forum.unity.com/threads/scripted-scene-changes-not-being-saved.526453/
+
+        component.Url = newFormattedUrl;
+
+        EditorUtility.SetDirty(component);
+        EditorSceneManager.SaveScene(asset.scene);
+    }
+
+    void RenameUrlInScript(UsageInfo match, string from, string to)
+    {
+        var script = AssetDatabase.LoadAssetAtPath<MonoScript>(match.ScriptName);
+
+        var replacedText = ReplaceUrlInCode(script.text, from, to);
+
+        StreamWriter writer = new StreamWriter(match.ScriptName, false);
+        writer.Write(replacedText);
+        writer.Close();
+    }
+
+    bool RenameUrl(string route, string from, string to, string finalURL)
     {
         var matches = WhatUsesComponent(route, allReferencesFromAssets);
         var codeRefs = WhichScriptReferencesConcreteUrl(route);
@@ -149,91 +205,34 @@ public partial class SimpleUI
                 if (match.IsNormalPartOfNestedPrefab)
                     continue;
 
-                var asset = match.Asset;
                 //var asset = AssetDatabase.LoadAssetAtPath<GameObject>(match.PrefabAssetPath);
                 //var asset = AssetDatabase.OpenAsset(AssetDatabase.LoadMainAssetAtPath(match.PrefabAssetPath));
 
+                var asset = match.Asset;
                 var component = match.Component;
 
-                // edit URL property
-                bool addedSlash = false;
-                var formattedUrl = component.Url;
-                if (!formattedUrl.StartsWith("/"))
-                {
-                    addedSlash = true;
-                    formattedUrl = "/" + formattedUrl;
-                }
-                var newUrl2 = formattedUrl.Replace(from, to);
-                if (addedSlash)
-                    newUrl2 = newUrl2.TrimStart('/');
 
-                Debug.Log($"Renaming {component.Url} => {newUrl2} on component {match.ComponentName} in {match.PrefabAssetPath}");
-                //component.Url = newUrl2;
+                var newFormattedUrl = GetUrlFormattedToOpenUrl(component, from, to);
+
+                Debug.Log($"Renaming {component.Url} => {newFormattedUrl} on component {match.ComponentName} in {match.PrefabAssetPath}");
 
 
                 // saving changes
                 if (isSceneAsset(match.PrefabAssetPath))
                 {
-                    // if scene
-                    // save change in scene
-
-                    // https://forum.unity.com/threads/scripted-scene-changes-not-being-saved.526453/
-
-                    Debug.Log("Set scene as dirty");
-                    component.Url = newUrl2;
-
-                    EditorUtility.SetDirty(component);
-                    //GameObjectUtility.RemoveMonoBehavioursWithMissingScript(asset);
-                    EditorSceneManager.SaveScene(asset.scene);
-
-                    //var saved = EditorSceneManager.SaveScene(asset.scene);
-
-                    //if (saved)
-                    //    Debug.Log("SUCCEED Save changes in scene: " + match.PrefabAssetPath);
-                    //else
-                    //    Debug.Log("FAILED Save changes in scene: " + match.PrefabAssetPath);
+                    RenameUrlInScene(component, newFormattedUrl, asset);
                 }
 
                 if (isPrefabAsset(match.PrefabAssetPath))
                 {
-                    // if prefab
-                    // save change in prefab
-
-                    Debug.Log("Saving prefab: " + match.ComponentName);
-
-                    //EditorUtility.SetDirty(component);
-
-                    // https://docs.unity3d.com/2020.1/Documentation/ScriptReference/PrefabUtility.EditPrefabContentsScope.html
-                    using (var editingScope = new PrefabUtility.EditPrefabContentsScope(match.PrefabAssetPath))
-                    {
-                        var prefabRoot = editingScope.prefabContentsRoot;
-
-                        var prefabbedComponent = prefabRoot.GetComponentsInChildren<OpenUrl>(true)[match.ComponentID];
-
-                        Debug.Log($"Renaming component with url={prefabbedComponent.Url} to {newUrl2}");
-
-                        prefabbedComponent.Url = newUrl2;
-
-                        GameObjectUtility.RemoveMonoBehavioursWithMissingScript(prefabRoot);
-                    }
-
-                    //GameObjectUtility.RemoveMonoBehavioursWithMissingScript(asset);
-
-                    //PrefabUtility.SaveAsPrefabAsset(asset, match.PrefabAssetPath);
-                    //PrefabUtility.UnloadPrefabContents(asset);
+                    RenameUrlInPrefab(component, newFormattedUrl, match);
                 }
             }
 
             Print("Rename in code");
             foreach (var match in codeRefs)
             {
-                var script = AssetDatabase.LoadAssetAtPath<MonoScript>(match.ScriptName);
-
-                var replacedText = ReplaceUrlInCode(script.text, from, to);
-
-                StreamWriter writer = new StreamWriter(match.ScriptName, false);
-                writer.Write(replacedText);
-                writer.Close();
+                RenameUrlInScript(match, from, to);
             }
         }
         catch (Exception ex)
@@ -248,7 +247,7 @@ public partial class SimpleUI
             AssetDatabase.StopAssetEditing();
 
             var prefab = GetPrefabByUrl(route);
-            prefab.Url = newEditingUrl;
+            prefab.Url = finalURL;
 
             UpdatePrefab(prefab);
         }
@@ -291,12 +290,12 @@ public partial class SimpleUI
         List<string> RenamingUrls = new List<string>();
         List<string> RenamingCodeUrls = new List<string>();
 
+        RenamingUrls.Add(prefab.Url);
+
         if (renameUrlRecursively)
         {
             Space();
             var subroutes = GetSubUrls(prefab.Url, true);
-
-            RenamingUrls.Add(prefab.Url);
 
             foreach (var route in subroutes)
             {
@@ -333,10 +332,13 @@ public partial class SimpleUI
             {
                 Print("Rename starts now!");
 
-                foreach (var url in RenamingUrls)
+                // start from grandchilds first
+                foreach (var url in RenamingUrls.OrderByDescending(u => u.Count(c => c.Equals('/'))))
                 {
                     Print("Rename URL " + url);
-                    RenameUrl(url, newUrl, newEditingUrl);
+                    var finalURL = url.Replace(newUrl, newEditingUrl);
+                    RenameUrl(url, newUrl, newEditingUrl, finalURL);
+
                     Print("----------------");
                 }
             }

@@ -63,6 +63,16 @@ public class SimpleUIEventHandler : MonoBehaviour
         // RenderPrefab(url);
     }
 
+    public void PreviewUrl(string NextUrl)
+    {
+        Debug.Log("<b>PREVIEW URL</b>");
+        if (Application.isPlaying)
+        {
+            OpenUrl(NextUrl);
+            HidePrefab(NextUrl);
+        }
+    }
+
     public void OpenUrl(string NextUrl)
     {
         counter++;
@@ -168,7 +178,7 @@ public class SimpleUIEventHandler : MonoBehaviour
         DrawAsset(url, true);
     }
 
-    public void HidePrefab(string url)
+    void HidePrefab(string url)
     {
         Print("HIDE prefab by url: " + url);
 

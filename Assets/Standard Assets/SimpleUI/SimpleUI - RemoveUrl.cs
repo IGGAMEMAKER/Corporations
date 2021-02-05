@@ -10,7 +10,6 @@ using UnityEngine;
 public partial class SimpleUI
 {
     static Vector2 scrollPosition2 = Vector2.zero;
-    static int referenceFromSelected = -1;
     static bool removeUrlRecursively = false;
 
     private static bool isEndedRemoveUrlScrollView = false;
@@ -124,7 +123,6 @@ public partial class SimpleUI
             isEndedRemoveUrlScrollView = true;
 
             SimpleUI.OpenPrefabByAssetPath(routes[selected]);
-            //referenceFromSelected = -1;
         }
 
         if (!recursive)

@@ -75,7 +75,6 @@ public partial class BaseClass : MonoBehaviour
 
     public void OpenUrl(string url)
     {
-        StackTrace trace = new StackTrace();
         SimpleUI.OpenUrl(url);
     }
 
@@ -103,6 +102,7 @@ public partial class BaseClass : MonoBehaviour
         //}
     }
     
+    // TODO REMOVE
     private MyModalWindow GetModal(string ModalTag)
     {
         var m = FindObjectsOfTypeAll<MyModalWindow>().FirstOrDefault(w => w.ModalTag == ModalTag);
