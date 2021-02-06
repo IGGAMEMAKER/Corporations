@@ -65,9 +65,10 @@ public class SimpleUIEventHandler : MonoBehaviour
 
     public void PreviewUrl(string NextUrl)
     {
-        Debug.Log("<b>PREVIEW URL</b>");
-        if (Application.isPlaying)
+        if (Application.isPlaying || true)
         {
+            Debug.Log("<b>PREVIEW URL</b>");
+
             OpenUrl(NextUrl);
             HidePrefab(NextUrl);
         }

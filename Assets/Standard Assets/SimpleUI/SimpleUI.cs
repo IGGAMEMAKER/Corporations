@@ -160,6 +160,7 @@ public partial class SimpleUI : EditorWindow
             var start = DateTime.Now;
             
 
+
             allAssetsWithOpenUrl = WhatUsesComponent<OpenUrl>();
             var assetsEnd = DateTime.Now;
 
@@ -180,8 +181,10 @@ public partial class SimpleUI : EditorWindow
     {
         recentPrefabsScrollPosition = GUILayout.BeginScrollView(recentPrefabsScrollPosition);
         GUILayout.Label("SIMPLE UI", EditorStyles.largeLabel);
-        GUILayout.Label("newUrl " + newUrl);
-        GUILayout.Label("newPath " + newPath);
+        //GUILayout.Label("Url");
+        //GUILayout.Label(newUrl);
+        //GUILayout.Label("Path");
+        //GUILayout.Label(newPath);
 
         //RenderRefreshButton();
 
