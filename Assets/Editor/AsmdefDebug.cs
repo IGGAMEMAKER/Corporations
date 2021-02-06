@@ -40,6 +40,7 @@ public class AsmdefDebug
     {
         //Debug.Log($"Starting recompile CompilationPipelineOnAssemblyCompilationStarted");
         
+
         s_StartTimes[assembly] = DateTime.UtcNow;
     }
 

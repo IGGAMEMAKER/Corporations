@@ -63,7 +63,7 @@ public struct SimpleUISceneType
 
 public partial class SimpleUI : EditorWindow
 {
-    private Vector2 recentPrefabsScrollPosition = Vector2.zero;
+    static Vector2 recentPrefabsScrollPosition = Vector2.zero;
 
     static bool isDraggedPrefabMode = false;
     static bool isDraggedGameObjectMode = false;
