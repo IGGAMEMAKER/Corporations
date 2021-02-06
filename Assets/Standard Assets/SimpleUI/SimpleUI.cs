@@ -125,7 +125,7 @@ public partial class SimpleUI : EditorWindow
 
     private void Update()
     {
-        LoadAssets();
+        ScanProject();
     }
 
     void OnGUI()
@@ -152,19 +152,29 @@ public partial class SimpleUI : EditorWindow
         return $"{milliseconds:0}ms";
     }
 
+    static void LoadScripts()
+    {
+        allScripts = GetAllScripts();
+
+    }
     static void LoadAssets()
+    {
+        allAssetsWithOpenUrl = WhatUsesComponent<OpenUrl>();
+    }
+
+    static void ScanProject()
     {
         if (!isProjectScanned)
         {
             BoldPrint("Loading assets & scripts");
+
             var start = DateTime.Now;
-            
 
+            LoadAssets();
 
-            allAssetsWithOpenUrl = WhatUsesComponent<OpenUrl>();
             var assetsEnd = DateTime.Now;
 
-            allScripts = GetAllScripts();
+            LoadScripts();
 
             BoldPrint($"Loaded assets & scripts in {Measure(start)} (assets: {Measure(start, assetsEnd)}, code: {Measure(assetsEnd)})");
 
