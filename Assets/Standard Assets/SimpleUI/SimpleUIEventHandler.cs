@@ -23,6 +23,11 @@ public class SimpleUIEventHandler : MonoBehaviour
 
     private void Update()
     {
+        ResetCounters();
+    }
+
+    void ResetCounters()
+    {
         counter = 0;
         sameUrlCounter = 0;
     }
@@ -65,13 +70,15 @@ public class SimpleUIEventHandler : MonoBehaviour
 
     public void PreviewUrl(string NextUrl)
     {
-        if (Application.isPlaying || true)
+        if (Application.isEditor)
         {
-            Debug.Log("<b>PREVIEW URL</b>");
-
-            OpenUrl(NextUrl);
-            HidePrefab(NextUrl);
+            ResetCounters();
         }
+
+        Debug.Log("<b>PREVIEW URL</b>");
+
+        OpenUrl(NextUrl);
+        HidePrefab(NextUrl);
     }
 
     public void OpenUrl(string NextUrl)

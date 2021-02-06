@@ -22,6 +22,7 @@ public class UnusedPrefabs : EditorWindow
         EditorWindow.GetWindow<UnusedPrefabs>("Clean up Prefabs");
     }
 }
+
 public class InactiveCodeDetector : EditorWindow
 {
     private bool isDone = false;
