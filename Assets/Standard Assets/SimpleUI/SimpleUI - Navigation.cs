@@ -130,7 +130,6 @@ public partial class SimpleUI
 
     private static void PrefabStage_prefabOpened(PrefabStage obj)
     {
-        var start = DateTime.Now;
         Debug.Log("Prefab opened: " + obj.prefabContentsRoot.name);
 
         // Wrap with SimpleUI menus
@@ -144,8 +143,6 @@ public partial class SimpleUI
         // choose URL
         ChooseUrlFromPickedPrefab();
         TryToIncreaseCurrentPrefabCounter();
-
-        Debug.Log("Prefab preparations done in " + Measure(start));
     }
 
     static void ChooseUrlFromPickedPrefab()
