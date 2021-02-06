@@ -28,7 +28,7 @@ public class DisplayConnectedUrlsEditor : Editor
         if (EditorApplication.isCompiling || EditorApplication.isUpdating)
             return;
 
-        referencesFromAssets = SimpleUI.allReferencesFromAssets;
+        referencesFromAssets = SimpleUI.allAssetsWithOpenUrl;
         referencesFromCode = SimpleUI.referencesFromCode;
 
         

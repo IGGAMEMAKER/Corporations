@@ -34,7 +34,7 @@ public partial class SimpleUI
 
     static void Print2(string text)
     {
-        Print("PRT2: " + text);
+        //Print("PRT2: " + text);
     }
 
     static void Print(string text)
@@ -223,7 +223,7 @@ public partial class SimpleUI
         //if (prefabs != null && prefabs.Count == 0)
         //    return;
 
-        Print("<B>LOAD DATA</B>");
+        BoldPrint("Read SimpleUI.txt");
 
         var fileName = "SimpleUI/SimpleUI.txt";
         var missingUrls = "SimpleUI/SimpleUI-MissingUrls.txt";

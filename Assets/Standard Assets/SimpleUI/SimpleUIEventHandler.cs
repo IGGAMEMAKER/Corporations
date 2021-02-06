@@ -144,7 +144,6 @@ public class SimpleUIEventHandler : MonoBehaviour
     {
         //Debug.Log("DRAW SCENE " + asset.AssetPath);
 
-        //var asset2 = AssetDatabase.LoadMainAssetAtPath(asset.AssetPath);
         var scene = SceneManager.GetSceneByPath(asset.AssetPath);
 
         var sceneName = scene.name;

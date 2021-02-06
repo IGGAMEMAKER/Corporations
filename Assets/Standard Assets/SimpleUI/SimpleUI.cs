@@ -73,8 +73,7 @@ public partial class SimpleUI : EditorWindow
     static bool isUrlAddingMode = false;
     static bool isConcreteUrlChosen = false;
 
-    //public static List<GameObject> allComponentsWithOpenUrl;
-    public static List<SimpleUI.PrefabMatchInfo> allReferencesFromAssets = new List<PrefabMatchInfo>();
+    public static List<SimpleUI.PrefabMatchInfo> allAssetsWithOpenUrl = new List<PrefabMatchInfo>();
     public static Dictionary<string, MonoScript> allScripts = new Dictionary<string, MonoScript>();
     public static List<UsageInfo> referencesFromCode = new List<UsageInfo>();
 
@@ -126,11 +125,7 @@ public partial class SimpleUI : EditorWindow
 
     private void Update()
     {
-        if (!isProjectScanned)
-        {
-            LoadAssets();
-            isProjectScanned = true;
-        }
+        LoadAssets();
     }
 
     void OnGUI()
@@ -149,12 +144,31 @@ public partial class SimpleUI : EditorWindow
         isFirstInspectorGUI = false;
     }
 
+    static string Measure(DateTime start) => Measure(start, DateTime.Now);
+    static string Measure(DateTime start, DateTime end)
+    {
+        var milliseconds = (end - start).TotalMilliseconds;
+
+        return $"{milliseconds:0}ms";
+    }
+
     static void LoadAssets()
     {
-        BoldPrint("Load assets");
+        if (!isProjectScanned)
+        {
+            BoldPrint("Loading assets & scripts");
+            var start = DateTime.Now;
+            
 
-        allReferencesFromAssets = WhatUsesComponent<OpenUrl>();
-        allScripts = GetAllScripts();
+            allAssetsWithOpenUrl = WhatUsesComponent<OpenUrl>();
+            var assetsEnd = DateTime.Now;
+
+            allScripts = GetAllScripts();
+
+            BoldPrint($"Loaded assets & scripts in {Measure(start)} (assets: {Measure(start, assetsEnd)}, code: {Measure(assetsEnd)})");
+
+            isProjectScanned = true;
+        }
     }
 
     static void LoadReferences(string url)

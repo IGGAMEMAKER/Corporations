@@ -191,7 +191,7 @@ public partial class SimpleUI
 
     bool RenameUrl(string route, string from, string to, string finalURL)
     {
-        var matches = WhatUsesComponent(route, allReferencesFromAssets);
+        var matches = WhatUsesComponent(route, allAssetsWithOpenUrl);
         var codeRefs = WhichScriptReferencesConcreteUrl(route);
 
         try
@@ -312,7 +312,7 @@ public partial class SimpleUI
 
         var phrase = renameUrlRecursively ? "Rename url & subUrls" : "Rename THIS url";
 
-        var matches = WhatUsesComponent(newUrl, allReferencesFromAssets);
+        var matches = WhatUsesComponent(newUrl, allAssetsWithOpenUrl);
         var referencesFromCode = WhichScriptReferencesConcreteUrl(prefab.Url);
 
         // references from prefabs & scenes

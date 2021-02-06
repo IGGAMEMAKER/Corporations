@@ -18,12 +18,14 @@ public class AsmdefDebug
 {
     const string AssemblyReloadEventsEditorPref = "AssemblyReloadEventsTime";
     const string AssemblyCompilationEventsEditorPref = "AssemblyCompilationEvents";
+    const string AssemblyCompilationEventsEditorPref2 = "AssemblyCompilationEvents2";
     static readonly int ScriptAssembliesPathLen = "Library/ScriptAssemblies/".Length;
     private static string AssemblyTotalCompilationTimeEditorPref = "AssemblyTotalCompilationTime";
 
     static Dictionary<string, DateTime> s_StartTimes = new Dictionary<string, DateTime>();
 
     static StringBuilder s_BuildEvents = new StringBuilder();
+    static StringBuilder s_BuildEvents2 = new StringBuilder();
     static double s_CompilationTotalTime;
 
     static AsmdefDebug()
@@ -46,7 +48,7 @@ public class AsmdefDebug
     {
         var timeSpan = DateTime.UtcNow - s_StartTimes[assembly];
         s_CompilationTotalTime += timeSpan.TotalMilliseconds;
-        s_BuildEvents.AppendFormat("{0:0.00}s {1}\n", timeSpan.TotalMilliseconds / 1000f,
+        s_BuildEvents.AppendFormat("* {0:0.00}s {1}\n", timeSpan.TotalMilliseconds / 1000f,
             assembly.Substring(ScriptAssembliesPathLen, assembly.Length - ScriptAssembliesPathLen));
     }
 
@@ -55,10 +57,11 @@ public class AsmdefDebug
         Debug.Log($"Starting recompile AssemblyReloadEventsOnBeforeAssemblyReload");
 
         var totalCompilationTimeSeconds = s_CompilationTotalTime / 1000f;
-        s_BuildEvents.AppendFormat("compilation total: {0:0.00}s\n", totalCompilationTimeSeconds);
+        s_BuildEvents2.AppendFormat("Compilation total: {0:0.00}s\n", totalCompilationTimeSeconds);
 
         EditorPrefs.SetString(AssemblyReloadEventsEditorPref, DateTime.UtcNow.ToBinary().ToString());
         EditorPrefs.SetString(AssemblyCompilationEventsEditorPref, s_BuildEvents.ToString());
+        EditorPrefs.SetString(AssemblyCompilationEventsEditorPref2, s_BuildEvents2.ToString());
         EditorPrefs.SetString(AssemblyTotalCompilationTimeEditorPref, totalCompilationTimeSeconds.ToString(CultureInfo.InvariantCulture));
     }
 
@@ -82,11 +85,13 @@ public class AsmdefDebug
             var time = DateTime.UtcNow - date;
 
             var compilationTimes = EditorPrefs.GetString(AssemblyCompilationEventsEditorPref);
+            var compilationTimes2 = EditorPrefs.GetString(AssemblyCompilationEventsEditorPref2);
             var totalTimeSeconds = totalCompilationTimeSeconds + time.TotalSeconds;
+
 
             if (!string.IsNullOrEmpty(compilationTimes))
             {
-                Debug.Log($"Compilation Report: {totalTimeSeconds:F2} seconds\n" + compilationTimes + "Assembly Reload Time: " + time.TotalSeconds + "s\n");
+                Debug.Log($"Compilation Report: {totalTimeSeconds:F2} seconds\n" + compilationTimes2 + compilationTimes + "Assembly Reload Time: " + time.TotalSeconds + "s\n");
             }
         }
     }

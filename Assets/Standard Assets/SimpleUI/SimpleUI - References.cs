@@ -323,7 +323,6 @@ public partial class SimpleUI : EditorWindow
         Debug.Log("Finding all Prefabs and scenes that have the component" + typeToSearch + "…");
 
         var excludeFolders = new[] { "Assets/Standard Assets" };
-        //var guids = AssetDatabase.FindAssets("t:prefab", new[] { "Assets" });
         var guids = AssetDatabase.FindAssets("t:scene t:prefab", new[] { "Assets" });
 
         var paths = guids.Select(AssetDatabase.GUIDToAssetPath).ToList();

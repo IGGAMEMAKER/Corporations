@@ -14,7 +14,11 @@ public partial class SimpleUI
 {
     public static void OpenAssetByPath(string path)
     {
+        var start = DateTime.Now;
+
         AssetDatabase.OpenAsset(AssetDatabase.LoadMainAssetAtPath(path));
+
+        Print($"Opening asset (<b>{Measure(start)}</b>) {path}");
     }
 
     public static void OpenPrefabByAssetPath(string path)
@@ -30,6 +34,7 @@ public partial class SimpleUI
 
         OpenPrefab(p1);
     }
+
     public static void OpenPrefabByUrl(string url)
     {
         Debug.Log("Trying to open prefab by url: " + url);
@@ -41,6 +46,7 @@ public partial class SimpleUI
 
         OpenPrefab(p1);
     }
+
     static void OpenPrefab(SimpleUISceneType p)
     {
         newPath = p.AssetPath;
@@ -124,6 +130,7 @@ public partial class SimpleUI
 
     private static void PrefabStage_prefabOpened(PrefabStage obj)
     {
+        var start = DateTime.Now;
         Debug.Log("Prefab opened: " + obj.prefabContentsRoot.name);
 
         // Wrap with SimpleUI menus
@@ -137,6 +144,8 @@ public partial class SimpleUI
         // choose URL
         ChooseUrlFromPickedPrefab();
         TryToIncreaseCurrentPrefabCounter();
+
+        Debug.Log("Prefab preparations done in " + Measure(start));
     }
 
     static void ChooseUrlFromPickedPrefab()

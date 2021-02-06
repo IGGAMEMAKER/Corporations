@@ -94,7 +94,7 @@ public partial class SimpleUI
 
     static void FillRoutes(List<string> names, List<string> routes, string url, bool recursive)
     {
-        var matches = SimpleUI.WhatUsesComponent(url, allReferencesFromAssets);
+        var matches = SimpleUI.WhatUsesComponent(url, allAssetsWithOpenUrl);
 
         Label($"References to {url}");
 
