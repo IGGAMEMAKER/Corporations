@@ -5,11 +5,12 @@ using System.Linq;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using static SimpleUI.SimpleUI;
 
 namespace SimpleUI
 {
     // editing route mode
-    public partial class SimpleUI
+    public partial class SimpleUIEditor
     {
         static string searchUrl = "";
         static Vector2 searchScrollPosition = Vector2.zero;
@@ -17,9 +18,9 @@ namespace SimpleUI
         public static bool renameUrlRecursively = true;
         public static string newEditingUrl = "";
 
-        public static string newUrl = "";
-        public static string newName = "";
-        public static string newPath = "";
+        public static string newUrl = SimpleUI.newUrl;
+        public static string newName = SimpleUI.newName;
+        public static string newPath = SimpleUI.newPath;
 
         void RenderChosenPrefab()
         {
@@ -82,6 +83,7 @@ namespace SimpleUI
             RenderPrefabs();
         }
 
+        #region Rename Url utils
         string WrapStringWithTwoSlashes(string str)
         {
             str = WrapStringWithLeftSlash(str);
@@ -200,7 +202,7 @@ namespace SimpleUI
             {
                 AssetDatabase.StartAssetEditing();
 
-                Debug.Log($"Replacing {from} to {to} in {route}");
+                Print($"Replacing {from} to {to} in {route}");
 
                 Print("Rename in assets");
                 foreach (var match in matches)
@@ -221,12 +223,12 @@ namespace SimpleUI
 
 
                     // saving changes
-                    if (isSceneAsset(match.PrefabAssetPath))
+                    if (SimpleUI.isSceneAsset(match.PrefabAssetPath))
                     {
                         RenameUrlInScene(component, newFormattedUrl, asset);
                     }
 
-                    if (isPrefabAsset(match.PrefabAssetPath))
+                    if (SimpleUI.isPrefabAsset(match.PrefabAssetPath))
                     {
                         RenameUrlInPrefab(component, newFormattedUrl, match);
                     }
@@ -249,7 +251,7 @@ namespace SimpleUI
                 //AssetDatabase.SaveAssets();
                 AssetDatabase.StopAssetEditing();
 
-                var prefab = GetPrefabByUrl(route);
+                var prefab = SimpleUI.GetPrefabByUrl(route);
                 prefab.Url = finalURL;
 
                 UpdatePrefab(prefab);
@@ -257,6 +259,7 @@ namespace SimpleUI
 
             return true;
         }
+        #endregion
 
         void RenderStatButtons(SimpleUISceneType pref)
         {
@@ -276,6 +279,11 @@ namespace SimpleUI
 
                 UpdatePrefab(pref);
             }
+        }
+
+        void UpdatePrefab(SimpleUISceneType pref)
+        {
+            SimpleUI.UpdatePrefab(pref);
         }
 
         void RenderRenameUrlButton(SimpleUISceneType prefab)

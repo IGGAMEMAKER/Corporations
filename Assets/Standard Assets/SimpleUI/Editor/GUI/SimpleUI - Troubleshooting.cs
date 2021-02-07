@@ -16,30 +16,22 @@ namespace SimpleUI
     }
 
     // Troubleshooting
-    public partial class SimpleUI
+    public partial class SimpleUIEditor
     {
-        public static void FindMissingAssets()
-        {
-            var prefs = prefabs;
+        static Dictionary<string, List<UrlOpeningAttempt>> UrlOpeningAttempts => SimpleUI.UrlOpeningAttempts;
 
-            for (var i = 0; i < prefs.Count; i++)
+        void RenderExistingTroubles()
+        {
+            if (prefabs.Count == 0)
+                return;
+
+            if (GUILayout.Button("Find missing assets"))
             {
-                var p = prefs[i];
-
-                p.Exists = AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(p.AssetPath) != null; // Directory.Exists(p.AssetPath);
-
-                UpdatePrefab(p, i);
+                SimpleUI.FindMissingAssets();
             }
-        }
 
-        public static void AddMissingUrl(string url)
-        {
-            if (!UrlOpeningAttempts.ContainsKey(url))
-                UrlOpeningAttempts[url] = new List<UrlOpeningAttempt>();
-
-            UrlOpeningAttempts[url].Add(new UrlOpeningAttempt { PreviousUrl = GetCurrentUrl() });
-
-            SaveData();
+            RenderMissingUrls();
+            RenderMissingAssets();
         }
 
         void RenderMissingUrls()
@@ -65,20 +57,6 @@ namespace SimpleUI
                     SaveData();
                 }
             }
-        }
-
-        void RenderExistingTroubles()
-        {
-            if (prefabs.Count == 0)
-                return;
-
-            if (GUILayout.Button("Find missing assets"))
-            {
-                FindMissingAssets();
-            }
-
-            RenderMissingUrls();
-            RenderMissingAssets();
         }
 
         void RenderMissingAssets()

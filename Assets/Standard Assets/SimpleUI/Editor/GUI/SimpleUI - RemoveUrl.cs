@@ -9,7 +9,7 @@ using UnityEngine;
 namespace SimpleUI
 {
     // remove route mode
-    public partial class SimpleUI
+    public partial class SimpleUIEditor
     {
         static Vector2 scrollPosition2 = Vector2.zero;
         static bool removeUrlRecursively = false;
@@ -23,7 +23,7 @@ namespace SimpleUI
 
             if (removeUrlRecursively)
             {
-                var suburls = GetSubUrls(url, false).ToList();
+                var suburls = SimpleUI.GetSubUrls(url, false).ToList();
 
                 for (var i = 0; i < suburls.Count(); i++)
                 {
@@ -32,7 +32,7 @@ namespace SimpleUI
             }
         }
 
-        static void RenderUrlRemovingMode()
+        void RenderUrlRemovingMode()
         {
             var index = ChosenIndex;
             var prefab = prefabs[index];
@@ -94,7 +94,7 @@ namespace SimpleUI
             // ------------
         }
 
-        static void FillRoutes(List<string> names, List<string> routes, string url, bool recursive)
+        void FillRoutes(List<string> names, List<string> routes, string url, bool recursive)
         {
             var matches = SimpleUI.WhatUsesComponent(url, allAssetsWithOpenUrl);
 
@@ -104,7 +104,7 @@ namespace SimpleUI
             routes = new List<string>();
 
             // references from code
-            foreach (var occurence in WhichScriptReferencesConcreteUrl(url))
+            foreach (var occurence in SimpleUI.WhichScriptReferencesConcreteUrl(url))
             {
                 names.Add($"<b>Code</b> {SimpleUI.GetTrimmedPath(occurence.ScriptName)}");
                 routes.Add(occurence.ScriptName);
@@ -130,7 +130,7 @@ namespace SimpleUI
             if (!recursive)
                 return;
 
-            foreach (var r in GetSubUrls(url, false))
+            foreach (var r in SimpleUI.GetSubUrls(url, false))
             {
                 FillRoutes(names, routes, r.Url, recursive);
             }

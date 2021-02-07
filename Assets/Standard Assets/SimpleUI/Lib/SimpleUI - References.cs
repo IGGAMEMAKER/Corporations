@@ -47,7 +47,7 @@ namespace SimpleUI
 
 
     // what uses component OpenUrl
-    public partial class SimpleUI : EditorWindow
+    public partial class SimpleUI
     {
         public static bool HasNoPrefabsBetweenObjects(MonoBehaviour component, GameObject root)
         {

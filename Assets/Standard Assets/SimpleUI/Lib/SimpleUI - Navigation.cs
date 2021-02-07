@@ -47,14 +47,14 @@ namespace SimpleUI
             OpenPrefab(p1);
         }
 
-        static void OpenPrefab(SimpleUISceneType p)
+        public static void OpenPrefab(SimpleUISceneType p)
         {
             newPath = p.AssetPath;
             newUrl = p.Url;
 
-            PossiblePrefab = null;
-            isDraggedPrefabMode = false;
-            isUrlEditingMode = false;
+            //PossiblePrefab = null;
+            //isDraggedPrefabMode = false;
+            //isUrlEditingMode = false;
             isConcreteUrlChosen = true;
 
 
@@ -66,7 +66,7 @@ namespace SimpleUI
         // called from UI libs
         public static void OpenUrl(string url)
         {
-            SimpleUIEventHandler eventHandler = FindObjectOfType<SimpleUIEventHandler>();
+            var eventHandler = FindObjectOfType<SimpleUIEventHandler>();
 
             if (eventHandler == null)
             {
@@ -129,7 +129,7 @@ namespace SimpleUI
         //    Selection.activeGameObject = go;
         //}
 
-        static GameObject WrapSceneWithMenu()
+        internal static GameObject WrapSceneWithMenu()
         {
             if (FindObjectOfType<DisplayConnectedUrls>() != null)
                 return null;
@@ -169,7 +169,7 @@ namespace SimpleUI
             TryToIncreaseCurrentPrefabCounter();
         }
 
-        static void ChooseUrlFromPickedPrefab()
+        public static void ChooseUrlFromPickedPrefab()
         {
             var path = GetOpenedAssetPath();
             var urls = prefabs.Where(p => p.AssetPath.Equals(path));

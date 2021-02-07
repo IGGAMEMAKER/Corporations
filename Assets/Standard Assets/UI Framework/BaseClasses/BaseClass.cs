@@ -1,5 +1,6 @@
 ﻿using Assets;
 using Assets.Core;
+using SimpleUI;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -75,7 +76,7 @@ public partial class BaseClass : MonoBehaviour
 
     public void OpenUrl(string url)
     {
-        SimpleUI.SimpleUI.OpenUrl(url);
+        //SimpleUI.OpenUrl(url);
     }
 
     public void OpenModal(string ModalTag, bool closeOthers = true)

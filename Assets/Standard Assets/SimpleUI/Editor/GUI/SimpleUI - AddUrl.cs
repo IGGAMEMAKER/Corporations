@@ -6,7 +6,7 @@ namespace SimpleUI
 {
     // adding new routes
     // dragging prefabs
-    public partial class SimpleUI
+    public partial class SimpleUIEditor
     {
         private static GameObject PossiblePrefab;
         private static string possiblePrefabName = "";
@@ -14,22 +14,6 @@ namespace SimpleUI
         private static string draggedUrl = "";
         private static string draggedName = "";
         private static string draggedPath = "";
-
-        public static bool isSceneAsset(string path) => path.EndsWith(".unity");
-        public static bool isPrefabAsset(string path) => path.EndsWith(".prefab");
-        public static string GetPrettyAssetType(string path) => isSceneAsset(path) ? "Scene" : "Prefab";
-
-        /// <summary>
-        /// cuts directory name / url begginings: 
-        /// /blah/test.jpeg => test.jpeg
-        /// /blah/test => test
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
-
-        //var trimmedScriptName = SimpleUI.GetTrimmedPathName(occurence.ScriptName.Substring(occurence.ScriptName.LastIndexOf('/'));
-        //var names = matches.Select(m => $"<b>{SimpleUI.GetPrettyAssetType(m.PrefabAssetPath)} </b>" + SimpleUI.GetLastPathName(m.PrefabAssetPath.Substring(m.PrefabAssetPath.LastIndexOf("/"))).ToList();
-        public static string GetTrimmedPath(string path) => path.Substring(path.LastIndexOf("/"));
 
         private void RenderMakingAPrefabFromGameObject()
         {
@@ -92,7 +76,7 @@ namespace SimpleUI
             {
                 Space();
 
-                draggedUrl = GetValidatedUrl(draggedUrl);
+                draggedUrl = SimpleUI.GetValidatedUrl(draggedUrl);
 
                 AddAsset(draggedUrl, draggedPath, draggedName);
 
@@ -116,7 +100,7 @@ namespace SimpleUI
             var path = GetOpenedAssetPath();
 
             // pick values from asset path
-            newName = GetPrettyNameFromAssetPath(path);
+            newName = SimpleUI.GetPrettyNameFromAssetPath(path);
 
             if (!newUrl.EndsWith("/"))
                 newUrl += "/";
@@ -168,7 +152,7 @@ namespace SimpleUI
 
                     AddAsset(url, assetPath, newName);
 
-                    SaveData();
+                    SimpleUI.SaveData();
                 }
             }
         }
@@ -191,14 +175,14 @@ namespace SimpleUI
             // try to attach this prefab
             // to current prefab
 
-            draggedName = GetPrettyNameFromAssetPath(prefabPath);
+            draggedName = SimpleUI.GetPrettyNameFromAssetPath(prefabPath);
             draggedPath = prefabPath;
             draggedUrl = newUrl.TrimEnd('/') + "/" + draggedName.TrimStart('/');
         }
 
         void HandleDraggedScene(string path)
         {
-            draggedName = GetPrettyNameFromAssetPath(path);
+            draggedName = SimpleUI.GetPrettyNameFromAssetPath(path);
             draggedPath = path;
             draggedUrl = newUrl.TrimEnd('/') + "/" + draggedName.TrimStart('/');
         }
@@ -257,7 +241,7 @@ namespace SimpleUI
                     Debug.Log("File");
                     foreach (string path in DragAndDrop.paths)
                     {
-                        if (isSceneAsset(path))
+                        if (SimpleUI.isSceneAsset(path))
                         {
                             Debug.Log("- Dragging Scene! " + path);
 
