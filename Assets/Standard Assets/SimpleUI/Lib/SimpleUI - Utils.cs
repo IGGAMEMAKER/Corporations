@@ -39,8 +39,6 @@ namespace SimpleUI
 
 
 
-        #region string utils
-
         public static IEnumerable<SimpleUISceneType> GetSubUrls(string url, bool recursive) => prefabs.Where(p => isSubRouteOf(p.Url, url, recursive));
 
         /// <summary>
@@ -136,8 +134,6 @@ namespace SimpleUI
             return url;
         }
 
-        #endregion
-
         public static bool IsAssetPathExists(string path)
         {
             return prefabs.Any(p => p.AssetPath.Equals(path));
@@ -146,6 +142,48 @@ namespace SimpleUI
         public static bool IsUrlExist(string url)
         {
             return prefabs.Any(p => p.Url.Equals(url));
+        }
+
+
+        public static bool isSceneAsset(string path) => path.EndsWith(".unity");
+        public static bool isPrefabAsset(string path) => path.EndsWith(".prefab");
+        public static string GetPrettyAssetType(string path) => isSceneAsset(path) ? "Scene" : "Prefab";
+
+        /// <summary>
+        /// cuts directory name / url begginings: 
+        /// /blah/test.jpeg => test.jpeg
+        /// /blah/test => test
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+
+        //var trimmedScriptName = SimpleUI.GetTrimmedPathName(occurence.ScriptName.Substring(occurence.ScriptName.LastIndexOf('/'));
+        //var names = matches.Select(m => $"<b>{SimpleUI.GetPrettyAssetType(m.PrefabAssetPath)} </b>" + SimpleUI.GetLastPathName(m.PrefabAssetPath.Substring(m.PrefabAssetPath.LastIndexOf("/"))).ToList();
+        public static string GetTrimmedPath(string path) => path.Substring(path.LastIndexOf("/"));
+
+
+        public static void FindMissingAssets()
+        {
+            var prefs = prefabs;
+
+            for (var i = 0; i < prefs.Count; i++)
+            {
+                var p = prefs[i];
+
+                p.Exists = AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(p.AssetPath) != null; // Directory.Exists(p.AssetPath);
+
+                SimpleUI.UpdatePrefab(p, i);
+            }
+        }
+
+        public static void AddMissingUrl(string url)
+        {
+            if (!UrlOpeningAttempts.ContainsKey(url))
+                UrlOpeningAttempts[url] = new List<UrlOpeningAttempt>();
+
+            UrlOpeningAttempts[url].Add(new UrlOpeningAttempt { PreviousUrl = GetCurrentUrl() });
+
+            SaveData();
         }
     }
 }

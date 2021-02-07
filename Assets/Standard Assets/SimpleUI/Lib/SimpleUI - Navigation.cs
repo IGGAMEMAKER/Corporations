@@ -134,7 +134,7 @@ namespace SimpleUI
             if (FindObjectOfType<DisplayConnectedUrls>() != null)
                 return null;
 
-            if (!IsAssetPathExists(GetCurrentAssetPath()))
+            if (!IsAssetPathExists(GetOpenedAssetPath()))
             {
                 // this scene was not attached to any url
                 return null;

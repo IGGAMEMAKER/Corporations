@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-//using Assets.Core;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.Experimental.SceneManagement;
@@ -9,7 +8,6 @@ using static SimpleUI.SimpleUI;
 namespace SimpleUI
 {
     public partial class SimpleUIEditor : EditorWindow
-    //public partial class SimpleUI : EditorWindow
     {
         static Vector2 recentPrefabsScrollPosition = Vector2.zero;
 
@@ -41,20 +39,6 @@ namespace SimpleUI
         static bool hasChosenPrefab => ChosenIndex >= 0;
 
         public static string GetCurrentUrl() => newUrl.StartsWith("/") ? newUrl : "/" + newUrl;
-        public static string GetCurrentAssetPath() => SimpleUI.GetOpenedAssetPath(); // newPath
-        // ------------------------
-
-
-
-        static string GetOpenedAssetPath() => SimpleUI.GetOpenedAssetPath();
-        //{
-        //    if (isPrefabMode)
-        //    {
-        //        return PrefabStageUtility.GetCurrentPrefabStage().assetPath;
-        //    }
-
-        //    return SceneManager.GetActiveScene().path;
-        //}
 
         [MenuItem("Window/SIMPLE UI")]
         public static void ShowWindow()

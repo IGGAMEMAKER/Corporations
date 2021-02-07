@@ -13,6 +13,8 @@ namespace SimpleUI
     // Save/Load info
     public partial class SimpleUI
     {
+        private bool isProjectScanned = false;
+
         static List<SimpleUISceneType> _prefabs;
         internal static Dictionary<string, List<UrlOpeningAttempt>> UrlOpeningAttempts;
 
@@ -37,6 +39,26 @@ namespace SimpleUI
 
 
         // getting data
+        internal void ScanProject()
+        {
+            if (!isProjectScanned)
+            {
+                BoldPrint("Loading assets & scripts");
+
+                var start = DateTime.Now;
+
+                LoadAssets();
+
+                var assetsEnd = DateTime.Now;
+
+                LoadScripts();
+
+                BoldPrint($"Loaded assets & scripts in {Measure(start)} (assets: {Measure(start, assetsEnd)}, code: {Measure(assetsEnd)})");
+
+                isProjectScanned = true;
+            }
+        }
+
         static void LoadScripts()
         {
             allScripts = GetAllScripts();
@@ -64,23 +86,24 @@ namespace SimpleUI
             serializer.TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto;
             serializer.Formatting = Newtonsoft.Json.Formatting.Indented;
 
-            var entityData = _prefabs;
-            //var entityData = prefabs; // new Dictionary<int, IComponent[]>();
-
             using (StreamWriter sw = new StreamWriter(fileName))
             using (Newtonsoft.Json.JsonWriter writer = new Newtonsoft.Json.JsonTextWriter(sw))
             {
+                var entityData = _prefabs;
+                //var entityData = prefabs; // new Dictionary<int, IComponent[]>();
+
                 if (entityData.Count > 0)
                 {
                     serializer.Serialize(writer, entityData);
                 }
             }
 
-            var data = UrlOpeningAttempts;
 
             using (StreamWriter sw = new StreamWriter(fileName2))
             using (Newtonsoft.Json.JsonWriter writer = new Newtonsoft.Json.JsonTextWriter(sw))
             {
+                var data = UrlOpeningAttempts;
+
                 if (data.Count() > 0)
                 {
                     serializer.Serialize(writer, data);

@@ -97,7 +97,7 @@ namespace SimpleUI
 
         static void SetAddingRouteMode()
         {
-            var path = GetOpenedAssetPath();
+            var path = SimpleUI.GetOpenedAssetPath();
 
             // pick values from asset path
             newName = SimpleUI.GetPrettyNameFromAssetPath(path);
@@ -124,7 +124,7 @@ namespace SimpleUI
             if (!isPrefabMode)
                 return;
 
-            var assetPath = GetCurrentAssetPath();
+            var assetPath = SimpleUI.GetOpenedAssetPath();
             GUILayout.Label($"Add current asset ({assetType})", EditorStyles.boldLabel);
 
             newUrl = EditorGUILayout.TextField("Url", newUrl);

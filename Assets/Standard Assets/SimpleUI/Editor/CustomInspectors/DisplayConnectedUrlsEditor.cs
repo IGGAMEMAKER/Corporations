@@ -85,7 +85,7 @@ namespace SimpleUI
             GUILayout.BeginArea(new Rect(Screen.width - w - off, off + h + off, w, h));
             //GUILayout.BeginArea(new Rect(off, off + h, w, h));
 
-            var matches = referencesFromAssets.Where(m => m.PrefabAssetPath.Equals(SimpleUI.GetCurrentAssetPath())).ToList();
+            var matches = referencesFromAssets.Where(m => m.PrefabAssetPath.Equals(SimpleUI.GetOpenedAssetPath())).ToList();
 
             if (matches.Any())
                 Label("Forward links...");
