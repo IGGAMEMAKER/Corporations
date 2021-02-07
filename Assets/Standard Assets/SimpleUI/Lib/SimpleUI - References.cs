@@ -490,7 +490,7 @@ namespace SimpleUI
             return paths;
         }
 
-        public static List<UsageInfo> WhichScriptReferencesConcreteUrl(string url)
+        public List<UsageInfo> WhichScriptReferencesConcreteUrl(string url)
         {
             // Debug.Log("Finding all scrips, that call " + url);
 

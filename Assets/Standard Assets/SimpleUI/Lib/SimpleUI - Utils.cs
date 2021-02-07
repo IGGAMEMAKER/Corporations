@@ -39,7 +39,7 @@ namespace SimpleUI
 
 
 
-        public static IEnumerable<SimpleUISceneType> GetSubUrls(string url, bool recursive) => prefabs.Where(p => isSubRouteOf(p.Url, url, recursive));
+        public IEnumerable<SimpleUISceneType> GetSubUrls(string url, bool recursive) => prefabs.Where(p => isSubRouteOf(p.Url, url, recursive));
 
         /// <summary>
         /// if recursive == false
@@ -104,7 +104,7 @@ namespace SimpleUI
             return x.Substring(0, ind);
         }
 
-        public static string GetPrettyNameForExistingUrl(string url)
+        public string GetPrettyNameForExistingUrl(string url)
         {
             var prefab = GetPrefabByUrl(url);
 
@@ -134,12 +134,12 @@ namespace SimpleUI
             return url;
         }
 
-        public static bool IsAssetPathExists(string path)
+        public bool IsAssetPathExists(string path)
         {
             return prefabs.Any(p => p.AssetPath.Equals(path));
         }
 
-        public static bool IsUrlExist(string url)
+        public bool IsUrlExist(string url)
         {
             return prefabs.Any(p => p.Url.Equals(url));
         }
@@ -162,7 +162,7 @@ namespace SimpleUI
         public static string GetTrimmedPath(string path) => path.Substring(path.LastIndexOf("/"));
 
 
-        public static void FindMissingAssets()
+        public void FindMissingAssets()
         {
             var prefs = prefabs;
 
@@ -172,11 +172,11 @@ namespace SimpleUI
 
                 p.Exists = AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(p.AssetPath) != null; // Directory.Exists(p.AssetPath);
 
-                SimpleUI.UpdatePrefab(p, i);
+                SimpleUI.instance.UpdatePrefab(p, i);
             }
         }
 
-        public static void AddMissingUrl(string url)
+        public void AddMissingUrl(string url)
         {
             if (!UrlOpeningAttempts.ContainsKey(url))
                 UrlOpeningAttempts[url] = new List<UrlOpeningAttempt>();

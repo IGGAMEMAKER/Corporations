@@ -35,7 +35,7 @@ namespace SimpleUI
 
         static void MovingUsedPrefab(string oldPath, string newPath)
         {
-            var prefabs = SimpleUI.prefabs;
+            var prefabs = SimpleUI.instance.prefabs;
 
             //if (SimpleUI.prefabs.Any(p => p.AssetPath.Equals(newPath)))
 
@@ -50,11 +50,11 @@ namespace SimpleUI
                     p.AssetPath = newPath;
 
 
-                    SimpleUI.UpdatePrefab(p, i);
+                    SimpleUI.instance.UpdatePrefab(p, i);
                 }
             }
 
-            SimpleUI.FindMissingAssets();
+            SimpleUI.instance.FindMissingAssets();
         }
     }
 }

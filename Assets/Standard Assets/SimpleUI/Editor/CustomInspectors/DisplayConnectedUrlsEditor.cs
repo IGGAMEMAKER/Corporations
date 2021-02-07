@@ -31,8 +31,8 @@ namespace SimpleUI
                 return;
 
 
-            referencesFromAssets = SimpleUI.allAssetsWithOpenUrl;
-            referencesFromCode = SimpleUI.referencesFromCode;
+            referencesFromAssets = SimpleUI.instance.allAssetsWithOpenUrl;
+            referencesFromCode = SimpleUI.instance.referencesFromCode;
 
 
             RenderUpperAndLowerRoutes(currentUrl);
@@ -76,7 +76,7 @@ namespace SimpleUI
             }
 
 
-            return prefix + SimpleUI.GetPrettyNameForExistingUrl(url);
+            return prefix + SimpleUI.instance.GetPrettyNameForExistingUrl(url);
         }
 
 
@@ -99,7 +99,7 @@ namespace SimpleUI
 
             if (referenceSelected != -1)
             {
-                SimpleUI.OpenPrefabByUrl(matches[referenceSelected].URL);
+                SimpleUI.instance.OpenPrefabByUrl(matches[referenceSelected].URL);
             }
         }
 
@@ -134,7 +134,7 @@ namespace SimpleUI
 
             if (referenceSelected != -1)
             {
-                SimpleUI.OpenPrefabByAssetPath(routes[referenceSelected]);
+                SimpleUI.instance.OpenPrefabByAssetPath(routes[referenceSelected]);
             }
         }
 
@@ -165,13 +165,13 @@ namespace SimpleUI
 
             if (routeSelected != -1)
             {
-                SimpleUI.OpenPrefabByUrl(routes[routeSelected]);
+                SimpleUI.instance.OpenPrefabByUrl(routes[routeSelected]);
             }
         }
 
         void RenderSubRoutes(string currentUrl, ref List<string> routes, ref List<string> names)
         {
-            var subRoutes = SimpleUI.GetSubUrls(currentUrl, false).OrderByDescending(p => p.Usages).ToList();
+            var subRoutes = SimpleUI.instance.GetSubUrls(currentUrl, false).OrderByDescending(p => p.Usages).ToList();
 
             for (var i = 0; i < subRoutes.Count(); i++)
             {

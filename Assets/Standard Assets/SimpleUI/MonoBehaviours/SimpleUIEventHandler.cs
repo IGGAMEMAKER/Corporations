@@ -17,7 +17,7 @@ namespace SimpleUI
         public Dictionary<string, GameObject> Objects = new Dictionary<string, GameObject>();
 
         public string CurrentUrl;
-        static List<SimpleUISceneType> prefabs => SimpleUI.prefabs;
+        List<SimpleUISceneType> prefabs => SimpleUI.instance.prefabs;
 
         private static int counter = 0;
         private static int sameUrlCounter = 0;
@@ -108,9 +108,9 @@ namespace SimpleUI
 
             sameUrlCounter = 0;
 
-            if (!SimpleUI.IsUrlExist(NextUrl))
+            if (!SimpleUI.instance.IsUrlExist(NextUrl))
             {
-                SimpleUI.AddMissingUrl(NextUrl);
+                SimpleUI.instance.AddMissingUrl(NextUrl);
             }
 
             RenderUrls(NextUrl);

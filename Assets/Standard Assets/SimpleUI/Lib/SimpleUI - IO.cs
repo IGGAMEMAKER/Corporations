@@ -15,10 +15,10 @@ namespace SimpleUI
     {
         private bool isProjectScanned = false;
 
-        static List<SimpleUISceneType> _prefabs;
-        internal static Dictionary<string, List<UrlOpeningAttempt>> UrlOpeningAttempts;
+        List<SimpleUISceneType> _prefabs;
+        internal Dictionary<string, List<UrlOpeningAttempt>> UrlOpeningAttempts;
 
-        public static List<SimpleUISceneType> prefabs
+        public List<SimpleUISceneType> prefabs
         {
             get
             {
@@ -31,7 +31,7 @@ namespace SimpleUI
             }
         }
 
-        public static SimpleUISceneType GetPrefabByUrl(string url)
+        public SimpleUISceneType GetPrefabByUrl(string url)
         {
             return prefabs.FirstOrDefault(p => p.Url.Equals(url));
         }
@@ -59,23 +59,23 @@ namespace SimpleUI
             }
         }
 
-        static void LoadScripts()
+        void LoadScripts()
         {
             allScripts = GetAllScripts();
 
         }
-        static void LoadAssets()
+        void LoadAssets()
         {
             allAssetsWithOpenUrl = WhatUsesComponent<OpenUrl>();
         }
 
-        static void LoadReferences(string url)
+        void LoadReferences(string url)
         {
             referencesFromCode = WhichScriptReferencesConcreteUrl(url);
         }
 
         // File I/O
-        internal static void SaveData()
+        internal void SaveData()
         {
             var fileName = "SimpleUI/SimpleUI.txt";
             var fileName2 = "SimpleUI/SimpleUI-MissingUrls.txt";
@@ -111,7 +111,7 @@ namespace SimpleUI
             }
         }
 
-        static void LoadData()
+        void LoadData()
         {
             //if (prefabs != null && prefabs.Count == 0)
             //    return;
@@ -137,28 +137,15 @@ namespace SimpleUI
             UrlOpeningAttempts = obj2 ?? new Dictionary<string, List<UrlOpeningAttempt>>();
         }
 
-        public static void UpdatePrefab(SimpleUISceneType prefab) => UpdatePrefab(prefab, ChosenIndex);
+        public void UpdatePrefab(SimpleUISceneType prefab) => UpdatePrefab(prefab, ChosenIndex);
 
-        public static void UpdatePrefab(SimpleUISceneType prefab, int index)
+        public void UpdatePrefab(SimpleUISceneType prefab, int index)
         {
             if (!hasChosenPrefab)
                 return;
 
             prefabs[index] = prefab;
             SaveData();
-        }
-
-        public static void TryToIncreaseCurrentPrefabCounter()
-        {
-            if (hasChosenPrefab)
-            {
-                var pref = prefabs[ChosenIndex];
-
-                pref.Usages++;
-                pref.LastOpened = DateTime.Now.Ticks;
-
-                UpdatePrefab(pref);
-            }
         }
     }
 }

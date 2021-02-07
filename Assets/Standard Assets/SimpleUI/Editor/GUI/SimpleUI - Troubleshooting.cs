@@ -18,7 +18,7 @@ namespace SimpleUI
     // Troubleshooting
     public partial class SimpleUIEditor
     {
-        static Dictionary<string, List<UrlOpeningAttempt>> UrlOpeningAttempts => SimpleUI.UrlOpeningAttempts;
+        Dictionary<string, List<UrlOpeningAttempt>> UrlOpeningAttempts => SimpleUI.instance.UrlOpeningAttempts;
 
         void RenderExistingTroubles()
         {
@@ -27,7 +27,7 @@ namespace SimpleUI
 
             if (GUILayout.Button("Find missing assets"))
             {
-                SimpleUI.FindMissingAssets();
+                SimpleUI.instance.FindMissingAssets();
             }
 
             RenderMissingUrls();

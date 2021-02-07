@@ -22,11 +22,11 @@ namespace SimpleUI
 
         public float myFloat = 1f;
 
-        public static List<SimpleUISceneType> prefabs => SimpleUI.prefabs;
+        public List<SimpleUISceneType> prefabs => SimpleUI.instance.prefabs;
 
-        public List<PrefabMatchInfo> allAssetsWithOpenUrl => SimpleUI.allAssetsWithOpenUrl;
-        public Dictionary<string, MonoScript> allScripts = SimpleUI.allScripts;
-        public List<UsageInfo> referencesFromCode = SimpleUI.referencesFromCode;
+        public List<PrefabMatchInfo> allAssetsWithOpenUrl => SimpleUI.instance.allAssetsWithOpenUrl;
+        public Dictionary<string, MonoScript> allScripts = SimpleUI.instance.allScripts;
+        public List<UsageInfo> referencesFromCode = SimpleUI.instance.referencesFromCode;
 
         // skipping first frame to reduce recompile time
         public static bool isFirstGUI = true;
@@ -35,8 +35,8 @@ namespace SimpleUI
         // chosen asset
         static bool isPrefabMode => PrefabStageUtility.GetCurrentPrefabStage() != null;
 
-        static int ChosenIndex => prefabs.FindIndex(p => p.Url.Equals(GetCurrentUrl())); // GetCurrentUrl()
-        static bool hasChosenPrefab => ChosenIndex >= 0;
+        int ChosenIndex => prefabs.FindIndex(p => p.Url.Equals(GetCurrentUrl())); // GetCurrentUrl()
+        bool hasChosenPrefab => ChosenIndex >= 0;
 
         public static string GetCurrentUrl() => newUrl.StartsWith("/") ? newUrl : "/" + newUrl;
 
@@ -151,7 +151,7 @@ namespace SimpleUI
 
         void SaveData()
         {
-            SimpleUI.SaveData();
+            SimpleUI.instance.SaveData();
         }
 
         #region Render prefabs
@@ -206,7 +206,7 @@ namespace SimpleUI
             isDraggedPrefabMode = false;
             isUrlEditingMode = false;
 
-            SimpleUI.OpenPrefab(prefab);
+            SimpleUI.instance.OpenPrefab(prefab);
         }
 
         //static void OpenPrefab(SimpleUISceneType p)
@@ -271,7 +271,7 @@ namespace SimpleUI
 
             if (!isTopRoute)
             {
-                var root = GetPrefabByUrl(upperUrl);
+                var root = SimpleUI.instance.GetPrefabByUrl(upperUrl);
 
                 Label($"Root");
 
@@ -281,7 +281,7 @@ namespace SimpleUI
 
         void RenderSubroutes()
         {
-            var subUrls = GetSubUrls(newUrl, false);
+            var subUrls = SimpleUI.instance.GetSubUrls(newUrl, false);
 
             if (subUrls.Any())
             {

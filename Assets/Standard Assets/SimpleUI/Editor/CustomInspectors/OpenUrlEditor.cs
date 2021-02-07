@@ -16,8 +16,8 @@ namespace SimpleUI
 
         static Vector2 scroll = Vector2.zero;
 
-        static List<SimpleUISceneType> prefabs => SimpleUI.prefabs;
-        static string[] _choices => prefabs.Select(p => MakeProperUrl(p.Url)).ToArray();
+        List<SimpleUISceneType> prefabs => SimpleUI.instance.prefabs;
+        string[] _choices => prefabs.Select(p => MakeProperUrl(p.Url)).ToArray();
         // = { "foo", "foobar" };
 
         public override void OnInspectorGUI()
@@ -88,11 +88,11 @@ namespace SimpleUI
             var openUrl = target as OpenUrl;
             var pos = openUrl.transform.position - new Vector3(0, -250, 0);
 
-            Handles.Label(pos, SimpleUI.GetPrettyNameForExistingUrl("/" + openUrl.Url)); // transform.position - new Vector3(0, -250, 0)
+            Handles.Label(pos, SimpleUI.instance.GetPrettyNameForExistingUrl("/" + openUrl.Url)); // transform.position - new Vector3(0, -250, 0)
 
             if (GUILayout.Button(openUrl.Url))
             {
-                SimpleUI.OpenPrefabByUrl(openUrl.Url);
+                SimpleUI.instance.OpenPrefabByUrl(openUrl.Url);
             }
 
             Handles.EndGUI();

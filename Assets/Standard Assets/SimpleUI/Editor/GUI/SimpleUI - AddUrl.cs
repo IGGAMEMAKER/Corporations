@@ -152,7 +152,7 @@ namespace SimpleUI
 
                     AddAsset(url, assetPath, newName);
 
-                    SimpleUI.SaveData();
+                    SaveData();
                 }
             }
         }

@@ -21,9 +21,9 @@ namespace SimpleUI
             Print($"Opening asset (<b>{Measure(start)}</b>) {path}");
         }
 
-        public static void OpenPrefabByAssetPath(string path)
+        public void OpenPrefabByAssetPath(string path)
         {
-            if (!SimpleUI.IsAssetPathExists(path))
+            if (!instance.IsAssetPathExists(path))
             {
                 //Debug.LogError("Failed to OpenPrefabByAssetPath() " + path);
                 OpenAssetByPath(path);
@@ -35,7 +35,7 @@ namespace SimpleUI
             OpenPrefab(p1);
         }
 
-        public static void OpenPrefabByUrl(string url)
+        public void OpenPrefabByUrl(string url)
         {
             Debug.Log("Trying to open prefab by url: " + url);
 
@@ -47,7 +47,7 @@ namespace SimpleUI
             OpenPrefab(p1);
         }
 
-        public static void OpenPrefab(SimpleUISceneType p)
+        public void OpenPrefab(SimpleUISceneType p)
         {
             newPath = p.AssetPath;
             newUrl = p.Url;
@@ -134,7 +134,7 @@ namespace SimpleUI
             if (FindObjectOfType<DisplayConnectedUrls>() != null)
                 return null;
 
-            if (!IsAssetPathExists(GetOpenedAssetPath()))
+            if (!instance.IsAssetPathExists(GetOpenedAssetPath()))
             {
                 // this scene was not attached to any url
                 return null;
@@ -172,7 +172,7 @@ namespace SimpleUI
         public static void ChooseUrlFromPickedPrefab()
         {
             var path = GetOpenedAssetPath();
-            var urls = prefabs.Where(p => p.AssetPath.Equals(path));
+            var urls = instance.prefabs.Where(p => p.AssetPath.Equals(path));
 
             if (!urls.Any())
             {
@@ -189,6 +189,19 @@ namespace SimpleUI
             {
                 // pick first automatically or do nothing?
                 isConcreteUrlChosen = false;
+            }
+        }
+
+        public static void TryToIncreaseCurrentPrefabCounter()
+        {
+            if (instance.hasChosenPrefab)
+            {
+                var pref = instance.prefabs[instance.ChosenIndex];
+
+                pref.Usages++;
+                pref.LastOpened = DateTime.Now.Ticks;
+
+                instance.UpdatePrefab(pref);
             }
         }
     }

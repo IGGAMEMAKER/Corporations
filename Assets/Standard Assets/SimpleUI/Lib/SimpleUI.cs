@@ -80,20 +80,32 @@ namespace SimpleUI
 
     public partial class SimpleUI : ScriptableObject
     {
+        public static SimpleUI _instance = null;
+        public static SimpleUI instance
+        {
+            get
+            {
+                if (_instance == null)
+                    _instance = new SimpleUI();
+
+                return _instance;
+            }
+        }
+
         public static bool isConcreteUrlChosen = false;
 
         public static string newUrl = "";
         public static string newName = "";
         public static string newPath = "";
 
-        public static List<PrefabMatchInfo> allAssetsWithOpenUrl = new List<PrefabMatchInfo>();
-        public static Dictionary<string, MonoScript> allScripts = new Dictionary<string, MonoScript>();
-        public static List<UsageInfo> referencesFromCode = new List<UsageInfo>();
+        public List<PrefabMatchInfo> allAssetsWithOpenUrl = new List<PrefabMatchInfo>();
+        public Dictionary<string, MonoScript> allScripts = new Dictionary<string, MonoScript>();
+        public List<UsageInfo> referencesFromCode = new List<UsageInfo>();
 
         static bool isPrefabMode => PrefabStageUtility.GetCurrentPrefabStage() != null;
 
-        static int ChosenIndex => prefabs.FindIndex(p => p.Url.Equals(GetCurrentUrl())); // GetCurrentUrl()
-        static bool hasChosenPrefab => ChosenIndex >= 0;
+        int ChosenIndex => prefabs.FindIndex(p => p.Url.Equals(GetCurrentUrl())); // GetCurrentUrl()
+        bool hasChosenPrefab => ChosenIndex >= 0;
 
         public static string GetCurrentUrl() => newUrl.StartsWith("/") ? newUrl : "/" + newUrl;
 

@@ -196,7 +196,7 @@ namespace SimpleUI
         bool RenameUrl(string route, string from, string to, string finalURL)
         {
             var matches = WhatUsesComponent(route, allAssetsWithOpenUrl);
-            var codeRefs = WhichScriptReferencesConcreteUrl(route);
+            var codeRefs = SimpleUI.instance.WhichScriptReferencesConcreteUrl(route);
 
             try
             {
@@ -251,7 +251,7 @@ namespace SimpleUI
                 //AssetDatabase.SaveAssets();
                 AssetDatabase.StopAssetEditing();
 
-                var prefab = SimpleUI.GetPrefabByUrl(route);
+                var prefab = SimpleUI.instance.GetPrefabByUrl(route);
                 prefab.Url = finalURL;
 
                 UpdatePrefab(prefab);
@@ -283,7 +283,7 @@ namespace SimpleUI
 
         void UpdatePrefab(SimpleUISceneType pref)
         {
-            SimpleUI.UpdatePrefab(pref);
+            SimpleUI.instance.UpdatePrefab(pref);
         }
 
         void RenderRenameUrlButton(SimpleUISceneType prefab)
@@ -306,7 +306,7 @@ namespace SimpleUI
             if (renameUrlRecursively)
             {
                 Space();
-                var subroutes = GetSubUrls(prefab.Url, true);
+                var subroutes = SimpleUI.instance.GetSubUrls(prefab.Url, true);
 
                 foreach (var route in subroutes)
                 {
@@ -323,7 +323,7 @@ namespace SimpleUI
             var phrase = renameUrlRecursively ? "Rename url & subUrls" : "Rename THIS url";
 
             var matches = WhatUsesComponent(newUrl, allAssetsWithOpenUrl);
-            var referencesFromCode = WhichScriptReferencesConcreteUrl(prefab.Url);
+            var referencesFromCode = SimpleUI.instance.WhichScriptReferencesConcreteUrl(prefab.Url);
 
             // references from prefabs & scenes
             var names = matches.Select(m => $"<b>{SimpleUI.GetPrettyAssetType(m.PrefabAssetPath)}</b> " + SimpleUI.GetTrimmedPath(m.PrefabAssetPath)).ToList();

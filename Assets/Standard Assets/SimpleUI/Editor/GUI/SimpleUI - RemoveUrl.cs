@@ -11,19 +11,21 @@ namespace SimpleUI
     // remove route mode
     public partial class SimpleUIEditor
     {
-        static Vector2 scrollPosition2 = Vector2.zero;
-        static bool removeUrlRecursively = false;
+        Vector2 scrollPosition2 = Vector2.zero;
+        bool removeUrlRecursively = false;
 
-        private static bool isEndedRemoveUrlScrollView = false;
-        private static int removingUrlObstacles = 0;
+        private bool isEndedRemoveUrlScrollView = false;
+        private int removingUrlObstacles = 0;
 
-        static void RemoveUrl(string url)
+        //SimpleUI SimpleUI => SimpleUI.instance;
+
+        void RemoveUrl(string url)
         {
             prefabs.RemoveAll(p => p.Url.Equals(url));
 
             if (removeUrlRecursively)
             {
-                var suburls = SimpleUI.GetSubUrls(url, false).ToList();
+                var suburls = SimpleUI.instance.GetSubUrls(url, false).ToList();
 
                 for (var i = 0; i < suburls.Count(); i++)
                 {
@@ -104,7 +106,7 @@ namespace SimpleUI
             routes = new List<string>();
 
             // references from code
-            foreach (var occurence in SimpleUI.WhichScriptReferencesConcreteUrl(url))
+            foreach (var occurence in SimpleUI.instance.WhichScriptReferencesConcreteUrl(url))
             {
                 names.Add($"<b>Code</b> {SimpleUI.GetTrimmedPath(occurence.ScriptName)}");
                 routes.Add(occurence.ScriptName);
@@ -124,13 +126,13 @@ namespace SimpleUI
                 GUILayout.EndScrollView();
                 isEndedRemoveUrlScrollView = true;
 
-                SimpleUI.OpenPrefabByAssetPath(routes[selected]);
+                SimpleUI.instance.OpenPrefabByAssetPath(routes[selected]);
             }
 
             if (!recursive)
                 return;
 
-            foreach (var r in SimpleUI.GetSubUrls(url, false))
+            foreach (var r in SimpleUI.instance.GetSubUrls(url, false))
             {
                 FillRoutes(names, routes, r.Url, recursive);
             }
