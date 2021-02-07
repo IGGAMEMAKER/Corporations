@@ -1,6 +1,8 @@
 using UnityEditor;
 using UnityEngine;
 
+namespace SimpleUI
+{
 [ExecuteAlways]
 [RequireComponent(typeof(SimpleUIEventHandler))]
 public class DisplayCompleteUrl : MonoBehaviour
@@ -26,4 +28,6 @@ public class DisplayCompleteUrl : MonoBehaviour
             SimpleUIEventHandler.PreviewUrl(url);
         }
     }
+}
+
 }

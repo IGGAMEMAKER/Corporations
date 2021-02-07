@@ -6,416 +6,419 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-// editing route mode
-public partial class SimpleUI
+namespace SimpleUI
 {
-    static string searchUrl = "";
-    static Vector2 searchScrollPosition = Vector2.zero;
-
-    public static bool renameUrlRecursively = true;
-    public static string newEditingUrl = "";
-
-    public static string newUrl = "";
-    public static string newName = "";
-    public static string newPath = "";
-
-    void RenderChosenPrefab()
+    // editing route mode
+    public partial class SimpleUI
     {
-        if (!isConcreteUrlChosen)
+        static string searchUrl = "";
+        static Vector2 searchScrollPosition = Vector2.zero;
+
+        public static bool renameUrlRecursively = true;
+        public static string newEditingUrl = "";
+
+        public static string newUrl = "";
+        public static string newName = "";
+        public static string newPath = "";
+
+        void RenderChosenPrefab()
         {
-            // pick concrete URL
-            RenderUrlsWhichAreAttachedToSamePrefab();
-        }
-        else
-        {
-            if (isUrlEditingMode)
+            if (!isConcreteUrlChosen)
             {
-                if (isUrlRemovingMode)
-                {
-                    RenderUrlRemovingMode();
-                }
-                else
-                {
-                    RenderEditingPrefabMode();
-                }
+                // pick concrete URL
+                RenderUrlsWhichAreAttachedToSamePrefab();
             }
             else
             {
-                RenderLinkToEditing();
+                if (isUrlEditingMode)
+                {
+                    if (isUrlRemovingMode)
+                    {
+                        RenderUrlRemovingMode();
+                    }
+                    else
+                    {
+                        RenderEditingPrefabMode();
+                    }
+                }
+                else
+                {
+                    RenderLinkToEditing();
+                }
             }
         }
-    }
 
-    void RenderUrlsWhichAreAttachedToSamePrefab()
-    {
-        var chosenPrefab = prefabs[ChosenIndex];
-        var samePrefabUrls = prefabs.Where(p => p.AssetPath.Equals(chosenPrefab.AssetPath));
-
-        Label("Prefab " + chosenPrefab.Name + " is attached to these urls");
-        Label("Choose proper one!");
-
-        Space();
-        RenderPrefabs(samePrefabUrls);
-    }
-
-    void RenderLinkToEditing()
-    {
-        var index = ChosenIndex;
-        var prefab = prefabs[index];
-
-        Label(prefab.Url);
-
-        if (Button("Edit prefab"))
+        void RenderUrlsWhichAreAttachedToSamePrefab()
         {
-            isUrlEditingMode = true;
-            isUrlRemovingMode = false;
+            var chosenPrefab = prefabs[ChosenIndex];
+            var samePrefabUrls = prefabs.Where(p => p.AssetPath.Equals(chosenPrefab.AssetPath));
 
-            newUrl = prefab.Url;
-            newEditingUrl = newUrl;
-            newPath = prefab.AssetPath;
-            newName = prefab.Name;
+            Label("Prefab " + chosenPrefab.Name + " is attached to these urls");
+            Label("Choose proper one!");
+
+            Space();
+            RenderPrefabs(samePrefabUrls);
         }
 
-        Space();
-        RenderPrefabs();
-    }
+        void RenderLinkToEditing()
+        {
+            var index = ChosenIndex;
+            var prefab = prefabs[index];
 
-    string WrapStringWithTwoSlashes(string str)
-    {
-        str = WrapStringWithLeftSlash(str);
-        str = WrapStringWithRightSlash(str);
+            Label(prefab.Url);
 
-        return str;
-    }
+            if (Button("Edit prefab"))
+            {
+                isUrlEditingMode = true;
+                isUrlRemovingMode = false;
 
-    string WrapStringWithLeftSlash(string str)
-    {
-        if (!str.StartsWith("/"))
-            str = "/" + str;
+                newUrl = prefab.Url;
+                newEditingUrl = newUrl;
+                newPath = prefab.AssetPath;
+                newName = prefab.Name;
+            }
 
-        return str;
-    }
+            Space();
+            RenderPrefabs();
+        }
 
-    string WrapStringWithRightSlash(string str)
-    {
-        if (!str.EndsWith("/"))
-            str = str + "/";
+        string WrapStringWithTwoSlashes(string str)
+        {
+            str = WrapStringWithLeftSlash(str);
+            str = WrapStringWithRightSlash(str);
 
-        return str;
-    }
-
-    string TrimSlashes(string str)
-    {
-        // no trimming in / route
-        if (str.Equals("/"))
             return str;
-
-        return str.TrimStart('/').TrimEnd('/');
-    }
-
-
-    string ReplaceUrlInCode(string text, string from, string to)
-    {
-        var txt = text;
-
-        // a/b/c
-        // ==
-        // a/b/c/
-        // ==
-        // /a/b/c
-        // ==
-        // /a/b/c/
-
-        //txt = txt.Replace(WrapStringWithTwoSlashes(from), WrapStringWithTwoSlashes(to)); // two slashes
-        //txt = txt.Replace(WrapStringWithLeftSlash(from), WrapStringWithLeftSlash(to)); // left slashes
-        //txt = txt.Replace(WrapStringWithRightSlash(from), WrapStringWithRightSlash(to)); // right slashes
-        //txt = txt.Replace(TrimSlashes(from), TrimSlashes(to)); // no slashes
-
-        return text.Replace(from, to);
-    }
-
-    string GetUrlFormattedToOpenUrl(OpenUrl component, string from, string to)
-    {
-        bool addedSlash = false;
-        var formattedUrl = component.Url;
-
-        if (!formattedUrl.StartsWith("/"))
-        {
-            addedSlash = true;
-            formattedUrl = "/" + formattedUrl;
         }
 
-        var newUrl2 = formattedUrl.Replace(from, to);
-
-        if (addedSlash)
-            newUrl2 = newUrl2.TrimStart('/');
-
-        return newUrl2;
-    }
-
-    void RenameUrlInPrefab(OpenUrl component, string newFormattedUrl, PrefabMatchInfo match)
-    {
-        // https://forum.unity.com/threads/how-do-i-edit-prefabs-from-scripts.685711/#post-4591885
-        using (var editingScope = new PrefabUtility.EditPrefabContentsScope(match.PrefabAssetPath))
+        string WrapStringWithLeftSlash(string str)
         {
-            var prefabRoot = editingScope.prefabContentsRoot;
+            if (!str.StartsWith("/"))
+                str = "/" + str;
 
-            var prefabbedComponent = prefabRoot.GetComponentsInChildren<OpenUrl>(true)[match.ComponentID];
-            prefabbedComponent.Url = newFormattedUrl;
-
-            // https://forum.unity.com/threads/remove-all-missing-components-in-prefabs.897761/
-            GameObjectUtility.RemoveMonoBehavioursWithMissingScript(prefabRoot);
+            return str;
         }
-    }
 
-    void RenameUrlInScene(OpenUrl component, string newFormattedUrl, GameObject asset)
-    {
-        // https://forum.unity.com/threads/scripted-scene-changes-not-being-saved.526453/
-
-        component.Url = newFormattedUrl;
-
-        EditorUtility.SetDirty(component);
-        EditorSceneManager.SaveScene(asset.scene);
-    }
-
-    void RenameUrlInScript(UsageInfo match, string from, string to)
-    {
-        var script = AssetDatabase.LoadAssetAtPath<MonoScript>(match.ScriptName);
-
-        var replacedText = ReplaceUrlInCode(script.text, from, to);
-
-        StreamWriter writer = new StreamWriter(match.ScriptName, false);
-        writer.Write(replacedText);
-        writer.Close();
-    }
-
-    bool RenameUrl(string route, string from, string to, string finalURL)
-    {
-        var matches = WhatUsesComponent(route, allAssetsWithOpenUrl);
-        var codeRefs = WhichScriptReferencesConcreteUrl(route);
-
-        try
+        string WrapStringWithRightSlash(string str)
         {
-            AssetDatabase.StartAssetEditing();
+            if (!str.EndsWith("/"))
+                str = str + "/";
 
-            Debug.Log($"Replacing {from} to {to} in {route}");
+            return str;
+        }
 
-            Print("Rename in assets");
-            foreach (var match in matches)
+        string TrimSlashes(string str)
+        {
+            // no trimming in / route
+            if (str.Equals("/"))
+                return str;
+
+            return str.TrimStart('/').TrimEnd('/');
+        }
+
+
+        string ReplaceUrlInCode(string text, string from, string to)
+        {
+            var txt = text;
+
+            // a/b/c
+            // ==
+            // a/b/c/
+            // ==
+            // /a/b/c
+            // ==
+            // /a/b/c/
+
+            //txt = txt.Replace(WrapStringWithTwoSlashes(from), WrapStringWithTwoSlashes(to)); // two slashes
+            //txt = txt.Replace(WrapStringWithLeftSlash(from), WrapStringWithLeftSlash(to)); // left slashes
+            //txt = txt.Replace(WrapStringWithRightSlash(from), WrapStringWithRightSlash(to)); // right slashes
+            //txt = txt.Replace(TrimSlashes(from), TrimSlashes(to)); // no slashes
+
+            return text.Replace(from, to);
+        }
+
+        string GetUrlFormattedToOpenUrl(OpenUrl component, string from, string to)
+        {
+            bool addedSlash = false;
+            var formattedUrl = component.Url;
+
+            if (!formattedUrl.StartsWith("/"))
             {
-                if (match.IsNormalPartOfNestedPrefab)
-                    continue;
-
-                //var asset = AssetDatabase.LoadAssetAtPath<GameObject>(match.PrefabAssetPath);
-                //var asset = AssetDatabase.OpenAsset(AssetDatabase.LoadMainAssetAtPath(match.PrefabAssetPath));
-
-                var asset = match.Asset;
-                var component = match.Component;
-
-
-                var newFormattedUrl = GetUrlFormattedToOpenUrl(component, from, to);
-
-                Debug.Log($"Renaming {component.Url} => {newFormattedUrl} on component {match.ComponentName} in {match.PrefabAssetPath}");
-
-
-                // saving changes
-                if (isSceneAsset(match.PrefabAssetPath))
-                {
-                    RenameUrlInScene(component, newFormattedUrl, asset);
-                }
-
-                if (isPrefabAsset(match.PrefabAssetPath))
-                {
-                    RenameUrlInPrefab(component, newFormattedUrl, match);
-                }
+                addedSlash = true;
+                formattedUrl = "/" + formattedUrl;
             }
 
-            Print("Rename in code");
-            foreach (var match in codeRefs)
+            var newUrl2 = formattedUrl.Replace(from, to);
+
+            if (addedSlash)
+                newUrl2 = newUrl2.TrimStart('/');
+
+            return newUrl2;
+        }
+
+        void RenameUrlInPrefab(OpenUrl component, string newFormattedUrl, PrefabMatchInfo match)
+        {
+            // https://forum.unity.com/threads/how-do-i-edit-prefabs-from-scripts.685711/#post-4591885
+            using (var editingScope = new PrefabUtility.EditPrefabContentsScope(match.PrefabAssetPath))
             {
-                RenameUrlInScript(match, from, to);
+                var prefabRoot = editingScope.prefabContentsRoot;
+
+                var prefabbedComponent = prefabRoot.GetComponentsInChildren<OpenUrl>(true)[match.ComponentID];
+                prefabbedComponent.Url = newFormattedUrl;
+
+                // https://forum.unity.com/threads/remove-all-missing-components-in-prefabs.897761/
+                GameObjectUtility.RemoveMonoBehavioursWithMissingScript(prefabRoot);
             }
         }
-        catch (Exception ex)
+
+        void RenameUrlInScene(OpenUrl component, string newFormattedUrl, GameObject asset)
         {
-            Debug.LogError("Error occured during renaming " + route);
+            // https://forum.unity.com/threads/scripted-scene-changes-not-being-saved.526453/
 
-            return false;
-        }
-        finally
-        {
-            //AssetDatabase.SaveAssets();
-            AssetDatabase.StopAssetEditing();
+            component.Url = newFormattedUrl;
 
-            var prefab = GetPrefabByUrl(route);
-            prefab.Url = finalURL;
-
-            UpdatePrefab(prefab);
+            EditorUtility.SetDirty(component);
+            EditorSceneManager.SaveScene(asset.scene);
         }
 
-        return true;
-    }
-
-    void RenderStatButtons(SimpleUISceneType pref)
-    {
-        Space();
-        Space();
-        if (pref.Usages > 0 && GUILayout.Button("Reset Counter"))
+        void RenameUrlInScript(UsageInfo match, string from, string to)
         {
-            pref.Usages = 0;
+            var script = AssetDatabase.LoadAssetAtPath<MonoScript>(match.ScriptName);
 
-            UpdatePrefab(pref);
+            var replacedText = ReplaceUrlInCode(script.text, from, to);
+
+            StreamWriter writer = new StreamWriter(match.ScriptName, false);
+            writer.Write(replacedText);
+            writer.Close();
         }
 
-        var maxUsages = prefabs.Max(p => p.Usages);
-        if (pref.Usages < maxUsages && GUILayout.Button("Prioritize"))
+        bool RenameUrl(string route, string from, string to, string finalURL)
         {
-            pref.Usages = maxUsages + 1;
+            var matches = WhatUsesComponent(route, allAssetsWithOpenUrl);
+            var codeRefs = WhichScriptReferencesConcreteUrl(route);
 
-            UpdatePrefab(pref);
+            try
+            {
+                AssetDatabase.StartAssetEditing();
+
+                Debug.Log($"Replacing {from} to {to} in {route}");
+
+                Print("Rename in assets");
+                foreach (var match in matches)
+                {
+                    if (match.IsNormalPartOfNestedPrefab)
+                        continue;
+
+                    //var asset = AssetDatabase.LoadAssetAtPath<GameObject>(match.PrefabAssetPath);
+                    //var asset = AssetDatabase.OpenAsset(AssetDatabase.LoadMainAssetAtPath(match.PrefabAssetPath));
+
+                    var asset = match.Asset;
+                    var component = match.Component;
+
+
+                    var newFormattedUrl = GetUrlFormattedToOpenUrl(component, from, to);
+
+                    Debug.Log($"Renaming {component.Url} => {newFormattedUrl} on component {match.ComponentName} in {match.PrefabAssetPath}");
+
+
+                    // saving changes
+                    if (isSceneAsset(match.PrefabAssetPath))
+                    {
+                        RenameUrlInScene(component, newFormattedUrl, asset);
+                    }
+
+                    if (isPrefabAsset(match.PrefabAssetPath))
+                    {
+                        RenameUrlInPrefab(component, newFormattedUrl, match);
+                    }
+                }
+
+                Print("Rename in code");
+                foreach (var match in codeRefs)
+                {
+                    RenameUrlInScript(match, from, to);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("Error occured during renaming " + route);
+
+                return false;
+            }
+            finally
+            {
+                //AssetDatabase.SaveAssets();
+                AssetDatabase.StopAssetEditing();
+
+                var prefab = GetPrefabByUrl(route);
+                prefab.Url = finalURL;
+
+                UpdatePrefab(prefab);
+            }
+
+            return true;
         }
-    }
 
-    void RenderRenameUrlButton(SimpleUISceneType prefab)
-    {
-        Space();
-
-        renameUrlRecursively = EditorGUILayout.ToggleLeft("Rename subroutes too", renameUrlRecursively);
-
-        Space();
-        if (renameUrlRecursively)
-            EditorGUILayout.HelpBox("Renaming this url will lead to renaming these urls too...", MessageType.Warning);
-        else
-            EditorGUILayout.HelpBox("Will only rename THIS url", MessageType.Warning);
-
-        List<string> RenamingUrls = new List<string>();
-        List<string> RenamingCodeUrls = new List<string>();
-
-        RenamingUrls.Add(prefab.Url);
-
-        if (renameUrlRecursively)
+        void RenderStatButtons(SimpleUISceneType pref)
         {
             Space();
-            var subroutes = GetSubUrls(prefab.Url, true);
-
-            foreach (var route in subroutes)
+            Space();
+            if (pref.Usages > 0 && GUILayout.Button("Reset Counter"))
             {
-                RenamingUrls.Add(route.Url);
+                pref.Usages = 0;
+
+                UpdatePrefab(pref);
             }
 
-            // render
-            foreach (var route in RenamingUrls)
+            var maxUsages = prefabs.Max(p => p.Usages);
+            if (pref.Usages < maxUsages && GUILayout.Button("Prioritize"))
             {
-                BoldLabel(route);
+                pref.Usages = maxUsages + 1;
+
+                UpdatePrefab(pref);
             }
         }
 
-        var phrase = renameUrlRecursively ? "Rename url & subUrls" : "Rename THIS url";
-
-        var matches = WhatUsesComponent(newUrl, allAssetsWithOpenUrl);
-        var referencesFromCode = WhichScriptReferencesConcreteUrl(prefab.Url);
-
-        // references from prefabs & scenes
-        var names = matches.Select(m => $"<b>{SimpleUI.GetPrettyAssetType(m.PrefabAssetPath)}</b> " + SimpleUI.GetTrimmedPath(m.PrefabAssetPath)).ToList();
-        var routes = matches.Select(m => m.PrefabAssetPath).ToList();
-
-        // references from code
-        foreach (var occurence in referencesFromCode)
+        void RenderRenameUrlButton(SimpleUISceneType prefab)
         {
-            names.Add($"<b>Code</b> {SimpleUI.GetTrimmedPath(occurence.ScriptName)}");
-            routes.Add(occurence.ScriptName);
-        }
+            Space();
 
-        Space();
-        if (Button(phrase))
-        {
-            if (EditorUtility.DisplayDialog("Do you want to rename url " + prefab.Url, "This action will rename url and subUrls in X prefabs, Y scenes and Z script files.\n\nPRESS CANCEL IF YOU HAVE UNSAVED PREFAB OR SCENE OR CODE CHANGES", "Rename", "Cancel"))
+            renameUrlRecursively = EditorGUILayout.ToggleLeft("Rename subroutes too", renameUrlRecursively);
+
+            Space();
+            if (renameUrlRecursively)
+                EditorGUILayout.HelpBox("Renaming this url will lead to renaming these urls too...", MessageType.Warning);
+            else
+                EditorGUILayout.HelpBox("Will only rename THIS url", MessageType.Warning);
+
+            List<string> RenamingUrls = new List<string>();
+            List<string> RenamingCodeUrls = new List<string>();
+
+            RenamingUrls.Add(prefab.Url);
+
+            if (renameUrlRecursively)
             {
-                Print("Rename starts now!");
+                Space();
+                var subroutes = GetSubUrls(prefab.Url, true);
 
-                // start from grandchilds first
-                foreach (var url in RenamingUrls.OrderByDescending(u => u.Count(c => c.Equals('/'))))
+                foreach (var route in subroutes)
                 {
-                    Print("Rename URL " + url);
-                    var finalURL = url.Replace(newUrl, newEditingUrl);
-                    RenameUrl(url, newUrl, newEditingUrl, finalURL);
+                    RenamingUrls.Add(route.Url);
+                }
 
-                    Print("----------------");
+                // render
+                foreach (var route in RenamingUrls)
+                {
+                    BoldLabel(route);
                 }
             }
-        }
 
-        //EditorUtility.DisplayProgressBar("Renaming url", "Info", UnityEngine.Random.Range(0, 1f));
-    }
+            var phrase = renameUrlRecursively ? "Rename url & subUrls" : "Rename THIS url";
 
-    void RenderEditingPrefabMode()
-    {
-        var index = ChosenIndex;
-        var prefab = prefabs[index];
+            var matches = WhatUsesComponent(newUrl, allAssetsWithOpenUrl);
+            var referencesFromCode = WhichScriptReferencesConcreteUrl(prefab.Url);
 
-        Label(prefab.Url);
+            // references from prefabs & scenes
+            var names = matches.Select(m => $"<b>{SimpleUI.GetPrettyAssetType(m.PrefabAssetPath)}</b> " + SimpleUI.GetTrimmedPath(m.PrefabAssetPath)).ToList();
+            var routes = matches.Select(m => m.PrefabAssetPath).ToList();
 
-        if (Button("Go back"))
-        {
-            isUrlEditingMode = false;
-        }
-
-        var prevUrl = newUrl;
-        var prevName = newName;
-        var prevPath = newPath;
-
-        Space();
-
-
-
-        Label("Edit url");
-        newEditingUrl = EditorGUILayout.TextField("Url", newEditingUrl);
-
-        if (newEditingUrl.Length > 0)
-        {
-            newName = EditorGUILayout.TextField("Name", newName);
-
-            if (newName.Length > 0)
+            // references from code
+            foreach (var occurence in referencesFromCode)
             {
-                newPath = EditorGUILayout.TextField("Asset Path", newPath);
+                names.Add($"<b>Code</b> {SimpleUI.GetTrimmedPath(occurence.ScriptName)}");
+                routes.Add(occurence.ScriptName);
             }
+
+            Space();
+            if (Button(phrase))
+            {
+                if (EditorUtility.DisplayDialog("Do you want to rename url " + prefab.Url, "This action will rename url and subUrls in X prefabs, Y scenes and Z script files.\n\nPRESS CANCEL IF YOU HAVE UNSAVED PREFAB OR SCENE OR CODE CHANGES", "Rename", "Cancel"))
+                {
+                    Print("Rename starts now!");
+
+                    // start from grandchilds first
+                    foreach (var url in RenamingUrls.OrderByDescending(u => u.Count(c => c.Equals('/'))))
+                    {
+                        Print("Rename URL " + url);
+                        var finalURL = url.Replace(newUrl, newEditingUrl);
+                        RenameUrl(url, newUrl, newEditingUrl, finalURL);
+
+                        Print("----------------");
+                    }
+                }
+            }
+
+            //EditorUtility.DisplayProgressBar("Renaming url", "Info", UnityEngine.Random.Range(0, 1f));
         }
 
-
-
-        // if data changed, save it
-        if (!prevPath.Equals(newPath) || !prevName.Equals(newName))
+        void RenderEditingPrefabMode()
         {
-            //prefab.Url = newEditingUrl;
-            prefab.Name = newName;
-            prefab.AssetPath = newPath;
+            var index = ChosenIndex;
+            var prefab = prefabs[index];
 
-            UpdatePrefab(prefab);
-        }
+            Label(prefab.Url);
 
-        // if Url changed, rename everything
-        if (!newUrl.Equals(newEditingUrl))
-        {
-            RenderRenameUrlButton(prefab);
-        }
+            if (Button("Go back"))
+            {
+                isUrlEditingMode = false;
+            }
 
-        Space();
-        RenderRootPrefab();
-        RenderSubroutes();
+            var prevUrl = newUrl;
+            var prevName = newName;
+            var prevPath = newPath;
 
-        // TODO url or path?
-        // opened another url
-        if (!newPath.Equals(prevPath))
-            return;
+            Space();
 
-        RenderStatButtons(prefab);
 
-        Space(450);
-        if (GUILayout.Button("Remove URL"))
-        {
-            isUrlRemovingMode = true;
-            //prefabs.RemoveAt(index);
-            //SaveData();
+
+            Label("Edit url");
+            newEditingUrl = EditorGUILayout.TextField("Url", newEditingUrl);
+
+            if (newEditingUrl.Length > 0)
+            {
+                newName = EditorGUILayout.TextField("Name", newName);
+
+                if (newName.Length > 0)
+                {
+                    newPath = EditorGUILayout.TextField("Asset Path", newPath);
+                }
+            }
+
+
+
+            // if data changed, save it
+            if (!prevPath.Equals(newPath) || !prevName.Equals(newName))
+            {
+                //prefab.Url = newEditingUrl;
+                prefab.Name = newName;
+                prefab.AssetPath = newPath;
+
+                UpdatePrefab(prefab);
+            }
+
+            // if Url changed, rename everything
+            if (!newUrl.Equals(newEditingUrl))
+            {
+                RenderRenameUrlButton(prefab);
+            }
+
+            Space();
+            RenderRootPrefab();
+            RenderSubroutes();
+
+            // TODO url or path?
+            // opened another url
+            if (!newPath.Equals(prevPath))
+                return;
+
+            RenderStatButtons(prefab);
+
+            Space(450);
+            if (GUILayout.Button("Remove URL"))
+            {
+                isUrlRemovingMode = true;
+                //prefabs.RemoveAt(index);
+                //SaveData();
+            }
         }
     }
 }

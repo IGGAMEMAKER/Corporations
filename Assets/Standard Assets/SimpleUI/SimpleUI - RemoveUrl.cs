@@ -6,131 +6,134 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-// remove route mode
-public partial class SimpleUI
+namespace SimpleUI
 {
-    static Vector2 scrollPosition2 = Vector2.zero;
-    static bool removeUrlRecursively = false;
-
-    private static bool isEndedRemoveUrlScrollView = false;
-    private static int removingUrlObstacles = 0;
-
-    static void RemoveUrl(string url)
+    // remove route mode
+    public partial class SimpleUI
     {
-        prefabs.RemoveAll(p => p.Url.Equals(url));
+        static Vector2 scrollPosition2 = Vector2.zero;
+        static bool removeUrlRecursively = false;
 
-        if (removeUrlRecursively)
+        private static bool isEndedRemoveUrlScrollView = false;
+        private static int removingUrlObstacles = 0;
+
+        static void RemoveUrl(string url)
         {
-            var suburls = GetSubUrls(url, false).ToList();
+            prefabs.RemoveAll(p => p.Url.Equals(url));
 
-            for (var i = 0; i < suburls.Count(); i++)
+            if (removeUrlRecursively)
             {
-                RemoveUrl(suburls[i].Url);
+                var suburls = GetSubUrls(url, false).ToList();
+
+                for (var i = 0; i < suburls.Count(); i++)
+                {
+                    RemoveUrl(suburls[i].Url);
+                }
             }
         }
-    }
 
-    static void RenderUrlRemovingMode()
-    {
-        var index = ChosenIndex;
-        var prefab = prefabs[index];
-
-        Label(prefab.Url);
-
-        if (Button("Go back"))
+        static void RenderUrlRemovingMode()
         {
-            isUrlRemovingMode = false;
-        }
+            var index = ChosenIndex;
+            var prefab = prefabs[index];
 
-        Space();
-        if (removeUrlRecursively)
-            EditorGUILayout.HelpBox("Will remove this route and ALL subroutes too", MessageType.Info);
-        else
-            EditorGUILayout.HelpBox("Will remove ONLY this route", MessageType.Info);
+            Label(prefab.Url);
 
-        removeUrlRecursively = EditorGUILayout.ToggleLeft("Remove subroutes", removeUrlRecursively);
-
-        var currentUrl = prefab.Url;
-
-        // TODO copied from DisplayConnectedUrlsEditor
-        // ------------
-        scrollPosition2 = GUILayout.BeginScrollView(scrollPosition2);
-
-        // references from prefabs & scenes
-        var names = new List<string>(); // matches.Select(m => $"<b>{SimpleUI.GetPrettyAssetType(m.PrefabAssetPath)}</b> " + SimpleUI.GetTrimmedPath(m.PrefabAssetPath)).ToList();
-        var routes = new List<string>(); // matches.Select(m => m.PrefabAssetPath).ToList();
-
-        if (removingUrlObstacles > 0)
-        {
-            Space();
-            EditorGUILayout.HelpBox("Remove all these references to remove url", MessageType.Warning);
-        }
-
-        FillRoutes(names, routes, currentUrl, removeUrlRecursively);
-
-        if (removingUrlObstacles == 0)
-        {
-            EditorGUILayout.HelpBox("You can safely remove this url!", MessageType.Info);
-
-            Space();
-            if (Button("REMOVE URL!"))
+            if (Button("Go back"))
             {
                 isUrlRemovingMode = false;
-                isUrlEditingMode = false;
-
-                RemoveUrl(currentUrl);
-                SaveData();
             }
+
+            Space();
+            if (removeUrlRecursively)
+                EditorGUILayout.HelpBox("Will remove this route and ALL subroutes too", MessageType.Info);
+            else
+                EditorGUILayout.HelpBox("Will remove ONLY this route", MessageType.Info);
+
+            removeUrlRecursively = EditorGUILayout.ToggleLeft("Remove subroutes", removeUrlRecursively);
+
+            var currentUrl = prefab.Url;
+
+            // TODO copied from DisplayConnectedUrlsEditor
+            // ------------
+            scrollPosition2 = GUILayout.BeginScrollView(scrollPosition2);
+
+            // references from prefabs & scenes
+            var names = new List<string>(); // matches.Select(m => $"<b>{SimpleUI.GetPrettyAssetType(m.PrefabAssetPath)}</b> " + SimpleUI.GetTrimmedPath(m.PrefabAssetPath)).ToList();
+            var routes = new List<string>(); // matches.Select(m => m.PrefabAssetPath).ToList();
+
+            if (removingUrlObstacles > 0)
+            {
+                Space();
+                EditorGUILayout.HelpBox("Remove all these references to remove url", MessageType.Warning);
+            }
+
+            FillRoutes(names, routes, currentUrl, removeUrlRecursively);
+
+            if (removingUrlObstacles == 0)
+            {
+                EditorGUILayout.HelpBox("You can safely remove this url!", MessageType.Info);
+
+                Space();
+                if (Button("REMOVE URL!"))
+                {
+                    isUrlRemovingMode = false;
+                    isUrlEditingMode = false;
+
+                    RemoveUrl(currentUrl);
+                    SaveData();
+                }
+            }
+
+            if (!isEndedRemoveUrlScrollView)
+            {
+                GUILayout.EndScrollView();
+            }
+
+            isEndedRemoveUrlScrollView = false;
+            // ------------
         }
 
-        if (!isEndedRemoveUrlScrollView)
+        static void FillRoutes(List<string> names, List<string> routes, string url, bool recursive)
         {
-            GUILayout.EndScrollView();
-        }
+            var matches = SimpleUI.WhatUsesComponent(url, allAssetsWithOpenUrl);
 
-        isEndedRemoveUrlScrollView = false;
-        // ------------
-    }
+            Label($"References to {url}");
 
-    static void FillRoutes(List<string> names, List<string> routes, string url, bool recursive)
-    {
-        var matches = SimpleUI.WhatUsesComponent(url, allAssetsWithOpenUrl);
+            names = new List<string>();
+            routes = new List<string>();
 
-        Label($"References to {url}");
+            // references from code
+            foreach (var occurence in WhichScriptReferencesConcreteUrl(url))
+            {
+                names.Add($"<b>Code</b> {SimpleUI.GetTrimmedPath(occurence.ScriptName)}");
+                routes.Add(occurence.ScriptName);
+            }
 
-        names = new List<string>();
-        routes = new List<string>();
+            // references from assets
+            names.AddRange(matches.Select(m => $"<b>{SimpleUI.GetPrettyAssetType(m.PrefabAssetPath)}</b> " + SimpleUI.GetTrimmedPath(m.PrefabAssetPath)));
+            routes.AddRange(matches.Select(m => m.PrefabAssetPath));
 
-        // references from code
-        foreach (var occurence in WhichScriptReferencesConcreteUrl(url))
-        {
-            names.Add($"<b>Code</b> {SimpleUI.GetTrimmedPath(occurence.ScriptName)}");
-            routes.Add(occurence.ScriptName);
-        }
+            removingUrlObstacles += names.Count;
 
-        // references from assets
-        names.AddRange(matches.Select(m => $"<b>{SimpleUI.GetPrettyAssetType(m.PrefabAssetPath)}</b> " + SimpleUI.GetTrimmedPath(m.PrefabAssetPath)));
-        routes.AddRange(matches.Select(m => m.PrefabAssetPath));
+            // navigate to one of these assets
+            var selected = GUILayout.SelectionGrid(-1, names.ToArray(), 1);
 
-        removingUrlObstacles += names.Count;
+            if (selected != -1)
+            {
+                GUILayout.EndScrollView();
+                isEndedRemoveUrlScrollView = true;
 
-        // navigate to one of these assets
-        var selected = GUILayout.SelectionGrid(-1, names.ToArray(), 1);
+                SimpleUI.OpenPrefabByAssetPath(routes[selected]);
+            }
 
-        if (selected != -1)
-        {
-            GUILayout.EndScrollView();
-            isEndedRemoveUrlScrollView = true;
+            if (!recursive)
+                return;
 
-            SimpleUI.OpenPrefabByAssetPath(routes[selected]);
-        }
-
-        if (!recursive)
-            return;
-
-        foreach (var r in GetSubUrls(url, false))
-        {
-            FillRoutes(names, routes, r.Url, recursive);
+            foreach (var r in GetSubUrls(url, false))
+            {
+                FillRoutes(names, routes, r.Url, recursive);
+            }
         }
     }
 }

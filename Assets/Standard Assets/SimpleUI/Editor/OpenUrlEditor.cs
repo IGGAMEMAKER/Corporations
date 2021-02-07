@@ -7,94 +7,97 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
-[CustomEditor(typeof(OpenUrl))]
-public class OpenUrlEditor : Editor
+namespace SimpleUI
 {
-    static int _choiceIndex = 0;
-
-    static Vector2 scroll = Vector2.zero;
-
-    static List<SimpleUISceneType> prefabs => SimpleUI.prefabs;
-    static string[] _choices => prefabs.Select(p => MakeProperUrl(p.Url)).ToArray();
-    // = { "foo", "foobar" };
-
-    public override void OnInspectorGUI ()
+    [CustomEditor(typeof(OpenUrl))]
+    public class OpenUrlEditor : Editor
     {
-        GUILayout.Space(15);
-        GUILayout.Label("Specify URL manually (NOT RECOMMENDED)", EditorStyles.boldLabel);
-        
-        DrawDefaultInspector();
+        static int _choiceIndex = 0;
 
-        var openUrl = target as OpenUrl;
+        static Vector2 scroll = Vector2.zero;
 
-        GUILayout.Space(15);
-        GUILayout.Label("OR choose from list", EditorStyles.boldLabel);
+        static List<SimpleUISceneType> prefabs => SimpleUI.prefabs;
+        static string[] _choices => prefabs.Select(p => MakeProperUrl(p.Url)).ToArray();
+        // = { "foo", "foobar" };
 
-        PickFromDropdown(openUrl);
-
-        GUILayout.Space(15);
-        GUILayout.Label("OR Choose from RECENTLY added prefabs", EditorStyles.boldLabel);
-
-        PickRecentUrls(openUrl);
-    }
-
-    void PickFromDropdown(OpenUrl openUrl)
-    {
-        var prevValue = openUrl.Url;
-        _choiceIndex = Array.IndexOf(_choices, prevValue);
-
-        // If the choice is not in the array then the _choiceIndex will be -1 so set back to 0
-        if (_choiceIndex < 0)
-            _choiceIndex = 0;
-
-
-        _choiceIndex = EditorGUILayout.Popup(_choiceIndex, _choices);
-
-        // Update the selected choice in the underlying object
-        openUrl.Url = _choices[_choiceIndex];
-
-        if (!prevValue.Equals(openUrl.Url))
+        public override void OnInspectorGUI()
         {
-            // Save the changes back to the object
-            EditorUtility.SetDirty(target);
+            GUILayout.Space(15);
+            GUILayout.Label("Specify URL manually (NOT RECOMMENDED)", EditorStyles.boldLabel);
+
+            DrawDefaultInspector();
+
+            var openUrl = target as OpenUrl;
+
+            GUILayout.Space(15);
+            GUILayout.Label("OR choose from list", EditorStyles.boldLabel);
+
+            PickFromDropdown(openUrl);
+
+            GUILayout.Space(15);
+            GUILayout.Label("OR Choose from RECENTLY added prefabs", EditorStyles.boldLabel);
+
+            PickRecentUrls(openUrl);
         }
-    }
 
-    void PickRecentUrls(OpenUrl openUrl)
-    {
-        GUIStyle style = GUI.skin.FindStyle("Button");
-        style.richText = true;
-
-        scroll = EditorGUILayout.BeginScrollView(scroll);
-
-        var recent = prefabs.OrderByDescending(pp => pp.LastOpened).Take(15);
-        foreach (var r in recent)
+        void PickFromDropdown(OpenUrl openUrl)
         {
-            if (GUILayout.Button($"<b>{r.Name}</b>\n", style))
+            var prevValue = openUrl.Url;
+            _choiceIndex = Array.IndexOf(_choices, prevValue);
+
+            // If the choice is not in the array then the _choiceIndex will be -1 so set back to 0
+            if (_choiceIndex < 0)
+                _choiceIndex = 0;
+
+
+            _choiceIndex = EditorGUILayout.Popup(_choiceIndex, _choices);
+
+            // Update the selected choice in the underlying object
+            openUrl.Url = _choices[_choiceIndex];
+
+            if (!prevValue.Equals(openUrl.Url))
             {
-                openUrl.Url = MakeProperUrl(r.Url);
+                // Save the changes back to the object
+                EditorUtility.SetDirty(target);
             }
         }
 
-        EditorGUILayout.EndScrollView();
-    }
-
-    private void OnSceneGUI()
-    {
-        Handles.BeginGUI();
-
-        var openUrl = target as OpenUrl;
-        var pos = openUrl.transform.position - new Vector3(0, -250, 0);
-
-        Handles.Label(pos, SimpleUI.GetPrettyNameForExistingUrl("/" + openUrl.Url)); // transform.position - new Vector3(0, -250, 0)
-
-        if (GUILayout.Button(openUrl.Url))
+        void PickRecentUrls(OpenUrl openUrl)
         {
-            SimpleUI.OpenPrefabByUrl(openUrl.Url);
+            GUIStyle style = GUI.skin.FindStyle("Button");
+            style.richText = true;
+
+            scroll = EditorGUILayout.BeginScrollView(scroll);
+
+            var recent = prefabs.OrderByDescending(pp => pp.LastOpened).Take(15);
+            foreach (var r in recent)
+            {
+                if (GUILayout.Button($"<b>{r.Name}</b>\n", style))
+                {
+                    openUrl.Url = MakeProperUrl(r.Url);
+                }
+            }
+
+            EditorGUILayout.EndScrollView();
         }
 
-        Handles.EndGUI();
-    }
+        private void OnSceneGUI()
+        {
+            Handles.BeginGUI();
 
-    static string MakeProperUrl(string url) => url.Trim('/');
+            var openUrl = target as OpenUrl;
+            var pos = openUrl.transform.position - new Vector3(0, -250, 0);
+
+            Handles.Label(pos, SimpleUI.GetPrettyNameForExistingUrl("/" + openUrl.Url)); // transform.position - new Vector3(0, -250, 0)
+
+            if (GUILayout.Button(openUrl.Url))
+            {
+                SimpleUI.OpenPrefabByUrl(openUrl.Url);
+            }
+
+            Handles.EndGUI();
+        }
+
+        static string MakeProperUrl(string url) => url.Trim('/');
+    }
 }
