@@ -160,9 +160,9 @@ namespace SimpleUI
             obj.prefabContentsRoot.AddComponent<DisplayConnectedUrls>();
             Selection.activeGameObject = obj.prefabContentsRoot;
 
-
-            newPath = obj.assetPath;
-            newName = GetPrettyNameFromAssetPath(newPath); // x.Substring(0, ind);
+            var path = obj.assetPath;
+            instance.newPath = path;
+            instance.newName = GetPrettyNameFromAssetPath(path); // x.Substring(0, ind);
 
             // choose URL
             ChooseUrlFromPickedPrefab();
@@ -176,19 +176,19 @@ namespace SimpleUI
 
             if (!urls.Any())
             {
-                newUrl = "";
+                instance.newUrl = "";
             }
 
             if (urls.Count() == 1)
             {
-                newUrl = urls.First().Url;
-                isConcreteUrlChosen = true;
+                instance.newUrl = urls.First().Url;
+                instance.isConcreteUrlChosen = true;
             }
 
             if (urls.Count() > 1)
             {
                 // pick first automatically or do nothing?
-                isConcreteUrlChosen = false;
+                instance.isConcreteUrlChosen = false;
             }
         }
 

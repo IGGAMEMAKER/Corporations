@@ -95,17 +95,20 @@ namespace SimpleUI
         }
 
 
-        static void SetAddingRouteMode()
+        void SetAddingRouteMode()
         {
             var path = SimpleUI.GetOpenedAssetPath();
 
             // pick values from asset path
-            newName = SimpleUI.GetPrettyNameFromAssetPath(path);
+            var name = SimpleUI.GetPrettyNameFromAssetPath(path);
+            SetNewName(name);
 
+            var url = newUrl;
             if (!newUrl.EndsWith("/"))
-                newUrl += "/";
+                url += "/";
 
-            newUrl += newName;
+            url += newName;
+            SetNewUrl(url);
 
             isUrlAddingMode = true;
         }
@@ -127,7 +130,7 @@ namespace SimpleUI
             var assetPath = SimpleUI.GetOpenedAssetPath();
             GUILayout.Label($"Add current asset ({assetType})", EditorStyles.boldLabel);
 
-            newUrl = EditorGUILayout.TextField("Url", newUrl);
+            SetNewUrl(EditorGUILayout.TextField("Url", newUrl));
 
             var url = newUrl;
 
@@ -136,7 +139,7 @@ namespace SimpleUI
 
             if (urlOK)
             {
-                newName = EditorGUILayout.TextField("Name", newName);
+                SetNewName(EditorGUILayout.TextField("Name", newName));
             }
             else
             {

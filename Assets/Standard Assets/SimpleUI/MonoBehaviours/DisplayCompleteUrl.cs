@@ -21,9 +21,10 @@ public class DisplayCompleteUrl : MonoBehaviour
             SimpleUIEventHandler = GetComponent<SimpleUIEventHandler>();
         }
 
+
         if (SimpleUIEventHandler != null)
         {
-            var url = SimpleUI.GetCurrentUrl();
+            var url = SimpleUI.instance.GetCurrentUrl();
 
             SimpleUIEventHandler.PreviewUrl(url);
         }

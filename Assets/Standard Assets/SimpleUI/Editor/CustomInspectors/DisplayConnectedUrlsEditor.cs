@@ -23,7 +23,7 @@ namespace SimpleUI
         List<PrefabMatchInfo> referencesFromAssets;
         List<SimpleUI.UsageInfo> referencesFromCode;
 
-        string currentUrl => SimpleUI.GetCurrentUrl();
+        string currentUrl => SimpleUI.instance.GetCurrentUrl();
 
         private void OnSceneGUI()
         {

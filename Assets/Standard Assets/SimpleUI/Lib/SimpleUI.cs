@@ -92,11 +92,11 @@ namespace SimpleUI
             }
         }
 
-        public static bool isConcreteUrlChosen = false;
+        public bool isConcreteUrlChosen = false;
 
-        public static string newUrl = "";
-        public static string newName = "";
-        public static string newPath = "";
+        public string newUrl = "";
+        public string newName = "";
+        public string newPath = "";
 
         public List<PrefabMatchInfo> allAssetsWithOpenUrl = new List<PrefabMatchInfo>();
         public Dictionary<string, MonoScript> allScripts = new Dictionary<string, MonoScript>();
@@ -107,7 +107,7 @@ namespace SimpleUI
         int ChosenIndex => prefabs.FindIndex(p => p.Url.Equals(GetCurrentUrl())); // GetCurrentUrl()
         bool hasChosenPrefab => ChosenIndex >= 0;
 
-        public static string GetCurrentUrl() => newUrl.StartsWith("/") ? newUrl : "/" + newUrl;
+        public string GetCurrentUrl() => newUrl.StartsWith("/") ? newUrl : "/" + newUrl;
 
 
         internal static string GetOpenedAssetPath()

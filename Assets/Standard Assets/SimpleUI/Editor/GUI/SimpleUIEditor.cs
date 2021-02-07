@@ -11,14 +11,13 @@ namespace SimpleUI
     {
         static Vector2 recentPrefabsScrollPosition = Vector2.zero;
 
-        static bool isDraggedPrefabMode = false;
-        static bool isDraggedGameObjectMode = false;
-        static bool isUrlEditingMode = false;
-        static bool isUrlRemovingMode = false;
-        static bool isUrlAddingMode = false;
+        bool isDraggedPrefabMode = false;
+        bool isDraggedGameObjectMode = false;
+        bool isUrlEditingMode = false;
+        bool isUrlRemovingMode = false;
+        bool isUrlAddingMode = false;
 
-        static bool isPrefabChosenMode = false;
-        static bool isConcreteUrlChosen => SimpleUI.isConcreteUrlChosen;
+        bool isConcreteUrlChosen => SimpleUI.instance.isConcreteUrlChosen;
 
         public float myFloat = 1f;
 
@@ -38,7 +37,7 @@ namespace SimpleUI
         int ChosenIndex => prefabs.FindIndex(p => p.Url.Equals(GetCurrentUrl())); // GetCurrentUrl()
         bool hasChosenPrefab => ChosenIndex >= 0;
 
-        public static string GetCurrentUrl() => newUrl.StartsWith("/") ? newUrl : "/" + newUrl;
+        public string GetCurrentUrl() => newUrl.StartsWith("/") ? newUrl : "/" + newUrl;
 
         [MenuItem("Window/SIMPLE UI")]
         public static void ShowWindow()
@@ -123,7 +122,7 @@ namespace SimpleUI
             if (objectChanged)
             {
                 Debug.Log("Object changed");
-                newPath = path;
+                instance.newPath = path;
 
                 TryToIncreaseCurrentPrefabCounter();
             }

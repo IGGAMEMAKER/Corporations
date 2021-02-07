@@ -15,12 +15,12 @@ namespace SimpleUI
         static string searchUrl = "";
         static Vector2 searchScrollPosition = Vector2.zero;
 
-        public static bool renameUrlRecursively = true;
-        public static string newEditingUrl = "";
+        public bool renameUrlRecursively = true;
+        public string newEditingUrl = "";
 
-        public static string newUrl = SimpleUI.newUrl;
-        public static string newName = SimpleUI.newName;
-        public static string newPath = SimpleUI.newPath;
+        public string newUrl => SimpleUI.instance.newUrl;
+        public string newName => SimpleUI.instance.newName;
+        public string newPath => SimpleUI.instance.newPath;
 
         void RenderChosenPrefab()
         {
@@ -61,6 +61,21 @@ namespace SimpleUI
             RenderPrefabs(samePrefabUrls);
         }
 
+        void SetNewUrl(string url)
+        {
+            instance.newUrl = url;
+        }
+
+        void SetNewPath(string path)
+        {
+            instance.newPath = path;
+        }
+
+        void SetNewName(string name)
+        {
+            instance.newName = name;
+        }
+
         void RenderLinkToEditing()
         {
             var index = ChosenIndex;
@@ -73,10 +88,11 @@ namespace SimpleUI
                 isUrlEditingMode = true;
                 isUrlRemovingMode = false;
 
-                newUrl = prefab.Url;
-                newEditingUrl = newUrl;
-                newPath = prefab.AssetPath;
-                newName = prefab.Name;
+                SetNewUrl(prefab.Url);
+                newEditingUrl = prefab.Url;
+
+                SetNewPath(prefab.AssetPath);
+                SetNewName(prefab.Name);
             }
 
             Space();
@@ -383,11 +399,11 @@ namespace SimpleUI
 
             if (newEditingUrl.Length > 0)
             {
-                newName = EditorGUILayout.TextField("Name", newName);
+                SetNewName(EditorGUILayout.TextField("Name", newName));
 
                 if (newName.Length > 0)
                 {
-                    newPath = EditorGUILayout.TextField("Asset Path", newPath);
+                    SetNewPath(EditorGUILayout.TextField("Asset Path", newPath));
                 }
             }
 

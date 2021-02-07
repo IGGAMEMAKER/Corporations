@@ -53,6 +53,9 @@ namespace SimpleUI
 
                 LoadScripts();
 
+                // load prefabs and missing urls
+                LoadData();
+
                 BoldPrint($"Loaded assets & scripts in {Measure(start)} (assets: {Measure(start, assetsEnd)}, code: {Measure(assetsEnd)})");
 
                 isProjectScanned = true;
