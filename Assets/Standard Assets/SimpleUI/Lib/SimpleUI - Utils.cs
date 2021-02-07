@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-//using Assets.Core;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.Experimental.SceneManagement;
@@ -14,24 +13,14 @@ namespace SimpleUI
     // Save/Load info
     public partial class SimpleUI
     {
-        static List<SimpleUISceneType> _prefabs;
-        static Dictionary<string, List<UrlOpeningAttempt>> UrlOpeningAttempts;
-
-        public static List<SimpleUISceneType> prefabs
+        #region debugging
+        static string Measure(DateTime start) => Measure(start, DateTime.Now);
+        static string Measure(DateTime start, DateTime end)
         {
-            get
-            {
-                if (_prefabs == null || _prefabs.Count == 0)
-                {
-                    LoadData();
-                }
+            var milliseconds = (end - start).TotalMilliseconds;
 
-                return _prefabs;
-            }
+            return $"{milliseconds:0}ms";
         }
-
-
-        #region UI shortcuts
 
         static void Print2(string text)
         {
@@ -43,6 +32,13 @@ namespace SimpleUI
             Debug.Log(text);
         }
 
+        static void BoldPrint(string text)
+        {
+            Debug.Log($"<b>{text}</b>");
+        }
+        #endregion
+
+        #region UI shortcuts
         public static bool Button(string text)
         {
             GUIStyle style = GUI.skin.FindStyle("Button");
@@ -75,9 +71,7 @@ namespace SimpleUI
 
         #region string utils
 
-        public static IEnumerable<SimpleUISceneType> GetSubUrls(string url, bool recursive) =>
-            prefabs.Where(p => isSubRouteOf(p.Url, url, recursive));
-
+        public static IEnumerable<SimpleUISceneType> GetSubUrls(string url, bool recursive) => prefabs.Where(p => isSubRouteOf(p.Url, url, recursive));
 
         /// <summary>
         /// if recursive == false
@@ -184,77 +178,6 @@ namespace SimpleUI
             return prefabs.Any(p => p.Url.Equals(url));
         }
 
-        static void SaveData()
-        {
-            var fileName = "SimpleUI/SimpleUI.txt";
-            var fileName2 = "SimpleUI/SimpleUI-MissingUrls.txt";
-
-            Newtonsoft.Json.JsonSerializer serializer = new Newtonsoft.Json.JsonSerializer();
-            serializer.Converters.Add(new Newtonsoft.Json.Converters.JavaScriptDateTimeConverter());
-            serializer.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
-            serializer.TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto;
-            serializer.Formatting = Newtonsoft.Json.Formatting.Indented;
-
-            var entityData = _prefabs;
-            //var entityData = prefabs; // new Dictionary<int, IComponent[]>();
-
-            using (StreamWriter sw = new StreamWriter(fileName))
-            using (Newtonsoft.Json.JsonWriter writer = new Newtonsoft.Json.JsonTextWriter(sw))
-            {
-                if (entityData.Count > 0)
-                {
-                    serializer.Serialize(writer, entityData);
-                }
-            }
-
-            var data = UrlOpeningAttempts;
-
-            using (StreamWriter sw = new StreamWriter(fileName2))
-            using (Newtonsoft.Json.JsonWriter writer = new Newtonsoft.Json.JsonTextWriter(sw))
-            {
-                if (data.Count() > 0)
-                {
-                    serializer.Serialize(writer, data);
-                }
-            }
-        }
-
-        static void LoadData()
-        {
-            //if (prefabs != null && prefabs.Count == 0)
-            //    return;
-
-            BoldPrint("Read SimpleUI.txt");
-
-            var fileName = "SimpleUI/SimpleUI.txt";
-            var missingUrls = "SimpleUI/SimpleUI-MissingUrls.txt";
-
-            var settings = new Newtonsoft.Json.JsonSerializerSettings
-            {
-                TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto,
-                NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
-            };
-
-            var obj = Newtonsoft.Json.JsonConvert.DeserializeObject<List<SimpleUISceneType>>(File.ReadAllText(fileName),
-                settings);
-            var obj2 =
-                Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, List<UrlOpeningAttempt>>>(
-                    File.ReadAllText(missingUrls), settings);
-
-            _prefabs = obj ?? new List<SimpleUISceneType>();
-            UrlOpeningAttempts = obj2 ?? new Dictionary<string, List<UrlOpeningAttempt>>();
-        }
-
-        static void UpdatePrefab(SimpleUISceneType prefab) => UpdatePrefab(prefab, ChosenIndex);
-
-        public static void UpdatePrefab(SimpleUISceneType prefab, int index)
-        {
-            if (!hasChosenPrefab)
-                return;
-
-            prefabs[index] = prefab;
-            SaveData();
-        }
 
         // ----- utils -------------
         void RenderPrefabs(IEnumerable<SimpleUISceneType> list, string trimStart = "")
@@ -299,52 +222,6 @@ namespace SimpleUI
                 GUI.color = c;
                 GUI.backgroundColor = c;
             }
-        }
-
-        static void TryToIncreaseCurrentPrefabCounter()
-        {
-            if (hasChosenPrefab)
-            {
-                var pref = prefabs[ChosenIndex];
-
-                pref.Usages++;
-                pref.LastOpened = DateTime.Now.Ticks;
-
-                UpdatePrefab(pref);
-            }
-        }
-
-        static SimpleUISceneType GetPrefabByUrl(string url)
-        {
-            return prefabs.FirstOrDefault(p => p.Url.Equals(url));
-        }
-
-        public static void OpenUrl(string url)
-        {
-            SimpleUIEventHandler eventHandler = FindObjectOfType<SimpleUIEventHandler>();
-
-            if (eventHandler == null)
-            {
-                Debug.LogError("SimpleUIEventHandler NOT FOUND");
-
-                return;
-            }
-
-            var queryIndex = url.IndexOf('?');
-            var query = "";
-
-            if (queryIndex >= 0)
-            {
-                query = url.Substring(queryIndex);
-                url = url.Substring(0, queryIndex);
-            }
-
-            eventHandler.OpenUrl(url);
-        }
-
-        static void BoldPrint(string text)
-        {
-            Debug.Log($"<b>{text}</b>");
         }
     }
 }

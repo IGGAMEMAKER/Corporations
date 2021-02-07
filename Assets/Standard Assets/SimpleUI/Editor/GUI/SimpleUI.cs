@@ -104,6 +104,7 @@ namespace SimpleUI
         public static Dictionary<string, MonoScript> allScripts = new Dictionary<string, MonoScript>();
         public static List<UsageInfo> referencesFromCode = new List<UsageInfo>();
 
+        // chosen asset
         static bool isPrefabMode => PrefabStageUtility.GetCurrentPrefabStage() != null;
 
         static int ChosenIndex => prefabs.FindIndex(p => p.Url.Equals(GetCurrentUrl())); // GetCurrentUrl()
@@ -111,11 +112,13 @@ namespace SimpleUI
 
         public static string GetCurrentUrl() => newUrl.StartsWith("/") ? newUrl : "/" + newUrl;
         public static string GetCurrentAssetPath() => GetOpenedAssetPath(); // newPath
+        // ------------------------
 
+        // skipping first frame to reduce recompile time
         public static bool isFirstGUI = true;
         public static bool isFirstInspectorGUI = true;
 
-        private static bool isProjectScanned = false;
+        private bool isProjectScanned = false;
 
         static string GetOpenedAssetPath()
         {
@@ -149,6 +152,13 @@ namespace SimpleUI
             ////SceneManager.sceneLoaded += SceneManager_sceneLoaded;
             ////SceneManager.sceneUnloaded += SceneManager_sceneUnloaded;
             ////SceneManager.activeSceneChanged += SceneManager_sceneChanged;
+
+            //ScanProject();
+        }
+
+        private void OnEnable()
+        {
+            ScanProject();
         }
 
         private void Update()
@@ -172,48 +182,7 @@ namespace SimpleUI
             isFirstInspectorGUI = false;
         }
 
-        static string Measure(DateTime start) => Measure(start, DateTime.Now);
-        static string Measure(DateTime start, DateTime end)
-        {
-            var milliseconds = (end - start).TotalMilliseconds;
 
-            return $"{milliseconds:0}ms";
-        }
-
-        static void LoadScripts()
-        {
-            allScripts = GetAllScripts();
-
-        }
-        static void LoadAssets()
-        {
-            allAssetsWithOpenUrl = WhatUsesComponent<OpenUrl>();
-        }
-
-        static void ScanProject()
-        {
-            if (!isProjectScanned)
-            {
-                BoldPrint("Loading assets & scripts");
-
-                var start = DateTime.Now;
-
-                LoadAssets();
-
-                var assetsEnd = DateTime.Now;
-
-                LoadScripts();
-
-                BoldPrint($"Loaded assets & scripts in {Measure(start)} (assets: {Measure(start, assetsEnd)}, code: {Measure(assetsEnd)})");
-
-                isProjectScanned = true;
-            }
-        }
-
-        static void LoadReferences(string url)
-        {
-            referencesFromCode = WhichScriptReferencesConcreteUrl(url);
-        }
 
         void RenderGUI()
         {

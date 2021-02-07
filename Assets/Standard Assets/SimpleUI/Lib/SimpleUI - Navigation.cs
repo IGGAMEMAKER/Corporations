@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-//using Assets.Core;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.Experimental.SceneManagement;
@@ -62,6 +61,30 @@ namespace SimpleUI
             LoadReferences(newUrl);
 
             OpenAssetByPath(newPath);
+        }
+
+        // called from UI libs
+        public static void OpenUrl(string url)
+        {
+            SimpleUIEventHandler eventHandler = FindObjectOfType<SimpleUIEventHandler>();
+
+            if (eventHandler == null)
+            {
+                Debug.LogError("SimpleUIEventHandler NOT FOUND");
+
+                return;
+            }
+
+            var queryIndex = url.IndexOf('?');
+            var query = "";
+
+            if (queryIndex >= 0)
+            {
+                query = url.Substring(queryIndex);
+                url = url.Substring(0, queryIndex);
+            }
+
+            eventHandler.OpenUrl(url);
         }
 
         //private static void EditorSceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
