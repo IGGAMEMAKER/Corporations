@@ -16,6 +16,8 @@ namespace SimpleUI
     {
         static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
         {
+            var prefabs = SimpleUI.GetPrefabsFromFile();
+
             for (var i = 0; i < movedFromAssetPaths.Count(); i++) // importedAssets
             {
                 string oldFilePath = movedFromAssetPaths[i];
@@ -27,17 +29,13 @@ namespace SimpleUI
 
                 Debug.Log(string.Format("Moving asset ({0}) from {2} to path: {1}", filename, newPath, oldFilePath));
 
-                //MovingUsedPrefab(newPath + filename);
-                //MovingUsedPrefab(oldFilePath, newPath + filename);
-                MovingUsedPrefab(oldFilePath, newPath);
+                MovingUsedPrefab(oldFilePath, newPath, prefabs);
             }
         }
 
-        static void MovingUsedPrefab(string oldPath, string newPath)
+        static void MovingUsedPrefab(string oldPath, string newPath, List<SimpleUISceneType> prefabs)
         {
-            var prefabs = SimpleUI.instance.prefabs;
-
-            //if (SimpleUI.prefabs.Any(p => p.AssetPath.Equals(newPath)))
+            //var prefabs = SimpleUI.instance.prefabs;
 
             for (var i = 0; i < prefabs.Count; i++)
             {
