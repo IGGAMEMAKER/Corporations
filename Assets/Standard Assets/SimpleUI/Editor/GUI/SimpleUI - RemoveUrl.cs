@@ -17,8 +17,6 @@ namespace SimpleUI
         private bool isEndedRemoveUrlScrollView = false;
         private int removingUrlObstacles = 0;
 
-        //SimpleUI SimpleUI => SimpleUI.instance;
-
         void RemoveUrl(string url)
         {
             prefabs.RemoveAll(p => p.Url.Equals(url));
