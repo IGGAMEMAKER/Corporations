@@ -172,7 +172,7 @@ namespace SimpleUI
         public static void ChooseUrlFromPickedPrefab()
         {
             var path = GetOpenedAssetPath();
-            var urls = SimpleUI.GetPrefabsFromFile().Where(p => p.AssetPath.Equals(path));
+            var urls = instance.prefabs.Where(p => p.AssetPath.Equals(path));
 
             if (!urls.Any())
             {
