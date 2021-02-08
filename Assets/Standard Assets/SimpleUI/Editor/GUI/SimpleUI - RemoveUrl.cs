@@ -14,8 +14,8 @@ namespace SimpleUI
         Vector2 scrollPosition2 = Vector2.zero;
         bool removeUrlRecursively = false;
 
-        private bool isEndedRemoveUrlScrollView = false;
-        private int removingUrlObstacles = 0;
+        bool isEndedRemoveUrlScrollView = false;
+        int removingUrlObstacles = 0;
 
         void RemoveUrl(string url)
         {
