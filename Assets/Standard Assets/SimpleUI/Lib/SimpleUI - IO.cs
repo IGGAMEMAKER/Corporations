@@ -121,27 +121,35 @@ namespace SimpleUI
 
             BoldPrint("Read SimpleUI.txt");
 
-            var fileName = "SimpleUI/SimpleUI.txt";
+            _prefabs = GetPrefabsFromFile();
+            UrlOpeningAttempts = GetFailedUrlOpenings();
+        }
+
+        public static Newtonsoft.Json.JsonSerializerSettings settings => new Newtonsoft.Json.JsonSerializerSettings
+        {
+            TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto,
+            NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+        };
+
+        public static Dictionary<string, List<UrlOpeningAttempt>> GetFailedUrlOpenings()
+        {
             var missingUrls = "SimpleUI/SimpleUI-MissingUrls.txt";
 
-            var settings = new Newtonsoft.Json.JsonSerializerSettings
-            {
-                TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto,
-                NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
-            };
+            var obj2 = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, List<UrlOpeningAttempt>>>(File.ReadAllText(missingUrls), settings);
 
-            var obj = Newtonsoft.Json.JsonConvert.DeserializeObject<List<SimpleUISceneType>>(File.ReadAllText(fileName),
-                settings);
-            var obj2 =
-                Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, List<UrlOpeningAttempt>>>(
-                    File.ReadAllText(missingUrls), settings);
+            return obj2 ?? new Dictionary<string, List<UrlOpeningAttempt>>();
+        }
 
-            _prefabs = obj ?? new List<SimpleUISceneType>();
-            UrlOpeningAttempts = obj2 ?? new Dictionary<string, List<UrlOpeningAttempt>>();
+        public static List<SimpleUISceneType> GetPrefabsFromFile()
+        {
+            var fileName = "SimpleUI/SimpleUI.txt";
+
+            var obj = Newtonsoft.Json.JsonConvert.DeserializeObject<List<SimpleUISceneType>>(File.ReadAllText(fileName), settings);
+
+            return obj ?? new List<SimpleUISceneType>();
         }
 
         public void UpdatePrefab(SimpleUISceneType prefab) => UpdatePrefab(prefab, ChosenIndex);
-
         public void UpdatePrefab(SimpleUISceneType prefab, int index)
         {
             if (!hasChosenPrefab)
