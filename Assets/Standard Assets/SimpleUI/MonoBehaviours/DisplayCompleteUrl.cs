@@ -3,32 +3,43 @@ using UnityEngine;
 
 namespace SimpleUI
 {
-[ExecuteAlways]
-[RequireComponent(typeof(SimpleUIEventHandler))]
-public class DisplayCompleteUrl : MonoBehaviour
-{
-    public SimpleUIEventHandler SimpleUIEventHandler;
-
-    void Start()
+    [ExecuteAlways]
+    [RequireComponent(typeof(SimpleUIEventHandler))]
+    public class DisplayCompleteUrl : MonoBehaviour
     {
-        ShowCurrentPrefab();
-    }
+        public SimpleUIEventHandler SimpleUIEventHandler;
 
-    void ShowCurrentPrefab()
-    {
-        if (SimpleUIEventHandler == null)
+        SimpleUI _instance = null;
+        SimpleUI SimpleUI
         {
-            SimpleUIEventHandler = GetComponent<SimpleUIEventHandler>();
+            get
+            {
+                if (_instance == null)
+                    _instance = SimpleUI.GetInstance();
+
+                return _instance;
+            }
         }
 
-
-        if (SimpleUIEventHandler != null)
+        void Start()
         {
-            var url = SimpleUI.instance.GetCurrentUrl();
+            ShowCurrentPrefab();
+        }
 
-            SimpleUIEventHandler.PreviewUrl(url);
+        void ShowCurrentPrefab()
+        {
+            if (SimpleUIEventHandler == null)
+            {
+                SimpleUIEventHandler = GetComponent<SimpleUIEventHandler>();
+            }
+
+
+            if (SimpleUIEventHandler != null)
+            {
+                var url = SimpleUI.GetCurrentUrl();
+
+                SimpleUIEventHandler.PreviewUrl(url);
+            }
         }
     }
-}
-
 }

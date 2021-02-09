@@ -134,12 +134,14 @@ namespace SimpleUI
             return url;
         }
 
-        public bool IsAssetPathExists(string path)
+        public static bool IsAssetPathExists(string path) => IsAssetPathExists(path, GetPrefabsFromFile());
+        public static bool IsAssetPathExists(string path, List<SimpleUISceneType> prefabs)
         {
             return prefabs.Any(p => p.AssetPath.Equals(path));
         }
 
-        public bool IsUrlExist(string url)
+        public static bool IsUrlExist(string url) => IsUrlExist(url, GetPrefabsFromFile());
+        public static bool IsUrlExist(string url, List<SimpleUISceneType> prefabs)
         {
             return prefabs.Any(p => p.Url.Equals(url));
         }
@@ -172,7 +174,7 @@ namespace SimpleUI
 
                 p.Exists = AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(p.AssetPath) != null; // Directory.Exists(p.AssetPath);
 
-                SimpleUI.instance.UpdatePrefab(p, i);
+                UpdatePrefab(p, i);
             }
         }
 

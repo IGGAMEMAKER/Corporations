@@ -23,7 +23,7 @@ namespace SimpleUI
 
             if (removeUrlRecursively)
             {
-                var suburls = SimpleUI.instance.GetSubUrls(url, false).ToList();
+                var suburls = SimpleUI.GetSubUrls(url, false).ToList();
 
                 for (var i = 0; i < suburls.Count(); i++)
                 {
@@ -104,7 +104,7 @@ namespace SimpleUI
             routes = new List<string>();
 
             // references from code
-            foreach (var occurence in SimpleUI.instance.WhichScriptReferencesConcreteUrl(url))
+            foreach (var occurence in SimpleUI.WhichScriptReferencesConcreteUrl(url))
             {
                 names.Add($"<b>Code</b> {SimpleUI.GetTrimmedPath(occurence.ScriptName)}");
                 routes.Add(occurence.ScriptName);
@@ -124,13 +124,13 @@ namespace SimpleUI
                 GUILayout.EndScrollView();
                 isEndedRemoveUrlScrollView = true;
 
-                SimpleUI.instance.OpenPrefabByAssetPath(routes[selected]);
+                SimpleUI.OpenPrefabByAssetPath(routes[selected]);
             }
 
             if (!recursive)
                 return;
 
-            foreach (var r in SimpleUI.instance.GetSubUrls(url, false))
+            foreach (var r in SimpleUI.GetSubUrls(url, false))
             {
                 FillRoutes(names, routes, r.Url, recursive);
             }

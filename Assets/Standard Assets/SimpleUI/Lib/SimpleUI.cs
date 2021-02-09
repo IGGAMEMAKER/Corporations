@@ -6,6 +6,7 @@ using UnityEditor;
 using UnityEditor.Experimental.SceneManagement;
 using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 namespace SimpleUI
 {
@@ -78,20 +79,9 @@ namespace SimpleUI
         public bool IsOverridenAsAddedComponent;
     }
 
+    [CreateAssetMenu(fileName = "SimpleUIDataContainer", menuName = "SimpleUI data container", order = 51)]
     public partial class SimpleUI : ScriptableObject
     {
-        public static SimpleUI _instance = null;
-        public static SimpleUI instance
-        {
-            get
-            {
-                if (_instance == null)
-                    _instance = new SimpleUI();
-
-                return _instance;
-            }
-        }
-
         public bool isConcreteUrlChosen = false;
 
         public string newUrl = "";
@@ -122,8 +112,8 @@ namespace SimpleUI
 
         static SimpleUI()
         {
-            PrefabStage.prefabStageOpened += PrefabStage_prefabOpened;
-            PrefabStage.prefabStageClosing += PrefabStage_prefabClosed;
+            //PrefabStage.prefabStageOpened += PrefabStage_prefabOpened;
+            //PrefabStage.prefabStageClosing += PrefabStage_prefabClosed;
 
             //EditorSceneManager.activeSceneChangedInEditMode += EditorSceneManager_activeSceneChangedInEditMode;
             //EditorSceneManager.sceneOpened += EditorSceneManager_sceneOpened;

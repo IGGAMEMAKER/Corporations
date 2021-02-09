@@ -17,15 +17,15 @@ namespace SimpleUI
         bool isUrlRemovingMode = false;
         bool isUrlAddingMode = false;
 
-        bool isConcreteUrlChosen => SimpleUI.instance.isConcreteUrlChosen;
+        bool isConcreteUrlChosen => SimpleUI.isConcreteUrlChosen;
 
         public float myFloat = 1f;
 
-        public List<SimpleUISceneType> prefabs => SimpleUI.instance.prefabs;
+        public List<SimpleUISceneType> prefabs => SimpleUI.prefabs;
 
-        public List<PrefabMatchInfo> allAssetsWithOpenUrl => SimpleUI.instance.allAssetsWithOpenUrl;
-        public Dictionary<string, MonoScript> allScripts = SimpleUI.instance.allScripts;
-        public List<UsageInfo> referencesFromCode = SimpleUI.instance.referencesFromCode;
+        public List<PrefabMatchInfo> allAssetsWithOpenUrl => SimpleUI.allAssetsWithOpenUrl;
+        public Dictionary<string, MonoScript> allScripts => SimpleUI.allScripts;
+        public List<UsageInfo> referencesFromCode => SimpleUI.referencesFromCode;
 
         // skipping first frame to reduce recompile time
         public static bool isFirstGUI = true;
@@ -39,6 +39,18 @@ namespace SimpleUI
 
         public string GetCurrentUrl() => newUrl.StartsWith("/") ? newUrl : "/" + newUrl;
 
+        SimpleUI _instance = null;
+        public SimpleUI SimpleUI
+        {
+            get
+            {
+                if (_instance == null)
+                    LoadSimpleUI();
+
+                return _instance;
+            }
+        }
+
         [MenuItem("Window/SIMPLE UI")]
         public static void ShowWindow()
         {
@@ -49,8 +61,25 @@ namespace SimpleUI
             // w.minSize = new Vector2(200, 100);
         }
 
+
+        bool loadedSimpleUI = false;
+        //private void OnEnable()
+        //{
+        //    if (!loadedSimpleUI)
+        //    {
+        //        LoadSimpleUI();
+        //    }
+        //}
+
+        void LoadSimpleUI()
+        {
+            _instance = SimpleUI.GetInstance(); // GetAllInstances<SimpleUI>().FirstOrDefault(); // new SimpleUI();
+            loadedSimpleUI = true;
+        }
+
         void OnGUI()
         {
+            return;
             if (!isFirstGUI)
                 RenderGUI();
 
@@ -59,6 +88,7 @@ namespace SimpleUI
 
         void OnInspectorUpdate()
         {
+            return;
             if (!isFirstInspectorGUI)
                 RenderInspectorGUI();
 
@@ -111,7 +141,7 @@ namespace SimpleUI
         void RenderInspectorGUI()
         {
             var path = GetOpenedAssetPath();
-            ChooseUrlFromPickedPrefab();
+            ChooseUrlFromPickedPrefab(SimpleUI);
 
             // no matching urls
             if (newUrl.Equals(""))
@@ -122,7 +152,7 @@ namespace SimpleUI
             if (objectChanged)
             {
                 Debug.Log("Object changed");
-                instance.newPath = path;
+                SimpleUI.newPath = path;
 
                 TryToIncreaseCurrentPrefabCounter();
             }
@@ -150,7 +180,7 @@ namespace SimpleUI
 
         void SaveData()
         {
-            SimpleUI.instance.SaveData();
+            SimpleUI.SaveData();
         }
 
         #region Render prefabs
@@ -205,7 +235,7 @@ namespace SimpleUI
             isDraggedPrefabMode = false;
             isUrlEditingMode = false;
 
-            SimpleUI.instance.OpenPrefab(prefab);
+            SimpleUI.OpenPrefab(prefab);
         }
 
         //static void OpenPrefab(SimpleUISceneType p)
@@ -270,7 +300,7 @@ namespace SimpleUI
 
             if (!isTopRoute)
             {
-                var root = SimpleUI.instance.GetPrefabByUrl(upperUrl);
+                var root = SimpleUI.GetPrefabByUrl(upperUrl);
 
                 Label($"Root");
 
@@ -280,7 +310,7 @@ namespace SimpleUI
 
         void RenderSubroutes()
         {
-            var subUrls = SimpleUI.instance.GetSubUrls(newUrl, false);
+            var subUrls = SimpleUI.GetSubUrls(newUrl, false);
 
             if (subUrls.Any())
             {

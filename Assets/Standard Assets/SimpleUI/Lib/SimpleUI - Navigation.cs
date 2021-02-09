@@ -23,7 +23,7 @@ namespace SimpleUI
 
         public void OpenPrefabByAssetPath(string path)
         {
-            if (!instance.IsAssetPathExists(path))
+            if (!IsAssetPathExists(path))
             {
                 //Debug.LogError("Failed to OpenPrefabByAssetPath() " + path);
                 OpenAssetByPath(path);
@@ -134,7 +134,7 @@ namespace SimpleUI
             if (FindObjectOfType<DisplayConnectedUrls>() != null)
                 return null;
 
-            if (!instance.IsAssetPathExists(GetOpenedAssetPath()))
+            if (!IsAssetPathExists(GetOpenedAssetPath()))
             {
                 // this scene was not attached to any url
                 return null;
@@ -161,15 +161,17 @@ namespace SimpleUI
             Selection.activeGameObject = obj.prefabContentsRoot;
 
             var path = obj.assetPath;
+            var instance = SimpleUI.GetInstance();
+
             instance.newPath = path;
             instance.newName = GetPrettyNameFromAssetPath(path); // x.Substring(0, ind);
 
             // choose URL
-            ChooseUrlFromPickedPrefab();
+            ChooseUrlFromPickedPrefab(instance);
             TryToIncreaseCurrentPrefabCounter();
         }
 
-        public static void ChooseUrlFromPickedPrefab()
+        public static void ChooseUrlFromPickedPrefab(SimpleUI instance)
         {
             var path = GetOpenedAssetPath();
             var urls = instance.prefabs.Where(p => p.AssetPath.Equals(path));
@@ -194,6 +196,8 @@ namespace SimpleUI
 
         public static void TryToIncreaseCurrentPrefabCounter()
         {
+            var instance = SimpleUI.GetInstance();
+
             if (instance.hasChosenPrefab)
             {
                 var pref = instance.prefabs[instance.ChosenIndex];

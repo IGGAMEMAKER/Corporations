@@ -16,7 +16,19 @@ namespace SimpleUI
 
         static Vector2 scroll = Vector2.zero;
 
-        List<SimpleUISceneType> prefabs => SimpleUI.instance.prefabs;
+        SimpleUI _instance = null;
+        SimpleUI SimpleUI
+        {
+            get
+            {
+                if (_instance == null)
+                    _instance = SimpleUI.GetInstance();
+
+                return _instance;
+            }
+        }
+
+        List<SimpleUISceneType> prefabs => SimpleUI.prefabs;
         string[] _choices => prefabs.Select(p => MakeProperUrl(p.Url)).ToArray();
         // = { "foo", "foobar" };
 
@@ -26,7 +38,7 @@ namespace SimpleUI
             GUILayout.Label("Specify URL manually (NOT RECOMMENDED)", EditorStyles.boldLabel);
 
             DrawDefaultInspector();
-
+            return;
             var openUrl = target as OpenUrl;
 
             GUILayout.Space(15);
@@ -88,11 +100,11 @@ namespace SimpleUI
             var openUrl = target as OpenUrl;
             var pos = openUrl.transform.position - new Vector3(0, -250, 0);
 
-            Handles.Label(pos, SimpleUI.instance.GetPrettyNameForExistingUrl("/" + openUrl.Url)); // transform.position - new Vector3(0, -250, 0)
+            Handles.Label(pos, SimpleUI.GetPrettyNameForExistingUrl("/" + openUrl.Url)); // transform.position - new Vector3(0, -250, 0)
 
             if (GUILayout.Button(openUrl.Url))
             {
-                SimpleUI.instance.OpenPrefabByUrl(openUrl.Url);
+                SimpleUI.OpenPrefabByUrl(openUrl.Url);
             }
 
             Handles.EndGUI();

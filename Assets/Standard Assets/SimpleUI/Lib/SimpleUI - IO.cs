@@ -158,5 +158,41 @@ namespace SimpleUI
             prefabs[index] = prefab;
             SaveData();
         }
+
+        public static SimpleUI GetInstance()
+        {
+            //return instance;
+
+            //var instances = GetAllInstances<SimpleUI>();
+
+            //if (instances.Length == 0)
+            //{
+            //    throw new Exception("Create instance of SimpleUI ScriptableObject");
+            //}
+            //else
+            {
+                var inst = new SimpleUI(); // instances.FirstOrDefault();
+
+                BoldPrint("Loading Instance");
+
+                Debug.Log(inst);
+
+                return inst;
+            }
+        }
+
+        public static T[] GetAllInstances<T>() where T : ScriptableObject
+        {
+            string[] guids = AssetDatabase.FindAssets("t:" + typeof(T).Name);  //FindAssets uses tags check documentation for more info
+            T[] a = new T[guids.Length];
+
+            for (int i = 0; i < guids.Length; i++)         //probably could get optimized 
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guids[i]);
+                a[i] = AssetDatabase.LoadAssetAtPath<T>(path);
+            }
+
+            return a;
+        }
     }
 }

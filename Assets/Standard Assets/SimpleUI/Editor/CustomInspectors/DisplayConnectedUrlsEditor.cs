@@ -23,17 +23,28 @@ namespace SimpleUI
         List<PrefabMatchInfo> referencesFromAssets;
         List<SimpleUI.UsageInfo> referencesFromCode;
 
-        string currentUrl => SimpleUI.instance.GetCurrentUrl();
+        SimpleUI _instance = null;
+        SimpleUI SimpleUI
+        {
+            get
+            {
+                if (_instance == null)
+                    _instance = SimpleUI.GetInstance();
+
+                return _instance;
+            }
+        }
 
         private void OnSceneGUI()
         {
             if (EditorApplication.isCompiling || EditorApplication.isUpdating)
                 return;
 
+            return;
+            referencesFromAssets = SimpleUI.allAssetsWithOpenUrl;
+            referencesFromCode = SimpleUI.referencesFromCode;
 
-            referencesFromAssets = SimpleUI.instance.allAssetsWithOpenUrl;
-            referencesFromCode = SimpleUI.instance.referencesFromCode;
-
+            string currentUrl = SimpleUI.GetCurrentUrl();
 
             RenderUpperAndLowerRoutes(currentUrl);
             RenderReferencesToUrl(currentUrl);
@@ -76,7 +87,7 @@ namespace SimpleUI
             }
 
 
-            return prefix + SimpleUI.instance.GetPrettyNameForExistingUrl(url);
+            return prefix + SimpleUI.GetPrettyNameForExistingUrl(url);
         }
 
 
@@ -99,7 +110,7 @@ namespace SimpleUI
 
             if (referenceSelected != -1)
             {
-                SimpleUI.instance.OpenPrefabByUrl(matches[referenceSelected].URL);
+                SimpleUI.OpenPrefabByUrl(matches[referenceSelected].URL);
             }
         }
 
@@ -134,7 +145,7 @@ namespace SimpleUI
 
             if (referenceSelected != -1)
             {
-                SimpleUI.instance.OpenPrefabByAssetPath(routes[referenceSelected]);
+                SimpleUI.OpenPrefabByAssetPath(routes[referenceSelected]);
             }
         }
 
@@ -165,13 +176,13 @@ namespace SimpleUI
 
             if (routeSelected != -1)
             {
-                SimpleUI.instance.OpenPrefabByUrl(routes[routeSelected]);
+                SimpleUI.OpenPrefabByUrl(routes[routeSelected]);
             }
         }
 
         void RenderSubRoutes(string currentUrl, ref List<string> routes, ref List<string> names)
         {
-            var subRoutes = SimpleUI.instance.GetSubUrls(currentUrl, false).OrderByDescending(p => p.Usages).ToList();
+            var subRoutes = SimpleUI.GetSubUrls(currentUrl, false).OrderByDescending(p => p.Usages).ToList();
 
             for (var i = 0; i < subRoutes.Count(); i++)
             {

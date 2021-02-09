@@ -37,6 +37,8 @@ namespace SimpleUI
         {
             //var prefabs = SimpleUI.instance.prefabs;
 
+            var instance = SimpleUI.GetInstance();
+
             for (var i = 0; i < prefabs.Count; i++)
             {
                 var p = prefabs[i];
@@ -48,11 +50,11 @@ namespace SimpleUI
                     p.AssetPath = newPath;
 
 
-                    SimpleUI.instance.UpdatePrefab(p, i);
+                    instance.UpdatePrefab(p, i);
                 }
             }
 
-            SimpleUI.instance.FindMissingAssets();
+            instance.FindMissingAssets();
         }
     }
 }
