@@ -63,24 +63,26 @@ namespace SimpleUI
 
 
         bool loadedSimpleUI = false;
-        //private void OnEnable()
-        //{
-        //    if (!loadedSimpleUI)
-        //    {
-        //        LoadSimpleUI();
-        //    }
-        //}
+        void OnEnable()
+        {
+            Print("OnEnable Editor");
+            //if (!loadedSimpleUI)
+            //{
+            //    LoadSimpleUI();
+            //}
+        }
 
         void LoadSimpleUI()
         {
-            _instance = SimpleUI.GetInstance(); // GetAllInstances<SimpleUI>().FirstOrDefault(); // new SimpleUI();
+            BoldPrint("LoadSimpleUI...");
+
+            _instance = SimpleUI.GetInstance();
             loadedSimpleUI = true;
         }
 
         void OnGUI()
         {
-            return;
-            if (!isFirstGUI)
+            //if (!isFirstGUI)
                 RenderGUI();
 
             isFirstGUI = false;
@@ -88,8 +90,7 @@ namespace SimpleUI
 
         void OnInspectorUpdate()
         {
-            return;
-            if (!isFirstInspectorGUI)
+            //if (!isFirstInspectorGUI)
                 RenderInspectorGUI();
 
             isFirstInspectorGUI = false;
@@ -152,7 +153,7 @@ namespace SimpleUI
             if (objectChanged)
             {
                 Debug.Log("Object changed");
-                SimpleUI.newPath = path;
+                SetNewPath(path);
 
                 TryToIncreaseCurrentPrefabCounter();
             }
@@ -327,6 +328,7 @@ namespace SimpleUI
             RenderRecentPrefabs();
         }
         #endregion
+
 
         #region UI shortcuts
         public static bool Button(string text)

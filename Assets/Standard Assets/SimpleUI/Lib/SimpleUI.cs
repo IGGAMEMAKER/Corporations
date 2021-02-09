@@ -128,12 +128,16 @@ namespace SimpleUI
 
         private void OnEnable()
         {
-            ScanProject();
+            BoldPrint("OnEnable SimpleUI");
+            //var instances = GetAllInstances<SimpleUI>();
+
+
+            //ScanProject();
         }
 
-        private void Update()
-        {
-            ScanProject();
-        }
+        //private void Update()
+        //{
+        //    ScanProject();
+        //}
     }
 }

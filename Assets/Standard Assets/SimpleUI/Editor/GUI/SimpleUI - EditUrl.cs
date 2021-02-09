@@ -83,6 +83,17 @@ namespace SimpleUI
 
             Label(prefab.Url);
 
+            if (Button("Load instances"))
+            {
+                var instances = SimpleUI.GetAllInstances<SimpleUI>();
+
+                foreach (var i in instances)
+                {
+                    Print("instance " + i.name);
+                }
+            }
+
+            Space();
             if (Button("Edit prefab"))
             {
                 isUrlEditingMode = true;

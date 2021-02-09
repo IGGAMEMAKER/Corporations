@@ -95,6 +95,7 @@ namespace SimpleUI
 
         private void OnSceneGUI()
         {
+            return;
             Handles.BeginGUI();
 
             var openUrl = target as OpenUrl;

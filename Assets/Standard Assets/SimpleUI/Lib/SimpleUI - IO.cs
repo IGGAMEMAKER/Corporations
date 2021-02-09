@@ -163,7 +163,7 @@ namespace SimpleUI
         {
             //return instance;
 
-            //var instances = GetAllInstances<SimpleUI>();
+            var instances = GetAllInstances<SimpleUI>();
 
             //if (instances.Length == 0)
             //{
@@ -171,13 +171,15 @@ namespace SimpleUI
             //}
             //else
             {
-                var inst = new SimpleUI(); // instances.FirstOrDefault();
+                //var inst = new SimpleUI(); // instances.FirstOrDefault();
 
-                BoldPrint("Loading Instance");
+                BoldPrint("Loading Instance " + instances.Count());
 
-                Debug.Log(inst);
 
-                return inst;
+                //Debug.Log(inst);
+
+                return instances.First(); // new SimpleUI();
+                //return inst;
             }
         }
 
