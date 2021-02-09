@@ -15,7 +15,7 @@ namespace SimpleUI
         static string searchUrl = "";
         static Vector2 searchScrollPosition = Vector2.zero;
 
-        public bool renameUrlRecursively = true;
+        bool renameUrlRecursively = true;
         public string newEditingUrl = "";
 
         public string newUrl => SimpleUI.instance.newUrl;
