@@ -29,7 +29,11 @@ namespace SimpleUI
             get
             {
                 if (_instance == null)
+                {
+                    Debug.Log("Getting SimpleUI cause it's null");
+
                     _instance = SimpleUI.GetInstance();
+                }
 
                 return _instance;
             }
@@ -40,7 +44,6 @@ namespace SimpleUI
             if (EditorApplication.isCompiling || EditorApplication.isUpdating)
                 return;
 
-            return;
             referencesFromAssets = SimpleUI.allAssetsWithOpenUrl;
             referencesFromCode = SimpleUI.referencesFromCode;
 

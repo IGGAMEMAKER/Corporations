@@ -62,27 +62,17 @@ namespace SimpleUI
         }
 
 
-        bool loadedSimpleUI = false;
-        void OnEnable()
-        {
-            Print("OnEnable Editor");
-            //if (!loadedSimpleUI)
-            //{
-            //    LoadSimpleUI();
-            //}
-        }
-
         void LoadSimpleUI()
         {
             BoldPrint("LoadSimpleUI...");
 
             _instance = SimpleUI.GetInstance();
-            loadedSimpleUI = true;
         }
+
 
         void OnGUI()
         {
-            //if (!isFirstGUI)
+            if (!isFirstGUI)
                 RenderGUI();
 
             isFirstGUI = false;
@@ -90,7 +80,7 @@ namespace SimpleUI
 
         void OnInspectorUpdate()
         {
-            //if (!isFirstInspectorGUI)
+            if (!isFirstInspectorGUI)
                 RenderInspectorGUI();
 
             isFirstInspectorGUI = false;
@@ -100,12 +90,10 @@ namespace SimpleUI
 
         void RenderGUI()
         {
+            SimpleUI.ScanProject();
+
             recentPrefabsScrollPosition = GUILayout.BeginScrollView(recentPrefabsScrollPosition);
             GUILayout.Label("SIMPLE UI", EditorStyles.largeLabel);
-            //GUILayout.Label("Url");
-            //GUILayout.Label(newUrl);
-            //GUILayout.Label("Path");
-            //GUILayout.Label(newPath);
 
             //RenderRefreshButton();
 
@@ -155,13 +143,13 @@ namespace SimpleUI
                 Debug.Log("Object changed");
                 SetNewPath(path);
 
-                TryToIncreaseCurrentPrefabCounter();
+                TryToIncreaseCurrentPrefabCounter(SimpleUI);
             }
 
-            if (!isPrefabMode)
-            {
-                WrapSceneWithMenu();
-            }
+            //if (!isPrefabMode)
+            //{
+            //    WrapSceneWithMenu();
+            //}
         }
 
         //void RenderRefreshButton()

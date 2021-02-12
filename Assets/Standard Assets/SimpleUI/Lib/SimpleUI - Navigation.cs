@@ -87,24 +87,32 @@ namespace SimpleUI
             eventHandler.OpenUrl(url);
         }
 
+        //EditorSceneManager.activeSceneChangedInEditMode += EditorSceneManager_activeSceneChangedInEditMode;
+        //EditorSceneManager.sceneOpened += EditorSceneManager_sceneOpened;
+        ////EditorSceneManager.sceneLoaded += EditorSceneManager_sceneLoaded;
+
+        ////SceneManager.sceneLoaded += SceneManager_sceneLoaded;
+        ////SceneManager.sceneUnloaded += SceneManager_sceneUnloaded;
+        ////SceneManager.activeSceneChanged += SceneManager_sceneChanged;
+
         //private static void EditorSceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
         //{
         //    Debug.Log("Editor scene LOADED");
         //}
 
-        private static void EditorSceneManager_sceneOpened(Scene scene, OpenSceneMode mode)
-        {
-            Debug.Log("Editor scene OPENED " + scene.name);
-            //scene.GetRootGameObjects().First();
-        }
+        //private static void EditorSceneManager_sceneOpened(Scene scene, OpenSceneMode mode)
+        //{
+        //    Debug.Log("Editor scene OPENED " + scene.name);
+        //    //scene.GetRootGameObjects().First();
+        //}
 
-        private static void EditorSceneManager_activeSceneChangedInEditMode(Scene arg0, Scene arg1)
-        {
-            Debug.Log($"Editor scene CHANGED from {arg0.name} to {arg1.name}");
+        //private static void EditorSceneManager_activeSceneChangedInEditMode(Scene arg0, Scene arg1)
+        //{
+        //    Debug.Log($"Editor scene CHANGED from {arg0.name} to {arg1.name}");
 
-            var obj = WrapSceneWithMenu();
-            Selection.activeGameObject = obj;
-        }
+        //    var obj = WrapSceneWithMenu();
+        //    Selection.activeGameObject = obj;
+        //}
 
         //private static void SceneManager_sceneChanged(Scene arg0, Scene arg1)
         //{
@@ -129,22 +137,22 @@ namespace SimpleUI
         //    Selection.activeGameObject = go;
         //}
 
-        internal static GameObject WrapSceneWithMenu()
-        {
-            if (FindObjectOfType<DisplayConnectedUrls>() != null)
-                return null;
+        //internal static GameObject WrapSceneWithMenu()
+        //{
+        //    if (FindObjectOfType<DisplayConnectedUrls>() != null)
+        //        return null;
 
-            if (!IsAssetPathExists(GetOpenedAssetPath()))
-            {
-                // this scene was not attached to any url
-                return null;
-            }
+        //    if (!IsAssetPathExists(GetOpenedAssetPath()))
+        //    {
+        //        // this scene was not attached to any url
+        //        return null;
+        //    }
 
-            var go = new GameObject("SimpleUI Menu", typeof(DisplayConnectedUrls));
-            go.transform.SetAsFirstSibling();
+        //    var go = new GameObject("SimpleUI Menu", typeof(DisplayConnectedUrls));
+        //    go.transform.SetAsFirstSibling();
 
-            return go;
-        }
+        //    return go;
+        //}
 
         private static void PrefabStage_prefabClosed(PrefabStage obj)
         {
@@ -154,6 +162,7 @@ namespace SimpleUI
 
         private static void PrefabStage_prefabOpened(PrefabStage obj)
         {
+
             Debug.Log("Prefab opened: " + obj.prefabContentsRoot.name);
 
             // Wrap with SimpleUI menus
@@ -161,14 +170,14 @@ namespace SimpleUI
             Selection.activeGameObject = obj.prefabContentsRoot;
 
             var path = obj.assetPath;
-            var instance = SimpleUI.GetInstance();
+            var instance = GetInstance();
 
             instance.newPath = path;
             instance.newName = GetPrettyNameFromAssetPath(path); // x.Substring(0, ind);
 
             // choose URL
             ChooseUrlFromPickedPrefab(instance);
-            TryToIncreaseCurrentPrefabCounter();
+            TryToIncreaseCurrentPrefabCounter(instance);
         }
 
         public static void ChooseUrlFromPickedPrefab(SimpleUI instance)
@@ -194,10 +203,8 @@ namespace SimpleUI
             }
         }
 
-        public static void TryToIncreaseCurrentPrefabCounter()
+        public static void TryToIncreaseCurrentPrefabCounter(SimpleUI instance)
         {
-            var instance = SimpleUI.GetInstance();
-
             if (instance.hasChosenPrefab)
             {
                 var pref = instance.prefabs[instance.ChosenIndex];

@@ -82,6 +82,7 @@ namespace SimpleUI
     [CreateAssetMenu(fileName = "SimpleUIDataContainer", menuName = "SimpleUI data container", order = 51)]
     public partial class SimpleUI : ScriptableObject
     {
+        public bool isInstance = false;
         public bool isConcreteUrlChosen = false;
 
         public string newUrl = "";
@@ -90,6 +91,7 @@ namespace SimpleUI
 
         public List<PrefabMatchInfo> allAssetsWithOpenUrl = new List<PrefabMatchInfo>();
         public Dictionary<string, MonoScript> allScripts = new Dictionary<string, MonoScript>();
+
         public List<UsageInfo> referencesFromCode = new List<UsageInfo>();
 
         static bool isPrefabMode => PrefabStageUtility.GetCurrentPrefabStage() != null;
@@ -112,32 +114,36 @@ namespace SimpleUI
 
         static SimpleUI()
         {
-            //PrefabStage.prefabStageOpened += PrefabStage_prefabOpened;
-            //PrefabStage.prefabStageClosing += PrefabStage_prefabClosed;
+            PrefabStage.prefabStageOpened += PrefabStage_prefabOpened;
+            PrefabStage.prefabStageClosing += PrefabStage_prefabClosed;
 
-            //EditorSceneManager.activeSceneChangedInEditMode += EditorSceneManager_activeSceneChangedInEditMode;
-            //EditorSceneManager.sceneOpened += EditorSceneManager_sceneOpened;
-            ////EditorSceneManager.sceneLoaded += EditorSceneManager_sceneLoaded;
-
-            ////SceneManager.sceneLoaded += SceneManager_sceneLoaded;
-            ////SceneManager.sceneUnloaded += SceneManager_sceneUnloaded;
-            ////SceneManager.activeSceneChanged += SceneManager_sceneChanged;
-
-            //ScanProject();
+            EditorApplication.quitting += Application_quitting;
         }
 
-        private void OnEnable()
+        private static void Application_quitting()
         {
-            BoldPrint("OnEnable SimpleUI");
-            //var instances = GetAllInstances<SimpleUI>();
+            var instance = GetInstance();
 
+            instance.isProjectScanned = false;
 
-            //ScanProject();
+            instance.newName = "";
+            instance.newPath = "";
+            instance.newUrl = "";
         }
 
-        //private void Update()
+        //private void OnEnable()
         //{
         //    ScanProject();
         //}
+
+        private void OnDisable()
+        {
+            BoldPrint("ON DISABLE SIMLEUI");
+        }
+
+        private void OnDestroy()
+        {
+            BoldPrint("ON DESTROY SIMLEUI");
+        }
     }
 }

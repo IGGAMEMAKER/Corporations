@@ -35,8 +35,6 @@ namespace SimpleUI
 
         static void MovingUsedPrefab(string oldPath, string newPath, List<SimpleUISceneType> prefabs)
         {
-            //var prefabs = SimpleUI.instance.prefabs;
-
             var instance = SimpleUI.GetInstance();
 
             for (var i = 0; i < prefabs.Count; i++)

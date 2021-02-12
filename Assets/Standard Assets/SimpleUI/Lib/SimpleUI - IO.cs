@@ -7,13 +7,14 @@ using UnityEditor;
 using UnityEditor.Experimental.SceneManagement;
 using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
+using System.Diagnostics;
 
 namespace SimpleUI
 {
     // Save/Load info
     public partial class SimpleUI
     {
-        private bool isProjectScanned = false;
+        public bool isProjectScanned;
 
         List<SimpleUISceneType> _prefabs;
         internal Dictionary<string, List<UrlOpeningAttempt>> UrlOpeningAttempts;
@@ -24,6 +25,7 @@ namespace SimpleUI
             {
                 if (_prefabs == null || _prefabs.Count == 0)
                 {
+                    //return new List<SimpleUISceneType>();
                     LoadData();
                 }
 
@@ -39,34 +41,31 @@ namespace SimpleUI
 
 
         // getting data
-        internal void ScanProject()
+        public void ScanProject()
         {
-            if (!isProjectScanned)
+            if (!isProjectScanned && isInstance)
             {
-                BoldPrint("Loading assets & scripts");
-
-                var start = DateTime.Now;
-
-                LoadAssets();
-
-                var assetsEnd = DateTime.Now;
-
-                LoadScripts();
+                BoldPrint("Scanning project (Loading assets & scripts)");
+                isProjectScanned = true;
 
                 // load prefabs and missing urls
                 LoadData();
 
-                BoldPrint($"Loaded assets & scripts in {Measure(start)} (assets: {Measure(start, assetsEnd)}, code: {Measure(assetsEnd)})");
+                var start = DateTime.Now;
+                LoadScripts();
 
-                isProjectScanned = true;
+                var assetsEnd = DateTime.Now;
+                LoadAssets();
+
+                BoldPrint($"Loaded assets & scripts in {Measure(start)} (assets: {Measure(assetsEnd)}, code: {Measure(start, assetsEnd)})");
             }
         }
 
         void LoadScripts()
         {
             allScripts = GetAllScripts();
-
         }
+
         void LoadAssets()
         {
             allAssetsWithOpenUrl = WhatUsesComponent<OpenUrl>();
@@ -159,10 +158,24 @@ namespace SimpleUI
             SaveData();
         }
 
+        static string GetCallerName(int skipFrames)
+        {
+            skipFrames++;
+            var frame = new StackFrame(skipFrames);
+
+            if (frame.GetMethod().Name.Equals("get_SimpleUI"))
+            {
+                return GetCallerName(skipFrames + 1);
+            }
+
+            return $"{frame.GetMethod().Name}";
+        }
+
         public static SimpleUI GetInstance()
         {
             //return instance;
 
+            var time = DateTime.Now;
             var instances = GetAllInstances<SimpleUI>();
 
             //if (instances.Length == 0)
@@ -173,7 +186,9 @@ namespace SimpleUI
             {
                 //var inst = new SimpleUI(); // instances.FirstOrDefault();
 
-                BoldPrint("Loading Instance " + instances.Count());
+                var callerName = GetCallerName(1);
+
+                BoldPrint("Loading Instance (" + instances.Count() + $") in {Measure(time)} method: " + callerName);
 
 
                 //Debug.Log(inst);
@@ -185,6 +200,8 @@ namespace SimpleUI
 
         public static T[] GetAllInstances<T>() where T : ScriptableObject
         {
+            // https://answers.unity.com/questions/1425758/how-can-i-find-all-instances-of-a-scriptable-objec.html
+
             string[] guids = AssetDatabase.FindAssets("t:" + typeof(T).Name);  //FindAssets uses tags check documentation for more info
             T[] a = new T[guids.Length];
 
