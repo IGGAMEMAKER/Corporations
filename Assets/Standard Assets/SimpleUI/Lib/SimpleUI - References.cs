@@ -482,7 +482,7 @@ namespace SimpleUI
             var excludeFolders = new[] { "Assets/Standard Assets/Frost UI", "Assets/Standard Assets/SimpleUI", "Assets/Standard Assets/Libraries", "Assets/Systems", "Assets/Core" };
             var guids = AssetDatabase.FindAssets("t:Script", new[] { "Assets" });
 
-            Debug.Log($"Found {guids.Length} scripts");
+            //Debug.Log($"Found {guids.Length} scripts");
             var paths = guids.Select(AssetDatabase.GUIDToAssetPath).ToList();
 
             paths.RemoveAll(guid => excludeFolders.Any(guid.Contains));

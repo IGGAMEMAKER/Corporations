@@ -117,33 +117,58 @@ namespace SimpleUI
             PrefabStage.prefabStageOpened += PrefabStage_prefabOpened;
             PrefabStage.prefabStageClosing += PrefabStage_prefabClosed;
 
+            EditorApplication.update += Update;
+
             EditorApplication.quitting += Application_quitting;
+        }
+
+        private void OnEnable()
+        {
+            if (isProjectScanned)
+            {
+                OnRecompile();
+            }
+            else
+            {
+                Print("Initialize");
+            }
+        }
+
+        void OnRecompile()
+        {
+            Print("OnRecompile");
+
+            LoadScripts();
+            LoadReferences(GetCurrentUrl());
+        }
+
+
+        private static void Update()
+        {
+            //Print("Update");
         }
 
         private static void Application_quitting()
         {
+            BoldPrint("Quitting");
+
             var instance = GetInstance();
 
-            instance.isProjectScanned = false;
+            //instance.isProjectScanned = false;
 
             instance.newName = "";
             instance.newPath = "";
             instance.newUrl = "";
         }
 
-        //private void OnEnable()
+        //private void OnDisable()
         //{
-        //    ScanProject();
+        //    BoldPrint("ON DISABLE SIMLEUI");
         //}
 
-        private void OnDisable()
-        {
-            BoldPrint("ON DISABLE SIMLEUI");
-        }
-
-        private void OnDestroy()
-        {
-            BoldPrint("ON DESTROY SIMLEUI");
-        }
+        //private void OnDestroy()
+        //{
+        //    BoldPrint("ON DESTROY SIMLEUI");
+        //}
     }
 }

@@ -121,7 +121,7 @@ namespace SimpleUI
         {
             GUILayout.BeginArea(new Rect(off, off, w, h));
 
-            var matches = SimpleUI.WhatUsesComponent(currentUrl, referencesFromAssets); // referencesFromAssets.Where(m => m.URL.Equals(currentUrl.TrimStart('/'))).ToList();
+            var matches = SimpleUI.WhatUsesComponent(currentUrl, referencesFromAssets);
 
 
             if (matches.Any() || referencesFromCode.Any())

@@ -14,7 +14,7 @@ namespace SimpleUI
     // Save/Load info
     public partial class SimpleUI
     {
-        public bool isProjectScanned;
+        public bool isProjectScanned => SessionState.GetBool("isProjectScanned", false);
 
         List<SimpleUISceneType> _prefabs;
         internal Dictionary<string, List<UrlOpeningAttempt>> UrlOpeningAttempts;
@@ -41,12 +41,23 @@ namespace SimpleUI
 
 
         // getting data
+        public static void ScanProjectStatic()
+        {
+            var instance = GetInstance();
+
+            instance.ScanProject();
+        }
+
         public void ScanProject()
         {
-            if (!isProjectScanned && isInstance)
+            bool scanned = isProjectScanned; // SessionState.GetBool("isProjectScanned", false);
+
+            if (!scanned && isInstance)
             {
                 BoldPrint("Scanning project (Loading assets & scripts)");
-                isProjectScanned = true;
+                //isProjectScanned = true;
+                SessionState.SetBool("isProjectScanned", true);
+
 
                 // load prefabs and missing urls
                 LoadData();
@@ -61,9 +72,17 @@ namespace SimpleUI
             }
         }
 
+
         void LoadScripts()
         {
             allScripts = GetAllScripts();
+        }
+
+        static void LoadScriptsStatic()
+        {
+            var instance = GetInstance();
+
+            instance.allScripts = GetAllScripts();
         }
 
         void LoadAssets()
@@ -188,7 +207,7 @@ namespace SimpleUI
 
                 var callerName = GetCallerName(1);
 
-                BoldPrint("Loading Instance (" + instances.Count() + $") in {Measure(time)} method: " + callerName);
+                Print("Loading Instance (" + instances.Count() + $") in {Measure(time)} method: " + callerName);
 
 
                 //Debug.Log(inst);

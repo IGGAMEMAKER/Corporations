@@ -17,7 +17,6 @@ namespace SimpleUI
         bool isUrlRemovingMode = false;
         bool isUrlAddingMode = false;
 
-        bool isConcreteUrlChosen => SimpleUI.isConcreteUrlChosen;
 
         public float myFloat = 1f;
 
@@ -28,12 +27,13 @@ namespace SimpleUI
         public List<UsageInfo> referencesFromCode => SimpleUI.referencesFromCode;
 
         // skipping first frame to reduce recompile time
-        public static bool isFirstGUI = true;
-        public static bool isFirstInspectorGUI = true;
+        static bool isFirstGUI = true;
+        static bool isFirstInspectorGUI = true;
 
         // chosen asset
         static bool isPrefabMode => PrefabStageUtility.GetCurrentPrefabStage() != null;
 
+        bool isConcreteUrlChosen => SimpleUI.isConcreteUrlChosen;
         int ChosenIndex => prefabs.FindIndex(p => p.Url.Equals(GetCurrentUrl())); // GetCurrentUrl()
         bool hasChosenPrefab => ChosenIndex >= 0;
 
@@ -92,37 +92,34 @@ namespace SimpleUI
         {
             SimpleUI.ScanProject();
 
-            recentPrefabsScrollPosition = GUILayout.BeginScrollView(recentPrefabsScrollPosition);
-            GUILayout.Label("SIMPLE UI", EditorStyles.largeLabel);
-
-            //RenderRefreshButton();
-
-            //RenderExistingTroubles();
-            //Space();
-            //if (Button("Print OpenUrl info"))
+            //if (Event.current.type == EventType.Layout)
             //{
-            //    PrintMatchInfo(WhatUsesComponent<OpenUrl>());
+                recentPrefabsScrollPosition = GUILayout.BeginScrollView(recentPrefabsScrollPosition);
+                GUILayout.Label("SIMPLE UI", EditorStyles.largeLabel);
+
+                //RenderRefreshButton();
+                //RenderExistingTroubles();
+
+                Space();
+                myFloat = EditorGUILayout.Slider("Slider", myFloat, -3, 3);
+                Space();
+
+                if (!hasChosenPrefab)
+                    RenderPrefabs();
+
+                if (isDraggedGameObjectMode)
+                    RenderMakingAPrefabFromGameObject();
+                else if (isDraggedPrefabMode)
+                    RenderAddingNewRouteFromDraggedPrefab();
+                else if (hasChosenPrefab)
+                    RenderChosenPrefab();
+                else
+                    RenderAddingNewRoute();
+
+                HandleDragAndDrop();
+
+                GUILayout.EndScrollView();
             //}
-
-            Space();
-            myFloat = EditorGUILayout.Slider("Slider", myFloat, -3, 3);
-            Space();
-
-            if (!hasChosenPrefab)
-                RenderPrefabs();
-
-            if (isDraggedGameObjectMode)
-                RenderMakingAPrefabFromGameObject();
-            else if (isDraggedPrefabMode)
-                RenderAddingNewRouteFromDraggedPrefab();
-            else if (hasChosenPrefab)
-                RenderChosenPrefab();
-            else
-                RenderAddingNewRoute();
-
-            HandleDragAndDrop();
-
-            GUILayout.EndScrollView();
         }
 
 
