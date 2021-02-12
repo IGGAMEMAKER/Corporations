@@ -89,6 +89,7 @@ namespace SimpleUI
         public string newName = "";
         public string newPath = "";
 
+        int assetCount;
         public List<PrefabMatchInfo> allAssetsWithOpenUrl = new List<PrefabMatchInfo>();
         public Dictionary<string, MonoScript> allScripts = new Dictionary<string, MonoScript>();
 
@@ -167,7 +168,7 @@ namespace SimpleUI
         private static void Update()
         {
             //Print("Update");
-            Print("All assets with openUrl " + GetInstance().allAssetsWithOpenUrl.Count());
+            //Print("All assets with openUrl " + GetInstance().allAssetsWithOpenUrl.Count());
         }
 
         private static void Application_quitting()

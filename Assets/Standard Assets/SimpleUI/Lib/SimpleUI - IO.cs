@@ -25,7 +25,6 @@ namespace SimpleUI
             {
                 if (_prefabs == null || _prefabs.Count == 0)
                 {
-                    //return new List<SimpleUISceneType>();
                     LoadData();
                 }
 
@@ -43,14 +42,11 @@ namespace SimpleUI
         // getting data
         public void ScanProject()
         {
-            bool scanned = isProjectScanned; // SessionState.GetBool("isProjectScanned", false);
-
-            if (!scanned && isInstance)
+            if (!isProjectScanned && isInstance)
             {
                 BoldPrint("Scanning project (Loading assets & scripts)");
-                //isProjectScanned = true;
-                SessionState.SetBool("isProjectScanned", true);
 
+                SessionState.SetBool("isProjectScanned", true);
 
                 // load prefabs and missing urls
                 LoadData();
@@ -74,6 +70,7 @@ namespace SimpleUI
         void LoadAssets()
         {
             allAssetsWithOpenUrl = WhatUsesComponent<OpenUrl>();
+            assetCount = allAssetsWithOpenUrl.Count();
         }
 
         void LoadReferences(string url)
@@ -120,9 +117,6 @@ namespace SimpleUI
 
         void LoadData()
         {
-            //if (prefabs != null && prefabs.Count == 0)
-            //    return;
-
             BoldPrint("Read SimpleUI.txt");
 
             _prefabs = GetPrefabsFromFile();
@@ -189,17 +183,12 @@ namespace SimpleUI
             //}
             //else
             {
-                //var inst = new SimpleUI(); // instances.FirstOrDefault();
-
                 var callerName = GetCallerName(1);
 
                 //Print("Loading Instance (" + instances.Count() + $") in {Measure(time)} method: " + callerName);
 
 
-                //Debug.Log(inst);
-
-                return instances.First(); // new SimpleUI();
-                //return inst;
+                return instances.First();
             }
         }
 
