@@ -322,14 +322,7 @@ namespace SimpleUI
 
             foreach (var path in paths)
             {
-                if (isPrefabAsset(path))
-                {
-                    GetMatchingComponentsFromPrefab<T>(matchingComponents, path, typeToSearch, properties);
-                }
-                else
-                {
-                    GetMatchingComponentsFromScene<T>(matchingComponents, path, typeToSearch, properties, scenes);
-                }
+                GetMatchingComponentsFromAsset(matchingComponents, path);
             }
 
             // restore state if scenes were opened
@@ -339,7 +332,22 @@ namespace SimpleUI
             return matchingComponents;
         }
 
-        static void GetMatchingComponentsFromScene<T>(List<PrefabMatchInfo> matchingComponents, string path, Type typeToSearch, string[] properties, List<Scene> openedScenes)
+        static void GetMatchingComponentsFromAsset(List<PrefabMatchInfo> matchingComponents, string path)
+        {
+            var properties = new[] { "Url" };
+            List<Scene> openedScenes = new List<Scene>();
+
+            if (isPrefabAsset(path))
+            {
+                GetMatchingComponentsFromPrefab<OpenUrl>(matchingComponents, path, properties);
+            }
+            else
+            {
+                GetMatchingComponentsFromScene<OpenUrl>(matchingComponents, path, properties, openedScenes);
+            }
+        }
+
+        static void GetMatchingComponentsFromScene<T>(List<PrefabMatchInfo> matchingComponents, string path, string[] properties, List<Scene> openedScenes)
         {
             // https://stackoverflow.com/questions/54452347/can-i-programatically-load-scenes-in-the-unity-editor
 
@@ -379,7 +387,7 @@ namespace SimpleUI
                 if (components.Any())
                 {
                     Print2("<b>----------------------------------------</b>");
-                    Print2("SCENE: Found component(s) " + typeToSearch + $" ({components.Count}) in file <b>" + path + "</b>");
+                    Print2("SCENE: Found component(s) OpenUrl" + $" ({components.Count}) in file <b>" + path + "</b>");
                 }
 
                 foreach (var component1 in components)
@@ -396,7 +404,7 @@ namespace SimpleUI
                 EditorSceneManager.CloseScene(scene, true);
         }
 
-        static void GetMatchingComponentsFromPrefab<T>(List<PrefabMatchInfo> matchingComponents, string path, Type typeToSearch, string[] properties)
+        static void GetMatchingComponentsFromPrefab<T>(List<PrefabMatchInfo> matchingComponents, string path, string[] properties)
         {
             var asset = AssetDatabase.LoadAssetAtPath<GameObject>(path);
 
@@ -418,7 +426,7 @@ namespace SimpleUI
             if (components.Any())
             {
                 Print2("<b>----------------------------------------</b>");
-                Print2("PREFAB: Found component(s) " + typeToSearch + $" ({components.Count}) in file <b>" + path + "</b>");
+                Print2("PREFAB: Found component(s) OpenUrl" + $" ({components.Count}) in file <b>" + path + "</b>");
             }
 
             int componentId = 0;

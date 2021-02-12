@@ -16,6 +16,7 @@ namespace SimpleUI
     {
         static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
         {
+            var instance = SimpleUI.GetInstance();
             var prefabs = SimpleUI.GetPrefabsFromFile();
 
             for (var i = 0; i < movedFromAssetPaths.Count(); i++) // importedAssets
@@ -29,14 +30,22 @@ namespace SimpleUI
 
                 Debug.Log(string.Format("Moving asset ({0}) from {2} to path: {1}", filename, newPath, oldFilePath));
 
-                MovingUsedPrefab(oldFilePath, newPath, prefabs);
+                MovingUsedPrefab(oldFilePath, newPath, prefabs, instance);
+            }
+
+            for (var i = 0; i < importedAssets.Count(); i++)
+            {
+                var path = importedAssets[i];
+
+                var index = path.LastIndexOf('/');
+                var fileName = path.Substring(index);
+
+                Debug.Log("Imported asset: " + fileName);
             }
         }
 
-        static void MovingUsedPrefab(string oldPath, string newPath, List<SimpleUISceneType> prefabs)
+        static void MovingUsedPrefab(string oldPath, string newPath, List<SimpleUISceneType> prefabs, SimpleUI instance)
         {
-            var instance = SimpleUI.GetInstance();
-
             for (var i = 0; i < prefabs.Count; i++)
             {
                 var p = prefabs[i];
@@ -47,12 +56,26 @@ namespace SimpleUI
                 {
                     p.AssetPath = newPath;
 
-
                     instance.UpdatePrefab(p, i);
                 }
             }
 
             instance.FindMissingAssets();
+        }
+    }
+
+    public class FileModificationWarning : SaveAssetsProcessor
+    {
+        static string[] OnWillSaveAssets(string[] paths)
+        {
+            Debug.Log("OnWillSaveAssets");
+
+            foreach (string path in paths)
+            {
+                SimpleUI.UpdateAssetWithPath(path);
+            }
+
+            return paths;
         }
     }
 }

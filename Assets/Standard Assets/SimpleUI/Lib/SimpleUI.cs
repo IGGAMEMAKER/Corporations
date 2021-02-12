@@ -101,7 +101,6 @@ namespace SimpleUI
 
         public string GetCurrentUrl() => newUrl.StartsWith("/") ? newUrl : "/" + newUrl;
 
-
         internal static string GetOpenedAssetPath()
         {
             if (isPrefabMode)
@@ -117,9 +116,31 @@ namespace SimpleUI
             PrefabStage.prefabStageOpened += PrefabStage_prefabOpened;
             PrefabStage.prefabStageClosing += PrefabStage_prefabClosed;
 
+            PrefabStage.prefabSaved += PrefabStage_prefabSaved;
+
             EditorApplication.update += Update;
 
             EditorApplication.quitting += Application_quitting;
+        }
+
+
+        private static void PrefabStage_prefabSaved(GameObject obj)
+        {
+            var parentObject = PrefabUtility.GetCorrespondingObjectFromSource(obj);
+            string path = AssetDatabase.GetAssetPath(parentObject);
+
+            //UpdateAssetWithPath(path);
+        }
+
+        public static void UpdateAssetWithPath(string path)
+        {
+            var instance = GetInstance();
+
+            BoldPrint("Asset saved: " + path);
+
+            instance.allAssetsWithOpenUrl.RemoveAll(a => a.PrefabAssetPath.Equals(path));
+
+            GetMatchingComponentsFromAsset(instance.allAssetsWithOpenUrl, path);
         }
 
         private void OnEnable()
@@ -146,6 +167,7 @@ namespace SimpleUI
         private static void Update()
         {
             //Print("Update");
+            Print("All assets with openUrl " + GetInstance().allAssetsWithOpenUrl.Count());
         }
 
         private static void Application_quitting()

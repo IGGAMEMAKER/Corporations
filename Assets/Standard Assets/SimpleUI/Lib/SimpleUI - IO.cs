@@ -41,13 +41,6 @@ namespace SimpleUI
 
 
         // getting data
-        public static void ScanProjectStatic()
-        {
-            var instance = GetInstance();
-
-            instance.ScanProject();
-        }
-
         public void ScanProject()
         {
             bool scanned = isProjectScanned; // SessionState.GetBool("isProjectScanned", false);
@@ -76,13 +69,6 @@ namespace SimpleUI
         void LoadScripts()
         {
             allScripts = GetAllScripts();
-        }
-
-        static void LoadScriptsStatic()
-        {
-            var instance = GetInstance();
-
-            instance.allScripts = GetAllScripts();
         }
 
         void LoadAssets()
@@ -207,7 +193,7 @@ namespace SimpleUI
 
                 var callerName = GetCallerName(1);
 
-                Print("Loading Instance (" + instances.Count() + $") in {Measure(time)} method: " + callerName);
+                //Print("Loading Instance (" + instances.Count() + $") in {Measure(time)} method: " + callerName);
 
 
                 //Debug.Log(inst);

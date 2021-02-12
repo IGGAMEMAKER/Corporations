@@ -30,7 +30,7 @@ namespace SimpleUI
             {
                 if (_instance == null)
                 {
-                    Debug.Log("Getting SimpleUI cause it's null");
+                    //Debug.Log("Getting SimpleUI cause it's null");
 
                     _instance = SimpleUI.GetInstance();
                 }

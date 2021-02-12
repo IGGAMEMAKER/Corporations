@@ -63,6 +63,7 @@ namespace SimpleUI
             OpenAssetByPath(newPath);
         }
 
+
         // called from UI libs
         public static void OpenUrl(string url)
         {
