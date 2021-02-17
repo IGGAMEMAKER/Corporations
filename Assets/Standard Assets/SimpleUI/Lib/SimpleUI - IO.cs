@@ -11,6 +11,8 @@ namespace SimpleUI
     // Save/Load info
     public partial class SimpleUI
     {
+        // https://stackoverflow.com/questions/50800690/prevent-losing-data-for-editorwindow-in-dll-when-editor-recompiles
+
         public bool isProjectScanned => SessionState.GetBool("isProjectScanned", false);
 
         List<SimpleUISceneType> _prefabs = new List<SimpleUISceneType>();

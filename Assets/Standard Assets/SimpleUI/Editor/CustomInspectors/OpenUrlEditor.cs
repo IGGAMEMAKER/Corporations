@@ -32,7 +32,7 @@ namespace SimpleUI
             GUILayout.Label("Specify URL manually (NOT RECOMMENDED)", EditorStyles.boldLabel);
 
             DrawDefaultInspector();
-            return;
+
             var openUrl = target as OpenUrl;
 
             GUILayout.Space(15);
@@ -89,7 +89,6 @@ namespace SimpleUI
 
         private void OnSceneGUI()
         {
-            return;
             Handles.BeginGUI();
 
             var openUrl = target as OpenUrl;
