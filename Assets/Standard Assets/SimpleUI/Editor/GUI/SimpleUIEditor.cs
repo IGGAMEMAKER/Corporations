@@ -22,9 +22,9 @@ namespace SimpleUI
 
         public List<SimpleUISceneType> prefabs => SimpleUI.prefabs;
 
-        public List<FullPrefabMatchInfo> allAssetsWithOpenUrl2 = new List<FullPrefabMatchInfo>();
+        public List<PrefabMatchInfo> allAssetsWithOpenUrl2 = new List<PrefabMatchInfo>();
 
-        public List<FullPrefabMatchInfo> allAssetsWithOpenUrl => SimpleUI.allAssetsWithOpenUrl;
+        public List<PrefabMatchInfo> allAssetsWithOpenUrl => SimpleUI.allAssetsWithOpenUrl;
         public Dictionary<string, MonoScript> allScripts => SimpleUI.allScripts;
 
         // refs to concrete url

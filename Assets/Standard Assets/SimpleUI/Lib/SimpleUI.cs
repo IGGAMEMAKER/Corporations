@@ -63,22 +63,9 @@ namespace SimpleUI
     }
 
     [Serializable]
-    public struct PrefabMatchInfo
+    public struct PrefabMatchInfoDetailed
     {
-
-    }
-
-    public struct FullPrefabMatchInfo
-    {
-        //public PrefabMatchInfo MatchInfo;
-        public string PrefabAssetPath;
-        public string URL;
-
-        // debug
-        public string ComponentName;
-        public int ComponentID;
-
-        // ---------------------
+        public PrefabMatchInfo prefabMatchInfo;
 
         // for rename
         public GameObject Asset;
@@ -89,6 +76,17 @@ namespace SimpleUI
 
         public bool IsOverridenAsComponentProperty;
         public bool IsOverridenAsAddedComponent;
+    }
+
+
+    public struct PrefabMatchInfo
+    {
+        public string PrefabAssetPath;
+        public string URL;
+
+        // debug
+        public string ComponentName;
+        public int ComponentID;
     }
 
     [CreateAssetMenu(fileName = "SimpleUIDataContainer", menuName = "SimpleUI data container", order = 51)]
@@ -104,7 +102,7 @@ namespace SimpleUI
 
         int assetCount = 5;
         [SerializeField]
-        public List<FullPrefabMatchInfo> allAssetsWithOpenUrl = new List<FullPrefabMatchInfo>();
+        public List<PrefabMatchInfo> allAssetsWithOpenUrl = new List<PrefabMatchInfo>();
         [SerializeField]
         public Dictionary<string, MonoScript> allScripts = new Dictionary<string, MonoScript>();
 

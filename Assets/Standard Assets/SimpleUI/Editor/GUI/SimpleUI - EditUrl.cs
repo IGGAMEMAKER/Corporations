@@ -174,7 +174,7 @@ namespace SimpleUI
             return newUrl2;
         }
 
-        void RenameUrlInPrefab(OpenUrl component, string newFormattedUrl, FullPrefabMatchInfo match)
+        void RenameUrlInPrefab(OpenUrl component, string newFormattedUrl, PrefabMatchInfo match)
         {
             // https://forum.unity.com/threads/how-do-i-edit-prefabs-from-scripts.685711/#post-4591885
             using (var editingScope = new PrefabUtility.EditPrefabContentsScope(match.PrefabAssetPath))
@@ -222,7 +222,7 @@ namespace SimpleUI
                 AssetDatabase.StartAssetEditing();
 
                 Print("Rename in assets");
-                foreach (var match in matches)
+                /*foreach (var match in matches)
                 {
                     if (match.IsNormalPartOfNestedPrefab)
                         continue;
@@ -249,7 +249,7 @@ namespace SimpleUI
                     {
                         RenameUrlInPrefab(component, newFormattedUrl, match);
                     }
-                }
+                }*/
 
                 Print("Rename in code");
                 foreach (var match in codeRefs)

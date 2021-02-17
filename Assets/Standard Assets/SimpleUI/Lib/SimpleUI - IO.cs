@@ -73,7 +73,7 @@ namespace SimpleUI
 
         void LoadAssets()
         {
-            allAssetsWithOpenUrl = WhatUsesComponent<OpenUrl>();
+            allAssetsWithOpenUrl = WhatUsesComponent();
             assetCount = allAssetsWithOpenUrl.Count();
         }
 

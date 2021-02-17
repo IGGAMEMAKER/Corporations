@@ -14,10 +14,21 @@ namespace SimpleUI
     public partial class SimpleUI
     {
         // path - RootAssetPath
-        public static FullPrefabMatchInfo GetPrefabMatchInfo2(MonoBehaviour component, GameObject asset, string path, string[] properties)
+        public static PrefabMatchInfo GetPrefabMatchInfo2(MonoBehaviour component, GameObject asset, string path, string[] properties)
         {
-            var matchingComponent = new FullPrefabMatchInfo { PrefabAssetPath = path, ComponentName = component.gameObject.name };
+            var matchingComponent = new PrefabMatchInfo { PrefabAssetPath = path, ComponentName = component.gameObject.name };
             matchingComponent.URL = (component as OpenUrl).Url;
+
+            return matchingComponent;
+        }
+
+        public static PrefabMatchInfoDetailed GetFullPrefabMatchInfo2(MonoBehaviour component, GameObject asset, string path, string[] properties)
+        {
+            var matchingComponent = new PrefabMatchInfoDetailed
+            {
+                prefabMatchInfo = GetPrefabMatchInfo2(component, asset, path, properties),
+            };
+
             matchingComponent.Asset = asset;
             matchingComponent.Component = component as OpenUrl;
 
@@ -31,7 +42,7 @@ namespace SimpleUI
                 // so you can upgrade it and safely save ur prefab
 
                 matchingComponent.IsDirectMatch = true;
-                Print2($"Directly occurs as {matchingComponent.ComponentName} in {matchingComponent.PrefabAssetPath} {matchingComponent.URL}");
+                Print2($"Directly occurs as {matchingComponent.prefabMatchInfo.ComponentName} in {matchingComponent.prefabMatchInfo.PrefabAssetPath} {matchingComponent.prefabMatchInfo.URL}");
             }
 
             if (isAttachedToNestedPrefab)
@@ -49,7 +60,7 @@ namespace SimpleUI
                     var outer = PrefabUtility.GetOutermostPrefabInstanceRoot(component);
 
                     matchingComponent.IsOverridenAsAddedComponent = true;
-                    Print2($"{matchingComponent.ComponentName} Is <b>ATTACHED</b> to some nested prefab\n\nouter={outer.name} {ParseAddedComponents(outer)}, {component.GetInstanceID()}");
+                    Print2($"{matchingComponent.prefabMatchInfo.ComponentName} Is <b>ATTACHED</b> to some nested prefab\n\nouter={outer.name} {ParseAddedComponents(outer)}, {component.GetInstanceID()}");
                 }
 
                 if (isPartOfNestedPrefab)
@@ -61,7 +72,7 @@ namespace SimpleUI
                         // update property and just save root prefab
 
                         matchingComponent.IsOverridenAsComponentProperty = true;
-                        Print2($"Root <b>OVERRIDES VALUES</b> on {matchingComponent.ComponentName}");
+                        Print2($"Root <b>OVERRIDES VALUES</b> on {matchingComponent.prefabMatchInfo.ComponentName}");
                     }
                     else
                     {
@@ -69,7 +80,7 @@ namespace SimpleUI
                         // no actions are necessary for root prefab
 
                         matchingComponent.IsNormalPartOfNestedPrefab = true;
-                        Print2($"{matchingComponent.ComponentName} is <b>part of a nested prefab</b>");
+                        Print2($"{matchingComponent.prefabMatchInfo.ComponentName} is <b>part of a nested prefab</b>");
                     }
                 }
             }
@@ -77,8 +88,11 @@ namespace SimpleUI
             return matchingComponent;
         }
 
-        public static List<FullPrefabMatchInfo> WhatUsesComponent(string url, List<FullPrefabMatchInfo> matchInfos) => matchInfos.Where(m => m.URL.Equals(url.TrimStart('/'))).ToList();
-        public static List<FullPrefabMatchInfo> WhatUsesComponent<T>()
+        //public static List<PrefabMatchInfoDetailed> WhatUses
+
+        public static List<PrefabMatchInfo> WhatUsesComponent() => WhatUsesComponent<OpenUrl>();
+        public static List<PrefabMatchInfo> WhatUsesComponent(string url, List<PrefabMatchInfo> matchInfos) => matchInfos.Where(m => m.URL.Equals(url.TrimStart('/'))).ToList();
+        public static List<PrefabMatchInfo> WhatUsesComponent<T>()
         {
             var typeToSearch = typeof(T);
 
@@ -90,7 +104,7 @@ namespace SimpleUI
             var paths = guids.Select(AssetDatabase.GUIDToAssetPath).ToList();
             paths.RemoveAll(guid => excludeFolders.Any(guid.Contains));
 
-            var matchingComponents = new List<FullPrefabMatchInfo>();
+            var matchingComponents = new List<PrefabMatchInfo>();
 
             // save state
             var scenes = new List<Scene>();
@@ -107,7 +121,7 @@ namespace SimpleUI
             return matchingComponents;
         }
 
-        static void GetMatchingComponentsFromAsset(List<FullPrefabMatchInfo> matchingComponents, string path)
+        static void GetMatchingComponentsFromAsset(List<PrefabMatchInfo> matchingComponents, string path)
         {
             var properties = new[] { "Url" };
             List<Scene> openedScenes = new List<Scene>();
@@ -123,7 +137,7 @@ namespace SimpleUI
         }
 
 
-        static void GetMatchingComponentsFromScene<T>(List<FullPrefabMatchInfo> matchingComponents, string path, string[] properties, List<Scene> openedScenes)
+        static void GetMatchingComponentsFromScene<T>(List<PrefabMatchInfo> matchingComponents, string path, string[] properties, List<Scene> openedScenes)
         {
             // https://stackoverflow.com/questions/54452347/can-i-programatically-load-scenes-in-the-unity-editor
 
@@ -180,7 +194,7 @@ namespace SimpleUI
                 EditorSceneManager.CloseScene(scene, true);
         }
 
-        static void GetMatchingComponentsFromPrefab<T>(List<FullPrefabMatchInfo> matchingComponents, string path, string[] properties)
+        static void GetMatchingComponentsFromPrefab<T>(List<PrefabMatchInfo> matchingComponents, string path, string[] properties)
         {
             var asset = AssetDatabase.LoadAssetAtPath<GameObject>(path);
 
