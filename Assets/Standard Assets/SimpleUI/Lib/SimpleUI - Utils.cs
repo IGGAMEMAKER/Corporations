@@ -26,11 +26,6 @@ namespace SimpleUI
             //Print("PRT2: " + text);
         }
 
-        static void Print(string text)
-        {
-            Debug.Log(text);
-        }
-
         public static void BoldPrint(string text)
         {
             Debug.Log($"<b>{text}</b>");

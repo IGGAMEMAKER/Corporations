@@ -3,11 +3,10 @@ using System.Linq;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.Experimental.SceneManagement;
-using static SimpleUI.SimpleUI;
 
 namespace SimpleUI
 {
-    public partial class SimpleUIEditor : EditorWindow
+    public partial class SimpleUI : EditorWindow
     {
         static Vector2 recentPrefabsScrollPosition = Vector2.zero;
 
@@ -20,20 +19,30 @@ namespace SimpleUI
 
         public float myFloat = 1f;
 
-        public List<SimpleUISceneType> prefabs => SimpleUI.prefabs;
+        //public List<SimpleUISceneType> prefabs => SimpleUI.prefabs;
 
-        public List<PrefabMatchInfo> allAssetsWithOpenUrl2 = new List<PrefabMatchInfo>();
+        public static bool IsDataLoaded = false;
 
-        public List<PrefabMatchInfo> allAssetsWithOpenUrl => SimpleUI.allAssetsWithOpenUrl;
-        public Dictionary<string, MonoScript> allScripts => SimpleUI.allScripts;
+        [SerializeField]
+        List<PrefabMatchInfo> allAssetsWithOpenUrl2;
+        public List<PrefabMatchInfo> GetAllAssetsWithOpenUrl()
+        {
+            if (allAssetsWithOpenUrl2 == null)
+            {
+                allAssetsWithOpenUrl2 = GetPrefabMatchesFromFile();
+            }
+
+            return allAssetsWithOpenUrl2; // new List<PrefabMatchInfo>();// => SimpleUI.allAssetsWithOpenUrl;
+        }
+
+        public Dictionary<string, MonoScript> allScripts = new Dictionary<string, MonoScript>(); // => SimpleUI.allScripts;
 
         // refs to concrete url
-        public List<UsageInfo> referencesFromCode => SimpleUI.referencesFromCode;
+        public List<UsageInfo> referencesFromCode = new List<UsageInfo>(); // => SimpleUI.referencesFromCode;
 
         // chosen asset
         static bool isPrefabMode => PrefabStageUtility.GetCurrentPrefabStage() != null;
 
-        bool isConcreteUrlChosen => SimpleUI.isConcreteUrlChosen;
         int ChosenIndex => prefabs.FindIndex(p => p.Url.Equals(GetCurrentUrl())); // GetCurrentUrl()
         bool hasChosenPrefab => ChosenIndex >= 0;
 
@@ -43,26 +52,13 @@ namespace SimpleUI
         static bool isFirstGUI = true;
         static bool isFirstInspectorGUI = true;
 
-        SimpleUI _instance = null;
-        public SimpleUI SimpleUI
-        {
-            get
-            {
-                if (_instance == null)
-                    _instance = SimpleUI.GetInstance();
-
-
-                return _instance;
-            }
-        }
-
         [MenuItem("Window/SIMPLE UI")]
         public static void ShowWindow()
         {
             //Show existing window instance. If one doesn't exist, make one.
             // EditorWindow.GetWindow(typeof(SimpleUI), false, "Simple UI", true);
             //var w = EditorWindow.GetWindow(typeof(SimpleUI));
-            var w = EditorWindow.GetWindow<SimpleUIEditor>("Simple UI");
+            var w = GetInstance(); // EditorWindow.GetWindow<SimpleUI>("Simple UI");
             // w.minSize = new Vector2(200, 100);
         }
 
@@ -72,15 +68,9 @@ namespace SimpleUI
         {
             if (!isFirstGUI)
             {
-                SimpleUI.ScanProject();
+                ScanProject();
 
                 RenderGUI();
-            }
-
-            if (allAssetsWithOpenUrl2.Count == 0)
-            {
-                BoldPrint("Load all assets in EDITOR");
-                allAssetsWithOpenUrl2 = WhatUsesComponent<OpenUrl>();
             }
 
             isFirstGUI = false;
@@ -107,10 +97,10 @@ namespace SimpleUI
             myFloat = EditorGUILayout.Slider("Slider", myFloat, -3, 3);
 
 
-            Label("Assets with OpenUrl component: " + allAssetsWithOpenUrl2.Count);
+            Label("Assets with OpenUrl component: " + GetAllAssetsWithOpenUrl().Count);
             if (Button("Refresh"))
             {
-                SimpleUI.ScanProject(true);
+                ScanProject(true);
             }
             Space();
 
@@ -136,7 +126,7 @@ namespace SimpleUI
         void RenderInspectorGUI()
         {
             var path = GetOpenedAssetPath();
-            ChooseUrlFromPickedPrefab(SimpleUI);
+            ChooseUrlFromPickedPrefab();
 
             // no matching urls
             if (newUrl.Equals(""))
@@ -149,7 +139,7 @@ namespace SimpleUI
                 Debug.Log("Object changed");
                 SetNewPath(path);
 
-                TryToIncreaseCurrentPrefabCounter(SimpleUI);
+                TryToIncreaseCurrentPrefabCounter();
             }
 
             //if (!isPrefabMode)

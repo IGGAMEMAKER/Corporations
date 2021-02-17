@@ -9,18 +9,6 @@ namespace SimpleUI
     {
         public SimpleUIEventHandler SimpleUIEventHandler;
 
-        SimpleUI _instance = null;
-        SimpleUI SimpleUI
-        {
-            get
-            {
-                if (_instance == null)
-                    _instance = SimpleUI.GetInstance();
-
-                return _instance;
-            }
-        }
-
         void Start()
         {
             ShowCurrentPrefab();
@@ -36,7 +24,7 @@ namespace SimpleUI
 
             if (SimpleUIEventHandler != null)
             {
-                var url = SimpleUI.GetCurrentUrl();
+                var url = SimpleUI.GetInstance().GetCurrentUrl();
 
                 SimpleUIEventHandler.PreviewUrlInEditor(url);
             }

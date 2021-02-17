@@ -4,9 +4,6 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEditor;
-using UnityEditor.Experimental.SceneManagement;
-using UnityEditor.SceneManagement;
-using UnityEngine.SceneManagement;
 using System.Diagnostics;
 
 namespace SimpleUI
@@ -16,9 +13,8 @@ namespace SimpleUI
     {
         public bool isProjectScanned => SessionState.GetBool("isProjectScanned", false);
 
-        List<SimpleUISceneType> _prefabs;
-        internal Dictionary<string, List<UrlOpeningAttempt>> UrlOpeningAttempts;
-
+        int assetCount;
+        List<SimpleUISceneType> _prefabs = new List<SimpleUISceneType>();
         public List<SimpleUISceneType> prefabs
         {
             get
@@ -38,10 +34,11 @@ namespace SimpleUI
         }
 
 
+
         // getting data
         public void ScanProject(bool forceLoad = false)
         {
-            if ((!isProjectScanned || forceLoad) && isInstance)
+            if (!isProjectScanned || forceLoad)
             {
                 BoldPrint("Scanning project (Loading assets & scripts)");
 
@@ -54,6 +51,7 @@ namespace SimpleUI
                 LoadScripts();
 
                 var assetsEnd = DateTime.Now;
+                SavePrefabMatches(WhatUsesComponent());
                 LoadAssets();
 
                 BoldPrint($"Loaded assets & scripts in {Measure(start)} (assets: {Measure(assetsEnd)}, code: {Measure(start, assetsEnd)})");
@@ -73,13 +71,17 @@ namespace SimpleUI
 
         void LoadAssets()
         {
-            allAssetsWithOpenUrl = WhatUsesComponent();
-            assetCount = allAssetsWithOpenUrl.Count();
+            allAssetsWithOpenUrl2 = GetPrefabMatchesFromFile();
+            assetCount = allAssetsWithOpenUrl2.Count();
         }
 
         void LoadReferences(string url)
         {
+            var start = DateTime.Now;
+
             referencesFromCode = WhichScriptReferencesConcreteUrl(url);
+
+            Print("Searching current url in all scripts " + Measure(start));
         }
 
         static void SaveUrlOpeningAttempts(Dictionary<string, List<UrlOpeningAttempt>> data)
@@ -118,6 +120,26 @@ namespace SimpleUI
                 if (entityData.Count > 0)
                 {
                     serializer.Serialize(writer, entityData);
+                }
+            }
+        }
+
+        static void SavePrefabMatches(List<PrefabMatchInfo> data)
+        {
+            var fileName = "SimpleUI/SimpleUI-matches.txt";
+
+            Newtonsoft.Json.JsonSerializer serializer = new Newtonsoft.Json.JsonSerializer();
+            serializer.Converters.Add(new Newtonsoft.Json.Converters.JavaScriptDateTimeConverter());
+            serializer.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+            serializer.TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto;
+            serializer.Formatting = Newtonsoft.Json.Formatting.Indented;
+
+            using (StreamWriter sw = new StreamWriter(fileName))
+            using (Newtonsoft.Json.JsonWriter writer = new Newtonsoft.Json.JsonTextWriter(sw))
+            {
+                if (data.Count > 0)
+                {
+                    serializer.Serialize(writer, data);
                 }
             }
         }
@@ -161,6 +183,15 @@ namespace SimpleUI
             return obj ?? new List<SimpleUISceneType>();
         }
 
+        public static List<PrefabMatchInfo> GetPrefabMatchesFromFile()
+        {
+            var fileName = "SimpleUI/SimpleUI-matches.txt";
+
+            var obj = Newtonsoft.Json.JsonConvert.DeserializeObject<List<PrefabMatchInfo>>(File.ReadAllText(fileName), settings);
+
+            return obj ?? new List<PrefabMatchInfo>();
+        }
+
         public void UpdatePrefab(SimpleUISceneType prefab) => UpdatePrefab(prefab, ChosenIndex);
         public void UpdatePrefab(SimpleUISceneType prefab, int index)
         {
@@ -168,8 +199,17 @@ namespace SimpleUI
                 return;
 
             prefabs[index] = prefab;
-            SaveData();
+            SavePrefabs(prefabs);
         }
+
+        public static void StaticUpdatePrefab(SimpleUISceneType prefab, int index)
+        {
+            var prefs = GetPrefabsFromFile();
+
+            prefs[index] = prefab;
+            SavePrefabs(prefs);
+        }
+
 
         static string GetCallerName(int skipFrames)
         {
@@ -186,6 +226,12 @@ namespace SimpleUI
 
         public static SimpleUI GetInstance()
         {
+            var w = GetWindow();
+
+            w.ScanProject();
+
+            return w;
+
             //return instance;
 
             var time = DateTime.Now;

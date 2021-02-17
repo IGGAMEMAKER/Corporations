@@ -17,6 +17,7 @@ namespace SimpleUI
         {
             var eventHandler = FindObjectOfType<SimpleUIEventHandler>();
 
+
             if (eventHandler == null)
             {
                 Debug.LogError("SimpleUIEventHandler NOT FOUND");
@@ -40,7 +41,14 @@ namespace SimpleUI
         {
             var start = DateTime.Now;
 
-            AssetDatabase.OpenAsset(AssetDatabase.LoadMainAssetAtPath(path));
+            try
+            {
+                AssetDatabase.OpenAsset(AssetDatabase.LoadMainAssetAtPath(path));
+            }
+            catch
+            {
+                Error("Failed while opening " + path);
+            }
 
             Print($"Opening asset (<b>{Measure(start)}</b>) {path}");
         }
@@ -76,9 +84,9 @@ namespace SimpleUI
             newPath = p.AssetPath;
             newUrl = p.Url;
 
-            //PossiblePrefab = null;
-            //isDraggedPrefabMode = false;
-            //isUrlEditingMode = false;
+            PossiblePrefab = null;
+            isDraggedPrefabMode = false;
+            isUrlEditingMode = false;
             isConcreteUrlChosen = true;
 
 
@@ -175,17 +183,21 @@ namespace SimpleUI
             instance.newName = GetPrettyNameFromAssetPath(path); // x.Substring(0, ind);
 
             // choose URL
-            ChooseUrlFromPickedPrefab(instance);
-            TryToIncreaseCurrentPrefabCounter(instance);
+            ChooseUrlFromPickedPrefab();
+            TryToIncreaseCurrentPrefabCounter();
         }
 
-        public static void ChooseUrlFromPickedPrefab(SimpleUI instance)
+        public static void ChooseUrlFromPickedPrefab()
         {
+            return;
             var path = GetOpenedAssetPath();
+            var instance = SimpleUI.GetInstance();
+
             var urls = instance.prefabs.Where(p => p.AssetPath.Equals(path));
 
             if (!urls.Any())
             {
+                //BoldPrint("NO URLS MATCHING PATH " + path);
                 instance.newUrl = "";
             }
 
@@ -202,17 +214,17 @@ namespace SimpleUI
             }
         }
 
-        public static void TryToIncreaseCurrentPrefabCounter(SimpleUI instance)
+        public static void TryToIncreaseCurrentPrefabCounter()
         {
-            if (instance.hasChosenPrefab)
-            {
-                var pref = instance.prefabs[instance.ChosenIndex];
+            //if (instance.hasChosenPrefab)
+            //{
+            //    var pref = instance.prefabs[instance.ChosenIndex];
 
-                pref.Usages++;
-                pref.LastOpened = DateTime.Now.Ticks;
+            //    pref.Usages++;
+            //    pref.LastOpened = DateTime.Now.Ticks;
 
-                instance.UpdatePrefab(pref);
-            }
+            //    instance.UpdatePrefab(pref);
+            //}
         }
     }
 }

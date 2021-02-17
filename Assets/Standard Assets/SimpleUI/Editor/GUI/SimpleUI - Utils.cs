@@ -7,21 +7,21 @@ using static SimpleUI.SimpleUI;
 
 namespace SimpleUI
 {
-    public partial class SimpleUIEditor : EditorWindow
+    public partial class SimpleUI : EditorWindow
     {
-        void SaveData()
-        {
-            SimpleUI.SaveData();
-        }
+        //void SaveData()
+        //{
+        //    SimpleUI.SaveData();
+        //}
 
-        void OpenPrefab(SimpleUISceneType prefab)
-        {
-            PossiblePrefab = null;
-            isDraggedPrefabMode = false;
-            isUrlEditingMode = false;
+        //void OpenPrefab(SimpleUISceneType prefab)
+        //{
+        //    PossiblePrefab = null;
+        //    isDraggedPrefabMode = false;
+        //    isUrlEditingMode = false;
 
-            SimpleUI.OpenPrefab(prefab);
-        }
+        //    SimpleUI.OpenPrefab(prefab);
+        //}
 
         //static void OpenPrefab(SimpleUISceneType p)
         //{
@@ -133,7 +133,7 @@ namespace SimpleUI
 
             if (!isTopRoute)
             {
-                var root = SimpleUI.GetPrefabByUrl(upperUrl);
+                var root = GetPrefabByUrl(upperUrl);
 
                 Label($"Root");
 
@@ -143,7 +143,7 @@ namespace SimpleUI
 
         void RenderSubroutes()
         {
-            var subUrls = SimpleUI.GetSubUrls(newUrl, false);
+            var subUrls = GetSubUrls(newUrl, false);
 
             if (subUrls.Any())
             {
@@ -192,9 +192,14 @@ namespace SimpleUI
 
         #endregion
 
-        void Print(string str)
+        static void Print(string str)
         {
             Debug.Log(str);
+        }
+
+        static void Error(string str)
+        {
+            Debug.LogError(str);
         }
     }
 }

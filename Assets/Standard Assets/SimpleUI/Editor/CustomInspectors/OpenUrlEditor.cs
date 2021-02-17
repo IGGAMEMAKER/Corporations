@@ -29,12 +29,13 @@ namespace SimpleUI
         }
 
         List<SimpleUISceneType> prefabs; // => SimpleUI.prefabs;
-        string[] _choices => prefabs.Select(p => MakeProperUrl(p.Url)).ToArray();
+        string[] _choices; // => prefabs.Select(p => MakeProperUrl(p.Url)).ToArray();
         // = { "foo", "foobar" };
 
         private void OnEnable()
         {
             prefabs = SimpleUI.GetPrefabsFromFile();
+            _choices = prefabs.Select(p => MakeProperUrl(p.Url)).ToArray();
         }
 
         public override void OnInspectorGUI()

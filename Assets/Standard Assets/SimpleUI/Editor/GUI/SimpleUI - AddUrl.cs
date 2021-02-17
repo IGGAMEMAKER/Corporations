@@ -6,14 +6,14 @@ namespace SimpleUI
 {
     // adding new routes
     // dragging prefabs
-    public partial class SimpleUIEditor
+    public partial class SimpleUI
     {
-        private static GameObject PossiblePrefab;
-        private static string possiblePrefabName = "";
+        static GameObject PossiblePrefab;
+        static string possiblePrefabName = "";
 
-        private static string draggedUrl = "";
-        private static string draggedName = "";
-        private static string draggedPath = "";
+        static string draggedUrl = "";
+        static string draggedName = "";
+        static string draggedPath = "";
 
         private void RenderMakingAPrefabFromGameObject()
         {

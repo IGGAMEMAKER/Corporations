@@ -23,12 +23,13 @@ namespace SimpleUI
         List<PrefabMatchInfo> referencesFromAssets;
         List<SimpleUI.UsageInfo> referencesFromCode;
 
+        static bool loaded = false;
+
         SimpleUI _instance = null;
         SimpleUI SimpleUI
         {
             get
             {
-                return _instance;
                 if (_instance == null)
                 {
                     //Debug.Log("Getting SimpleUI cause it's null");
@@ -40,17 +41,15 @@ namespace SimpleUI
             }
         }
 
-        private void OnEnable()
-        {
-            _instance = SimpleUI.GetInstance();
-        }
-
         private void OnSceneGUI()
         {
             if (EditorApplication.isCompiling || EditorApplication.isUpdating)
                 return;
 
-            referencesFromAssets = SimpleUI.allAssetsWithOpenUrl;
+            if (SimpleUI == null)
+                return;
+
+            referencesFromAssets = SimpleUI.GetAllAssetsWithOpenUrl();
             referencesFromCode = SimpleUI.referencesFromCode;
 
             string currentUrl = SimpleUI.GetCurrentUrl();
@@ -125,10 +124,9 @@ namespace SimpleUI
 
         void RenderReferencesToUrl(string currentUrl)
         {
-            GUILayout.BeginArea(new Rect(off, off, w, h));
-
             var matches = SimpleUI.WhatUsesComponent(currentUrl, referencesFromAssets);
 
+            GUILayout.BeginArea(new Rect(off, off, w, h));
 
             if (matches.Any() || referencesFromCode.Any())
                 Label("References to THIS url");

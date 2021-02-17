@@ -90,31 +90,14 @@ namespace SimpleUI
     }
 
     [CreateAssetMenu(fileName = "SimpleUIDataContainer", menuName = "SimpleUI data container", order = 51)]
-    public partial class SimpleUI : ScriptableObject
+    public partial class SimpleUI : EditorWindow
     {
-        public bool isInstance = false;
-        public bool isConcreteUrlChosen = false;
+        bool isConcreteUrlChosen;
 
         public string newUrl = "";
         public string newName = "";
         public string newPath = "";
 
-
-        int assetCount = 5;
-        [SerializeField]
-        public List<PrefabMatchInfo> allAssetsWithOpenUrl = new List<PrefabMatchInfo>();
-        [SerializeField]
-        public Dictionary<string, MonoScript> allScripts = new Dictionary<string, MonoScript>();
-
-
-        public List<UsageInfo> referencesFromCode; // = new List<UsageInfo>();
-
-        static bool isPrefabMode => PrefabStageUtility.GetCurrentPrefabStage() != null;
-
-        int ChosenIndex => prefabs.FindIndex(p => p.Url.Equals(GetCurrentUrl())); // GetCurrentUrl()
-        bool hasChosenPrefab => ChosenIndex >= 0;
-
-        public string GetCurrentUrl() => newUrl.StartsWith("/") ? newUrl : "/" + newUrl;
 
         internal static string GetOpenedAssetPath()
         {
@@ -138,9 +121,9 @@ namespace SimpleUI
             EditorApplication.quitting += Application_quitting;
         }
 
-        public static EditorWindow GetWindow()
+        public static SimpleUI GetWindow()
         {
-            return EditorWindow.GetWindow<SimpleUIEditor>("Simple UI");
+            return EditorWindow.GetWindow<SimpleUI>("Simple UI");
         }
 
         private static void PrefabStage_prefabSaved(GameObject obj)
@@ -157,9 +140,11 @@ namespace SimpleUI
 
             BoldPrint("Asset saved: " + path);
 
-            instance.allAssetsWithOpenUrl.RemoveAll(a => a.PrefabAssetPath.Equals(path));
+            instance.GetAllAssetsWithOpenUrl().RemoveAll(a => a.PrefabAssetPath.Equals(path));
 
-            GetMatchingComponentsFromAsset(instance.allAssetsWithOpenUrl, path);
+            GetMatchingComponentsFromAsset(instance.GetAllAssetsWithOpenUrl(), path);
+
+            SavePrefabMatches(instance.GetAllAssetsWithOpenUrl());
         }
 
         private void OnEnable()
