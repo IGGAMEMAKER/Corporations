@@ -28,6 +28,7 @@ namespace SimpleUI
         {
             get
             {
+                return _instance;
                 if (_instance == null)
                 {
                     //Debug.Log("Getting SimpleUI cause it's null");
@@ -37,6 +38,11 @@ namespace SimpleUI
 
                 return _instance;
             }
+        }
+
+        private void OnEnable()
+        {
+            _instance = SimpleUI.GetInstance();
         }
 
         private void OnSceneGUI()
