@@ -28,9 +28,14 @@ namespace SimpleUI
             }
         }
 
-        List<SimpleUISceneType> prefabs => SimpleUI.prefabs;
+        List<SimpleUISceneType> prefabs; // => SimpleUI.prefabs;
         string[] _choices => prefabs.Select(p => MakeProperUrl(p.Url)).ToArray();
         // = { "foo", "foobar" };
+
+        private void OnEnable()
+        {
+            prefabs = SimpleUI.GetPrefabsFromFile();
+        }
 
         public override void OnInspectorGUI()
         {
@@ -101,7 +106,7 @@ namespace SimpleUI
             var openUrl = target as OpenUrl;
             var pos = openUrl.transform.position - new Vector3(0, -250, 0);
 
-            Handles.Label(pos, SimpleUI.GetPrettyNameForExistingUrl("/" + openUrl.Url)); // transform.position - new Vector3(0, -250, 0)
+            Handles.Label(pos, SimpleUI.GetPrettyNameForExistingUrl("/" + openUrl.Url, prefabs)); // transform.position - new Vector3(0, -250, 0)
 
             if (GUILayout.Button(openUrl.Url))
             {

@@ -12,6 +12,30 @@ namespace SimpleUI
 {
     public partial class SimpleUI
     {
+        // called from GAME UI libs
+        public static void OpenUrl(string url)
+        {
+            var eventHandler = FindObjectOfType<SimpleUIEventHandler>();
+
+            if (eventHandler == null)
+            {
+                Debug.LogError("SimpleUIEventHandler NOT FOUND");
+
+                return;
+            }
+
+            var queryIndex = url.IndexOf('?');
+            var query = "";
+
+            if (queryIndex >= 0)
+            {
+                query = url.Substring(queryIndex);
+                url = url.Substring(0, queryIndex);
+            }
+
+            eventHandler.OpenUrl(url);
+        }
+
         public static void OpenAssetByPath(string path)
         {
             var start = DateTime.Now;
@@ -61,31 +85,6 @@ namespace SimpleUI
             LoadReferences(newUrl);
 
             OpenAssetByPath(newPath);
-        }
-
-
-        // called from UI libs
-        public static void OpenUrl(string url)
-        {
-            var eventHandler = FindObjectOfType<SimpleUIEventHandler>();
-
-            if (eventHandler == null)
-            {
-                Debug.LogError("SimpleUIEventHandler NOT FOUND");
-
-                return;
-            }
-
-            var queryIndex = url.IndexOf('?');
-            var query = "";
-
-            if (queryIndex >= 0)
-            {
-                query = url.Substring(queryIndex);
-                url = url.Substring(0, queryIndex);
-            }
-
-            eventHandler.OpenUrl(url);
         }
 
         //EditorSceneManager.activeSceneChangedInEditMode += EditorSceneManager_activeSceneChangedInEditMode;
@@ -163,7 +162,6 @@ namespace SimpleUI
 
         private static void PrefabStage_prefabOpened(PrefabStage obj)
         {
-
             Debug.Log("Prefab opened: " + obj.prefabContentsRoot.name);
 
             // Wrap with SimpleUI menus

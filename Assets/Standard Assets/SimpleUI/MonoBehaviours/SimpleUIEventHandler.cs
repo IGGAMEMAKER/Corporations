@@ -17,22 +17,28 @@ namespace SimpleUI
         public Dictionary<string, GameObject> Objects = new Dictionary<string, GameObject>();
 
         public string CurrentUrl;
-        List<SimpleUISceneType> prefabs => SimpleUI.prefabs;
+        List<SimpleUISceneType> prefabs; // => Instance.prefabs;
 
         private static int counter = 0;
         private static int sameUrlCounter = 0;
         private static int counterThreshold = 8;
 
-        SimpleUI _instance = null;
-        SimpleUI SimpleUI
-        {
-            get
-            {
-                if (_instance == null)
-                    _instance = SimpleUI.GetInstance();
+        //SimpleUI _instance = null;
+        //SimpleUI Instance
+        //{
+        //    get
+        //    {
+        //        if (_instance == null)
+        //            _instance = SimpleUI.GetInstance();
 
-                return _instance;
-            }
+        //        return _instance;
+        //    }
+        //}
+
+        private void LoadPrefabs()
+        {
+            if (prefabs == null)
+                prefabs = SimpleUI.GetPrefabsFromFile();
         }
 
         private void Update()
@@ -82,12 +88,15 @@ namespace SimpleUI
             // RenderPrefab(url);
         }
 
-        public void PreviewUrl(string NextUrl)
+        // called from editor only
+        public void PreviewUrlInEditor(string NextUrl)
         {
             if (Application.isEditor)
             {
                 ResetCounters();
             }
+
+            LoadPrefabs();
 
             Debug.Log("<b>PREVIEW URL</b>");
 
@@ -95,6 +104,7 @@ namespace SimpleUI
             HidePrefab(NextUrl);
         }
 
+        // called both from game and editor
         public void OpenUrl(string NextUrl)
         {
             counter++;
@@ -122,7 +132,7 @@ namespace SimpleUI
 
             if (!SimpleUI.IsUrlExist(NextUrl))
             {
-                SimpleUI.AddMissingUrl(NextUrl);
+                SimpleUI.AddMissingUrl(NextUrl, CurrentUrl);
             }
 
             RenderUrls(NextUrl);

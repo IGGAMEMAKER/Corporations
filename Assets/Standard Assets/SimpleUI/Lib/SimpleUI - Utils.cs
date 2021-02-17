@@ -104,6 +104,10 @@ namespace SimpleUI
             return x.Substring(0, ind);
         }
 
+        public static string GetPrettyNameForExistingUrl(string url, List<SimpleUISceneType> prefs)
+        {
+            return prefs.FirstOrDefault(p => p.Url.Equals(url)).Name;
+        }
         public string GetPrettyNameForExistingUrl(string url)
         {
             var prefab = GetPrefabByUrl(url);
@@ -178,14 +182,16 @@ namespace SimpleUI
             }
         }
 
-        public void AddMissingUrl(string url)
+        public static void AddMissingUrl(string url, string previousUrl)
         {
-            if (!UrlOpeningAttempts.ContainsKey(url))
-                UrlOpeningAttempts[url] = new List<UrlOpeningAttempt>();
+            var attempts = GetUrlOpeningAttempts();
 
-            UrlOpeningAttempts[url].Add(new UrlOpeningAttempt { PreviousUrl = GetCurrentUrl() });
+            if (!attempts.ContainsKey(url))
+                attempts[url] = new List<UrlOpeningAttempt>();
 
-            SaveData();
+            attempts[url].Add(new UrlOpeningAttempt { PreviousUrl = previousUrl });
+
+            SaveUrlOpeningAttempts(attempts);
         }
     }
 }

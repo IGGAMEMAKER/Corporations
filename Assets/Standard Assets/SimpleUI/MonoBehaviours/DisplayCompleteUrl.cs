@@ -38,7 +38,7 @@ namespace SimpleUI
             {
                 var url = SimpleUI.GetCurrentUrl();
 
-                SimpleUIEventHandler.PreviewUrl(url);
+                SimpleUIEventHandler.PreviewUrlInEditor(url);
             }
         }
     }

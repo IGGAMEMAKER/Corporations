@@ -82,11 +82,29 @@ namespace SimpleUI
             referencesFromCode = WhichScriptReferencesConcreteUrl(url);
         }
 
-        // File I/O
-        internal void SaveData()
+        static void SaveUrlOpeningAttempts(Dictionary<string, List<UrlOpeningAttempt>> data)
+        {
+            var fileName2 = "SimpleUI/SimpleUI-MissingUrls.txt";
+
+            Newtonsoft.Json.JsonSerializer serializer = new Newtonsoft.Json.JsonSerializer();
+            serializer.Converters.Add(new Newtonsoft.Json.Converters.JavaScriptDateTimeConverter());
+            serializer.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+            serializer.TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto;
+            serializer.Formatting = Newtonsoft.Json.Formatting.Indented;
+
+            using (StreamWriter sw = new StreamWriter(fileName2))
+            using (Newtonsoft.Json.JsonWriter writer = new Newtonsoft.Json.JsonTextWriter(sw))
+            {
+                if (data.Count() > 0)
+                {
+                    serializer.Serialize(writer, data);
+                }
+            }
+        }
+
+        static void SavePrefabs(List<SimpleUISceneType> entityData)
         {
             var fileName = "SimpleUI/SimpleUI.txt";
-            var fileName2 = "SimpleUI/SimpleUI-MissingUrls.txt";
 
             Newtonsoft.Json.JsonSerializer serializer = new Newtonsoft.Json.JsonSerializer();
             serializer.Converters.Add(new Newtonsoft.Json.Converters.JavaScriptDateTimeConverter());
@@ -97,26 +115,18 @@ namespace SimpleUI
             using (StreamWriter sw = new StreamWriter(fileName))
             using (Newtonsoft.Json.JsonWriter writer = new Newtonsoft.Json.JsonTextWriter(sw))
             {
-                var entityData = _prefabs;
-                //var entityData = prefabs; // new Dictionary<int, IComponent[]>();
-
                 if (entityData.Count > 0)
                 {
                     serializer.Serialize(writer, entityData);
                 }
             }
+        }
 
-
-            using (StreamWriter sw = new StreamWriter(fileName2))
-            using (Newtonsoft.Json.JsonWriter writer = new Newtonsoft.Json.JsonTextWriter(sw))
-            {
-                var data = UrlOpeningAttempts;
-
-                if (data.Count() > 0)
-                {
-                    serializer.Serialize(writer, data);
-                }
-            }
+        // File I/O
+        internal void SaveData()
+        {
+            SavePrefabs(_prefabs);
+            SaveUrlOpeningAttempts(UrlOpeningAttempts);
         }
 
         void LoadData()
@@ -124,7 +134,7 @@ namespace SimpleUI
             BoldPrint("Read SimpleUI.txt");
 
             _prefabs = GetPrefabsFromFile();
-            UrlOpeningAttempts = GetFailedUrlOpenings();
+            UrlOpeningAttempts = GetUrlOpeningAttempts();
         }
 
         public static Newtonsoft.Json.JsonSerializerSettings settings => new Newtonsoft.Json.JsonSerializerSettings
@@ -133,7 +143,7 @@ namespace SimpleUI
             NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
         };
 
-        public static Dictionary<string, List<UrlOpeningAttempt>> GetFailedUrlOpenings()
+        public static Dictionary<string, List<UrlOpeningAttempt>> GetUrlOpeningAttempts()
         {
             var missingUrls = "SimpleUI/SimpleUI-MissingUrls.txt";
 

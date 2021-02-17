@@ -138,6 +138,10 @@ namespace SimpleUI
             EditorApplication.quitting += Application_quitting;
         }
 
+        public static EditorWindow GetWindow()
+        {
+            return EditorWindow.GetWindow<SimpleUIEditor>("Simple UI");
+        }
 
         private static void PrefabStage_prefabSaved(GameObject obj)
         {

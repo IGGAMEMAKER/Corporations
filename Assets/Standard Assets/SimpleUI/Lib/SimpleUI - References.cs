@@ -88,8 +88,6 @@ namespace SimpleUI
             return matchingComponent;
         }
 
-        //public static List<PrefabMatchInfoDetailed> WhatUses
-
         public static List<PrefabMatchInfo> WhatUsesComponent() => WhatUsesComponent<OpenUrl>();
         public static List<PrefabMatchInfo> WhatUsesComponent(string url, List<PrefabMatchInfo> matchInfos) => matchInfos.Where(m => m.URL.Equals(url.TrimStart('/'))).ToList();
         public static List<PrefabMatchInfo> WhatUsesComponent<T>()
