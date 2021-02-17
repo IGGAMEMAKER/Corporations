@@ -13,7 +13,6 @@ namespace SimpleUI
     {
         public bool isProjectScanned => SessionState.GetBool("isProjectScanned", false);
 
-        int assetCount;
         List<SimpleUISceneType> _prefabs = new List<SimpleUISceneType>();
         public List<SimpleUISceneType> prefabs
         {
@@ -27,6 +26,23 @@ namespace SimpleUI
                 return _prefabs;
             }
         }
+
+        [SerializeField]
+        List<PrefabMatchInfo> allAssetsWithOpenUrl;
+        public List<PrefabMatchInfo> GetAllAssetsWithOpenUrl()
+        {
+            if (allAssetsWithOpenUrl == null)
+            {
+                allAssetsWithOpenUrl = GetPrefabMatchesFromFile();
+            }
+
+            return allAssetsWithOpenUrl; // new List<PrefabMatchInfo>();// => SimpleUI.allAssetsWithOpenUrl;
+        }
+
+        public Dictionary<string, MonoScript> allScripts = new Dictionary<string, MonoScript>();
+
+        // refs to concrete url
+        public List<UsageInfo> referencesFromCode = new List<UsageInfo>();
 
         public SimpleUISceneType GetPrefabByUrl(string url)
         {
@@ -71,17 +87,12 @@ namespace SimpleUI
 
         void LoadAssets()
         {
-            allAssetsWithOpenUrl2 = GetPrefabMatchesFromFile();
-            assetCount = allAssetsWithOpenUrl2.Count();
+            allAssetsWithOpenUrl = GetPrefabMatchesFromFile();
         }
 
         void LoadReferences(string url)
         {
-            var start = DateTime.Now;
-
             referencesFromCode = WhichScriptReferencesConcreteUrl(url);
-
-            Print("Searching current url in all scripts " + Measure(start));
         }
 
         static void SaveUrlOpeningAttempts(Dictionary<string, List<UrlOpeningAttempt>> data)

@@ -19,26 +19,9 @@ namespace SimpleUI
 
         public float myFloat = 1f;
 
-        //public List<SimpleUISceneType> prefabs => SimpleUI.prefabs;
-
         public static bool IsDataLoaded = false;
 
-        [SerializeField]
-        List<PrefabMatchInfo> allAssetsWithOpenUrl2;
-        public List<PrefabMatchInfo> GetAllAssetsWithOpenUrl()
-        {
-            if (allAssetsWithOpenUrl2 == null)
-            {
-                allAssetsWithOpenUrl2 = GetPrefabMatchesFromFile();
-            }
 
-            return allAssetsWithOpenUrl2; // new List<PrefabMatchInfo>();// => SimpleUI.allAssetsWithOpenUrl;
-        }
-
-        public Dictionary<string, MonoScript> allScripts = new Dictionary<string, MonoScript>(); // => SimpleUI.allScripts;
-
-        // refs to concrete url
-        public List<UsageInfo> referencesFromCode = new List<UsageInfo>(); // => SimpleUI.referencesFromCode;
 
         // chosen asset
         static bool isPrefabMode => PrefabStageUtility.GetCurrentPrefabStage() != null;

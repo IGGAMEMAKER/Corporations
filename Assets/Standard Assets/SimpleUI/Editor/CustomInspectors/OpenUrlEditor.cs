@@ -16,18 +16,6 @@ namespace SimpleUI
 
         static Vector2 scroll = Vector2.zero;
 
-        SimpleUI _instance = null;
-        SimpleUI SimpleUI
-        {
-            get
-            {
-                if (_instance == null)
-                    _instance = SimpleUI.GetInstance();
-
-                return _instance;
-            }
-        }
-
         List<SimpleUISceneType> prefabs; // => SimpleUI.prefabs;
         string[] _choices; // => prefabs.Select(p => MakeProperUrl(p.Url)).ToArray();
         // = { "foo", "foobar" };
@@ -111,7 +99,7 @@ namespace SimpleUI
 
             if (GUILayout.Button(openUrl.Url))
             {
-                SimpleUI.OpenPrefabByUrl(openUrl.Url);
+                SimpleUI.GetInstance().OpenPrefabByUrl(openUrl.Url);
             }
 
             Handles.EndGUI();
