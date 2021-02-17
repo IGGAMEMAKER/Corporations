@@ -62,13 +62,25 @@ namespace SimpleUI
         }
     }
 
-    public class PrefabMatchInfo
+    [Serializable]
+    public struct PrefabMatchInfo
     {
+
+    }
+
+    public struct FullPrefabMatchInfo
+    {
+        //public PrefabMatchInfo MatchInfo;
         public string PrefabAssetPath;
-        public string ComponentName;
-        public int ComponentID;
         public string URL;
 
+        // debug
+        public string ComponentName;
+        public int ComponentID;
+
+        // ---------------------
+
+        // for rename
         public GameObject Asset;
         public OpenUrl Component;
 
@@ -89,11 +101,15 @@ namespace SimpleUI
         public string newName = "";
         public string newPath = "";
 
-        int assetCount;
-        public List<PrefabMatchInfo> allAssetsWithOpenUrl = new List<PrefabMatchInfo>();
+
+        int assetCount = 5;
+        [SerializeField]
+        public List<FullPrefabMatchInfo> allAssetsWithOpenUrl = new List<FullPrefabMatchInfo>();
+        [SerializeField]
         public Dictionary<string, MonoScript> allScripts = new Dictionary<string, MonoScript>();
 
-        public List<UsageInfo> referencesFromCode = new List<UsageInfo>();
+
+        public List<UsageInfo> referencesFromCode; // = new List<UsageInfo>();
 
         static bool isPrefabMode => PrefabStageUtility.GetCurrentPrefabStage() != null;
 
@@ -156,6 +172,7 @@ namespace SimpleUI
             }
         }
 
+
         void OnRecompile()
         {
             Print("OnRecompile");
@@ -177,21 +194,9 @@ namespace SimpleUI
 
             var instance = GetInstance();
 
-            //instance.isProjectScanned = false;
-
             instance.newName = "";
             instance.newPath = "";
             instance.newUrl = "";
         }
-
-        //private void OnDisable()
-        //{
-        //    BoldPrint("ON DISABLE SIMLEUI");
-        //}
-
-        //private void OnDestroy()
-        //{
-        //    BoldPrint("ON DESTROY SIMLEUI");
-        //}
     }
 }

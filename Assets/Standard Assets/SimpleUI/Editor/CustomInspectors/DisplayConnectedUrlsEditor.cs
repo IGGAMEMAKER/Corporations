@@ -20,7 +20,7 @@ namespace SimpleUI
         //Handles.Button(Vector3.one * 10, Quaternion.identity, 200, 200, Handles.RectangleHandleCap);
 
         // Cached data
-        List<PrefabMatchInfo> referencesFromAssets;
+        List<FullPrefabMatchInfo> referencesFromAssets;
         List<SimpleUI.UsageInfo> referencesFromCode;
 
         SimpleUI _instance = null;

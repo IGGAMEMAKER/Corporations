@@ -38,11 +38,10 @@ namespace SimpleUI
         }
 
 
-
         // getting data
-        public void ScanProject()
+        public void ScanProject(bool forceLoad = false)
         {
-            if (!isProjectScanned && isInstance)
+            if ((!isProjectScanned || forceLoad) && isInstance)
             {
                 BoldPrint("Scanning project (Loading assets & scripts)");
 
@@ -64,6 +63,11 @@ namespace SimpleUI
 
         void LoadScripts()
         {
+            if (allScripts == null)
+            {
+                BoldPrint("Scripts are null");
+            }
+
             allScripts = GetAllScripts();
         }
 

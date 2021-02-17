@@ -83,16 +83,6 @@ namespace SimpleUI
 
             Label(prefab.Url);
 
-            if (Button("Load instances"))
-            {
-                var instances = SimpleUI.GetAllInstances<SimpleUI>();
-
-                foreach (var i in instances)
-                {
-                    Print("instance " + i.name);
-                }
-            }
-
             Space();
             if (Button("Edit prefab"))
             {
@@ -184,7 +174,7 @@ namespace SimpleUI
             return newUrl2;
         }
 
-        void RenameUrlInPrefab(OpenUrl component, string newFormattedUrl, PrefabMatchInfo match)
+        void RenameUrlInPrefab(OpenUrl component, string newFormattedUrl, FullPrefabMatchInfo match)
         {
             // https://forum.unity.com/threads/how-do-i-edit-prefabs-from-scripts.685711/#post-4591885
             using (var editingScope = new PrefabUtility.EditPrefabContentsScope(match.PrefabAssetPath))
@@ -227,9 +217,9 @@ namespace SimpleUI
 
             try
             {
-                AssetDatabase.StartAssetEditing();
-
                 Print($"Replacing {from} to {to} in {route}");
+
+                AssetDatabase.StartAssetEditing();
 
                 Print("Rename in assets");
                 foreach (var match in matches)
@@ -246,7 +236,7 @@ namespace SimpleUI
 
                     var newFormattedUrl = GetUrlFormattedToOpenUrl(component, from, to);
 
-                    Debug.Log($"Renaming {component.Url} => {newFormattedUrl} on component {match.ComponentName} in {match.PrefabAssetPath}");
+                    Print($"Renaming {component.Url} => {newFormattedUrl} on component {match.ComponentName} in {match.PrefabAssetPath}");
 
 
                     // saving changes
@@ -374,6 +364,7 @@ namespace SimpleUI
                     foreach (var url in RenamingUrls.OrderByDescending(u => u.Count(c => c.Equals('/'))))
                     {
                         Print("Rename URL " + url);
+
                         var finalURL = url.Replace(newUrl, newEditingUrl);
                         RenameUrl(url, newUrl, newEditingUrl, finalURL);
 

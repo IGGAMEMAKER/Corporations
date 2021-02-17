@@ -22,8 +22,12 @@ namespace SimpleUI
 
         public List<SimpleUISceneType> prefabs => SimpleUI.prefabs;
 
-        public List<PrefabMatchInfo> allAssetsWithOpenUrl => SimpleUI.allAssetsWithOpenUrl;
+        public List<FullPrefabMatchInfo> allAssetsWithOpenUrl2 = new List<FullPrefabMatchInfo>();
+
+        public List<FullPrefabMatchInfo> allAssetsWithOpenUrl => SimpleUI.allAssetsWithOpenUrl;
         public Dictionary<string, MonoScript> allScripts => SimpleUI.allScripts;
+
+        // refs to concrete url
         public List<UsageInfo> referencesFromCode => SimpleUI.referencesFromCode;
 
         // chosen asset
@@ -63,6 +67,7 @@ namespace SimpleUI
         }
 
 
+
         void OnGUI()
         {
             if (!isFirstGUI)
@@ -70,6 +75,12 @@ namespace SimpleUI
                 SimpleUI.ScanProject();
 
                 RenderGUI();
+            }
+
+            if (allAssetsWithOpenUrl2.Count == 0)
+            {
+                BoldPrint("Load all assets in EDITOR");
+                allAssetsWithOpenUrl2 = WhatUsesComponent<OpenUrl>();
             }
 
             isFirstGUI = false;
@@ -94,6 +105,13 @@ namespace SimpleUI
 
             Space();
             myFloat = EditorGUILayout.Slider("Slider", myFloat, -3, 3);
+
+
+            Label("Assets with OpenUrl component: " + allAssetsWithOpenUrl2.Count);
+            if (Button("Refresh"))
+            {
+                SimpleUI.ScanProject(true);
+            }
             Space();
 
             if (!hasChosenPrefab)
