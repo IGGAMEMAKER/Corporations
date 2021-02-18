@@ -90,10 +90,15 @@ namespace SimpleUI
             Space();
             if (Button("Make GUIDS for SimpleUI.txt!"))
             {
-                for (var i = 0; i < prefabs.Count; i++)
+                var prefs = SimpleUI.GetPrefabsFromFile();
+                for (var i = 0; i < prefs.Count; i++)
                 {
-                    prefabs[i].SetGUID();
-                    UpdatePrefab(prefabs[i], i);
+                    var pref = prefs[i];
+
+                    pref.SetGUID();
+                    BoldPrint($"Setting GUID for {pref.Name} {pref.ID}");
+
+                    UpdatePrefab(pref, i);
                 }
             }
 

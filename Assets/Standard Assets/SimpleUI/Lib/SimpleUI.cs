@@ -69,10 +69,10 @@ namespace SimpleUI
 
         public void SetGUID()
         {
-            if (ID.Length != 0)
+            if (ID != null && ID.Length != 0)
                 return;
 
-            var guid = string.Format("{0}_{1:N}", Url, Guid.NewGuid());
+            var guid = string.Format("{1:N}", Url, Guid.NewGuid());
             //var guid = Guid.NewGuid().ToString();
             ID = guid;
         }
