@@ -49,6 +49,9 @@ namespace SimpleUI
 
             DrawDefaultInspector();
 
+            FillEmptyGUID();
+            DrawProperUrls();
+
             var openUrl = target as OpenUrl;
 
             // link to url asset
@@ -78,6 +81,61 @@ namespace SimpleUI
         void OpenCurrentUrl()
         {
             SimpleUI.GetInstance().OpenPrefabByUrl((target as OpenUrl).Url);
+        }
+
+        void FillEmptyGUID()
+        {
+            var openUrl = target as OpenUrl;
+
+            if (!HasValidGuid(openUrl))
+            {
+                var url = SimpleUI.GetValidatedUrl(openUrl.Url);
+
+                var index = prefabs.FindIndex(p => p.Url.Equals(url));
+
+                if (index == -1)
+                {
+                    Debug.LogError($"Prefab for url {url} not found!!");
+                }
+                else
+                {
+                    var prefab = prefabs[index];
+
+                    openUrl.Url_ID = prefab.ID;
+                    EditorUtility.SetDirty(openUrl);
+                }
+            }
+        }
+
+        bool HasValidGuid(OpenUrl openUrl)
+        {
+            // openUrl.Url_ID == null || openUrl.Url_ID.Length == 0
+            return openUrl.Url_ID != null && openUrl.Url_ID.Length != 0;
+        }
+
+        void DrawProperUrls()
+        {
+            var openUrl = target as OpenUrl;
+
+            var validatedUrl = SimpleUI.GetValidatedUrl(openUrl.Url);
+
+            // url is obsolete
+            if (!prefabs.Exists(p => p.Url.Equals(validatedUrl)) && HasValidGuid(openUrl))
+            {
+                var index = prefabs.FindIndex(p => p.ID.Equals(openUrl.Url_ID));
+
+                if (index == -1)
+                {
+                    Debug.LogError("Guid doesnot exist " + openUrl.Url_ID);
+                }
+                else
+                {
+                    var prefab = prefabs[index];
+
+                    openUrl.Url = prefab.Url;
+                    EditorUtility.SetDirty(openUrl);
+                }
+            }
         }
 
         void OnSceneGUI()

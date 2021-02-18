@@ -67,7 +67,50 @@ namespace SimpleUI
             isFirstInspectorGUI = false;
         }
 
+        void RenderMakeGuidButton()
+        {
+            bool hasNoGuidAssets = prefabs.Any(p => p.ID == null || p.ID.Length == 0);
 
+            if (hasNoGuidAssets)
+                Space();
+
+            if (hasNoGuidAssets && Button("Make GUIDS for SimpleUI.txt!"))
+            {
+                var prefs = SimpleUI.GetPrefabsFromFile();
+                for (var i = 0; i < prefs.Count; i++)
+                {
+                    var pref = prefs[i];
+
+                    pref.SetGUID();
+                    BoldPrint($"Setting GUID for {pref.Name} {pref.ID}");
+
+                    UpdatePrefab(pref, i);
+                }
+            }
+        }
+
+        void AttachGUIDsToOpenUrlComponents()
+        {
+            var matches = GetAllAssetsWithOpenUrl();
+
+            var paths = new List<string>();
+
+            foreach (var m in matches)
+            {
+                if (!paths.Contains(m.PrefabAssetPath))
+                    paths.Add(m.PrefabAssetPath);
+            }
+
+            for (var i = 0; i < paths.Count; i++)
+            {
+                var path = paths[i];
+
+                if (Button(path))
+                {
+                    OpenAssetByPath(path);
+                }
+            }
+        }
 
         void RenderGUI()
         {
@@ -87,20 +130,9 @@ namespace SimpleUI
             }
             Space();
 
+            RenderMakeGuidButton();
             Space();
-            if (Button("Make GUIDS for SimpleUI.txt!"))
-            {
-                var prefs = SimpleUI.GetPrefabsFromFile();
-                for (var i = 0; i < prefs.Count; i++)
-                {
-                    var pref = prefs[i];
-
-                    pref.SetGUID();
-                    BoldPrint($"Setting GUID for {pref.Name} {pref.ID}");
-
-                    UpdatePrefab(pref, i);
-                }
-            }
+            AttachGUIDsToOpenUrlComponents();
 
             if (!hasChosenPrefab)
                 RenderPrefabs();

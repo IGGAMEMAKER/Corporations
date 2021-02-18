@@ -83,6 +83,8 @@ namespace SimpleUI
         void ChangeUrl(string newUrl, bool forceDirty = true)
         {
             OpenUrl.Url = MakeProperUrl(newUrl);
+            var validatedUrl = SimpleUI.GetValidatedUrl(newUrl);
+            OpenUrl.Url_ID = prefabs.First(p => p.Url.Equals(validatedUrl)).ID;
 
             // Save the changes back to the object
             if (forceDirty)

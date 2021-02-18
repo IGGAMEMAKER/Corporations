@@ -72,6 +72,7 @@ namespace SimpleUI
             if (ID != null && ID.Length != 0)
                 return;
 
+            // https://stackoverflow.com/questions/11313205/generate-a-unique-id
             var guid = string.Format("{1:N}", Url, Guid.NewGuid());
             //var guid = Guid.NewGuid().ToString();
             ID = guid;
