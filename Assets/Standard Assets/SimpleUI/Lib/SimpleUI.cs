@@ -42,6 +42,8 @@ namespace SimpleUI
 
     public struct SimpleUISceneType
     {
+        public string ID;
+
         public string Url;
         public string Name;
         public string AssetPath;
@@ -59,6 +61,20 @@ namespace SimpleUI
 
             Usages = 0;
             LastOpened = 0;
+
+            ID = "";
+
+            SetGUID();
+        }
+
+        public void SetGUID()
+        {
+            if (ID.Length != 0)
+                return;
+
+            var guid = string.Format("{0}_{1:N}", Url, Guid.NewGuid());
+            //var guid = Guid.NewGuid().ToString();
+            ID = guid;
         }
     }
 
@@ -163,6 +179,9 @@ namespace SimpleUI
         void OnRecompile()
         {
             Print("OnRecompile");
+
+            if (EditorWindow.HasOpenInstances<OpenUrlPickerWindow>())
+                EditorWindow.GetWindow<OpenUrlPickerWindow>().Close();
 
             LoadScripts();
             LoadReferences(GetCurrentUrl());

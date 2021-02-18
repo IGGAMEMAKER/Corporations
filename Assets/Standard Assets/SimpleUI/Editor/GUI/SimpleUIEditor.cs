@@ -87,6 +87,16 @@ namespace SimpleUI
             }
             Space();
 
+            Space();
+            if (Button("Make GUIDS for SimpleUI.txt!"))
+            {
+                for (var i = 0; i < prefabs.Count; i++)
+                {
+                    prefabs[i].SetGUID();
+                    UpdatePrefab(prefabs[i], i);
+                }
+            }
+
             if (!hasChosenPrefab)
                 RenderPrefabs();
 

@@ -1,29 +1,45 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace SimpleUI
 {
+    // https://answers.unity.com/questions/489942/how-to-make-a-readonly-property-in-inspector.html
+    public class ReadOnlyAttribute : PropertyAttribute
+    {
+
+    }
+
+    [CustomPropertyDrawer(typeof(ReadOnlyAttribute))]
+    public class ReadOnlyDrawer : PropertyDrawer
+    {
+        public override float GetPropertyHeight(SerializedProperty property,
+                                                GUIContent label)
+        {
+            return EditorGUI.GetPropertyHeight(property, label, true);
+        }
+
+        public override void OnGUI(Rect position,
+                                   SerializedProperty property,
+                                   GUIContent label)
+        {
+            GUI.enabled = false;
+            EditorGUI.PropertyField(position, property, label, true);
+            GUI.enabled = true;
+        }
+    }
+
     [CustomEditor(typeof(OpenUrl))]
     public class OpenUrlEditor : Editor
     {
-        static int _choiceIndex = 0;
-
-        static Vector2 scroll = Vector2.zero;
-
-        List<SimpleUISceneType> prefabs; // => SimpleUI.prefabs;
-        string[] _choices; // => prefabs.Select(p => MakeProperUrl(p.Url)).ToArray();
-        // = { "foo", "foobar" };
+        List<SimpleUISceneType> prefabs;
 
         private void OnEnable()
         {
             prefabs = SimpleUI.GetPrefabsFromFile();
-            _choices = prefabs.Select(p => MakeProperUrl(p.Url)).ToArray();
         }
 
         public override void OnInspectorGUI()
@@ -35,59 +51,36 @@ namespace SimpleUI
 
             var openUrl = target as OpenUrl;
 
+            // link to url asset
             GUILayout.Space(15);
-            GUILayout.Label("OR choose from list", EditorStyles.boldLabel);
-
-            PickFromDropdown(openUrl);
-
-            GUILayout.Space(15);
-            GUILayout.Label("OR Choose from RECENTLY added prefabs", EditorStyles.boldLabel);
-
-            PickRecentUrls(openUrl);
-        }
-
-        void PickFromDropdown(OpenUrl openUrl)
-        {
-            var prevValue = openUrl.Url;
-            _choiceIndex = Array.IndexOf(_choices, prevValue);
-
-            // If the choice is not in the array then the _choiceIndex will be -1 so set back to 0
-            if (_choiceIndex < 0)
-                _choiceIndex = 0;
-
-
-            _choiceIndex = EditorGUILayout.Popup(_choiceIndex, _choices);
-
-            // Update the selected choice in the underlying object
-            openUrl.Url = _choices[_choiceIndex];
-
-            if (!prevValue.Equals(openUrl.Url))
+            if (Button($"<b>GO TO</b>\n{openUrl.Url}"))
             {
-                // Save the changes back to the object
-                EditorUtility.SetDirty(target);
+                OpenCurrentUrl();
+            }
+
+            // pick new url
+            GUILayout.Space(15);
+            if (Button("<b>Change url</b>\n"))
+            {
+                var w = EditorWindow.GetWindow<OpenUrlPickerWindow>();
+                w.SetOpenUrl(openUrl);
             }
         }
 
-        void PickRecentUrls(OpenUrl openUrl)
+        bool Button(string name)
         {
             GUIStyle style = GUI.skin.FindStyle("Button");
             style.richText = true;
 
-            scroll = EditorGUILayout.BeginScrollView(scroll);
-
-            var recent = prefabs.OrderByDescending(pp => pp.LastOpened).Take(15);
-            foreach (var r in recent)
-            {
-                if (GUILayout.Button($"<b>{r.Name}</b>\n", style))
-                {
-                    openUrl.Url = MakeProperUrl(r.Url);
-                }
-            }
-
-            EditorGUILayout.EndScrollView();
+            return GUILayout.Button(name, style);
         }
 
-        private void OnSceneGUI()
+        void OpenCurrentUrl()
+        {
+            SimpleUI.GetInstance().OpenPrefabByUrl((target as OpenUrl).Url);
+        }
+
+        void OnSceneGUI()
         {
             Handles.BeginGUI();
 
@@ -98,12 +91,10 @@ namespace SimpleUI
 
             if (GUILayout.Button(openUrl.Url))
             {
-                SimpleUI.GetInstance().OpenPrefabByUrl(openUrl.Url);
+                OpenCurrentUrl();
             }
 
             Handles.EndGUI();
         }
-
-        static string MakeProperUrl(string url) => url.Trim('/');
     }
 }

@@ -11,7 +11,6 @@ public class MenuController : View
     // string = url
     public Dictionary<ScreenMode, string> PrefabScreens = new Dictionary<ScreenMode, string>();
 
-
     private void OnEnable()
     {
         Debug.Log("OnEnable MenuController");

@@ -12,7 +12,8 @@ namespace SimpleUI
     [RequireComponent(typeof(Button))]
     public class OpenUrl : MonoBehaviour
     {
-        public string Url;
+        [ReadOnly] public string Url;
+        [ReadOnly] public string Url_ID;
 
         Button Button;
 
