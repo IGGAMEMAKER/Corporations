@@ -77,8 +77,9 @@ namespace SimpleUI
             return url;
         }
 
-        string GetPrettyNameForUrl(string url, string currentUrl)
+        string GetPrettyNameForUrl(string guid, string currentUrl)
         {
+            var url = SimpleUI.GetPrefabByGuid(guid).Url;
             url = Urlify(url);
 
             bool isDirectSubUrl = SimpleUI.isSubRouteOf(url, currentUrl, false);
@@ -114,14 +115,15 @@ namespace SimpleUI
 
             scrollPosition3 = GUILayout.BeginScrollView(scrollPosition3);
 
-            var referenceSelected = GUILayout.SelectionGrid(-1, matches.Select(m => GetPrettyNameForUrl(m.URL, currentUrl)).ToArray(), 1);
+            var referenceSelected = GUILayout.SelectionGrid(-1, matches.Select(m => GetPrettyNameForUrl(m.URL_ID, currentUrl)).ToArray(), 1);
 
             GUILayout.EndScrollView();
             GUILayout.EndArea();
 
             if (referenceSelected != -1)
             {
-                SimpleUI.OpenPrefabByUrl(matches[referenceSelected].URL);
+                SimpleUI.OpenPrefabByGuid(matches[referenceSelected].URL_ID);
+                //SimpleUI.OpenPrefabByUrl(matches[referenceSelected].URL);
             }
         }
 
