@@ -79,7 +79,7 @@ namespace SimpleUI
             Space();
 
             RenderMakeGuidButton();
-            //AttachGUIDsToOpenUrlComponents();
+            AttachGUIDsToOpenUrlComponents();
 
             if (!hasChosenPrefab)
                 RenderPrefabs();
@@ -128,7 +128,7 @@ namespace SimpleUI
 
         void RenderMakeGuidButton()
         {
-            bool hasNoGuidAssets = prefabs.Any(p => p.ID == null || p.ID.Length == 0);
+            bool hasNoGuidAssets = prefabs.Any(p => p.ID == null || p.ID.Length == 0) || GetAllAssetsWithOpenUrl().Any(a => a.URL_ID == null || a.URL_ID.Length == 0);
 
             if (hasNoGuidAssets)
                 Space();
