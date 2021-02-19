@@ -354,10 +354,12 @@ foreach (var match in matches)
                 AssetDatabase.StopAssetEditing();
 
                 BoldPrint($"Trying to update prefab data: {route} => {finalURL}");
+                var index = prefabs.FindIndex(p => p.Url.Equals(route));
+
                 var prefab = GetPrefabByUrl(route);
                 prefab.Url = finalURL;
 
-                UpdatePrefab(prefab);
+                UpdatePrefab(prefab, index);
 
                 SavePrefabMatches(assets);
             }
