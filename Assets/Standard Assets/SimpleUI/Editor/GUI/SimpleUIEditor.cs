@@ -129,7 +129,7 @@ namespace SimpleUI
                         //if (pref.Url.Equals("/"))
                         //    continue;
 
-                        var candidates = prefabs.Where(p => !p.Url.Equals("/"));
+                        var candidates = prefabs.Where(p => !p.Url.Equals("/")).OrderByDescending((u => u.Url.Count(c => c.Equals('/'))));
 
                         var renameCandidates = candidates.Select(p => p.Url).ToList();
                         var futureCandidates = candidates.Select(url => $"simplelink:{url.ID}").ToList();
