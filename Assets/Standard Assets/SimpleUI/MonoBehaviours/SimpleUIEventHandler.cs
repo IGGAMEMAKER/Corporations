@@ -37,7 +37,7 @@ namespace SimpleUI
 
         private void LoadPrefabs()
         {
-            if (prefabs == null)
+            //if (prefabs == null)
                 prefabs = SimpleUI.GetPrefabsFromFile();
         }
 
@@ -104,11 +104,21 @@ namespace SimpleUI
             HidePrefab(NextUrl);
         }
 
+        void OnValidate()
+        {
+            if (SimpleUI.IsUrlExist(CurrentUrl))
+            {
+                Print("Open Url " + CurrentUrl);
+                OpenUrl(CurrentUrl);
+            }
+        }
+
         // called both from game and editor
         public void OpenUrl(string NextUrl)
         {
             counter++;
 
+            Print("Check counter threshold");
             if (counter > counterThreshold)
             {
                 Debug.LogError($"INFINITE LOOP: {NextUrl} => {CurrentUrl}");
@@ -116,6 +126,7 @@ namespace SimpleUI
                 return;
             }
 
+            Print("Check infinite loops");
             if (NextUrl.Equals(CurrentUrl))
             {
                 sameUrlCounter++;
@@ -130,11 +141,13 @@ namespace SimpleUI
 
             sameUrlCounter = 0;
 
+            Print("Check url existance");
             if (!SimpleUI.IsUrlExist(NextUrl))
             {
                 SimpleUI.AddMissingUrl(NextUrl, CurrentUrl);
             }
 
+            Print("preRENDER URLS");
             RenderUrls(NextUrl);
 
             CurrentUrl = NextUrl;
@@ -218,7 +231,7 @@ namespace SimpleUI
 
         void Print(string text)
         {
-            //Debug.Log(text);
+            Debug.Log(text);
         }
 
         List<string> ParseUrlToSubRoutes(string url)

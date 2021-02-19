@@ -75,10 +75,10 @@ public abstract class Controller : BaseClass
                 Companies.Measure(view.name, startTime, MyProfiler, "Views");
             // }
 
-            if (view.name == "Gameplay")
-            {
-                Debug.Log("Rendering Gameplay object");
-            }
+            //if (view.name == "Gameplay")
+            //{
+            //    Debug.Log("Rendering Gameplay object");
+            //}
         }
 
         foreach (var view in buttonViews)
