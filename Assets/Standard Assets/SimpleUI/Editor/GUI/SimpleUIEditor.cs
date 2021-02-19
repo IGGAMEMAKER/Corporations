@@ -91,6 +91,8 @@ namespace SimpleUI
 
         void AttachGUIDsToOpenUrlComponents()
         {
+            Space();
+
             var matches = GetAllAssetsWithOpenUrl();
 
             var paths = new List<string>();
@@ -114,14 +116,18 @@ namespace SimpleUI
 
         void AttachAnchorsToUrl()
         {
-            foreach (var p in prefabs)
+            Space();
+            if (Button("Attach anchors"))
             {
-                foreach (var script in allScripts)
+                foreach (var p in prefabs)
                 {
-                    if (p.Url.Equals("/"))
-                        continue;
+                    foreach (var script in allScripts)
+                    {
+                        if (p.Url.Equals("/"))
+                            continue;
 
-                    RenameUrlInScript(script.Key, p.Url, $"simplelink:{p.Url}");
+                        RenameUrlInScript(script.Key, p.Url, $"simplelink:{p.Url}");
+                    }
                 }
             }
         }
@@ -145,9 +151,7 @@ namespace SimpleUI
             Space();
 
             RenderMakeGuidButton();
-            Space();
-            AttachGUIDsToOpenUrlComponents();
-            Space();
+            //AttachGUIDsToOpenUrlComponents();
             AttachAnchorsToUrl();
 
             if (!hasChosenPrefab)
