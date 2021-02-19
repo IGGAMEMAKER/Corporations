@@ -100,6 +100,7 @@ namespace SimpleUI
     {
         public string PrefabAssetPath;
         public string URL;
+        public string URL_ID;
 
         // debug
         public string ComponentName;
