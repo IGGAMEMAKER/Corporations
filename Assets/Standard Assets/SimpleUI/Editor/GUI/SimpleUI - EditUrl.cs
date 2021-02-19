@@ -292,9 +292,9 @@ namespace SimpleUI
                 {
                     var match = assets[i];
 
-                    if (match.URL.Equals(from))
+                    if (match.URL.Equals(route))
                     {
-                        match.URL = to;
+                        match.URL = finalURL;
                         assets[i] = match;
                     }
                 }
