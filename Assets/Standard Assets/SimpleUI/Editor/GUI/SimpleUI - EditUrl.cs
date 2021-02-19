@@ -199,13 +199,14 @@ namespace SimpleUI
             EditorSceneManager.SaveScene(asset.scene);
         }
 
-        void RenameUrlInScript(UsageInfo match, string from, string to)
+        void RenameUrlInScript(UsageInfo match, string from, string to) => RenameUrlInScript(match.ScriptName, from, to);
+        void RenameUrlInScript(string ScriptName, string from, string to)
         {
-            var script = AssetDatabase.LoadAssetAtPath<MonoScript>(match.ScriptName);
+            var script = AssetDatabase.LoadAssetAtPath<MonoScript>(ScriptName);
 
             var replacedText = ReplaceUrlInCode(script.text, from, to);
 
-            StreamWriter writer = new StreamWriter(match.ScriptName, false);
+            StreamWriter writer = new StreamWriter(ScriptName, false);
             writer.Write(replacedText);
             writer.Close();
         }

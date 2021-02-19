@@ -112,6 +112,20 @@ namespace SimpleUI
             }
         }
 
+        void AttachAnchorsToUrl()
+        {
+            foreach (var p in prefabs)
+            {
+                foreach (var script in allScripts)
+                {
+                    if (p.Url.Equals("/"))
+                        continue;
+
+                    RenameUrlInScript(script.Key, p.Url, $"simplelink:{p.Url}");
+                }
+            }
+        }
+
         void RenderGUI()
         {
             recentPrefabsScrollPosition = GUILayout.BeginScrollView(recentPrefabsScrollPosition);
@@ -133,6 +147,8 @@ namespace SimpleUI
             RenderMakeGuidButton();
             Space();
             AttachGUIDsToOpenUrlComponents();
+            Space();
+            AttachAnchorsToUrl();
 
             if (!hasChosenPrefab)
                 RenderPrefabs();
