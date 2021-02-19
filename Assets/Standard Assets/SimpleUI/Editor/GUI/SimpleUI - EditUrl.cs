@@ -322,7 +322,6 @@ foreach (var match in matches)
                 AssetDatabase.StartAssetEditing();
 
                 Print("Rename in assets " + assets.Count);
-
                 for (var i = 0; i < assets.Count; i++)
                 {
                     var match = assets[i];
@@ -336,8 +335,6 @@ foreach (var match in matches)
                         assets[i] = match;
                     }
                 }
-
-                //RenameAssetsOld();
 
                 Print("Rename in code");
                 foreach (var match in codeRefs)
@@ -356,6 +353,7 @@ foreach (var match in matches)
                 //AssetDatabase.SaveAssets();
                 AssetDatabase.StopAssetEditing();
 
+                BoldPrint($"Trying to update prefab data: {route} => {finalURL}");
                 var prefab = GetPrefabByUrl(route);
                 prefab.Url = finalURL;
 
