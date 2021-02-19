@@ -286,7 +286,22 @@ namespace SimpleUI
                 AssetDatabase.StartAssetEditing();
 
                 Print("Rename in assets");
-                /*foreach (var match in matches)
+                var assets = GetAllAssetsWithOpenUrl();
+
+                for (var i = 0; i < assets.Count; i++)
+                {
+                    var match = assets[i];
+
+                    if (match.URL.Equals(from))
+                    {
+                        match.URL = to;
+                        assets[i] = match;
+                    }
+                }
+                SavePrefabMatches(assets);
+
+                /*
+                foreach (var match in matches)
                 {
                     if (match.IsNormalPartOfNestedPrefab)
                         continue;
@@ -313,7 +328,8 @@ namespace SimpleUI
                     {
                         RenameUrlInPrefab(component, newFormattedUrl, match);
                     }
-                }*/
+                }
+                */
 
                 Print("Rename in code");
                 foreach (var match in codeRefs)
