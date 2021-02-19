@@ -279,6 +279,8 @@ namespace SimpleUI
             var matches = WhatUsesComponent(route, GetAllAssetsWithOpenUrl());
             var codeRefs = WhichScriptReferencesConcreteUrl(route);
 
+            var assets = GetAllAssetsWithOpenUrl();
+
             try
             {
                 Print($"Replacing {from} to {to} in {route}");
@@ -286,7 +288,6 @@ namespace SimpleUI
                 AssetDatabase.StartAssetEditing();
 
                 Print("Rename in assets");
-                var assets = GetAllAssetsWithOpenUrl();
 
                 for (var i = 0; i < assets.Count; i++)
                 {
@@ -298,7 +299,6 @@ namespace SimpleUI
                         assets[i] = match;
                     }
                 }
-                SavePrefabMatches(assets);
 
                 /*
                 foreach (var match in matches)
@@ -352,6 +352,8 @@ namespace SimpleUI
                 prefab.Url = finalURL;
 
                 UpdatePrefab(prefab);
+
+                SavePrefabMatches(assets);
             }
 
             return true;
