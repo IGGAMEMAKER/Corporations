@@ -15,6 +15,7 @@ namespace SimpleUI
         // string - url
         // GameObject - prefab
         public Dictionary<string, GameObject> Objects = new Dictionary<string, GameObject>();
+        public List<string> Urls = new List<string>();
 
         public string CurrentUrl;
         List<SimpleUISceneType> prefabs; // => Instance.prefabs;
@@ -158,6 +159,21 @@ namespace SimpleUI
         void DrawAsset(string url, bool show)
         {
             var asset = prefabs.Find(p => p.Url.Equals(url));
+
+            if (Urls.Contains(url))
+            {
+                if (!show)
+                {
+
+                }
+            }
+            else
+            {
+                if (show)
+                {
+                    // needs to show
+                }
+            }
 
             try
             {
