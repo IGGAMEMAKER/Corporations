@@ -274,6 +274,40 @@ namespace SimpleUI
             return textChanged;
         }
 
+        void RenameAssetsOld()
+        {
+            /*
+foreach (var match in matches)
+{
+    if (match.IsNormalPartOfNestedPrefab)
+        continue;
+
+    //var asset = AssetDatabase.LoadAssetAtPath<GameObject>(match.PrefabAssetPath);
+    //var asset = AssetDatabase.OpenAsset(AssetDatabase.LoadMainAssetAtPath(match.PrefabAssetPath));
+
+    var asset = match.Asset;
+    var component = match.Component;
+
+
+    var newFormattedUrl = GetUrlFormattedToOpenUrl(component, from, to);
+
+    Print($"Renaming {component.Url} => {newFormattedUrl} on component {match.ComponentName} in {match.PrefabAssetPath}");
+
+
+    // saving changes
+    if (SimpleUI.isSceneAsset(match.PrefabAssetPath))
+    {
+        RenameUrlInScene(component, newFormattedUrl, asset);
+    }
+
+    if (SimpleUI.isPrefabAsset(match.PrefabAssetPath))
+    {
+        RenameUrlInPrefab(component, newFormattedUrl, match);
+    }
+}
+*/
+        }
+
         bool RenameUrl(string route, string from, string to, string finalURL)
         {
             var matches = WhatUsesComponent(route, GetAllAssetsWithOpenUrl());
@@ -295,41 +329,14 @@ namespace SimpleUI
 
                     if (match.URL.Equals(route))
                     {
+                        BoldPrint("Renaming Asset MATCH!! " + route);
+
                         match.URL = finalURL;
                         assets[i] = match;
                     }
                 }
 
-                /*
-                foreach (var match in matches)
-                {
-                    if (match.IsNormalPartOfNestedPrefab)
-                        continue;
-
-                    //var asset = AssetDatabase.LoadAssetAtPath<GameObject>(match.PrefabAssetPath);
-                    //var asset = AssetDatabase.OpenAsset(AssetDatabase.LoadMainAssetAtPath(match.PrefabAssetPath));
-
-                    var asset = match.Asset;
-                    var component = match.Component;
-
-
-                    var newFormattedUrl = GetUrlFormattedToOpenUrl(component, from, to);
-
-                    Print($"Renaming {component.Url} => {newFormattedUrl} on component {match.ComponentName} in {match.PrefabAssetPath}");
-
-
-                    // saving changes
-                    if (SimpleUI.isSceneAsset(match.PrefabAssetPath))
-                    {
-                        RenameUrlInScene(component, newFormattedUrl, asset);
-                    }
-
-                    if (SimpleUI.isPrefabAsset(match.PrefabAssetPath))
-                    {
-                        RenameUrlInPrefab(component, newFormattedUrl, match);
-                    }
-                }
-                */
+                //RenameAssetsOld();
 
                 Print("Rename in code");
                 foreach (var match in codeRefs)
