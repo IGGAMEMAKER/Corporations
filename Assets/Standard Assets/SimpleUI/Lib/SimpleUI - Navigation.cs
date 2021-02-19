@@ -13,7 +13,7 @@ namespace SimpleUI
     public partial class SimpleUI
     {
         // called from GAME UI libs
-        public static void OpenUrl(string url)
+        public static void OpenUrl_static(string url)
         {
             var eventHandler = FindObjectOfType<SimpleUIEventHandler>();
 
@@ -69,7 +69,9 @@ namespace SimpleUI
 
         public void OpenPrefabByGuid(string guid)
         {
-            OpenPrefabByUrl(GetPrefabByGuid(guid).Url);
+            var p = GetPrefabByGuid(guid);
+
+            OpenPrefabByUrl(p.Url);
         }
 
         public void OpenPrefabByUrl(string url)
@@ -77,9 +79,9 @@ namespace SimpleUI
             if (!url.StartsWith("/"))
                 url = "/" + url;
 
-            var p1 = prefabs.First(p => p.Url.Equals(url));
+            var p = GetPrefabByUrl(url);
 
-            OpenPrefab(p1);
+            OpenPrefab(p);
         }
 
         public void OpenPrefab(SimpleUISceneType p)

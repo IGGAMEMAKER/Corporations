@@ -40,7 +40,7 @@ namespace SimpleUI
             else
                 newUrl = "/" + Url;
 
-            SimpleUI.OpenUrl(newUrl);
+            SimpleUI.OpenUrl_static(newUrl);
         }
 
         private void OnDrawGizmos()
