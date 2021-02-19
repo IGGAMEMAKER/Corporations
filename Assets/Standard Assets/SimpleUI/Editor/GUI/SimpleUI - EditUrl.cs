@@ -219,6 +219,30 @@ namespace SimpleUI
             return textChanged;
         }
 
+        void AttachAnchorsToUrl()
+        {
+            foreach (var script in allScripts)
+            {
+                var path = script.Key;
+                Print("Scanning " + path);
+
+                var candidates = prefabs
+                    .Where(p => !p.Url.Equals("/"))
+                    .OrderByDescending(u => u.Url.Count(c => c.Equals('/')));
+
+                var renameCandidates = candidates.Select(p => p.Url).ToList();
+                var futureCandidates = candidates.Select(url => $"simplelink:{url.Url}").ToList();
+                //var futureCandidates = candidates.Select(url => $"simplelink:{url.ID}").ToList();
+
+                bool success = RenameUrlsInScript(path, renameCandidates, futureCandidates);
+
+                if (success)
+                {
+                    BoldPrint("Renamed Urls in " + path);
+                }
+            }
+        }
+
         bool RenameUrlsInScript(string ScriptName, List<string> froms, List<string> tos)
         {
             var script = AssetDatabase.LoadAssetAtPath<MonoScript>(ScriptName);

@@ -37,7 +37,7 @@ namespace SimpleUI
             eventHandler.OpenUrl(url);
         }
 
-        public static void OpenAssetByPath(string path)
+        public static void OpenAsset(string path)
         {
             var start = DateTime.Now;
 
@@ -58,7 +58,7 @@ namespace SimpleUI
             if (!IsAssetPathExists(path))
             {
                 //Debug.LogError("Failed to OpenPrefabByAssetPath() " + path);
-                OpenAssetByPath(path);
+                OpenAsset(path);
                 return;
             }
 
@@ -67,10 +67,13 @@ namespace SimpleUI
             OpenPrefab(p1);
         }
 
+        public void OpenPrefabByGuid(string guid)
+        {
+            OpenPrefabByUrl(GetPrefabByGuid(guid).Url);
+        }
+
         public void OpenPrefabByUrl(string url)
         {
-            Debug.Log("Trying to open prefab by url: " + url);
-
             if (!url.StartsWith("/"))
                 url = "/" + url;
 
@@ -92,7 +95,7 @@ namespace SimpleUI
 
             LoadReferences(newUrl);
 
-            OpenAssetByPath(newPath);
+            OpenAsset(newPath);
         }
 
         //EditorSceneManager.activeSceneChangedInEditMode += EditorSceneManager_activeSceneChangedInEditMode;

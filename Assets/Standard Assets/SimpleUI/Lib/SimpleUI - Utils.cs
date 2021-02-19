@@ -145,6 +145,12 @@ namespace SimpleUI
             return prefabs.Any(p => p.Url.Equals(url));
         }
 
+        public static bool IsGUIDExist(string guid) => IsGUIDExist(guid, GetPrefabsFromFile());
+        public static bool IsGUIDExist(string guid, List<SimpleUISceneType> prefabs)
+        {
+            return prefabs.Any(p => p.ID.Equals(guid));
+        }
+
 
         public static bool isSceneAsset(string path) => path.EndsWith(".unity");
         public static bool isPrefabAsset(string path) => path.EndsWith(".prefab");

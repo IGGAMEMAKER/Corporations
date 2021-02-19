@@ -46,6 +46,10 @@ namespace SimpleUI
         // refs to concrete url
         public List<UsageInfo> referencesFromCode = new List<UsageInfo>();
 
+        public SimpleUISceneType GetPrefabByGuid(string guid)
+        {
+            return prefabs.FirstOrDefault(p => p.ID.Equals(guid));
+        }
         public SimpleUISceneType GetPrefabByUrl(string url)
         {
             return prefabs.FirstOrDefault(p => p.Url.Equals(url));

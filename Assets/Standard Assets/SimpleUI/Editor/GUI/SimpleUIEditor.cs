@@ -109,40 +109,59 @@ namespace SimpleUI
 
                 if (Button(path))
                 {
-                    OpenAssetByPath(path);
+                    OpenAsset(path);
                 }
             }
         }
 
-        void AttachAnchorsToUrl()
+        // path is asset path like blah/test.prefab
+        // or url
+        // or GUID
+        void RenderClipboardButton(string name, string path)
+        {
+            bool isAssetPath = path.Contains(".");
+            bool isUrl = path.Contains("/") && !isAssetPath;
+            bool isGuid = System.Guid.TryParse(path, out var guid);
+
+            if (Button(name))
+            {
+                if (isAssetPath)
+                    OpenPrefabByAssetPath(path);
+
+                if (isUrl)
+                    OpenPrefabByUrl(path);
+
+                if (isGuid)
+                    OpenPrefabByUrl(GetPrefabByGuid(path).Url);
+            }
+        }
+
+        void AnalyzeClipboard()
+        {
+            var clipboard = GUIUtility.systemCopyBuffer;
+
+            bool isUrl = clipboard.Contains("/");
+            bool isGuid = System.Guid.TryParse(clipboard, out var guid);
+
+            if (isUrl && IsUrlExist(clipboard))
+            {
+                var name = GetPrefabByUrl(clipboard).Name;
+                RenderClipboardButton(name, clipboard);
+            }
+
+            if (isGuid && IsGUIDExist(clipboard))
+            {
+                var name = GetPrefabByGuid(clipboard).Name;
+                RenderClipboardButton(name, clipboard);
+            }
+        }
+
+        void RenderAnchorsButton()
         {
             Space();
             if (Button("Attach anchors"))
             {
-                foreach (var script in allScripts)
-                {
-                    var path = script.Key;
-                    Print("Scanning " + path);
-
-                    //foreach (var pref in prefabs)
-                    //{
-                        //if (pref.Url.Equals("/"))
-                        //    continue;
-
-                        var candidates = prefabs.Where(p => !p.Url.Equals("/")).OrderByDescending((u => u.Url.Count(c => c.Equals('/'))));
-
-                        var renameCandidates = candidates.Select(p => p.Url).ToList();
-                        var futureCandidates = candidates.Select(url => $"simplelink:{url.ID}").ToList();
-
-                        //bool success = RenameUrlsInScript(path, renameCandidates, $"simplelink:{pref.Url}");
-                        bool success = RenameUrlsInScript(path, renameCandidates, futureCandidates);
-
-                        if (success)
-                        {
-                            BoldPrint("Renamed Urls in " + path);
-                        }
-                    //}
-                }
+                AttachAnchorsToUrl();
             }
         }
 
@@ -166,7 +185,7 @@ namespace SimpleUI
 
             RenderMakeGuidButton();
             //AttachGUIDsToOpenUrlComponents();
-            AttachAnchorsToUrl();
+            RenderAnchorsButton();
 
             if (!hasChosenPrefab)
                 RenderPrefabs();
