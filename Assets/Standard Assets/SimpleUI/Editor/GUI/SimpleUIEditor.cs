@@ -78,7 +78,6 @@ namespace SimpleUI
 
             RenderMakeGuidButton();
             //AttachGUIDsToOpenUrlComponents();
-            RenderAnchorsButton();
 
             if (!hasChosenPrefab)
                 RenderPrefabs();
@@ -91,6 +90,8 @@ namespace SimpleUI
                 RenderChosenPrefab();
             else
                 RenderAddingNewRoute();
+
+            RenderAnchorsButton();
 
             HandleDragAndDrop();
 
