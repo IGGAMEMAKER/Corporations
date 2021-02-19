@@ -16,6 +16,8 @@ namespace SimpleUI
         bool isUrlRemovingMode = false;
         bool isUrlAddingMode = false;
 
+        public float myFloat = 1f;
+
         // chosen asset
         static bool isPrefabMode => PrefabStageUtility.GetCurrentPrefabStage() != null;
 
@@ -66,7 +68,7 @@ namespace SimpleUI
             //RenderExistingTroubles();
 
             Space();
-            //myFloat = EditorGUILayout.Slider("Slider", myFloat, -3, 3);
+            myFloat = EditorGUILayout.Slider("Slider", myFloat, -3, 3);
 
 
             Label("Assets with OpenUrl component: " + GetAllAssetsWithOpenUrl().Count);

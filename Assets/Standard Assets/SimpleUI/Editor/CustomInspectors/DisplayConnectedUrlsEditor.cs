@@ -54,6 +54,8 @@ namespace SimpleUI
 
             string currentUrl = SimpleUI.GetCurrentUrl();
 
+            Debug.Log("MyFloat: " + SimpleUI.myFloat);
+
             RenderUpperAndLowerRoutes(currentUrl);
             RenderReferencesToUrl(currentUrl);
             RenderReferencesFromUrl(currentUrl);
@@ -104,7 +106,8 @@ namespace SimpleUI
             GUILayout.BeginArea(new Rect(Screen.width - w - off, off + h + off, w, h));
             //GUILayout.BeginArea(new Rect(off, off + h, w, h));
 
-            var matches = referencesFromAssets.Where(m => m.PrefabAssetPath.Equals(SimpleUI.GetOpenedAssetPath())).ToList();
+            var assetPath = SimpleUI.GetOpenedAssetPath(); //
+            var matches = referencesFromAssets.Where(m => m.PrefabAssetPath.Equals(assetPath)).ToList();
 
             if (matches.Any())
                 Label("Forward links...");

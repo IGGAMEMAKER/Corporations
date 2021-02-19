@@ -310,10 +310,10 @@ foreach (var match in matches)
 
         bool RenameUrl(string route, string from, string to, string finalURL)
         {
-            var matches = WhatUsesComponent(route, GetAllAssetsWithOpenUrl());
+            //var matches = WhatUsesComponent(route, GetAllAssetsWithOpenUrl());
             var codeRefs = WhichScriptReferencesConcreteUrl(route);
 
-            var assets = GetAllAssetsWithOpenUrl();
+            var assets = allAssetsWithOpenUrl; // GetAllAssetsWithOpenUrl();
 
             try
             {
