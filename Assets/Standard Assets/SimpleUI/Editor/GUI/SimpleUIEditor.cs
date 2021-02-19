@@ -121,14 +121,19 @@ namespace SimpleUI
             {
                 foreach (var p in prefabs)
                 {
-                    BoldPrint("Trying to rename " + p.Url);
+                    if (p.Url.Equals("/"))
+                        continue;
+
+                    Print("Trying to rename " + p.Url);
 
                     foreach (var script in allScripts)
                     {
-                        if (p.Url.Equals("/"))
-                            continue;
+                        bool success = RenameUrlInScript(script.Key, p.Url, $"simplelink:{p.Url}");
 
-                        RenameUrlInScript(script.Key, p.Url, $"simplelink:{p.Url}");
+                        if (success)
+                        {
+                            BoldPrint("Renamed " + p.Url);
+                        }
                     }
                 }
             }

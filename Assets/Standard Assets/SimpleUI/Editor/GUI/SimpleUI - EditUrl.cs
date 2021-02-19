@@ -199,8 +199,8 @@ namespace SimpleUI
             EditorSceneManager.SaveScene(asset.scene);
         }
 
-        void RenameUrlInScript(UsageInfo match, string from, string to) => RenameUrlInScript(match.ScriptName, from, to);
-        void RenameUrlInScript(string ScriptName, string from, string to)
+        bool RenameUrlInScript(UsageInfo match, string from, string to) => RenameUrlInScript(match.ScriptName, from, to);
+        bool RenameUrlInScript(string ScriptName, string from, string to)
         {
             var script = AssetDatabase.LoadAssetAtPath<MonoScript>(ScriptName);
 
@@ -210,11 +210,13 @@ namespace SimpleUI
             bool textChanged = !txt.Equals(replacedText);
 
             if (!textChanged)
-                return;
+                return textChanged;
 
             StreamWriter writer = new StreamWriter(ScriptName, false);
             writer.Write(replacedText);
             writer.Close();
+
+            return textChanged;
         }
 
         bool RenameUrl(string route, string from, string to, string finalURL)
