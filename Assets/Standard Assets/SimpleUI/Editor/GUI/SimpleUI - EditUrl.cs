@@ -321,7 +321,7 @@ foreach (var match in matches)
 
                 AssetDatabase.StartAssetEditing();
 
-                Print("Rename in assets");
+                Print("Rename in assets " + assets.Count);
 
                 for (var i = 0; i < assets.Count; i++)
                 {
