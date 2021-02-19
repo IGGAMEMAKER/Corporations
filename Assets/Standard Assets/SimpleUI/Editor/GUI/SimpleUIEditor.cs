@@ -119,15 +119,14 @@ namespace SimpleUI
             Space();
             if (Button("Attach anchors"))
             {
-                foreach (var p in prefabs)
+                foreach (var script in allScripts)
                 {
-                    if (p.Url.Equals("/"))
-                        continue;
-
-                    Print("Trying to rename " + p.Url);
-
-                    foreach (var script in allScripts)
+                    foreach (var p in prefabs)
                     {
+                        if (p.Url.Equals("/"))
+                            continue;
+
+                        Print("Trying to rename " + p.Url);
                         var path = script.Key;
                         bool success = RenameUrlInScript(path, p.Url, $"simplelink:{p.Url}");
 

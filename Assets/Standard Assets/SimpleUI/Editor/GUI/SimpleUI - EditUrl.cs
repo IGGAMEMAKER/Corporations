@@ -219,6 +219,30 @@ namespace SimpleUI
             return textChanged;
         }
 
+        bool RenameUrlsInScript(string ScriptName, List<string> froms, List<string> tos)
+        {
+            var script = AssetDatabase.LoadAssetAtPath<MonoScript>(ScriptName);
+
+            var txt = script.text;
+            var replacedText = txt;
+
+            for (var i = 0; i < froms.Count; i++)
+            {
+                replacedText = ReplaceUrlInCode(replacedText, froms[i], tos[i]);
+            }
+
+            bool textChanged = !txt.Equals(replacedText);
+
+            if (!textChanged)
+                return textChanged;
+
+            StreamWriter writer = new StreamWriter(ScriptName, false);
+            writer.Write(replacedText);
+            writer.Close();
+
+            return textChanged;
+        }
+
         bool RenameUrl(string route, string from, string to, string finalURL)
         {
             var matches = WhatUsesComponent(route, GetAllAssetsWithOpenUrl());
