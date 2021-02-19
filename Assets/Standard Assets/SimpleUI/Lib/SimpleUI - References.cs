@@ -18,6 +18,7 @@ namespace SimpleUI
         {
             var matchingComponent = new PrefabMatchInfo { PrefabAssetPath = path, ComponentName = component.gameObject.name };
             matchingComponent.URL = (component as OpenUrl).Url;
+            matchingComponent.URL_ID = (component as OpenUrl).Url_ID;
 
             return matchingComponent;
         }
