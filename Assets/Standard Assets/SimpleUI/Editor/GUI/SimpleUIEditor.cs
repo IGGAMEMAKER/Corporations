@@ -121,18 +121,23 @@ namespace SimpleUI
             {
                 foreach (var script in allScripts)
                 {
-                    foreach (var p in prefabs)
+                    var path = script.Key;
+                    Print("Scanning " + path);
+
+                    foreach (var pref in prefabs)
                     {
-                        if (p.Url.Equals("/"))
+                        if (pref.Url.Equals("/"))
                             continue;
 
-                        Print("Trying to rename " + p.Url);
-                        var path = script.Key;
-                        bool success = RenameUrlInScript(path, p.Url, $"simplelink:{p.Url}");
+                        var renameCandidates = prefabs.Where(p => !p.Url.Equals("/")).Select(p => p.Url).ToList();
+                        var futureCandidates = renameCandidates.Select(url => $"simplelink:{url}").ToList();
+
+                        //bool success = RenameUrlsInScript(path, renameCandidates, $"simplelink:{pref.Url}");
+                        bool success = RenameUrlsInScript(path, renameCandidates, futureCandidates);
 
                         if (success)
                         {
-                            BoldPrint("Renamed " + p.Url + " in " + path);
+                            BoldPrint("Renamed " + pref.Url + " in " + path);
                         }
                     }
                 }
