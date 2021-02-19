@@ -54,7 +54,7 @@ namespace SimpleUI
 
             string currentUrl = SimpleUI.GetCurrentUrl();
 
-            Debug.Log("MyFloat: " + SimpleUI.myFloat);
+            //Debug.Log("MyFloat: " + SimpleUI.myFloat);
 
             RenderUpperAndLowerRoutes(currentUrl);
             RenderReferencesToUrl(currentUrl);
@@ -82,7 +82,7 @@ namespace SimpleUI
             var prefab = SimpleUI.GetPrefabByGuid(guid);
             var url = prefab.Url;
 
-            Debug.Log("checking GUID " + guid + " " + prefab.Name + " " + url);
+            //Debug.Log("checking GUID " + guid + " " + prefab.Name + " " + url);
 
             if (url == null)
             {

@@ -78,8 +78,8 @@ namespace SimpleUI
             }
             Space();
 
-            RenderMakeGuidButton();
-            AttachGUIDsToOpenUrlComponents();
+            //RenderMakeGuidButton();
+            //AttachGUIDsToOpenUrlComponents();
 
             if (!hasChosenPrefab)
                 RenderPrefabs();
