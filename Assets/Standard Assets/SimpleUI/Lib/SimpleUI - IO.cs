@@ -35,7 +35,7 @@ namespace SimpleUI
         {
             if (allAssetsWithOpenUrl == null)
             {
-                allAssetsWithOpenUrl = GetPrefabMatchesFromFile();
+                LoadAssets();
             }
 
             return allAssetsWithOpenUrl; // new List<PrefabMatchInfo>();// => SimpleUI.allAssetsWithOpenUrl;
@@ -73,7 +73,14 @@ namespace SimpleUI
                 LoadScripts();
 
                 var assetsEnd = DateTime.Now;
-                SavePrefabMatches(WhatUsesComponent());
+                
+                // scanning all assets
+                var matches = WhatUsesComponent();
+                
+                // saving matches
+                SavePrefabMatches(matches);
+                
+                // restoring from file
                 LoadAssets();
 
                 BoldPrint($"Loaded assets & scripts in {Measure(start)} (assets: {Measure(assetsEnd)}, code: {Measure(start, assetsEnd)})");
