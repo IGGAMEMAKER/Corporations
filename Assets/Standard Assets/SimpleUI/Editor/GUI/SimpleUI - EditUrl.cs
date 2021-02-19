@@ -205,7 +205,7 @@ namespace SimpleUI
             var script = AssetDatabase.LoadAssetAtPath<MonoScript>(ScriptName);
 
             var txt = script.text;
-            var replacedText = ReplaceUrlInCode(script.text, from, to);
+            var replacedText = ReplaceUrlInCode(txt, from, to);
 
             bool textChanged = !txt.Equals(replacedText);
 

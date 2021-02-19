@@ -128,11 +128,12 @@ namespace SimpleUI
 
                     foreach (var script in allScripts)
                     {
-                        bool success = RenameUrlInScript(script.Key, p.Url, $"simplelink:{p.Url}");
+                        var path = script.Key;
+                        bool success = RenameUrlInScript(path, p.Url, $"simplelink:{p.Url}");
 
                         if (success)
                         {
-                            BoldPrint("Renamed " + p.Url);
+                            BoldPrint("Renamed " + p.Url + " in " + path);
                         }
                     }
                 }
