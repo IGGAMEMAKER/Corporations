@@ -308,7 +308,7 @@ foreach (var match in matches)
 */
         }
 
-        bool RenameUrl(string route, string from, string to, string finalURL)
+        bool RenameUrl(string route, string from, string to, string finalURL, List<string> changedScripts)
         {
             //var matches = WhatUsesComponent(route, GetAllAssetsWithOpenUrl());
             var codeRefs = WhichScriptReferencesConcreteUrl(route);
@@ -340,6 +340,8 @@ foreach (var match in matches)
                 foreach (var match in codeRefs)
                 {
                     RenameUrlInScript(match, from, to);
+
+                    changedScripts.Add(match.ScriptName);
                 }
             }
             catch (Exception ex)
@@ -451,18 +453,25 @@ foreach (var match in matches)
                     Print("Rename starts now!");
                     var prevUrl = newUrl;
 
+                    var changedScripts = new List<string>();
+
                     // start from grandchilds first
                     foreach (var url in RenamingUrls.OrderByDescending(u => u.Count(c => c.Equals('/'))))
                     {
                         Print("Rename URL " + url);
 
                         var finalURL = url.Replace(newUrl, newEditingUrl);
-                        RenameUrl(url, newUrl, newEditingUrl, finalURL);
+                        RenameUrl(url, newUrl, newEditingUrl, finalURL, changedScripts);
 
                         Print("----------------");
                     }
 
                     OpenPrefabByUrl(newEditingUrl);
+                    if (changedScripts.Any())
+                    {
+                        OpenAsset(changedScripts.First());
+                    }
+
                     //newUrl = newEditingUrl;
                     //newUrl = prevUrl.Replace(newUrl, newEditingUrl);
                 }
