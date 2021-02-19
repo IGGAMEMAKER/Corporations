@@ -449,6 +449,7 @@ foreach (var match in matches)
                 if (EditorUtility.DisplayDialog("Do you want to rename url " + prefab.Url, "This action will rename url and subUrls in X prefabs, Y scenes and Z script files.\n\nPRESS CANCEL IF YOU HAVE UNSAVED PREFAB OR SCENE OR CODE CHANGES", "Rename", "Cancel"))
                 {
                     Print("Rename starts now!");
+                    var prevUrl = newUrl;
 
                     // start from grandchilds first
                     foreach (var url in RenamingUrls.OrderByDescending(u => u.Count(c => c.Equals('/'))))
@@ -460,6 +461,9 @@ foreach (var match in matches)
 
                         Print("----------------");
                     }
+
+                    newUrl = newEditingUrl;
+                    //newUrl = prevUrl.Replace(newUrl, newEditingUrl);
                 }
             }
 
