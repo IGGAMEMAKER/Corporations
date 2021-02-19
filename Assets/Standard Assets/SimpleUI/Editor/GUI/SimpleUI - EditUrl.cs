@@ -204,7 +204,13 @@ namespace SimpleUI
         {
             var script = AssetDatabase.LoadAssetAtPath<MonoScript>(ScriptName);
 
+            var txt = script.text;
             var replacedText = ReplaceUrlInCode(script.text, from, to);
+
+            bool textChanged = !txt.Equals(replacedText);
+
+            if (!textChanged)
+                return;
 
             StreamWriter writer = new StreamWriter(ScriptName, false);
             writer.Write(replacedText);
