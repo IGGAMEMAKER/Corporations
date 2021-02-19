@@ -152,7 +152,7 @@ namespace SimpleUI
             //txt = txt.Replace(WrapStringWithRightSlash(from), WrapStringWithRightSlash(to)); // right slashes
             //txt = txt.Replace(TrimSlashes(from), TrimSlashes(to)); // no slashes
 
-            return text.Replace(from + "\"", to).Replace(from + "/", to);
+            return text.Replace(from + "\"", to + "\"");//.Replace(from + "/", to);
         }
 
         string GetUrlFormattedToOpenUrl(OpenUrl component, string from, string to)
