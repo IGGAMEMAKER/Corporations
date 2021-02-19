@@ -326,6 +326,7 @@ foreach (var match in matches)
                 for (var i = 0; i < assets.Count; i++)
                 {
                     var match = assets[i];
+                    Print("Checking match " + match.URL);
 
                     if (match.URL.Equals(route))
                     {
