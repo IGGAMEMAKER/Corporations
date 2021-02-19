@@ -79,7 +79,16 @@ namespace SimpleUI
 
         string GetPrettyNameForUrl(string guid, string currentUrl)
         {
-            var url = SimpleUI.GetPrefabByGuid(guid).Url;
+            var prefab = SimpleUI.GetPrefabByGuid(guid);
+            var url = prefab.Url;
+
+            Debug.Log("checking GUID " + guid + " " + prefab.Name + " " + url);
+
+            if (url == null)
+            {
+                Debug.LogError("ERROR " + guid);
+            }
+
             url = Urlify(url);
 
             bool isDirectSubUrl = SimpleUI.isSubRouteOf(url, currentUrl, false);
@@ -98,7 +107,7 @@ namespace SimpleUI
             }
 
 
-            return prefix + SimpleUI.GetPrettyNameForExistingUrl(url);
+            return prefix + prefab.Name;
         }
 
 
@@ -116,6 +125,7 @@ namespace SimpleUI
             scrollPosition3 = GUILayout.BeginScrollView(scrollPosition3);
 
             var referenceSelected = GUILayout.SelectionGrid(-1, matches.Select(m => GetPrettyNameForUrl(m.URL_ID, currentUrl)).ToArray(), 1);
+            //var referenceSelected = GUILayout.SelectionGrid(-1, matches.Select(m => GetPrettyNameForUrl(m.URL, currentUrl)).ToArray(), 1);
 
             GUILayout.EndScrollView();
             GUILayout.EndArea();
