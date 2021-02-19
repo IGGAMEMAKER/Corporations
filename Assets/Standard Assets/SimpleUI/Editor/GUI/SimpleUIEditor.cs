@@ -121,6 +121,8 @@ namespace SimpleUI
             {
                 foreach (var p in prefabs)
                 {
+                    BoldPrint("Trying to rename " + p.Url);
+
                     foreach (var script in allScripts)
                     {
                         if (p.Url.Equals("/"))
