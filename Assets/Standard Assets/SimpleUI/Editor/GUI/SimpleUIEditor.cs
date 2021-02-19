@@ -45,8 +45,6 @@ namespace SimpleUI
             // w.minSize = new Vector2(200, 100);
         }
 
-
-
         void OnGUI()
         {
             if (!isFirstGUI)
@@ -66,6 +64,71 @@ namespace SimpleUI
 
             isFirstInspectorGUI = false;
         }
+
+        void RenderGUI()
+        {
+            recentPrefabsScrollPosition = GUILayout.BeginScrollView(recentPrefabsScrollPosition);
+            GUILayout.Label("SIMPLE UI", EditorStyles.largeLabel);
+
+            //RenderExistingTroubles();
+
+            Space();
+            myFloat = EditorGUILayout.Slider("Slider", myFloat, -3, 3);
+
+
+            Label("Assets with OpenUrl component: " + GetAllAssetsWithOpenUrl().Count);
+            if (Button("Refresh"))
+            {
+                ScanProject(true);
+            }
+            Space();
+
+            RenderMakeGuidButton();
+            //AttachGUIDsToOpenUrlComponents();
+            RenderAnchorsButton();
+
+            if (!hasChosenPrefab)
+                RenderPrefabs();
+
+            if (isDraggedGameObjectMode)
+                RenderMakingAPrefabFromGameObject();
+            else if (isDraggedPrefabMode)
+                RenderAddingNewRouteFromDraggedPrefab();
+            else if (hasChosenPrefab)
+                RenderChosenPrefab();
+            else
+                RenderAddingNewRoute();
+
+            HandleDragAndDrop();
+
+            GUILayout.EndScrollView();
+        }
+
+        void RenderInspectorGUI()
+        {
+            var path = GetOpenedAssetPath();
+            ChooseUrlFromPickedPrefab();
+
+            // no matching urls
+            if (newUrl.Equals(""))
+                SetAddingRouteMode();
+
+            bool objectChanged = !newPath.Equals(path); // || !newUrl.Equals(url);
+
+            if (objectChanged)
+            {
+                Debug.Log("Object changed");
+                SetNewPath(path);
+
+                TryToIncreaseCurrentPrefabCounter();
+            }
+
+            //if (!isPrefabMode)
+            //{
+            //    WrapSceneWithMenu();
+            //}
+        }
+
 
         void RenderMakeGuidButton()
         {
@@ -165,70 +228,5 @@ namespace SimpleUI
             }
         }
 
-        void RenderGUI()
-        {
-            recentPrefabsScrollPosition = GUILayout.BeginScrollView(recentPrefabsScrollPosition);
-            GUILayout.Label("SIMPLE UI", EditorStyles.largeLabel);
-
-            //RenderExistingTroubles();
-
-            Space();
-            myFloat = EditorGUILayout.Slider("Slider", myFloat, -3, 3);
-
-
-            Label("Assets with OpenUrl component: " + GetAllAssetsWithOpenUrl().Count);
-            if (Button("Refresh"))
-            {
-                ScanProject(true);
-            }
-            Space();
-
-            RenderMakeGuidButton();
-            //AttachGUIDsToOpenUrlComponents();
-            RenderAnchorsButton();
-
-            if (!hasChosenPrefab)
-                RenderPrefabs();
-
-            if (isDraggedGameObjectMode)
-                RenderMakingAPrefabFromGameObject();
-            else if (isDraggedPrefabMode)
-                RenderAddingNewRouteFromDraggedPrefab();
-            else if (hasChosenPrefab)
-                RenderChosenPrefab();
-            else
-                RenderAddingNewRoute();
-
-            HandleDragAndDrop();
-
-            GUILayout.EndScrollView();
-        }
-
-
-
-        void RenderInspectorGUI()
-        {
-            var path = GetOpenedAssetPath();
-            ChooseUrlFromPickedPrefab();
-
-            // no matching urls
-            if (newUrl.Equals(""))
-                SetAddingRouteMode();
-
-            bool objectChanged = !newPath.Equals(path); // || !newUrl.Equals(url);
-
-            if (objectChanged)
-            {
-                Debug.Log("Object changed");
-                SetNewPath(path);
-
-                TryToIncreaseCurrentPrefabCounter();
-            }
-
-            //if (!isPrefabMode)
-            //{
-            //    WrapSceneWithMenu();
-            //}
-        }
     }
 }
