@@ -96,7 +96,7 @@ namespace SimpleUI
                 ResetCounters();
             }
 
-            LoadPrefabs();
+            //LoadPrefabs();
 
             Debug.Log("<b>PREVIEW URL</b>");
 
@@ -109,13 +109,15 @@ namespace SimpleUI
             if (SimpleUI.IsUrlExist(CurrentUrl))
             {
                 Print("Open Url " + CurrentUrl);
-                OpenUrl(CurrentUrl);
+                OpenUrl(CurrentUrl, true);
             }
         }
 
         // called both from game and editor
-        public void OpenUrl(string NextUrl)
+        public void OpenUrl(string NextUrl, bool forceExecution = false)
         {
+            LoadPrefabs();
+
             counter++;
 
             Print("Check counter threshold");
@@ -127,7 +129,7 @@ namespace SimpleUI
             }
 
             Print("Check infinite loops");
-            if (NextUrl.Equals(CurrentUrl))
+            if (NextUrl.Equals(CurrentUrl) && !forceExecution)
             {
                 sameUrlCounter++;
 
