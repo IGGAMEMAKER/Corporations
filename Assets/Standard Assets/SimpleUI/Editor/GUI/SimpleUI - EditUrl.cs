@@ -231,8 +231,13 @@ namespace SimpleUI
                 replacedText = ReplaceUrlInCode(replacedText, froms[i], tos[i]);
             }
 
-            var simplelink = "simplelink";
-            replacedText = replacedText.Replace($"{simplelink}:{simplelink}:", $"{simplelink}:");
+            var simplelink = "simplelink:";
+            var duplicateLink = $"{simplelink}{simplelink}";
+
+            while (replacedText.Contains(duplicateLink))
+            {
+                replacedText = replacedText.Replace(duplicateLink, simplelink);
+            }
 
             bool textChanged = !txt.Equals(replacedText);
 
