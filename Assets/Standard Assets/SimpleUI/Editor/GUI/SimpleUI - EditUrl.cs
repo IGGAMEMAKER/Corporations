@@ -328,11 +328,11 @@ foreach (var match in matches)
                     var match = assets[i];
                     Print("Checking match " + match.URL);
 
-                    if (match.URL.Equals(route))
+                    if (match.URL.Equals(route.TrimStart('/')))
                     {
                         BoldPrint("Renaming Asset MATCH!! " + route);
 
-                        match.URL = finalURL;
+                        match.URL = finalURL.TrimStart('/');
                         assets[i] = match;
                     }
                 }
