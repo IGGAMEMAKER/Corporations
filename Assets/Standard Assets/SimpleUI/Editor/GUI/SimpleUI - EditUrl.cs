@@ -224,7 +224,6 @@ namespace SimpleUI
             foreach (var script in allScripts)
             {
                 var path = script.Key;
-                Print("Scanning " + path);
 
                 var candidates = prefabs
                     .Where(p => !p.Url.Equals("/"))
