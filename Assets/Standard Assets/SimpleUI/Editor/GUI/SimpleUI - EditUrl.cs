@@ -462,7 +462,8 @@ foreach (var match in matches)
                         Print("----------------");
                     }
 
-                    newUrl = newEditingUrl;
+                    OpenPrefabByUrl(newEditingUrl);
+                    //newUrl = newEditingUrl;
                     //newUrl = prevUrl.Replace(newUrl, newEditingUrl);
                 }
             }
