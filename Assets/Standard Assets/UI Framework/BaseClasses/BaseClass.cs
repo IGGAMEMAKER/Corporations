@@ -76,7 +76,7 @@ public partial class BaseClass : MonoBehaviour
 
     public void OpenUrl(string url)
     {
-        //SimpleUI.OpenUrl(url);
+        SimpleUI.SimpleUI.OpenUrl_static(url);
     }
 
     public void OpenModal(string ModalTag, bool closeOthers = true)

@@ -12,8 +12,8 @@ public class RenderCompanyTabButtons : View
     public GameObject CompetitorsTab;
     public GameObject InfoTab;
 
-
-    public TopPanelManager TopPanelManager;
+    //TopPanelManagerController
+    //public TopPanelManager TopPanelManager;
 
     public override void ViewRender()
     {
