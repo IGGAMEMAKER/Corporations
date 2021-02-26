@@ -127,6 +127,9 @@ namespace SimpleUI
 
         public static string GetValidatedUrl(string url)
         {
+            if (url == null)
+                url = "/";
+
             if (!url.StartsWith("/"))
                 return url.Insert(0, "/");
 

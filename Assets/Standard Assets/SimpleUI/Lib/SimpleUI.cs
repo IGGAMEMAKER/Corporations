@@ -141,7 +141,7 @@ namespace SimpleUI
 
         public static SimpleUI GetWindow()
         {
-            return EditorWindow.GetWindow<SimpleUI>("Simple UI");
+            return EditorWindow.GetWindow<SimpleUI>("Simple UI", false);
         }
 
         private static void PrefabStage_prefabSaved(GameObject obj)

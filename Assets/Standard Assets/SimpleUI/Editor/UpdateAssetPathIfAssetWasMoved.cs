@@ -50,7 +50,7 @@ namespace SimpleUI
             {
                 var p = prefabs[i];
 
-                Debug.Log("Moving existing prefab: " + oldPath);
+                //Debug.Log("Checking prefab: " + p.AssetPath);
 
                 if (p.AssetPath.Equals(oldPath))
                 {

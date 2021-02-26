@@ -194,7 +194,7 @@ namespace SimpleUI
 
         public static void ChooseUrlFromPickedPrefab()
         {
-            return;
+            //return;
             var path = GetOpenedAssetPath();
             var instance = SimpleUI.GetInstance();
 
@@ -221,15 +221,17 @@ namespace SimpleUI
 
         public static void TryToIncreaseCurrentPrefabCounter()
         {
-            //if (instance.hasChosenPrefab)
-            //{
-            //    var pref = instance.prefabs[instance.ChosenIndex];
+            var instance = SimpleUI.GetInstance();
 
-            //    pref.Usages++;
-            //    pref.LastOpened = DateTime.Now.Ticks;
+            if (instance.hasChosenPrefab)
+            {
+                var pref = instance.prefabs[instance.ChosenIndex];
 
-            //    instance.UpdatePrefab(pref);
-            //}
+                pref.Usages++;
+                pref.LastOpened = DateTime.Now.Ticks;
+
+                instance.UpdatePrefab(pref);
+            }
         }
     }
 }

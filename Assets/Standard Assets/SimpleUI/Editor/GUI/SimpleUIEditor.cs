@@ -68,7 +68,7 @@ namespace SimpleUI
             //RenderExistingTroubles();
 
             Space();
-            myFloat = EditorGUILayout.Slider("Slider", myFloat, -3, 3);
+            //myFloat = EditorGUILayout.Slider("Slider", myFloat, -3, 3);
 
 
             Label("Assets with OpenUrl component: " + GetAllAssetsWithOpenUrl().Count);
@@ -81,6 +81,10 @@ namespace SimpleUI
             //RenderMakeGuidButton();
             //AttachGUIDsToOpenUrlComponents();
 
+            bool addingRouteModeBlah = !(isDraggedPrefabMode || isDraggedGameObjectMode || hasChosenPrefab);
+            if (addingRouteModeBlah)
+                RenderAddingNewRoute();
+
             if (!hasChosenPrefab)
                 RenderPrefabs();
 
@@ -90,8 +94,8 @@ namespace SimpleUI
                 RenderAddingNewRouteFromDraggedPrefab();
             else if (hasChosenPrefab)
                 RenderChosenPrefab();
-            else
-                RenderAddingNewRoute();
+            //else
+            //    RenderAddingNewRoute();
 
             RenderAnchorsButton();
 
