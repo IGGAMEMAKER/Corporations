@@ -65,6 +65,7 @@ namespace SimpleUI
         {
             GUIStyle localStyle = new GUIStyle(GUI.skin.label);
             localStyle.normal.textColor = Color.white;
+            localStyle.richText = true;
 
             GUILayout.Label(text, localStyle);
         }
@@ -120,7 +121,7 @@ namespace SimpleUI
             var matches = referencesFromAssets.Where(m => m.PrefabAssetPath.Equals(assetPath)).ToList();
 
             if (matches.Any())
-                Label("Forward links...");
+                Label("References FROM THIS url...");
 
             scrollPosition3 = GUILayout.BeginScrollView(scrollPosition3);
 
@@ -144,7 +145,7 @@ namespace SimpleUI
             GUILayout.BeginArea(new Rect(off, off, w, h));
 
             if (matches.Any() || referencesFromCode.Any())
-                Label("References to THIS url");
+                Label("References TO THIS url");
 
             scrollPosition2 = GUILayout.BeginScrollView(scrollPosition2);
 
@@ -175,7 +176,7 @@ namespace SimpleUI
         {
             GUILayout.BeginArea(new Rect(Screen.width - w - off, off, w, h));
 
-            Label("Navigation");
+            Label("<b>Current url</b> and it's subroutes");
             Label(currentUrl);
 
             scrollPosition = GUILayout.BeginScrollView(scrollPosition);
