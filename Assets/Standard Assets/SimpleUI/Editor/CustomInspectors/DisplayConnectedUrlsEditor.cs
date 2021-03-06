@@ -61,10 +61,11 @@ namespace SimpleUI
             //RenderReferencesToUrl(currentUrl);
             //RenderReferencesFromUrl(currentUrl);
 
-            RenderCountableAssets(SimpleUI.countableAssets);
+            var path = SimpleUI.GetOpenedAssetPath();
+            RenderCountableAssets(SimpleUI.countableAssets.Where(c => !c.AssetPath.Equals(path)).Take(8));
         }
 
-        void RenderCountableAssets(List<CountableAsset> countableAssets)
+        void RenderCountableAssets(IEnumerable<CountableAsset> countableAssets)
         {
             GUILayout.BeginArea(new Rect(Screen.width - w - off, off, w, h));
 
@@ -80,7 +81,7 @@ namespace SimpleUI
 
             if (referenceSelected != -1)
             {
-                SimpleUI.OpenPrefabByAssetPath(countableAssets[referenceSelected].AssetPath);
+                SimpleUI.OpenPrefabByAssetPath(countableAssets.ToList()[referenceSelected].AssetPath);
             }
         }
 
