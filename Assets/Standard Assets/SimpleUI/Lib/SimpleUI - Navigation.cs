@@ -232,6 +232,30 @@ namespace SimpleUI
 
                 instance.UpdatePrefab(pref);
             }
+
+            TryToIncreaseCurrentAssetCounter();
+        }
+
+        public static void TryToIncreaseCurrentAssetCounter()
+        {
+            var instance = SimpleUI.GetInstance();
+
+            var openedPath = GetOpenedAssetPath();
+
+            if (!instance.countableAssets.Any(a => a.AssetPath.Equals(openedPath)))
+            {
+                instance.countableAssets.Add(new CountableAsset(openedPath));
+            }
+
+            var index = instance.countableAssets.FindIndex(a => a.AssetPath.Equals(openedPath));
+            var prefs = instance.countableAssets; //.Where(a => a.AssetPath.Equals(openedPath));
+
+            var pref = prefs[index];
+
+            pref.Usages++;
+            pref.LastOpened = DateTime.Now.Ticks;
+
+            instance.UpdateCountableAsset(pref, index);
         }
     }
 }

@@ -40,6 +40,22 @@ namespace SimpleUI
     // // EditorGUILayout.EndToggleGroup ();
     // }
 
+    public struct CountableAsset
+    {
+        public string AssetPath;
+
+        public long Usages;
+        public long LastOpened;
+
+        public CountableAsset(string assetPath)
+        {
+            AssetPath = assetPath;
+
+            Usages = 0;
+            LastOpened = 0;
+        }
+    }
+
     public struct SimpleUISceneType
     {
         public string ID;
@@ -134,9 +150,7 @@ namespace SimpleUI
 
             PrefabStage.prefabSaved += PrefabStage_prefabSaved;
 
-            EditorApplication.update += Update;
-
-            EditorApplication.quitting += Application_quitting;
+            //EditorApplication.quitting += Application_quitting;
         }
 
         public static SimpleUI GetWindow()
@@ -165,46 +179,40 @@ namespace SimpleUI
             SavePrefabMatches(instance.GetAllAssetsWithOpenUrl());
         }
 
-        private void OnEnable()
-        {
-            if (isProjectScanned)
-            {
-                OnRecompile();
-            }
-            else
-            {
-                Print("Initialize");
-            }
-        }
+        //private void OnEnable()
+        //{
+        //    if (isProjectScanned)
+        //    {
+        //        OnRecompile();
+        //    }
+        //    else
+        //    {
+        //        Print("Initialize");
+        //    }
+        //}
 
 
-        void OnRecompile()
-        {
-            Print("OnRecompile");
+        //void OnRecompile()
+        //{
+        //    Print("OnRecompile");
 
-            if (EditorWindow.HasOpenInstances<OpenUrlPickerWindow>())
-                EditorWindow.GetWindow<OpenUrlPickerWindow>().Close();
+        //    if (EditorWindow.HasOpenInstances<OpenUrlPickerWindow>())
+        //        EditorWindow.GetWindow<OpenUrlPickerWindow>().Close();
 
-            LoadScripts();
-            LoadReferences(GetCurrentUrl());
-        }
+        //    LoadScripts();
+        //    LoadReferences(GetCurrentUrl());
+        //}
 
 
-        private static void Update()
-        {
-            //Print("Update");
-            //Print("All assets with openUrl " + GetInstance().allAssetsWithOpenUrl.Count());
-        }
+        //private static void Application_quitting()
+        //{
+        //    BoldPrint("Quitting");
 
-        private static void Application_quitting()
-        {
-            BoldPrint("Quitting");
+        //    var instance = GetInstance();
 
-            var instance = GetInstance();
-
-            instance.newName = "";
-            instance.newPath = "";
-            instance.newUrl = "";
-        }
+        //    instance.newName = "";
+        //    instance.newPath = "";
+        //    instance.newUrl = "";
+        //}
     }
 }

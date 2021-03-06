@@ -46,7 +46,7 @@ namespace SimpleUI
             {
                 ScanProject();
 
-                RenderGUI();
+                RenderGUI2();
             }
 
             isFirstGUI = false;
@@ -58,6 +58,16 @@ namespace SimpleUI
                 RenderInspectorGUI();
 
             isFirstInspectorGUI = false;
+        }
+
+        void RenderGUI2()
+        {
+            GUILayout.Label("SIMPLE UI", EditorStyles.largeLabel);
+
+            if (Button("Load countable assets"))
+            {
+                LoadCountableAssets();
+            }
         }
 
         void RenderGUI()

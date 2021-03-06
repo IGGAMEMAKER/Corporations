@@ -87,7 +87,8 @@ namespace SimpleUI
 
             if (url == null)
             {
-                Debug.LogError("ERROR " + guid);
+                Debug.LogError("URL=NULL " + guid);
+                return "broken url: " + guid;
             }
 
             url = Urlify(url);
