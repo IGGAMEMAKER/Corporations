@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,9 +57,31 @@ namespace SimpleUI
 
             //Debug.Log("MyFloat: " + SimpleUI.myFloat);
 
-            RenderUpperAndLowerRoutes(currentUrl);
-            RenderReferencesToUrl(currentUrl);
-            RenderReferencesFromUrl(currentUrl);
+            //RenderUpperAndLowerRoutes(currentUrl);
+            //RenderReferencesToUrl(currentUrl);
+            //RenderReferencesFromUrl(currentUrl);
+
+            RenderCountableAssets(SimpleUI.countableAssets);
+        }
+
+        void RenderCountableAssets(List<CountableAsset> countableAssets)
+        {
+            GUILayout.BeginArea(new Rect(Screen.width - w - off, off, w, h));
+
+            scrollPosition3 = GUILayout.BeginScrollView(scrollPosition3);
+
+            Label("Recent assets");
+
+            //var referenceSelected = GUILayout.SelectionGrid(-1, countableAssets.Select(m => GetPrettyNameForUrl(m.URL_ID, currentUrl)).ToArray(), 1);
+            var referenceSelected = GUILayout.SelectionGrid(-1, countableAssets.Select(m => m.AssetPath.Substring(m.AssetPath.LastIndexOf('/') + 1)).ToArray(), 1);
+
+            GUILayout.EndScrollView();
+            GUILayout.EndArea();
+
+            if (referenceSelected != -1)
+            {
+                SimpleUI.OpenPrefabByAssetPath(countableAssets[referenceSelected].AssetPath);
+            }
         }
 
         void Label(string text)
