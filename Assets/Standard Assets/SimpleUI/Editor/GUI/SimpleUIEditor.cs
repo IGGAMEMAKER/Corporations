@@ -45,10 +45,9 @@ namespace SimpleUI
             if (!isFirstGUI)
             {
                 ScanProject();
-
-                RenderGUI2();
             }
 
+            RenderGUI2();
             isFirstGUI = false;
         }
 
