@@ -62,26 +62,58 @@ namespace SimpleUI
             //RenderReferencesFromUrl(currentUrl);
 
             var path = SimpleUI.GetOpenedAssetPath();
-            RenderCountableAssets(SimpleUI.countableAssets.Where(c => !c.AssetPath.Equals(path)).Take(8));
+
+            var favorite = SimpleUI.countableAssets.OrderByDescending(a => a.Usages).Take(4).ToList();
+            var favoriteCounter = favorite.Any() ? favorite.Last().Usages : 0;
+
+            var recent = SimpleUI.countableAssets
+                //.Where(c => !c.AssetPath.Equals(path))
+                .OrderByDescending(c => c.LastOpened)
+                .ToList();
+                //.Take(8)
+                ;
+
+
+            RenderCountableAssets(recent, favorite, path);
         }
 
-        void RenderCountableAssets(IEnumerable<CountableAsset> countableAssets)
+        string GetPrettyNameForAsset(CountableAsset m)
+        {
+            string assetPath = m.AssetPath;
+
+            var trimmedName = assetPath.Substring(assetPath.LastIndexOf('/') + 1).Replace(".prefab", "").Replace(".unity", "");
+
+            bool isOpened = assetPath.Equals(SimpleUI.GetOpenedAssetPath());
+
+            if (isOpened)
+                return $"<b>{trimmedName}</b>";
+            else
+                return trimmedName;
+        }
+
+        void RenderCountableAssets(List<CountableAsset> recent, List<CountableAsset> favorite, string path)
         {
             GUILayout.BeginArea(new Rect(Screen.width - w - off, off, w, h));
 
             scrollPosition3 = GUILayout.BeginScrollView(scrollPosition3);
 
-            Label("Recent assets");
+            Label("Favorite assets");
+            var favoriteID = GUILayout.SelectionGrid(-1, favorite.Select(GetPrettyNameForAsset).ToArray(), 1);
 
-            //var referenceSelected = GUILayout.SelectionGrid(-1, countableAssets.Select(m => GetPrettyNameForUrl(m.URL_ID, currentUrl)).ToArray(), 1);
-            var referenceSelected = GUILayout.SelectionGrid(-1, countableAssets.Select(m => m.AssetPath.Substring(m.AssetPath.LastIndexOf('/') + 1)).ToArray(), 1);
+            Label("Recent assets");
+            var recentID = GUILayout.SelectionGrid(-1, recent.Select(GetPrettyNameForAsset).ToArray(), 1);
 
             GUILayout.EndScrollView();
             GUILayout.EndArea();
 
-            if (referenceSelected != -1)
+            if (favoriteID != -1)
             {
-                SimpleUI.OpenPrefabByAssetPath(countableAssets.ToList()[referenceSelected].AssetPath);
+                SimpleUI.OpenPrefabByAssetPath(favorite.ToList()[favoriteID].AssetPath);
+            }
+
+            if (recentID != -1)
+            {
+                SimpleUI.OpenPrefabByAssetPath(recent.ToList()[recentID].AssetPath);
             }
         }
 
