@@ -321,7 +321,7 @@ namespace SimpleUI
 
         public static SimpleUI GetInstance()
         {
-            var w = GetWindow();
+            var w = GetWindow<SimpleUI>("Simple UI", false);
 
             w.ScanProject();
 

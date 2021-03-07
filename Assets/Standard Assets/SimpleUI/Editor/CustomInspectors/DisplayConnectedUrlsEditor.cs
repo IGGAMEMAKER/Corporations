@@ -70,11 +70,10 @@ namespace SimpleUI
                 //.Where(c => !c.AssetPath.Equals(path))
                 .OrderByDescending(c => c.LastOpened)
                 .ToList();
-                //.Take(8)
                 ;
 
-
-            RenderCountableAssets(recent, favorite, path);
+            if (recent.Count() >= 2)
+                RenderCountableAssets(recent, favorite, path);
         }
 
         string GetPrettyNameForAsset(CountableAsset m)
@@ -108,12 +107,12 @@ namespace SimpleUI
 
             if (favoriteID != -1)
             {
-                SimpleUI.OpenPrefabByAssetPath(favorite.ToList()[favoriteID].AssetPath);
+                SimpleUI.OpenAsset(favorite.ToList()[favoriteID].AssetPath);
             }
 
             if (recentID != -1)
             {
-                SimpleUI.OpenPrefabByAssetPath(recent.ToList()[recentID].AssetPath);
+                SimpleUI.OpenAsset(recent.ToList()[recentID].AssetPath);
             }
         }
 

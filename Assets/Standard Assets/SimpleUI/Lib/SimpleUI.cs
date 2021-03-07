@@ -150,12 +150,10 @@ namespace SimpleUI
 
             PrefabStage.prefabSaved += PrefabStage_prefabSaved;
 
-            //EditorApplication.quitting += Application_quitting;
-        }
+            SceneManager.sceneLoaded += SceneManager_sceneLoaded;
+            SceneManager.sceneUnloaded += SceneManager_sceneUnloaded;
 
-        public static SimpleUI GetWindow()
-        {
-            return EditorWindow.GetWindow<SimpleUI>("Simple UI", false);
+            //EditorApplication.quitting += Application_quitting;
         }
 
         private static void PrefabStage_prefabSaved(GameObject obj)

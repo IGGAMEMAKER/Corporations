@@ -167,19 +167,14 @@ namespace SimpleUI
         //    return go;
         //}
 
-        private static void PrefabStage_prefabClosed(PrefabStage obj)
-        {
-            //Debug.Log("prefab closed");
-            DestroyImmediate(obj.prefabContentsRoot.GetComponent<DisplayConnectedUrls>());
-        }
-
         private static void PrefabStage_prefabOpened(PrefabStage obj)
         {
             Debug.Log("Prefab opened: " + obj.prefabContentsRoot.name);
 
             // Wrap with SimpleUI menus
-            obj.prefabContentsRoot.AddComponent<DisplayConnectedUrls>();
-            Selection.activeGameObject = obj.prefabContentsRoot;
+            AttachDisplayComponent(obj.prefabContentsRoot);
+            //obj.prefabContentsRoot.AddComponent<DisplayConnectedUrls>();
+            //Selection.activeGameObject = obj.prefabContentsRoot;
 
             var path = obj.assetPath;
             var instance = GetInstance();
@@ -191,6 +186,52 @@ namespace SimpleUI
             ChooseUrlFromPickedPrefab();
             TryToIncreaseCurrentPrefabCounter();
         }
+
+        private static void PrefabStage_prefabClosed(PrefabStage obj)
+        {
+            //Debug.Log("prefab closed");
+            DetachDisplayComponent(obj.prefabContentsRoot);
+            //DestroyImmediate(obj.prefabContentsRoot.GetComponent<DisplayConnectedUrls>());
+        }
+
+        private static void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
+        {
+            var objects = arg0.GetRootGameObjects();
+
+            if (objects.Any())
+            {
+                AttachDisplayComponent(objects.First());
+            }
+        }
+
+        private static void SceneManager_sceneUnloaded(Scene arg0)
+        {
+            var objects = arg0.GetRootGameObjects();
+
+            if (objects.Any())
+            {
+                DetachDisplayComponent(objects.First());
+            }
+        }
+
+        static void AttachDisplayComponent(GameObject obj)
+        {
+            obj.AddComponent<DisplayConnectedUrls>();
+            Selection.activeGameObject = obj;
+        }
+
+        static void DetachDisplayComponent(GameObject obj)
+        {
+            var components = obj.GetComponents<DisplayConnectedUrls>();
+
+            for (var i = 0; i < components.Length; i++)
+            {
+                DestroyImmediate(components[i]);
+            }
+            //DestroyImmediate(obj.GetComponent<DisplayConnectedUrls>());
+        }
+
+        // -------------------------------------------
 
         public static void ChooseUrlFromPickedPrefab()
         {
