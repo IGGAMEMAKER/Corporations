@@ -103,6 +103,15 @@ namespace SimpleUI
             SimpleUI.OpenAsset(path);
         }
 
+        void DeferredAssetSwitch()
+        {
+            if (deferredPath.Length > 0)
+            {
+                OpenAsset(deferredPath);
+                deferredPath = "";
+            }
+        }
+
         void OnGUI()
         {
             //if (!isFirstGUI)
@@ -111,9 +120,14 @@ namespace SimpleUI
             //}
 
             RenderGUI2();
-
+            DeferredAssetSwitch();
             //RenderRecentAssets();
             //isFirstGUI = false;
+        }
+
+        public void Update()
+        {
+            DeferredAssetSwitch();
         }
 
         void OnInspectorUpdate()
@@ -122,12 +136,7 @@ namespace SimpleUI
                 RenderInspectorGUI();
 
             isFirstInspectorGUI = false;
-
-            if (deferredPath.Length > 0)
-            {
-                OpenAsset(deferredPath);
-                deferredPath = "";
-            }
+            DeferredAssetSwitch();
         }
 
         void RenderGUI2()

@@ -109,7 +109,8 @@ namespace SimpleUI
 
         void OpenCountableAsset(string path)
         {
-            SimpleUI.DeferredAssetOpening(path);
+            SimpleUI.SetDeferredAssetPath(path);
+            SimpleUI.Focus();
             //SimpleUI.OpenAsset(path);
         }
 

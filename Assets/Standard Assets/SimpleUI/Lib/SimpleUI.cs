@@ -90,7 +90,7 @@ namespace SimpleUI
             }
             catch (Exception ex)
             {
-                Debug.LogError("ERROR IN GET INSTANCE");
+                Debug.LogError("ERROR IN SimpleUI.GetInstance()");
                 Debug.LogError(ex);
             }
 

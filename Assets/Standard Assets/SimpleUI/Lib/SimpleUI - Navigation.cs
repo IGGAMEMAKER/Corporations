@@ -38,7 +38,7 @@ namespace SimpleUI
         }
 
         string deferredPath = "";
-        public void DeferredAssetOpening(string path)
+        public void SetDeferredAssetPath(string path)
         {
             deferredPath = path;
         }
@@ -266,7 +266,6 @@ namespace SimpleUI
 
         public static void ChooseUrlFromPickedPrefab()
         {
-            return;
             var path = GetOpenedAssetPath();
             var instance = SimpleUI.GetInstance();
 
@@ -293,7 +292,6 @@ namespace SimpleUI
 
         public static void TryToIncreaseCurrentPrefabCounter()
         {
-            return;
             var instance = SimpleUI.GetInstance();
 
             if (instance.hasChosenPrefab)
