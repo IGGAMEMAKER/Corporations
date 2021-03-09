@@ -129,7 +129,8 @@ namespace SimpleUI
             {
                 GetMatchingComponentsFromPrefab<OpenUrl>(matchingComponents, path, properties);
             }
-            else
+
+            if (isSceneAsset(path))
             {
                 GetMatchingComponentsFromScene<OpenUrl>(matchingComponents, path, properties, openedScenes);
             }

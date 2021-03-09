@@ -194,7 +194,20 @@ namespace SimpleUI
             //DestroyImmediate(obj.prefabContentsRoot.GetComponent<DisplayConnectedUrls>());
         }
 
-        private static void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
+
+        private static void EditorSceneManager_activeSceneChangedInEditMode(Scene arg0, Scene arg1)
+        {
+            Print("Scene changed " + arg0.name + " to " + arg1.name);
+            AttachDisplayComponentToScene(arg1);
+        }
+
+        private static void EditorSceneManager_sceneClosing(Scene scene, bool removingScene)
+        {
+            Print("Closing scene");
+            DetachDisplayComponentFromScene(scene);
+        }
+
+        static void AttachDisplayComponentToScene(Scene arg0)
         {
             var objects = arg0.GetRootGameObjects();
 
@@ -204,7 +217,7 @@ namespace SimpleUI
             }
         }
 
-        private static void SceneManager_sceneUnloaded(Scene arg0)
+        static void DetachDisplayComponentFromScene(Scene arg0)
         {
             var objects = arg0.GetRootGameObjects();
 
@@ -216,6 +229,8 @@ namespace SimpleUI
 
         static void AttachDisplayComponent(GameObject obj)
         {
+            Print("Attach component");
+
             obj.AddComponent<DisplayConnectedUrls>();
             Selection.activeGameObject = obj;
         }
@@ -235,7 +250,7 @@ namespace SimpleUI
 
         public static void ChooseUrlFromPickedPrefab()
         {
-            //return;
+            return;
             var path = GetOpenedAssetPath();
             var instance = SimpleUI.GetInstance();
 
@@ -262,6 +277,7 @@ namespace SimpleUI
 
         public static void TryToIncreaseCurrentPrefabCounter()
         {
+            return;
             var instance = SimpleUI.GetInstance();
 
             if (instance.hasChosenPrefab)

@@ -72,7 +72,7 @@ namespace SimpleUI
 
             foreach (string path in paths)
             {
-                SimpleUI.UpdateAssetWithPath(path);
+                //SimpleUI.UpdateAssetWithPath(path);
             }
 
             return paths;

@@ -132,17 +132,15 @@ namespace SimpleUI
             referencesFromCode = WhichScriptReferencesConcreteUrl(url);
         }
 
-        static void SaveUrlOpeningAttempts(Dictionary<string, List<UrlOpeningAttempt>> data)
+        static void SaveToFile<T>(string fileName, IEnumerable<T> data)
         {
-            var fileName2 = PATH_MissingAssets;
-
             Newtonsoft.Json.JsonSerializer serializer = new Newtonsoft.Json.JsonSerializer();
             serializer.Converters.Add(new Newtonsoft.Json.Converters.JavaScriptDateTimeConverter());
             serializer.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
             serializer.TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto;
             serializer.Formatting = Newtonsoft.Json.Formatting.Indented;
 
-            using (StreamWriter sw = new StreamWriter(fileName2))
+            using (StreamWriter sw = new StreamWriter(fileName))
             using (Newtonsoft.Json.JsonWriter writer = new Newtonsoft.Json.JsonTextWriter(sw))
             {
                 if (data.Count() > 0)
@@ -152,64 +150,32 @@ namespace SimpleUI
             }
         }
 
-        static void SavePrefabs(List<SimpleUISceneType> entityData)
+        static void SaveUrlOpeningAttempts(Dictionary<string, List<UrlOpeningAttempt>> data)
+        {
+            var fileName = PATH_MissingAssets;
+
+            SaveToFile(fileName, data);
+        }
+
+        static void SavePrefabs(List<SimpleUISceneType> data)
         {
             var fileName = PATH_SimpleUI;
 
-            Newtonsoft.Json.JsonSerializer serializer = new Newtonsoft.Json.JsonSerializer();
-            serializer.Converters.Add(new Newtonsoft.Json.Converters.JavaScriptDateTimeConverter());
-            serializer.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
-            serializer.TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto;
-            serializer.Formatting = Newtonsoft.Json.Formatting.Indented;
-
-            using (StreamWriter sw = new StreamWriter(fileName))
-            using (Newtonsoft.Json.JsonWriter writer = new Newtonsoft.Json.JsonTextWriter(sw))
-            {
-                if (entityData.Count > 0)
-                {
-                    serializer.Serialize(writer, entityData);
-                }
-            }
+            SaveToFile(fileName, data);
         }
 
-        static void SaveCountableAssets(List<CountableAsset> entityData)
+        static void SaveCountableAssets(List<CountableAsset> data)
         {
             var fileName = PATH_CountableAssets;
 
-            Newtonsoft.Json.JsonSerializer serializer = new Newtonsoft.Json.JsonSerializer();
-            serializer.Converters.Add(new Newtonsoft.Json.Converters.JavaScriptDateTimeConverter());
-            serializer.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
-            serializer.TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto;
-            serializer.Formatting = Newtonsoft.Json.Formatting.Indented;
-
-            using (StreamWriter sw = new StreamWriter(fileName))
-            using (Newtonsoft.Json.JsonWriter writer = new Newtonsoft.Json.JsonTextWriter(sw))
-            {
-                if (entityData.Count > 0)
-                {
-                    serializer.Serialize(writer, entityData);
-                }
-            }
+            SaveToFile(fileName, data);
         }
 
         static void SavePrefabMatches(List<PrefabMatchInfo> data)
         {
             var fileName = PATH_Matches;
 
-            Newtonsoft.Json.JsonSerializer serializer = new Newtonsoft.Json.JsonSerializer();
-            serializer.Converters.Add(new Newtonsoft.Json.Converters.JavaScriptDateTimeConverter());
-            serializer.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
-            serializer.TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto;
-            serializer.Formatting = Newtonsoft.Json.Formatting.Indented;
-
-            using (StreamWriter sw = new StreamWriter(fileName))
-            using (Newtonsoft.Json.JsonWriter writer = new Newtonsoft.Json.JsonTextWriter(sw))
-            {
-                if (data.Count > 0)
-                {
-                    serializer.Serialize(writer, data);
-                }
-            }
+            SaveToFile(fileName, data);
         }
 
         // File I/O
@@ -317,34 +283,6 @@ namespace SimpleUI
             }
 
             return $"{frame.GetMethod().Name}";
-        }
-
-        public static SimpleUI GetInstance()
-        {
-            var w = GetWindow<SimpleUI>("Simple UI", false);
-
-            w.ScanProject();
-
-            return w;
-
-            //return instance;
-
-            var time = DateTime.Now;
-            var instances = GetAllInstances<SimpleUI>();
-
-            //if (instances.Length == 0)
-            //{
-            //    throw new Exception("Create instance of SimpleUI ScriptableObject");
-            //}
-            //else
-            {
-                var callerName = GetCallerName(1);
-
-                //Print("Loading Instance (" + instances.Count() + $") in {Measure(time)} method: " + callerName);
-
-
-                return instances.First();
-            }
         }
 
         public static T[] GetAllInstances<T>() where T : ScriptableObject

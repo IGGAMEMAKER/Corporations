@@ -40,90 +40,7 @@ namespace SimpleUI
     // // EditorGUILayout.EndToggleGroup ();
     // }
 
-    public struct CountableAsset
-    {
-        public string AssetPath;
-
-        public long Usages;
-        public long LastOpened;
-
-        public CountableAsset(string assetPath)
-        {
-            AssetPath = assetPath;
-
-            Usages = 0;
-            LastOpened = 0;
-        }
-    }
-
-    public struct SimpleUISceneType
-    {
-        public string ID;
-
-        public string Url;
-        public string Name;
-        public string AssetPath;
-        public bool Exists;
-
-        public long Usages;
-        public long LastOpened;
-
-        public SimpleUISceneType(string url, string assetPath, string name = "")
-        {
-            Url = url;
-            AssetPath = assetPath;
-            Name = name.Length > 0 ? name : url;
-            Exists = AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(assetPath) != null;
-
-            Usages = 0;
-            LastOpened = 0;
-
-            ID = "";
-
-            SetGUID();
-        }
-
-        public void SetGUID()
-        {
-            if (ID != null && ID.Length != 0)
-                return;
-
-            // https://stackoverflow.com/questions/11313205/generate-a-unique-id
-            var guid = string.Format("{1:N}", Url, Guid.NewGuid());
-            //var guid = Guid.NewGuid().ToString();
-            ID = guid;
-        }
-    }
-
-    [Serializable]
-    public struct PrefabMatchInfoDetailed
-    {
-        public PrefabMatchInfo prefabMatchInfo;
-
-        // for rename
-        public GameObject Asset;
-        public OpenUrl Component;
-
-        public bool IsDirectMatch; // with no nested prefabs, can apply changes directly. (Both on root and it's childs)
-        public bool IsNormalPartOfNestedPrefab; // absolutely normal prefab part with NO overrides. No actions required
-
-        public bool IsOverridenAsComponentProperty;
-        public bool IsOverridenAsAddedComponent;
-    }
-
-
-    public struct PrefabMatchInfo
-    {
-        public string PrefabAssetPath;
-        public string URL;
-        public string URL_ID;
-
-        // debug
-        public string ComponentName;
-        public int ComponentID;
-    }
-
-    [CreateAssetMenu(fileName = "SimpleUIDataContainer", menuName = "SimpleUI data container", order = 51)]
+    //[CreateAssetMenu(fileName = "SimpleUIDataContainer", menuName = "SimpleUI data container", order = 51)]
     public partial class SimpleUI : EditorWindow
     {
         bool isConcreteUrlChosen;
@@ -145,36 +62,44 @@ namespace SimpleUI
 
         static SimpleUI()
         {
+            BoldPrint("Static SimpleUI");
+
             PrefabStage.prefabStageOpened += PrefabStage_prefabOpened;
             PrefabStage.prefabStageClosing += PrefabStage_prefabClosed;
 
             PrefabStage.prefabSaved += PrefabStage_prefabSaved;
 
-            SceneManager.sceneLoaded += SceneManager_sceneLoaded;
-            SceneManager.sceneUnloaded += SceneManager_sceneUnloaded;
+            EditorSceneManager.activeSceneChangedInEditMode += EditorSceneManager_activeSceneChangedInEditMode;
+            EditorSceneManager.sceneClosing += EditorSceneManager_sceneClosing;
 
             //EditorApplication.quitting += Application_quitting;
         }
 
-        private static void PrefabStage_prefabSaved(GameObject obj)
+        public static SimpleUI GetInstance()
         {
-            var parentObject = PrefabUtility.GetCorrespondingObjectFromSource(obj);
-            string path = AssetDatabase.GetAssetPath(parentObject);
+            BoldPrint("Get Instance");
 
-            //UpdateAssetWithPath(path);
-        }
+            try
+            {
+                if (!EditorWindow.HasOpenInstances<SimpleUI>())
+                {
+                    BoldPrint("HAS NO INSTANCES!!!!");
+                }
 
-        public static void UpdateAssetWithPath(string path)
-        {
-            var instance = GetInstance();
+                var w = GetWindow<SimpleUI>("Simple UI", false);
 
-            BoldPrint("Asset saved: " + path);
+                w.ScanProject();
 
-            instance.GetAllAssetsWithOpenUrl().RemoveAll(a => a.PrefabAssetPath.Equals(path));
+                return w;
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("ERROR IN GET INSTANCE");
+                Debug.LogError(ex);
+            }
 
-            GetMatchingComponentsFromAsset(instance.GetAllAssetsWithOpenUrl(), path);
-
-            SavePrefabMatches(instance.GetAllAssetsWithOpenUrl());
+            BoldPrint("return new SimpleUI instance");
+            return new SimpleUI();
         }
 
         //private void OnEnable()

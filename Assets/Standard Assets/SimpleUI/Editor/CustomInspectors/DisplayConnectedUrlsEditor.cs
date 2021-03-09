@@ -24,8 +24,6 @@ namespace SimpleUI
         List<PrefabMatchInfo> referencesFromAssets;
         List<SimpleUI.UsageInfo> referencesFromCode;
 
-        static bool loaded = false;
-
         SimpleUI _instance = null;
         SimpleUI SimpleUI
         {
@@ -42,6 +40,18 @@ namespace SimpleUI
             }
         }
 
+        List<CountableAsset> _assets;
+        public List<CountableAsset> countableAssets
+        {
+            get
+            {
+                if (_assets == null)
+                    _assets = SimpleUI.GetCountableAssetsFromFile();
+
+                return _assets;
+            }
+        }
+
         private void OnSceneGUI()
         {
             if (EditorApplication.isCompiling || EditorApplication.isUpdating)
@@ -50,10 +60,10 @@ namespace SimpleUI
             if (SimpleUI == null)
                 return;
 
-            referencesFromAssets = SimpleUI.GetAllAssetsWithOpenUrl();
-            referencesFromCode = SimpleUI.referencesFromCode;
+            //referencesFromAssets = SimpleUI.GetAllAssetsWithOpenUrl();
+            //referencesFromCode = SimpleUI.referencesFromCode;
 
-            string currentUrl = SimpleUI.GetCurrentUrl();
+            //string currentUrl = SimpleUI.GetCurrentUrl();
 
             //Debug.Log("MyFloat: " + SimpleUI.myFloat);
 
@@ -63,10 +73,12 @@ namespace SimpleUI
 
             var path = SimpleUI.GetOpenedAssetPath();
 
-            var favorite = SimpleUI.countableAssets.OrderByDescending(a => a.Usages).Take(4).ToList();
+            var ass = countableAssets;
+
+            var favorite = ass.OrderByDescending(a => a.Usages).Take(4).ToList();
             var favoriteCounter = favorite.Any() ? favorite.Last().Usages : 0;
 
-            var recent = SimpleUI.countableAssets
+            var recent = ass
                 //.Where(c => !c.AssetPath.Equals(path))
                 .OrderByDescending(c => c.LastOpened)
                 .ToList();

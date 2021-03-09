@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEditor;
-using UnityEditor.Experimental.SceneManagement;
-using UnityEditor.SceneManagement;
-using UnityEngine.SceneManagement;
 
 namespace SimpleUI
 {
@@ -196,6 +192,27 @@ namespace SimpleUI
             attempts[url].Add(new UrlOpeningAttempt { PreviousUrl = previousUrl });
 
             SaveUrlOpeningAttempts(attempts);
+        }
+
+        public static void UpdateAssetWithPath(string path)
+        {
+            var instance = GetInstance();
+
+            BoldPrint("Asset saved: " + path);
+
+            instance.GetAllAssetsWithOpenUrl().RemoveAll(a => a.PrefabAssetPath.Equals(path));
+
+            GetMatchingComponentsFromAsset(instance.GetAllAssetsWithOpenUrl(), path);
+
+            SavePrefabMatches(instance.GetAllAssetsWithOpenUrl());
+        }
+
+        private static void PrefabStage_prefabSaved(GameObject obj)
+        {
+            var parentObject = PrefabUtility.GetCorrespondingObjectFromSource(obj);
+            string path = AssetDatabase.GetAssetPath(parentObject);
+
+            //UpdateAssetWithPath(path);
         }
     }
 }

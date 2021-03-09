@@ -40,24 +40,24 @@ namespace SimpleUI
             // w.minSize = new Vector2(200, 100);
         }
 
-        void OnGUI()
-        {
-            if (!isFirstGUI)
-            {
-                ScanProject();
-            }
+        //void OnGUI()
+        //{
+        //    //if (!isFirstGUI)
+        //    //{
+        //    //    ScanProject();
+        //    //}
 
-            RenderGUI2();
-            isFirstGUI = false;
-        }
+        //    RenderGUI2();
+        //    //isFirstGUI = false;
+        //}
 
-        void OnInspectorUpdate()
-        {
-            if (!isFirstInspectorGUI)
-                RenderInspectorGUI();
+        //void OnInspectorUpdate()
+        //{
+        //    if (!isFirstInspectorGUI)
+        //        RenderInspectorGUI();
 
-            isFirstInspectorGUI = false;
-        }
+        //    isFirstInspectorGUI = false;
+        //}
 
         void RenderGUI2()
         {
@@ -115,6 +115,7 @@ namespace SimpleUI
 
         void RenderInspectorGUI()
         {
+            return;
             var path = GetOpenedAssetPath();
             ChooseUrlFromPickedPrefab();
 
@@ -129,7 +130,7 @@ namespace SimpleUI
                 Debug.Log("Object changed");
                 SetNewPath(path);
 
-                TryToIncreaseCurrentPrefabCounter();
+                //TryToIncreaseCurrentPrefabCounter();
             }
 
             //if (!isPrefabMode)
