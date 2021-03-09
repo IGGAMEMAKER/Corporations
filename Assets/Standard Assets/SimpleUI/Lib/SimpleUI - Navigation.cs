@@ -37,6 +37,12 @@ namespace SimpleUI
             eventHandler.OpenUrl(url);
         }
 
+        string deferredPath = "";
+        public void DeferredAssetOpening(string path)
+        {
+            deferredPath = path;
+        }
+
         public static void OpenAsset(string path)
         {
             var start = DateTime.Now;
@@ -199,6 +205,16 @@ namespace SimpleUI
         {
             Print("Scene changed " + arg0.name + " to " + arg1.name);
             AttachDisplayComponentToScene(arg1);
+        }
+
+        private static void EditorSceneManager_sceneOpened(Scene scene, OpenSceneMode mode)
+        {
+            var objects = scene.GetRootGameObjects();
+
+            if (objects.Any())
+            {
+                Selection.activeGameObject = objects.First();
+            }
         }
 
         private static void EditorSceneManager_sceneClosing(Scene scene, bool removingScene)

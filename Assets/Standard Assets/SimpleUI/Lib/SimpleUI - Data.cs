@@ -65,7 +65,7 @@ namespace SimpleUI
         }
     }
 
-    [Serializable]
+    //[Serializable]
     public struct PrefabMatchInfoDetailed
     {
         public PrefabMatchInfo prefabMatchInfo;

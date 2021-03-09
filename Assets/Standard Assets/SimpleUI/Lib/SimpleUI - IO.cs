@@ -47,7 +47,7 @@ namespace SimpleUI
             }
         }
 
-        [SerializeField]
+        //[SerializeField]
         List<PrefabMatchInfo> allAssetsWithOpenUrl;
         public List<PrefabMatchInfo> GetAllAssetsWithOpenUrl()
         {

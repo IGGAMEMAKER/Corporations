@@ -57,8 +57,8 @@ namespace SimpleUI
             if (EditorApplication.isCompiling || EditorApplication.isUpdating)
                 return;
 
-            if (SimpleUI == null)
-                return;
+            //if (SimpleUI == null)
+            //    return;
 
             //referencesFromAssets = SimpleUI.GetAllAssetsWithOpenUrl();
             //referencesFromCode = SimpleUI.referencesFromCode;
@@ -71,6 +71,11 @@ namespace SimpleUI
             //RenderReferencesToUrl(currentUrl);
             //RenderReferencesFromUrl(currentUrl);
 
+            RenderRecentAssets();
+        }
+
+        void RenderRecentAssets()
+        {
             var path = SimpleUI.GetOpenedAssetPath();
 
             var ass = countableAssets;
@@ -82,7 +87,7 @@ namespace SimpleUI
                 //.Where(c => !c.AssetPath.Equals(path))
                 .OrderByDescending(c => c.LastOpened)
                 .ToList();
-                ;
+            ;
 
             if (recent.Count() >= 2)
                 RenderCountableAssets(recent, favorite, path);
@@ -102,6 +107,12 @@ namespace SimpleUI
                 return trimmedName;
         }
 
+        void OpenCountableAsset(string path)
+        {
+            SimpleUI.DeferredAssetOpening(path);
+            //SimpleUI.OpenAsset(path);
+        }
+
         void RenderCountableAssets(List<CountableAsset> recent, List<CountableAsset> favorite, string path)
         {
             GUILayout.BeginArea(new Rect(Screen.width - w - off, off, w, h));
@@ -119,12 +130,12 @@ namespace SimpleUI
 
             if (favoriteID != -1)
             {
-                SimpleUI.OpenAsset(favorite.ToList()[favoriteID].AssetPath);
+                OpenCountableAsset(favorite.ToList()[favoriteID].AssetPath);
             }
 
             if (recentID != -1)
             {
-                SimpleUI.OpenAsset(recent.ToList()[recentID].AssetPath);
+                OpenCountableAsset(recent.ToList()[recentID].AssetPath);
             }
         }
 

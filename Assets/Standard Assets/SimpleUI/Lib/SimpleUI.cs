@@ -70,6 +70,7 @@ namespace SimpleUI
             PrefabStage.prefabSaved += PrefabStage_prefabSaved;
 
             EditorSceneManager.activeSceneChangedInEditMode += EditorSceneManager_activeSceneChangedInEditMode;
+            EditorSceneManager.sceneOpened += EditorSceneManager_sceneOpened;
             EditorSceneManager.sceneClosing += EditorSceneManager_sceneClosing;
 
             //EditorApplication.quitting += Application_quitting;
@@ -81,13 +82,8 @@ namespace SimpleUI
 
             try
             {
-                if (!EditorWindow.HasOpenInstances<SimpleUI>())
-                {
-                    BoldPrint("HAS NO INSTANCES!!!!");
-                }
-
                 var w = GetWindow<SimpleUI>("Simple UI", false);
-
+                w.autoRepaintOnSceneChange = true;
                 w.ScanProject();
 
                 return w;
