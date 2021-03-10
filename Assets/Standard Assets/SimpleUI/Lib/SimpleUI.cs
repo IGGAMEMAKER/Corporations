@@ -67,7 +67,7 @@ namespace SimpleUI
             PrefabStage.prefabStageOpened += PrefabStage_prefabOpened;
             PrefabStage.prefabStageClosing += PrefabStage_prefabClosed;
 
-            PrefabStage.prefabSaved += PrefabStage_prefabSaved;
+            //PrefabStage.prefabSaved += PrefabStage_prefabSaved;
 
             EditorSceneManager.activeSceneChangedInEditMode += EditorSceneManager_activeSceneChangedInEditMode;
             EditorSceneManager.sceneOpened += EditorSceneManager_sceneOpened;

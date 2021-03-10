@@ -212,7 +212,7 @@ namespace SimpleUI
             var parentObject = PrefabUtility.GetCorrespondingObjectFromSource(obj);
             string path = AssetDatabase.GetAssetPath(parentObject);
 
-            //UpdateAssetWithPath(path);
+            UpdateAssetWithPath(path);
         }
     }
 }
