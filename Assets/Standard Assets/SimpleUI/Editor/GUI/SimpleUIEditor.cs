@@ -32,7 +32,7 @@ namespace SimpleUI
         static bool isFirstGUI = true;
         static bool isFirstInspectorGUI = true;
 
-        [MenuItem("Window/SIMPLE UI")]
+        [MenuItem("Tools/SIMPLE UI")]
         public static void ShowWindow()
         {
             //Show existing window instance. If one doesn't exist, make one.
