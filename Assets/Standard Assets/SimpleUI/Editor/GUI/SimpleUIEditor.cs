@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.Experimental.SceneManagement;
+using UnityEngine.SceneManagement;
 
 namespace SimpleUI
 {
@@ -20,6 +21,7 @@ namespace SimpleUI
 
         // chosen asset
         static bool isPrefabMode => PrefabStageUtility.GetCurrentPrefabStage() != null;
+        static bool isSceneMode => !isPrefabMode;
 
         int ChosenIndex => prefabs.FindIndex(p => p.Url.Equals(GetCurrentUrl())); // GetCurrentUrl()
         bool hasChosenPrefab => ChosenIndex >= 0;
@@ -195,28 +197,32 @@ namespace SimpleUI
 
         void RenderInspectorGUI()
         {
-            return;
             var path = GetOpenedAssetPath();
-            ChooseUrlFromPickedPrefab();
+            //ChooseUrlFromPickedPrefab(this);
 
-            // no matching urls
-            if (newUrl.Equals(""))
-                SetAddingRouteMode();
+            //// no matching urls
+            //if (newUrl.Equals(""))
+            //    SetAddingRouteMode();
 
             bool objectChanged = !newPath.Equals(path); // || !newUrl.Equals(url);
 
             if (objectChanged)
             {
-                Debug.Log("Object changed");
-                SetNewPath(path);
-
-                //TryToIncreaseCurrentPrefabCounter();
+                OnAssetChange(path);
             }
+        }
 
-            //if (!isPrefabMode)
-            //{
-            //    WrapSceneWithMenu();
-            //}
+        void OnAssetChange(string path)
+        {
+            Debug.Log("Object changed");
+            SetNewPath(path);
+
+            TryToIncreaseCurrentPrefabCounter(this);
+
+            if (isSceneMode)
+            {
+                Selection.activeGameObject = SceneManager.GetActiveScene().GetRootGameObjects().First();
+            }
         }
 
 

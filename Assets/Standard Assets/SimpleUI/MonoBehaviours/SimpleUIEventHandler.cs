@@ -249,7 +249,7 @@ namespace SimpleUI
 
         void Print(string text)
         {
-            Debug.Log(text);
+            //Debug.Log(text);
         }
 
         List<string> ParseUrlToSubRoutes(string url)

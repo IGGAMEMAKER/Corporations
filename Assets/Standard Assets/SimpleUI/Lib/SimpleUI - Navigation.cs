@@ -189,8 +189,8 @@ namespace SimpleUI
             instance.newName = GetPrettyNameFromAssetPath(path); // x.Substring(0, ind);
 
             // choose URL
-            ChooseUrlFromPickedPrefab();
-            TryToIncreaseCurrentPrefabCounter();
+            ChooseUrlFromPickedPrefab(instance);
+            TryToIncreaseCurrentPrefabCounter(instance);
         }
 
         private static void PrefabStage_prefabClosed(PrefabStage obj)
@@ -209,6 +209,8 @@ namespace SimpleUI
 
         private static void EditorSceneManager_sceneOpened(Scene scene, OpenSceneMode mode)
         {
+            Print("Scene opened" + scene.name);
+
             var objects = scene.GetRootGameObjects();
 
             if (objects.Any())
@@ -223,24 +225,39 @@ namespace SimpleUI
             DetachDisplayComponentFromScene(scene);
         }
 
-        static void AttachDisplayComponentToScene(Scene arg0)
+        const string MENU_NAME = "**** SimpleUI Menu ****";
+
+        static GameObject GetOrCreateMenuObject(Scene arg0)
         {
             var objects = arg0.GetRootGameObjects();
+            GameObject menu;
 
-            if (objects.Any())
+            if (!objects.Any())
             {
-                AttachDisplayComponent(objects.First());
+                menu = new GameObject(MENU_NAME);
+
+                Instantiate(menu);
             }
+            else
+            {
+                menu = objects.First();
+            }
+
+            return menu;
+        }
+
+        static void AttachDisplayComponentToScene(Scene arg0)
+        {
+            var menu = GetOrCreateMenuObject(arg0);
+
+            AttachDisplayComponent(menu);
         }
 
         static void DetachDisplayComponentFromScene(Scene arg0)
         {
-            var objects = arg0.GetRootGameObjects();
+            var menu = GetOrCreateMenuObject(arg0);
 
-            if (objects.Any())
-            {
-                DetachDisplayComponent(objects.First());
-            }
+            DetachDisplayComponent(menu);
         }
 
         static void AttachDisplayComponent(GameObject obj)
@@ -264,10 +281,10 @@ namespace SimpleUI
 
         // -------------------------------------------
 
-        public static void ChooseUrlFromPickedPrefab()
+        public static void ChooseUrlFromPickedPrefab(SimpleUI instance)
         {
+            return;
             var path = GetOpenedAssetPath();
-            var instance = SimpleUI.GetInstance();
 
             var urls = instance.prefabs.Where(p => p.AssetPath.Equals(path));
 
@@ -290,10 +307,8 @@ namespace SimpleUI
             }
         }
 
-        public static void TryToIncreaseCurrentPrefabCounter()
+        public static void TryToIncreaseCurrentPrefabCounter(SimpleUI instance)
         {
-            var instance = SimpleUI.GetInstance();
-
             if (instance.hasChosenPrefab)
             {
                 var pref = instance.prefabs[instance.ChosenIndex];
@@ -304,13 +319,11 @@ namespace SimpleUI
                 instance.UpdatePrefab(pref);
             }
 
-            TryToIncreaseCurrentAssetCounter();
+            TryToIncreaseCurrentAssetCounter(instance);
         }
 
-        public static void TryToIncreaseCurrentAssetCounter()
+        public static void TryToIncreaseCurrentAssetCounter(SimpleUI instance)
         {
-            var instance = SimpleUI.GetInstance();
-
             var openedPath = GetOpenedAssetPath();
 
             if (!instance.countableAssets.Any(a => a.AssetPath.Equals(openedPath)))

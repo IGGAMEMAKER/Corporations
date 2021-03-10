@@ -78,7 +78,7 @@ namespace SimpleUI
 
         public static SimpleUI GetInstance()
         {
-            BoldPrint("Get Instance");
+            //BoldPrint("Get Instance");
 
             try
             {
