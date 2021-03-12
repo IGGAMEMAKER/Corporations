@@ -29,8 +29,13 @@ namespace SimpleUI
                 return _assets;
             }
         }
-
+        
         // getting data
+        void LoadCountableAssets()
+        {
+            _assets = GetCountableAssetsFromFile();
+        }
+
         public void ScanProject(bool forceLoad = false)
         {
             if (!isProjectScanned || forceLoad)
@@ -44,17 +49,6 @@ namespace SimpleUI
             }
         }
 
-        void LoadCountableAssets()
-        {
-            _assets = GetCountableAssetsFromFile();
-        }
-
-
-        static void SaveCountableAssets(List<CountableAsset> data)
-        {
-            SaveToFile(PATH_CountableAssets, data);
-        }
-
         public static List<CountableAsset> GetCountableAssetsFromFile()
         {
             var fileName = PATH_CountableAssets;
@@ -66,7 +60,14 @@ namespace SimpleUI
                 fs.Close();
             }
 
-            return GetJSONDataFromFile<List<CountableAsset>>(fileName);
+            return GetJSONDataFromFile<CountableAssetContainer>(fileName).CountableAssets;
+            //return GetJSONDataFromFile<List<CountableAsset>>(fileName);
+        }
+
+        // save/edit
+        static void SaveCountableAssets(List<CountableAsset> data)
+        {
+            SaveToFile(PATH_CountableAssets, new CountableAssetContainer() { CountableAssets = data });
         }
 
         public void UpdateCountableAsset(CountableAsset asset, int index)

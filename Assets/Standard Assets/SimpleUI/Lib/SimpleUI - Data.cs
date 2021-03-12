@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 using UnityEditor;
-using UnityEditor.Experimental.SceneManagement;
-using UnityEditor.SceneManagement;
-using UnityEngine.SceneManagement;
-using System.Linq;
 
 namespace SimpleUI
 {
+    [Serializable]
+    public struct CountableAssetContainer
+    {
+        public List<CountableAsset> CountableAssets;
+    }
+
     [Serializable]
     public struct CountableAsset
     {

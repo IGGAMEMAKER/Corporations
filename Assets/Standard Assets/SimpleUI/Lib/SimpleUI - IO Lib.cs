@@ -12,7 +12,7 @@ namespace SimpleUI
     public partial class SimpleUI
     {
         // Save to file
-        static void SaveToFile<T>(string fileName, IEnumerable<T> data)
+        static void SaveToFile<T>(string fileName, T data)
         {
             var jsonString = JsonUtility.ToJson(data);
             File.WriteAllText(fileName, jsonString);
