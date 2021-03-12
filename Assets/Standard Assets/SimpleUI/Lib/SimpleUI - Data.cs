@@ -10,6 +10,7 @@ using System.Linq;
 
 namespace SimpleUI
 {
+    [Serializable]
     public struct CountableAsset
     {
         public string AssetPath;
@@ -26,6 +27,7 @@ namespace SimpleUI
         }
     }
 
+    [Serializable]
     public struct SimpleUISceneType
     {
         public string ID;

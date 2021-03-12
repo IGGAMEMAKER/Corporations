@@ -38,6 +38,8 @@ namespace SimpleUI
             //Show existing window instance. If one doesn't exist, make one.
             // EditorWindow.GetWindow(typeof(SimpleUI), false, "Simple UI", true);
             //var w = EditorWindow.GetWindow(typeof(SimpleUI));
+
+
             var w = GetInstance(); // EditorWindow.GetWindow<SimpleUI>("Simple UI");
             // w.minSize = new Vector2(200, 100);
         }
