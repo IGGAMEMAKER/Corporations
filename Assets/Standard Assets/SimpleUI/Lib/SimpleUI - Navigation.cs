@@ -41,6 +41,8 @@ namespace SimpleUI
         public void SetDeferredAssetPath(string path)
         {
             deferredPath = path;
+
+            //DeferredAssetSwitch();
         }
 
         public static void OpenAsset(string path)

@@ -29,8 +29,8 @@ namespace SimpleUI
         public string GetCurrentUrl() => newUrl.StartsWith("/") ? newUrl : "/" + newUrl;
 
         // skipping first frame to reduce recompile time
-        static bool isFirstGUI = true;
-        static bool isFirstInspectorGUI = true;
+        //static bool isFirstGUI = true;
+        //static bool isFirstInspectorGUI = true;
 
         [MenuItem("Tools/SIMPLE UI")]
         public static void ShowWindow()
@@ -118,15 +118,8 @@ namespace SimpleUI
 
         void OnGUI()
         {
-            //if (!isFirstGUI)
-            //{
-            //    ScanProject();
-            //}
-
             RenderGUI2();
             DeferredAssetSwitch();
-            //RenderRecentAssets();
-            //isFirstGUI = false;
         }
 
         public void Update()
@@ -136,21 +129,20 @@ namespace SimpleUI
 
         void OnInspectorUpdate()
         {
-            if (!isFirstInspectorGUI)
-                RenderInspectorGUI();
+            RenderInspectorGUI();
 
-            isFirstInspectorGUI = false;
             DeferredAssetSwitch();
         }
 
         void RenderGUI2()
         {
             GUILayout.Label("SIMPLE UI", EditorStyles.largeLabel);
+            RenderRecentAssets();
 
-            if (Button("Load countable assets"))
-            {
-                LoadCountableAssets();
-            }
+            //if (Button("Load countable assets"))
+            //{
+            //    LoadCountableAssets();
+            //}
         }
 
         void RenderGUI()
