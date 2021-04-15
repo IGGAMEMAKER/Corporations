@@ -285,7 +285,7 @@ namespace SimpleUI
 
         public static void ChooseUrlFromPickedPrefab(SimpleUI instance)
         {
-            return;
+            //return;
             var path = GetOpenedAssetPath();
 
             var urls = instance.prefabs.Where(p => p.AssetPath.Equals(path));
@@ -320,28 +320,6 @@ namespace SimpleUI
 
                 instance.UpdatePrefab(pref);
             }
-
-            TryToIncreaseCurrentAssetCounter(instance);
-        }
-
-        public static void TryToIncreaseCurrentAssetCounter(SimpleUI instance)
-        {
-            var openedPath = GetOpenedAssetPath();
-
-            if (!instance.countableAssets.Any(a => a.AssetPath.Equals(openedPath)))
-            {
-                instance.countableAssets.Add(new CountableAsset(openedPath));
-            }
-
-            var index = instance.countableAssets.FindIndex(a => a.AssetPath.Equals(openedPath));
-            var prefs = instance.countableAssets; //.Where(a => a.AssetPath.Equals(openedPath));
-
-            var pref = prefs[index];
-
-            pref.Usages++;
-            pref.LastOpened = DateTime.Now.Ticks;
-
-            instance.UpdateCountableAsset(pref, index);
         }
     }
 }

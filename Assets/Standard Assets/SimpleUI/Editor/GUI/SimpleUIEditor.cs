@@ -58,55 +58,6 @@ namespace SimpleUI
                 return trimmedName;
         }
 
-        void RenderRecentAssets()
-        {
-            var path = SimpleUI.GetOpenedAssetPath();
-
-            var ass = countableAssets;
-
-            var favorite = ass.OrderByDescending(a => a.Usages).Take(4).ToList();
-            var favoriteCounter = favorite.Any() ? favorite.Last().Usages : 0;
-
-            var recent = ass
-                //.Where(c => !c.AssetPath.Equals(path))
-                .OrderByDescending(c => c.LastOpened)
-                .ToList();
-            ;
-
-            if (recent.Count() >= 2)
-                RenderCountableAssets(recent, favorite, path);
-        }
-        void RenderCountableAssets(List<CountableAsset> recent, List<CountableAsset> favorite, string path)
-        {
-            //GUILayout.BeginArea(new Rect(Screen.width - w - off, off, w, h));
-
-            //scrollPosition3 = GUILayout.BeginScrollView(scrollPosition3);
-
-            Label("Favorite assets");
-            var favoriteID = GUILayout.SelectionGrid(-1, favorite.Select(GetPrettyNameForAsset).ToArray(), 1);
-
-            Label("Recent assets");
-            var recentID = GUILayout.SelectionGrid(-1, recent.Select(GetPrettyNameForAsset).ToArray(), 1);
-
-            //GUILayout.EndScrollView();
-            //GUILayout.EndArea();
-
-            if (favoriteID != -1)
-            {
-                OpenCountableAsset(favorite.ToList()[favoriteID].AssetPath);
-            }
-
-            if (recentID != -1)
-            {
-                OpenCountableAsset(recent.ToList()[recentID].AssetPath);
-            }
-        }
-
-        void OpenCountableAsset(string path)
-        {
-            SimpleUI.OpenAsset(path);
-        }
-
         void DeferredAssetSwitch()
         {
             if (deferredPath.Length > 0)
@@ -118,7 +69,7 @@ namespace SimpleUI
 
         void OnGUI()
         {
-            RenderGUI2();
+            RenderGUI();
             DeferredAssetSwitch();
         }
 
@@ -132,17 +83,6 @@ namespace SimpleUI
             RenderInspectorGUI();
 
             DeferredAssetSwitch();
-        }
-
-        void RenderGUI2()
-        {
-            GUILayout.Label("SIMPLE UI", EditorStyles.largeLabel);
-            RenderRecentAssets();
-
-            //if (Button("Load countable assets"))
-            //{
-            //    LoadCountableAssets();
-            //}
         }
 
         void RenderGUI()

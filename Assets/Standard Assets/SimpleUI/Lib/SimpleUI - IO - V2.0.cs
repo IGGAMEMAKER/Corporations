@@ -85,6 +85,8 @@ namespace SimpleUI
             BoldPrint("Read SimpleUI.txt");
 
             _prefabs = GetPrefabsFromFile();
+
+            UnityEngine.Debug.Log(_prefabs.Count);
             UrlOpeningAttempts = GetUrlOpeningAttempts();
         }
 

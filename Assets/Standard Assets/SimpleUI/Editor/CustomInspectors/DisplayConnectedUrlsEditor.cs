@@ -31,7 +31,7 @@ namespace SimpleUI
             {
                 if (_instance == null)
                 {
-                    //Debug.Log("Getting SimpleUI cause it's null");
+                    Debug.Log("Getting SimpleUI cause it's null");
 
                     _instance = SimpleUI.GetInstance();
                 }
@@ -40,57 +40,24 @@ namespace SimpleUI
             }
         }
 
-        List<CountableAsset> _assets;
-        public List<CountableAsset> countableAssets
-        {
-            get
-            {
-                if (_assets == null)
-                    _assets = SimpleUI.GetCountableAssetsFromFile();
-
-                return _assets;
-            }
-        }
-
-        private void OnSceneGUI()
+        void OnSceneGUI()
         {
             if (EditorApplication.isCompiling || EditorApplication.isUpdating)
                 return;
 
-            //if (SimpleUI == null)
-            //    return;
+            if (SimpleUI == null)
+                return;
 
-            //referencesFromAssets = SimpleUI.GetAllAssetsWithOpenUrl();
-            //referencesFromCode = SimpleUI.referencesFromCode;
+            referencesFromAssets = SimpleUI.GetAllAssetsWithOpenUrl();
+            referencesFromCode = SimpleUI.referencesFromCode;
 
-            //string currentUrl = SimpleUI.GetCurrentUrl();
+            string currentUrl = SimpleUI.GetCurrentUrl();
 
             //Debug.Log("MyFloat: " + SimpleUI.myFloat);
 
-            //RenderUpperAndLowerRoutes(currentUrl);
-            //RenderReferencesToUrl(currentUrl);
-            //RenderReferencesFromUrl(currentUrl);
-
-            RenderRecentAssets();
-        }
-
-        void RenderRecentAssets()
-        {
-            var path = SimpleUI.GetOpenedAssetPath();
-
-            var ass = countableAssets;
-
-            var favorite = ass.OrderByDescending(a => a.Usages).Take(4).ToList();
-            var favoriteCounter = favorite.Any() ? favorite.Last().Usages : 0;
-
-            var recent = ass
-                //.Where(c => !c.AssetPath.Equals(path))
-                .OrderByDescending(c => c.LastOpened)
-                .ToList();
-            ;
-
-            if (recent.Count() >= 2)
-                RenderCountableAssets(recent, favorite, path);
+            RenderUpperAndLowerRoutes(currentUrl);
+            RenderReferencesToUrl(currentUrl);
+            RenderReferencesFromUrl(currentUrl);
         }
 
         string GetPrettyNameForAsset(CountableAsset m)
@@ -105,39 +72,6 @@ namespace SimpleUI
                 return $"<b>{trimmedName}</b>";
             else
                 return trimmedName;
-        }
-
-        void OpenCountableAsset(string path)
-        {
-            SimpleUI.SetDeferredAssetPath(path);
-            SimpleUI.Focus();
-            //SimpleUI.OpenAsset(path);
-        }
-
-        void RenderCountableAssets(List<CountableAsset> recent, List<CountableAsset> favorite, string path)
-        {
-            GUILayout.BeginArea(new Rect(Screen.width - w - off, off, w, h));
-
-            scrollPosition3 = GUILayout.BeginScrollView(scrollPosition3);
-
-            Label("Favorite assets");
-            var favoriteID = GUILayout.SelectionGrid(-1, favorite.Select(GetPrettyNameForAsset).ToArray(), 1);
-
-            Label("Recent assets");
-            var recentID = GUILayout.SelectionGrid(-1, recent.Select(GetPrettyNameForAsset).ToArray(), 1);
-
-            GUILayout.EndScrollView();
-            GUILayout.EndArea();
-
-            if (favoriteID != -1)
-            {
-                OpenCountableAsset(favorite.ToList()[favoriteID].AssetPath);
-            }
-
-            if (recentID != -1)
-            {
-                OpenCountableAsset(recent.ToList()[recentID].AssetPath);
-            }
         }
 
         void Label(string text)

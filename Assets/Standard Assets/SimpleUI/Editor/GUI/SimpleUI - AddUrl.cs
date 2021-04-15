@@ -134,6 +134,9 @@ namespace SimpleUI
 
             var url = newUrl;
 
+            if (url == null)
+                return;
+
             bool urlOK = url.StartsWith("/");
             bool newNameOK = newName.Length > 0;
 
