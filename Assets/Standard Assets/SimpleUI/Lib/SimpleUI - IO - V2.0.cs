@@ -86,7 +86,6 @@ namespace SimpleUI
 
             _prefabs = GetPrefabsFromFile();
 
-            UnityEngine.Debug.Log(_prefabs.Count);
             UrlOpeningAttempts = GetUrlOpeningAttempts();
         }
 
