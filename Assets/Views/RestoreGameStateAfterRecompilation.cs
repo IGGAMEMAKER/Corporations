@@ -9,6 +9,8 @@ public class RestoreGameStateAfterRecompilation : View
     public GameObject Panels;
     public GameObject TopPanel;
 
+    public ShowNewCampaignOnlyIfInProductionMode ShowNewCampaignOnlyIfInProductionMode;
+
     //void Update()
     //{
     //    //if (Input.GetKeyDown(KeyCode.F11) || Input.GetKeyDown(KeyCode.Tab))
@@ -25,16 +27,15 @@ public class RestoreGameStateAfterRecompilation : View
 
     void Start()
     {
-        bool wasForcedToShutDownByRecompilation = false;
+        bool wasForcedToShutDownByRecompilation = true;
+
+        //GenerateNewWorld();
 
         if (wasForcedToShutDownByRecompilation)
         {
             // restore state automatically
-            LoadPreviousState();
-        }
-        else
-        {
-            GenerateNewWorld();
+            //LoadPreviousState();
+            ShowNewCampaignOnlyIfInProductionMode.ContinueGame();
         }
     }
 

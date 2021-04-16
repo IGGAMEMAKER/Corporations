@@ -44,6 +44,15 @@ public abstract class View : BaseClass
             AnimationSpawner.Spawn(text, t);
     }
 
+    public void Animate(string text, GameObject obj)
+    {
+        if (AnimationSpawner == null)
+            AnimationSpawner = FindObjectOfType<AnimationSpawner>();
+
+        if (AnimationSpawner != null)
+            AnimationSpawner.Spawn(text, obj.transform);
+    }
+
     public Color GetPanelColor(bool isSelected)
     {
         var col = isSelected

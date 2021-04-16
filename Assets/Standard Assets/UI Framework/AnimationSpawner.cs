@@ -1,6 +1,7 @@
 ﻿using Assets;
 using Assets.Core;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AnimationSpawner : BaseClass
 {
@@ -22,6 +23,12 @@ public class AnimationSpawner : BaseClass
     }
 
     public void Spawn(string text, Transform t)
+    {
+        var anim = Instantiate(AnimationPrefab, t ? t : transform, false);
+        anim.Play(text, 0.15f);
+    }
+
+    public void Spawn(string text, Text txt, Transform t)
     {
         var anim = Instantiate(AnimationPrefab, t ? t : transform, false);
         anim.Play(text, 0.15f);

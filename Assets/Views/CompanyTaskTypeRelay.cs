@@ -34,23 +34,25 @@ public class CompanyTaskTypeRelay : View
     {
         base.ViewRender();
 
-        RenderMissionsButton();
-        RenderInvestmentButton();
-        RenderFeatureButton();
-        RenderTeamButton();
-        RenderMarketingButton();
-        RenderServerButton();
+        bool forceShow = true;
 
-        RenderMonetizationButton();
-        RenderOffersButton();
+        RenderMissionsButton(forceShow);
+        RenderInvestmentButton(forceShow);
+        RenderFeatureButton(forceShow);
+        RenderTeamButton(forceShow);
+        RenderMarketingButton(forceShow);
+        RenderServerButton(false);
+
+        RenderMonetizationButton(forceShow);
+        RenderOffersButton(false);
     }
 
-    private void RenderOffersButton()
+    private void RenderOffersButton(bool forceShow)
     {
-        Draw(OffersButton, false);
+        Draw(OffersButton, false || forceShow);
     }
 
-    private void RenderMissionsButton()
+    private void RenderMissionsButton(bool forceShow)
     {
         var goalsCount = MyCompany.companyGoal.Goals.Count;
         var newGoalsCount = Investments.GetNewGoals(MyCompany, Q).Count;
@@ -61,7 +63,7 @@ public class CompanyTaskTypeRelay : View
         bool hasGoals = goalsCount > 0;
         bool hasNewGoals = newGoalsCount > 0;
 
-        Draw(MissionButton, true); // hasGoals || completedGoals
+        Draw(MissionButton, true || forceShow); // hasGoals || completedGoals
         MissionButton.GetComponent<Blinker>().enabled = canCompleteGoals;
 
 
@@ -72,36 +74,36 @@ public class CompanyTaskTypeRelay : View
         GoalCounter.GetComponentInChildren<Text>().text = hasGoals ? goalsCount.ToString() : newGoalsCount.ToString();
     }
 
-    void RenderInvestmentButton()
+    void RenderInvestmentButton(bool forceShow)
     {
         bool willBeBankruptSoon = Economy.IsWillBecomeBankruptOnNextPeriod(Q, Flagship);
         bool skippedSomeTime = CurrentIntDate > 60;
         //bool hadBankruptcyWarning =  || ; // NotificationUtils.GetPopupContainer(Q).seenPopups.PopupTypes.Contains(PopupType.BankruptcyThreat);
 
-        Draw(InvestmentButton, willBeBankruptSoon || skippedSomeTime);
+        Draw(InvestmentButton, willBeBankruptSoon || skippedSomeTime || forceShow);
     }
 
-    void RenderFeatureButton()
+    void RenderFeatureButton(bool forceShow)
     {
         //var features = Products.GetProductFeaturesList(Flagship, Q).Length;
         var features = Products.GetUpgradeableRetentionFeatures(Flagship).Count();
         FeatureCounter.GetComponentInChildren<Text>().text = features.ToString();
 
 
-        Draw(FeatureCounter, false && features > 0);
-        Draw(DevelopmentButton, HasOrCompletedGoal(Flagship, InvestorGoalType.ProductPrototype));
+        Draw(FeatureCounter, false && features > 0 || forceShow);
+        Draw(DevelopmentButton, HasOrCompletedGoal(Flagship, InvestorGoalType.ProductPrototype) || forceShow);
     }
 
-    void RenderMonetizationButton()
+    void RenderMonetizationButton(bool forceShow)
     {
         var features = Products.GetUpgradeableMonetizationFeatures(Flagship).Count();
         MonetizationFeatureCounter.GetComponentInChildren<Text>().text = features.ToString();
 
-        Draw(MonetizationFeatureCounter, features > 0);
-        Draw(MonetizationButton, false); // HasOrCompletedGoal(Flagship, InvestorGoalType.ProductStartMonetising)
+        Draw(MonetizationFeatureCounter, features > 0 || forceShow);
+        Draw(MonetizationButton, false || forceShow); // HasOrCompletedGoal(Flagship, InvestorGoalType.ProductStartMonetising)
     }
 
-    void RenderMarketingButton()
+    void RenderMarketingButton(bool forceShow)
     {
         var channels = Markets.GetAffordableMarketingChannels(Flagship, Q).Count();
         var isLosingAudience = Marketing.GetChurnClients(Flagship) > 0;
@@ -112,26 +114,26 @@ public class CompanyTaskTypeRelay : View
         MarketingCounter.GetComponentInChildren<Text>().text = channels.ToString();
 
 
-        Draw(MarketingCounter, channels > 0);
-        Draw(MarketingButton, HasOrCompletedGoal(Flagship, InvestorGoalType.ProductFirstUsers));
+        Draw(MarketingCounter, channels > 0 || forceShow);
+        Draw(MarketingButton, HasOrCompletedGoal(Flagship, InvestorGoalType.ProductFirstUsers) || forceShow);
     }
 
 
-    void RenderServerButton()
+    void RenderServerButton(bool forceShow)
     {
         bool serverOverload = Products.IsNeedsMoreServers(Flagship);
 
         //Draw(ServersButton, serverOverload || HasOrCompletedGoal(Flagship, InvestorGoalType.ProductPrepareForRelease));
-        Draw(ServersButton, false);
+        Draw(ServersButton, false || forceShow);
     }
 
-    void RenderTeamButton()
+    void RenderTeamButton(bool forceShow)
     {
         int teamInterrupts = Flagship.team.Teams.Count(t => Teams.IsTeamNeedsAttention(Flagship, t, Q));
         TeamCounter.GetComponentInChildren<Text>().text = teamInterrupts.ToString();
 
         Draw(TeamCounter, teamInterrupts > 0);
-        Draw(TeamsButton, HasOrCompletedGoal(Flagship, InvestorGoalType.ProductPrepareForRelease));
+        Draw(TeamsButton, HasOrCompletedGoal(Flagship, InvestorGoalType.ProductPrepareForRelease) || forceShow);
     }
 
     bool HasOrCompletedGoal(GameEntity company, InvestorGoalType goalType)
