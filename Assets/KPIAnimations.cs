@@ -28,8 +28,6 @@ public class KPIAnimations : View
         PositiveChange(BugAnimationSpawner, "-1", BugText);
         PositiveChange(ClientAnimationSpawner, "+3.3K", ClientText);
         PositiveChange(ExpertiseAnimationSpawner, "+1", ExpertiseText);
-
-        //Animate(loyalty.ToString(), LoyaltyText);
     }
 
     void PositiveChange(AnimationSpawner spawner, string change, Text text)
