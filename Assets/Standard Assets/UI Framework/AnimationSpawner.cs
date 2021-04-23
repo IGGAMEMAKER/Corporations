@@ -9,6 +9,7 @@ public class AnimationSpawner : BaseClass
     public JumpingAnimation JumpingAnimationPrefab;
 
     private Sound[] bubbleSounds = new[] {Sound.Bubble1, Sound.Bubble2, Sound.Bubble3, Sound.Bubble4, Sound.Bubble5, Sound.Bubble6, Sound.Bubble7};
+
     public void SpawnJumpingAnimation(Transform t)
     {
         var anim = Instantiate(JumpingAnimationPrefab, transform, false);
