@@ -16,6 +16,14 @@ public class TaskPanelView : View
 
     public GameObject RemoveFeatureButton;
 
+    private void OnEnable()
+    {
+        var tasks = Products.GetTeamTasks(Q, Flagship);
+        var taskID = GetParameter("TaskID");
+
+        SetEntity(0, tasks[taskID]);
+    }
+
     public void SetEntity(int teamId, TeamTask teamTask)
     {
         this.teamId = teamId;

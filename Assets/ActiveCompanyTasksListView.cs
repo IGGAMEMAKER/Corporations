@@ -12,6 +12,8 @@ public class ActiveCompanyTasksListView : ListView
 
         bar.SetValue(CurrentIntDate - task.StartDate, task.EndDate);
         bar.SetCustomText(task.GetPrettyName());
+
+        t.gameObject.AddComponent<LinkToTask>().SetTask(task, index);
     }
 
     public override void ViewRender()
