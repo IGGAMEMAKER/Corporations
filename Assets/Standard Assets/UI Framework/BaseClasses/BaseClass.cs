@@ -1,53 +1,12 @@
 ﻿using Assets;
-using Assets.Core;
-using SimpleUI;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public partial class BaseClass : MonoBehaviour
 {
-    // data
-    public static GameContext Q => Contexts.sharedInstance.game;
-
-    public int CurrentIntDate => ScheduleUtils.GetCurrentDate(Q);
-    public string ShortDate => ScheduleUtils.GetFormattedDate(CurrentIntDate);
-
-
-    public GameEntity SelectedCompany => ScreenUtils.GetSelectedCompany(Q);
-
-    public NicheType SelectedNiche => ScreenUtils.GetSelectedNiche(Q);
-
-    // TODO REMOVE
-    public IndustryType SelectedIndustry => ScreenUtils.GetSelectedIndustry(Q);
-
-    public GameEntity SelectedHuman => ScreenUtils.GetSelectedHuman(Q);
-    public int SelectedTeam => ScreenUtils.GetSelectedTeam(Q);
-
-    // TODO REMOVE
-    public GameEntity SelectedInvestor => ScreenUtils.GetSelectedInvestor(Q);
-
-    public ScreenMode CurrentScreen => ScreenUtils.GetMenu(Q).menu.ScreenMode;
-
-
-    public GameEntity Hero => ScreenUtils.GetPlayer(Q);
-
-
-    public GameEntity MyGroupEntity => Companies.GetPlayerControlledGroupCompany(Q);
-    public GameEntity MyCompany => MyGroupEntity;
-    public GameEntity Flagship => Companies.GetFlagship(Q, MyCompany);
-
-    public bool HasCompany => MyCompany != null;
-
-    //
-    // GameObjects
-    public int GetParameter(string key) => ScreenUtils.GetInteger(Q, key);
-    public void SetParameter(string key, int value) => ScreenUtils.SetInteger(Q, value, key);
-    
-
     public static List<T> FindObjectsOfTypeAll<T>()
     {
         var results = new List<T>();
@@ -71,51 +30,6 @@ public partial class BaseClass : MonoBehaviour
     public static void PlaySound(Sound sound)
     {
         SoundManager.Play(sound);
-    }
-
-
-    public void OpenUrl(string url)
-    {
-        SimpleUI.SimpleUI.OpenUrl_static(url);
-    }
-
-    public void OpenModal(string ModalTag, bool closeOthers = true)
-    {
-        FindObjectOfType<MyModalManager>().OpenMyModal(ModalTag, closeOthers);
-        //var m = GetModal(ModalTag);
-
-        //if (m != null)
-        //{
-        //    Show(m);
-        //    ScheduleUtils.PauseGame(Q);
-        //}
-    }
-
-    public void CloseModal(string ModalTag)
-    {
-        FindObjectOfType<MyModalManager>().CloseMyModal(ModalTag);
-        //var m = GetModal(ModalTag);
-
-        //if (m != null)
-        //{
-        //    Hide(m);
-        //    ScheduleUtils.PauseGame(Q);
-        //}
-    }
-    
-    // TODO REMOVE
-    private MyModalWindow GetModal(string ModalTag)
-    {
-        var m = FindObjectsOfTypeAll<MyModalWindow>().FirstOrDefault(w => w.ModalTag == ModalTag);
-
-        if (m == null)
-        {
-            UnityEngine.Debug.LogError("Modal " + ModalTag + " not found!");
-
-            return null;
-        }
-
-        return m;
     }
 
 
@@ -163,24 +77,6 @@ public partial class BaseClass : MonoBehaviour
             gameObject.GetComponent<IsChosenComponent>().Toggle(isChosen);
     }
 
-
-    GameEntity _Company;
-
-    public GameEntity GetFollowableCompany()
-    {
-        if (_Company == null)
-        {
-            var c = GetComponentInParent<FollowableCompany>();
-
-            if (c == null)
-                return null;
-            else
-                _Company = c.Company;
-        }
-
-        return _Company;
-    }
-
     Dictionary<Type, GameObject> CachedObjects = new Dictionary<Type, GameObject>();
 
     public T Find<T>()
@@ -199,7 +95,6 @@ public partial class BaseClass : MonoBehaviour
     // -----------------------------
 
     public void Draw(MonoBehaviour mb, bool condition) => Draw(mb.gameObject, condition);
-
     public void Draw(GameObject go, bool condition)
     {
         if (go.activeSelf != condition)
@@ -207,7 +102,6 @@ public partial class BaseClass : MonoBehaviour
     }
 
     public void ShowOnly(GameObject obj, GameObject[] objects) => ShowOnly(obj, objects.ToList());
-
     public void ShowOnly(GameObject obj, List<GameObject> objects)
     {
         foreach (var o in objects)
@@ -225,7 +119,6 @@ public partial class BaseClass : MonoBehaviour
             DrawCanvasGroup(group, condition);
         }
     }
-
     public void DrawCanvasGroup(CanvasGroup group, bool condition)
     {
         group.alpha = condition ? 1f : 0;
@@ -240,7 +133,6 @@ public partial class BaseClass : MonoBehaviour
     public void Hide(GameObject go) => Draw(go, false);
 
     public void HideAll(params GameObject[] objects) => HideAll(objects.ToList());
-
     public void HideAll(IEnumerable<GameObject> objects)
     {
         foreach (var b in objects)
@@ -248,7 +140,6 @@ public partial class BaseClass : MonoBehaviour
     }
 
     public void ShowAll(params GameObject[] objects) => ShowAll(objects.ToList());
-
     public void ShowAll(IEnumerable<GameObject> objects)
     {
         foreach (var b in objects)
