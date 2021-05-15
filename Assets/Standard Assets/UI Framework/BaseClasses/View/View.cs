@@ -3,18 +3,9 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class View : BaseClass
+public abstract partial class View : BaseClass
 {
     public virtual void ViewRender() { }
-
-    public string RenderName(GameEntity company)
-    {
-        if (Companies.IsDirectlyRelatedToPlayer(Q, company))
-            return Visuals.Colorize(company.company.Name, Colors.COLOR_GOLD);
-        else
-            return Visuals.Colorize(company.company.Name, Colors.COLOR_WHITE);
-    }
-
 
     // TODO Remove/Drag used once
     public void Animate(Text text)
@@ -69,10 +60,5 @@ public abstract class View : BaseClass
             panelColor.a = 66f / 255f;
 
         return panelColor;
-    }
-
-    public void Refresh()
-    {
-        ScreenUtils.UpdateScreen(Q);
     }
 }
