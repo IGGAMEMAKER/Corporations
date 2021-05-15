@@ -102,4 +102,11 @@ public partial class BaseClass : MonoBehaviour
 
         return m;
     }
+
+    ///
+
+    public void HideNotificationMenu()
+    {
+        Hide(FindObjectOfType<NotificationContainerView>());
+    }
 }
