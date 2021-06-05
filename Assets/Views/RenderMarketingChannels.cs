@@ -14,7 +14,7 @@ public class RenderMarketingChannels : View
     {
         base.ViewRender();
 
-        var isReleased = SelectedCompany.isRelease;
+        var isReleased = Flagship.isRelease;
 
         Release.SetActive(!isReleased);
         Test.SetActive(!isReleased);
