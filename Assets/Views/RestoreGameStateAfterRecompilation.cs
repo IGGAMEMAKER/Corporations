@@ -10,24 +10,10 @@ public class RestoreGameStateAfterRecompilation : View
     public GameObject TopPanel;
 
     public ShowNewCampaignOnlyIfInProductionMode ShowNewCampaignOnlyIfInProductionMode;
-
-    //void Update()
-    //{
-    //    //if (Input.GetKeyDown(KeyCode.F11) || Input.GetKeyDown(KeyCode.Tab))
-    //    //{
-    //    //    State.SaveGame(Q);
-    //    //    Debug.Log("Game Saved");
-    //    //}
-
-    //    //if (Input.GetKeyDown(KeyCode.F10) || Input.GetKeyDown(KeyCode.LeftControl))
-    //    //{
-    //    //    LoadPreviousState();
-    //    //}
-    //}
-
+    
     void Start()
     {
-        bool wasForcedToShutDownByRecompilation = true;
+        bool wasForcedToShutDownByRecompilation = false;
 
         //GenerateNewWorld();
 
