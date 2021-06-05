@@ -47,8 +47,8 @@ namespace SimpleUI
             {
                 var text = File.ReadAllText(fileName);
 
-                if (fileName.Equals(PATH_SimpleUI))
-                    Print(text);
+                //if (fileName.Equals(PATH_SimpleUI))
+                    //Print(text);
 
                 //var obj = JsonUtility.FromJson<T>(text);
                 var obj = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(File.ReadAllText(fileName), settings);
