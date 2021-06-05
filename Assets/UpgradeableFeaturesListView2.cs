@@ -17,13 +17,7 @@ public class UpgradeableFeaturesListView2 : ListView
 
         var company = Flagship;
 
-        var features = Products.GetUpgradeableRetentionFeatures(company)
-            //.OrderBy(f => Marketing.GetLoyaltyChangeFromFeature(company, f) / Teams.GetFeatureUpgradeCost(company, new TeamTaskFeatureUpgrade(f)))
-
-            //.Take(1).Where(f => !isMonetizationMission)
-            ;
-
-        var featureCount = features.Count();
+        var features = Products.GetUpgradeableRetentionFeatures(company);
 
         SetItems(features);
     }

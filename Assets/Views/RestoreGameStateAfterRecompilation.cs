@@ -13,7 +13,7 @@ public class RestoreGameStateAfterRecompilation : View
     
     void Start()
     {
-        bool wasForcedToShutDownByRecompilation = false;
+        bool wasForcedToShutDownByRecompilation = true;
 
         //GenerateNewWorld();
 

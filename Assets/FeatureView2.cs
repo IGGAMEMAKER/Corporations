@@ -26,7 +26,9 @@ public class FeatureView2 : View
         var competitors = Companies.GetDirectCompetitors(Flagship, Q, true);
         var upgrades = competitors.Select(c => Random.Range(0, 10));
 
-        FeatureName.text = Feature.Name;
-        Upgrades.text = string.Join("   |   ", upgrades);
+        var space = "      ";
+
+        FeatureName.text = "Upgrade " + Feature.Name;
+        Upgrades.text = string.Join($"{space}|{space}", upgrades);
     }
 }
