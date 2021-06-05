@@ -128,6 +128,7 @@ namespace SimpleUI
 
         void RenderReferencesFromUrl(string currentUrl)
         {
+            //return;
             GUILayout.BeginArea(new Rect(Screen.width - w - off, off + h + off, w, h));
             //GUILayout.BeginArea(new Rect(off, off + h, w, h));
 
