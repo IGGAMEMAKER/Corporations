@@ -1,5 +1,6 @@
 ﻿using System;
 using Entitas;
+using UnityEngine;
 
 namespace Assets.Core
 {
@@ -51,7 +52,9 @@ namespace Assets.Core
             var container = GetDateContainer(gameContext);
 
             if (container.isTimerRunning)
+            {
                 PauseGame(gameContext);
+            }
             else
             {
                 ResumeGame(gameContext);
@@ -75,6 +78,8 @@ namespace Assets.Core
 
         public static void ResumeGame(GameContext gameContext, int date = -1, int currentSpeed = -1)
         {
+            Debug.Log("Resume Game");
+
             var container = GetDateContainer(gameContext);
 
             container.isTimerRunning = true;
