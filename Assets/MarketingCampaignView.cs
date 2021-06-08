@@ -34,5 +34,6 @@ public class MarketingCampaignView : View
         ProgressBar.SetCustomText("asdsd");
 
         Draw(Fade, f <= 15);
+        Draw(ProgressBar, f <= 15);
     }
 }
