@@ -10,15 +10,16 @@ public class MarketingCampaignsListView : ListView
     {
         var view = t.GetComponent<MarketingCampaignView>();
 
-        view.SetEntity(entity as MarketingChannelComponent);
+        view.SetEntity(entity as ChannelInfo);
     }
 
     public override void ViewRender()
     {
         base.ViewRender();
 
-        var channels = Markets.GetAllMarketingChannels(Q);
+        //var channels = Markets.GetAffordableMarketingChannels(Flagship, Q);
+        var channels = Markets.GetAllMarketingChannels(Q).Select(c => c.marketingChannel.ChannelInfo);
 
-        SetItems(channels.Select(c => c.marketingChannel));
+        SetItems(channels);
     }
 }

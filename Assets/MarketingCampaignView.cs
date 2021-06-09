@@ -13,13 +13,20 @@ public class MarketingCampaignView : View
     public GameObject Fade;
     public ProgressBar ProgressBar;
 
-    public void SetEntity(MarketingChannelComponent marketingChannelComponent)
+    public MarketingChannelController marketingChannelController;
+
+    ChannelInfo ChannelInfo;
+
+    public void SetEntity(ChannelInfo info)
     {
-        var info = marketingChannelComponent.ChannelInfo;
+        ChannelInfo = info;
 
         Name.text = "Channel " + info.ID;
-        Cost.text = Format.Money(info.relativeCost);
-        Gain.text = Format.MinifyToInteger(info.Audience);
+        
+        Cost.text = Format.Money(info.costPerAd);
+        Gain.text = Format.MinifyToInteger(info.Batch);
+
+        marketingChannelController.SetEntity(info);
 
         ViewRender();
     }
@@ -33,7 +40,9 @@ public class MarketingCampaignView : View
         ProgressBar.SetValue(f, 15);
         ProgressBar.SetCustomText("asdsd");
 
-        Draw(Fade, f <= 15);
-        Draw(ProgressBar, f <= 15);
+        bool isUpgrading = Marketing.IsActiveInChannel(Flagship, ChannelInfo.ID);
+
+        Draw(Fade, isUpgrading);
+        Draw(ProgressBar, isUpgrading);
     }
 }
