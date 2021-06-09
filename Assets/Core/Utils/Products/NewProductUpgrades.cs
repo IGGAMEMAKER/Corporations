@@ -100,11 +100,8 @@ namespace Assets.Core
                 .Where(ExcludeUpgradingFeatures(product))
 
                 .Where(IsFeatureWillNotDisappointAnyoneSignificant(product))
-                .Take(GetPossibleFeaturesLeft(product, false))
+                //.Take(GetPossibleFeaturesLeft(product, false))
                 ;
-
-                //.Where(f => !product.team.Teams[0].Tasks.Any(t => t.IsPending && t.AreSameTasks(new TeamTaskFeatureUpgrade(f))))
-                //;
         }
 
         public static IEnumerable<NewProductFeature> GetUpgradeableMonetizationFeatures(GameEntity product)

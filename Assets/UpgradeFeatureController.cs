@@ -1,18 +1,22 @@
+using Assets.Core;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UpgradeFeatureController : MonoBehaviour
+public class UpgradeFeatureController : ButtonController
 {
-    // Start is called before the first frame update
-    void Start()
+    NewProductFeature feature;
+    public override void Execute()
     {
-        
+        var product = Flagship;
+
+        var rating = Products.GetFeatureRating(product, feature.Name);
+        Products.ForceUpgradeFeature(product, feature.Name, rating + 1);
     }
 
-    // Update is called once per frame
-    void Update()
+    internal void SetEntity(NewProductFeature feature)
     {
-        
+        this.feature = feature;
     }
 }

@@ -20,6 +20,12 @@ public class MarketingChannelController : ButtonController
 
         var channelId = ChannelInfo.ID;
 
+        if (Marketing.IsActiveInChannel(Flagship, channelId))
+        {
+            Debug.Log("Is active already");
+            return;
+        }
+
         var task = new TeamTaskChannelActivity(channelId, Marketing.GetChannelCost(Flagship, channelId));
 
         relay.AddPendingTask(task);

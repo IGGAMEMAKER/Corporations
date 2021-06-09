@@ -43,7 +43,7 @@ public class FlagshipRelayInCompanyView : View
 
         if (teamTask.IsMarketingTask)
         {
-            SoundManager.Play(Sound.MarketingTask);
+            //SoundManager.Play(Sound.MarketingTask);
         }
 
         if (teamTask.IsHighloadTask)
