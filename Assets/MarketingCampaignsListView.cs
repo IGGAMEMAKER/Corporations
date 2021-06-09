@@ -6,11 +6,13 @@ using UnityEngine;
 
 public class MarketingCampaignsListView : ListView
 {
+    public Transform animationTransform;
+
     public override void SetItem<T>(Transform t, T entity)
     {
         var view = t.GetComponent<MarketingCampaignView>();
 
-        view.SetEntity(entity as ChannelInfo);
+        view.SetEntity(entity as ChannelInfo, animationTransform);
     }
 
     public override void ViewRender()

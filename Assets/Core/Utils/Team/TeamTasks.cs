@@ -43,6 +43,26 @@ namespace Assets.Core
             AddTeamTask(product, date, gameContext, teamId, taskId, task);
         }
 
+        public static void AddTeamTask(GameEntity product, int date, GameContext gameContext, int teamId, int taskId, TeamTask task)
+        {
+            var team = product.team.Teams[teamId];
+
+            if (taskId >= team.Tasks.Count)
+            {
+                // add new task
+                product.team.Teams[teamId].Tasks.Add(task);
+            }
+            else
+            {
+                // replace old task
+                DisableTask(product, gameContext, teamId, taskId);
+
+                product.team.Teams[teamId].Tasks[taskId] = task;
+            }
+
+            InitializeTeamTaskIfNotPending(product, date, gameContext, task);
+        }
+
         public static int GetFeatureUpgradeCost(GameEntity company, TeamTask teamTask)
         {
             var task = teamTask as TeamTaskFeatureUpgrade;
@@ -63,25 +83,7 @@ namespace Assets.Core
 
             return true;
         }
-        public static void AddTeamTask(GameEntity product, int date, GameContext gameContext, int teamId, int taskId, TeamTask task)
-        {
-            var team = product.team.Teams[teamId];
 
-            if (taskId >= team.Tasks.Count)
-            {
-                // add new task
-                product.team.Teams[teamId].Tasks.Add(task);
-            }
-            else
-            {
-                // replace old task
-                DisableTask(product, gameContext, teamId, taskId);
-
-                product.team.Teams[teamId].Tasks[taskId] = task;
-            }
-
-            InitializeTeamTaskIfNotPending(product, date, gameContext, task);
-        }
 
         public static void InitializeTeamTaskIfNotPending(GameEntity product, int date, GameContext gameContext, TeamTask task)
         {

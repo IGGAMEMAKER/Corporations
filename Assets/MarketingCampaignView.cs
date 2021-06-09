@@ -16,15 +16,16 @@ public class MarketingCampaignView : View
     public MarketingChannelController marketingChannelController;
 
     ChannelInfo ChannelInfo;
+    Transform animationTransform;
 
-    public void SetEntity(ChannelInfo info)
+    public void SetEntity(ChannelInfo info, Transform animationTransform)
     {
         ChannelInfo = info;
+        this.animationTransform = animationTransform;
 
         Name.text = "Channel " + info.ID;
-        
-        Cost.text = Format.Money(info.costPerAd);
-        Gain.text = Format.MinifyToInteger(info.Batch);
+
+
 
         marketingChannelController.SetEntity(info);
 
@@ -35,14 +36,36 @@ public class MarketingCampaignView : View
     {
         base.ViewRender();
 
-        var f = CurrentIntDate % 30;
+        var product = Flagship;
 
-        ProgressBar.SetValue(f, 15);
-        ProgressBar.SetCustomText("asdsd");
+        var cost = Marketing.GetChannelCost(product, ChannelInfo.ID);
+        cost = (long)ChannelInfo.costPerAd;
 
-        bool isUpgrading = Marketing.IsActiveInChannel(Flagship, ChannelInfo.ID);
+        var clients = Marketing.GetChannelClientGain(product, ChannelInfo, 0);
+
+
+        Cost.text = Format.Money(cost, true);
+        Gain.text = Format.Minify(clients);
+
+        var period = 30;
+        var f = CurrentIntDate % period;
+
+        ProgressBar.SetValue(f, period);
+        ProgressBar.SetCustomText("Execution");
+
+
+        bool isUpgrading = Marketing.IsActiveInChannel(product, ChannelInfo.ID);
 
         Draw(Fade, isUpgrading);
         Draw(ProgressBar, isUpgrading);
+
+        if (ScheduleUtils.IsMonthEnd(CurrentIntDate) && isUpgrading)
+        {
+            Marketing.DisableChannelActivity(product, Markets.GetMarketingChannel(Q, ChannelInfo.ID));
+            Marketing.AddClients(product, clients, 0);
+
+            // Spawn animation
+            FindObjectOfType<AnimationSpawner>().Spawn(Visuals.Positive($"+{Format.Minify(clients)} users"), transform);
+        }
     }
 }

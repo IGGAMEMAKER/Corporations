@@ -12,6 +12,7 @@ namespace Assets.Core
     {
         public static bool HasFreeSlotForTeamTask(GameEntity product, TeamTask task)
         {
+            return true;
             var taskCost = GetTaskSlotCost(product, task);
 
             if (taskCost == 0)

@@ -16,6 +16,14 @@ public class MarketingChannelController : ButtonController
     {
         var channel = Markets.GetMarketingChannel(Q, ChannelInfo.ID);
 
-        Marketing.EnableChannelActivity(Flagship, channel);
+        var relay = FindObjectOfType<FlagshipRelayInCompanyView>();
+
+        var channelId = ChannelInfo.ID;
+
+        var task = new TeamTaskChannelActivity(channelId, Marketing.GetChannelCost(Flagship, channelId));
+
+        relay.AddPendingTask(task);
+
+        //Marketing.EnableChannelActivity(Flagship, channel);
     }
 }
