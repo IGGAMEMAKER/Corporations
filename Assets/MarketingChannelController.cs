@@ -24,6 +24,9 @@ public class MarketingChannelController : ButtonController
 
         relay.AddPendingTask(task);
 
+        var cost = Marketing.GetChannelCost(Flagship, channelId);
+        Animate(Visuals.Negative($"-{Format.Money(cost)}"));
+
         //Marketing.EnableChannelActivity(Flagship, channel);
     }
 }

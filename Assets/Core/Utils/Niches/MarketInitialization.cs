@@ -9,25 +9,14 @@ namespace Assets.Core
 {
     public static partial class Markets
     {
+        public static GameEntity GetMarketingChannel(GameContext gameContext, int channelId)
+        {
+            return GetAllMarketingChannels(gameContext).First(c => c.marketingChannel.ChannelInfo.ID == channelId);
+        }
+
         public static GameEntity[] GetAllMarketingChannels(GameContext gameContext)
         {
             return gameContext.GetEntities(GameMatcher.MarketingChannel);
-        }
-
-        public static void CopyChannelInfosToProductCompany(GameEntity product, GameContext gameContext)
-        {
-            if (!product.hasChannelInfos)
-            {
-                var channels = GetAllMarketingChannels(gameContext);
-                var channelInfos = new Dictionary<int, ChannelInfo>();
-
-                foreach (var channel in channels)
-                {
-                    channelInfos[channel.marketingChannel.ChannelInfo.ID] = channel.marketingChannel.ChannelInfo;
-                }
-
-                product.AddChannelInfos(channelInfos);
-            }
         }
 
         public static IEnumerable<ChannelInfo> GetAllMarketingChannels(GameEntity product)
@@ -55,9 +44,15 @@ namespace Assets.Core
                 .Where(IsCanAffordChannel(product, spareBudget));
         }
 
-        public static GameEntity GetMarketingChannel(GameContext gameContext, int channelId)
+        public static IEnumerable<ChannelInfo> GetAffordableMarketingChannels2(GameEntity product, GameContext gameContext)
         {
-            return GetAllMarketingChannels(gameContext).First(c => c.marketingChannel.ChannelInfo.ID == channelId);
+            var payer = product.isFlagship ? Companies.GetPlayerCompany(gameContext) : product;
+            int periods = product.isFlagship ? 4 : 1;
+
+            var spareBudget = Economy.GetSpareBudget(payer, gameContext, periods);
+
+            return GetAllMarketingChannels(product)
+                .Where(IsCanAffordChannel(product, spareBudget));
         }
 
         public static Func<ChannelInfo, bool> IsCanAffordChannel(GameEntity company, long spareBudget) => c =>
@@ -68,14 +63,6 @@ namespace Assets.Core
                 return true;
 
             return spareBudget > adCost;
-            // if (company.isFlagship)
-            // {
-            //     var group = Companies.GetPlayerCompany(gameContext);
-            //
-            //     return Economy.IsCanMaintainForAWhile(group, gameContext, adCost, 4);
-            // }
-            //
-            // return Economy.IsCanMaintainForAWhile(company, gameContext, adCost, 1);
         };
 
 
@@ -83,6 +70,21 @@ namespace Assets.Core
 
 
         // --------------------------- Spawn channels ---------------------------------
+        public static void CopyChannelInfosToProductCompany(GameEntity product, GameContext gameContext)
+        {
+            if (!product.hasChannelInfos)
+            {
+                var channels = GetAllMarketingChannels(gameContext);
+                var channelInfos = new Dictionary<int, ChannelInfo>();
+
+                foreach (var channel in channels)
+                {
+                    channelInfos[channel.marketingChannel.ChannelInfo.ID] = channel.marketingChannel.ChannelInfo;
+                }
+
+                product.AddChannelInfos(channelInfos);
+            }
+        }
 
         public static void SpawnMarketingChannels(GameContext gameContext)
         {

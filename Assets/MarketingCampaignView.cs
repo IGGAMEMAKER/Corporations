@@ -1,6 +1,7 @@
 using Assets.Core;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,8 +26,6 @@ public class MarketingCampaignView : View
 
         Name.text = "Channel " + info.ID;
 
-
-
         marketingChannelController.SetEntity(info);
 
         ViewRender();
@@ -37,8 +36,9 @@ public class MarketingCampaignView : View
         base.ViewRender();
 
         var product = Flagship;
+        var channelId = ChannelInfo.ID;
 
-        var cost = Marketing.GetChannelCost(product, ChannelInfo.ID);
+        var cost = Marketing.GetChannelCost(product, channelId);
         cost = (long)ChannelInfo.costPerAd;
 
         var clients = Marketing.GetChannelClientGain(product, ChannelInfo, 0);
@@ -54,18 +54,22 @@ public class MarketingCampaignView : View
         ProgressBar.SetCustomText("Execution");
 
 
-        bool isUpgrading = Marketing.IsActiveInChannel(product, ChannelInfo.ID);
+        bool isUpgrading = Marketing.IsActiveInChannel(product, channelId);
 
         Draw(Fade, isUpgrading);
         Draw(ProgressBar, isUpgrading);
 
         if (ScheduleUtils.IsMonthEnd(CurrentIntDate) && isUpgrading)
         {
-            Marketing.DisableChannelActivity(product, Markets.GetMarketingChannel(Q, ChannelInfo.ID));
+            var task = product.team.Teams[0].Tasks.First(t => t.IsMarketingTask && (t as TeamTaskChannelActivity).ChannelId == channelId);
+            //var task = new TeamTaskChannelActivity(channelId, Marketing.GetChannelCost(Flagship, channelId));
+
+            Teams.RemoveTeamTask(Flagship, Q, task);
+            //Marketing.DisableChannelActivity(product, Markets.GetMarketingChannel(Q, channelId));
             Marketing.AddClients(product, clients, 0);
 
             // Spawn animation
-            FindObjectOfType<AnimationSpawner>().Spawn(Visuals.Positive($"+{Format.Minify(clients)} users"), transform);
+            Animate(Visuals.Positive($"+{Format.Minify(clients)} users"));
         }
     }
 }

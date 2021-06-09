@@ -145,4 +145,29 @@ public partial class BaseClass : MonoBehaviour
         foreach (var b in objects)
             Show(b);
     }
+
+    // Animations
+    AnimationSpawner AnimationSpawner;
+    public void Animate(string text)
+    {
+        Animate(text, transform);
+    }
+
+    public void Animate(string text, Transform t)
+    {
+        if (AnimationSpawner == null)
+            AnimationSpawner = FindObjectOfType<AnimationSpawner>();
+
+        if (AnimationSpawner != null)
+            AnimationSpawner.Spawn(text, t);
+    }
+
+    public void Animate(string text, GameObject obj)
+    {
+        if (AnimationSpawner == null)
+            AnimationSpawner = FindObjectOfType<AnimationSpawner>();
+
+        if (AnimationSpawner != null)
+            AnimationSpawner.Spawn(text, obj.transform);
+    }
 }

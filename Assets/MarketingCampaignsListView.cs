@@ -20,8 +20,11 @@ public class MarketingCampaignsListView : ListView
         base.ViewRender();
 
         //var channels = Markets.GetAffordableMarketingChannels(Flagship, Q);
-        var channels = Markets.GetAllMarketingChannels(Q).Select(c => c.marketingChannel.ChannelInfo);
+        var channels = Markets.GetAffordableMarketingChannels2(Flagship, Q); //.Select(c => c.marketingChannel.ChannelInfo);
 
-        SetItems(channels);
+        SetItems(
+            channels
+            .OrderByDescending(c => c.Batch)
+            );
     }
 }

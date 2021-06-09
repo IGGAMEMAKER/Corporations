@@ -24,11 +24,4 @@ public class FeatureView2 : View
         FeatureName.text = "Upgrade " + Feature.Name;
         Upgrades.text = string.Join($"{space}|{space}", upgrades);
     }
-
-    public override void ViewRender()
-    {
-        base.ViewRender();
-
-        
-    }
 }
