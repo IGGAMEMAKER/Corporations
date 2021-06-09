@@ -21,9 +21,6 @@ public class MarketingCampaignsListView : ListView
 
         var channels = Markets.GetMaintainableMarketingChannels(Flagship, Q);
 
-        SetItems(
-            channels
-            .OrderByDescending(c => c.Batch)
-            );
+        SetItems(channels.OrderByDescending(c => c.Batch));
     }
 }
