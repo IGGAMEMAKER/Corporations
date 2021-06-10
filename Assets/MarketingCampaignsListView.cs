@@ -19,6 +19,8 @@ public class MarketingCampaignsListView : ListView
     {
         base.ViewRender();
 
+        //var channels = Markets.GetAllMarketingChannels(Q).Select(c => c.marketingChannel.ChannelInfo);
+
         var channels = Markets.GetMaintainableMarketingChannels(Flagship, Q);
 
         SetItems(channels.OrderByDescending(c => c.Batch));

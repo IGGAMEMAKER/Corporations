@@ -17,7 +17,8 @@ public class UpgradeableFeaturesListView2 : ListView
 
         var company = Flagship;
 
-        var features = Products.GetUpgradeableRetentionFeatures(company);
+        //var features = Products.GetUpgradeableRetentionFeatures(company);
+        var features = Products.GetNonMaxedOutFeatures(company);
 
         SetItems(features);
     }
