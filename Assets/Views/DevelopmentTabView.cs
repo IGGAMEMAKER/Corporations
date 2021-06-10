@@ -7,7 +7,7 @@ public class DevelopmentTabView : View, IPointerExitHandler
     void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
     {
         Debug.Log("On Pointer Exit DevelopmentTabView");
-        ScheduleUtils.ResumeGame(Q);
+        //ScheduleUtils.ResumeGame(Q);
 
         OpenUrl("/Holding/Main");
 

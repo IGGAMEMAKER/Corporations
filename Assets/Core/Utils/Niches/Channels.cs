@@ -53,7 +53,7 @@ namespace Assets.Core
             
             //return GetAllMarketingChannels(product)
             return GetAllMarketingChannels(product)
-                //.Where(IsCanMaintainChannel(product, spareBudget))
+                .Where(IsCanMaintainChannel(product, spareBudget))
                 ;
         }
 

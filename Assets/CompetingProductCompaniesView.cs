@@ -18,6 +18,7 @@ public class CompetingProductCompaniesView : UpgradedParameterView
 
         var space = "      ";
 
+        return "Leader" + space + Flagship.company.Name + space + "Leader gets";
         return string.Join($"{space}|{space}", upgrades);
     }
 }
