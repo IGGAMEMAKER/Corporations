@@ -45,7 +45,7 @@ public class MarketingCampaignView : View
 
 
         Cost.text = Format.Money(cost, true);
-        Gain.text = Format.Minify(clients);
+        Gain.text = "+" + Format.Minify(clients) + " users";
 
         // 2K => 3,3
         // 10M => 6

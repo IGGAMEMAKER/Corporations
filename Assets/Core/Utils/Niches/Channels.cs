@@ -76,7 +76,7 @@ namespace Assets.Core
             if (adCost == 0)
                 return true;
 
-            return spareBudget > adCost;
+            return spareBudget > adCost || Marketing.IsActiveInChannel(company, c.ID);
         };
     }
 }
