@@ -12,7 +12,9 @@ public class UpgradeFeatureController : ButtonController
         var product = Flagship;
 
         var rating = Products.GetFeatureRating(product, feature.Name);
-        Products.ForceUpgradeFeature(product, feature.Name, rating + 1);
+
+        if (Products.IsCanUpgradeFeatures(product))
+            Products.ForceUpgradeFeature(product, feature.Name, rating + 1);
     }
 
     internal void SetEntity(NewProductFeature feature)

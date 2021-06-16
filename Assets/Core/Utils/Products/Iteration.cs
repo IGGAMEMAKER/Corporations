@@ -101,9 +101,22 @@ namespace Assets.Core
             // Cooldowns.AddSimpleCooldown(gameContext, cooldownName, iteration);
         }
 
+        public static bool IsCanUpgradeFeatures(GameEntity product)
+        {
+            var cost = GetFeatureUpgradeCost();
+
+            return Companies.IsEnoughResources(product, cost);
+        }
+
+        public static TeamResource GetFeatureUpgradeCost() => new TeamResource(C.ITERATION_PROGRESS, 0, 0, 0, 0);
+
         public static void ForceUpgradeFeature(GameEntity product, string featureName, float value)
         {
+            var cost = GetFeatureUpgradeCost();
+
             product.features.Upgrades[featureName] = value;
+
+            Companies.SpendResources(product, cost, "Feature");
         }
 
         public static float GetFeatureRating(GameEntity product, string featureName)

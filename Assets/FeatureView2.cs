@@ -31,7 +31,7 @@ public class FeatureView2 : View
 
         var space = "      ";
 
-        FeatureName.text = "Upgrade " + Feature.Name;
+        FeatureName.text = Feature.Name; // "Upgrade " + 
         Upgrades.text = string.Join($"{space}|{space}", upgrades);
         Hide(Upgrades);
 

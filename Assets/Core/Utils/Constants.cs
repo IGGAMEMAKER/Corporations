@@ -112,6 +112,8 @@
     public const int IDEA_PER_EXPERTISE = 1000;
 
     public const int AMOUNT_OF_INVESTORS_ON_STARTING_NICHE = 4;
+
+    public const int ITERATION_PROGRESS = 10;
 }
 
 public class Colors

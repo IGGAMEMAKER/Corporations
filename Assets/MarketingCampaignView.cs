@@ -44,8 +44,8 @@ public class MarketingCampaignView : View
         var clients = Marketing.GetChannelClientGain(product, ChannelInfo, 0);
 
 
-        Cost.text = Format.Money(cost, true);
-        Gain.text = "+" + Format.Minify(clients) + " users";
+        Cost.text = "for " + Format.Money(cost, true);
+        Gain.text = "+" + Format.Minify(clients);
 
         // 2K => 3,3
         // 10M => 6
