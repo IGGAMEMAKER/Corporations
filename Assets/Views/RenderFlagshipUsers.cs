@@ -6,6 +6,6 @@ public class RenderFlagshipUsers : ParameterView
     {
         var clients = Marketing.GetUsers(Flagship);
 
-        return Format.Minify(clients) + " users";
+        return Format.Minify(clients); // + " users";
     }
 }

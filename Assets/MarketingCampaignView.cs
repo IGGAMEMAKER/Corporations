@@ -14,6 +14,8 @@ public class MarketingCampaignView : View
     public GameObject Fade;
     public ProgressBar ProgressBar;
 
+    public Text TextualProgress;
+
     public MarketingChannelController marketingChannelController;
 
     ChannelInfo ChannelInfo;
@@ -53,8 +55,15 @@ public class MarketingCampaignView : View
         var period = C.PERIOD * duration;
         var f = CurrentIntDate % period;
 
+        var percent = Mathf.Ceil(f * 100 / period);
+
         ProgressBar.SetValue(f, period);
-        ProgressBar.SetCustomText(Mathf.Ceil(f * 100 / period) + "%");
+        ProgressBar.SetCustomText(percent + "%");
+
+        if (TextualProgress)
+        {
+            TextualProgress.text = percent + "%";
+        }
 
 
         bool isUpgrading = Marketing.IsActiveInChannel(product, channelId);
