@@ -4,6 +4,6 @@ public class TeamTabView : View, IPointerExitHandler
 {
     void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
     {
-        FindObjectOfType<CompanyTaskTypeRelay>().OnTeamTabLeave();
+        OpenUrl("/Holding/Main");
     }
 }

@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Core
@@ -125,6 +127,19 @@ namespace Assets.Core
                 return product.features.Upgrades[featureName];
 
             return 0;
+        }
+
+        public static bool IsLeadingInFeature(GameEntity Flagship, NewProductFeature Feature, GameContext Q)
+        {
+            var competitors = Companies.GetDirectCompetitors(Flagship, Q, true);
+            return IsLeadingInFeature(Flagship, Feature, Q);
+        }
+
+        public static bool IsLeadingInFeature(GameEntity Flagship, NewProductFeature Feature, GameContext Q, IEnumerable<GameEntity> competitors)
+        {
+            var maxLVL = competitors.Max(c => Products.GetFeatureRating(c, Feature.Name));
+
+            return GetFeatureRating(Flagship, Feature.Name) == maxLVL;
         }
 
         // in percents 0...15%

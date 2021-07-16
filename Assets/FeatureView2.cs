@@ -8,11 +8,14 @@ using UnityEngine.UI;
 public class FeatureView2 : View
 {
     public Text FeatureName;
+    public Text Rating;
     public Text Upgrades;
 
     public Text Leader;
     public Text You;
     public Text Benefit;
+
+    public Text BenefitDescription;
 
 
     NewProductFeature Feature;
@@ -31,12 +34,16 @@ public class FeatureView2 : View
 
         var space = "      ";
 
-        FeatureName.text = Feature.Name; // "Upgrade " + 
+        var rating = Products.GetFeatureRating(Flagship, Feature.Name);
+
+        FeatureName.text = Feature.Name;
+        Rating.text = rating + "LVL";
+        BenefitDescription.text = Visuals.Positive("-0.2% client loss");
         Upgrades.text = string.Join($"{space}|{space}", upgrades);
         Hide(Upgrades);
 
         Leader.text = Visuals.Colorize(companyName, leader.isFlagship ? Colors.COLOR_BEST : Colors.COLOR_NEUTRAL) + "\n" + (int)maxLVL;
-        You.text = "" + Products.GetFeatureRating(Flagship, Feature.Name);
+        You.text = "" + rating;
         Benefit.text = $"+{Visuals.Positive("5% growth")}";
 
         UpgradeFeatureController.SetEntity(Feature);

@@ -1,19 +1,48 @@
 using Assets.Core;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FlagshipCompetitorsInDevelopmentScreenListView : ListView
 {
     public override void SetItem<T>(Transform t, T entity)
     {
-        t.GetComponent<CompanyPreviewView>().SetEntity(entity as GameEntity);
+        var product = entity as GameEntity;
+
+        var users = Marketing.GetUsers(product);
+
+        var header = $"<b>#{index + 1} {product.company.Name}</b>";
+
+        if (product.isFlagship)
+        {
+            header = Visuals.Colorize(header, Colors.COLOR_COMPANY_WHERE_I_AM_CEO);
+        }
+        var text = $"{header} {Format.Minify(users)} users\n";
+
+        //text += "\tKey strengths\n";
+
+        //var features = Products.GetUpgradeableRetentionFeatures(company);
+        var features = Products.GetAllFeaturesForProduct(product);
+
+        foreach (var f in features)
+        {
+            if (Products.IsLeadingInFeature(product, f, Q, Competitors))
+                text += $"\n\t{f.Name} ({(int)Products.GetFeatureRating(product, f.Name)}) " + Visuals.Positive("+5% audience growth");
+        }
+        /*text += "\t\tMessages (8) " + Visuals.Positive("+5% audience growth");
+        text += "\t\tProfile (8) " + Visuals.Positive("+10% audience growth");*/
+
+        t.GetComponent<Text>().text = text;
     }
+
+    IEnumerable<GameEntity> Competitors;
 
     public override void ViewRender()
     {
-        var competitors = Companies.GetDirectCompetitors(Flagship, Q, true);
+        Competitors = Companies.GetDirectCompetitors(Flagship, Q, true);
 
-        SetItems(competitors);
+        SetItems(Competitors.OrderByDescending(c => Marketing.GetUsers(c)));
     }
 }

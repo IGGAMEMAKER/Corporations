@@ -10,6 +10,7 @@ public class StartInvestmentRoundController : ButtonController
         {
             NotificationUtils.AddSimplePopup(Q, "Add missions to get investments");
             NavigateToMainScreen();
+            OpenModal("Missions");
         }
     }
 }
