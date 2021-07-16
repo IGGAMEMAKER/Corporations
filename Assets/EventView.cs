@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public enum EventStatusType
 {
-    Possibility,
+    Opportunity,
     Warning,
     Danger,
 
@@ -26,6 +26,11 @@ public class EventView : View
     public Image EventStatus;
     public EventStatusType StatusType;
 
+    public Color OpportunityColor;
+    public Color WarningColor;
+    public Color DangerColor;
+    public Color InfoColor;
+
     private void OnValidate()
     {
         Title.text = title;
@@ -33,19 +38,19 @@ public class EventView : View
 
         if (StatusType == EventStatusType.Danger)
         {
-            EventStatus.color = Visuals.Negative();
+            EventStatus.color = Visuals.GetColorFromString("#FF5858"); // DangerColor;
         }
-        else if (StatusType == EventStatusType.Possibility)
+        else if (StatusType == EventStatusType.Opportunity)
         {
-            EventStatus.color = Visuals.Positive();
+            EventStatus.color = Visuals.GetColorFromString("#5EF15C"); // OpportunityColor;
         }
         else if (StatusType == EventStatusType.Warning)
         {
-            EventStatus.color = Color.magenta;
+            EventStatus.color = Visuals.GetColorFromString("#FFC977"); // WarningColor;
         }
         else
         {
-            EventStatus.color = Visuals.Neutral();
+            EventStatus.color = Visuals.GetColorFromString("#5EF15C");  // InfoColor;
         }
 
         Draw(EventStatus, StatusType != EventStatusType.Message);

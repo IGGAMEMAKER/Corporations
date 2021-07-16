@@ -13,4 +13,9 @@ public class DevelopmentTabView : View, IPointerExitHandler
 
         //FindObjectOfType<CompanyTaskTypeRelay>().OnDevelopmentTabLeave();
     }
+
+    private void OnEnable()
+    {
+        ScheduleUtils.PauseGame(Q);
+    }
 }

@@ -9,6 +9,8 @@ public class RenderChurnRate : UpgradedParameterView
         //var churnBonus = Marketing.GetChurnBonus(gameContext, product.company.Id);
         //churnBonus.SetDimension("%");
 
+        return "Churn rate is: " + Marketing.GetChurnRate(company, 0) + " due to\n\n" + Marketing.GetSegmentLoyalty(company, 0, true).ToString();
+        return Marketing.GetChurnRate(company, 0, true).ToString(true);
         return Visuals.Positive(bonus.ToString()); // + "\n" + churnBonus.ToString(true);
     }
 
@@ -16,25 +18,6 @@ public class RenderChurnRate : UpgradedParameterView
 
     public override string RenderValue()
     {
-        //var rate = Marketing.GetChurnRate(Q, company.company.Id).ToString();
-        //var churnUsers = Marketing.GetChurnClients(Q, company.company.Id);
-
-        //var growth = Marketing.GetAudienceGrowth(company, Q);
-
-        //var change = growth - churnUsers;
-
-        //Colorize(Visuals.GetColorPositiveOrNegative(change));
-
-        //var sign = "";
-
-        //if (change > 0)
-        //    sign = "+";
-
-
-        return "RenderChurnRate";
-        //return sign + Format.Minify(change);
-
-        ////return $"{Format.Minify(churnUsers)} users ({rate}%)";
-        ////return MarketingUtils.GetChurnBonus(GameContext, SelectedCompany.company.Id).Sum();
+        return Visuals.Negative(Format.Minify(-Marketing.GetChurnClients(company, 0)));
     }
 }

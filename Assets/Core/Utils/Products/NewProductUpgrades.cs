@@ -42,6 +42,11 @@ namespace Assets.Core
             return socialNetworkFeatures;
         }
 
+        public static int GetUpgradePoints(GameEntity product)
+        {
+            return product.companyResource.Resources.programmingPoints / C.ITERATION_PROGRESS;
+        }
+
         private static NewProductFeature[] GenerateFeatureList(List<string> UTPs, List<string> TOPs, List<string> OKs, int randomFeatures, params NewProductFeature[] features)
         {
             var featureList = new List<NewProductFeature>();

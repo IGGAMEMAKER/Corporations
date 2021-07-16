@@ -25,7 +25,7 @@ public class RenderGroupProfitOnDevScreen : View
 
         if (Profitability != null)
         {
-            Profitability.text = Format.Money(profit);
+            Profitability.text = Format.Minify(profit);
             Profitability.color = Visuals.GetColorPositiveOrNegative(profit);
             Profitability.GetComponent<Hint>().SetHint(bonus.ToString());
         }
