@@ -1,3 +1,4 @@
+using Assets.Core;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,11 +11,8 @@ public class IterationProgressView : View
     {
         base.ViewRender();
 
-        var progress = C.ITERATION_PROGRESS;
+        var progress = Products.GetIterationProgress(Flagship);
 
-        var points = Flagship.companyResource.Resources.programmingPoints;
-        var iteration = points % progress;
-
-        ProgressBar.SetValue(iteration, progress);
+        ProgressBar.SetValue(progress, 100);
     }
 }

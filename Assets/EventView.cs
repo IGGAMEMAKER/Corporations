@@ -19,6 +19,8 @@ public class EventView : View
 {
     public Text Title;
     public Text Counter;
+    public Image ProgressImage;
+
 
     public string title;
     public int counter;
@@ -31,10 +33,27 @@ public class EventView : View
     public Color DangerColor;
     public Color InfoColor;
 
+    public int Progress = -1;
+
+    public void SetProgress(int num)
+    {
+        Progress = num;
+        ProgressImage.fillAmount = (100f - num) / 100f;
+
+        Draw(ProgressImage, Products.GetUpgradePoints(Flagship) < 1);
+    }
+
     private void OnValidate()
     {
         Title.text = title;
         Counter.text = $"({counter})";
+
+        if (Progress == -1)
+            Hide(ProgressImage);
+        /*if (Application.isEditor)
+        {
+            SetProgress(Progress);
+        }*/
 
         if (StatusType == EventStatusType.Danger)
         {

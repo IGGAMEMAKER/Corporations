@@ -51,6 +51,7 @@ public class InestmentProposalScreen : View
     private void OnEnable()
     {
         ResetOffer();
+        ScheduleUtils.PauseGame(Q);
     }
 
     public void ResetOffer()
@@ -65,6 +66,13 @@ public class InestmentProposalScreen : View
     public override void ViewRender()
     {
         base.ViewRender();
+
+        if (!settingsAreOk)
+        {
+            Investments.SetGrowthStyle(MyCompany, CompanyGrowthStyle.StepByStep);
+            Investments.SetExitStrategy(MyCompany, InvestorInterest.IPO);
+            Investments.SetVotingStyle(MyCompany, VotingStyle.Percent75);
+        }
 
         Draw(GrowthStrategyTab, isRoundActive && noGrowth);
         Draw(VotingStrategyTab, isRoundActive && !noGrowth && noVoting);
@@ -85,11 +93,11 @@ public class InestmentProposalScreen : View
             HideAll(OfferPanels);
 
             // RenderOffer
-            if (urgency < 0)
+            /*if (urgency < 0)
             {
                 ChooseUrgency();
             }
-            else if (!goalWasChosen)
+            else*/ if (!goalWasChosen)
             {
                 ChooseGoal();
             }

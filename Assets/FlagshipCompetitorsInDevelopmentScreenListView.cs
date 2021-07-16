@@ -21,18 +21,14 @@ public class FlagshipCompetitorsInDevelopmentScreenListView : ListView
         }
         var text = $"{header} {Format.Minify(users)} users\n";
 
-        //text += "\tKey strengths\n";
-
-        //var features = Products.GetUpgradeableRetentionFeatures(company);
         var features = Products.GetAllFeaturesForProduct(product);
 
         foreach (var f in features)
         {
-            if (Products.IsLeadingInFeature(product, f, Q, Competitors))
-                text += $"\n\t{f.Name} ({(int)Products.GetFeatureRating(product, f.Name)}) " + Visuals.Positive("+5% audience growth");
+            var rating = (int)Products.GetFeatureRating(product, f.Name);
+            if (Products.IsLeadingInFeature(product, f, Q, Competitors) && rating > 0)
+                text += $"\n\t{f.Name} ({rating}) " + Visuals.Positive("+5% audience growth");
         }
-        /*text += "\t\tMessages (8) " + Visuals.Positive("+5% audience growth");
-        text += "\t\tProfile (8) " + Visuals.Positive("+10% audience growth");*/
 
         t.GetComponent<Text>().text = text;
     }

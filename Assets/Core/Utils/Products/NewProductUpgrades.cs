@@ -47,6 +47,16 @@ namespace Assets.Core
             return product.companyResource.Resources.programmingPoints / C.ITERATION_PROGRESS;
         }
 
+        public static int GetIterationProgress(GameEntity product)
+        {
+            var progress = C.ITERATION_PROGRESS;
+
+            var points = product.companyResource.Resources.programmingPoints;
+            var iteration = points % progress;
+
+            return iteration * 100 / progress;
+        }
+
         private static NewProductFeature[] GenerateFeatureList(List<string> UTPs, List<string> TOPs, List<string> OKs, int randomFeatures, params NewProductFeature[] features)
         {
             var featureList = new List<NewProductFeature>();
