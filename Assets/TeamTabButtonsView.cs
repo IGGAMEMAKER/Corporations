@@ -23,11 +23,15 @@ public class TeamTabButtonsView : View
     {
         HideAll(TeamHiringButtons);
         ShowAll(MainTeamButtons);
+
+        Hide(Hierarchy);
     }
     
     public void OnShowTeamActionsOnly()
     {
         ShowAll(TeamHiringButtons);
         HideAll(MainTeamButtons);
+
+        Hide(Hierarchy);
     }
 }

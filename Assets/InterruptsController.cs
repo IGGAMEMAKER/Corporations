@@ -20,7 +20,7 @@ public class InterruptsController : View
         Draw(PromoteTeam, false);
 
         var iterationProgress = Products.GetIterationProgress(Flagship) + CurrentIntDate % (int)C.PERIOD;
-        Debug.Log("progress: " + iterationProgress);
+//        Debug.Log("progress: " + iterationProgress);
         UpgradeFeature.SetProgress(iterationProgress);
     }
 }

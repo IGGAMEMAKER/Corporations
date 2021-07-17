@@ -1,19 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &4659003506601774615
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6817818180131063277}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08e2dde4d4610b64d8d6d20872b18724, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Url: Holding/Main/TeamTab
-  Url_ID: 11c4ebbdbe6b4624be74da25c6abc699
 --- !u!1 &900837278465547804
 GameObject:
   m_ObjectHideFlags: 0
@@ -108,20 +94,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Url: Holding/Main/DevTab
   Url_ID: 548549acdb5e45f98ed9934ef2957f4f
---- !u!114 &7332207270714599081
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7126963993794207335}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08e2dde4d4610b64d8d6d20872b18724, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Url: InvestmentRoundsScreen
-  Url_ID: 5820140113a241acb7ea8957645a0fec
 --- !u!114 &3394965155491943296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,6 +138,34 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &4659003506601774615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6817818180131063277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08e2dde4d4610b64d8d6d20872b18724, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Url: Holding/Main/TeamTab
+  Url_ID: 11c4ebbdbe6b4624be74da25c6abc699
+--- !u!114 &7332207270714599081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7126963993794207335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08e2dde4d4610b64d8d6d20872b18724, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Url: InvestmentRoundsScreen
+  Url_ID: 5820140113a241acb7ea8957645a0fec
 --- !u!114 &3857200902489235865
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,6 +236,7 @@ GameObject:
   - component: {fileID: 3052003479992658942}
   - component: {fileID: 4815160682789798635}
   - component: {fileID: 1179342981564515264}
+  - component: {fileID: 3866084940999656320}
   m_Layer: 5
   m_Name: Events & Interrupts
   m_TagString: Untagged
@@ -486,6 +487,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1179342981564515264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8588522436445624390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be2d292bce09896479dd36e6ba20f7f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3866084940999656320
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -888,6 +901,12 @@ PrefabInstance:
       propertyPath: title
       value: Raise investments
       objectReference: {fileID: 0}
+    - target: {fileID: 2543819227612086033, guid: d404aea887e0b274dbaa27e055b2c647,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 56c03ce26f29c994aa8b3986e2186ca3,
+        type: 3}
     - target: {fileID: 6031230612108062794, guid: d404aea887e0b274dbaa27e055b2c647,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1000,9 +1019,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d404aea887e0b274dbaa27e055b2c647, type: 3}
---- !u!1 &5997355705347410196 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7283329878620648712, guid: d404aea887e0b274dbaa27e055b2c647,
+--- !u!224 &7321246178067123286 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6031230612108062794, guid: d404aea887e0b274dbaa27e055b2c647,
     type: 3}
   m_PrefabInstance: {fileID: 3902781198787230748}
   m_PrefabAsset: {fileID: 0}
@@ -1012,9 +1031,9 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 3902781198787230748}
   m_PrefabAsset: {fileID: 0}
---- !u!224 &7321246178067123286 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6031230612108062794, guid: d404aea887e0b274dbaa27e055b2c647,
+--- !u!1 &5997355705347410196 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7283329878620648712, guid: d404aea887e0b274dbaa27e055b2c647,
     type: 3}
   m_PrefabInstance: {fileID: 3902781198787230748}
   m_PrefabAsset: {fileID: 0}
@@ -1207,6 +1226,12 @@ PrefabInstance:
       propertyPath: StatusType
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2543819227612086033, guid: d404aea887e0b274dbaa27e055b2c647,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 72beea82828be0d46afc61533e04441e,
+        type: 3}
     - target: {fileID: 3483814538686564902, guid: d404aea887e0b274dbaa27e055b2c647,
         type: 3}
       propertyPath: m_Color.b
@@ -1374,6 +1399,12 @@ PrefabInstance:
       propertyPath: StatusType
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2543819227612086033, guid: d404aea887e0b274dbaa27e055b2c647,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a81b811d419055c43a7ddc04ce938fab,
+        type: 3}
     - target: {fileID: 3483814538686564902, guid: d404aea887e0b274dbaa27e055b2c647,
         type: 3}
       propertyPath: m_Color.g
