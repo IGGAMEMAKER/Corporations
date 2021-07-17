@@ -20,6 +20,7 @@ public class TraitView : View
 
     public Image Image;
     public Hint Hint;
+    public Text Text;
 
     public Trait Trait;
 
@@ -30,6 +31,7 @@ public class TraitView : View
         RenderTraitType(trait);
 
         Hint.SetHint(trait.ToString());
+        Text.text = trait.ToString();
     }
 
     private void OnValidate()
