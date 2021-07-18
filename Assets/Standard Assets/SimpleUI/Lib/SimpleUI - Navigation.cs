@@ -266,7 +266,9 @@ namespace SimpleUI
         {
             Print("Attach component");
 
-            obj.AddComponent<DisplayConnectedUrls>();
+            if (obj.GetComponent<DisplayConnectedUrls>() == null)
+                obj.AddComponent<DisplayConnectedUrls>();
+
             Selection.activeGameObject = obj;
         }
 
