@@ -4,27 +4,30 @@ namespace Assets.Core
 {
     public static partial class Marketing
     {
-        public static long GetChurnRate(GameEntity company, int segmentId)
+        public static long GetChurnRate(GameEntity company, GameContext gameContext, int segmentId)
         {
-            return GetChurnRate(company, segmentId, true).Sum();
+            return GetChurnRate(company, segmentId, gameContext, true).Sum();
         }
 
-        public static Bonus<long> GetChurnRate(GameEntity c, int segmentId, bool isBonus)
+        public static Bonus<long> GetChurnRate(GameEntity c, int segmentId, GameContext gameContext, bool isBonus)
         {
-            var baseChurn = GetBaseChurnRate(c, isBonus);
+            var baseChurn = GetBaseChurnRate(c, gameContext, isBonus);
 
             return baseChurn // GetSegmentSpecificChurnBonus(baseChurn, c, segmentId, isBonus)
                 .Cap(1, 100)
                 ;
         }
 
-        public static Bonus<long> GetBaseChurnRate(GameEntity c, bool isBonus)
+        public static Bonus<long> GetBaseChurnRate(GameEntity c, GameContext gameContext, bool isBonus)
         {
-            var state = c.nicheState.Phase; // Markets.GetMarketState(gameContext, c.product.Niche);
-
+            // market state
+            var state = c.nicheState.Phase;
             var marketIsDying = state == MarketState.Death;
 
-            var requirements = c.marketRequirements.Features;
+            // market requirements
+            var reqs = Markets.GetMarketRequirementsForCompany(gameContext, c);
+
+            var requirements = reqs.Features;
             var features = Products.GetAllFeaturesForProduct();
 
             var baseRate = new Bonus<long>("Churn rate")
@@ -32,11 +35,6 @@ namespace Assets.Core
                 .SetDimension("%")
 
                 .AppendAndHideIfZero("Market is DYING", marketIsDying ? 5 : 0);
-
-            //var competitiveness = c.teamEfficiency.Efficiency.Competitiveness;
-            //var competitivenessBonus = GetChurnFromOutcompetition(c);
-
-            //var quality = Marketing.GetAppQuality(c);
 
             for (var i = 0; i < requirements.Count; i++)
             {

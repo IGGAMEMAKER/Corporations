@@ -19,6 +19,27 @@ namespace Assets.Core
             return e;
         }
 
+        public static MarketRequirementsComponent GetMarketRequirements(GameEntity niche)
+        {
+            if (!niche.hasMarketRequirements)
+                niche.AddMarketRequirements(Products.GetAllFeaturesForProduct().Select(f => 0f).ToList());
+
+            return niche.marketRequirements;
+        }
+
+        public static MarketRequirementsComponent GetMarketRequirementsForCompany(GameContext gameContext, GameEntity c)
+        {
+            if (!c.hasMarketRequirements)
+            {
+                var niche = Markets.Get(gameContext, c);
+                var reqs = Markets.GetMarketRequirements(niche);
+
+                c.AddMarketRequirements(reqs.Features);
+            }
+
+            return c.marketRequirements;
+        }
+
         public static GameEntity[] GetIndustries(GameContext gameContext)
         {
             return gameContext.GetEntities(GameMatcher.Industry);

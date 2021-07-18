@@ -130,11 +130,7 @@ namespace Assets.Core
             var niche = Markets.Get(gameContext, product);
             var index = product.features.Upgrades.Keys.ToList().IndexOf(featureName);
 
-            if (!niche.hasMarketRequirements)
-            {
-                // TODO copied from CreateNicheMockup 
-                niche.AddMarketRequirements(Products.GetAllFeaturesForProduct().Select(f => 0f).ToList());
-            }
+            Markets.GetMarketRequirements(niche);
 
             if (niche.marketRequirements.Features[index] < value)
             {

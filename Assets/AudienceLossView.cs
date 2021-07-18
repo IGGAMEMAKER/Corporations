@@ -13,9 +13,9 @@ public class AudienceLossView : UpgradedParameterView
         var change = changeBonus.Sum();
 
         var gain = Marketing.GetAudienceGrowth(product, Q);
-        var loss = Marketing.GetChurnClients(product);
+        var loss = Marketing.GetChurnClients(product, Q);
 
-        var baseChurn = Marketing.GetBaseChurnRate(product, true);
+        var baseChurn = Marketing.GetBaseChurnRate(product, Q, true);
 
         var text = "";
 
@@ -58,7 +58,7 @@ public class AudienceLossView : UpgradedParameterView
             {
                 var churn = Marketing.GetSegmentSpecificChurnBonus(new Bonus<long>("segment churn"), product, s.ID, true);
 
-                var segmentChurn = Marketing.GetChurnClients(product, s.ID);
+                var segmentChurn = Marketing.GetChurnClients(product, Q, s.ID);
                 var loyalty = Marketing.GetSegmentLoyalty(product, s.ID);
 
                 if (segmentChurn > 0 && loyalty < 0)
@@ -80,7 +80,7 @@ public class AudienceLossView : UpgradedParameterView
         }
         else if (change < 0)
         {
-            var loss = Marketing.GetChurnClients(Flagship);
+            var loss = Marketing.GetChurnClients(Flagship, Q);
 
             return $"<size=64><b>{Visuals.Negative(Format.Minify(-change))}</b></size>\nusers weekly";
             return $"We are {Visuals.Negative("LOSING")} {Format.Minify(-change)} users weekly";

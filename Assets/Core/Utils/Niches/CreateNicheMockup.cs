@@ -18,7 +18,7 @@ namespace Assets.Core
                 );
 
             // TODO duplicate in Iteration.cs
-            e.AddMarketRequirements(Products.GetAllFeaturesForProduct().Select(f => 0f).ToList());
+            GetMarketRequirements(e);
 
 
             e.AddNicheCosts(1, 1, 1, 1);

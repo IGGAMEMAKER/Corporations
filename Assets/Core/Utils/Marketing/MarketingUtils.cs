@@ -31,20 +31,18 @@ namespace Assets.Core
             company.ReplaceMarketing(marketing.ClientList);
         }
 
-        public static long GetChurnClients(GameEntity product, int segmentId)
+        public static long GetChurnClients(GameEntity product, GameContext gameContext, int segmentId)
         {
-            var churn = GetChurnRate(product, segmentId);
+            var churn = GetChurnRate(product, gameContext, segmentId);
 
             var clients = GetUsers(product, segmentId);
 
             return clients * churn / 100;
         }
 
-        public static long GetChurnClients(GameEntity product)
+        public static long GetChurnClients(GameEntity product, GameContext gameContext)
         {
-            var segments = Marketing.GetAudienceInfos();
-
-            return segments.Sum(s => GetChurnClients(product, s.ID));
+            return Marketing.GetAudienceInfos().Sum(s => GetChurnClients(product, gameContext, s.ID));
         }
 
         public static void ReleaseApp(GameContext gameContext, GameEntity product)

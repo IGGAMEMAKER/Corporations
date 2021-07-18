@@ -44,7 +44,7 @@ namespace Assets.Core
             var segments = GetAudienceInfos();
             for (var i = 0; i < segments.Count; i++)
             {
-               churnUsers += GetChurnClients(product, i);
+               churnUsers += GetChurnClients(product, gameContext, i);
             }
 
             bonus.Append("Marketing", GetAudienceGrowth(product, gameContext));

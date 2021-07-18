@@ -106,7 +106,7 @@ public class CompanyTaskTypeRelay : View
     void RenderMarketingButton(bool forceShow)
     {
         var channels = Markets.GetAffordableMarketingChannels(Flagship, Q).Count();
-        var isLosingAudience = Marketing.GetChurnClients(Flagship) > 0;
+        var isLosingAudience = Marketing.GetChurnClients(Flagship, Q) > 0;
 
         if (isLosingAudience)
             channels += 1;

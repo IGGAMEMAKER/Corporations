@@ -35,6 +35,8 @@ public class EventView : View
 
     public int Progress = -1;
 
+    public bool ButtonInteractableOnProgress = true;
+
     public void SetProgress(int num)
     {
         Progress = num;
@@ -54,6 +56,8 @@ public class EventView : View
         {
             SetProgress(Progress);
         }*/
+
+        ProgressImage.raycastTarget = !ButtonInteractableOnProgress;
 
         if (StatusType == EventStatusType.Danger)
         {
