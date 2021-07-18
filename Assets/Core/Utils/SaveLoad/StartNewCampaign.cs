@@ -62,7 +62,7 @@ namespace Assets.Core
                 var funds = Random.Range(20, 50) * startCapital;
                 var c = Markets.SpawnCompany(niche, gameContext, funds);
 
-                var features = Products.GetAllFeaturesForProduct(c);
+                var features = Products.GetAllFeaturesForProduct();
                 var teams = Random.Range(3, 9);
 
                 for (var j = 0; j < teams; j++)
@@ -74,7 +74,7 @@ namespace Assets.Core
                 {
                     if (f.FeatureBonus.isRetentionFeature)
                     {
-                        Products.ForceUpgradeFeature(c, f.Name, Random.Range(2f, 5f));
+                        Products.ForceUpgradeFeature(c, f.Name, Random.Range(2f, 5f), gameContext);
                     }
                 }
 

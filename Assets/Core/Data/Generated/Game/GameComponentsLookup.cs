@@ -75,66 +75,67 @@ public static class GameComponentsLookup {
     public const int MarketingChannel = 64;
     public const int Marketing = 65;
     public const int MarketingListener = 66;
-    public const int Menu = 67;
-    public const int MenuListener = 68;
-    public const int MetricsHistory = 69;
-    public const int NavigationHistory = 70;
-    public const int NavigationHistoryListener = 71;
-    public const int NicheBaseProfile = 72;
-    public const int NicheClientsContainer = 73;
-    public const int Niche = 74;
-    public const int NicheCosts = 75;
-    public const int NicheLifecycle = 76;
-    public const int NicheSegments = 77;
-    public const int NicheState = 78;
-    public const int Notifications = 79;
-    public const int OnSales = 80;
-    public const int Ownings = 81;
-    public const int Partnerships = 82;
-    public const int PersonalRelationships = 83;
-    public const int Player = 84;
-    public const int Popup = 85;
-    public const int PreviousAcquisitionOffers = 86;
-    public const int Product = 87;
-    public const int ProductListener = 88;
-    public const int ProductPositioning = 89;
-    public const int ProductUpgrades = 90;
-    public const int Profiling = 91;
-    public const int PseudoHuman = 92;
-    public const int PublicCompany = 93;
-    public const int RelatedToPlayer = 94;
-    public const int Release = 95;
-    public const int ReleaseListener = 96;
-    public const int Reports = 97;
-    public const int Research = 98;
-    public const int SeenPopups = 99;
-    public const int Segment = 100;
-    public const int ServerAttack = 101;
-    public const int Shareholder = 102;
-    public const int Shareholders = 103;
-    public const int ShareholdersListener = 104;
-    public const int SimpleCooldownContainer = 105;
-    public const int SourceOfClients = 106;
-    public const int Speed = 107;
-    public const int SupportUpgrades = 108;
-    public const int TargetDate = 109;
-    public const int Task = 110;
-    public const int Team = 111;
-    public const int TeamEfficiency = 112;
-    public const int TeamListener = 113;
-    public const int TechnologyLeader = 114;
-    public const int TechnologyLeaderListener = 115;
-    public const int Test = 116;
-    public const int TimedAction = 117;
-    public const int TimerRunning = 118;
-    public const int Tutorial = 119;
-    public const int TutorialListener = 120;
-    public const int UniversalListener = 121;
-    public const int WantsToExpand = 122;
-    public const int Worker = 123;
-    public const int WorkerOffers = 124;
+    public const int MarketRequirements = 67;
+    public const int Menu = 68;
+    public const int MenuListener = 69;
+    public const int MetricsHistory = 70;
+    public const int NavigationHistory = 71;
+    public const int NavigationHistoryListener = 72;
+    public const int NicheBaseProfile = 73;
+    public const int NicheClientsContainer = 74;
+    public const int Niche = 75;
+    public const int NicheCosts = 76;
+    public const int NicheLifecycle = 77;
+    public const int NicheSegments = 78;
+    public const int NicheState = 79;
+    public const int Notifications = 80;
+    public const int OnSales = 81;
+    public const int Ownings = 82;
+    public const int Partnerships = 83;
+    public const int PersonalRelationships = 84;
+    public const int Player = 85;
+    public const int Popup = 86;
+    public const int PreviousAcquisitionOffers = 87;
+    public const int Product = 88;
+    public const int ProductListener = 89;
+    public const int ProductPositioning = 90;
+    public const int ProductUpgrades = 91;
+    public const int Profiling = 92;
+    public const int PseudoHuman = 93;
+    public const int PublicCompany = 94;
+    public const int RelatedToPlayer = 95;
+    public const int Release = 96;
+    public const int ReleaseListener = 97;
+    public const int Reports = 98;
+    public const int Research = 99;
+    public const int SeenPopups = 100;
+    public const int Segment = 101;
+    public const int ServerAttack = 102;
+    public const int Shareholder = 103;
+    public const int Shareholders = 104;
+    public const int ShareholdersListener = 105;
+    public const int SimpleCooldownContainer = 106;
+    public const int SourceOfClients = 107;
+    public const int Speed = 108;
+    public const int SupportUpgrades = 109;
+    public const int TargetDate = 110;
+    public const int Task = 111;
+    public const int Team = 112;
+    public const int TeamEfficiency = 113;
+    public const int TeamListener = 114;
+    public const int TechnologyLeader = 115;
+    public const int TechnologyLeaderListener = 116;
+    public const int Test = 117;
+    public const int TimedAction = 118;
+    public const int TimerRunning = 119;
+    public const int Tutorial = 120;
+    public const int TutorialListener = 121;
+    public const int UniversalListener = 122;
+    public const int WantsToExpand = 123;
+    public const int Worker = 124;
+    public const int WorkerOffers = 125;
 
-    public const int TotalComponents = 125;
+    public const int TotalComponents = 126;
 
     public static readonly string[] componentNames = {
         "AcceptsInvestments",
@@ -204,6 +205,7 @@ public static class GameComponentsLookup {
         "MarketingChannel",
         "Marketing",
         "MarketingListener",
+        "MarketRequirements",
         "Menu",
         "MenuListener",
         "MetricsHistory",
@@ -332,6 +334,7 @@ public static class GameComponentsLookup {
         typeof(MarketingChannelComponent),
         typeof(MarketingComponent),
         typeof(MarketingListenerComponent),
+        typeof(MarketRequirementsComponent),
         typeof(MenuComponent),
         typeof(MenuListenerComponent),
         typeof(MetricsHistoryComponent),

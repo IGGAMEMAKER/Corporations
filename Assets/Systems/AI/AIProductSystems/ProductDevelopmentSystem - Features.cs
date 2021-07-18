@@ -30,17 +30,8 @@ public partial class ProductDevelopmentSystem
 
         foreach (var f in features)
         {
-            TryAddTask(product, new TeamTaskFeatureUpgrade(f));
+            //TryAddTask(product, new TeamTaskFeatureUpgrade(f));
+            Products.TryToUpgradeFeature(product, f, gameContext);
         }
-        
-
-        // --------------
-
-        // if (!features.Any())
-        // {
-        //     // upgrade corporate culture? feature CAP
-        //     // hire more teams for SLOTS
-        //     Companies.IncrementCorporatePolicy(gameContext, product, CorporatePolicy.DecisionsManagerOrTeam);
-        // }
     }
 }

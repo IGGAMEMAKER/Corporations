@@ -24,16 +24,31 @@ namespace Assets.Core
 
             var marketIsDying = state == MarketState.Death;
 
+            var requirements = c.marketRequirements.Features;
+            var features = Products.GetAllFeaturesForProduct();
+
+            var baseRate = new Bonus<long>("Churn rate")
+                .RenderTitle()
+                .SetDimension("%")
+
+                .AppendAndHideIfZero("Market is DYING", marketIsDying ? 5 : 0);
+
             //var competitiveness = c.teamEfficiency.Efficiency.Competitiveness;
             //var competitivenessBonus = GetChurnFromOutcompetition(c);
 
             //var quality = Marketing.GetAppQuality(c);
 
-            return new Bonus<long>("Churn rate")
-                .RenderTitle()
-                .SetDimension("%")
+            for (var i = 0; i < requirements.Count; i++)
+            {
+                var f = requirements[i];
 
-                .AppendAndHideIfZero("Market is DYING", marketIsDying ? 5 : 0)
+                var featureName = features[i].Name;
+                var rating = (long)Products.GetFeatureRating(c, featureName);
+
+                baseRate.AppendAndHideIfZero(featureName, rating, "%");
+            }
+
+            return baseRate
                 //.AppendAndHideIfZero($"<b>App quality ({quality})</b> WORSE than best app quality ({quality + competitiveness})", c.isRelease ? competitivenessBonus : 0);
                 ;
         }
@@ -110,7 +125,7 @@ namespace Assets.Core
 
         public static void ApplyLoyaltyFromFeatures(Bonus<float> bonus, GameEntity product, int segmentId)
         {
-            var features = Products.GetAllFeaturesForProduct(product);
+            var features = Products.GetAllFeaturesForProduct();
             foreach (var f in features)
             {
                 if (Products.IsUpgradedFeature(product, f.Name))

@@ -6,7 +6,7 @@ namespace Assets.Core
 {
     public static partial class Products
     {
-        public static NewProductFeature[] GetAllFeaturesForProduct(GameEntity product)
+        public static NewProductFeature[] GetAllFeaturesForProduct()
         {
             //Needs messaging, profiles, friends, voice chats, video chats, emojis, file sending
             // Test Audience, Teenagers, Adults, Middle, Old
@@ -81,7 +81,7 @@ namespace Assets.Core
         // GetNonMaxedOutFeatures
         public static IEnumerable<NewProductFeature> GetNonMaxedOutFeatures(GameEntity product)
         {
-            return GetAllFeaturesForProduct(product).Where(ExcludeMaxedOutFeatures(product));
+            return GetAllFeaturesForProduct().Where(ExcludeMaxedOutFeatures(product));
         }
 
         public static IEnumerable<NewProductFeature> GetPlayerRetentionFeatures(GameEntity product)
@@ -244,17 +244,17 @@ namespace Assets.Core
         // set of features
         public static NewProductFeature[] GetMonetisationFeatures(GameEntity product)
         {
-            return GetAllFeaturesForProduct(product).Where(f => f.FeatureBonus is FeatureBonusMonetization).ToArray();
+            return GetAllFeaturesForProduct().Where(f => f.FeatureBonus is FeatureBonusMonetization).ToArray();
         }
 
         public static NewProductFeature[] GetChurnFeatures(GameEntity product)
         {
-            return GetAllFeaturesForProduct(product).Where(f => f.FeatureBonus is FeatureBonusRetention).ToArray();
+            return GetAllFeaturesForProduct().Where(f => f.FeatureBonus is FeatureBonusRetention).ToArray();
         }
 
         public static NewProductFeature[] GetAcquisitionFeatures(GameEntity product)
         {
-            return GetAllFeaturesForProduct(product).Where(f => f.FeatureBonus is FeatureBonusAcquisition).ToArray();
+            return GetAllFeaturesForProduct().Where(f => f.FeatureBonus is FeatureBonusAcquisition).ToArray();
         }
 
         // ----------------------------------------- set ot feature benefits

@@ -17,6 +17,9 @@ namespace Assets.Core
                 NicheType.Com_SocialNetwork
                 );
 
+            // TODO duplicate in Iteration.cs
+            e.AddMarketRequirements(Products.GetAllFeaturesForProduct().Select(f => 0f).ToList());
+
 
             e.AddNicheCosts(1, 1, 1, 1);
             e.AddNicheBaseProfile(new MarketProfile {

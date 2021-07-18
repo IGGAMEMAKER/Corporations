@@ -18,7 +18,7 @@ public class ProductComponent : IComponent
 
 public class MarketRequirementsComponent : IComponent
 {
-    public List<int> Features;
+    public List<float> Features;
 }
 
 public class ServerAttackComponent : IComponent

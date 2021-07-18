@@ -21,7 +21,7 @@ public class FlagshipCompetitorsInDevelopmentScreenListView : ListView
         }
         var text = $"{header} {Format.Minify(users)} users\n";
 
-        var features = Products.GetAllFeaturesForProduct(product);
+        var features = Products.GetAllFeaturesForProduct();
 
         foreach (var f in features)
         {

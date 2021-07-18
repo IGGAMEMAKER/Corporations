@@ -26,9 +26,7 @@ namespace Assets.Core
 
         public static int GetIterationTime(GameEntity company)
         {
-            var baseValue = GetBaseIterationTime(company);
-
-            return baseValue;
+            return GetBaseIterationTime(company);
 
             ////var teamEffeciency = Teams.GetTeamAverageEffeciency(company);
             //var viableTeams = company.team.Teams
@@ -69,10 +67,9 @@ namespace Assets.Core
         {
             if (product.features.Upgrades.ContainsKey(featureName))
                 product.features.Upgrades.Remove(featureName);
-
-            //Flagship.features.Upgrades[f.NewProductFeature.Name] = 0;
         }
 
+        // TODO REMOVE? USED ONCE IN OLD TEAMTASK SYSTEM
         public static void IncreaseFeatureLevel(GameEntity product, string featureName)
         {
             var gain = GetFeatureRatingGain(product);
@@ -95,12 +92,7 @@ namespace Assets.Core
 
         public static void AddFeatureCooldown(GameEntity product, TeamTask task, int currentDate)
         {
-            var iteration = GetIterationTime(product);
-
-            task.EndDate = currentDate + iteration;
-
-            // var cooldownName = $"company-{product.company.Id}-upgradeFeature-{featureName}";
-            // Cooldowns.AddSimpleCooldown(gameContext, cooldownName, iteration);
+            task.EndDate = currentDate + GetIterationTime(product);
         }
 
         public static bool IsCanUpgradeFeatures(GameEntity product)
@@ -110,15 +102,54 @@ namespace Assets.Core
             return Companies.IsEnoughResources(product, cost);
         }
 
+        public static void TryToUpgradeFeature(GameEntity product, NewProductFeature feature, GameContext gameContext) => TryToUpgradeFeature(product, feature.Name, gameContext);
+        public static void TryToUpgradeFeature(GameEntity product, string featureName, GameContext gameContext)
+        {
+            var rating = GetFeatureRating(product, featureName);
+
+            if (IsCanUpgradeFeatures(product))
+                ForceUpgradeFeature(product, featureName, rating + 1, gameContext);
+        }
+
         public static TeamResource GetFeatureUpgradeCost() => new TeamResource(C.ITERATION_PROGRESS, 0, 0, 0, 0);
 
-        public static void ForceUpgradeFeature(GameEntity product, string featureName, float value)
+        public static void ForceUpgradeFeature(GameEntity product, string featureName, float value, GameContext gameContext)
         {
             var cost = GetFeatureUpgradeCost();
 
             product.features.Upgrades[featureName] = value;
 
             Companies.SpendResources(product, cost, "Feature");
+
+            UpdateMarketRequirementsAndNotifyAllProductsAboutChanges(product, featureName, value, gameContext);
+        }
+
+        // OnFeatureUpgrade
+        public static void UpdateMarketRequirementsAndNotifyAllProductsAboutChanges(GameEntity product, string featureName, float value, GameContext gameContext)
+        {
+            var niche = Markets.Get(gameContext, product);
+            var index = product.features.Upgrades.Keys.ToList().IndexOf(featureName);
+
+            if (!niche.hasMarketRequirements)
+            {
+                // TODO copied from CreateNicheMockup 
+                niche.AddMarketRequirements(Products.GetAllFeaturesForProduct().Select(f => 0f).ToList());
+            }
+
+            if (niche.marketRequirements.Features[index] < value)
+            {
+                // new leader!
+                // update data
+                niche.marketRequirements.Features[index] = value;
+
+                // notify everyone about updates
+                var competitors = Companies.GetDirectCompetitors(product, gameContext, true);
+
+                foreach (var c in competitors)
+                {
+                    c.marketRequirements.Features = niche.marketRequirements.Features;
+                }
+            }
         }
 
         public static float GetFeatureRating(GameEntity product, string featureName)
@@ -132,12 +163,13 @@ namespace Assets.Core
         public static bool IsLeadingInFeature(GameEntity Flagship, NewProductFeature Feature, GameContext Q)
         {
             var competitors = Companies.GetDirectCompetitors(Flagship, Q, true);
-            return IsLeadingInFeature(Flagship, Feature, Q);
+
+            return IsLeadingInFeature(Flagship, Feature, Q, competitors);
         }
 
         public static bool IsLeadingInFeature(GameEntity Flagship, NewProductFeature Feature, GameContext Q, IEnumerable<GameEntity> competitors)
         {
-            var maxLVL = competitors.Max(c => Products.GetFeatureRating(c, Feature.Name));
+            var maxLVL = competitors.Max(c => GetFeatureRating(c, Feature.Name));
 
             return GetFeatureRating(Flagship, Feature.Name) == maxLVL;
         }

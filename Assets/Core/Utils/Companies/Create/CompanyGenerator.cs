@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Core
@@ -9,9 +10,12 @@ namespace Assets.Core
         {
             product.AddProduct(nicheType, 0);
 
+            var niche = Markets.Get(context, nicheType);
+
             // market state
-            product.AddNicheState(Markets.GetMarketState(context, nicheType), 100);
-            
+            product.AddNicheState(Markets.GetMarketState(niche), 100);
+            product.AddMarketRequirements(niche.marketRequirements.Features);
+
             // product.AddNicheSegments(Markets.GetNichePositionings(nicheType, context));
             // product.AddNicheBaseProfile(Markets.Get(context, product).nicheBaseProfile.Profile);
 
