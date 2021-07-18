@@ -9,25 +9,32 @@ namespace Assets.Core
             return GetChurnRate(company, segmentId, true).Sum();
         }
 
+        public static Bonus<long> GetChurnRate(GameEntity c, int segmentId, bool isBonus)
+        {
+            var baseChurn = GetBaseChurnRate(c, isBonus);
+
+            return baseChurn // GetSegmentSpecificChurnBonus(baseChurn, c, segmentId, isBonus)
+                .Cap(1, 100)
+                ;
+        }
+
         public static Bonus<long> GetBaseChurnRate(GameEntity c, bool isBonus)
         {
             var state = c.nicheState.Phase; // Markets.GetMarketState(gameContext, c.product.Niche);
 
             var marketIsDying = state == MarketState.Death;
 
-            var competitiveness = c.teamEfficiency.Efficiency.Competitiveness;
-            var competitivenessBonus = GetChurnFromOutcompetition(c);
+            //var competitiveness = c.teamEfficiency.Efficiency.Competitiveness;
+            //var competitivenessBonus = GetChurnFromOutcompetition(c);
 
-            var quality = Marketing.GetAppQuality(c);
+            //var quality = Marketing.GetAppQuality(c);
 
             return new Bonus<long>("Churn rate")
                 .RenderTitle()
                 .SetDimension("%")
 
                 .AppendAndHideIfZero("Market is DYING", marketIsDying ? 5 : 0)
-                .AppendAndHideIfZero($"<b>App quality ({quality})</b> WORSE than best app quality ({quality + competitiveness})", c.isRelease ? competitivenessBonus : 0);
-                //.AppendAndHideIfZero($"<b>App quality ({quality})</b> WORSE than best app quality ({quality + competitiveness}) by " + competitiveness, c.isRelease ? competitivenessBonus : 0);
-                //.AppendAndHideIfZero("Outcompeted by " + competitiveness, c.isRelease ? competitivenessBonus : 0);
+                //.AppendAndHideIfZero($"<b>App quality ({quality})</b> WORSE than best app quality ({quality + competitiveness})", c.isRelease ? competitivenessBonus : 0);
                 ;
         }
 
@@ -49,14 +56,7 @@ namespace Assets.Core
             return bonus;
         }
 
-        public static Bonus<long> GetChurnRate(GameEntity c, int segmentId, bool isBonus)
-        {
-            var baseChurn = GetBaseChurnRate(c, isBonus);
 
-            return GetSegmentSpecificChurnBonus(baseChurn, c, segmentId, isBonus)
-                .Cap(0, 100)
-                ;
-        }
 
         public static float GetAppQuality(GameEntity product)
         {

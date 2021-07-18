@@ -16,6 +16,11 @@ public class ProductComponent : IComponent
     public int Concept;
 }
 
+public class MarketRequirementsComponent : IComponent
+{
+    public List<int> Features;
+}
+
 public class ServerAttackComponent : IComponent
 {
     public long Load;
