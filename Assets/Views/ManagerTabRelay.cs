@@ -28,14 +28,6 @@ public class ManagerTabRelay : View
     public Sprite ServersideTeamSprite;
     public Sprite DevTeamSprite;
 
-    // ----------------------------
-
-    // public List<GameObject> Tabs => new List<GameObject> { Managers };
-    // public List<GameObject> MergeCandidatesTab => new List<GameObject> { MergeCandidates };
-    
-    // public List<GameObject> EmployeeStuff => new List<GameObject> { EmployeeButton, EmployeesTab };
-    
-
     private void OnEnable()
     {
         ShowMainScreen();
@@ -47,9 +39,6 @@ public class ManagerTabRelay : View
     public override void ViewRender()
     {
         base.ViewRender();
-
-
-        // EmployeeButton.GetComponent<Blinker>().enabled = Teams.IsNeverHiredEmployees(Flagship);
 
         RenderTeamRank();
 
@@ -89,9 +78,7 @@ public class ManagerTabRelay : View
 
     void ConditionalShowMergeTeamsButton()
     {
-        bool needsMergeButton = Teams.IsHasMergeCandidates(Flagship.team.Teams[SelectedTeam], Flagship); 
-
-        Draw(MergeTeamsButton, needsMergeButton);
+        Draw(MergeTeamsButton, Teams.IsHasMergeCandidates(Flagship.team.Teams[SelectedTeam], Flagship));
     }
 
     void RenderTeamRank()
@@ -110,28 +97,4 @@ public class ManagerTabRelay : View
             default: TeamImage.sprite = UnknownTeamSprite; break;
         }
     }
-
-
-
-
-
-    //void ClearEvents(GameEntity eventContainer, List<GameEventType> removableEvents)
-    //{
-    //    var events = eventContainer.gameEventContainer.Events;
-
-    //    events.RemoveAll(e => removableEvents.Contains(e.eventType));
-    //    eventContainer.ReplaceGameEventContainer(events);
-    //}
-
-    //void MarkGameEventsAsSeen(WorkerRole role)
-    //{
-    //    var marketingEvents = new List<GameEventType> { GameEventType.NewMarketingChannel };
-
-    //    var events = NotificationUtils.GetGameEventContainerEntity(Q);
-
-    //    if (role == WorkerRole.MarketingLead)
-    //    {
-    //        ClearEvents(events, marketingEvents);
-    //    }
-    //}
 }

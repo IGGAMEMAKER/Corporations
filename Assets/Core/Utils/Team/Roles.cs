@@ -98,7 +98,10 @@ namespace Assets.Core
             WorkerRole.MarketingLead,
             WorkerRole.TeamLead,
             WorkerRole.ProjectManager,
-            WorkerRole.ProductManager
+            WorkerRole.ProductManager,
+
+            WorkerRole.Programmer,
+            WorkerRole.Marketer
         };
 
         public static List<WorkerRole> GetRolesTheoreticallyPossibleForThisCompanyType(GameEntity company)
@@ -143,7 +146,10 @@ namespace Assets.Core
                         WorkerRole.ProjectManager,
                         WorkerRole.TeamLead,
                         WorkerRole.MarketingLead,
-                        WorkerRole.ProductManager
+                        WorkerRole.ProductManager,
+
+                        WorkerRole.Programmer,
+                        WorkerRole.Marketer,
                     };
             }
         }

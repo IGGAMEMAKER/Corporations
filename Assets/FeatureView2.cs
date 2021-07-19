@@ -36,9 +36,17 @@ public class FeatureView2 : View
 
         var rating = Products.GetFeatureRating(Flagship, Feature.Name);
 
+        var marketRequirements = Markets.GetMarketRequirementsForCompany(Q, Flagship);
+        var featureIndex = Products.GetAllFeaturesForProduct().Select(f => f.Name).ToList().IndexOf(Feature.Name);
+
         FeatureName.text = Feature.Name;
         Rating.text = rating + "LVL";
-        BenefitDescription.text = Visuals.Positive("-0.2% client loss");
+        Rating.color = Visuals.GetGradientColor(0, marketRequirements.Features[featureIndex], rating);
+
+
+        RenderFeatureBenefit(rating);
+
+        
         Upgrades.text = string.Join($"{space}|{space}", upgrades);
         Hide(Upgrades);
 
@@ -47,5 +55,21 @@ public class FeatureView2 : View
         Benefit.text = $"+{Visuals.Positive("5% growth")}";
 
         UpgradeFeatureController.SetEntity(Feature);
+    }
+
+    void RenderFeatureBenefit(float rating)
+    {
+        if (Feature.IsMonetizationFeature)
+        {
+            BenefitDescription.text = "+10% income";
+        }
+
+        if (Feature.IsRetentionFeature)
+        {
+            if (rating == 0)
+                BenefitDescription.text = "+10% audience gain";
+            else
+                BenefitDescription.text = "-1% client loss";
+        }
     }
 }

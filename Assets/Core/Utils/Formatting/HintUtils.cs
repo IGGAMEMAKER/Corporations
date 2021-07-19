@@ -246,7 +246,7 @@ public class Bonus<T>
         dynamic val = Sum();
 
         if (renderTitle)
-            str.AppendFormat("{0} is {1}", parameter, Format.Sign(val));
+            str.AppendFormat("{0} is {1}{2}", parameter, Format.Sign(val), dimension);
 
         if (renderSubTitle)
             str.AppendLine("\n** Based on **\n");

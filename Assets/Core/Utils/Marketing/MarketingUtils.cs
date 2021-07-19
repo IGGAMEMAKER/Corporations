@@ -35,9 +35,9 @@ namespace Assets.Core
         {
             var churn = GetChurnRate(product, gameContext, segmentId);
 
-            var clients = GetUsers(product, segmentId);
+            var clients = (double)GetUsers(product, segmentId);
 
-            return clients * churn / 100;
+            return (long)(clients * churn / 100);
         }
 
         public static long GetChurnClients(GameEntity product, GameContext gameContext)

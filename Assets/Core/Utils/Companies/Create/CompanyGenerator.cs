@@ -11,7 +11,6 @@ namespace Assets.Core
             product.AddProduct(nicheType, 0);
 
             var niche = Markets.Get(context, nicheType);
-            var marketRequirements = Markets.GetMarketRequirements(niche);
 
             // market state
             product.AddNicheState(Markets.GetMarketState(niche), 100);

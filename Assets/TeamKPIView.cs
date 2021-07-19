@@ -45,10 +45,10 @@ public class TeamKPIView : ParameterView
             text += $"{Visuals.Positive("+" + devSlots)} development ";
 
         if (markSlots > 0)
-            text += $"{Visuals.Positive("+" + markSlots)} marketing ";
+            text += $"\n{Visuals.Positive("+" + markSlots)} marketing ";
 
         if (serverSlots > 0)
-            text += $"{Visuals.Positive("+" + serverSlots)} server ";
+            text += $"\n{Visuals.Positive("+" + serverSlots)} server ";
 
         text += "\nslots";
 

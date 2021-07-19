@@ -4,12 +4,12 @@ namespace Assets.Core
 {
     public static partial class Marketing
     {
-        public static long GetChurnRate(GameEntity company, GameContext gameContext, int segmentId)
+        public static float GetChurnRate(GameEntity company, GameContext gameContext, int segmentId)
         {
             return GetChurnRate(company, segmentId, gameContext, true).Sum();
         }
 
-        public static Bonus<long> GetChurnRate(GameEntity c, int segmentId, GameContext gameContext, bool isBonus)
+        public static Bonus<float> GetChurnRate(GameEntity c, int segmentId, GameContext gameContext, bool isBonus)
         {
             var baseChurn = GetBaseChurnRate(c, gameContext, isBonus);
 
@@ -18,7 +18,7 @@ namespace Assets.Core
                 ;
         }
 
-        public static Bonus<long> GetBaseChurnRate(GameEntity c, GameContext gameContext, bool isBonus)
+        public static Bonus<float> GetBaseChurnRate(GameEntity c, GameContext gameContext, bool isBonus)
         {
             // market state
             var state = c.nicheState.Phase;
@@ -30,25 +30,49 @@ namespace Assets.Core
             var requirements = reqs.Features;
             var features = Products.GetAllFeaturesForProduct();
 
-            var baseRate = new Bonus<long>("Churn rate")
+            var baseRate = new Bonus<float>("Churn rate")
                 .RenderTitle()
                 .SetDimension("%")
 
+                .Append("Base", 2)
                 .AppendAndHideIfZero("Market is DYING", marketIsDying ? 5 : 0);
 
             for (var i = 0; i < requirements.Count; i++)
             {
-                var f = requirements[i];
+                var f = features[i];
 
-                var featureName = features[i].Name;
-                var rating = (long)Products.GetFeatureRating(c, featureName);
+                var featureName = f.Name;
+                var rating = Products.GetFeatureRating(c, featureName);
 
-                baseRate.AppendAndHideIfZero(featureName, rating, "%");
+                var marketRequirements = Markets.GetMarketRequirementsForCompany(gameContext, c);
+                var currentBestRating = marketRequirements.Features[i];
+
+                var diff = marketRequirements.Features[i] - rating;
+
+                bool best = diff == 0;
+
+                // fea
+                if (rating == 0 && currentBestRating > 0 && f.IsRetentionFeature)
+                {
+                    //baseRate.Append("Lacks feature " + featureName, 1);
+                    continue;
+                }
+
+                if (f.IsRetentionFeature)
+                {
+                    if (!best)
+                        baseRate.AppendAndHideIfZero(featureName + " outdated (-" + (int)diff + ")", (int)diff * 1f);
+                    else
+                        baseRate.AppendAndHideIfZero("Best in " + featureName, -5);
+                }
+
+                if (f.IsMonetizationFeature)
+                {
+                    baseRate.AppendAndHideIfZero("MONETISATION: " + featureName, 10);
+                }
             }
 
-            return baseRate
-                //.AppendAndHideIfZero($"<b>App quality ({quality})</b> WORSE than best app quality ({quality + competitiveness})", c.isRelease ? competitivenessBonus : 0);
-                ;
+            return baseRate;
         }
 
         public static int GetChurnFromOutcompetition(GameEntity c)

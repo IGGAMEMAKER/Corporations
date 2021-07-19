@@ -264,8 +264,6 @@ namespace SimpleUI
 
         static void AttachDisplayComponent(GameObject obj)
         {
-            Print("Attach component");
-
             if (obj.GetComponent<DisplayConnectedUrls>() == null)
                 obj.AddComponent<DisplayConnectedUrls>();
 

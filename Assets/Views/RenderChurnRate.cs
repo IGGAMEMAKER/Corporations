@@ -4,10 +4,9 @@ public class RenderChurnRate : UpgradedParameterView
 {
     public override string RenderHint()
     {
-        var churnRate = Marketing.GetChurnRate(company, Q, 0);
-        var loyalty = Marketing.GetSegmentLoyalty(company, 0, true);
+        var churnRate = Marketing.GetChurnRate(company, 0, Q, true);
 
-        return "Churn rate is: " + churnRate + " due to\n\n" + loyalty.ToString();
+        return churnRate.ToString(true);
     }
 
     GameEntity company => Flagship;

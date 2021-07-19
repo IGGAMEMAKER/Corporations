@@ -29,14 +29,18 @@ namespace Assets.Core
 
         public static MarketRequirementsComponent GetMarketRequirementsForCompany(GameContext gameContext, GameEntity c)
         {
+            var niche = Markets.Get(gameContext, c);
+            var reqs = Markets.GetMarketRequirements(niche);
+
             if (!c.hasMarketRequirements)
             {
-                var niche = Markets.Get(gameContext, c);
-                var reqs = Markets.GetMarketRequirements(niche);
+                /*var niche = Markets.Get(gameContext, c);
+                var reqs = Markets.GetMarketRequirements(niche);*/
 
                 c.AddMarketRequirements(reqs.Features);
             }
 
+            return reqs;
             return c.marketRequirements;
         }
 
