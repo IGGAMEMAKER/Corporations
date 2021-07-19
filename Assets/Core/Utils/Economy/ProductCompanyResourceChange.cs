@@ -9,7 +9,7 @@ namespace Assets.Core
             long money = GetProfit(gameContext, company);
             var ideas = Products.GetExpertiseGain(company);
 
-            var upgrades = company.team.Teams.Select(TeamInfoqwe).Sum();
+            var upgrades = company.team.Teams.Select(TeamInfoqwe).Sum() + 1;
 
             return new TeamResource(
                 upgrades,
