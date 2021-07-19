@@ -168,6 +168,14 @@ namespace Assets.Core
                     description = $"??Reduces amount of workers";
                     break;
 
+                case WorkerRole.Programmer:
+                    description = $"Gives 1 feature points";
+                    break;
+
+                case WorkerRole.Marketer:
+                    description = $"Runs 1 marketing campaign at time";
+                    break;
+
                 case WorkerRole.MarketingDirector:
                 case WorkerRole.TechDirector:
                 case WorkerRole.Universal:

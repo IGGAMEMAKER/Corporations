@@ -23,6 +23,7 @@ namespace Assets.Core
             var leaderRole = GetMainManagerRole(t);
             
             var allRoles = GetRolesForTeam(t).Where(r => hasLeader || r == leaderRole);
+            return allRoles;
             var existingRoles = GetExistingWorkerRoles(t);
 
             return allRoles.Where(r => !existingRoles.Contains(r));

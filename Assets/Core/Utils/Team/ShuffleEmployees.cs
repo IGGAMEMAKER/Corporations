@@ -26,6 +26,13 @@ namespace Assets.Core
             foreach (var role in roles)
             {
                 AddEmployee(company, gameContext, managerTasks, role);
+
+                if (role == WorkerRole.Marketer || role == WorkerRole.Programmer)
+                {
+                    AddEmployee(company, gameContext, managerTasks, role);
+                    AddEmployee(company, gameContext, managerTasks, role);
+                    AddEmployee(company, gameContext, managerTasks, role);
+                }
             }
         }
 

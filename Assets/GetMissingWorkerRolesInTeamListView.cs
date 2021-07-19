@@ -1,4 +1,6 @@
 ﻿using Assets.Core;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GetMissingWorkerRolesInTeamListView : ListView
@@ -15,7 +17,16 @@ public class GetMissingWorkerRolesInTeamListView : ListView
         var team = Flagship.team.Teams[SelectedTeam];
         
         var missingRoles = Teams.GetMissingRoles(team);
-        
-        SetItems(missingRoles);
+
+        bool hasSimpleWorkers = team.Roles.Values.Any(r => r == WorkerRole.Programmer) && team.Roles.Values.Any(r => r == WorkerRole.Marketer);
+
+        if (!hasSimpleWorkers)
+        {
+            SetItems(new List<WorkerRole>() { WorkerRole.Marketer, WorkerRole.Programmer });
+        }
+        else
+        {
+            SetItems(missingRoles);
+        }
     }
 }

@@ -42,28 +42,13 @@ namespace Assets.Core
             return socialNetworkFeatures;
         }
 
-        public static int GetUpgradePoints(GameEntity product)
-        {
-            return product.companyResource.Resources.programmingPoints / C.ITERATION_PROGRESS;
-        }
-
-        public static int GetIterationProgress(GameEntity product)
-        {
-            var progress = C.ITERATION_PROGRESS;
-
-            var points = product.companyResource.Resources.programmingPoints;
-            var iteration = points % progress;
-
-            return iteration * 100 / progress;
-        }
-
         private static NewProductFeature[] GenerateFeatureList(List<string> UTPs, List<string> TOPs, List<string> OKs, int randomFeatures, params NewProductFeature[] features)
         {
             var featureList = new List<NewProductFeature>();
             
             featureList.AddRange(UTPs.Select(s => NewProductFeature.SimpleFeature(s, C.FEATURE_VALUE_UTP)));
             featureList.AddRange(TOPs.Select(s => NewProductFeature.SimpleFeature(s, C.FEATURE_VALUE_TOP)));
-            featureList.AddRange(OKs.Select(s => NewProductFeature.SimpleFeature(s, C.FEATURE_VALUE_OK)));
+            featureList.AddRange(OKs.Select (s => NewProductFeature.SimpleFeature(s, C.FEATURE_VALUE_OK)));
 
             for (var i = 0; i < randomFeatures; i++)
             {

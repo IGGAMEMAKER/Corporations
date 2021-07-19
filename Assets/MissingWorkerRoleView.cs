@@ -7,6 +7,8 @@ public class MissingWorkerRoleView : View
     public Text RoleName;
     public Text RoleDescription;
 
+    public Hint RoleDescriptionHint;
+
     private WorkerRole _role;
     public void SetEntity(WorkerRole role)
     {
@@ -14,6 +16,7 @@ public class MissingWorkerRoleView : View
 
         RoleName.text = Humans.GetFormattedRole(role);
         RoleDescription.text = Teams.GetRoleDescription(role, Q, true, Flagship);
+        RoleDescriptionHint.SetHint(Teams.GetRoleDescription(role, Q, true, Flagship));
     }
 
     public void OnShowCandidates()

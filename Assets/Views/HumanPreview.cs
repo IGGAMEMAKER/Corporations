@@ -34,8 +34,10 @@ public class HumanPreview : View
 
         var entityID = human.creationIndex;
 
-        var description = $"{human.human.Name} {human.human.Surname}"; // \n{formattedRole} // human.human.Name.Substring(0, 1)
 
+        var description = $"{human.human.Name} {human.human.Surname}"; // \n{formattedRole} // human.human.Name.Substring(0, 1)
+        if (human.isPlayer)
+            description = Visuals.Colorize("YOU", Colors.COLOR_YOU);
 
         Overall.text = $"{rating}";
         Overall.color = Visuals.GetColorFromString(human.hasHumanUpgradedSkills ? Colors.COLOR_POSITIVE : Colors.COLOR_NEUTRAL);
@@ -79,7 +81,8 @@ public class HumanPreview : View
                 Expertise.SetValue(expertise);
             }
 
-            Expertise.gameObject.SetActive(!drawAsEmployee && expertise > 0);
+            Hide(Expertise);
+            //Expertise.gameObject.SetActive(!drawAsEmployee && expertise > 0);
         }
 
         if (LoyaltyChange != null)

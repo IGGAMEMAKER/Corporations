@@ -9,7 +9,7 @@ namespace Assets.Core
             long money = GetProfit(gameContext, company);
             var ideas = Products.GetExpertiseGain(company);
 
-            var upgrades = company.team.Teams.Select(TeamInfoqwe).Count();
+            var upgrades = company.team.Teams.Select(TeamInfoqwe).Sum();
 
             return new TeamResource(
                 upgrades,
@@ -22,11 +22,13 @@ namespace Assets.Core
 
         public static int TeamInfoqwe (TeamInfo team)
         {
+            var slots = Teams.GetTeamFeatureSlots(team);
+
             if (team.TeamType == TeamType.DevelopmentTeam)
-                return 3;
+                return slots * 2;
 
             if (team.TeamType == TeamType.CrossfunctionalTeam)
-                return 1;
+                return slots;
 
             return 0;
         }

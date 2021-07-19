@@ -1,4 +1,5 @@
 ﻿using Assets.Core;
+using System.Linq;
 
 public class TeamKPIView : ParameterView
 {
@@ -19,8 +20,8 @@ public class TeamKPIView : ParameterView
         var marketingMockup = Teams.GetMarketingTaskMockup();
         var serverMockup = new TeamTaskSupportFeature(new SupportFeature { SupportBonus = new SupportBonus(5_000_000) });
 
-        var devSlots = Teams.GetSlotsForTask(team, featureMockup);
-        var markSlots = Teams.GetSlotsForTask(team, marketingMockup);
+        var devSlots = Teams.GetTeamFeatureSlots(team); // Teams.GetSlotsForTask(team, featureMockup);
+        var markSlots = Teams.GetTeamMarketingSlots(team); // Teams.GetSlotsForTask(team, marketingMockup);
         var serverSlots = Teams.GetSlotsForTask(team, serverMockup);
 
         if (Teams.IsTaskSuitsTeam(team.TeamType, marketingMockup))
@@ -42,13 +43,10 @@ public class TeamKPIView : ParameterView
         text += $"\n\n";
 
         if (devSlots > 0)
-            text += $"{Visuals.Positive("+" + devSlots)} development ";
+            text += $"{Visuals.Positive("" + devSlots)} features per iteration ";
 
         if (markSlots > 0)
-            text += $"\n{Visuals.Positive("+" + markSlots)} marketing ";
-
-        if (serverSlots > 0)
-            text += $"\n{Visuals.Positive("+" + serverSlots)} server ";
+            text += $"\n{Visuals.Positive("" + markSlots)} ad campaigns ";
 
         text += "\nslots";
 

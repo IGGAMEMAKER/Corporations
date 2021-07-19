@@ -68,6 +68,14 @@ namespace Assets.Core
         }
 
         //public static TeamTask GetHighload
+        public static int GetTeamFeatureSlots(TeamInfo team)
+        {
+            return team.Roles.Values.Count(r => r == WorkerRole.Programmer || r == WorkerRole.TeamLead);
+        }
+        public static int GetTeamMarketingSlots(TeamInfo team)
+        {
+            return team.Roles.Values.Count(r => r == WorkerRole.Marketer || r == WorkerRole.MarketingLead);
+        }
 
         public static int GetSlotsForTask(TeamInfo team, TeamTask task)
         {

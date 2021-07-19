@@ -10,7 +10,7 @@ public class DevelopmentTabView : View, IPointerExitHandler
         //ScheduleUtils.ResumeGame(Q);
 
         OpenUrl("/Holding/Main");
-        ScheduleUtils.ResumeGame(Q);
+        //ScheduleUtils.ResumeGame(Q);
 
         //FindObjectOfType<CompanyTaskTypeRelay>().OnDevelopmentTabLeave();
     }

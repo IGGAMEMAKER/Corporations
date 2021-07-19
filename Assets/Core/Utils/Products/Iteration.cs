@@ -102,6 +102,21 @@ namespace Assets.Core
             return Companies.IsEnoughResources(product, cost);
         }
 
+        public static int GetUpgradePoints(GameEntity product)
+        {
+            return product.companyResource.Resources.programmingPoints / C.ITERATION_PROGRESS;
+        }
+
+        public static int GetIterationProgress(GameEntity product)
+        {
+            var progress = C.ITERATION_PROGRESS;
+
+            var points = product.companyResource.Resources.programmingPoints;
+            var iteration = points % progress;
+
+            return iteration * 100 / progress;
+        }
+
         public static void TryToUpgradeFeature(GameEntity product, NewProductFeature feature, GameContext gameContext) => TryToUpgradeFeature(product, feature.Name, gameContext);
         public static void TryToUpgradeFeature(GameEntity product, string featureName, GameContext gameContext)
         {
