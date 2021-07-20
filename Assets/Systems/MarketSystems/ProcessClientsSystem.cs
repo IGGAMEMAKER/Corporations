@@ -24,6 +24,9 @@ public class ProcessClientsSystem : OnPeriodChange
                 Marketing.AddClients(product, -churn, segmentId);
 
                 // add users
+                if (product.isControlledByPlayer || product.isRelatedToPlayer)
+                    continue;
+
                 foreach (var c in myChannels)
                 {
                     var channelId = c.Key;

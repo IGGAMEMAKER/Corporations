@@ -40,8 +40,6 @@ public class PositioningManagerView : View
 
     public GameObject ChangePositioningButton;
 
-    List<int> TargetAudiences;
-
     bool flag = false;
 
     private void OnEnable()
@@ -49,7 +47,6 @@ public class PositioningManagerView : View
         var audiences = Marketing.GetAudienceInfos();
 
         Positioning = Marketing.GetPositioning(Flagship);
-        TargetAudiences = audiences.Where(a => Marketing.IsAimingForSpecificAudience(Flagship, a.ID)).Select(a => a.ID).ToList();
         flag = true;
 
         CleanScreen();
@@ -100,30 +97,8 @@ public class PositioningManagerView : View
 
         NewPositioningName.text = Positioning.name;
 
-        var lovingAudiences = audiencesSelected.Where(f => f.isLoyal && !Marketing.IsAimingForSpecificAudience(company, f.i));
-        //var lovingAudiences     = audiencesSelected.Where(f => f.isLoyal); //  && !Marketing.IsAimingForSpecificAudience(company, f.i)
-        var hatedAudiences = audiencesSelected.Where(f => !f.isLoyal && Marketing.IsWillSufferOnAudienceLoss(company, f.i));
-        //var hatedAudiences      = audiencesSelected.Where(f => !f.isLoyal); // && Marketing.IsWillSufferOnAudienceLoss(company, f.i)
-
-
-        HatedAudiences  .SetAudiences(hatedAudiences.Select(a => audiences[a.i]).ToList(), -1);
-        LovingAudiences .SetAudiences(lovingAudiences.Select(a => audiences[a.i]).ToList(), 1);
-
-        bool hasNewLovingUsers = lovingAudiences.Count() > 0;
-        bool hasNewHatingUsers = hatedAudiences.Count() > 0;
-
-        Draw(HatedLabel, hasNewHatingUsers);
-        Draw(HatedAudiences, hasNewHatingUsers);
-
-        Draw(LovingLabel, hasNewLovingUsers);
-        Draw(LovingAudiences, hasNewLovingUsers);
 
         HatedLabel.text = $"<size=50><color=red><b>!!! You will LOSE ALL of these users</b></color></size>";
-
-        if (hasNewHatingUsers)
-            LovingLabel.text = $"Instead, you will <b><color=green>GET</color> these users</b>";
-        else
-            LovingLabel.text = $"You will <b><color=green>GET</color> these users</b>";
 
         RenderPositioningChangeBenefit();
     }
@@ -260,38 +235,4 @@ public class PositioningManagerView : View
 
         RenderSegmentDescription(Flagship);
     }
-
-    public void AddAudience(int segmentId)
-    {
-        if (!TargetAudiences.Contains(segmentId))
-        {
-            TargetAudiences.Add(segmentId);
-        }
-    }
-
-    public void RemoveAudience(int segmentId)
-    {
-        if (TargetAudiences.Contains(segmentId))
-        {
-            TargetAudiences.RemoveAll(id => id == segmentId);
-        }
-    }
-
-
-    //void RenderSegmentDescription2(GameEntity company)
-    //{
-    //    var audiences = Marketing.GetAudienceInfos();
-    //    var worth = Marketing.GetPositioningWorth(company, Positioning);
-
-    //    var a = Positioning.Loyalties
-    //        .Select((l, i) => new { i, cost = Marketing.GetAudienceWorth(audiences[i]), isLoyal = l >= 0 });
-
-    //    var favoriteAudiences = a.Where(f => f.isLoyal);
-    //    var hatedAudiences = a.Where(f => !f.isLoyal);
-
-    //    var favoriteAudiencesDescription = string.Join("\n", favoriteAudiences.Select(f => DescribeAudience(f.cost, f.i)));
-    //    var hatedAudiencesDescription = string.Join("\n", hatedAudiences.Select(f => DescribeAudience(f.cost, f.i)));
-
-    //    SegmentDescription.text = $"{Positioning.name}\n\n<b>Potential Income</b>\n{Visuals.Positive(Format.MinifyMoney(worth))}\n\n<b>Suits</b>\n{favoriteAudiencesDescription}\n\n<b>Hate</b>\n{hatedAudiencesDescription}\n\n";
-    //}
 }

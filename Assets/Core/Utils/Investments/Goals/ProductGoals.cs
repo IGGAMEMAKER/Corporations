@@ -5,7 +5,6 @@ namespace Assets.Core
 {
     public static partial class Investments
     {
-
         public static List<InvestmentGoal> GetProductGoals(GameEntity product, GameContext Q)
         {
             var goals = new List<InvestmentGoal>();
@@ -27,23 +26,14 @@ namespace Assets.Core
             };
 
             #region data
-            bool focusedProduct = Marketing.IsFocusingOneAudience(product);
-            var marketFit = 10; // 10 cause it allows monetisation for ads
-
-
-            bool isPrototype = !product.isRelease && focusedProduct;
+            bool isPrototype = !product.isRelease;
             bool releasedProduct = product.isRelease;
 
             long users = Marketing.GetUsers(product);
-
-            var amountOfAudiences = Marketing.GetAudienceInfos().Count;
-            var ourAudiences = Marketing.GetAmountOfTargetAudiences(product);
             #endregion
 
             if (isPrototype)
             {
-                var coreLoyalty = Marketing.GetSegmentLoyalty(product, Marketing.GetCoreAudienceId(product));
-
                 // has no goals at start
                 if (!Completed(product, InvestorGoalType.ProductPrototype))
                     return OnlyGoal(new InvestmentGoalMakePrototype());
@@ -78,29 +68,11 @@ namespace Assets.Core
 
                 if (Completed(product, InvestorGoalType.GrowUserBase))
                 {
-                    bool canGetMoreAudiences = ourAudiences < amountOfAudiences;
-                    bool needsToExpand = Marketing.GetAudienceInfos()
-                        .Where(s => Marketing.IsAimingForSpecificAudience(product, s.ID))
-                        .All(s => Marketing.GetUsers(product, s.ID) > 1_000_000);
-
                     if (users < 1_000_000)
                     {
                         //AddOnce(goals, product, InvestorGoalType.ProductMillionUsers);
                         AddOnce(goals, product, new InvestmentGoalMillionUsers(1_000_000));
                         goals.RemoveAll(g => g.InvestorGoalType == InvestorGoalType.GrowUserBase);
-                    }
-
-                    if (users >= 1_000_000 && canGetMoreAudiences && needsToExpand)
-                    {
-                        //goals.Add(InvestorGoalType.GainMoreSegments);
-                        goals.Add(new InvestmentGoalMoreSegments(ourAudiences + 1));
-                    }
-
-                    if (users > 50_000_000 && canGetMoreAudiences)
-                    {
-                        // globalise
-                        //return OnlyGoal(InvestorGoalType.GainMoreSegments);
-                        return OnlyGoal(new InvestmentGoalMoreSegments(ourAudiences + 1));
                     }
 
                     // protect from no goals situation
@@ -111,8 +83,8 @@ namespace Assets.Core
                 }
             }
 
-            if (Marketing.IsHasDisloyalAudiences(product))
-                return OnlyGoal(new InvestmentGoalRegainLoyalty());
+            /*if (Marketing.IsHasDisloyalAudiences(product))
+                return OnlyGoal(new InvestmentGoalRegainLoyalty());*/
                 //return OnlyGoal(InvestorGoalType.ProductRegainLoyalty);
 
             return goals;

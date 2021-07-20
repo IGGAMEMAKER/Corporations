@@ -20,8 +20,6 @@ public class KPIAnimations : View
     {
         base.ViewRender();
 
-        var loyalty = Marketing.GetSegmentLoyalty(Flagship, 0);
-
         //LoyaltyAnimationSpawner.SpawnJumpingAnimation(Loyalty.transform);
 
         PositiveChange(LoyaltyAnimationSpawner, "+2", LoyaltyText);

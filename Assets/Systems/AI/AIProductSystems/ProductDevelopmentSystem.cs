@@ -14,8 +14,6 @@ public enum ProductActions
 
     Monetise,
 
-    GrabSegments,
-
     ShowProfit,
     RestoreLoyalty,
 }
@@ -164,7 +162,6 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
             case InvestorGoalType.GainMoreSegments:
                 actions.Add(ProductActions.RestoreLoyalty);
-                actions.Add(ProductActions.GrabSegments);
                 actions.Add(ProductActions.Features);
                 actions.Add(ProductActions.GrabUsers);
 
@@ -238,12 +235,6 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             case ProductActions.GrabUsers:
                 ManageChannels(product);
                 MeasureTag("* Channels", time);
-
-                break;
-
-            case ProductActions.GrabSegments:
-                GrabSegments(product);
-                MeasureTag("* Segments", time);
 
                 break;
 

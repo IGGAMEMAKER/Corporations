@@ -17,10 +17,8 @@ public class CompanyViewInSegmentTab : View
 
     public void SetEntity(GameEntity company, ProductPositioning positioning)
     {
-        var appQuality = (int)Marketing.GetPositioningQuality(company).Sum(); // (int)Marketing.GetSegmentLoyalty(company, segmentId); // Random.Range(-5, 10);
-
-        AudienceLoyalty.text = appQuality.ToString();
-        AudienceLoyalty.color = Visuals.GetColorPositiveOrNegative(appQuality);
+        AudienceLoyalty.text = "appQuality.ToString()";
+        AudienceLoyalty.color = Visuals.GetColorPositiveOrNegative(-1333);
 
         var change = Marketing.GetAudienceChange(company, Q);
         CompanyValue.text = Format.SignOf(change) + Format.MinifyToInteger(change);
@@ -37,7 +35,6 @@ public class CompanyViewInSegmentTab : View
         CompanyHint.SetHint(
             $"{RenderName(company)}" +
             $"\n\n" +
-            $"<size=40>App quality={Visuals.Positive(appQuality.ToString())}</size>\n\n"+
             $"Weekly Audience Growth:\n{Visuals.Colorize(Format.Minify(change), Visuals.GetColorPositiveOrNegative(change))}" +
             $"\n" +
             $"Marketing Budget:\n{Format.Money(marketingBudget, true)}"

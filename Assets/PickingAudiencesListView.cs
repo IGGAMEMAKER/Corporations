@@ -37,22 +37,4 @@ public class PickingAudiencesListView : ListView
 
         Teams.UpdateTeamEfficiency(product, Q);
     }
-
-    public override void OnItemSelected(int ind)
-    {
-        base.OnItemSelected(ind);
-
-        var audience = Item.GetComponent<AudiencePreview>().segmentId;
-
-        FindObjectOfType<PositioningManagerView>().AddAudience(audience);
-    }
-
-    public override void OnDeselect(int ind)
-    {
-        base.OnDeselect(ind);
-
-        var audience = Item.GetComponent<AudiencePreview>().segmentId;
-
-        FindObjectOfType<PositioningManagerView>().RemoveAudience(audience);
-    }
 }

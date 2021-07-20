@@ -68,19 +68,9 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
 
     void RenderLoyalty()
     {
-        var loyalty = Marketing.GetPositioningQuality(company);
-        var loyaltySum = loyalty.Sum();
-        var loyaltyString = loyaltySum.ToString("0.00");
+        AnimationSpawner.SpawnJumpingAnimation(transform);
 
-        Loyalty.text = ((int)loyaltySum).ToString();// loyalty.Sum().ToString("0");
-        LoyaltyHint.SetHint($"<size=30>App quality={loyaltyString}</size>\n" + loyalty.SortByModule().HideZeroes().ToString());
-
-        if ((int) loyaltySum > loyaltyClamped)
-        {
-            AnimationSpawner.SpawnJumpingAnimation(transform);
-
-            loyaltyClamped = (int) loyaltySum;
-        }
+        loyaltyClamped = (int)Random.Range(0, 100);
     }
 
     void RenderBorderImage(bool hasControl)
@@ -147,49 +137,6 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
     void SetEmblemColor()
     {
         Image.color = Companies.GetCompanyUniqueColor(company.company.Id);
-    }
-
-    public static int GetBudgetEstimation(GameEntity product, GameContext gameContext)
-    {
-        var competitors = Companies.GetCompetitorsOf(product, gameContext, true);
-
-        var position = competitors.OrderByDescending(c => Economy.GetProductMaintenance(c, Q)).ToList().FindIndex(s => s.company.Id == product.company.Id);
-
-        return Mathf.Clamp(5 - position, 1, 5);
-    }
-
-    public static int GetTeamEstimation(GameEntity product, GameContext gameContext)
-    {
-        var competitors = Companies.GetCompetitorsOf(product, gameContext, true);
-
-        var position = competitors.OrderByDescending(c => c.team.Teams.Count).ToList().FindIndex(s => s.company.Id == product.company.Id);
-
-        return Mathf.Clamp(5 - position, 1, 5);
-    }
-
-    public static int GetManagerEstimation(GameEntity product, GameContext gameContext)
-    {
-        //var competitors = Companies.GetCompetitorsOfCompany(product, gameContext, true);
-
-        var avgStrength = Teams.GetTeamAverageStrength(product, gameContext);
-
-        if (avgStrength < 50)
-            return 1;
-
-        if (avgStrength < 60)
-            return 2;
-
-        if (avgStrength < 70)
-            return 3;
-
-        if (avgStrength < 80)
-            return 4;
-
-        return 5;
-
-        //return competitors.OrderByDescending(c => c.team.Teams.Count).ToList().FindIndex(s => s.company.Id == product.company.Id);
-
-        return Random.Range(1, 5);
     }
 
     string GetCompanyHint(bool hasControl)

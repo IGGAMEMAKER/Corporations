@@ -9,9 +9,6 @@ namespace Assets.Core
             // competition
             var competitors = Companies.GetDirectCompetitors(product, gameContext, true);
 
-            var quality = Marketing.GetPositioningQuality(product).Sum();
-            var maxQuality = competitors.Select(c => Marketing.GetPositioningQuality(c).Sum()).Max();
-
             bool isUniqueCompany = competitors.Count() == 1;
             // -------------------------------------------------
 
@@ -24,7 +21,7 @@ namespace Assets.Core
                 FeatureGain = GetFeatureRatingGain(),
 
                 isUniqueCompany = isUniqueCompany,
-                Competitiveness = (int)(maxQuality - quality)
+                Competitiveness = 0
             });
         }
 
@@ -124,7 +121,7 @@ namespace Assets.Core
 
         public static Bonus<float> GetFeatureRatingCap(GameEntity product, TeamInfo team, GameContext gameContext)
         {
-            var productManager = Products.GetWorkerInRole(team, WorkerRole.ProductManager, gameContext);
+            var productManager = Teams.GetWorkerInRole(team, WorkerRole.ProductManager, gameContext);
 
             var bonus = new Bonus<float>("Max feature lvl");
 

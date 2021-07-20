@@ -47,32 +47,13 @@ namespace Assets.Core
             return product.nicheSegments.Positionings;
         }
 
-        internal static void NotifyAboutPositioningChange(GameEntity product, GameContext gameContext, int newPositioning, int previousPositioning, bool newCompany = false)
-        {
-            if (product.isFlagship && GetUsers(product) > 50)
-            {
-                var segments = Marketing.GetNichePositionings(product);
-                var audiences = GetAudienceInfos();
-
-                var newLoyalties = segments[newPositioning].Loyalties;
-
-                var newAudiences = string.Join("\n", newLoyalties.Select((l, i) => l >= 0 ? audiences[i].Name : "").Where(s => s.Count() != 0).Select(Visuals.Positive));
-                var losingAudiences = string.Join("\n", newLoyalties.Select((l, i) => (l < 0 && GetUsers(product, i) > 0 && !IsAimingForSpecificAudience(product, i)) ? audiences[i].Name : "").Where(s => s.Count() != 0).Select(Visuals.Negative));
-
-                var losingAudiencesMsg = losingAudiences.Any() ? "\nBut you will lose\n\n" + losingAudiences : "";
-
-                NotificationUtils.AddSimplePopup(gameContext, "Product positioning changed",
-                    "You will start getting\n\n" + newAudiences + losingAudiencesMsg);
-            }
-        }
-
         public static void ChangePositioning(GameEntity product, int newPositioning)
         {
             product.productPositioning.Positioning = newPositioning;
         }
         public static void ChangePositioning(GameEntity product, GameContext gameContext, int newPositioning, bool newCompany = false)
         {
-            var previousPositioning = product.productPositioning.Positioning;
+            /*var previousPositioning = product.productPositioning.Positioning;
 
             // nothing changed
             if (previousPositioning == newPositioning)
@@ -84,7 +65,7 @@ namespace Assets.Core
 
 
             // NOTIFY ABOUT THAT
-            NotifyAboutPositioningChange(product, gameContext, newPositioning, previousPositioning, newCompany);
+            NotifyAboutPositioningChange(product, gameContext, newPositioning, previousPositioning, newCompany);*/
         }
 
         public static bool IsFocusingOneAudience(GameEntity product)

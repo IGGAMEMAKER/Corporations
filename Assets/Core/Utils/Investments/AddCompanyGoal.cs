@@ -43,7 +43,7 @@
                 case InvestorGoalType.GrowIncome:               return new InvestmentGoalGrowProfit     (Economy.GetIncome(gameContext, company) * 3 / 2);
                 case InvestorGoalType.GrowUserBase:             return new InvestmentGoalGrowAudience   (Marketing.GetUsers(company) * 2);
                 case InvestorGoalType.GrowCompanyCost:          return new InvestmentGoalGrowCost       (Economy.CostOf(company, gameContext) * 2);
-                case InvestorGoalType.GainMoreSegments:         return new InvestmentGoalMoreSegments   (Marketing.GetAmountOfTargetAudiences(company) + 1);
+                //case InvestorGoalType.GainMoreSegments:         return new InvestmentGoalMoreSegments   (Marketing.GetAmountOfTargetAudiences(company) + 1);
 
                 case InvestorGoalType.OutcompeteCompanyByIncome:    return new InvestmentGoalOutcompeteByIncome(strongerOpponent.company.Id, strongerOpponent.company.Name);
                 case InvestorGoalType.OutcompeteCompanyByUsers:     return new InvestmentGoalOutcompeteByUsers(strongerOpponent.company.Id, strongerOpponent.company.Name);

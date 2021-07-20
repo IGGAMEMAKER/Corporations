@@ -1,5 +1,6 @@
 ﻿using Entitas;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Assets.Core
@@ -19,6 +20,24 @@ namespace Assets.Core
             return e;
         }
 
+        public static List<float> CalculateMarketRequirements(GameEntity niche, GameContext gameContext, NewProductFeature[] allFeatures)
+        {
+            var competitors = Markets.GetProductsOnMarket(niche, gameContext);
+            var features = allFeatures.ToList().Select(f => 0f).ToList();
+
+            if (competitors.Any())
+            {
+                for (var i = 0; i < allFeatures.Length; i++)
+                {
+                    var f = allFeatures[i];
+
+                    features[i] = competitors.Select(c => Products.GetFeatureRating(c, f.Name)).Max();
+                }
+            }
+
+            return features;
+        }
+
         public static MarketRequirementsComponent GetMarketRequirements(GameContext gameContext, GameEntity niche)
         {
             var allFeatures = Products.GetAllFeaturesForProduct();
@@ -29,17 +48,8 @@ namespace Assets.Core
             // is Empty list
             if (niche.marketRequirements.Features.Sum() == 0)
             {
-                var competitors = Markets.GetProductsOnMarket(niche, gameContext);
-                if (competitors.Any())
-                {
-                    for (var i = 0; i < allFeatures.Length; i++)
-                    {
-                        var f = allFeatures[i];
-
-                        niche.marketRequirements.Features[i] = competitors.Select(c => Products.GetFeatureRating(c, f.Name)).Max();
-                    }
-                }
             }
+            niche.ReplaceMarketRequirements(CalculateMarketRequirements(niche, gameContext, allFeatures));
 
             return niche.marketRequirements;
         }

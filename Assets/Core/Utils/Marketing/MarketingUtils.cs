@@ -33,7 +33,7 @@ namespace Assets.Core
 
         public static long GetChurnClients(GameEntity product, GameContext gameContext, int segmentId)
         {
-            var churn = GetChurnRate(product, gameContext, segmentId);
+            var churn = GetChurnRate(product, gameContext);
 
             var clients = (double)GetUsers(product, segmentId);
 

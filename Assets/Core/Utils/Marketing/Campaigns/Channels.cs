@@ -23,76 +23,6 @@ namespace Assets.Core
             // return channel.channelMarketingActivities.Companies.ContainsKey(product.company.Id);
         }
 
-        public static long GetGrowthLoyaltyBonus(GameEntity company, int segmentId)
-        {
-            var loyalty = (int)GetSegmentLoyalty(company, segmentId);
-
-            var loyaltyBonus = 0;
-            if (loyalty >= 0)
-            {
-                loyaltyBonus = loyalty * 10;
-
-                if (loyalty > 10)
-                    loyaltyBonus = 10 * 10 + (loyalty - 10) * 5;
-
-                if (loyalty > 20)
-                    loyaltyBonus = 10 * 10 + 10 * 5 + (loyalty - 20) * 1;
-            }
-
-            return loyaltyBonus;
-        }
-
-        public static bool IsWillSufferOnAudienceLoss(GameEntity company, int segmentId)
-        {
-            return IsAimingForSpecificAudience(company, segmentId) && GetUsers(company, segmentId) > 0;
-        }
-
-        public static bool IsAimingForSpecificAudience(GameEntity company, int segmentId)
-        {
-            var positioning = GetPositioning(company);
-            
-            return positioning.Loyalties[segmentId]>= 0;
-        }
-
-        public static int GetAmountOfTargetAudiences(GameEntity company) => GetAmountOfTargetAudiences(GetPositioning(company));
-        public static int GetAmountOfTargetAudiences(ProductPositioning positioning)
-        {
-            return positioning.Loyalties.Count(l => l > 0);
-        }
-
-        public static bool IsHasDisloyalAudiences(GameEntity company)
-        {
-            return GetAudienceInfos().Any(a => IsAudienceDisloyal(company, a.ID) && IsTargetAudience(company, a.ID));
-        }
-
-        public static bool IsAudienceDisloyal(GameEntity company, int segmentId)
-        {
-            // cannot get clients if existing ones are outraged
-
-            return GetGrowthLoyaltyBonus(company, segmentId) < 0;
-        }
-
-        public static bool IsAttractsSpecificAudience(GameEntity company, int segmentId)
-        {
-            return IsAimingForSpecificAudience(company, segmentId) && !IsAudienceDisloyal(company, segmentId);
-        }
-
-        public static double GetSegmentFocusingMultiplier(GameEntity product)
-        {
-            var favouriteAudiences = GetAmountOfTargetAudiences(product);
-
-            switch (favouriteAudiences)
-            {
-                case 1: return 1;
-                case 2: return 0.7d;
-                case 3: return 0.5d;
-
-                default: return 0.1d;
-            }
-
-            // return  Companies.GetHashedRandom2(product.company.Id, channel.marketingChannel.ChannelInfo.ID + segmentId);
-        }
-
         // fraction will be recalculated
         // take into account
         // * Base channel width (f.e. 100K users per week)
@@ -110,18 +40,13 @@ namespace Assets.Core
         
         public static long GetChannelClientGain(GameEntity company, ChannelInfo channelInfo, int segmentId)
         {
-            if (!IsAttractsSpecificAudience(company, segmentId))
-                return 0;
-
             var baseChannelBatch = channelInfo.Batch;
-            var fraction = GetSegmentFocusingMultiplier(company);
-
-            var batch = (long)(baseChannelBatch * fraction);
+            var batch = baseChannelBatch;
 
             var marketingEfficiency = Teams.GetMarketingEfficiency(company);
-            var loyaltyBonus = GetGrowthLoyaltyBonus(company, segmentId);
+            // From feature count
 
-            return batch * (marketingEfficiency + loyaltyBonus) / 100;
+            return batch * (marketingEfficiency) / 100;
         }
 
         // in months

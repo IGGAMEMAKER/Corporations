@@ -1,41 +1,32 @@
-﻿using UnityEngine;
-
-namespace Assets.Core
+﻿namespace Assets.Core
 {
     public static partial class Marketing
     {
-        public static float GetChurnRate(GameEntity company, GameContext gameContext, int segmentId)
-        {
-            return GetChurnRate(company, segmentId, gameContext, true).Sum();
-        }
-
-        public static Bonus<float> GetChurnRate(GameEntity c, int segmentId, GameContext gameContext, bool isBonus)
-        {
-            var baseChurn = GetBaseChurnRate(c, gameContext, isBonus);
-
-            return baseChurn // GetSegmentSpecificChurnBonus(baseChurn, c, segmentId, isBonus)
-                .Cap(1, 100)
-                ;
-        }
-
-        public static Bonus<float> GetBaseChurnRate(GameEntity c, GameContext gameContext, bool isBonus)
+        public static float GetChurnRate(GameEntity company, GameContext gameContext) => GetChurnRate(company, gameContext, true).Sum();
+        public static Bonus<float> GetChurnRate(GameEntity c, GameContext gameContext, bool isBonus)
         {
             // market state
             var state = c.nicheState.Phase;
             var marketIsDying = state == MarketState.Death;
 
-            // market requirements
-            var reqs = Markets.GetMarketRequirementsForCompany(gameContext, c);
-
-            var requirements = reqs.Features;
-            var features = Products.GetAllFeaturesForProduct();
-
             var baseRate = new Bonus<float>("Churn rate")
                 .RenderTitle()
                 .SetDimension("%")
 
-                .Append("Base", 20)
+                .Append("Base", 10)
                 .AppendAndHideIfZero("Market is DYING", marketIsDying ? 5 : 0);
+
+            ApplyChurnRateFromFeatures(baseRate, gameContext, c);
+
+            return baseRate.Cap(1, 100);
+        }
+
+        public static Bonus<float> ApplyChurnRateFromFeatures(Bonus<float> baseRate, GameContext gameContext, GameEntity c)
+        {
+            var reqs = Markets.GetMarketRequirementsForCompany(gameContext, c);
+
+            var requirements = reqs.Features;
+            var features = Products.GetAllFeaturesForProduct();
 
             for (var i = 0; i < requirements.Count; i++)
             {
@@ -45,13 +36,8 @@ namespace Assets.Core
                 var rating = Products.GetFeatureRating(c, featureName);
 
                 var marketRequirements = Markets.GetMarketRequirementsForCompany(gameContext, c);
+
                 var currentBestRating = marketRequirements.Features[i];
-
-                var diff = marketRequirements.Features[i] - rating;
-
-                bool best = diff == 0;
-
-                // fea
                 if (rating == 0 && currentBestRating > 0 && f.IsRetentionFeature)
                 {
                     //baseRate.Append("Lacks feature " + featureName, 1);
@@ -60,6 +46,9 @@ namespace Assets.Core
 
                 if (f.IsRetentionFeature)
                 {
+                    var diff = marketRequirements.Features[i] - rating;
+
+                    bool best = diff == 0;
                     if (!best)
                         baseRate.AppendAndHideIfZero(featureName + " outdated (-" + (int)diff + ")", (int)diff * 1f);
                     else
@@ -75,101 +64,14 @@ namespace Assets.Core
             return baseRate;
         }
 
-        public static int GetChurnFromOutcompetition(GameEntity c)
-        {
-            var competitiveness = Mathf.Abs(c.teamEfficiency.Efficiency.Competitiveness);
-
-            var competitivenessBonus = competitiveness / C.FEATURE_VALUE_UTP;
-
-            return (int)Mathf.Pow(competitivenessBonus, 3);
-        }
-
-        public static Bonus<long> GetSegmentSpecificChurnBonus(Bonus<long> bonus, GameEntity c, int segmentId, bool isBonus)
-        {
-            var loyalty = GetSegmentLoyalty(c, segmentId);
-
-            bonus.AppendAndHideIfZero("Disloyal clients", loyalty < 0 ? 5 : 0);
-
-            return bonus;
-        }
-
 
 
         public static float GetAppQuality(GameEntity product)
         {
-            return GetPositioningQuality(product).Sum();
+            return 1;
         }
 
-        public static Bonus<float> GetPositioningQuality(GameEntity product) => GetPositioningQuality(product, GetPositioning(product));
-        public static Bonus<float> GetPositioningQuality(GameEntity product, ProductPositioning positioning)
-        {
-            var bonus = new Bonus<float>("Total loyalty");
 
-            var segments = Marketing.GetAudienceInfos();
-
-            var loyalties = positioning.Loyalties;
-
-            var segId = 0;
-            foreach (var l in loyalties)
-            {
-                if (l > 0)
-                    bonus.Append(segments[segId].Name, GetSegmentLoyalty(product, segId));
-
-                segId++;
-            }
-
-            return bonus;
-        }
-
-        public static float GetSegmentLoyalty(GameEntity product, int segmentId) => GetSegmentLoyalty(product, segmentId, true).Sum();
-        public static float GetSegmentLoyalty(GameEntity product, ProductPositioning positioning, int segmentId) => GetSegmentLoyalty(product, segmentId, positioning, true).Sum();
-
-        public static Bonus<float> GetSegmentLoyalty(GameEntity product, int segmentId, bool isBonus) => GetSegmentLoyalty(product, segmentId, GetPositioning(product), isBonus);
-        public static Bonus<float> GetSegmentLoyalty(GameEntity product, int segmentId, ProductPositioning positioning, bool isBonus)
-        {
-            var bonus = new Bonus<float>("Loyalty");
-
-            // features
-            ApplyLoyaltyFromFeatures(bonus, product, segmentId);
-
-            // positioning
-            ApplyLoyaltyPositioningBonuses(bonus, product, positioning, segmentId);
-
-
-            bonus.AppendAndHideIfZero("Is Released", product.isRelease ? -5 : 0);
-
-            //bonus.AppendAndHideIfZero("Server overload", Products.IsNeedsMoreServers(product) ? -70 : 0);
-
-            bonus.Cap(-100, 50);
-
-            return bonus;
-        }
-
-        public static void ApplyLoyaltyFromFeatures(Bonus<float> bonus, GameEntity product, int segmentId)
-        {
-            var features = Products.GetAllFeaturesForProduct();
-            foreach (var f in features)
-            {
-                if (Products.IsUpgradedFeature(product, f.Name))
-                {
-                    var loyaltyGain = GetLoyaltyChangeFromFeature(product, f, segmentId, false);
-
-                    bonus.Append($"Feature {f.Name}", loyaltyGain);
-                }
-            }
-        }
-
-        public static void ApplyLoyaltyPositioningBonuses(Bonus<float> bonus, GameEntity product, ProductPositioning positioning, int segmentId)
-        {
-            var positioningBonus = positioning.Loyalties[segmentId];
-            bonus.AppendAndHideIfZero("From positioning", positioningBonus);
-
-            //bool isFocusing = positioningBonus >= 0;
-            //if (isFocusing)
-            //    bonus.MultiplyAndHideIfOne("Product positioning", positioningBonus / 5);
-            //else
-            //    bonus.AppendAndHideIfZero("From positioning", positioningBonus);
-        }
 
         // if maxChange = true
         // this will return max loyalty for regular features
@@ -178,19 +80,7 @@ namespace Assets.Core
         // otherwise - upgraded values?
         public static float GetLoyaltyChangeFromFeature(GameEntity c, NewProductFeature f)
         {
-            var audiences = GetAudienceInfos();
-
-            var loyaltyChange = 0f;
-
-            foreach (var audience in audiences)
-            {
-                if (IsAimingForSpecificAudience(c, audience.ID))
-                {
-                    loyaltyChange += Marketing.GetLoyaltyChangeFromFeature(c, f, audience.ID, false);
-                }
-            }
-
-            return loyaltyChange;
+            return 100;
         }
         public static float GetLoyaltyChangeFromFeature(GameEntity c, NewProductFeature f, int segmentId, bool maxChange = false)
         {

@@ -200,6 +200,7 @@ namespace Assets.Core
 
         public static Func<NewProductFeature, bool> IsFeatureWillNotDisappointAnyoneSignificant(GameEntity company) => (NewProductFeature f) =>
         {
+            return true;
             if (IsUpgradingFeature(company, f.Name))
                 return true;
 
@@ -207,19 +208,6 @@ namespace Assets.Core
                 return true;
 
             bool willMakeAnyoneDisloyal = false;
-            var segments = Marketing.GetAudienceInfos();
-
-            foreach (var a in segments)
-            {
-                var loyalty = Marketing.GetSegmentLoyalty(company, a.ID);
-                var change = Marketing.GetLoyaltyChangeFromFeature(company, f, a.ID, true);
-
-                bool willDissapointAudience = change < 0 && loyalty + change < 0;
-                bool weDontWantToDissapointThem = Marketing.IsAimingForSpecificAudience(company, a.ID);
-
-                if (willDissapointAudience && weDontWantToDissapointThem)
-                    willMakeAnyoneDisloyal = true;
-            }
 
             return !willMakeAnyoneDisloyal;
         };

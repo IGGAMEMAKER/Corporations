@@ -20,7 +20,9 @@ public class AudiencePreview : View
     public void SetEntity(AudienceInfo audience, GameEntity product, int setLoyalty = 0)
     {
         base.ViewRender();
+        return;
 
+        /*
         //var product = Flagship;
 
         segmentId = audience.ID;
@@ -61,41 +63,7 @@ public class AudiencePreview : View
         AudienceImage.texture = Resources.Load<Texture2D>($"Audiences/{audience.Icon}");
 
         HideLoyaltyChanges();
-    }
-
-    void RenderAudienceHint(AudienceInfo audience, bool isNewAudience, GameEntity product, long clients, int loyalty)
-    {
-        var text = $"<size=35>{audience.Name}</size>";
-
-        var loyaltyBonus = Marketing.GetSegmentLoyalty(product, segmentId, true);
-
-
-        if (isNewAudience)
-        {
-            text += $"\n\nIncome: <b>{Visuals.Positive("???")}</b>" +
-                $"\nPotential: <b>{Visuals.Positive("???")}</b>";
-
-            if (Loyalty != null)
-                Hide(Loyalty);
-        }
-
-        else
-        {
-            if (Loyalty != null)
-            {
-                Show(Loyalty);
-
-                Loyalty.text = Format.Sign(loyalty);
-                Loyalty.GetComponent<Hint>().SetHint(loyaltyBonus.SortByModule(true).RenderTitle().ToString());
-            }
-
-            var income = Economy.GetIncomePerSegment(product, segmentId);
-
-            text += $"\n\nIncome: <b>{Visuals.Colorize(Format.Money(income, true), income >= 0)}</b>" +
-                $"\nUsers: <b>{Visuals.Colorize(Format.Minify(clients), clients >= 0)}</b>";
-        }
-
-        AudienceHint.SetHint(text);
+        */
     }
 
     public void ShowChanges(NewProductFeature f)

@@ -6,6 +6,19 @@ namespace Assets.Core
 {
     public static partial class Teams
     {
+        public static GameEntity GetWorkerInRole(TeamInfo team, WorkerRole workerRole, GameContext gameContext)
+        {
+            var productManagers = team.Managers.Select(humanId => Humans.Get(gameContext, humanId)).Where(worker => worker.worker.WorkerRole == workerRole);
+
+            var managers = productManagers.ToList();
+            if (managers.Any())
+            {
+                return managers.First();
+            }
+
+            return null;
+        }
+
         public static GameEntity GetWorkerByRole(WorkerRole role, TeamInfo teamInfo, GameContext gameContext)
         {
             foreach (var pair in teamInfo.Roles)
@@ -23,7 +36,9 @@ namespace Assets.Core
             var leaderRole = GetMainManagerRole(t);
             
             var allRoles = GetRolesForTeam(t).Where(r => hasLeader || r == leaderRole);
+
             return allRoles;
+
             var existingRoles = GetExistingWorkerRoles(t);
 
             return allRoles.Where(r => !existingRoles.Contains(r));

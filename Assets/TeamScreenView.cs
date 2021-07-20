@@ -43,7 +43,6 @@ public class TeamScreenView : View
         var ratingGain = Products.GetFeatureRatingGain(product);
         var marketingEfficiency = Teams.GetMarketingEfficiency(product);
         var featureCap = Products.GetFeatureRatingCap(product);
-        var devSpeed = Products.GetBaseIterationTime(product);
 
         var stats = new StringBuilder()
             .Append("Max feature level: ")

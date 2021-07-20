@@ -92,13 +92,6 @@ namespace Assets.Core
 
             task.StartDate = date;
 
-            if (task.IsFeatureUpgrade)
-            {
-                Products.AddFeatureCooldown(product, task, date);
-                
-                Companies.SpendResources(product, new TeamResource(0, 0, 0, GetFeatureUpgradeCost(product, task), 0), "feature upgrade");
-            }
-
             if (task.IsMarketingTask)
             {
                 var channelId = (task as TeamTaskChannelActivity).ChannelId;
@@ -107,18 +100,6 @@ namespace Assets.Core
                 if (!Marketing.IsActiveInChannel(product, channelId))
                     Marketing.EnableChannelActivity(product, channel);
             }
-
-            if (task.IsHighloadTask || task.IsSupportTask)
-            {
-                var name = (task as TeamTaskSupportFeature).SupportFeature.Name;
-
-                if (!product.supportUpgrades.Upgrades.ContainsKey(name))
-                {
-                    product.supportUpgrades.Upgrades[name] = 0;
-                }
-
-                product.supportUpgrades.Upgrades[name]++;
-            }
         }
 
         public static void ProcessTeamTaskIfNotPending(GameEntity p, int date, TeamTask task, ref List<SlotInfo> removableTasks, int slotId, int teamId)
@@ -126,28 +107,6 @@ namespace Assets.Core
             if (task.IsPending)
                 return;
             
-            if (task is TeamTaskFeatureUpgrade upgrade)
-            {
-                var featureName = upgrade.NewProductFeature.Name;
-
-                if (date >= task.EndDate)
-                {
-                    Products.IncreaseFeatureLevel(p, featureName);
-
-                    task.StartDate = date;
-                    Products.AddFeatureCooldown(p, task, date);
-                    
-                    removableTasks.Add(new SlotInfo {SlotId = slotId, TeamId = teamId});
-                }
-
-                // ----------------------- STOP IF REACHED CAP ------------------------------------
-
-                // if (Products.GetFeatureRating(p, featureName) >= Products.GetFeatureRatingCap(p))
-                // {
-                //     removableTasks.Add(new SlotInfo {SlotId = slotId, TeamId = teamId});
-                // }
-            }
-
             if (task is TeamTaskChannelActivity)
             {
                 // channel tookout

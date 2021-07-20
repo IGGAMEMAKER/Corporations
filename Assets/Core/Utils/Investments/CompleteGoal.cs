@@ -74,16 +74,16 @@ namespace Assets.Core
             if (goal is InvestmentGoalMakePrototype)
             {
                 GameEntity product = GetProduct(goal, company, gameContext);
-                var loyalty = 13;
+                var loyalty = 10;
 
                 return new List<GoalRequirements>
                 {
                     new GoalRequirements
                     {
-                        have = (long)Marketing.GetSegmentLoyalty(product, Marketing.GetCoreAudienceId(company)),
+                        have = (long)Marketing.GetChurnRate(product, gameContext),
                         need = loyalty,
 
-                        description = $"Loyalty > {loyalty}"
+                        description = $"Churn < {loyalty}"
                     }
                 };
             }
@@ -92,16 +92,16 @@ namespace Assets.Core
             {
                 GameEntity product = GetProduct(goal, company, gameContext);
 
-                var loyalty = 15;
+                var loyalty = 5;
 
                 return new List<GoalRequirements>
                 {
                     new GoalRequirements
                     {
-                        have = (long)Marketing.GetSegmentLoyalty(product, Marketing.GetCoreAudienceId(company)),
+                        have = (long)Marketing.GetChurnRate(product, gameContext),
                         need = loyalty,
 
-                        description = $"Loyalty > {loyalty}"
+                        description = $"Churn < {loyalty}"
                     }
                 };
             }
@@ -173,7 +173,7 @@ namespace Assets.Core
                 };
             }
 
-            if (goal is InvestmentGoalMoreSegments)
+            /*if (goal is InvestmentGoalMoreSegments)
             {
                 var g = goal as InvestmentGoalMoreSegments;
                 GameEntity product = GetProduct(goal, company, gameContext);
@@ -188,7 +188,7 @@ namespace Assets.Core
                         description = "Target audiences >= " + Format.Minify(g.Segments)
                     }
                 };
-            }
+            }*/
 
             if (goal is InvestmentGoalGrowAudience)
             {
@@ -247,7 +247,7 @@ namespace Assets.Core
                 };
             }
 
-            if (goal is InvestmentGoalRegainLoyalty)
+            /*if (goal is InvestmentGoalRegainLoyalty)
             {
                 return new List<GoalRequirements>
                 {
@@ -258,7 +258,7 @@ namespace Assets.Core
                         need = 1
                     }
                 };
-            }
+            }*/
 
             if (goal is InvestmentGoalStartMonetisation)
             {

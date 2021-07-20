@@ -48,9 +48,6 @@ public class AudiencesOnMainScreenListView : ListView
 
         Teams.UpdateTeamEfficiency(product, Q);
 
-        if (Iteration != null)
-            Iteration.text = Visuals.Positive(Products.GetIterationTime(product) + " days");
-
         if (FeatureCap != null)
             FeatureCap.text = Visuals.Positive(Products.GetFeatureRatingCap(product).ToString("0.0"));
     }
@@ -65,50 +62,6 @@ public class AudiencesOnMainScreenListView : ListView
     public void HideButtons()
     {
         Hide(ButtonList);
-    }
-
-    // TODO REMOVE
-    void RenderAudienceData(int segmentId, long clients, GameEntity product)
-    {
-        var audience = Marketing.GetAudienceInfos()[segmentId];
-
-        var growing = Marketing.GetAudienceGrowthBySegment(product, Q, segmentId);
-
-        var incomePerUser = 0.42f;
-        var worth = (long)((double)audience.Size * incomePerUser);
-
-        var income = Economy.GetIncomePerSegment(product, segmentId);
-
-        var potentialPhrase = Format.Minify(audience.Size);
-        var marketWorth = Format.Money(worth, true);
-
-        var growthPhrase = $"+{Format.Minify(growing)} weekly";
-
-        var loyalty = Marketing.GetSegmentLoyalty(product, segmentId, true);
-
-        MainInfo.Title.text          = $"<b>{audience.Name}</b>\nIncome: {Visuals.Positive(Format.Money(income, true))}";
-        AmountOfUsers.Title.text     = $"{Format.Minify(clients)} {audience.Name}\n" + Visuals.Colorize(growthPhrase, growing >= 0);
-
-        MainAudienceInfo.Title.text  = "<b>Our main audience</b>";
-        MainAudienceInfo.Title.color = Visuals.GetColorFromString(Colors.COLOR_GOLD);
-
-        //Potential.Title.text         = $"<b>Potential: {potentialPhrase} users</b>\nworth {marketWorth}";
-
-        LoyaltyInfo.Title.text       = $"<b>Loyalty</b>\n";
-        LoyaltyInfo.Hint.SetHint(loyalty.SortByModule(true).ToString());
-
-        var isLoyal = loyalty.Sum() >= 0;
-        if (isLoyal)
-        {
-            LoyaltyInfo.Title.text += Visuals.Positive("+" + (int)loyalty.Sum());
-        }
-        else
-        {
-            var worstValue = loyalty.bonusDescriptions.Min(b => b.Value);
-            var worstThing = loyalty.bonusDescriptions.Find(b => b.Value == worstValue);
-
-            LoyaltyInfo.Title.text += Visuals.Negative($"{worstThing.Name}: {worstThing.Value}");
-        }
     }
 
     public void ShowLoyaltyChanges(List<int> changes)
