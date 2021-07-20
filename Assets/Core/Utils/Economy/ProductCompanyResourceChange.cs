@@ -14,8 +14,7 @@ namespace Assets.Core
             var date = ScheduleUtils.GetCurrentDate(gameContext);
             if (ScheduleUtils.IsPeriodicalMonthEnd(date))
             {
-                upgrades = company.team.Teams.Select(TeamInfoqwe).Sum() + 1;
-                upgrades *= 4;
+                upgrades = Products.GetIterationMonthlyGain(company);
             }
 
             return new TeamResource(
@@ -27,7 +26,7 @@ namespace Assets.Core
                 );
         }
 
-        public static int TeamInfoqwe (TeamInfo team)
+        public static int TeamFeatureGain(TeamInfo team)
         {
             var slots = Teams.GetTeamFeatureSlots(team);
 

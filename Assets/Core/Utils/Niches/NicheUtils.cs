@@ -19,10 +19,27 @@ namespace Assets.Core
             return e;
         }
 
-        public static MarketRequirementsComponent GetMarketRequirements(GameEntity niche)
+        public static MarketRequirementsComponent GetMarketRequirements(GameContext gameContext, GameEntity niche)
         {
+            var allFeatures = Products.GetAllFeaturesForProduct();
+
             if (!niche.hasMarketRequirements)
-                niche.AddMarketRequirements(Products.GetAllFeaturesForProduct().Select(f => 0f).ToList());
+                niche.AddMarketRequirements(allFeatures.Select(f => 0f).ToList());
+
+            // is Empty list
+            if (niche.marketRequirements.Features.Sum() == 0)
+            {
+                var competitors = Markets.GetProductsOnMarket(niche, gameContext);
+                if (competitors.Any())
+                {
+                    for (var i = 0; i < allFeatures.Length; i++)
+                    {
+                        var f = allFeatures[i];
+
+                        niche.marketRequirements.Features[i] = competitors.Select(c => Products.GetFeatureRating(c, f.Name)).Max();
+                    }
+                }
+            }
 
             return niche.marketRequirements;
         }
@@ -30,7 +47,7 @@ namespace Assets.Core
         public static MarketRequirementsComponent GetMarketRequirementsForCompany(GameContext gameContext, GameEntity c)
         {
             var niche = Markets.Get(gameContext, c);
-            var reqs = Markets.GetMarketRequirements(niche);
+            var reqs = Markets.GetMarketRequirements(gameContext, niche);
 
             if (!c.hasMarketRequirements)
             {

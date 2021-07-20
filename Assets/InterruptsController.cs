@@ -26,8 +26,25 @@ public class InterruptsController : View
         Draw(UnhappyManager, unhappyCoreWorkers.Any());
         Draw(PromoteTeam, false);
 
-        var iterationProgress = Products.GetIterationProgress(Flagship) + CurrentIntDate % (int)C.PERIOD;
-//        Debug.Log("progress: " + iterationProgress);
+        var month = (int)C.PERIOD * 4;
+        var ticking = CurrentIntDate % month;
+
+        var gain = Products.GetIterationMonthlyGain(Flagship); // 4
+        // TODO MULTUPLY BY 10? WHY? GOTO ITERATION.CS GetIterationProgress
+        var currentPoints = Products.GetIterationProgress(Flagship); // 0...100
+
+        if (gain + currentPoints / 10 > C.ITERATION_PROGRESS)
+            gain = C.ITERATION_PROGRESS - currentPoints / 10;
+
+        var gainProgress = gain * 100 * ticking;
+
+
+        var iterationProgress = currentPoints + gainProgress / month / C.ITERATION_PROGRESS;
+        //Debug.LogFormat("gain {0}, gainProg {1}, ticking {2}", gain, gainProgress, ticking);
+
+        /*if (currentPoints > C.ITERATION_PROGRESS)
+            iterationProgress = 100;*/
+
         UpgradeFeature.SetProgress(iterationProgress);
     }
 }

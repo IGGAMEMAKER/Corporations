@@ -7,10 +7,10 @@ public partial class ClientDistributionSystem : OnPeriodChange
 
     protected override void Execute(List<GameEntity> entities)
     {
-        var niches = Markets.GetNiches(gameContext);
+        /*var niches = Markets.GetNiches(gameContext);
 
         foreach (var n in niches)
-            CheckMarket(n);
+            CheckMarket(n);*/
     }
 
     void CheckMarket(GameEntity niche)

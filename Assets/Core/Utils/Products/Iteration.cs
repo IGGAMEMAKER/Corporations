@@ -109,12 +109,17 @@ namespace Assets.Core
 
         public static int GetIterationProgress(GameEntity product)
         {
-            var progress = C.ITERATION_PROGRESS;
-
             var points = product.companyResource.Resources.programmingPoints;
-            var iteration = points % progress;
+            var iteration = points % C.ITERATION_PROGRESS;
 
-            return iteration * 100 / progress;
+            return iteration * 100 / C.ITERATION_PROGRESS;
+        }
+
+        public static int GetIterationMonthlyGain(GameEntity company)
+        {
+            var upgrades = company.team.Teams.Select(Economy.TeamFeatureGain).Sum() + 1;
+
+            return upgrades * 4; // 4 cause month is 4 periods
         }
 
         public static void TryToUpgradeFeature(GameEntity product, NewProductFeature feature, GameContext gameContext) => TryToUpgradeFeature(product, feature.Name, gameContext);
@@ -145,7 +150,7 @@ namespace Assets.Core
             var niche = Markets.Get(gameContext, product);
             var index = product.features.Upgrades.Keys.ToList().IndexOf(featureName);
 
-            Markets.GetMarketRequirements(niche);
+            Markets.GetMarketRequirements(gameContext, niche);
 
             if (niche.marketRequirements.Features[index] < value)
             {

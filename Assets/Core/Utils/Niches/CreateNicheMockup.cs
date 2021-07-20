@@ -18,7 +18,7 @@ namespace Assets.Core
                 );
 
             // TODO duplicate in Iteration.cs
-            GetMarketRequirements(e);
+            GetMarketRequirements(GameContext, e);
 
 
             e.AddNicheCosts(1, 1, 1, 1);

@@ -34,7 +34,7 @@ namespace Assets.Core
                 .RenderTitle()
                 .SetDimension("%")
 
-                .Append("Base", 2)
+                .Append("Base", 20)
                 .AppendAndHideIfZero("Market is DYING", marketIsDying ? 5 : 0);
 
             for (var i = 0; i < requirements.Count; i++)
@@ -66,7 +66,7 @@ namespace Assets.Core
                         baseRate.AppendAndHideIfZero("Best in " + featureName, -5);
                 }
 
-                if (f.IsMonetizationFeature)
+                if (f.IsMonetizationFeature && Products.IsUpgradedFeature(c, featureName))
                 {
                     baseRate.AppendAndHideIfZero("MONETISATION: " + featureName, 10);
                 }

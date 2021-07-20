@@ -39,9 +39,10 @@ public class FeatureView2 : View
         var marketRequirements = Markets.GetMarketRequirementsForCompany(Q, Flagship);
         var featureIndex = Products.GetAllFeaturesForProduct().Select(f => f.Name).ToList().IndexOf(Feature.Name);
 
+        var maxFeature = marketRequirements.Features[featureIndex];
         FeatureName.text = Feature.Name;
-        Rating.text = rating + "LVL";
-        Rating.color = Visuals.GetGradientColor(0, marketRequirements.Features[featureIndex], rating);
+        Rating.text = rating + " / " + (int)maxFeature + "LVL";
+        Rating.color = Visuals.GetGradientColor(0, maxFeature, rating);
 
 
         RenderFeatureBenefit(rating);
@@ -61,7 +62,7 @@ public class FeatureView2 : View
     {
         if (Feature.IsMonetizationFeature)
         {
-            BenefitDescription.text = "+10% income";
+            BenefitDescription.text = "+2% income";
         }
 
         if (Feature.IsRetentionFeature)
