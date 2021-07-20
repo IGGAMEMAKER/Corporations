@@ -9,13 +9,9 @@ namespace Assets.Core
             return company.marketing.ClientList.Values.Sum();
         }
 
-        public static long GetUsers(GameEntity company, int segmentId)
+        public static void AddClients(GameEntity company, long clients)
         {
-            return company.marketing.ClientList.ContainsKey(segmentId) ? company.marketing.ClientList[segmentId] : 0;
-        }
-
-        public static void AddClients(GameEntity company, long clients, int segmentId)
-        {
+            int segmentId = 0;
             var marketing = company.marketing;
 
             if (!marketing.ClientList.ContainsKey(segmentId))
@@ -31,18 +27,13 @@ namespace Assets.Core
             company.ReplaceMarketing(marketing.ClientList);
         }
 
-        public static long GetChurnClients(GameEntity product, GameContext gameContext, int segmentId)
+        public static long GetChurnClients(GameEntity product, GameContext gameContext)
         {
             var churn = GetChurnRate(product, gameContext);
 
-            var clients = (double)GetUsers(product, segmentId);
+            var clients = (double)GetUsers(product);
 
             return (long)(clients * churn / 100);
-        }
-
-        public static long GetChurnClients(GameEntity product, GameContext gameContext)
-        {
-            return Marketing.GetAudienceInfos().Sum(s => GetChurnClients(product, gameContext, s.ID));
         }
 
         public static void ReleaseApp(GameContext gameContext, GameEntity product)
@@ -54,7 +45,7 @@ namespace Assets.Core
                 var flow = GetClientFlow(gameContext, product.product.Niche);
                 var coreId = Marketing.GetCoreAudienceId(product);
 
-                AddClients(product, flow, coreId);
+                AddClients(product, flow);
 
                 product.isRelease = true;
 

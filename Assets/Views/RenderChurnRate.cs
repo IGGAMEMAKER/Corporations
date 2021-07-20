@@ -13,7 +13,7 @@ public class RenderChurnRate : UpgradedParameterView
 
     public override string RenderValue()
     {
-        var churn = Marketing.GetChurnClients(company, Q, 0);
+        var churn = Marketing.GetChurnClients(company, Q);
         var churnRate = Marketing.GetChurnRate(company, Q);
 
         return Visuals.Negative(Format.Minify(-churn) + " weekly"); // (" + (int)churnRate + "%)

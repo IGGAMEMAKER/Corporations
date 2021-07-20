@@ -33,12 +33,9 @@ namespace Assets.Core
         // * segment bonuses (audience may be small, but it is way more active (desire to click X2) and you can get more)
         // * positioning bonuses
         public static long GetChannelClientGain(GameEntity company, int channelId) =>
-            GetAudienceInfos().Select(i => GetChannelClientGain(company, company.channelInfos.ChannelInfos[channelId], i.ID)).Sum();
-
-        public static long GetChannelClientGain(GameEntity company, int channelId, int segmentId) =>
-            GetChannelClientGain(company, company.channelInfos.ChannelInfos[channelId], segmentId);
+            GetChannelClientGain(company, company.channelInfos.ChannelInfos[channelId]);
         
-        public static long GetChannelClientGain(GameEntity company, ChannelInfo channelInfo, int segmentId)
+        public static long GetChannelClientGain(GameEntity company, ChannelInfo channelInfo)
         {
             var baseChannelBatch = channelInfo.Batch;
             var batch = baseChannelBatch;

@@ -12,7 +12,7 @@ namespace Assets.Core
 
             return product.companyMarketingActivities.Channels.Keys
                 // .Select(channelId => channels.First(c => c.marketingChannel.ChannelInfo.ID == channelId))
-                .Select(channel => GetChannelClientGain(product, channel, segmentId))
+                .Select(channel => GetChannelClientGain(product, channel))
                 .Sum();
         }
 
@@ -44,7 +44,7 @@ namespace Assets.Core
             var segments = GetAudienceInfos();
             for (var i = 0; i < segments.Count; i++)
             {
-               churnUsers += GetChurnClients(product, gameContext, i);
+               churnUsers += GetChurnClients(product, gameContext);
             }
 
             bonus.Append("Marketing", GetAudienceGrowth(product, gameContext));

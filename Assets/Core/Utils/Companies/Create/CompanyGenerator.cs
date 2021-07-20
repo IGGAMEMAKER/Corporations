@@ -48,7 +48,7 @@ namespace Assets.Core
 
             // Markets.CopyChannelInfosToProductCompany(product, context);
 
-            Marketing.AddClients(product, 50, coreId);
+            Marketing.AddClients(product, 50);
 
             // sphere of interest
             AddFocusNiche(product, nicheType, context);

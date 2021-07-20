@@ -86,7 +86,7 @@ namespace Assets.Core
                     if (s.ID == Marketing.GetCoreAudienceId(c))
                     {
                         var audience = System.Convert.ToInt64(clients * Random.Range(0.1f, 0.5f));
-                        Marketing.AddClients(c, audience, s.ID);
+                        Marketing.AddClients(c, audience);
                     }
                 }
             }

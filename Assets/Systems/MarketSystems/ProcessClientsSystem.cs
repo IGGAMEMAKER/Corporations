@@ -7,33 +7,26 @@ public class ProcessClientsSystem : OnPeriodChange
 
     protected override void Execute(List<GameEntity> entities)
     {
-        var audiences = Marketing.GetAudienceInfos();
-
         var companies = Companies.GetProductCompanies(gameContext);
 
         foreach (var product in companies)
         {
+            // churn users
+            var churn = Marketing.GetChurnClients(product, gameContext);
+            Marketing.AddClients(product, -churn);
+
+            // add users
+            if (product.isControlledByPlayer || product.isRelatedToPlayer)
+                continue;
+
             var myChannels = product.companyMarketingActivities.Channels;
 
-            foreach (var info in audiences)
+            foreach (var c in myChannels)
             {
-                var segmentId = info.ID;
+                var channelId = c.Key;
 
-                // churn users
-                var churn = Marketing.GetChurnClients(product, gameContext, segmentId);
-                Marketing.AddClients(product, -churn, segmentId);
-
-                // add users
-                if (product.isControlledByPlayer || product.isRelatedToPlayer)
-                    continue;
-
-                foreach (var c in myChannels)
-                {
-                    var channelId = c.Key;
-
-                    var clients = Marketing.GetChannelClientGain(product, channelId, segmentId);
-                    Marketing.AddClients(product, clients, segmentId);
-                }
+                var clients = Marketing.GetChannelClientGain(product, channelId);
+                Marketing.AddClients(product, clients);
             }
         }
     }

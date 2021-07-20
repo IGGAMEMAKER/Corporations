@@ -43,7 +43,7 @@ public class MarketingCampaignView : View
         var cost = Marketing.GetChannelCost(product, channelId);
         cost = (long)ChannelInfo.costPerAd;
 
-        var clients = Marketing.GetChannelClientGain(product, ChannelInfo, 0);
+        var clients = Marketing.GetChannelClientGain(product, ChannelInfo);
 
 
         Cost.text = "for " + Format.Money(cost, true);
@@ -78,7 +78,7 @@ public class MarketingCampaignView : View
 
             Teams.RemoveTeamTask(Flagship, Q, task);
             //Marketing.DisableChannelActivity(product, Markets.GetMarketingChannel(Q, channelId));
-            Marketing.AddClients(product, clients, 0);
+            Marketing.AddClients(product, clients);
 
             // Spawn animation
             Animate(Visuals.Positive($"+{Format.Minify(clients)} users"));

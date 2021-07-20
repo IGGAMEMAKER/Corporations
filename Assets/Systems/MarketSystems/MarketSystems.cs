@@ -5,9 +5,8 @@
         Add(new UpdateNicheStateSystem(contexts));
 
         Add(new ProcessClientsSystem(contexts));
-        Add(new ExploreChannelsSystem(contexts));
 
-        //Add(new ChurnSystem(contexts));
-        Add(new ClientDistributionSystem(contexts));
+        // TODO REMOVE?
+        Add(new ExploreChannelsSystem(contexts));
     }
 }

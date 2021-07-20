@@ -8,9 +8,7 @@ namespace Assets.Core
     {
         public static long GetProductIncome(GameEntity e)
         {
-            long result = e.marketing.ClientList.Sum(l => GetIncomePerSegment(e, l.Key)); // .Select()
-
-            return result * C.PERIOD / 30;
+            return Marketing.GetUsers(e) * GetIncomePerSegment(e) * C.PERIOD / 30;
         }
 
         public static float GetMonetizationEfficiency(GameEntity c, int segmentId)
@@ -23,26 +21,15 @@ namespace Assets.Core
             return Mathf.Clamp(improvements, 0, 500);
         }
 
-        public static long GetIncomePerSegment(GameEntity company, int segmentId)
+        public static long GetIncomePerSegment(GameEntity company)
         {
-            var clients = Marketing.GetUsers(company, segmentId);
+            int segmentId = 0;
+
+            var clients = Marketing.GetUsers(company);
             var incomePerUser = GetIncomePerUser(company, segmentId);
 
             return Convert.ToInt64(clients * incomePerUser);
         }
-
-        //public static float GetBaseIncomePerUser(NicheType nicheType, int segmentId)
-        //{
-        //    float price = GetBaseIncomeByMonetisationType(,);
-
-        //    // apply segment bonuses
-        //    // apply positioning bonuses??
-        //    var bonuses = 100; // GetMonetisationBonuses(gameContext, c, segmentId);
-
-        //    var income = price * bonuses / 100f;
-
-        //    return income;
-        //}
 
         public static float GetIncomePerUser(GameEntity c, int segmentId)
         {

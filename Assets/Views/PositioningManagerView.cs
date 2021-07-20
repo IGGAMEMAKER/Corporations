@@ -117,10 +117,7 @@ public class PositioningManagerView : View
         Marketing.ChangePositioning(product, Positioning.ID);
         var newAudienceGrowth = (double)Marketing.GetAudienceGrowth(product, Q);
 
-        var newAppQuality = Marketing.GetAppQuality(product);
-
         var companies = Companies.GetCompetitionInSegment(product, Q, Positioning.ID, true);
-        var newBestAppQuality = companies.Select(c => Marketing.GetAppQuality(c)).Max();
 
         //var newBestAppQuality = Marketing
         Marketing.ChangePositioning(product, positioning.ID);
@@ -175,11 +172,6 @@ public class PositioningManagerView : View
 
 
         // Competition --------------------
-        if (newBestAppQuality > newAppQuality + 5)
-        {
-            ChangeGain.text += "\n" + Visuals.Negative("Your product is worse than products, which are competing in this segment, so you will need to upgrade more features quickly");
-        }
-
         if (noCompetitors)
         {
             ChangeGain.text += "\n" + Visuals.Positive("There are NO competitors, so you will get <b>TWICE</b> more users!");

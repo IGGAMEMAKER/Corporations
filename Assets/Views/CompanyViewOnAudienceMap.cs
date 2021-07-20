@@ -166,7 +166,6 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
 
         //hint.AppendLine();
 
-        hint.AppendLine($"\n\nApp quality: <size=25><b>{Visuals.Colorize((long)Marketing.GetAppQuality(company))}</b></size>");
         // STRENGTH
         //hint.AppendLine(RenderStars("Company strength", productStrength));
         

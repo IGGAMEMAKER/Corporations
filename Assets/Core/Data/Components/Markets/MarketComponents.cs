@@ -88,6 +88,7 @@ public class ChannelMarketingActivitiesComponent : IComponent
     public Dictionary<int, long> Companies;
 }
 
+// TODO REMOVE?
 [Game]
 public class ChannelExplorationComponent : IComponent
 {

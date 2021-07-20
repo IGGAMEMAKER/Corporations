@@ -62,7 +62,7 @@ namespace Assets.Core
             // give bad positioning initially
             var infos = Marketing.GetAudienceInfos();
 
-            Marketing.AddClients(company, -50, Marketing.GetCoreAudienceId(company));
+            Marketing.AddClients(company, -50);
 
             var positionings = Markets.GetNichePositionings(nicheType, Q);
             var positioningWorths = positionings.OrderBy(Markets.GetPositioningValue);
@@ -74,7 +74,7 @@ namespace Assets.Core
 
             Marketing.ChangePositioning(company, Q, newPositioning);
 
-            Marketing.AddClients(company, 50, Marketing.GetCoreAudienceId(company));
+            Marketing.AddClients(company, 50);
 
             // give good salary to CEO, so he will not leave company
             var CEO = Humans.Get(Q, GetCEOId(company));

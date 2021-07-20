@@ -66,12 +66,6 @@
 
 
 
-        public static float GetAppQuality(GameEntity product)
-        {
-            return 1;
-        }
-
-
 
         // if maxChange = true
         // this will return max loyalty for regular features
