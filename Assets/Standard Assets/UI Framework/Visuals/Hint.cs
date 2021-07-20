@@ -15,6 +15,7 @@ public class Hint : MonoBehaviour
     private int textSize = 23; // 18
     int renderingDepth = 50;
 
+    public static Font Font;
 
     Texture2D BackgroundTexture;
     private GUIStyle currentStyle = null;
@@ -22,18 +23,13 @@ public class Hint : MonoBehaviour
     void Start () {
         SetHint(Text);
 
-        BackgroundTexture = MakeTex(2, 2, new Color(0f, 1f, 0f, 1f));
+        BackgroundTexture = MakeTex(2, 2, new Color(1f, 1f, 0f, 1f));
     }
 
     void OnDisable()
     {
         isHovered = false;
     }
-
-    //float GetContentWidth(string text)
-    //{
-    //    text.Split('\n',);
-    //}
 
     void ShowHint()
     {
@@ -96,16 +92,10 @@ public class Hint : MonoBehaviour
 
     private void OnGUI()
     {
-        if (isHovered)
+        if (isHovered && HasText())
         {
-            if (HasText())
-            {
-                ShowHint();
-                //Debug.Log("ONGUI HINT " + Text.Length);
-            }
+            ShowHint();
         }
-
-        //Debug.Log("ONGui hint " + Text);
     }
 
     // this code took from 

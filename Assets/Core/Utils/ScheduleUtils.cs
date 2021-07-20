@@ -95,6 +95,10 @@ namespace Assets.Core
             return date % C.PERIOD == 0;
         }
 
+        public static bool IsPeriodicalMonthEnd(int date)
+        {
+            return (date / C.PERIOD) % 4 == 0;
+        }
         public static bool IsMonthEnd(int date)
         {
             return date % 30 == 0;

@@ -9,7 +9,14 @@ namespace Assets.Core
             long money = GetProfit(gameContext, company);
             var ideas = Products.GetExpertiseGain(company);
 
-            var upgrades = company.team.Teams.Select(TeamInfoqwe).Sum() + 1;
+            var upgrades = 0;
+
+            var date = ScheduleUtils.GetCurrentDate(gameContext);
+            if (ScheduleUtils.IsPeriodicalMonthEnd(date))
+            {
+                upgrades = company.team.Teams.Select(TeamInfoqwe).Sum() + 1;
+                upgrades *= 4;
+            }
 
             return new TeamResource(
                 upgrades,
