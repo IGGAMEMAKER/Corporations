@@ -13,7 +13,6 @@ public class FlagshipRelayInCompanyView : View
 
     public void ChooseMainScreen()
     {
-        OpenUrl("/Holding/Main2");
         OpenUrl("/Holding/Main");
     }
 

@@ -15,6 +15,16 @@ namespace Assets.Core
             return GetChannelCost(product, channelId) * 1f / GetChannelClientGain(product, channelId);
         }
 
+        public static int GetActiveChannelsLimit(GameEntity product)
+        {
+            return 5;
+        }
+        public static int GetActiveChannelsCount(GameEntity product)
+        {
+            return 1;
+            return product.companyMarketingActivities.Channels.Keys().Length;
+        }
+
         public static bool IsActiveInChannel(GameEntity product, int channelId)
         {
             return product.companyMarketingActivities.Channels.ContainsKey(channelId);

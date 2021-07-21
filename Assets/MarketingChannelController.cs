@@ -16,23 +16,33 @@ public class MarketingChannelController : ButtonController
     {
         var channel = Markets.GetMarketingChannel(Q, ChannelInfo.ID);
 
+        var product = Flagship;
+
         var relay = FindObjectOfType<FlagshipRelayInCompanyView>();
 
         var channelId = ChannelInfo.ID;
 
-        if (Marketing.IsActiveInChannel(Flagship, channelId))
+        if (Marketing.IsActiveInChannel(product, channelId))
         {
             Debug.Log("Is active already");
             return;
         }
 
-        var task = new TeamTaskChannelActivity(channelId, Marketing.GetChannelCost(Flagship, channelId));
+        var active = Marketing.GetActiveChannelsCount(product);
+        var limit = Marketing.GetActiveChannelsLimit(product);
+
+        if (active >= limit)
+        {
+            Debug.Log("Too many channels??");
+        }
+
+        var task = new TeamTaskChannelActivity(channelId, Marketing.GetChannelCost(product, channelId));
 
         relay.AddPendingTask(task);
 
-        var cost = Marketing.GetChannelCost(Flagship, channelId);
+        var cost = Marketing.GetChannelCost(product, channelId);
         Animate(Visuals.Negative($"-{Format.Money(cost)}"));
 
-        //Marketing.EnableChannelActivity(Flagship, channel);
+        //Marketing.EnableChannelActivity(product, channel);
     }
 }
