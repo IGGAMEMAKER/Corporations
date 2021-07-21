@@ -91,17 +91,8 @@ namespace SimpleUI
             GUILayout.Label("SIMPLE UI", EditorStyles.largeLabel);
 
             //RenderExistingTroubles();
-
-            Space();
             //myFloat = EditorGUILayout.Slider("Slider", myFloat, -3, 3);
 
-
-            Label("Assets with OpenUrl component: " + GetAllAssetsWithOpenUrl().Count);
-            if (Button("Refresh"))
-            {
-                ScanProject(true);
-            }
-            Space();
 
             //RenderMakeGuidButton();
             //AttachGUIDsToOpenUrlComponents();
@@ -121,6 +112,14 @@ namespace SimpleUI
                 RenderChosenPrefab();
             //else
             //    RenderAddingNewRoute();
+
+            // TODO REMOVE?
+            Label("Assets with OpenUrl component: " + GetAllAssetsWithOpenUrl().Count);
+            if (Button("Refresh"))
+            {
+                ScanProject(true);
+            }
+            Space();
 
             RenderAnchorsButton();
 
