@@ -52,12 +52,12 @@
                     if (!best)
                         baseRate.AppendAndHideIfZero(featureName + " outdated (-" + (int)diff + ")", (int)diff * 1f);
                     else
-                        baseRate.AppendAndHideIfZero("Best in " + featureName, -5);
+                        baseRate.AppendAndHideIfZero("Best in " + featureName, -3);
                 }
 
                 if (f.IsMonetizationFeature && Products.IsUpgradedFeature(c, featureName))
                 {
-                    baseRate.AppendAndHideIfZero("MONETISATION: " + featureName, 10);
+                    baseRate.AppendAndHideIfZero("MONETISATION: " + featureName, 15);
                 }
             }
 
