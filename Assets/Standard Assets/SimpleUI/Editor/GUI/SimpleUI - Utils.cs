@@ -39,7 +39,7 @@ namespace SimpleUI
 
         #region Render prefabs
 
-        void RenderPrefabs(IEnumerable<SimpleUISceneType> list, string trimStart = "")
+        void RenderPrefabs(IEnumerable<SimpleUISceneType> list, string trimStart = "", bool hideUrl = false)
         {
             foreach (var p in list)
             {
@@ -69,6 +69,11 @@ namespace SimpleUI
 
                     trimmedUrl = trimmedUrl.Substring(lastDashIndex);
                     //trimmedUrl = trimmedUrl.Trim(trimStart.ToCharArray());
+                }
+
+                if (hideUrl)
+                {
+                    trimmedUrl = "";
                 }
 
                 if (GUILayout.Button($"<b>{p.Name}</b>\n{trimmedUrl}", style))
@@ -114,7 +119,7 @@ namespace SimpleUI
             var top = prefabs.OrderByDescending(pp => pp.Usages).Take(4);
 
             GUILayout.Label("Favorite prefabs", EditorStyles.boldLabel);
-            RenderPrefabs(top);
+            RenderPrefabs(top, "", true);
         }
 
         void RenderAllPrefabs()
