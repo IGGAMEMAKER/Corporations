@@ -20,7 +20,7 @@ public class ProcessClientsSystem : OnPeriodChange
             // add users
             if (product.isControlledByPlayer || product.isRelatedToPlayer)
             {
-                Debug.Log("Will lose " + churn);
+                //Debug.Log("Will lose " + churn);
                 continue;
             }
 
