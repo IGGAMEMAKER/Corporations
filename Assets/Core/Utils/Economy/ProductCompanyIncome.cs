@@ -8,7 +8,7 @@ namespace Assets.Core
     {
         public static long GetProductIncome(GameEntity e)
         {
-            return Marketing.GetUsers(e) * GetIncomePerSegment(e) * C.PERIOD / 30;
+            return GetIncomePerSegment(e) * C.PERIOD / 30;
         }
 
         public static float GetMonetizationEfficiency(GameEntity c, int segmentId)
