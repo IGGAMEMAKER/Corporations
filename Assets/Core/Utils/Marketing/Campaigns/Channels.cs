@@ -21,8 +21,7 @@ namespace Assets.Core
         }
         public static int GetActiveChannelsCount(GameEntity product)
         {
-            return 1;
-            //return product.companyMarketingActivities.Channels.Keys().Length;
+            return product.companyMarketingActivities.Channels.Keys.Count;
         }
 
         public static bool IsActiveInChannel(GameEntity product, int channelId)
