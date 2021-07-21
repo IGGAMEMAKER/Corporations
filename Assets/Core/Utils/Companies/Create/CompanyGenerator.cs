@@ -15,7 +15,6 @@ namespace Assets.Core
             // market state
             product.AddNicheState(Markets.GetMarketState(niche), 100);
 
-            Markets.GetMarketRequirementsForCompany(context, product);
 
             // product.AddNicheSegments(Markets.GetNichePositionings(nicheType, context));
             // product.AddNicheBaseProfile(Markets.Get(context, product).nicheBaseProfile.Profile);
@@ -37,6 +36,9 @@ namespace Assets.Core
             product.AddSupportUpgrades(new Dictionary<string, int>());
             product.AddExpertise(Random.Range(1, 4));
 
+            Markets.GetMarketRequirementsForCompany(context, product);
+
+
 
             // var serverFeature = Products.GetHighloadFeatures(product)[0];
             // Teams.AddTeamTask(product, ScheduleUtils.GetCurrentDate(context), context, 0, new TeamTaskSupportFeature(serverFeature));
@@ -55,6 +57,8 @@ namespace Assets.Core
             AddFocusIndustry(Markets.GetIndustry(nicheType, context), product);
             
             WrapProductWithAdditionalData(product, context);
+
+
 
             return product;
         }
