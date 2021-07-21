@@ -87,7 +87,7 @@ public class MenuController : View
     {
         LoadMenuMappings();
         
-        Debug.Log("Enable screen " + screen);
+        //Debug.Log("Enable screen " + screen);
 
         OpenUrl(PrefabScreens[screen]);
     }

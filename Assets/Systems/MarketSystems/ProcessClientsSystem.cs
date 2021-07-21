@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Assets.Core;
+using UnityEngine;
 
 public class ProcessClientsSystem : OnPeriodChange
 {
@@ -7,6 +8,7 @@ public class ProcessClientsSystem : OnPeriodChange
 
     protected override void Execute(List<GameEntity> entities)
     {
+        Debug.Log("ProcessClientsSystem");
         var companies = Companies.GetProductCompanies(gameContext);
 
         foreach (var product in companies)
@@ -17,7 +19,10 @@ public class ProcessClientsSystem : OnPeriodChange
 
             // add users
             if (product.isControlledByPlayer || product.isRelatedToPlayer)
+            {
+                Debug.Log("Will lose " + churn);
                 continue;
+            }
 
             var myChannels = product.companyMarketingActivities.Channels;
 
