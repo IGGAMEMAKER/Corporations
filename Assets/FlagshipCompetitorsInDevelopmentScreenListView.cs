@@ -21,12 +21,10 @@ public class FlagshipCompetitorsInDevelopmentScreenListView : ListView
         }
         var text = $"{header} {Format.Minify(users)} users\n";
 
-        var features = Products.GetAllFeaturesForProduct();
-
-        foreach (var f in features)
+        foreach (var f in Products.GetAllFeaturesForProduct())
         {
             var rating = (int)Products.GetFeatureRating(product, f.Name);
-            bool isBest = Products.IsLeadingInFeature(product, f, Q, Competitors);
+            bool isBest = Products.IsLeadingInFeature(product, f, Q);
 
             if (isBest && rating > 0)
                 text += $"\n\t{f.Name} ({rating}) " + Visuals.Positive("+10% audience growth");
@@ -35,12 +33,10 @@ public class FlagshipCompetitorsInDevelopmentScreenListView : ListView
         t.GetComponent<Text>().text = text;
     }
 
-    IEnumerable<GameEntity> Competitors;
-
     public override void ViewRender()
     {
-        Competitors = Companies.GetDirectCompetitors(Flagship, Q, true);
+        var competitors = Companies.GetDirectCompetitors(Flagship, Q, true).OrderByDescending(Marketing.GetUsers);
 
-        SetItems(Competitors.OrderByDescending(c => Marketing.GetUsers(c)));
+        SetItems(competitors);
     }
 }

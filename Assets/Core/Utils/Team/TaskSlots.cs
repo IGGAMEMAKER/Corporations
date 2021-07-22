@@ -34,8 +34,7 @@ namespace Assets.Core
 
         public static int GetOverallSlotsForTaskType(GameEntity product, TeamTask task)
         {
-            //return GetMaxSlotsForTaskType(product, task) - GetAllSameTaskTypeSlots(product, task); // GetAllActiveTaskSlots(product); //
-            return GetMaxSlotsForTaskType(product, task) - GetActiveSameTaskTypeSlots(product, task); // GetAllActiveTaskSlots(product); //
+            return GetMaxSlotsForTaskType(product, task) - GetActiveSameTaskTypeSlots(product, task); // GetAllActiveTaskSlots(product);
         }
 
         public static int GetMaxSlotsForTaskType(GameEntity product, TeamTask task)
@@ -67,7 +66,6 @@ namespace Assets.Core
             return new TeamTaskChannelActivity(0, 0);
         }
 
-        //public static TeamTask GetHighload
         public static int GetTeamFeatureSlots(TeamInfo team)
         {
             return team.Roles.Values.Count(r => r == WorkerRole.Programmer || r == WorkerRole.TeamLead);

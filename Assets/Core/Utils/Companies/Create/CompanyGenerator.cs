@@ -100,7 +100,7 @@ namespace Assets.Core
 
             company.AddCompanyResourceHistory(new List<ResourceTransaction>());
             company.AddCompanyResource(new TeamResource());
-            Companies.SetResources(company, new TeamResource(0, Teams.GetPromotionCost(TeamRank.Solo), 0, 0, 10000), "Initial capital");
+            Companies.SetResources(company, new TeamResource(0, Teams.GetPromotionCost(TeamRank.SmallTeam), 0, 0, 10000), "Initial capital");
 
             // investments
             company.AddShareholders(founders);

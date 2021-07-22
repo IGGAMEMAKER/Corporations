@@ -51,7 +51,7 @@ public class MarketingCampaignView : View
 
         // 2K => 3,3
         // 10M => 6
-        var duration = Mathf.Log(clients, 5);
+        var duration = Mathf.Log(clients, 5) / 2;
         var period = C.PERIOD * duration;
         var f = CurrentIntDate % period;
 

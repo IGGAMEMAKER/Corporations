@@ -44,17 +44,20 @@ namespace Assets.Core
 
         public static bool IsLeadingInFeature(GameEntity Flagship, NewProductFeature Feature, GameContext Q)
         {
-            var competitors = Companies.GetDirectCompetitors(Flagship, Q, true);
+            //var competitors = Companies.GetDirectCompetitors(Flagship, Q, true);
 
-            return IsLeadingInFeature(Flagship, Feature, Q, competitors);
+            //return IsLeadingInFeature(Flagship, Feature, Q, competitors);
+            var index = GetAllFeaturesForProduct().ToList().FindIndex(f => f.Name == Feature.Name);
+
+            return Flagship.marketRequirements.Features[index] <= GetFeatureRating(Flagship, Feature.Name);
         }
 
-        public static bool IsLeadingInFeature(GameEntity Flagship, NewProductFeature Feature, GameContext Q, IEnumerable<GameEntity> competitors)
+        /*public static bool IsLeadingInFeature(GameEntity Flagship, NewProductFeature Feature, GameContext Q, IEnumerable<GameEntity> competitors)
         {
-            var maxLVL = competitors.Max(c => GetFeatureRating(c, Feature.Name));
+            //var maxLVL = competitors.Max(c => GetFeatureRating(c, Feature.Name));
 
-            return GetFeatureRating(Flagship, Feature.Name) == maxLVL;
-        }
+            //return GetFeatureRating(Flagship, Feature.Name) == maxLVL;
+        }*/
 
         // in percents 0...15%
         public static float GetFeatureMaxBenefit(GameEntity product, NewProductFeature feature)

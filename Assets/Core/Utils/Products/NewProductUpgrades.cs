@@ -69,16 +69,6 @@ namespace Assets.Core
             return GetAllFeaturesForProduct().Where(ExcludeMaxedOutFeatures(product));
         }
 
-        public static IEnumerable<NewProductFeature> GetPlayerRetentionFeatures(GameEntity product)
-        {
-            return GetNonMaxedOutFeatures(product)
-                
-                .Where(IsFeatureWillNotDisappointAnyoneSignificant(product))
-                
-                .Take(GetPossibleFeaturesLeft(product, true))
-                ;
-        }
-
         public static IEnumerable<NewProductFeature> GetUpgradingFeatures(GameEntity product, bool monetisation = false)
         {
             return GetNonMaxedOutFeatures(product)
@@ -143,29 +133,6 @@ namespace Assets.Core
         #endregion
 
         public static bool IsMonetizationFeature(NewProductFeature f) => f.FeatureBonus is FeatureBonusMonetization;
-
-
-        public static int GetMaxFeatures(GameEntity product)
-        {
-            return product.team.Teams.Sum(t => Teams.GetSlotsForTask(t, Teams.GetDevelopmentTaskMockup()));
-        }
-
-        public static int GetFeaturesInProgress(GameEntity product)
-        {
-            return product.team.Teams[0].Tasks.Count(t => t.IsFeatureUpgrade);
-        }
-
-        public static int GetPossibleFeaturesLeft(GameEntity product, bool allowUpgradingFeatures)
-        {
-            var maxCounter = GetMaxFeatures(product);
-
-            var upgradingAlready = allowUpgradingFeatures ? 0 : GetFeaturesInProgress(product);
-
-            var diff = maxCounter - upgradingAlready;
-
-            // ensure it is always >=0
-            return Math.Max(diff, 0);
-        }
 
 
         // pending and active features

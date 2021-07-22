@@ -17,8 +17,9 @@ namespace Assets.Core
 
         public static int GetActiveChannelsLimit(GameEntity product)
         {
-            return 5;
+            return product.team.Teams.Select(Teams.GetTeamMarketingSlots).Sum();
         }
+
         public static int GetActiveChannelsCount(GameEntity product)
         {
             return product.companyMarketingActivities.Channels.Keys.Count;
@@ -32,27 +33,27 @@ namespace Assets.Core
             // return channel.channelMarketingActivities.Companies.ContainsKey(product.company.Id);
         }
 
-        // fraction will be recalculated
-        // take into account
-        // * Base channel width (f.e. 100K users per week)
-
-        // * proportions (teens: 90%, olds: 10%)
-        // * random anomalies (there are more people of specific segment (especially in small channels)) teens: 80%, olds: 20%)
-        // * Base user activity (desire to click on ads: 5% => we can get 5K users)
-        // * segment bonuses (audience may be small, but it is way more active (desire to click X2) and you can get more)
-        // * positioning bonuses
-        public static long GetChannelClientGain(GameEntity company, int channelId) =>
-            GetChannelClientGain(company, company.channelInfos.ChannelInfos[channelId]);
-        
+        public static long GetChannelClientGain(GameEntity company, int channelId) => GetChannelClientGain(company, company.channelInfos.ChannelInfos[channelId]);
         public static long GetChannelClientGain(GameEntity company, ChannelInfo channelInfo)
         {
-            var baseChannelBatch = channelInfo.Batch;
-            var batch = baseChannelBatch;
+            var batch = channelInfo.Batch;
 
             var marketingEfficiency = Teams.GetMarketingEfficiency(company);
-            // From feature count
+            var features = 0;
 
-            return batch * (marketingEfficiency) / 100;
+            foreach (var f in Products.GetAllFeaturesForProduct())
+            {
+                if (f.IsMonetizationFeature)
+                    continue;
+
+                if (Products.IsUpgradedFeature(company, f.Name))
+                    features += 3;
+
+                if (Products.IsLeadingInFeature(company, f, null))
+                    features += 10;
+            }
+
+            return batch * (marketingEfficiency + features) / 100;
         }
 
         // in months
