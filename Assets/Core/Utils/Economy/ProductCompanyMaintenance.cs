@@ -35,8 +35,9 @@ namespace Assets.Core
             var teamCost = e.team.Teams.Sum(GetTeamCost);
 
             var bonus = new Bonus<long>("Maintenance")
-                .Append("Managers", GetManagersCost(e))
-                .AppendAndHideIfZero($"Teams X{e.team.Teams.Count}", teamCost * C.PERIOD / 30);
+                .Append("Team", GetManagersCost(e))
+                //.AppendAndHideIfZero($"Teams X{e.team.Teams.Count}", teamCost * C.PERIOD / 30)
+                ;
 
             // team tasks
             foreach (var t in e.team.Teams[0].Tasks)

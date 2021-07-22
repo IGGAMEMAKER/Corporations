@@ -14,6 +14,7 @@ namespace Assets.Core
 
         public static int GetMaxTeamSize(TeamRank rank)
         {
+            return 1;
             switch (rank)
             {
                 case TeamRank.Solo: return 1;
@@ -50,14 +51,7 @@ namespace Assets.Core
         {
             var teamCost = GetPromotionCost(TeamRank.Solo);
             
-            return company.companyResource.Resources.managerPoints >= teamCost;
-            return true;
-            var culture = Companies.GetOwnCulture(company);
-
-            return culture[CorporatePolicy.DoOrDelegate] > 1;
-            //return true;
-
-            //return company.team.Teams.Count < GetMaxTeamsAmount(company, gameContext);
+            return Companies.IsEnoughResources(company, new TeamResource(0, teamCost, 0, 0, 0));
         }
     }
 }

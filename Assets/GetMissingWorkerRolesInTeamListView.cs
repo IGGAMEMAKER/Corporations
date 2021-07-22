@@ -15,18 +15,17 @@ public class GetMissingWorkerRolesInTeamListView : ListView
         base.ViewRender();
 
         var team = Flagship.team.Teams[SelectedTeam];
-        
-        var missingRoles = Teams.GetMissingRoles(team);
 
-        bool hasSimpleWorkers = team.Roles.Values.Any(r => r == WorkerRole.Programmer) && team.Roles.Values.Any(r => r == WorkerRole.Marketer);
+        var hasProgrammers = team.Roles.Values.Any(r => r == WorkerRole.Programmer);
+        var hasMarketers = team.Roles.Values.Any(r => r == WorkerRole.Marketer);
 
-        if (!hasSimpleWorkers)
+        if (hasProgrammers && hasMarketers)
         {
-            SetItems(new List<WorkerRole>() { WorkerRole.Marketer, WorkerRole.Programmer });
+            SetItems(Teams.GetMissingRoles(team));
         }
         else
         {
-            SetItems(missingRoles);
+            SetItems(new List<WorkerRole>() { WorkerRole.Marketer, WorkerRole.Programmer });
         }
     }
 }
