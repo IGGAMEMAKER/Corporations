@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Core
@@ -131,20 +132,39 @@ namespace Assets.Core
 
         public static void FillTeam(GameEntity company, GameContext gameContext, TeamInfo t)
         {
-            var necessaryRoles = GetMissingRoles(t);
+            var necessaryRoles = GetMissingRoles(t).ToList();
+
+            necessaryRoles.Add(WorkerRole.Programmer);
+            necessaryRoles.Add(WorkerRole.Marketer);
 
             if (necessaryRoles.Any())
             {
-                var rating = GetTeamAverageStrength(company, gameContext) + Random.Range(-2, 3);
-                var salary = GetSalaryPerRating(rating);
-                var role = necessaryRoles.First();
+                var role = RandomItem(necessaryRoles); // necessaryRoles.First();
 
-                if (Economy.IsCanMaintain(company, gameContext, salary))
-                {
-                    var human = HireManager(company, gameContext, role, t.ID);
+                TryToHire(company, gameContext, t, role);
+            }
+        }
 
-                    SetJobOffer(human, company, new JobOffer(salary), t.ID, gameContext);
-                }
+        private static T RandomItem<T>(IEnumerable<T> necessaryRoles)
+        {
+            var count = necessaryRoles.Count();
+
+            if (count == 0)
+                return default;
+
+            return necessaryRoles.ToList()[Random.Range(0, count)];
+        }
+
+        static void TryToHire(GameEntity company, GameContext gameContext, TeamInfo t, WorkerRole role)
+        {
+            var rating = GetTeamAverageStrength(company, gameContext) + Random.Range(-2, 3);
+            var salary = GetSalaryPerRating(rating);
+
+            if (Economy.IsCanMaintain(company, gameContext, salary))
+            {
+                var human = HireManager(company, gameContext, role, t.ID);
+
+                SetJobOffer(human, company, new JobOffer(salary), t.ID, gameContext);
             }
         }
     }
