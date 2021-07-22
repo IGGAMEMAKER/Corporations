@@ -130,7 +130,7 @@ namespace Assets.Core
             var max = 70;
 
             if (role != WorkerRole.CEO)
-                bonus.AppendAndHideIfZero($"Reached limits (skill >= {max})", rating >= max ? -3 : 0);
+                bonus.AppendAndHideIfZero($"Outgrown company (skill >= {max})", rating >= max ? -3 : 0);
 
             bonus.AppendAndHideIfZero("Too many leaders",
                 worker.humanSkills.Traits.Contains(Trait.Leader) && team.TooManyLeaders ? -2 : 0);

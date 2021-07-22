@@ -4,6 +4,10 @@
     {
         var team = Flagship.team.Teams[SelectedTeam];
 
+        if (SelectedTeam == 0)
+        {
+            return "Core team";
+        }
         return team.Name;
     }
 

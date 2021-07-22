@@ -61,7 +61,12 @@ public class HumanPreview : View
             if (!drawAsEmployee)
             {
                 Loyalty.SetValue(human.humanCompanyRelationship.Morale);
-                WorkerImage.color = Visuals.GetGradientColor(0, 100, human.humanCompanyRelationship.Morale, Visuals.Negative(), Visuals.Neutral());
+
+                var team = Teams.GetTeamOf(human, Q);
+                var loyaltyGrowth = Teams.GetLoyaltyChangeForManager(human, team, company);
+
+                //WorkerImage.color = Visuals.GetGradientColor(0, 100, human.humanCompanyRelationship.Morale, Visuals.Negative(), Visuals.Neutral());
+                WorkerImage.color = Visuals.GetGradientColor(0, 100, loyaltyGrowth >= 0 ? 100 : 0, Visuals.Negative(), Visuals.Neutral());
             }
 
             Loyalty.gameObject.SetActive(!drawAsEmployee);

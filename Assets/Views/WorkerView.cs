@@ -41,13 +41,20 @@ public class WorkerView : View
         var loyaltyGrowth = Teams.GetLoyaltyChangeForManager(human, team, company);
 
         if (loyaltyGrowth > 0)
+        {
             LoyaltyChange.sprite = Growth;
+        }
 
         if (loyaltyGrowth == 0)
             LoyaltyChange.sprite = Stall;
 
+        Hide(LoyaltyChange);
+
         if (loyaltyGrowth < 0)
+        {
             LoyaltyChange.sprite = Decay;
+            Show(LoyaltyChange);
+        }
 
         bool hasOffers = Humans.HasCompetingOffers(human);
 

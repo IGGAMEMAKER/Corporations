@@ -58,7 +58,7 @@ public class ManagerTabRelay : View
     
     void ShowMainScreen()
     {
-        ShowAll(Managers, EmployeesTab, TeamRelations);
+        ShowAll(Managers, TeamRelations);
         ConditionalShowMergeTeamsButton();
         
         HideAll(MergeCandidates);
@@ -68,7 +68,7 @@ public class ManagerTabRelay : View
 
     void ShowMergingTeams()
     {
-        HideAll(Managers, EmployeesTab, TeamRelations);
+        HideAll(Managers, TeamRelations);
 
         ShowAll(MergeCandidates);
         
@@ -83,9 +83,10 @@ public class ManagerTabRelay : View
 
     void RenderTeamRank()
     {
+        return;
         var team = Flagship.team.Teams[SelectedTeam];
 
-        TeamRankValue.text = (int)team.Rank + "";
+        //TeamRankValue.text = (int)team.Rank + "";
 
         switch (team.TeamType)
         {
