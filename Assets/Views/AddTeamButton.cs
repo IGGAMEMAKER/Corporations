@@ -25,14 +25,18 @@ public class AddTeamButton : ButtonController
     public override void Execute()
     {
         if (Teams.IsCanAddMoreTeams(Flagship, Q))
+        {
             Teams.AddTeam(Flagship, Q, TeamType);
+            NavigateToTeamScreen(Flagship.team.Teams.Count - 1);
+        }
         else
         {
-
-            Navigate(ScreenMode.GroupScreen);
-            NotificationUtils.AddSimplePopup(Q, Visuals.Negative("You've reached max limit of teams"), $"Change your {Visuals.Positive("corporate culture".ToUpper())} to add more teams");
-            //CloseModal("New Team");
+            //Navigate(ScreenMode.GroupScreen);
+            //NotificationUtils.AddSimplePopup(Q, Visuals.Negative("You've reached max limit of teams"), $"Change your {Visuals.Positive("corporate culture".ToUpper())} to add more teams");
+            NotificationUtils.AddSimplePopup(Q, Visuals.Negative("Not enough manager points"), $"Try this later or change your {Visuals.Positive("corporate culture".ToUpper())} to add more teams");
         }
+
+        CloseModal("New team");
     }
 
     //[ExecuteInEditMode]

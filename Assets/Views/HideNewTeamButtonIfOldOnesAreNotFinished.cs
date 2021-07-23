@@ -18,7 +18,7 @@ public class HideNewTeamButtonIfOldOnesAreNotFinished : View
         Draw(DevTeamButton,         canHireSpecialisedTeams && t.IsFeatureUpgrade);
         Draw(MarketingTeamButton,   canHireSpecialisedTeams && t.IsMarketingTask);
         Draw(SupportTeamButton,     canHireSpecialisedTeams && t.IsSupportTask && false);
-        Draw(ServersideTeamButton,  canHireSpecialisedTeams && t.IsHighloadTask); //  && Teams.IsTaskSuitsTeam(TeamType.DevelopmentTeam, t)
+        Draw(ServersideTeamButton,  false && canHireSpecialisedTeams && t.IsHighloadTask); //  && Teams.IsTaskSuitsTeam(TeamType.DevelopmentTeam, t)
     }
 
     public override void ViewRender()
@@ -30,6 +30,6 @@ public class HideNewTeamButtonIfOldOnesAreNotFinished : View
         Draw(DevTeamButton,         canHireSpecialisedTeams);
         Draw(MarketingTeamButton,   canHireSpecialisedTeams);
         Draw(SupportTeamButton,     false);
-        Draw(ServersideTeamButton,  canHireSpecialisedTeams); //  && Teams.IsTaskSuitsTeam(TeamType.DevelopmentTeam, t)
+        Draw(ServersideTeamButton,  false && canHireSpecialisedTeams); //  && Teams.IsTaskSuitsTeam(TeamType.DevelopmentTeam, t)
     }
 }

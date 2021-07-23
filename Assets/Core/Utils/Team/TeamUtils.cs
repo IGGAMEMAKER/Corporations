@@ -159,13 +159,17 @@ namespace Assets.Core
 
         public static void Promote(GameEntity product, TeamInfo team)
         {
-            team.Rank = GetNextTeamRank(team.Rank);
+            var promotionCost = new TeamResource(0, GetPromotionCost(team), 0, 0, 0);
 
-            team.Name = GenerateTeamName(product, team);
-            team.Organisation = Mathf.Min(team.Organisation, 10);
+            if (Companies.IsEnoughResources(product, promotionCost))
+            {
+                team.Rank = GetNextTeamRank(team.Rank);
 
-            var promotionCost = GetPromotionCost(team);
-            Companies.SpendResources(product, new TeamResource(0, promotionCost, 0, 0, 0), "Team Promotion");
+                team.Name = GenerateTeamName(product, team);
+                team.Organisation = Mathf.Min(team.Organisation, 10);
+
+                Companies.SpendResources(product, promotionCost, "Team Promotion");
+            }
         }
 
         public static void DetachTeamFromTeam(TeamInfo team)
