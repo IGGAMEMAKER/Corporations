@@ -44,7 +44,7 @@ namespace Assets.Core
             }
         }
 
-        public static int GetManagementEfficiency(GameEntity company, GameContext gameContext)
+        public static float GetManagementEfficiency(GameEntity company, GameContext gameContext)
         {
             var capacity = GetManagementCapacity(company, gameContext);
             var cost = GetManagementCostOfCompany(company, gameContext, true);
@@ -52,18 +52,14 @@ namespace Assets.Core
             return Mathf.Clamp(capacity * 100 / cost, 1, 100);
         }
 
-        public static int GetManagementCostOfCompany(GameEntity company, GameContext gameContext, bool recursive)
+        public static float GetManagementCostOfCompany(GameEntity company, GameContext gameContext, bool recursive)
         {
-            int value = 1;
-            var teams = company.team.Teams.Sum(GetDirectManagementCostOfTeam);
+            var value = 1f;
+            var teams = company.team.Teams.Sum(t => GetDirectManagementCostOfTeam(t, gameContext));
 
             if (recursive && Companies.IsGroup(company))
-            {
                 foreach (var h in Investments.GetOwnings(company, gameContext))
-                {
                     value += GetManagementCostOfCompany(h, gameContext, recursive);
-                }
-            }
 
             return value + teams;
         }

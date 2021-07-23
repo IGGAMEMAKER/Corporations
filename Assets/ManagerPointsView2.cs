@@ -1,4 +1,5 @@
 ﻿using Assets.Core;
+using System;
 
 public class ManagerPointsView2 : UpgradedParameterView
 {
@@ -8,9 +9,12 @@ public class ManagerPointsView2 : UpgradedParameterView
     {
         var points = Flagship.companyResource.Resources.managerPoints;
 
-        var changeSum = (long) change.Sum();
+        var changeSum = String.Format("{0:+0.00;-0.00}", change.Sum());
+        //var changeSum = change.Sum().ToString("+#.00;-#.00;0");
+        //var changeSum = change.Sum().ToString("+0.00");
 
-        return points + $" ({Visuals.Colorize(changeSum, true)})";
+        return points + $" ({Visuals.Colorize(changeSum, change.Sum() >= 0)})";
+        //return points + $" ({Visuals.Colorize(changeSum, true)})";
     }
 
     public override string RenderHint()

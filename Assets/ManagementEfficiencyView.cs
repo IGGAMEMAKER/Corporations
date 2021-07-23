@@ -17,7 +17,7 @@ public class ManagementEfficiencyView : UpgradedParameterView
 
     public override string RenderValue()
     {
-        var efficiency = Teams.GetManagementEfficiency(MyCompany, Q);
+        var efficiency = (int)Teams.GetManagementEfficiency(MyCompany, Q);
 
         Colorize(efficiency, 0, 100);
 

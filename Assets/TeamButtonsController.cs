@@ -27,9 +27,4 @@ public class TeamButtonsController : View
 
         Draw(PromoteTeam, Flagship.team.Teams[SelectedTeam].Rank < TeamRank.Department);
     }
-
-    void OnEnable()
-    {
-        
-    }
 }
