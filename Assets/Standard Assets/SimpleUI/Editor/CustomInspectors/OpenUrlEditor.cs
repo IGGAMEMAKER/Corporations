@@ -102,6 +102,7 @@ namespace SimpleUI
                     var prefab = prefabs[index];
 
                     openUrl.Url_ID = prefab.ID;
+                    openUrl.Url = prefab.Url;
                     EditorUtility.SetDirty(openUrl);
                 }
             }
