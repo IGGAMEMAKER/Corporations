@@ -8,6 +8,11 @@ public abstract partial class ButtonController
         ScreenUtils.NavigateBack(Q);
     }
 
+    public void UpdateData(string field, object data)
+    {
+        Navigate(CurrentScreen, field, data);
+    }
+
     // navigate
     public void Navigate(ScreenMode screenMode, string field, object data)
     {

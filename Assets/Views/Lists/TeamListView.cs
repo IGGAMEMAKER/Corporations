@@ -9,9 +9,9 @@ public class TeamListView : StaffListView
     {
         var c = GetCompany();
 
-        var chosenTeamId = SelectedTeam; // FindObjectOfType<FlagshipRelayInCompanyView>().ChosenTeamId;
+        var teamId = GetComponent<IsCoreTeam>() == null ? SelectedTeam : 0;
 
-        var team = c.team.Teams[chosenTeamId];
+        var team = c.team.Teams[teamId];
 
         var managers = team.Managers;
 

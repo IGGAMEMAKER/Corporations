@@ -269,21 +269,26 @@ namespace Assets.Core
         }
         public static float GetDirectManagementCostOfTeam(TeamInfo team, GameContext gameContext)
         {
+            var bonus = GetDirectManagementCostOfTeam(team, gameContext, true);
+
+            return bonus.Sum() / 100f;
+        }
+        public static Bonus<float> GetDirectManagementCostOfTeam(TeamInfo team, GameContext gameContext, bool isBonus)
+        {
+            var bonus = new Bonus<float>("Cost of " + team.Name);
+
             var managers = GetStaffInTeam(team, gameContext);
 
             var ratings = managers.Select(h => 150 - Humans.GetRating(h)); // 50...90
 
-            return ratings.Sum() / 100f;
-
-            switch (team.Rank)
+            foreach (var m in managers)
             {
-                case TeamRank.Solo: return team.isCoreTeam ? 4 : C.MANAGEMENT_COST_SOLO;
-                case TeamRank.SmallTeam: return C.MANAGEMENT_COST_SMALL_TEAM;
-                case TeamRank.BigTeam: return C.MANAGEMENT_COST_BIG_TEAM;
-                case TeamRank.Department: return C.MANAGEMENT_COST_DEPARTMENT;
+                var rating = Humans.GetRating(m);
 
-                default: return 0;
+                bonus.Append($"{m.human.Name} ({rating}lvl)", 150 - rating);
             }
+
+            return bonus;
         }
 
         public static float GetIndirectManagementCostOfTeam(TeamInfo team, GameEntity company)

@@ -2,12 +2,15 @@
 {
     public override string RenderValue()
     {
-        var team = Flagship.team.Teams[SelectedTeam];
+        var teamId = GetComponent<IsCoreTeam>() == null ? SelectedTeam : 0;
 
-        if (SelectedTeam == 0)
+        var team = Flagship.team.Teams[teamId];
+
+        if (teamId == 0)
         {
             return "Core team";
         }
+
         return team.Name;
     }
 

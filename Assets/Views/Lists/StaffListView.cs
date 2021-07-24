@@ -13,7 +13,12 @@ public abstract class StaffListView : ListView
         var e = (KeyValuePair<int, WorkerRole>)(object)entity;
 
         t.GetComponent<WorkerView>().SetEntity(e.Key, e.Value);
+
+        if (makeTransferrable && !t.GetComponent<TransferWorker>())
+            t.gameObject.AddComponent<TransferWorker>();
     }
+
+    bool makeTransferrable => GetComponent<TransferrableWorkers>() != null;
 
     public override void ViewRender()
     {

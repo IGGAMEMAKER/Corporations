@@ -27,26 +27,35 @@ public class AddTeamButton : ButtonController
         if (Teams.IsCanAddMoreTeams(Flagship, Q))
         {
             Teams.AddTeam(Flagship, Q, TeamType);
-            NavigateToTeamScreen(Flagship.team.Teams.Count - 1);
+
+            var newTeamID = Flagship.team.Teams.Count - 1;
+            //UpdateData(C.MENU_SELECTED_TEAM, newTeamID);
+            ScreenUtils.SetSelectedTeam(Q, newTeamID);
+
+            OpenUrl("/TeamCreationScreen");
+            CloseModal();
         }
         else
         {
             //Navigate(ScreenMode.GroupScreen);
             //NotificationUtils.AddSimplePopup(Q, Visuals.Negative("You've reached max limit of teams"), $"Change your {Visuals.Positive("corporate culture".ToUpper())} to add more teams");
             NotificationUtils.AddSimplePopup(Q, Visuals.Negative("Not enough manager points"), $"Try this later or change your {Visuals.Positive("corporate culture".ToUpper())} to add more teams");
+            CloseModal();
         }
 
+    }
+
+    void CloseModal()
+    {
         CloseModal("New team");
     }
 
-    //[ExecuteInEditMode]
-    private void OnValidate()
+    void OnValidate()
     {
-        //Debug.Log("AddTeamButton");
         if (Title == null)
             return;
 
-        Title.text = $"<b>Create {Teams.GetFormattedTeamType(TeamType)}"; // Create\n
+        Title.text = $"<b>Create {Teams.GetFormattedTeamType(TeamType)}";
 
         var hint = GetComponent<Hint>();
 

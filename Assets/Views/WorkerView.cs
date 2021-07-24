@@ -17,12 +17,15 @@ public class WorkerView : View
 
     public GameObject IsRecruitmentTarget;
 
+    public GameEntity Human;
+
 
     public void SetEntity(int humanId, WorkerRole workerRole)
     {
         var link = GetComponent<LinkToHuman>();
 
         var human = Humans.Get(Q, humanId);
+        Human = human;
 
         link.SetHumanId(humanId);
         HumanPreview.SetEntity(humanId);

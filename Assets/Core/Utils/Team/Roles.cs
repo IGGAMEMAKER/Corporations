@@ -169,5 +169,55 @@ namespace Assets.Core
                     };
             }
         }
+
+
+
+        public static string GetRoleDescription(WorkerRole role, GameContext gameContext, bool isUnemployed, GameEntity company = null)
+        {
+            var description = "";
+            bool employed = !isUnemployed;
+
+            switch (role)
+            {
+                case WorkerRole.CEO:
+                    description = $"Manages entire company";
+                    break;
+
+                case WorkerRole.TeamLead:
+                    description = $"Increases team speed";
+                    break;
+
+                case WorkerRole.MarketingLead:
+                    description = $"Makes marketing more efficient";
+                    //if (employed)
+                    //    description += $" by {RenderBonus(Teams.GetMarketingLeadBonus(company, gameContext))}%";
+                    break;
+
+                case WorkerRole.ProductManager:
+                    description = $"Makes better features";
+                    break;
+                case WorkerRole.ProjectManager:
+                    description = $"??Reduces amount of workers";
+                    break;
+
+                case WorkerRole.Programmer:
+                    description = $"Gives 1 feature points";
+                    break;
+
+                case WorkerRole.Marketer:
+                    description = $"Runs 1 marketing campaign at time";
+                    break;
+
+                case WorkerRole.MarketingDirector:
+                case WorkerRole.TechDirector:
+                case WorkerRole.Universal:
+                default:
+                    description = "";
+                    break;
+            }
+
+            return description;
+        }
+
     }
 }

@@ -20,10 +20,12 @@ public class TeamButtonsController : View
 
         progress = Mathf.Clamp(mp, 0, needToCreate) * 100 / needToCreate;
 
-        AddNewTeam.SetProgress(progress);
-        Draw(AddNewTeam, core.Rank == TeamRank.Department);
+        bool isCoreTeam = SelectedTeam == 0;
 
-        Draw(DetachTeam, core.Rank >= TeamRank.BigTeam);
+        AddNewTeam.SetProgress(progress);
+        Draw(AddNewTeam, core.Rank == TeamRank.Department && isCoreTeam);
+
+        Draw(DetachTeam, core.Rank >= TeamRank.BigTeam && !isCoreTeam);
 
         Draw(PromoteTeam, Flagship.team.Teams[SelectedTeam].Rank < TeamRank.Department);
     }
