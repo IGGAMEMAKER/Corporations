@@ -12,22 +12,7 @@ public class GetMissingWorkerRolesInTeamListView : ListView
         t.GetComponent<MissingWorkerRoleView>().SetEntity((WorkerRole)(object)entity);
     }
 
-    IEnumerable<WorkerRole> GetMissingRoles()
-    {
-        var team = Flagship.team.Teams[SelectedTeam];
-
-        var hasProgrammers = team.Roles.Values.Any(r => r == WorkerRole.Programmer);
-        var hasMarketers = team.Roles.Values.Any(r => r == WorkerRole.Marketer);
-
-        if (hasProgrammers && hasMarketers)
-        {
-            return Teams.GetMissingRoles(team);
-        }
-        else
-        {
-            return new List<WorkerRole>() { WorkerRole.Marketer, WorkerRole.Programmer };
-        }
-    }
+    IEnumerable<WorkerRole> GetMissingRoles() => Teams.GetMissingRoles2(Flagship.team.Teams[SelectedTeam]);
 
     public override void ViewRender()
     {

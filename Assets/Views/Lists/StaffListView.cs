@@ -24,9 +24,7 @@ public abstract class StaffListView : ListView
     {
         base.ViewRender();
 
-        var items = Workers()
-            .OrderByDescending(OrderWorkers)
-            ;
+        var items = Workers().OrderByDescending(OrderWorkers);
 
         SetItems(items);
     }
@@ -37,41 +35,6 @@ public abstract class StaffListView : ListView
         var worker = Humans.Get(Q, p.Key);
         var employeeBonus = Humans.IsEmployed(worker) ? 0 : 5000;
 
-        return employeeBonus + GetWorkerOrder(p.Value) * 100 + Humans.GetRating(Q, p.Key);
+        return employeeBonus + Teams.GetWorkerOrder(p.Value) * 100 + Humans.GetRating(Q, p.Key);
     };
-
-    static int GetWorkerOrder(WorkerRole role)
-    {
-        if (role == WorkerRole.CEO)
-            return 150;
-
-        if (role == WorkerRole.Universal)
-            return 110;
-
-        if (role == WorkerRole.TechDirector)
-            return 90;
-
-        if (role == WorkerRole.MarketingDirector)
-            return 80;
-
-        if (role == WorkerRole.TeamLead)
-            return 70;
-
-        if (role == WorkerRole.MarketingLead)
-            return 60;
-
-        if (role == WorkerRole.ProjectManager)
-            return 50;
-
-        if (role == WorkerRole.ProductManager)
-            return 40;
-
-        if (role == WorkerRole.Marketer)
-            return 30;
-
-        if (role == WorkerRole.Programmer)
-            return 20;
-
-        return 0;
-    }
 }

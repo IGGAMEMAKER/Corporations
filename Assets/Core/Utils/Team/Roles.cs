@@ -6,11 +6,11 @@ namespace Assets.Core
 {
     public static partial class Teams
     {
+        // TODO duplicates?
         public static GameEntity GetWorkerInRole(TeamInfo team, WorkerRole workerRole, GameContext gameContext)
         {
-            var productManagers = team.Managers.Select(humanId => Humans.Get(gameContext, humanId)).Where(worker => worker.worker.WorkerRole == workerRole);
+            var managers = team.Managers.Select(humanId => Humans.Get(gameContext, humanId)).Where(worker => worker.worker.WorkerRole == workerRole).ToList();
 
-            var managers = productManagers.ToList();
             if (managers.Any())
             {
                 return managers.First();
@@ -19,6 +19,7 @@ namespace Assets.Core
             return null;
         }
 
+        // TODO duplicates? This seems more effective
         public static GameEntity GetWorkerByRole(WorkerRole role, TeamInfo teamInfo, GameContext gameContext)
         {
             foreach (var pair in teamInfo.Roles)
@@ -29,7 +30,38 @@ namespace Assets.Core
 
             return null;
         }
-        
+
+        public static bool HasRole(WorkerRole role, TeamInfo teamInfo)
+        {
+            return teamInfo.Roles.ContainsValue(role);
+        }
+
+        public static bool IsNeedsToHireRole(WorkerRole role, TeamInfo teamInfo)
+        {
+            var roles = GetRolesForTeam(teamInfo);
+
+            if (!roles.Contains(role))
+                return false;
+
+            return !HasRole(role, teamInfo);
+        }
+
+
+
+        public static IEnumerable<WorkerRole> GetMissingRoles2(TeamInfo team)
+        {
+            var hasProgrammers = team.Roles.Values.Any(r => r == WorkerRole.Programmer);
+            var hasMarketers = team.Roles.Values.Any(r => r == WorkerRole.Marketer);
+
+            if (hasProgrammers && hasMarketers)
+            {
+                return Teams.GetMissingRoles(team);
+            }
+            else
+            {
+                return new List<WorkerRole>() { WorkerRole.Marketer, WorkerRole.Programmer };
+            }
+        }
         public static IEnumerable<WorkerRole> GetMissingRoles(TeamInfo t)
         {
             bool hasLeader = HasMainManagerInTeam(t);
@@ -38,17 +70,9 @@ namespace Assets.Core
             var allRoles = GetRolesForTeam(t).Where(r => hasLeader || r == leaderRole);
 
             return allRoles;
-
-            var existingRoles = GetExistingWorkerRoles(t);
-
-            return allRoles.Where(r => !existingRoles.Contains(r));
-        }
-
-        public static IEnumerable<WorkerRole> GetExistingWorkerRoles(TeamInfo t)
-        {
-            return t.Roles.Values;
         }
         
+
         public static IEnumerable<WorkerRole> GetRolesForTeam(TeamInfo team)
         {
             var roles = GetRolesForTeam(team.TeamType).ToList();
@@ -69,28 +93,17 @@ namespace Assets.Core
                 }
             }
 
-            if (team.Rank == TeamRank.Solo || team.Rank == TeamRank.SmallTeam)
+            /*if (team.Rank == TeamRank.Solo || team.Rank == TeamRank.SmallTeam)
             {
                 roles.RemoveAll(r => r != mainRole);
-            }
+            }*/
 
             return roles;
         }
         
-        public static bool HasRole(WorkerRole role, TeamInfo teamInfo)
-        {
-            return teamInfo.Roles.ContainsValue(role);
-        }
 
-        public static bool IsNeedsToHireRole(WorkerRole role, TeamInfo teamInfo)
-        {
-            var roles = GetRolesForTeam(teamInfo);
 
-            if (!roles.Contains(role))
-                return false;
 
-            return !HasRole(role, teamInfo);
-        }
 
         public static Func<KeyValuePair<int, WorkerRole>, bool> RoleSuitsTeam(TeamInfo team) => pair => IsRoleSuitsTeam(pair.Value, team);
         
@@ -219,5 +232,39 @@ namespace Assets.Core
             return description;
         }
 
+        public static int GetWorkerOrder(WorkerRole role)
+        {
+            if (role == WorkerRole.CEO)
+                return 150;
+
+            if (role == WorkerRole.Universal)
+                return 110;
+
+            if (role == WorkerRole.TechDirector)
+                return 90;
+
+            if (role == WorkerRole.MarketingDirector)
+                return 80;
+
+            if (role == WorkerRole.TeamLead)
+                return 70;
+
+            if (role == WorkerRole.MarketingLead)
+                return 60;
+
+            if (role == WorkerRole.ProjectManager)
+                return 50;
+
+            if (role == WorkerRole.ProductManager)
+                return 40;
+
+            if (role == WorkerRole.Marketer)
+                return 30;
+
+            if (role == WorkerRole.Programmer)
+                return 20;
+
+            return 0;
+        }
     }
 }
