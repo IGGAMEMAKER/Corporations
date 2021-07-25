@@ -72,13 +72,13 @@ namespace Assets.Core
 
             bool noAttachToSelf = target.ID != owner.ID;
 
-            return target.TeamType == owner.TeamType && target.isAttachable && noAttachToSelf 
-                   && !IsTeamDependsAlready(company, owner, target, true)
+            return target.TeamType == owner.TeamType
+                && target.isAttachable
+                && noAttachToSelf 
+                && !IsTeamDependsAlready(company, owner, target, true)
                 && !IsTeamDependsAlready(company, target, owner, true); //  target.ParentID != owner.ID;
         }
         
-        // public static bool IsH
-
         public static bool IsTeamDependsAlready(GameEntity company, TeamInfo owner, TeamInfo target, bool recursively)
         {
             if (target.ParentID == owner.ID)
@@ -159,6 +159,7 @@ namespace Assets.Core
 
         public static void Promote(GameEntity product, TeamInfo team)
         {
+            return;
             var promotionCost = new TeamResource(0, GetPromotionCost(team), 0, 0, 0);
 
             if (Companies.IsEnoughResources(product, promotionCost))
@@ -254,14 +255,14 @@ namespace Assets.Core
 
             switch (rank)
             {
-                case TeamRank.Solo:
+                /*case TeamRank.Solo:
                     return $"Solo {formattedName}";
 
                 case TeamRank.SmallTeam:
                     return $"Small {formattedName}";
 
                 case TeamRank.BigTeam:
-                    return $"Big {formattedName}";
+                    return $"Big {formattedName}";*/
 
                 case TeamRank.Department:
                     if (formattedName.Contains("Core"))
@@ -292,7 +293,8 @@ namespace Assets.Core
                     }
 
                 default:
-                    return rank + " " + formattedName;
+                    return formattedName;
+                    //return rank + " " + formattedName;
             }
         }
 

@@ -18,7 +18,6 @@ public enum EventStatusType
 public class EventView : View
 {
     public Text Title;
-    public Text Counter;
     public Image ProgressImage;
 
 
@@ -48,7 +47,6 @@ public class EventView : View
     private void OnValidate()
     {
         Title.text = title;
-        Counter.text = $"({counter})";
 
         if (Progress == -1)
             Hide(ProgressImage);

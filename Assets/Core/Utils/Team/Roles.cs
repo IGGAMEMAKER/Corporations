@@ -47,11 +47,16 @@ namespace Assets.Core
         }
 
 
-
+        // Missing roles
         public static IEnumerable<WorkerRole> GetMissingRoles2(TeamInfo team)
         {
             var hasProgrammers = team.Roles.Values.Any(r => r == WorkerRole.Programmer);
             var hasMarketers = team.Roles.Values.Any(r => r == WorkerRole.Marketer);
+
+            var hasLeader = HasMainManagerInTeam(team);
+
+            // hire programmers / marketers first
+            // then you can add leads and stuff
 
             if (hasProgrammers && hasMarketers)
             {
@@ -59,7 +64,14 @@ namespace Assets.Core
             }
             else
             {
-                return new List<WorkerRole>() { WorkerRole.Marketer, WorkerRole.Programmer };
+                var list = new List<WorkerRole>() { WorkerRole.Marketer, WorkerRole.Programmer };
+                var leadRole = GetMainManagerRole(team);
+
+                if (!hasLeader)
+                    return new List<WorkerRole>() { leadRole };
+
+                list.Add(leadRole);
+                return list;
             }
         }
         public static IEnumerable<WorkerRole> GetMissingRoles(TeamInfo t)

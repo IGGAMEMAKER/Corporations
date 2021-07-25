@@ -33,7 +33,10 @@ public class MarketingChannelController : ButtonController
 
         if (active >= limit)
         {
+            NotificationUtils.AddSimplePopup(Q, "Hire more marketers!");
             Debug.Log("Too many channels??");
+
+            return;
         }
 
         var task = new TeamTaskChannelActivity(channelId, Marketing.GetChannelCost(product, channelId));

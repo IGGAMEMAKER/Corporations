@@ -45,6 +45,6 @@ public class TeamButtonsController : View
 
         Draw(DetachTeam, core.Rank >= TeamRank.BigTeam && !isCoreTeam);
 
-        Draw(PromoteTeam, Flagship.team.Teams[SelectedTeam].Rank < TeamRank.Department);
+        Draw(PromoteTeam, false && Flagship.team.Teams[SelectedTeam].Rank < TeamRank.Department);
     }
 }
