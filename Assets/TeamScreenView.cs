@@ -25,10 +25,10 @@ public class TeamScreenView : View
         var formattedManager = Humans.GetFormattedRole(mainManagerRole);
 
         bool hasLeadManager = Teams.HasMainManagerInTeam(team);
-
+        /*
         Draw(ManagerFocus, true);
         Draw(PromoteTeam, false); // Teams.IsTeamPromotable(product, team));
-        
+        */
         Draw(FireTeam, SelectedTeam > 0);
 
         // --------------------------------------

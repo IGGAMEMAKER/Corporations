@@ -32,7 +32,6 @@ namespace Assets.Core
                 {
                     AddEmployee(company, gameContext, managerTasks, role);
                     AddEmployee(company, gameContext, managerTasks, role);
-                    AddEmployee(company, gameContext, managerTasks, role);
                 }
             }
         }

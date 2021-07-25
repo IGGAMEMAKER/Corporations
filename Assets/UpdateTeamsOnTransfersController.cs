@@ -8,8 +8,6 @@ public class UpdateTeamsOnTransfersController : MonoBehaviour
 
     public void UpdateAll()
     {
-        Debug.Log("Update all");
-
         foreach (var w in Workers)
         {
             w.ViewRender();

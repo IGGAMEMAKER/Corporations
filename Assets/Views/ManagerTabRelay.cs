@@ -40,8 +40,6 @@ public class ManagerTabRelay : View
     {
         base.ViewRender();
 
-        RenderTeamRank();
-
         Draw(LinkToNextTeam, Flagship.team.Teams.Count > 1);
         Draw(LinkToPrevTeam, Flagship.team.Teams.Count > 1);
     }
@@ -58,9 +56,10 @@ public class ManagerTabRelay : View
     
     void ShowMainScreen()
     {
+        return;
         ShowAll(Managers, TeamRelations);
-        ConditionalShowMergeTeamsButton();
-        
+        Draw(MergeTeamsButton, false && Teams.IsHasMergeCandidates(Flagship.team.Teams[SelectedTeam], Flagship));
+
         HideAll(MergeCandidates);
         
         Hide(ManagersButton);
@@ -68,34 +67,13 @@ public class ManagerTabRelay : View
 
     void ShowMergingTeams()
     {
+        return;
+
         HideAll(Managers, TeamRelations);
 
         ShowAll(MergeCandidates);
         
         Hide(MergeTeamsButton);
         Show(ManagersButton);
-    }
-
-    void ConditionalShowMergeTeamsButton()
-    {
-        Draw(MergeTeamsButton, Teams.IsHasMergeCandidates(Flagship.team.Teams[SelectedTeam], Flagship));
-    }
-
-    void RenderTeamRank()
-    {
-        return;
-        var team = Flagship.team.Teams[SelectedTeam];
-
-        //TeamRankValue.text = (int)team.Rank + "";
-
-        switch (team.TeamType)
-        {
-            case TeamType.CrossfunctionalTeam: TeamImage.sprite = UniversalTeamSprite; break;
-            case TeamType.MarketingTeam: TeamImage.sprite = MarketingTeamSprite; break;
-            case TeamType.DevelopmentTeam: TeamImage.sprite = DevTeamSprite; break;
-            case TeamType.ServersideTeam: TeamImage.sprite = ServersideTeamSprite; break;
-
-            default: TeamImage.sprite = UnknownTeamSprite; break;
-        }
     }
 }
