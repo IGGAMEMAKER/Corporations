@@ -31,6 +31,7 @@ namespace Assets.Core
 
         public static bool IsTeamPromotable(GameEntity product, TeamInfo team)
         {
+            return false;
             bool hasLeadManager = HasMainManagerInTeam(team);
 
             var managerPoints = product.companyResource.Resources.managerPoints;

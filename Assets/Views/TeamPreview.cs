@@ -14,6 +14,7 @@ public class TeamPreview : View
 
     public RawImage TeamIcon;
 
+    public Sprite CoreIcon;
     public Sprite UniversalIcon;
     public Sprite DevelopmentIcon;
     public Sprite MarketingIcon;
@@ -45,6 +46,8 @@ public class TeamPreview : View
     void RenderHiringProgress(GameEntity company, TeamInfo team, int workers, int maxWorkers, bool hasFullTeam)
     {
         var hiringProgress = team.HiringProgress;
+
+        hiringProgress = 100;
 
         HiringProgress.fillAmount = hiringProgress / 100f;
         HiringProgressText.text = (workers * 100 / maxWorkers) + "%";
@@ -97,6 +100,12 @@ public class TeamPreview : View
 
     void RenderTeamImage()
     {
+        if (TeamInfo.isCoreTeam)
+        {
+            TeamIcon.texture = CoreIcon.texture;
+            return;
+        }
+
         // choose team icon
         switch (TeamInfo.TeamType)
         {

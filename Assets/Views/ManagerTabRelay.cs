@@ -40,8 +40,8 @@ public class ManagerTabRelay : View
     {
         base.ViewRender();
 
-        Draw(LinkToNextTeam, Flagship.team.Teams.Count > 1);
-        Draw(LinkToPrevTeam, Flagship.team.Teams.Count > 1);
+        /*Draw(LinkToNextTeam, Flagship.team.Teams.Count > 1);
+        Draw(LinkToPrevTeam, Flagship.team.Teams.Count > 1);*/
     }
 
     public void OnShowMainScreen()

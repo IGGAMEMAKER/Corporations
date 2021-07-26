@@ -22,7 +22,7 @@ namespace Assets.Core
 
             var roles = GetRolesTheoreticallyPossibleForThisCompanyType(company);
 
-            int managerTasks = company.team.Teams.Select(t => t.ManagerTasks).Select(t => t.Contains(ManagerTask.Recruiting) ? 1 : 0).Sum();
+            int managerTasks = company.team.Teams.Count(t => t.ManagerTasks.Contains(ManagerTask.Recruiting));
 
             foreach (var role in roles)
             {
@@ -30,7 +30,6 @@ namespace Assets.Core
 
                 if (role == WorkerRole.Marketer || role == WorkerRole.Programmer)
                 {
-                    AddEmployee(company, gameContext, managerTasks, role);
                     AddEmployee(company, gameContext, managerTasks, role);
                 }
             }

@@ -65,7 +65,7 @@ namespace Assets.Core
                 // team is managed well and can be managed indirectly
                 // except it is a core team (or independent team?)
 
-                bonus.Append($"Indirect management for {team.Name}", -GetIndirectManagementCostOfTeam(team, company));
+                bonus.Append($"Management of {team.Name}", -GetIndirectManagementCostOfTeam(team, company));
 
                 return bonus;
             }

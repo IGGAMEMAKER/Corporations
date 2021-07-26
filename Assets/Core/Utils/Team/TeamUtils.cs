@@ -8,6 +8,14 @@ namespace Assets.Core
 {
     public static partial class Teams
     {
+        public static void AddTeam(GameEntity company, GameContext gameContext, TeamType teamType, int parentId)
+        {
+            AddTeam(company, gameContext, teamType);
+
+            var team = company.team.Teams.Last();
+            AttachTeamToTeam(team, parentId);
+        }
+
         public static void AddTeam(GameEntity company, GameContext gameContext, TeamType teamType)
         {
             if (!IsCanAddMoreTeams(company, gameContext))
@@ -28,6 +36,8 @@ namespace Assets.Core
                 Organisation = 0,
                 ID = company.team.Teams.Count,
                 Rank = TeamRank.Solo,
+
+                ManagedBadly = false,
 
                 TooManyLeaders = false
             };
@@ -88,32 +98,10 @@ namespace Assets.Core
         }
 
         // other ----------
-
-        public static Bonus<int> GetOrganisationChanges(TeamInfo teamInfo, GameEntity product, GameContext gameContext)
-        {
-            WorkerRole managerTitle = GetMainManagerRole(teamInfo);
-
-            var rating = GetEffectiveManagerRating(gameContext, product, managerTitle, teamInfo);
-
-            var managerFocus = teamInfo.ManagerTasks.Count(t => t == ManagerTask.Organisation);
-
-            bool NoCeo = rating < 1;
-
-            // count team size: small teams organise faster, big ones: slower
-
-            return new Bonus<int>("Organisation change")
-                    .AppendAndHideIfZero("No " + managerTitle, NoCeo ? -30 : 0)
-                    .AppendAndHideIfZero(managerTitle + " efforts", rating)
-                    .AppendAndHideIfZero("Manager focus on Organisation", NoCeo ? 0 : managerFocus * 10)
-                ;
-        }
-
         public static bool IsUniversalTeam(TeamType teamType) =>
             new[] {TeamType.CrossfunctionalTeam}.Contains(teamType);
 
-        public static string GetFormattedTeamType(TeamInfo team) =>
-            GetFormattedTeamType(team.TeamType, team.Rank, team.isCoreTeam ? "Core team" : "");
-
+        public static string GetFormattedTeamType(TeamInfo team) => GetFormattedTeamType(team.TeamType, team.Rank, team.isCoreTeam ? "Core team" : "");
         public static string GetFormattedTeamType(TeamType teamType, TeamRank rank, string formattedName = "")
         {
             if (formattedName.Length == 0)
@@ -163,7 +151,6 @@ namespace Assets.Core
                     //return rank + " " + formattedName;
             }
         }
-
         public static string GetFormattedTeamType(TeamType teamType)
         {
             switch (teamType)
@@ -184,6 +171,7 @@ namespace Assets.Core
 
         public static bool IsFullTeam(TeamInfo team)
         {
+            return true;
             return team.Workers >= Teams.GetMaxTeamSize(team);
         }
 

@@ -26,7 +26,7 @@ public class AddTeamButton : ButtonController
     {
         if (Teams.IsCanAddMoreTeams(Flagship, Q))
         {
-            Teams.AddTeam(Flagship, Q, TeamType);
+            Teams.AddTeam(Flagship, Q, TeamType, 0);
 
             var newTeamID = Flagship.team.Teams.Count - 1;
             //UpdateData(C.MENU_SELECTED_TEAM, newTeamID);

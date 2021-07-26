@@ -11,29 +11,6 @@ namespace Assets.Core
             return Teams.IsFullTeam(team) && team.Rank == TeamRank.Department;
         }
 
-        public static IEnumerable<TeamInfo> GetMergingCandidates(TeamInfo team, GameEntity company)
-        {
-            return company.team.Teams.Where(t => IsCanMergeTeams(company, team, t));
-        }
-        public static bool IsHasMergeCandidates(TeamInfo team, GameEntity company)
-        {
-            return GetMergingCandidates(team, company).Any();
-        }
-
-        public static bool IsCanMergeTeams(GameEntity company, TeamInfo owner, TeamInfo target)
-        {
-            if (!IsCanReceiveTeams(owner))
-                return false;
-
-            bool noAttachToSelf = target.ID != owner.ID;
-
-            return target.TeamType == owner.TeamType
-                && target.isAttachable
-                && noAttachToSelf
-                && !IsTeamDependsAlready(company, owner, target, true)
-                && !IsTeamDependsAlready(company, target, owner, true); //  target.ParentID != owner.ID;
-        }
-
         public static bool IsTeamDependsAlready(GameEntity company, TeamInfo owner, TeamInfo target, bool recursively)
         {
             if (target.ParentID == owner.ID)
@@ -52,9 +29,13 @@ namespace Assets.Core
             return false;
         }
 
+        public static void AttachTeamToTeam(TeamInfo dependant, int parentID)
+        {
+            dependant.ParentID = parentID;
+        }
         public static void AttachTeamToTeam(TeamInfo dependant, TeamInfo owner)
         {
-            dependant.ParentID = owner.ID;
+            AttachTeamToTeam(dependant, owner.ID);
         }
 
         public static IEnumerable<TeamInfo> GetDependantTeams(TeamInfo owner, GameEntity company)
