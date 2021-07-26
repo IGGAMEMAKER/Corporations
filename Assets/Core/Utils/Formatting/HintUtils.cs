@@ -134,11 +134,29 @@ public class Bonus<T>
         return this;
     }
 
-    public Bonus<T> Append(Bonus<T> bonus) {
+    public Bonus<T> AddBonus(Bonus<T> bonus) {
         bonusDescriptions.AddRange(bonus.bonusDescriptions);
 
         return this;
     }
+
+    /*public Bonus<T> Subtract(Bonus<T> bonus) {
+        var descriptions = bonus.bonusDescriptions;
+
+        for (var i = 0; i < descriptions.Count; i++)
+        {
+            dynamic value = descriptions[i].Value;
+
+            if (value is long)
+            {
+                descriptions[i].Value = value * -1;
+            }
+        }
+
+        bonusDescriptions.AddRange(descriptions);
+
+        return this;
+    }*/
 
 
     public Bonus<T> MultiplyAndHideIfOne(string bonusName, T value, string dimension = "") => Multiply(new BonusDescription<T> { Name = bonusName, Dimension = dimension, HideIfZero = true, Value = value });

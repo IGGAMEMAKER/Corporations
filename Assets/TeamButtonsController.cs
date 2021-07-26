@@ -37,6 +37,7 @@ public class TeamButtonsController : View
 
         bool isCoreTeam = SelectedTeam == 0;
 
+
         Draw(Hire, true); // and has enough MP
         Draw(ManagerFocus, hasLeadManager);
 

@@ -134,6 +134,10 @@ namespace Assets.Core
 
             bonus.AppendAndHideIfZero("Too many leaders",
                 worker.humanSkills.Traits.Contains(Trait.Leader) && team.TooManyLeaders ? -2 : 0);
+
+            if (team.ManagedBadly)
+                bonus.Append("Terrible management", -3);
+            
             // bonus.AppendAndHideIfZero(hu)
             return bonus;
         }

@@ -56,6 +56,7 @@ namespace Assets.Core
             return batch * (marketingEfficiency + features) / 100;
         }
 
+
         // in months
         public static void EnableChannelActivity(GameEntity product, GameEntity channel)
         {

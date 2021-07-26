@@ -35,8 +35,6 @@ namespace Assets.Core
             company.team.Teams.Add(team);
 
             team.Name = GenerateTeamName(company, team);
-
-            //return company.team.Teams.Count - 1;
         }
 
         public static string GenerateTeamName(GameEntity company, TeamInfo team)
@@ -49,133 +47,6 @@ namespace Assets.Core
                 return prefix;
 
             return $"{prefix} #{team.ID}";
-        }
-
-        public static bool IsCanReceiveTeams(TeamInfo team)
-        {
-            return Teams.IsFullTeam(team) && team.Rank == TeamRank.Department;
-        }
-
-        public static IEnumerable<TeamInfo> GetMergingCandidates(TeamInfo team, GameEntity company)
-        {
-            return company.team.Teams.Where(t => IsCanMergeTeams(company, team, t));
-        }
-        public static bool IsHasMergeCandidates(TeamInfo team, GameEntity company)
-        {
-            return GetMergingCandidates(team, company).Any();
-        }
-    
-        public static bool IsCanMergeTeams(GameEntity company, TeamInfo owner, TeamInfo target)
-        {
-            if (!IsCanReceiveTeams(owner))
-                return false;
-
-            bool noAttachToSelf = target.ID != owner.ID;
-
-            return target.TeamType == owner.TeamType
-                && target.isAttachable
-                && noAttachToSelf 
-                && !IsTeamDependsAlready(company, owner, target, true)
-                && !IsTeamDependsAlready(company, target, owner, true); //  target.ParentID != owner.ID;
-        }
-        
-        public static bool IsTeamDependsAlready(GameEntity company, TeamInfo owner, TeamInfo target, bool recursively)
-        {
-            if (target.ParentID == owner.ID)
-                return true;
-
-            if (recursively)
-            {
-                var dependantTeams = GetDependantTeams(owner, company);
-                foreach (var teamInfo in dependantTeams)
-                {
-                    if (IsTeamDependsAlready(company, teamInfo, target, true))
-                        return true;
-                }
-            }
-
-
-            return false;
-        }
-        
-        public static void AttachTeamToTeam(TeamInfo dependant, TeamInfo owner)
-        {
-            dependant.ParentID = owner.ID;
-        }
-
-        public static IEnumerable<TeamInfo> GetDependantTeams(TeamInfo owner, GameEntity company)
-        {
-            return company.team.Teams.Where(t => t.ParentID == owner.ID);
-        }
-
-        public static int GetPromotionCost(TeamInfo teamInfo)
-        {
-            return 1;
-            switch (teamInfo.Rank)
-            {
-                case TeamRank.Solo:
-                    return 0;
-                    break;
-                case TeamRank.SmallTeam:
-                    return 15;
-                    break;
-                case TeamRank.BigTeam:
-                    return 25;
-                    break;
-                case TeamRank.Department:
-                    return 50;
-                    break;
-                default:
-                    return 100_000;
-            }
-        }
-
-        public static bool IsTeamPromotable(GameEntity product, TeamInfo team)
-        {
-            bool hasLeadManager = HasMainManagerInTeam(team);
-
-            var managerPoints = product.companyResource.Resources.managerPoints;
-            var promotionCost = GetPromotionCost(team);
-
-            var enoughManagementPoints = managerPoints >= promotionCost;
-
-            return hasLeadManager && Teams.IsFullTeam(team) && enoughManagementPoints && team.Rank < TeamRank.Department;
-        }
-
-        public static TeamRank GetNextTeamRank(TeamRank teamRank)
-        {
-            switch (teamRank)
-            {
-                case TeamRank.Solo:
-                    return TeamRank.SmallTeam;
-
-                case TeamRank.SmallTeam:
-                    return TeamRank.BigTeam;
-
-                default:
-                    return TeamRank.Department;
-            }
-        }
-
-        public static void Promote(GameEntity product, TeamInfo team)
-        {
-            return;
-            var promotionCost = new TeamResource(0, GetPromotionCost(team), 0, 0, 0);
-
-            if (Companies.IsEnoughResources(product, promotionCost))
-            {
-                team.Rank = GetNextTeamRank(team.Rank);
-
-                team.Name = GenerateTeamName(product, team);
-                team.Organisation = Mathf.Min(team.Organisation, 10);
-
-                Companies.SpendResources(product, promotionCost, "Team Promotion");
-            }
-        }
-
-        public static void DetachTeamFromTeam(TeamInfo team)
-        {
-            team.ParentID = -1;
         }
 
         public static void RemoveTeam(GameEntity company, GameContext gameContext, int teamId)
@@ -209,7 +80,7 @@ namespace Assets.Core
             Debug.Log("Team removed!");
         }
 
-        private static void ReplaceTeam(GameEntity company, GameContext gameContext, TeamComponent t)
+        static void ReplaceTeam(GameEntity company, GameContext gameContext, TeamComponent t)
         {
             company.ReplaceTeam(t.Morale, t.Organisation, t.Managers, t.Workers, t.Teams, t.Salaries);
 
@@ -217,11 +88,6 @@ namespace Assets.Core
         }
 
         // other ----------
-
-        public static void ToggleCrunching(GameEntity c)
-        {
-            c.isCrunching = !c.isCrunching;
-        }
 
         public static Bonus<int> GetOrganisationChanges(TeamInfo teamInfo, GameEntity product, GameContext gameContext)
         {
@@ -321,7 +187,6 @@ namespace Assets.Core
             return team.Workers >= Teams.GetMaxTeamSize(team);
         }
 
-
         public static bool IsNeverHiredEmployees(GameEntity product)
         {
             bool isFirstTeam = product.team.Teams.Count == 1;
@@ -333,13 +198,16 @@ namespace Assets.Core
         {
             bool hasNoManager = !HasMainManagerInTeam(team);
 
-
             bool hasDisloyalManagers = team.Managers
                 .Select(m => Humans.Get(gameContext, m))
-                .Count(h => h.humanCompanyRelationship.Morale < 40 &&
-                            GetLoyaltyChangeForManager(h, team, product) < 0) > 0;
+                .Any(h => h.humanCompanyRelationship.Morale < 40 && GetLoyaltyChangeForManager(h, team, product) < 0);
 
             return IsFullTeam(team) && (hasNoManager || hasDisloyalManagers || IsTeamPromotable(product, team));
+        }
+
+        public static void ToggleCrunching(GameEntity c)
+        {
+            c.isCrunching = !c.isCrunching;
         }
     }
 }

@@ -35,15 +35,15 @@ public class HumanPreview : View
         var entityID = human.creationIndex;
 
 
-        var description = $"{human.human.Name} {human.human.Surname}"; // \n{formattedRole} // human.human.Name.Substring(0, 1)
+        var name = $"{human.human.Name} {human.human.Surname}"; // \n{formattedRole} // human.human.Name.Substring(0, 1)
         if (human.isPlayer)
-            description = Visuals.Colorize("YOU", Colors.COLOR_YOU);
+            name = Visuals.Colorize("YOU", Colors.COLOR_YOU);
 
         Overall.text = $"{rating}";
         Overall.color = Visuals.GetColorFromString(human.hasHumanUpgradedSkills ? Colors.COLOR_POSITIVE : Colors.COLOR_NEUTRAL);
         RenderRole(drawAsEmployee);
 
-        Description.text = description;
+        Description.text = name;
 
         // render company related data if is worker
         RenderCompanyData(drawAsEmployee);

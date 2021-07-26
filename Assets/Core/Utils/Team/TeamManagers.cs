@@ -66,6 +66,7 @@ namespace Assets.Core
                     .Select(p => p.Key)
                 ;
         }
+
         public static List<int> GetCandidatesForTeam(GameEntity company, TeamInfo team, GameContext Q,
             bool includeCompetingCompaniesWorkers = false)
         {
