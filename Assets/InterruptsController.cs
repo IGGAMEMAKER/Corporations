@@ -9,6 +9,7 @@ public class InterruptsController : View
     public EventView PromoteTeam;
     public EventView Bankruptcy;
     public EventView UnhappyManager;
+    public EventView UnhappyTeam;
     public EventView UpgradeFeature;
 
     public override void ViewRender()
@@ -18,12 +19,13 @@ public class InterruptsController : View
         var team = Flagship.team.Teams[0];
 
         var unhappyCoreWorkers = team.Managers.Select(humanId => Humans.Get(Q, humanId))
-            .Where(human => human.humanCompanyRelationship.Morale < 30 && Teams.GetLoyaltyChangeForManager(human, team, Flagship) < 0);
+            .Any(human => human.humanCompanyRelationship.Morale < 30 && Teams.GetLoyaltyChangeForManager(human, team, Flagship) < 0);
 
-
+        var unhappyTeams = Flagship.team.Teams.Any(t => t.isManagedBadly);
 
         Draw(Bankruptcy, Economy.IsWillBecomeBankruptOnNextPeriod(Q, MyCompany));
-        Draw(UnhappyManager, unhappyCoreWorkers.Any());
+        Draw(UnhappyManager, unhappyCoreWorkers);
+        Draw(UnhappyTeam, unhappyTeams);
         Draw(PromoteTeam, false);
 
         var month = (int)C.PERIOD * 4;

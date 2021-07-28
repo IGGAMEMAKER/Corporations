@@ -25,7 +25,7 @@ public class ManagerPointsView2 : UpgradedParameterView
     {
         var sum = change.Sum();
 
-        bool ManagedBadly = team.ManagedBadly;
+        bool ManagedBadly = team.isManagedBadly;
 
         var hint = "";
 

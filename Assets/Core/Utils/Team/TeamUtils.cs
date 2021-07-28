@@ -37,7 +37,7 @@ namespace Assets.Core
                 ID = company.team.Teams.Count,
                 Rank = TeamRank.Solo,
 
-                ManagedBadly = false,
+                isManagedBadly = false,
 
                 TooManyLeaders = false
             };

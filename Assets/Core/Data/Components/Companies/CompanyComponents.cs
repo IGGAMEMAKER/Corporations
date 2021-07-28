@@ -363,7 +363,7 @@ public class TeamInfo
 
     public int ID;
     public bool TooManyLeaders = false;
-    public bool ManagedBadly = false;
+    public bool isManagedBadly = false;
 
     // upgrades are written here
     public TeamRank Rank;

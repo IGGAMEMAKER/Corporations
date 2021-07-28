@@ -32,7 +32,7 @@ namespace Assets.Core
 
             bonus.MultiplyAndHideIfOne("From corporate policies", processes);
 
-            team.ManagedBadly = bonus.Sum() < 0;
+            team.isManagedBadly = bonus.Sum() < 0;
 
             return bonus;
         }
