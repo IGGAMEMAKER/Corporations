@@ -35,7 +35,7 @@ public partial class TaskProcessingSystem : OnDateChange
 
                 foreach (var task in team.Tasks)
                 {
-                    if (task.IsPending && Teams.HasFreeSlotForTeamTask(p, task) && Teams.CanExecuteTeamTask(p, task))
+                    if (task.IsPending && Teams.HasFreeSlotForTeamTask(p, task) && Teams.CanExecuteTeamTask(p, task, gameContext))
                     {
                         task.IsPending = false;
 

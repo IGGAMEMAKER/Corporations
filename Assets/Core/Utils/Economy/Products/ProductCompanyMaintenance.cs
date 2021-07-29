@@ -51,6 +51,7 @@ namespace Assets.Core
 
         public static long GetTeamTaskCost(GameEntity product, TeamTask teamTask)
         {
+            return 0;
             if (teamTask.IsFeatureUpgrade)
                 return 0;
 

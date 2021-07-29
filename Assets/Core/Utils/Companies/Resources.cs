@@ -2,13 +2,20 @@
 {
     public static partial class Companies
     {
-        public static void SpendResources(GameEntity company, long money, string purpose) => SpendResources(company, new TeamResource(money), purpose);
-        public static void SpendResources(GameEntity company, TeamResource resource, string purpose)
+        public static bool Pay(GameEntity company, long money, string purpose) => Pay(company, new TeamResource(money), purpose);
+        public static bool Pay(GameEntity company, TeamResource resource, string purpose)
         {
-            company.companyResource.Resources.Spend(resource);
+            if (IsEnoughResources(company, resource))
+            {
+                company.companyResource.Resources.Spend(resource);
 
-            company.ReplaceCompanyResource(company.companyResource.Resources);
-            RegisterTransaction(company, resource * -1, purpose);
+                company.ReplaceCompanyResource(company.companyResource.Resources);
+                RegisterTransaction(company, resource * -1, purpose);
+
+                return true;
+            }
+
+            return false;
         }
 
         public static void AddResources(GameEntity company, long money, string purpose) => AddResources(company, new TeamResource(money), purpose);

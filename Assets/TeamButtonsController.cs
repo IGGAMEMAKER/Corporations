@@ -42,9 +42,9 @@ public class TeamButtonsController : View
         Draw(ManagerFocus, hasLeadManager);
 
         AddNewTeam.SetProgress(progress);
-        Draw(AddNewTeam, core.Rank == TeamRank.Department && isCoreTeam);
+        Draw(AddNewTeam, isCoreTeam);
 
-        Draw(DetachTeam, core.Rank >= TeamRank.BigTeam && !isCoreTeam);
+        Draw(DetachTeam, !isCoreTeam);
 
         Draw(PromoteTeam, false && Flagship.team.Teams[SelectedTeam].Rank < TeamRank.Department);
     }

@@ -69,7 +69,7 @@ namespace Assets.Core
                 team.Name = GenerateTeamName(product, team);
                 team.Organisation = Mathf.Min(team.Organisation, 10);
 
-                Companies.SpendResources(product, promotionCost, "Team Promotion");
+                Companies.Pay(product, promotionCost, "Team Promotion");
             }
         }
 

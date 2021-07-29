@@ -6,6 +6,22 @@ namespace Assets.Core
     {
         public static long BalanceOf(GameEntity company) => company.companyResource.Resources.money;
 
+        public static long GetProfit(GameContext context, GameEntity c) => GetProfit(context, c, true).Sum();
+        public static Bonus<long> GetProfit(GameContext context, GameEntity c, bool isBonus)
+        {
+            var bonus = new Bonus<long>("Profit");
+
+            ApplyProductEconomyToProfitBonus(c, context, bonus);
+
+            // investments
+            ApplyInvestmentsToProfitBonus(c, context, bonus);
+
+            // group
+            ApplyGroupInvestmentsToProfitBonus(c, context, bonus);
+
+            return bonus;
+        }
+
         public static long GetIncome(GameContext context, GameEntity e)
         {
             if (e.hasProduct)
@@ -32,22 +48,6 @@ namespace Assets.Core
                 return GetProductMaintenance(c, context);
             
             return GetGroupMaintenance(context, c);
-        }
-
-        public static long GetProfit(GameContext context, GameEntity c) => GetProfit(context, c, true).Sum();
-        public static Bonus<long> GetProfit(GameContext context, GameEntity c, bool isBonus)
-        {
-            var bonus = new Bonus<long>("Profit");
-
-            ApplyProductEconomyToProfitBonus(c, context, bonus);
-
-            // investments
-            ApplyInvestmentsToProfitBonus(c, context, bonus);
-
-            // group
-            ApplyGroupInvestmentsToProfitBonus(c, context, bonus);
-
-            return bonus;
         }
 
         public static void ApplyProductEconomyToProfitBonus(GameEntity c, GameContext context, Bonus<long> bonus)

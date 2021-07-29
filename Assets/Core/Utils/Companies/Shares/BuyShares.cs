@@ -32,7 +32,7 @@ namespace Assets.Core
             TransferShares(context, company, buyer, seller, amountOfShares, bid);
 
 
-            SpendResources(buyer, bid, "Buy Shares of " + company.company.Name);
+            Pay(buyer, bid, "Buy Shares of " + company.company.Name);
             AddResources(seller, bid, "Buy Shares of " + company.company.Name);
         }
 
@@ -82,7 +82,7 @@ namespace Assets.Core
             if (b.amount <= 0)
                 RemoveShareholder(company, context, seller);
 
-            Companies.SpendResources(company, cost, "Buy back");
+            Companies.Pay(company, cost, "Buy back");
             Companies.AddResources(seller, bid, "Buy back");
         }
     }

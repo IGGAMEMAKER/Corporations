@@ -16,6 +16,8 @@ public class RenderChurnRate : UpgradedParameterView
         var churn = Marketing.GetChurnClients(company, Q);
         var churnRate = Marketing.GetChurnRate(company, Q);
 
-        return Visuals.Negative(Format.Minify(-churn) + " weekly"); // (" + (int)churnRate + "%)
+        Colorize(Visuals.GetGradientColor(0, 9, churnRate, true));
+        return Format.Minify(-churnRate) + "% weekly";
+        //return Visuals.Negative(Format.Minify(-churn) + " weekly"); // (" + (int)churnRate + "%)
     }
 }

@@ -21,7 +21,7 @@ namespace Assets.Core
         {
             product.features.Upgrades[featureName] = value;
 
-            Companies.SpendResources(product, GetFeatureUpgradeCost(), "Feature");
+            Companies.Pay(product, GetFeatureUpgradeCost(), "Feature");
 
             // Update Market Requirements AndNotifyAllProductsAboutChanges
             NotifyAllProductsAboutChanges(product, featureName, value, gameContext);

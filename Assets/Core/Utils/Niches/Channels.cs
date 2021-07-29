@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Assets.Core
 {
@@ -50,9 +51,39 @@ namespace Assets.Core
             int periods = product.isFlagship ? 10 * 4 : 1;
 
             var spareBudget = Economy.GetProfit(gameContext, payer);
+
+            var channels = new List<ChannelInfo>();
+
+            var allChannels = GetAllMarketingChannels(product).OrderBy(c => Marketing.GetChannelCost(product, c.ID)).ToList();
+            var spareBudget2 = spareBudget + Economy.BalanceOf(payer);
+            for (var i = 0; i < allChannels.Count(); i++)
+            {
+                var c = allChannels[i];
+                var adCost = Marketing.GetChannelCost(product, c.ID);
+
+                if (Marketing.IsActiveInChannel(product, c.ID) || adCost == 0)
+                {
+                    channels.Add(c);
+                    continue;
+                }
+
+                // 5, cause some channels take too much time to recover
+                if (adCost > spareBudget2)
+                {
+                    if (product.isFlagship)
+                    {
+                        Debug.Log("not enough money for " + c.ID + " " + Format.Money(adCost * 3) + " spare=" + Format.Money(spareBudget2));
+                    }
+                    break;
+                }
+
+                channels.Add(c);
+                spareBudget2 -= adCost;
+            }
+
+            return channels;
             
-            //return GetAllMarketingChannels(product)
-            return GetAllMarketingChannels(product)
+            return allChannels
                 .Where(IsCanMaintainChannel(product, spareBudget))
                 ;
         }

@@ -16,7 +16,7 @@
                 AddResources(investor, sum, "Pay dividends");
             }
 
-            SpendResources(company, dividends, "dividends");
+            Pay(company, dividends, "dividends");
         }
     }
 }

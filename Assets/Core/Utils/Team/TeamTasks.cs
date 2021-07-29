@@ -33,14 +33,16 @@ namespace Assets.Core
             return false;
         }
 
-        public static void AddTeamTask(GameEntity product, int date, GameContext gameContext, int teamId, TeamTask task)
+        public static bool AddTeamTask(GameEntity product, int date, GameContext gameContext, int teamId, TeamTask task)
         {
             var taskId = product.team.Teams[teamId].Tasks.Count;
 
-            if (!HasFreeSlotForTeamTask(product, task) || !CanExecuteTeamTask(product, task))
+            if (!HasFreeSlotForTeamTask(product, task) || !CanExecuteTeamTask(product, task, gameContext))
                 task.IsPending = true;
 
             AddTeamTask(product, date, gameContext, teamId, taskId, task);
+
+            return task.IsPending;
         }
 
         public static void AddTeamTask(GameEntity product, int date, GameContext gameContext, int teamId, int taskId, TeamTask task)
@@ -71,7 +73,7 @@ namespace Assets.Core
             return 1 + (int)cost;
         }
 
-        public static bool CanExecuteTeamTask(GameEntity company, TeamTask teamTask)
+        public static bool CanExecuteTeamTask(GameEntity company, TeamTask teamTask, GameContext gameContext)
         {
             if (teamTask.IsFeatureUpgrade)
             {
@@ -79,6 +81,14 @@ namespace Assets.Core
                 var cost = GetFeatureUpgradeCost(company, teamTask);
 
                 return have >= cost;
+            }
+
+            if (teamTask.IsMarketingTask)
+            {
+                var payer = company.isFlagship ? Companies.GetPlayerCompany(gameContext) : company;
+                var cost = Marketing.GetChannelCost(company, (teamTask as TeamTaskChannelActivity).ChannelId);
+
+                return Economy.BalanceOf(payer) > cost;
             }
 
             return true;
@@ -98,7 +108,13 @@ namespace Assets.Core
                 var channel = Markets.GetMarketingChannel(gameContext, channelId);
 
                 if (!Marketing.IsActiveInChannel(product, channelId))
-                    Marketing.EnableChannelActivity(product, channel);
+                {
+                    var cost = Marketing.GetChannelCost(product, channelId);
+                    var payer = Companies.GetPayer(product, gameContext);
+
+                    if (Companies.Pay(payer, cost, "Marketing " + channel))
+                        Marketing.EnableChannelActivity(product, channel);
+                }
             }
         }
 

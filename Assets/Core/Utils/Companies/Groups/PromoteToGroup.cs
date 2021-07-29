@@ -71,8 +71,8 @@
             if (!product.isIndependentCompany)
                 return false;
 
-
             var ambitions = Humans.GetAmbition(gameContext, product.cEO.HumanId);
+
             return ambitions == Ambition.RuleCorporation;
         }
 

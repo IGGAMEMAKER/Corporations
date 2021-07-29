@@ -31,7 +31,7 @@
             {
                 var portion = p.Investment.Portion;
                 AddResources(company, portion, "accept investments");
-                SpendResources(investor, portion, "spend on investments");
+                Pay(investor, portion, "spend on investments");
             }
 
             MarkProposalAsAccepted(company, investorId);
