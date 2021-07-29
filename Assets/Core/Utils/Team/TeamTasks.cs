@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Assets.Core
 {
@@ -73,22 +74,43 @@ namespace Assets.Core
             return 1 + (int)cost;
         }
 
-        public static bool CanExecuteTeamTask(GameEntity company, TeamTask teamTask, GameContext gameContext)
+        public static bool IsEnoughResourcesForTask(GameEntity company, TeamTask teamTask, GameContext gameContext)
+        {
+            var cost = GetTaskCost(company, teamTask, gameContext);
+
+            return Companies.IsEnoughResources(company, cost);
+        }
+        public static TeamResource GetTaskCost(GameEntity company, TeamTask teamTask, GameContext gameContext)
         {
             if (teamTask.IsFeatureUpgrade)
             {
-                var have = company.companyResource.Resources.ideaPoints;
                 var cost = GetFeatureUpgradeCost(company, teamTask);
 
-                return have >= cost;
+                return new TeamResource(0, 0, 0, cost, 0);
             }
 
             if (teamTask.IsMarketingTask)
             {
-                var payer = company.isFlagship ? Companies.GetPlayerCompany(gameContext) : company;
                 var cost = Marketing.GetChannelCost(company, (teamTask as TeamTaskChannelActivity).ChannelId);
 
-                return Economy.BalanceOf(payer) > cost;
+                return new TeamResource(cost);
+            }
+
+            return new TeamResource(0);
+        }
+
+        public static bool CanExecuteTeamTask(GameEntity company, TeamTask teamTask, GameContext gameContext)
+        {
+            var taskCost = GetTaskCost(company, teamTask, gameContext);
+
+            if (teamTask.IsFeatureUpgrade)
+                return Companies.IsEnoughResources(company, taskCost);
+
+            if (teamTask.IsMarketingTask)
+            {
+                var payer = Companies.GetPayer(company, gameContext);
+
+                return Companies.IsEnoughResources(payer, taskCost);
             }
 
             return true;
@@ -118,6 +140,9 @@ namespace Assets.Core
 
                         var gain = Marketing.GetChannelClientGain(product, channelId);
                         Marketing.AddClients(product, gain);
+
+                        var duration = Marketing.GetCampaignDuration(product, gain);
+                        task.EndDate = date + duration;
                     }
                 }
             }
@@ -131,6 +156,13 @@ namespace Assets.Core
             if (task is TeamTaskChannelActivity)
             {
                 // channel tookout
+
+                // campaign expired
+                if (task.EndDate <= date)
+                {
+                    Debug.Log("Campaign expired");
+                    removableTasks.Add(new SlotInfo { SlotId = slotId, TeamId = teamId });
+                }
             }
         }
 

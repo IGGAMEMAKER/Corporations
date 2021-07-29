@@ -15,7 +15,8 @@ namespace Assets.Core
         {
             return value.ToString("+0.0;-#");
         }
-        
+
+        public static string Money(TeamResource value, bool minifyToInteger = false) => Money(value.money, minifyToInteger);
         public static string Money<T>(T value, bool minifyToInteger = false)
         {
             if (minifyToInteger)

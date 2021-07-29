@@ -39,7 +39,7 @@ namespace Assets.Core
 
                 case WorkerRole.MarketingDirector: return "Marketing Director";
                 case WorkerRole.ProductManager: return "Product Manager";
-                case WorkerRole.Programmer: return "Programmer";
+                case WorkerRole.Programmer: return "Coder";
                 case WorkerRole.ProjectManager: return "Project Manager";
                 case WorkerRole.TechDirector: return "Tech Director";
 

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using UnityEngine;
 
 namespace Assets.Core
 {
@@ -31,6 +32,19 @@ namespace Assets.Core
             
             // // GameEntity channel
             // return channel.channelMarketingActivities.Companies.ContainsKey(product.company.Id);
+        }
+
+        public static int GetCampaignDuration(GameEntity product, long gain)
+        {
+            var duration = C.PERIOD * Mathf.Log(gain, 5) / 1.5f;
+
+            return (int)duration;
+        }
+        public static int GetCampaignDuration(GameEntity product, ChannelInfo channelInfo)
+        {
+            var gain = Marketing.GetChannelClientGain(product, channelInfo);
+
+            return GetCampaignDuration(product, gain);
         }
 
         public static long GetChannelClientGain(GameEntity company, int channelId) => GetChannelClientGain(company, company.channelInfos.ChannelInfos[channelId]);

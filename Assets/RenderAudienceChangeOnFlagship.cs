@@ -1,8 +1,4 @@
 using Assets.Core;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
 
 public class RenderAudienceChangeOnFlagship : View
 {
@@ -23,6 +19,7 @@ public class RenderAudienceChangeOnFlagship : View
     void Update()
     {
         var current = ObservableText.GetValue();
+
         if (current != previousValue)
         {
             var diff = current - previousValue;
@@ -30,7 +27,9 @@ public class RenderAudienceChangeOnFlagship : View
             previousValue = current;
 
             if (initialSpawn)
+            {
                 Anim("users", diff);
+            }
             else
             {
                 initialSpawn = true;

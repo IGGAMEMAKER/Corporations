@@ -18,9 +18,14 @@ public class MarketingChannelController : ButtonController
 
         var product = Flagship;
 
-        var relay = FindObjectOfType<FlagshipRelayInCompanyView>();
+        //var relay = FindObjectOfType<FlagshipRelayInCompanyView>();
 
         var channelId = ChannelInfo.ID;
+
+        var task = new TeamTaskChannelActivity(channelId, Marketing.GetChannelCost(product, channelId));
+        var cost = Teams.GetTaskCost(product, task, Q);
+
+        Debug.Log("Cost " + Format.Money(cost) + " " + channelId);
 
         if (Marketing.IsActiveInChannel(product, channelId))
         {
@@ -34,18 +39,19 @@ public class MarketingChannelController : ButtonController
         if (active >= limit)
         {
             NotificationUtils.AddSimplePopup(Q, "Hire more marketers!");
-            Debug.Log("Too many channels??");
-
             return;
         }
 
-        var task = new TeamTaskChannelActivity(channelId, Marketing.GetChannelCost(product, channelId));
+        Debug.Log("Marketing controller");
+        //if (Teams.IsEnoughResourcesForTask(product, task, Q))
+        if (Companies.IsEnoughResources(MyCompany, cost))
+        {
+            Debug.Log("Have resources");
 
-        relay.AddPendingTask(task);
+            //relay.AddPendingTask(task);
+            Teams.AddTeamTask(product, CurrentIntDate, Q, 0, task);
 
-        var cost = Marketing.GetChannelCost(product, channelId);
-        Animate(Visuals.Negative($"-{Format.Money(cost)}"));
-
-        //Marketing.EnableChannelActivity(product, channel);
+            Animate(Visuals.Negative($"-{Format.Money(cost)}"));
+        }
     }
 }
