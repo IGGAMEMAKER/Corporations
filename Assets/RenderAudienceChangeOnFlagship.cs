@@ -42,4 +42,12 @@ public class RenderAudienceChangeOnFlagship : View
     {
         Animate(Visuals.Positive($"+{Format.Minify(change)} {title}"));
     }
+
+    void Anim(string title, long change)
+    {
+        if (change > 0)
+            Animate(Visuals.Positive("+" + change) + $" {title}");
+        else
+            Animate(Visuals.Colorize(change) + $" {title}");
+    }
 }
