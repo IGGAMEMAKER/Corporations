@@ -50,12 +50,17 @@ namespace Assets.Core
             var payer = product.isFlagship ? Companies.GetPlayerCompany(gameContext) : product;
             int periods = product.isFlagship ? 10 * 4 : 1;
 
-            var spareBudget = Economy.GetProfit(gameContext, payer);
+            var profit = Economy.GetProfit(gameContext, payer);
+            var spareBudget = profit;
 
             var channels = new List<ChannelInfo>();
 
             var allChannels = GetAllMarketingChannels(product).OrderBy(c => Marketing.GetChannelCost(product, c.ID)).ToList();
-            var spareBudget2 = spareBudget + Economy.BalanceOf(payer);
+            var spareBudget2 = Economy.BalanceOf(payer); // spareBudget + 
+
+            if (profit < 0)
+                spareBudget2 += profit;
+
             for (var i = 0; i < allChannels.Count(); i++)
             {
                 var c = allChannels[i];

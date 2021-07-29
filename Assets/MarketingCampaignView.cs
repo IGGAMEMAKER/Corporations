@@ -81,7 +81,7 @@ public class MarketingCampaignView : View
             Marketing.AddClients(product, clients);
 
             // Spawn animation
-            Animate(Visuals.Positive($"+{Format.Minify(clients)} users"));
+            //Animate(Visuals.Positive($"+{Format.Minify(clients)} users"));
         }
     }
 }

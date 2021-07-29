@@ -9,7 +9,7 @@ namespace Assets.Core
     {
         public static int GetPromotionCost(TeamInfo teamInfo)
         {
-            return 1;
+            return 0;
             switch (teamInfo.Rank)
             {
                 case TeamRank.Solo:

@@ -33,21 +33,22 @@ public class FlagshipRelayInCompanyView : View
 
         //ScheduleUtils.PauseGame(Q);
 
-        Teams.AddTeamTask(Flagship, CurrentIntDate, Q, 0, teamTask);
-
-        if (teamTask.IsFeatureUpgrade)
+        if (Teams.AddTeamTask(Flagship, CurrentIntDate, Q, 0, teamTask))
         {
-            SoundManager.Play(Sound.ProgrammingTask);
-        }
+            if (teamTask.IsFeatureUpgrade)
+            {
+                SoundManager.Play(Sound.ProgrammingTask);
+            }
 
-        if (teamTask.IsMarketingTask)
-        {
-            //SoundManager.Play(Sound.MarketingTask);
-        }
+            if (teamTask.IsMarketingTask)
+            {
+                //SoundManager.Play(Sound.MarketingTask);
+            }
 
-        if (teamTask.IsHighloadTask)
-        {
-            SoundManager.Play(Sound.ServerTask);
+            if (teamTask.IsHighloadTask)
+            {
+                SoundManager.Play(Sound.ServerTask);
+            }
         }
     }
 }

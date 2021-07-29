@@ -24,6 +24,7 @@ public abstract class ParameterDynamicView : UpgradedParameterView
         if (DynamicsImage != null)
         {
             Draw(DynamicsImage, valueChanged);
+
             DynamicsImage.color = Visuals.GetColorPositiveOrNegative(dynamics);
             DynamicsImage.gameObject.transform.rotation = Quaternion.Euler(0, 0, dynamics > 0 ? 0 : -180f);
         }

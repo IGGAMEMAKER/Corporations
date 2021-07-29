@@ -49,6 +49,7 @@ namespace Assets.Core
 
         public static bool IsCanAddMoreTeams(GameEntity company, GameContext gameContext)
         {
+            return true;
             var teamCost = GetPromotionCost(TeamRank.Solo);
             
             return Companies.IsEnoughResources(company, new TeamResource(0, teamCost, 0, 0, 0));

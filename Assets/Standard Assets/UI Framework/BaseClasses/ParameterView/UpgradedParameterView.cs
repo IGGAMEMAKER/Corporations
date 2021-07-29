@@ -4,6 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 
 // TODO extend ParameterView
+public abstract class UpgradedParameterView2<T> : UpgradedParameterView
+{
+    public abstract T GetValue();
+}
+
 public abstract class UpgradedParameterView : View
 {
     internal Text Text;

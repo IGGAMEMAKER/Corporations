@@ -24,7 +24,7 @@ public class ProcessClientsSystem : OnPeriodChange
                 continue;
             }
 
-            var myChannels = product.companyMarketingActivities.Channels;
+            /*var myChannels = product.companyMarketingActivities.Channels;
 
             foreach (var c in myChannels)
             {
@@ -32,7 +32,7 @@ public class ProcessClientsSystem : OnPeriodChange
 
                 var clients = Marketing.GetChannelClientGain(product, channelId);
                 Marketing.AddClients(product, clients);
-            }
+            }*/
         }
     }
 }

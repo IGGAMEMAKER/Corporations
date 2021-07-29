@@ -113,7 +113,12 @@ namespace Assets.Core
                     var payer = Companies.GetPayer(product, gameContext);
 
                     if (Companies.Pay(payer, cost, "Marketing " + channel))
+                    {
                         Marketing.EnableChannelActivity(product, channel);
+
+                        var gain = Marketing.GetChannelClientGain(product, channelId);
+                        Marketing.AddClients(product, gain);
+                    }
                 }
             }
         }

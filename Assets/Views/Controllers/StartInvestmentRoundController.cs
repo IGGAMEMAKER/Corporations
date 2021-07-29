@@ -7,7 +7,7 @@ public class StartInvestmentRoundController : ButtonController
         if (MyCompany.companyGoal.Goals.Count > 0)
         {
             var profit = Economy.GetProfit(Q, MyCompany);
-            bool cashOverflow = Economy.BalanceOf(MyCompany) > profit * 2;
+            bool cashOverflow = Economy.IsHasCashOverflow(Q, MyCompany); // Economy.BalanceOf(MyCompany) > profit * 2;
 
             if (profit < 0)
                 cashOverflow = false;

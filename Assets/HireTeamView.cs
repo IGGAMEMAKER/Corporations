@@ -17,7 +17,7 @@ public class HireTeamView : View
 
         var teamType = GetComponent<AddTeamButton>().TeamType;
 
-        bool hasEnoughPointsToHireTeam = Teams.IsCanAddMoreTeams(Flagship, Q);
+        bool hasEnoughPointsToHireTeam = true; // Teams.IsCanAddMoreTeams(Flagship, Q);
         var promotionCost = Teams.GetPromotionCost(TeamRank.Solo);
         var managerPoints = Flagship.companyResource.Resources.managerPoints;
         
