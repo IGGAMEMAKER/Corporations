@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public abstract class UpgradedParameterView2<T> : UpgradedParameterView
 {
     public abstract T GetValue();
+    public T value => GetValue();
 }
 
 public abstract class UpgradedParameterView : View

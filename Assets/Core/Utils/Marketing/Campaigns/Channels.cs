@@ -47,27 +47,41 @@ namespace Assets.Core
             return GetCampaignDuration(product, gain);
         }
 
-        public static long GetChannelClientGain(GameEntity company, int channelId) => GetChannelClientGain(company, company.channelInfos.ChannelInfos[channelId]);
-        public static long GetChannelClientGain(GameEntity company, ChannelInfo channelInfo)
+        public static Bonus<long> GetMarketingEfficiency(GameEntity company)
         {
-            var batch = channelInfo.Batch;
+            var b = new Bonus<long>("Gain");
 
-            var marketingEfficiency = Teams.GetMarketingEfficiency(company);
-            var features = 0;
+            b.SetDimension("%");
+            b.Append("From teams", Teams.GetMarketingEfficiency(company));
 
             foreach (var f in Products.GetAllFeaturesForProduct())
             {
                 if (f.IsMonetizationFeature)
                     continue;
 
-                if (Products.IsUpgradedFeature(company, f.Name))
-                    features += 3;
-
                 if (Products.IsLeadingInFeature(company, f, null))
-                    features += 10;
+                {
+                    b.Append("Leading in " + f.Name, 10);
+                    continue;
+                }
+
+                if (Products.IsUpgradedFeature(company, f.Name))
+                {
+                    b.Append(f.Name, 3);
+                }
             }
 
-            return batch * (marketingEfficiency + features) / 100;
+            return b;
+        }
+
+        public static long GetChannelClientGain(GameEntity company, int channelId) => GetChannelClientGain(company, company.channelInfos.ChannelInfos[channelId]);
+        public static long GetChannelClientGain(GameEntity company, ChannelInfo channelInfo)
+        {
+            var batch = channelInfo.Batch;
+
+            var bonus = GetMarketingEfficiency(company);
+
+            return batch * bonus.Sum() / 100;
         }
 
 
