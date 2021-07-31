@@ -115,7 +115,12 @@ public class NewsListView : ListView
 
         if (now > was)
         {
-            PrintMessage(Visuals.Negative($"{LastClients[now - 1].company.Name} has more users than us"));
+            var competitorID = now - 1;
+
+            var competitor = LastClients[competitorID];
+
+            var users = Marketing.GetUsers(competitor);
+            PrintMessage(Visuals.Negative($"{competitor.company.Name} has more users than us!  ({Format.Minify(users)})"));
         }
 
         if (now < was)
@@ -124,7 +129,10 @@ public class NewsListView : ListView
 
             if (LastClients.Count > competitorID)
             {
-                PrintMessage(Visuals.Positive($"We have more users than {LastClients[competitorID].company.Name}"));
+                var competitor = LastClients[competitorID];
+
+                var users = Marketing.GetUsers(competitor);
+                PrintMessage(Visuals.Positive($"We have more users than {competitor.company.Name}!"));
             }
         }
     }
