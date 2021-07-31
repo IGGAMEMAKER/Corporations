@@ -12,6 +12,7 @@ public class NewsListView : ListView
     List<float> LastFeatures;
     List<GameEntity> LastClients;
 
+    bool redraw = false;
 
     public override void SetItem<T>(Transform t, T entity)
     {
@@ -19,8 +20,8 @@ public class NewsListView : ListView
 
         t.GetComponent<MockText>().SetEntity(message);
 
-        /*if (index == 0)
-            AddIfAbsent<EnlargeOnAppearance>(t.gameObject);*/
+        if (index == 0)
+            AddIfAbsent<EnlargeOnAppearance>(t.gameObject);
     }
 
     private void OnEnable()
@@ -28,6 +29,30 @@ public class NewsListView : ListView
         UpdateFeatures();
         UpdateClients();
     }
+
+    public override void ViewRender()
+    {
+        base.ViewRender();
+
+        var product = Flagship;
+
+        var allfeatures = Products.GetAllFeaturesForProduct();
+        var competitors = Companies.GetDirectCompetitors(product, Q, true);
+
+
+        NotifyAboutFeatureDiff2(allfeatures, competitors);
+        NotifyAboutClientChange();
+
+        UpdateFeatures();
+
+
+        if (redraw)
+        {
+            Redraw();
+            redraw = false;
+        }
+    }
+
 
     void UpdateFeatures()
     {
@@ -37,15 +62,10 @@ public class NewsListView : ListView
 
     void UpdateClients()
     {
-        LastClients = GetClients();
-    }
-
-    List<GameEntity> GetClients()
-    {
         var competitors = Companies.GetDirectCompetitors(Flagship, Q, true);
-
-        return competitors.OrderByDescending(c => Marketing.GetUsers(c)).ToList();
+        LastClients = competitors.OrderByDescending(c => Marketing.GetUsers(c)).ToList();
     }
+
 
     void NotifyAboutNewLeader(IEnumerable<GameEntity> competitors, string feature)
     {
@@ -70,10 +90,7 @@ public class NewsListView : ListView
 
     void NotifyAboutFeatureDiff2(NewProductFeature[] allfeatures, IEnumerable<GameEntity> competitors)
     {
-        bool redraw = false;
-
         var reqs = Markets.GetCalculatedMarketRequirements(Markets.Get(Q, Flagship), Q);
-
 
         for (var i = 0; i < LastFeatures.Count; i++)
         {
@@ -86,16 +103,32 @@ public class NewsListView : ListView
                 continue;
 
             NotifyAboutNewLeader(competitors, feature);
-
-            redraw = true;
-        }
-
-        if (redraw)
-        {
-            UpdateFeatures();
-            Redraw();
         }
     }
+
+    void NotifyAboutClientChange()
+    {
+        var was = LastClients.FindIndex(c => c.isFlagship);
+        UpdateClients();
+
+        var now = LastClients.FindIndex(c => c.isFlagship);
+
+        if (now > was)
+        {
+            PrintMessage(Visuals.Negative($"{LastClients[now - 1].company.Name} has more users than us"));
+        }
+
+        if (now < was)
+        {
+            var competitorID = now + 1;
+
+            if (LastClients.Count > competitorID)
+            {
+                PrintMessage(Visuals.Positive($"We have more users than {LastClients[competitorID].company.Name}"));
+            }
+        }
+    }
+
 
     void Redraw()
     {
@@ -105,44 +138,6 @@ public class NewsListView : ListView
     void PrintMessage(string message)
     {
         Messages.Insert(0, message);
-    }
-
-    public override void ViewRender()
-    {
-        base.ViewRender();
-
-        var product = Flagship;
-
-        var allfeatures = Products.GetAllFeaturesForProduct();
-        var competitors = Companies.GetDirectCompetitors(product, Q, true);
-
-
-        NotifyAboutFeatureDiff2(allfeatures, competitors);
-
-        var was = LastClients.FindIndex(c => c.isFlagship);
-        UpdateClients();
-
-        var now = LastClients.FindIndex(c => c.isFlagship);
-
-        if (now > was)
-        {
-            var competitor = LastClients[now - 1];
-            PrintMessage(Visuals.Negative($"{competitor.company.Name} has more users than us"));
-
-            //NotificationUtils.AddSimplePopup(Q, "You were outcompeted by " + competitor.company.Name, Visuals.Negative("They have more users, than us"));
-        }
-
-        if (now < was)
-        {
-            var competitorID = now + 1;
-
-            if (LastClients.Count > competitorID)
-            {
-                var competitor = LastClients[competitorID];
-                PrintMessage(Visuals.Positive($"We have more users than {competitor.company.Name}"));
-
-                //NotificationUtils.AddSimplePopup(Q, "You are outrunning " + competitor.company.Name, Visuals.Positive($"We have more users, than them"));
-            }
-        }
+        redraw = true;
     }
 }
