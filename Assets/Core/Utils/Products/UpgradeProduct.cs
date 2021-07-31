@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using UnityEngine;
 
 namespace Assets.Core
 {
@@ -12,9 +13,12 @@ namespace Assets.Core
         public static void TryToUpgradeFeature(GameEntity product, string featureName, GameContext gameContext)
         {
             var rating = GetFeatureRating(product, featureName);
+            var nextRating = Mathf.Clamp(rating + 1, 0, 10);
 
-            if (IsCanUpgradeFeatures(product) && rating <= 9)
-                ForceUpgradeFeature(product, featureName, rating + 1, gameContext);
+            if (IsCanUpgradeFeatures(product))
+            {
+                ForceUpgradeFeature(product, featureName, nextRating, gameContext);
+            }
         }
 
         public static void ForceUpgradeFeature(GameEntity product, string featureName, float value, GameContext gameContext)
@@ -24,29 +28,29 @@ namespace Assets.Core
             Companies.Pay(product, GetFeatureUpgradeCost(), "Feature");
 
             // Update Market Requirements AndNotifyAllProductsAboutChanges
-            NotifyAllProductsAboutChanges(product, featureName, value, gameContext);
+            NotifyAllProductsAboutMarketRequirementsChanges(product, featureName, value, gameContext);
         }
 
-        public static void NotifyAllProductsAboutChanges(GameEntity product, string featureName, float value, GameContext gameContext)
+        public static void NotifyAllProductsAboutMarketRequirementsChanges(GameEntity product, string featureName, float value, GameContext gameContext)
         {
             var niche = Markets.Get(gameContext, product);
-            var index = product.features.Upgrades.Keys.ToList().IndexOf(featureName);
+            //var index = product.features.Upgrades.Keys.ToList().IndexOf(featureName);
 
             Markets.GetMarketRequirements(gameContext, niche);
 
-            if (niche.marketRequirements.Features[index] < value)
+            /*if (niche.marketRequirements.Features[index] < value)
             {
                 // new leader!
                 // update data
                 niche.marketRequirements.Features[index] = value;
 
                 // notify everyone about updates
-                var competitors = Companies.GetDirectCompetitors(product, gameContext, true);
 
-                foreach (var c in competitors)
-                {
-                    c.marketRequirements.Features = niche.marketRequirements.Features;
-                }
+            }*/
+
+            foreach (var c in Companies.GetDirectCompetitors(product, gameContext, true))
+            {
+                c.marketRequirements.Features = Markets.CopyMarketRequirements(niche.marketRequirements.Features);
             }
         }
 

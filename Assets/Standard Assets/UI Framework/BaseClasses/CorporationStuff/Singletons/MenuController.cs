@@ -13,7 +13,7 @@ public class MenuController : View
 
     private void OnEnable()
     {
-        Debug.Log("OnEnable MenuController");
+        //Debug.Log("OnEnable MenuController");
     }
 
     private void OnDisable()

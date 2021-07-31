@@ -25,8 +25,6 @@ public class MarketingChannelController : ButtonController
         var task = new TeamTaskChannelActivity(channelId, Marketing.GetChannelCost(product, channelId));
         var cost = Teams.GetTaskCost(product, task, Q);
 
-        Debug.Log("Cost " + Format.Money(cost) + " " + channelId);
-
         if (Marketing.IsActiveInChannel(product, channelId))
         {
             Debug.Log("Is active already");
@@ -42,12 +40,8 @@ public class MarketingChannelController : ButtonController
             return;
         }
 
-        Debug.Log("Marketing controller");
-        //if (Teams.IsEnoughResourcesForTask(product, task, Q))
         if (Companies.IsEnoughResources(MyCompany, cost))
         {
-            Debug.Log("Have resources");
-
             //relay.AddPendingTask(task);
             Teams.AddTeamTask(product, CurrentIntDate, Q, 0, task);
 

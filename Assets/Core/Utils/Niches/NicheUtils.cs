@@ -20,57 +20,6 @@ namespace Assets.Core
             return e;
         }
 
-        public static List<float> CalculateMarketRequirements(GameEntity niche, GameContext gameContext, NewProductFeature[] allFeatures)
-        {
-            var competitors = Markets.GetProductsOnMarket(niche, gameContext);
-            var features = allFeatures.ToList().Select(f => 0f).ToList();
-
-            if (competitors.Any())
-            {
-                for (var i = 0; i < allFeatures.Length; i++)
-                {
-                    var f = allFeatures[i];
-
-                    features[i] = competitors.Select(c => Products.GetFeatureRating(c, f.Name)).Max();
-                }
-            }
-
-            return features;
-        }
-
-        public static MarketRequirementsComponent GetMarketRequirements(GameContext gameContext, GameEntity niche)
-        {
-            var allFeatures = Products.GetAllFeaturesForProduct();
-
-            if (!niche.hasMarketRequirements)
-                niche.AddMarketRequirements(allFeatures.Select(f => 0f).ToList());
-
-            // is Empty list
-            if (niche.marketRequirements.Features.Sum() == 0)
-            {
-            }
-            niche.ReplaceMarketRequirements(CalculateMarketRequirements(niche, gameContext, allFeatures));
-
-            return niche.marketRequirements;
-        }
-
-        public static MarketRequirementsComponent GetMarketRequirementsForCompany(GameContext gameContext, GameEntity c)
-        {
-            var niche = Markets.Get(gameContext, c);
-            var reqs = Markets.GetMarketRequirements(gameContext, niche);
-
-            if (!c.hasMarketRequirements)
-            {
-                /*var niche = Markets.Get(gameContext, c);
-                var reqs = Markets.GetMarketRequirements(niche);*/
-
-                c.AddMarketRequirements(reqs.Features);
-            }
-
-            return reqs;
-            return c.marketRequirements;
-        }
-
         public static GameEntity[] GetIndustries(GameContext gameContext)
         {
             return gameContext.GetEntities(GameMatcher.Industry);

@@ -25,37 +25,40 @@ public class FeatureView2 : View
     {
         Feature = newProductFeature;
 
-        var competitors = Companies.GetDirectCompetitors(Flagship, Q, true);
-        var upgrades = competitors.Select(c => Visuals.Colorize((int)Products.GetFeatureRating(c, Feature.Name) + "", c.isFlagship ? Colors.COLOR_BEST : Colors.COLOR_NEUTRAL));
-        var maxLVL = competitors.Max(c => Products.GetFeatureRating(c, Feature.Name));
+        var competitors = Markets.GetProductsOnMarket(Q, Flagship);
 
-        var leader = competitors.First(c => Products.GetFeatureRating(c, Feature.Name) == maxLVL);
-        var companyName = leader.company.Name;
-
-        var space = "      ";
-
+        var maxLVL = Markets.GetMaxFeatureLVL(competitors, Feature.Name); // competitors.Max(c => Products.GetFeatureRating(c, Feature.Name));
         var rating = Products.GetFeatureRating(Flagship, Feature.Name);
 
-        var marketRequirements = Markets.GetMarketRequirementsForCompany(Q, Flagship);
-        var featureIndex = Products.GetAllFeaturesForProduct().Select(f => f.Name).ToList().IndexOf(Feature.Name);
+        //var marketRequirements = Markets.GetMarketRequirementsForCompany(Q, Flagship);
+        //var featureIndex = Products.GetAllFeaturesForProduct().Select(f => f.Name).ToList().IndexOf(Feature.Name);
 
-        var maxFeature = marketRequirements.Features[featureIndex];
+        var maxFeature = (int)maxLVL; // marketRequirements.Features[featureIndex];
+
         FeatureName.text = Feature.Name;
-        Rating.text = rating + " / " + (int)maxFeature + "LVL";
-        Rating.color = Visuals.GetGradientColor(0, maxFeature, rating);
 
+        Rating.text = rating + " / " + maxFeature + "LVL";
+        Rating.color = Visuals.GetGradientColor(0, maxFeature, rating);
 
         RenderFeatureBenefit(rating);
 
-        
-        Upgrades.text = string.Join($"{space}|{space}", upgrades);
-        Hide(Upgrades);
+        // Set up controller
+        UpgradeFeatureController.SetEntity(Feature);
 
+
+        // Hide
+        var leader = competitors.First(c => Products.GetFeatureRating(c, Feature.Name) == maxLVL);
+
+        var companyName = leader.company.Name;
         Leader.text = Visuals.Colorize(companyName, leader.isFlagship ? Colors.COLOR_BEST : Colors.COLOR_NEUTRAL) + "\n" + (int)maxLVL;
         You.text = "" + rating;
         Benefit.text = $"+{Visuals.Positive("5% growth")}";
 
-        UpgradeFeatureController.SetEntity(Feature);
+
+        var space = "      ";
+        var upgrades = competitors.Select(c => Visuals.Colorize((int)Products.GetFeatureRating(c, Feature.Name) + "", c.isFlagship ? Colors.COLOR_BEST : Colors.COLOR_NEUTRAL));
+        Upgrades.text = string.Join($"{space}|{space}", upgrades);
+        Hide(Upgrades);
     }
 
     void RenderFeatureBenefit(float rating)

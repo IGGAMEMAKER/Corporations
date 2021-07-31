@@ -9,9 +9,10 @@ namespace Assets.Core
         {
             var competitors = GetCompetitorsOf(company, gameContext, includeSelf);
 
-            if (company.hasProduct && !Marketing.GetPositioning(company).isGlobal)
+            //  && !Marketing.GetPositioning(company).isGlobal
+            if (company.hasProduct)
             {
-                return competitors.Where(c => IsDirectCompetitor(c, company));
+                return competitors; // .Where(c => IsDirectCompetitor(c, company));
                 //return GetCompetitionInSegment(company, gameContext, company.productPositioning.Positioning, includeSelf);
             }
             else

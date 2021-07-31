@@ -160,7 +160,6 @@ namespace Assets.Core
                 // campaign expired
                 if (task.EndDate <= date)
                 {
-                    Debug.Log("Campaign expired");
                     removableTasks.Add(new SlotInfo { SlotId = slotId, TeamId = teamId });
                 }
             }

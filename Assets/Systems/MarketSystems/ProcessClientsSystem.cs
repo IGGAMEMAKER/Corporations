@@ -8,7 +8,6 @@ public class ProcessClientsSystem : OnPeriodChange
 
     protected override void Execute(List<GameEntity> entities)
     {
-        Debug.Log("ProcessClientsSystem");
         var companies = Companies.GetProductCompanies(gameContext);
 
         foreach (var product in companies)

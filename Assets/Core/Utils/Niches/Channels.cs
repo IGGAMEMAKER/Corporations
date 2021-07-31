@@ -77,7 +77,7 @@ namespace Assets.Core
                 {
                     if (product.isFlagship)
                     {
-                        Debug.Log("not enough money for " + c.ID + " " + Format.Money(adCost * 3) + " spare=" + Format.Money(spareBudget2));
+                        //Debug.Log("not enough money for " + c.ID + " " + Format.Money(adCost * 3) + " spare=" + Format.Money(spareBudget2));
                     }
                     break;
                 }

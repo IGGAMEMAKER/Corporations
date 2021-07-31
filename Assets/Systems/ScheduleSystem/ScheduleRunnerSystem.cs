@@ -68,6 +68,11 @@ public class ScheduleRunnerSystem : IExecuteSystem
         }
     }
 
+    void UpdateSpeed(int change)
+    {
+        DateEntity.speed.Speed += change;
+    }
+
     void CheckPressedButtons()
     {
         // on right click
@@ -77,15 +82,12 @@ public class ScheduleRunnerSystem : IExecuteSystem
         if (Input.GetKeyDown(KeyCode.Space))
             ToggleTimer();
 
-        //if (Input.GetKeyUp(KeyCode.Space))
-        //    ToggleTimer();
-
-        //if (Input.GetKeyUp(KeyCode.KeypadPlus) && currentSpeed < 18)
-        //    UpdateSpeed(2);
+        if (Input.GetKeyUp(KeyCode.KeypadPlus) && currentSpeed < 18)
+            UpdateSpeed(2);
         ////currentSpeed += 2;
 
-        //if (Input.GetKeyUp(KeyCode.KeypadMinus) && currentSpeed > 2)
-        //    UpdateSpeed(-1);
+        if (Input.GetKeyUp(KeyCode.KeypadMinus) && currentSpeed > 2)
+            UpdateSpeed(-1);
         //    //currentSpeed--;
     }
 

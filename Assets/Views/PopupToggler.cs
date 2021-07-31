@@ -17,11 +17,11 @@ public class PopupToggler : View
 
         if (hasPopups)
         {
-            Debug.Log("Popup toggler, has popups: " + string.Join(",", NotificationUtils.GetPopups(Q).Select(p => p.PopupType.ToString())));
+            //Debug.Log("Popup toggler, has popups: " + string.Join(",", NotificationUtils.GetPopups(Q).Select(p => p.PopupType.ToString())));
             ScheduleUtils.PauseGame(Q);
 
             var popup = NotificationUtils.GetPopupMessage(Q);
-            Debug.Log("Popup toggler, popup: " + popup.PopupType.ToString());
+            //Debug.Log("Popup toggler, popup: " + popup.PopupType.ToString());
 
             Show(PopupView);
             PopupView.SetPopup(popup, messagesCount);
