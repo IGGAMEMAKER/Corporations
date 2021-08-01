@@ -13,14 +13,16 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
     void ManageChannels(GameEntity product)
     {
-        // TODO COPIED FROM MarketingChannelController.cs
         if (Marketing.IsNeedsMoreMarketersForCampaign(product))
         {
             TryHireWorker(product, WorkerRole.Marketer);
 
-            Debug.Log(product.company.Name + "needs to Hire more marketers!");
-            return;
+            if (Marketing.IsNeedsMoreMarketersForCampaign(product))
+                return;
         }
+
+
+        // TODO COPIED FROM MarketingChannelController.cs
 
         //var channels = Markets.GetAffordableMarketingChannels(product, gameContext);
         var channels = Markets.GetMaintainableMarketingChannels(product, gameContext)

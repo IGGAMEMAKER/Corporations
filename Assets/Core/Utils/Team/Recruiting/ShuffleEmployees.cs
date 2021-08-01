@@ -160,8 +160,10 @@ namespace Assets.Core
 
             if (Economy.IsCanMaintain(company, gameContext, salary))
             {
+                // hire
                 var human = HireManager(company, gameContext, role, t.ID);
 
+                // set salary
                 SetJobOffer(human, company, new JobOffer(salary), t.ID, gameContext);
 
                 return true;

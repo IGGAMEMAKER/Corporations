@@ -19,7 +19,12 @@ public class FlagshipCompetitorsInDevelopmentScreenListView : ListView
         {
             header = Visuals.Colorize(header, Colors.COLOR_COMPANY_WHERE_I_AM_CEO);
         }
-        var text = $"{header} {Format.Minify(users)} users\n";
+
+        var workers = product.team.Teams.Select(t1 => t1.Managers.Count).Sum();
+        var marketers = product.team.Teams.Select(t1 => t1.Roles.Values.Count(r => r == WorkerRole.Marketer)).Sum();
+        var coders = product.team.Teams.Select(t1 => t1.Roles.Values.Count(r => r == WorkerRole.Programmer)).Sum();
+
+        var text = $"{header} {Format.Minify(users)} users & ({coders}/{marketers})\n";
 
         foreach (var f in Products.GetAllFeaturesForProduct())
         {
@@ -31,6 +36,9 @@ public class FlagshipCompetitorsInDevelopmentScreenListView : ListView
         }
 
         t.GetComponent<Text>().text = text;
+        //AddIfAbsent<Button>(t.gameObject);
+        //AddIfAbsent<LinkToProjectView>(t.gameObject).CompanyId = product.company.Id;
+        AddIfAbsent<Hint>().SetHint(Economy.GetProfit(Q, product, true).ToString());
     }
 
     public override void ViewRender()

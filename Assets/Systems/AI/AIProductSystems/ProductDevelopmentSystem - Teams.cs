@@ -1,5 +1,6 @@
 ﻿using System;
 using Assets.Core;
+using UnityEngine;
 
 public partial class ProductDevelopmentSystem : OnPeriodChange
 {
@@ -9,9 +10,6 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
         {
             var time = DateTime.Now;
 
-            MeasureTag("Team Upgrades", time);
-
-            time = DateTime.Now;
             Teams.FillTeam(product, gameContext, t);
 
             MeasureTag("Teams Fill", time);
@@ -20,9 +18,16 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
     bool TryHireWorker(GameEntity product, WorkerRole role)
     {
-        var maintenanceCost = 1f;
-        var index = product.team.Teams
-            .FindIndex(t => Teams.GetDirectManagementCostOfTeam(t, product, gameContext).Sum() > maintenanceCost);
+        var maintenanceCost = 1.3f;
+        var index = product.team.Teams.FindIndex(t =>
+        {
+            var cost = Teams.GetDirectManagementCostOfTeam(t, product, gameContext).Sum();
+
+            if (cost == 0 && t.Managers.Count == 0)
+                return true;
+
+            return cost > maintenanceCost;
+        });
 
         if (index == -1)
         {

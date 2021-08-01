@@ -32,6 +32,9 @@ public partial class ProductDevelopmentSystem
     {
         var features = Products.GetUpgradeableRetentionFeatures(product);
 
+        Monetize(product);
+
+        return;
         foreach (var f in features)
         {
             Products.TryToUpgradeFeature(product, f, gameContext);
