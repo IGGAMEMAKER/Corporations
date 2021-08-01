@@ -11,38 +11,38 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             Marketing.ReleaseApp(gameContext, product);
     }
 
-    IEnumerable<ChannelInfo> GetNotActiveChannels(GameEntity product)
-    {
-        // var channels = Markets.GetAllMarketingChannels(product);
-        var channels = Markets.GetTheoreticallyPossibleMarketingChannels(product);
-
-        return channels.OrderBy(c => c.costPerAd);
-    }
-
-    ChannelInfo GetBestChannel(GameEntity product)
-    {
-        return Markets.GetAffordableMarketingChannels(product, gameContext).FirstOrDefault();
-        var spareBudget = Economy.GetSpareBudget(product, gameContext, 1);
-        
-        // return GetNotActiveChannels(product).FirstOrDefault();
-        return GetNotActiveChannels(product).FirstOrDefault(c => (long) c.costPerAd < spareBudget);
-        // return GetNotActiveChannels(product).FirstOrDefault(c => CanMaintain(product, (long) c.costPerAd));
-    }
-    
     void ManageChannels(GameEntity product)
     {
-        // var bestChannel = GetBestChannel(product);
-        var channels = Markets.GetAffordableMarketingChannels(product, gameContext)
-        //     .OrderBy(c => Marketing.GetChannelCostPerUser(product, c.ID))
-        //     .ThenByDescending(c => Marketing.GetChannelCost(product, c.ID))
-        ;
+        var channels = Markets.GetAffordableMarketingChannels(product, gameContext);
 
-        
-        if (channels.Any())
+        if (!channels.Any())
+            return;
+
+        var c = channels.First();
+
+        // TODO COPIED FROM MarketingChannelController.cs
+
+        //TryAddTask(product, TeamTaskChannelActivity.FromChannel(c));
+        var channelId = c.ID;
+        var payer = Companies.GetPayer(product, gameContext);
+
+        if (Marketing.IsActiveInChannel(product, channelId))
         {
-            var c = channels.First();
+            return;
+        }
 
-            TryAddTask(product, TeamTaskChannelActivity.FromChannel(c));
+        if (Marketing.IsNeedsMoreMarketersForCampaign(product))
+        {
+            Debug.Log(product.company.Name + "needs to Hire more marketers!");
+            return;
+        }
+
+        var task = TeamTaskChannelActivity.FromChannel(c); // new TeamTaskChannelActivity(channelId, Marketing.GetChannelCost(product, channelId));
+        var cost = Teams.GetTaskCost(product, task, gameContext);
+
+        if (Companies.IsEnoughResources(payer, cost))
+        {
+            Teams.AddTeamTask(product, ScheduleUtils.GetCurrentDate(gameContext), gameContext, 0, task);
         }
     }
 }

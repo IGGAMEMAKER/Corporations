@@ -30,19 +30,20 @@ public class TeamButtonsController : View
         var team = product.team.Teams[SelectedTeam];
 
 
-        var mainManagerRole = Teams.GetMainManagerRole(team);
         bool hasLeadManager = Teams.HasMainManagerInTeam(team);
-        var formattedManager = Humans.GetFormattedRole(mainManagerRole);
 
 
         bool isCoreTeam = SelectedTeam == 0;
 
+        bool isUpToManagerLimit = Teams.GetDirectManagementCostOfTeam(core, product, Q).Sum() < 1.2f;
+        bool grownUp = isUpToManagerLimit; // Teams.HasRole(WorkerRole.Marketer, core) && Teams.HasRole(WorkerRole.Programmer, core) && isUpToManagerLimit;
+        bool hasTeams = product.team.Teams.Count > 1;
 
         Draw(Hire, true); // and has enough MP
         Draw(ManagerFocus, hasLeadManager);
 
         AddNewTeam.SetProgress(progress);
-        Draw(AddNewTeam, isCoreTeam);
+        Draw(AddNewTeam, isCoreTeam && (grownUp || hasTeams));
 
         Draw(DetachTeam, !isCoreTeam);
 

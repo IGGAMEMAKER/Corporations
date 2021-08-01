@@ -522,7 +522,7 @@ public class TeamTaskChannelActivity : TeamTask
         this.ChannelCost = cost;
     }
     
-    public  static TeamTaskChannelActivity FromChannel(ChannelInfo channelInfo) => new TeamTaskChannelActivity(channelInfo.ID, (long)channelInfo.costPerAd); 
+    public static TeamTaskChannelActivity FromChannel(ChannelInfo channelInfo) => new TeamTaskChannelActivity(channelInfo.ID, (long)channelInfo.costPerAd); 
 }
 
 public class TeamTaskFeatureUpgrade : TeamTask

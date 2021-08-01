@@ -1,14 +1,18 @@
 ﻿using Assets.Core;
+using System.Linq;
 
 public partial class ProductDevelopmentSystem
 {
     void Monetize(GameEntity product)
     {
         var remainingFeatures = Products.GetUpgradeableMonetizationFeatures(product);
+        var churn = Marketing.GetChurnRate(product, gameContext);
 
-        foreach (var feature in remainingFeatures)
+        if (remainingFeatures.Any() && churn < 4)
         {
-            TryAddTask(product, new TeamTaskFeatureUpgrade(feature));
+            var feature = remainingFeatures.First();
+
+            Products.TryToUpgradeFeature(product, feature, gameContext);
 
             Companies.LogSuccess(product, $"Added {feature.Name} for profit");
         }

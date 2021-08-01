@@ -26,6 +26,11 @@ namespace Assets.Core
             return product.companyMarketingActivities.Channels.Keys.Count;
         }
 
+        public static bool IsNeedsMoreMarketersForCampaign(GameEntity product)
+        {
+            return GetActiveChannelsCount(product) >= GetActiveChannelsLimit(product);
+        }
+
         public static bool IsActiveInChannel(GameEntity product, int channelId)
         {
             return product.companyMarketingActivities.Channels.ContainsKey(channelId);
@@ -61,13 +66,13 @@ namespace Assets.Core
 
                 if (Products.IsLeadingInFeature(company, f, null))
                 {
-                    b.Append("Leading in " + f.Name, 10);
+                    b.Append("Leading in " + f.Name, 40);
                     continue;
                 }
 
                 if (Products.IsUpgradedFeature(company, f.Name))
                 {
-                    b.Append(f.Name, 3);
+                    b.Append(f.Name, 10);
                 }
             }
 

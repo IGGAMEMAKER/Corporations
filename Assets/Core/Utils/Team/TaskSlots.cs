@@ -10,17 +10,6 @@ namespace Assets.Core
 
     public static partial class Teams
     {
-        public static bool HasFreeSlotForTeamTask(GameEntity product, TeamTask task)
-        {
-            return true;
-            var taskCost = GetTaskSlotCost(product, task);
-
-            if (taskCost == 0)
-                return true;
-
-            return GetOverallSlotsForTaskType(product, task) >= taskCost;
-        }
-
         public static int GetTaskSlotCost(GameEntity product, TeamTask task)
         {
             if (task.IsFeatureUpgrade || task.IsMarketingTask)

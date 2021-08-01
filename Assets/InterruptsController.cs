@@ -1,8 +1,5 @@
 using Assets.Core;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 public class InterruptsController : View
 {
@@ -28,6 +25,11 @@ public class InterruptsController : View
         Draw(UnhappyTeam, unhappyTeams);
         Draw(PromoteTeam, false);
 
+        RenderIterationProgress();
+    }
+
+    void RenderIterationProgress()
+    {
         var month = (int)C.PERIOD * 4;
         var ticking = CurrentIntDate % month;
 

@@ -20,41 +20,8 @@ public enum ProductActions
 
 public partial class ProductDevelopmentSystem : OnPeriodChange
 {
-    private static ProfilingComponent _profilingComponent;
-    public static ProfilingComponent MyProfiler
-    {
-        get
-        {
-            if (_profilingComponent == null)
-                _profilingComponent = Companies.GetProfilingComponent(Contexts.sharedInstance.game);
+    public ProductDevelopmentSystem(Contexts contexts) : base(contexts) { }
 
-            return _profilingComponent;
-        }
-    }
-    public ProductDevelopmentSystem(Contexts contexts) : base(contexts)
-    {
-        
-    }
-
-    public void Measure(string name, GameEntity product, DateTime time)
-    {
-        Measure(name + " " + product.company.Name, time);
-    }
-
-    public void Measure(string name, DateTime time, string tag = "", bool countInTagOnly = false)
-    {
-        Companies.Measure(name, time, MyProfiler, tag, countInTagOnly);
-    }
-
-    public void MeasureTag(string name, DateTime time)
-    {
-        Measure(name, time, name, true);
-    }
-
-    void Markup(string text = "-----------")
-    {
-        Companies.MeasureMarkup(MyProfiler, text);
-    }
 
     protected override void Execute(List<GameEntity> entities)
     {
@@ -113,6 +80,8 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
     void WorkOnGoal(GameEntity product, InvestmentGoal goal)
     {
         var actions = new List<ProductActions>();
+
+        actions.Add(ProductActions.HandleTeam);
 
         //Companies.Log(product, $"Working on goal: {goal.GetFormattedName()}");
 
@@ -298,41 +267,4 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
         return Economy.IsCanMaintainForAWhile(product, gameContext, cost, 1);
     }
 
-    void TryAddTask(GameEntity product, TeamTask teamTask)
-    {
-        var taskCost = Economy.GetTeamTaskCost(product, teamTask);
-
-        if (!CanMaintain(product, taskCost))
-            return;
-
-        // searching team for this task
-        int teamId = 0; // Teams.GetTeamIdForTask(product, teamTask);
-
-        if (!Teams.HasFreeSlotForTeamTask(product, teamTask))
-        {
-            // need to hire new team
-            var teamCost = Economy.GetSingleTeamCost();
-
-            if (CanMaintain(product, teamCost + taskCost))
-            {
-                if (teamTask.IsHighloadTask)
-                {
-                    TryAddTeam(product, TeamType.ServersideTeam);
-                    //Teams.AddTeam(product, gameContext, TeamType.ServersideTeam);
-                }
-                else
-                {
-                    TryAddTeam(product, TeamType.CrossfunctionalTeam);
-                    //Teams.AddTeam(product, gameContext, TeamType.CrossfunctionalTeam);
-                }
-
-                teamId = product.team.Teams.Count - 1;
-            }
-        }
-
-        if (Teams.HasFreeSlotForTeamTask(product, teamTask))
-        {
-            Teams.AddTeamTask(product, ScheduleUtils.GetCurrentDate(gameContext), gameContext, teamId, teamTask);
-        }
-    }
 }

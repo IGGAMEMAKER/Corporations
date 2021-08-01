@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class TeamScreenView : View
 {
-    public GameObject ManagerFocus;
-    public GameObject PromoteTeam;
+    public GameObject PreviousTeam;
+    public GameObject NextTeam;
 
     public Text Advices;
 
@@ -30,6 +30,9 @@ public class TeamScreenView : View
         Draw(PromoteTeam, false); // Teams.IsTeamPromotable(product, team));
         */
         Draw(FireTeam, SelectedTeam > 0);
+
+        Draw(PreviousTeam, Flagship.team.Teams.Count > 1);
+        Draw(NextTeam, Flagship.team.Teams.Count > 1);
 
         // --------------------------------------
         //RenderTeamStats(product);

@@ -38,7 +38,7 @@ namespace Assets.Core
         {
             var taskId = product.team.Teams[teamId].Tasks.Count;
 
-            if (!HasFreeSlotForTeamTask(product, task) || !CanExecuteTeamTask(product, task, gameContext))
+            if (!CanExecuteTeamTask(product, task, gameContext))
                 task.IsPending = true;
 
             AddTeamTask(product, date, gameContext, teamId, taskId, task);

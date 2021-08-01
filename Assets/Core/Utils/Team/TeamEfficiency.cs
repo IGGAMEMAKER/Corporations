@@ -66,6 +66,7 @@ namespace Assets.Core
         // -------------- MARKETING --------------------------------
         public static int GetMarketingTeamEfficiency(GameContext gameContext, GameEntity company, bool isUnique)
         {
+            return 100;
             var viableTeams = company.team.Teams
                 
                 // marketing teams only
@@ -77,7 +78,7 @@ namespace Assets.Core
             if (!viableTeams.Any())
                 return 30;
 
-            return (int)viableTeams.Average() * (isUnique ? 2 : 1);
+            return (int)viableTeams.Average(); // * (isUnique ? 2 : 1);
         }
 
 

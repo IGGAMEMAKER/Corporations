@@ -14,16 +14,9 @@ public class MarketingChannelController : ButtonController
 
     public override void Execute()
     {
-        var channel = Markets.GetMarketingChannel(Q, ChannelInfo.ID);
-
-        var product = Flagship;
-
-        //var relay = FindObjectOfType<FlagshipRelayInCompanyView>();
-
         var channelId = ChannelInfo.ID;
-
-        var task = new TeamTaskChannelActivity(channelId, Marketing.GetChannelCost(product, channelId));
-        var cost = Teams.GetTaskCost(product, task, Q);
+        var product = Flagship;
+        var payer = MyCompany;
 
         if (Marketing.IsActiveInChannel(product, channelId))
         {
@@ -31,18 +24,17 @@ public class MarketingChannelController : ButtonController
             return;
         }
 
-        var active = Marketing.GetActiveChannelsCount(product);
-        var limit = Marketing.GetActiveChannelsLimit(product);
-
-        if (active >= limit)
+        if (Marketing.IsNeedsMoreMarketersForCampaign(product))
         {
             NotificationUtils.AddSimplePopup(Q, "Hire more marketers!");
             return;
         }
 
-        if (Companies.IsEnoughResources(MyCompany, cost))
+        var task = TeamTaskChannelActivity.FromChannel(ChannelInfo); // new TeamTaskChannelActivity(channelId, Marketing.GetChannelCost(product, channelId));
+        var cost = Teams.GetTaskCost(product, task, Q);
+
+        if (Companies.IsEnoughResources(payer, cost))
         {
-            //relay.AddPendingTask(task);
             Teams.AddTeamTask(product, CurrentIntDate, Q, 0, task);
 
             Animate(Visuals.Negative($"-{Format.Money(cost)}"));
