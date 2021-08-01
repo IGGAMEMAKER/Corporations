@@ -7,7 +7,7 @@ public class MarketingEfficiencyView : UpgradedParameterView
     {
         var product = Flagship;
 
-        var eff = Teams.GetMarketingEfficiency(product);
+        /*var eff = Teams.GetMarketingEfficiency(product);
 
         var marketingOrientedTeams = product.team.Teams.Where(t => Teams.IsTaskSuitsTeam(t.TeamType, Teams.GetMarketingTaskMockup()));
 
@@ -16,9 +16,9 @@ public class MarketingEfficiencyView : UpgradedParameterView
         var competitionPhrase = Visuals.Positive("NO COMPETITORS: X2\n\n");
 
         if (!product.teamEfficiency.Efficiency.isUniqueCompany)
-            competitionPhrase = "";
+            competitionPhrase = "";*/
 
-        return $"Average marketing efficiency is: {eff}%\n\n{effs}\n\n{competitionPhrase}Hire better marketing leads to increase this value";
+        return $"Average marketing efficiency is????"; //: {eff}%\n\n{effs}\n\n{competitionPhrase}Hire better marketing leads to increase this value";
     }
 
     public override string RenderValue()

@@ -33,11 +33,10 @@ public class MarketingChannelController : ButtonController
         var task = TeamTaskChannelActivity.FromChannel(ChannelInfo); // new TeamTaskChannelActivity(channelId, Marketing.GetChannelCost(product, channelId));
         var cost = Teams.GetTaskCost(product, task, Q);
 
-        if (Companies.IsEnoughResources(payer, cost))
-        {
-            Teams.AddTeamTask(product, CurrentIntDate, Q, 0, task);
-
-            Animate(Visuals.Negative($"-{Format.Money(cost)}"));
-        }
+        /*if (Companies.IsEnoughResources(payer, cost))
+        {*/
+            if (Teams.AddTeamTask(product, CurrentIntDate, Q, 0, task))
+                Animate(Visuals.Negative($"-{Format.Money(cost)}"));
+        //}
     }
 }

@@ -32,7 +32,7 @@ public class TeamsListView : ListView
 
         task = relay.TeamTask;
 
-        var teams = company.team.Teams.Where(t => Teams.IsTaskSuitsTeam(t.TeamType, task));
+        var teams = company.team.Teams;
 
         RenderTableLabels(task);
 

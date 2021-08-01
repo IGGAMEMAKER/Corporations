@@ -13,36 +13,28 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
     void ManageChannels(GameEntity product)
     {
-        var channels = Markets.GetAffordableMarketingChannels(product, gameContext);
-
-        if (!channels.Any())
-            return;
-
-        var c = channels.First();
-
         // TODO COPIED FROM MarketingChannelController.cs
-
-        //TryAddTask(product, TeamTaskChannelActivity.FromChannel(c));
-        var channelId = c.ID;
-        var payer = Companies.GetPayer(product, gameContext);
-
-        if (Marketing.IsActiveInChannel(product, channelId))
-        {
-            return;
-        }
-
         if (Marketing.IsNeedsMoreMarketersForCampaign(product))
         {
+            TryHireWorker(product, WorkerRole.Marketer);
+
             Debug.Log(product.company.Name + "needs to Hire more marketers!");
             return;
         }
 
-        var task = TeamTaskChannelActivity.FromChannel(c); // new TeamTaskChannelActivity(channelId, Marketing.GetChannelCost(product, channelId));
-        var cost = Teams.GetTaskCost(product, task, gameContext);
+        //var channels = Markets.GetAffordableMarketingChannels(product, gameContext);
+        var channels = Markets.GetMaintainableMarketingChannels(product, gameContext)
+            .Where(c => !Marketing.IsActiveInChannel(product, c.ID))
+            .OrderByDescending(c => c.Batch)
+            .Take(8);
 
-        if (Companies.IsEnoughResources(payer, cost))
-        {
-            Teams.AddTeamTask(product, ScheduleUtils.GetCurrentDate(gameContext), gameContext, 0, task);
-        }
+        if (!channels.Any())
+            return;
+
+        var channel = channels.First();
+
+        var task = TeamTaskChannelActivity.FromChannel(channel); // new TeamTaskChannelActivity(channelId, Marketing.GetChannelCost(product, channelId));
+
+        Teams.AddTeamTask(product, ScheduleUtils.GetCurrentDate(gameContext), gameContext, 0, task);
     }
 }

@@ -10,17 +10,6 @@ namespace Assets.Core
 
     public static partial class Teams
     {
-        public static int GetTaskSlotCost(GameEntity product, TeamTask task)
-        {
-            if (task.IsFeatureUpgrade || task.IsMarketingTask)
-                return 1;
-
-            if (task.IsHighloadTask && (task as TeamTaskSupportFeature).SupportFeature.SupportBonus.Max >= 2_000_000)
-                return 1;
-
-            return 0;
-        }
-
         public static int GetOverallSlotsForTaskType(GameEntity product, TeamTask task)
         {
             return GetMaxSlotsForTaskType(product, task) - GetActiveSameTaskTypeSlots(product, task); // GetAllActiveTaskSlots(product);
@@ -66,18 +55,10 @@ namespace Assets.Core
 
         public static int GetSlotsForTask(TeamInfo team, TeamTask task)
         {
-            if (IsTaskSuitsTeam(team.TeamType, task))
-            {
-                if (IsUniversalTeam(team.TeamType))
-                    return GetTeamTasks(team);
-                
-                return GetTeamTasks(team) * 2;
-            }
+            if (IsUniversalTeam(team.TeamType))
+                return GetTeamTasks(team);
 
-            // group by team type
-            // group by task type
-
-            return 0;
+            return GetTeamTasks(team) * 2;
         }
 
         public static int GetPendingMarketingChannelsAmount(GameEntity product)

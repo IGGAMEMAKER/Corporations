@@ -6,34 +6,6 @@ namespace Assets.Core
 {
     public static partial class Teams
     {
-        public static bool IsTaskSuitsTeam(TeamType teamType, TeamTask teamTask)
-        {
-            if (IsUniversalTeam(teamType))
-            {
-                return true;
-
-                // universal teams cannot run datacenters
-                if (teamTask.IsHighloadTask && (teamTask as TeamTaskSupportFeature).SupportFeature.SupportBonus.Max > 1_000_000)
-                    return false;
-
-                return true;
-            }
-
-            if (teamTask.IsFeatureUpgrade)
-                return teamType == TeamType.DevelopmentTeam;
-
-            if (teamTask.IsMarketingTask)
-                return teamType == TeamType.MarketingTeam;
-
-            if (teamTask.IsSupportTask)
-                return teamType == TeamType.SupportTeam;
-
-            if (teamTask.IsHighloadTask)
-                return teamType == TeamType.ServersideTeam;
-
-            return false;
-        }
-
         public static bool AddTeamTask(GameEntity product, int date, GameContext gameContext, int teamId, TeamTask task)
         {
             var taskId = product.team.Teams[teamId].Tasks.Count;
@@ -41,7 +13,8 @@ namespace Assets.Core
             if (!CanExecuteTeamTask(product, task, gameContext))
                 task.IsPending = true;
 
-            AddTeamTask(product, date, gameContext, teamId, taskId, task);
+            if (!task.IsPending)
+                AddTeamTask(product, date, gameContext, teamId, taskId, task);
 
             return task.IsPending;
         }

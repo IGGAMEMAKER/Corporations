@@ -130,10 +130,10 @@ namespace Assets.Core
 
         public static void FillTeam(GameEntity company, GameContext gameContext, TeamInfo t)
         {
-            var necessaryRoles = GetMissingRoles(t).ToList();
+            var necessaryRoles = GetMissingRolesFull(t); //.ToList();
 
-            necessaryRoles.Add(WorkerRole.Programmer);
-            necessaryRoles.Add(WorkerRole.Marketer);
+            /*necessaryRoles.Add(WorkerRole.Programmer);
+            necessaryRoles.Add(WorkerRole.Marketer);*/
 
             if (necessaryRoles.Any())
             {
@@ -153,7 +153,7 @@ namespace Assets.Core
             return necessaryRoles.ToList()[Random.Range(0, count)];
         }
 
-        static void TryToHire(GameEntity company, GameContext gameContext, TeamInfo t, WorkerRole role)
+        public static bool TryToHire(GameEntity company, GameContext gameContext, TeamInfo t, WorkerRole role)
         {
             var rating = GetTeamAverageStrength(company, gameContext) + Random.Range(-2, 3);
             var salary = GetSalaryPerRating(rating);
@@ -163,7 +163,11 @@ namespace Assets.Core
                 var human = HireManager(company, gameContext, role, t.ID);
 
                 SetJobOffer(human, company, new JobOffer(salary), t.ID, gameContext);
+
+                return true;
             }
+
+            return false;
         }
     }
 }

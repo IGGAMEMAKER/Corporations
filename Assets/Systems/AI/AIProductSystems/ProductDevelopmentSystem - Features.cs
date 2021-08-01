@@ -34,7 +34,6 @@ public partial class ProductDevelopmentSystem
 
         foreach (var f in features)
         {
-            //TryAddTask(product, new TeamTaskFeatureUpgrade(f));
             Products.TryToUpgradeFeature(product, f, gameContext);
         }
     }

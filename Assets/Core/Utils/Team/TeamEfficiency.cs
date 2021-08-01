@@ -67,18 +67,6 @@ namespace Assets.Core
         public static int GetMarketingTeamEfficiency(GameContext gameContext, GameEntity company, bool isUnique)
         {
             return 100;
-            var viableTeams = company.team.Teams
-                
-                // marketing teams only
-                .Where(t => IsTaskSuitsTeam(t.TeamType, GetMarketingTaskMockup())) //  IsUniversalTeam(t.TeamType) || t.TeamType == TeamType.MarketingTeam
-
-                .Select(t => GetMarketingTeamEfficiency(gameContext, company, t) / 100)
-                ;
-
-            if (!viableTeams.Any())
-                return 30;
-
-            return (int)viableTeams.Average(); // * (isUnique ? 2 : 1);
         }
 
 

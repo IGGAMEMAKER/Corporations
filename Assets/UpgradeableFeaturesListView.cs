@@ -37,7 +37,7 @@ public class UpgradeableFeaturesListView : ListView
     {
         if (featureCount == 0)
         {
-            bool hasFreeSlot = Teams.HasFreeSlotForTeamTask(Flagship, Teams.GetDevelopmentTaskMockup());
+            bool hasFreeSlot = true;
 
             if (hasFreeSlot)
             {

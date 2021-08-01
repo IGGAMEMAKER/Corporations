@@ -77,105 +77,6 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
         }
     }
 
-    void WorkOnGoal(GameEntity product, InvestmentGoal goal)
-    {
-        var actions = new List<ProductActions>();
-
-        actions.Add(ProductActions.HandleTeam);
-
-        //Companies.Log(product, $"Working on goal: {goal.GetFormattedName()}");
-
-        switch (goal.InvestorGoalType)
-        {
-            case InvestorGoalType.ProductPrototype:
-                actions.Add(ProductActions.Features);
-
-                break;
-
-            case InvestorGoalType.ProductFirstUsers:
-                actions.Add(ProductActions.GrabUsers);
-                actions.Add(ProductActions.Features);
-
-                break;
-
-            case InvestorGoalType.ProductBecomeMarketFit:
-                actions.Add(ProductActions.Features);
-                actions.Add(ProductActions.GrabUsers);
-                break;
-
-            //case InvestorGoalType.ProductPrepareForRelease:
-            //    actions.Add(ProductActions.HandleTeam);
-            //    actions.Add(ProductActions.ReleaseApp);
-            //    break;
-
-            case InvestorGoalType.ProductRelease:
-                actions.Add(ProductActions.HandleTeam);
-                actions.Add(ProductActions.ReleaseApp);
-
-                break;
-
-            case InvestorGoalType.ProductStartMonetising:
-                actions.Add(ProductActions.Monetise);
-                actions.Add(ProductActions.Features);
-
-                actions.Add(ProductActions.GrabUsers);
-                actions.Add(ProductActions.HandleTeam);
-                break;
-
-            case InvestorGoalType.ProductRegainLoyalty:
-                actions.Add(ProductActions.Features);
-                actions.Add(ProductActions.RestoreLoyalty);
-
-                actions.Add(ProductActions.HandleTeam);
-                break;
-
-            case InvestorGoalType.GainMoreSegments:
-                actions.Add(ProductActions.RestoreLoyalty);
-                actions.Add(ProductActions.Features);
-                actions.Add(ProductActions.GrabUsers);
-
-                actions.Add(ProductActions.HandleTeam);
-                break;
-
-            case InvestorGoalType.GrowUserBase:
-                actions.Add(ProductActions.GrabUsers);
-                actions.Add(ProductActions.Features);
-
-                actions.Add(ProductActions.HandleTeam);
-                break;
-
-            case InvestorGoalType.GrowIncome:
-                actions.Add(ProductActions.Features);
-                actions.Add(ProductActions.GrabUsers);
-
-                actions.Add(ProductActions.HandleTeam);
-                break;
-
-            case InvestorGoalType.BecomeProfitable:
-                actions.Add(ProductActions.GrabUsers);
-                actions.Add(ProductActions.Features);
-                actions.Add(ProductActions.HandleTeam);
-
-                break;
-
-            default:
-                Companies.Log(product, "DEFAULT goal");
-
-                actions.Add(ProductActions.GrabUsers);
-                actions.Add(ProductActions.Features);
-
-                actions.Add(ProductActions.HandleTeam);
-                break;
-        }
-
-        foreach (var action in actions)
-        {
-            ManageProduct(action, product);
-        }
-
-        //Investments.CompleteGoal(product, gameContext, goal);
-    }
-
     private void ManageProduct(ProductActions action, GameEntity product)
     {
         var time = DateTime.Now;
@@ -233,38 +134,22 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
     void PickNewGoalIfThereAreNoGoals(GameEntity product)
     {
-        if (product.companyGoal.Goals.Count == 0)
+        if (product.companyGoal.Goals.Any())
+            return;
+
+        var time = DateTime.Now;
+
+        var pickableGoals = Investments.GetNewGoals(product, gameContext);
+
+        if (pickableGoals.Any())
         {
-            var time = DateTime.Now;
-            
-            var pickableGoals = Investments.GetNewGoals(product, gameContext);
-
-            var max = pickableGoals.Count;
-
-            if (max == 0)
-            {
-                Companies.LogFail(product, "CANNOT GET A GOAL FOR: " + product.company.Name + "\n\nCompleted goals\n\n" + string.Join(", ", product.completedGoals.Goals));
-            }
-            else
-            {
-                //Companies.Log(product, $"Choosing between {max} goals: {string.Join(", ", pickableGoals.Select(g => g.GetFormattedName()))}");
-
-                Investments.AddCompanyGoal(product, gameContext, pickableGoals[UnityEngine.Random.Range(0, max)]);
-            }
-            
-            MeasureTag("Pick Goal ", time);
+            Investments.AddCompanyGoal(product, gameContext, RandomUtils.RandomItem(pickableGoals));
         }
+        else
+        {
+            Companies.LogFail(product, "CANNOT GET A GOAL FOR: " + product.company.Name + "\n\nCompleted goals\n\n" + string.Join(", ", product.completedGoals.Goals));
+        }
+
+        MeasureTag("Pick Goal ", time);
     }
-
-
-    // -----------------------------------------------------------------------------------
-
-    bool CanMaintain(GameEntity product, long cost)
-    {
-        if (cost == 0)
-            return true;
-
-        return Economy.IsCanMaintainForAWhile(product, gameContext, cost, 1);
-    }
-
 }

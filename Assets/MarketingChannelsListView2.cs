@@ -22,14 +22,7 @@ public class MarketingChannelsListView2 : ListView
 
         if (count == 0)
         {
-            if (Teams.HasFreeSlotForTeamTask(Flagship, Teams.GetMarketingTaskMockup()))
-            {
-                NoAvailableFeaturesText.text = Visuals.Negative($"You need more money to add more channels!");
-            }
-            else
-            {
-                NoAvailableFeaturesText.text = Visuals.Positive($"Hire and upgrade more teams, to add more marketing channels");
-            }
+            NoAvailableFeaturesText.text = Visuals.Negative($"You need more money to add more channels!");
         }
 
         Draw(NoAvailableFeaturesText, count == 0);

@@ -48,7 +48,7 @@ namespace Assets.Core
 
 
         // Missing roles
-        public static IEnumerable<WorkerRole> GetMissingRoles2(TeamInfo team)
+        public static IEnumerable<WorkerRole> GetMissingRolesFull(TeamInfo team)
         {
             var hasProgrammers = team.Roles.Values.Any(r => r == WorkerRole.Programmer);
             var hasMarketers = team.Roles.Values.Any(r => r == WorkerRole.Marketer);
