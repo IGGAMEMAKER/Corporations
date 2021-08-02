@@ -24,7 +24,16 @@ public class FlagshipCompetitorsInDevelopmentScreenListView : ListView
         var marketers = product.team.Teams.Select(t1 => t1.Roles.Values.Count(r => r == WorkerRole.Marketer)).Sum();
         var coders = product.team.Teams.Select(t1 => t1.Roles.Values.Count(r => r == WorkerRole.Programmer)).Sum();
 
-        var text = $"{header} {Format.Minify(users)} users & ({coders}/{marketers})\n";
+        var churn = Marketing.GetChurnRate(product, Q);
+
+        var text = $"{header} {Format.Minify(users)} users & ({coders}/{marketers}) #{product.creationIndex}";
+        var joinedChannels = product.companyMarketingActivities.Channels.Keys
+            .Select(k => Marketing.GetChannelClientGain(product, k))
+            .OrderByDescending(k => k)
+            .Select(k => Format.Minify(k));
+
+        text += $"\n{(int)churn}% channels: " + Marketing.GetActiveChannelsCount(product) + $"  {string.Join(", ", joinedChannels)}\n";
+        text += $"MONEY: " + Format.Money(Economy.BalanceOf(product)) + "\n";
 
         foreach (var f in Products.GetAllFeaturesForProduct())
         {
@@ -35,10 +44,12 @@ public class FlagshipCompetitorsInDevelopmentScreenListView : ListView
                 text += $"\n\t{f.Name} ({rating}) " + Visuals.Positive("+10% audience growth");
         }
 
+        var profit = Economy.GetProfit(Q, product, true).MinifyValues();
+
         t.GetComponent<Text>().text = text;
         //AddIfAbsent<Button>(t.gameObject);
         //AddIfAbsent<LinkToProjectView>(t.gameObject).CompanyId = product.company.Id;
-        AddIfAbsent<Hint>().SetHint(Economy.GetProfit(Q, product, true).ToString());
+        AddIfAbsent<Hint>(t.gameObject).SetHint(profit.ToString());
     }
 
     public override void ViewRender()
