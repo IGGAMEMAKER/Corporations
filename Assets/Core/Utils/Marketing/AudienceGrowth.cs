@@ -6,16 +6,6 @@ namespace Assets.Core
 {
     public static partial class Marketing
     {
-        public static long GetAudienceGrowthBySegment(GameEntity product, GameContext gameContext, int segmentId)
-        {
-            var channels = Markets.GetAllMarketingChannels(gameContext);
-
-            return product.companyMarketingActivities.Channels.Keys
-                // .Select(channelId => channels.First(c => c.marketingChannel.ChannelInfo.ID == channelId))
-                .Select(channel => GetChannelClientGain(product, channel))
-                .Sum();
-        }
-
         public static Bonus<long> GetAudienceGrowthBonus(GameEntity product)
         {
             var bonus = new Bonus<long>("Audience Growth");

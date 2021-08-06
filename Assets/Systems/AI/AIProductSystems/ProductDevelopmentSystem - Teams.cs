@@ -31,7 +31,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
         if (index == -1)
         {
-            Teams.AddTeam(product, gameContext, TeamType.CrossfunctionalTeam);
+            Teams.AddTeam(product, gameContext, TeamType.CrossfunctionalTeam, 0);
             // TODO need to hire leader here, but it's Ok still
 
             index = product.team.Teams.Count - 1;

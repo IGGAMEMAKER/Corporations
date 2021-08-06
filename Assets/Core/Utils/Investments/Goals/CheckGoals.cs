@@ -93,6 +93,7 @@ namespace Assets.Core
                     {
                         have = (long)Marketing.GetChurnRate(product, gameContext),
                         need = loyalty,
+                        reversedCheck = true,
 
                         description = $"Churn < {loyalty}"
                     }
@@ -111,6 +112,7 @@ namespace Assets.Core
                     {
                         have = (long)Marketing.GetChurnRate(product, gameContext),
                         need = loyalty,
+                        reversedCheck = true,
 
                         description = $"Churn < {loyalty}"
                     }
@@ -120,16 +122,16 @@ namespace Assets.Core
         private static List<GoalRequirements> GetInvestmentGoalPrepareForReleaseReqs(InvestmentGoal goal, GameEntity company, GameContext gameContext)
         {
             GameEntity product = GetProduct(goal, company, gameContext);
-            int teams = 3;
+            int teams = 5;
 
             return new List<GoalRequirements>
                 {
                     new GoalRequirements
                     {
-                        have = product.team.Teams.Count,
+                        have = product.team.Teams[0].Managers.Count,
                         need = teams,
 
-                        description = $"Has at least {teams} teams"
+                        description = $"Has at least {teams} workers in Core team"
                     },
                 };
         }

@@ -4,7 +4,7 @@ using System.Linq;
 
 public struct GoalRequirements
 {
-    public bool isLess;
+    public bool reversedCheck;
 
     public long have;
     public long need;

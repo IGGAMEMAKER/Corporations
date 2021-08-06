@@ -113,7 +113,7 @@ namespace Assets.Core
 
         public static bool IsRequirementMet(GoalRequirements req, GameEntity company, GameContext gameContext)
         {
-            if (req.isLess)
+            if (req.reversedCheck)
                 return req.have <= req.need;
 
             return req.have >= req.need;
