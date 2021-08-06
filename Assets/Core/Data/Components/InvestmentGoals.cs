@@ -4,6 +4,8 @@ using System.Linq;
 
 public struct GoalRequirements
 {
+    public bool isLess;
+
     public long have;
     public long need;
 

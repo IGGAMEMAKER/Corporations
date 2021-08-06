@@ -40,10 +40,9 @@ namespace Assets.Core
         {
             if (!product.isRelease)
             {
-                AddBrandPower(product, C.RELEASE_BRAND_POWER_GAIN);
+                //AddBrandPower(product, C.RELEASE_BRAND_POWER_GAIN);
 
                 var flow = GetClientFlow(gameContext, product.product.Niche);
-                var coreId = Marketing.GetCoreAudienceId(product);
 
                 AddClients(product, flow);
 

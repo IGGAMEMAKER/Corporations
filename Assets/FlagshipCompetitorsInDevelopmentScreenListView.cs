@@ -33,7 +33,7 @@ public class FlagshipCompetitorsInDevelopmentScreenListView : ListView
             .Select(k => Format.Minify(k));
 
         text += $"\n{(int)churn}% channels: " + Marketing.GetActiveChannelsCount(product) + $"  {string.Join(", ", joinedChannels)}\n";
-        text += $"MONEY: " + Format.Money(Economy.BalanceOf(product)) + "\n";
+        text += $"MONEY: " + Format.Money(Economy.BalanceOf(product)) + $"\n<b>{product.companyGoal.Goals.First()}</b>\n";
 
         foreach (var f in Products.GetAllFeaturesForProduct())
         {
