@@ -61,5 +61,31 @@ namespace Assets.Core
             if (product.features.Upgrades.ContainsKey(featureName))
                 product.features.Upgrades.Remove(featureName);
         }
+
+        public static NewProductFeature GetBestFeatureUpgradePossibility(GameEntity product, GameContext gameContext)
+        {
+            var marketRequirements = Markets.GetMarketRequirementsForCompany(gameContext, product);
+
+            var features = GetAllFeaturesForProduct();
+
+            var sortedByImportance = features
+                .OrderBy(f =>
+                {
+                    if (f.IsMonetizationFeature)
+                        return 11;
+
+                    var rating = GetFeatureRating(product, f.Name);
+                    var max = marketRequirements.Features[f.ID];
+
+                    if (rating >= 10 || rating == max)
+                        return 110;
+
+                    var rand = Random.Range(0, 1.5f);
+
+                    return rand + max - rating;
+                });
+
+            return sortedByImportance.FirstOrDefault();
+        }
     }
 }

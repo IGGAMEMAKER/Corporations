@@ -100,6 +100,7 @@ public class NewProductFeature
     public string Name;
     public FeatureBonus FeatureBonus;
     public List<int> AttitudeToFeature;
+    public int ID;
 
     public NewProductFeature(string name, List<int> attitudes, float monetisationBenefit = 0)
     {

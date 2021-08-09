@@ -6,11 +6,13 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 {
     void HandleTeam(GameEntity product)
     {
-        foreach (var t in product.team.Teams)
+        for (var i = 0; i < product.team.Teams.Count; i++)
         {
+            var t = product.team.Teams[i];
+
             var time = DateTime.Now;
 
-            Teams.FillTeam(product, gameContext, t);
+            Teams.FillTeam2(product, gameContext, t);
 
             MeasureTag("Teams Fill", time);
         }
@@ -18,6 +20,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
     bool TryHireWorker(GameEntity product, WorkerRole role)
     {
+        // can manage
         var maintenanceCost = 1.3f;
         var index = product.team.Teams.FindIndex(t =>
         {
@@ -29,6 +32,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             return cost > maintenanceCost;
         });
 
+        // cannot manage
         if (index == -1)
         {
             Teams.AddTeam(product, gameContext, TeamType.CrossfunctionalTeam, 0);

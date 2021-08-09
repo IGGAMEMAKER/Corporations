@@ -13,6 +13,6 @@ public class RenderAudienceSum : ParameterView
         var users = competitors.Sum(c => Marketing.GetUsers(c));
         var avgChurn = competitors.Average(c => Marketing.GetChurnRate(c, Q));
 
-        return "Competitors " + Format.Minify(users) + $" users -{avgChurn}%";
+        return "Competitors " + Format.Minify(users) + $" users {avgChurn.ToString("0.0")}%";
     }
 }

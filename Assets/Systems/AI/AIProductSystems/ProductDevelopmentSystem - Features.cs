@@ -1,5 +1,6 @@
 ﻿using Assets.Core;
 using System.Linq;
+using UnityEngine;
 
 public partial class ProductDevelopmentSystem
 {
@@ -28,30 +29,9 @@ public partial class ProductDevelopmentSystem
         }
     }
 
-    static NewProductFeature GetBestFeatureUpgradePossibility(GameEntity product, GameContext gameContext)
-    {
-        var marketRequirements = Markets.GetMarketRequirementsForCompany(gameContext, product);
-
-        var features = Products.GetAllFeaturesForProduct();
-        var features2 = Products.GetAllFeaturesForProduct().ToList();
-
-        var sortedByImportance = features
-            .OrderBy(f =>
-            {
-                if (f.IsMonetizationFeature)
-                    return 10;
-
-                var index = features2.FindIndex(ff => f.Name == ff.Name);
-
-                return marketRequirements.Features[index] - Products.GetFeatureRating(product, f.Name);
-            });
-
-        return sortedByImportance.FirstOrDefault();
-    }
-
     void ReduceChurn(GameEntity product, Bonus<float> churn)
     {
-        var feature = GetBestFeatureUpgradePossibility(product, gameContext);
+        var feature = Products.GetBestFeatureUpgradePossibility(product, gameContext);
 
         if (feature == null)
             return;
@@ -74,21 +54,61 @@ public partial class ProductDevelopmentSystem
         {
             // need to lower churn ASAP
 
-            ReduceChurn(product, churn);
+            try
+            {
+                ReduceChurn(product, churn);
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogError("Caught exception while reducing churn in " + product.company.Name);
+                Debug.LogError(ex);
+            }
         }
         else
         {
-            var ceo = Humans.Get(gameContext, product.team.Teams[0].Managers[0]);
+            var core = product.team.Teams[0];
 
-            bool isGreedy = Humans.HasTrait(ceo, Trait.Greedy);
-            bool isCreative = Humans.HasTrait(ceo, Trait.Visionaire) || Humans.HasTrait(ceo, Trait.WantsToCreate);
+            var willMonetize = 0.25f;
+            var willInnovate = 0.15f;
 
-            var willMonetize = isGreedy ? 0.8f : 0.25f;
-            var willInnovate = isCreative ? 0.9f : 0.15f;
+            if (!core.Managers.Any())
+            {
+                Debug.Log("HAS NO MANAGERS in " + product.company.Name);
+            }
+            else
+            {
+                var ceo = Humans.Get(gameContext, core.Managers[0]);
+
+                bool isGreedy = Humans.HasTrait(ceo, Trait.Greedy);
+                bool isCreative = Humans.HasTrait(ceo, Trait.Visionaire) || Humans.HasTrait(ceo, Trait.WantsToCreate);
+
+                if (isGreedy)
+                {
+                    willMonetize = 0.8f;
+                }
+
+                if (isCreative)
+                {
+                    willInnovate = 0.9f;
+                }
+            }
 
             // monetize
             if (!product.isRelease)
-                willMonetize = 0;
+            {
+                // innovate
+            }
+            else
+            {
+                if (Random.Range(0, willMonetize + willInnovate) < willMonetize)
+                {
+                    // monetize
+                }
+                else
+                {
+                    // innovate
+                }
+            }
 
 
             // monetize?

@@ -128,6 +128,49 @@ namespace Assets.Core
 
 
 
+        public static void FillTeam2(GameEntity product, GameContext gameContext, TeamInfo t)
+        {
+            var leader = Teams.GetMainManagerRole(t);
+
+            if (!Teams.HasMainManagerInTeam(t))
+                TryHireWorker(product, leader, gameContext);
+
+            // if can manage more workers
+            TryHireWorker(product, WorkerRole.Programmer, gameContext);
+            TryHireWorker(product, WorkerRole.Programmer, gameContext);
+        }
+
+        static bool TryHireWorker(GameEntity product, WorkerRole role, GameContext gameContext)
+        {
+            // can manage
+            var maintenanceCost = 1.3f;
+            var index = product.team.Teams.FindIndex(t =>
+            {
+                var cost = Teams.GetDirectManagementCostOfTeam(t, product, gameContext).Sum();
+
+                if (cost == 0 && t.Managers.Count == 0)
+                    return true;
+
+                return cost > maintenanceCost;
+            });
+
+            // cannot manage
+            if (index == -1)
+            {
+                Teams.AddTeam(product, gameContext, TeamType.CrossfunctionalTeam, 0);
+                // TODO need to hire leader here, but it's Ok still
+
+                index = product.team.Teams.Count - 1;
+            }
+
+            return HireWorker(product, role, index, gameContext);
+        }
+
+        static bool HireWorker(GameEntity product, WorkerRole role, int teamId, GameContext gameContext)
+        {
+            return Teams.TryToHire(product, gameContext, product.team.Teams[teamId], role);
+        }
+
         public static void FillTeam(GameEntity company, GameContext gameContext, TeamInfo t)
         {
             var necessaryRoles = GetMissingRolesFull(t); //.ToList();

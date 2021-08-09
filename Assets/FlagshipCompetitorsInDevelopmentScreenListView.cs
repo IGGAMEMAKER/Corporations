@@ -13,30 +13,33 @@ public class FlagshipCompetitorsInDevelopmentScreenListView : ListView
 
         var users = Marketing.GetUsers(product);
 
-        var header = $"<b>#{index + 1} {product.company.Name}</b>";
+        var header = $"<b><size=40>#{index + 1} {product.company.Name}</size></b>";
 
         if (product.isFlagship)
         {
             header = Visuals.Colorize(header, Colors.COLOR_COMPANY_WHERE_I_AM_CEO);
         }
 
-        var workers = product.team.Teams.Select(t1 => t1.Managers.Count).Sum();
-        var marketers = product.team.Teams.Select(t1 => t1.Roles.Values.Count(r => r == WorkerRole.Marketer)).Sum();
-        var coders = product.team.Teams.Select(t1 => t1.Roles.Values.Count(r => r == WorkerRole.Programmer)).Sum();
+        var marketers   = product.team.Teams.Select(t1 => t1.Roles.Values.Count(r => r == WorkerRole.Marketer)).Sum();
+        var coders      = product.team.Teams.Select(t1 => t1.Roles.Values.Count(r => r == WorkerRole.Programmer)).Sum();
 
 
-        var text = $"{header} {Format.Minify(users)} users & ({coders}/{marketers}) #{product.creationIndex}";
+        var text = header;
 
-        text += $"\nMONEY: " + Format.Money(Economy.BalanceOf(product));
-        var profit = Economy.GetProfit(Q, product, true).Minify().MinifyValues();
+        text += $"\n\n{Format.Minify(users)} users & ({coders}/{marketers}) #{product.creationIndex}";
+        text += "\nAiming " + Products.GetBestFeatureUpgradePossibility(product, Q).Name;
+        text = GetMarketingActivity(text, product);
+
+        text += $"\n\nMONEY: " + Format.Money(Economy.BalanceOf(product));
+
+        var profit = Economy.GetProfit(Q, product, true);
+        var profitMinified = profit.Minify().MinifyValues();
+
         text += "\n" + profit.ToString();
 
         text += $"\n{GetGoals(product)}\n";
 
-        text = GetMarketingActivity(text, product);
         text = GetKeyFeatures(text, product);
-
-        text += "\n\n---------------------------------------";
 
         t.GetComponent<Text>().text = text;
         //AddIfAbsent<Hint>(t.gameObject).SetHint(profit.ToString());
@@ -49,11 +52,8 @@ public class FlagshipCompetitorsInDevelopmentScreenListView : ListView
         var joinedChannels = product.companyMarketingActivities.Channels.Keys
             .Select(k => Marketing.GetChannelClientGain(product, k))
             .Sum();
-    //.OrderByDescending(k => k)
-    //.Select(k => Format.Minify(k));
 
         text += $"\n{(int)churn}% channels: " + Marketing.GetActiveChannelsCount(product) + $"  +{Format.Minify(joinedChannels)}\n";
-        //text += $"\n{(int)churn}% channels: " + Marketing.GetActiveChannelsCount(product) + $"  {string.Join(", ", joinedChannels)}\n";
 
         return text;
     }
@@ -77,13 +77,13 @@ public class FlagshipCompetitorsInDevelopmentScreenListView : ListView
         if (product.companyGoal.Goals.Any())
         {
             var goal = product.companyGoal.Goals.First();
-            
-            return "<b>" + goal + "</b>\n" + string.Join(", ", Investments.GetProductActions(product, goal));
+
+            return "<b>" + goal + "</b>\n"; // + string.Join(", ", Investments.GetProductActions(product, goal));
         }
 
         var released = product.isRelease ? "RELEASED" : "prototype";
 
-        return $"<b>NO Goals</b> {released}\n" + string.Join(", ", product.completedGoals.Goals);
+        return Visuals.Colorize($"<b>NO Goals</b> {released}\n" + string.Join(", ", product.completedGoals.Goals), "pink");
     }
 
     public override void ViewRender()

@@ -24,6 +24,14 @@ namespace Assets.Core
         {
             var actions = new List<ProductActions>();
 
+            actions.Add(ProductActions.Features);
+            actions.Add(ProductActions.GrabUsers);
+            actions.Add(ProductActions.HandleTeam);
+            actions.Add(ProductActions.Monetise);
+            actions.Add(ProductActions.ReleaseApp);
+
+            return actions;
+
             actions.Add(ProductActions.HandleTeam);
 
             //Companies.Log(product, $"Working on goal: {goal.GetFormattedName()}");

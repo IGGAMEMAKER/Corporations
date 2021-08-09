@@ -57,6 +57,12 @@ namespace Assets.Core
             
             featureList.AddRange(features);
 
+            // Patch with IDs
+            for (var i = 0; i < featureList.Count; i++)
+            {
+                featureList[i].ID = i;
+            }
+
             return featureList.ToArray();
         }
 

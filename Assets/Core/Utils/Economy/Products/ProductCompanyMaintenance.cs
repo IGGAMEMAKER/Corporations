@@ -4,39 +4,11 @@ namespace Assets.Core
 {
     partial class Economy
     {
-        public static long GetPromotedTeamCost(TeamInfo team)
-        {
-            var nextRank = Teams.GetNextTeamRank(team.Rank);
-
-            return GetPromotedTeamCost(nextRank);
-        }
-        public static long GetPromotedTeamCost(TeamRank rank)
-        {
-            return Teams.GetMaxTeamSize(rank) * C.SALARIES_PROGRAMMER;
-        }
-
-        public static long GetTeamCost(TeamInfo team)
-        {
-            return team.Workers * C.SALARIES_PROGRAMMER;
-        }
-
-        public static long GetSingleTeamCost()
-        {
-            var workerCost = C.SALARIES_PROGRAMMER;
-            var workers = 8;
-            var teamCost = workers * workerCost;
-
-            return teamCost;
-        }
-
         // resulting costs
         public static Bonus<long> GetProductCompanyMaintenance(GameEntity e, bool isBonus)
         {
-            var teamCost = e.team.Teams.Sum(GetTeamCost);
-
             var bonus = new Bonus<long>("Maintenance")
                 .Append("Team", GetManagersCost(e))
-                //.AppendAndHideIfZero($"Teams X{e.team.Teams.Count}", teamCost * C.PERIOD / 30)
                 ;
 
             // team tasks
@@ -58,31 +30,6 @@ namespace Assets.Core
             if (teamTask.IsMarketingTask)
                 return (teamTask as TeamTaskChannelActivity).ChannelCost;
                 //return Marketing.GetMarketingActivityCost(product, gameContext, (teamTask as TeamTaskChannelActivity).ChannelId);
-
-            if (teamTask.IsSupportTask || teamTask.IsHighloadTask)
-            {
-                return GetSupportUpgradeCost(product, (teamTask as TeamTaskSupportFeature).SupportFeature.SupportBonus);
-            }
-
-            return 0;
-        }
-
-        public static long GetSupportUpgradeCost(GameEntity product, SupportBonus bonus)
-        {
-            if (bonus is SupportBonusHighload)
-            {
-                var serverCost = 1000;
-                
-                // 10.000 => 10$
-                return bonus.Max / serverCost;
-            }
-
-            if (bonus is SupportBonusMarketingSupport)
-            {
-                var costPerMillenium = 1000;
-
-                return bonus.Max / costPerMillenium;
-            }
 
             return 0;
         }
@@ -124,7 +71,6 @@ namespace Assets.Core
         public static long GetManagersCost(GameEntity e)
         {
             return e.team.Salaries;
-            //return GetSalaries(e, gameContext).Sum();
         }
     }
 }
