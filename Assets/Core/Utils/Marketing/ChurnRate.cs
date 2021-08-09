@@ -18,7 +18,7 @@
 
             ApplyChurnRateFromFeatures(baseRate, gameContext, c);
 
-            return baseRate.Cap(1, 100);
+            return baseRate.Cap(1, 40);
         }
 
         public static Bonus<float> ApplyChurnRateFromFeatures(Bonus<float> baseRate, GameContext gameContext, GameEntity c)

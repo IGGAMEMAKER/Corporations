@@ -33,7 +33,7 @@ public class FlagshipCompetitorsInDevelopmentScreenListView : ListView
             .Select(k => Format.Minify(k));
 
         text += $"\n{(int)churn}% channels: " + Marketing.GetActiveChannelsCount(product) + $"  {string.Join(", ", joinedChannels)}\n";
-        text += $"MONEY: " + Format.Money(Economy.BalanceOf(product)) + $"\n<b>{product.companyGoal.Goals.First()}</b>\n";
+        text += $"MONEY: " + Format.Money(Economy.BalanceOf(product)) + $"\n<b>{GetGoals(product)}</b>\n";
 
         foreach (var f in Products.GetAllFeaturesForProduct())
         {
@@ -50,6 +50,20 @@ public class FlagshipCompetitorsInDevelopmentScreenListView : ListView
         //AddIfAbsent<Button>(t.gameObject);
         //AddIfAbsent<LinkToProjectView>(t.gameObject).CompanyId = product.company.Id;
         AddIfAbsent<Hint>(t.gameObject).SetHint(profit.ToString());
+    }
+
+    string GetGoals(GameEntity product)
+    {
+        if (product.companyGoal.Goals.Any())
+        {
+            var goal = product.companyGoal.Goals.First();
+            
+            var actions = Investments.GetProductActions(product, goal);
+
+            return goal + " " + string.Join(", ", actions);
+        }
+
+        return "NO Goals";
     }
 
     public override void ViewRender()

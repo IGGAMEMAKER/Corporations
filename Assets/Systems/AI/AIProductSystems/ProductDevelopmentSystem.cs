@@ -4,20 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public enum ProductActions
-{
-    Features,
-    GrabUsers,
-    HandleTeam, // hire more people, add more teams
-
-    ReleaseApp,
-
-    Monetise,
-
-    ShowProfit,
-    RestoreLoyalty,
-}
-
 public partial class ProductDevelopmentSystem : OnPeriodChange
 {
     public ProductDevelopmentSystem(Contexts contexts) : base(contexts) { }

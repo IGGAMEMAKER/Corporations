@@ -78,7 +78,7 @@ namespace Assets.Core
         {
             int level = UnityEngine.Random.Range(70, 90);
 
-            SetTrait(worker, traitType, level);
+            SetTrait(worker, traitType);
         }
 
         public static List<Trait> GenerateRandomTraits()

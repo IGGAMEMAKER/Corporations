@@ -19,7 +19,7 @@ namespace Assets.Core
 
             var level = UnityEngine.Random.Range(70, 90);
 
-            Humans.SetTrait(CEO, Trait.Ambitious, level);
+            Humans.SetTrait(CEO, Trait.Ambitious);
             Humans.SetSkills(CEO, WorkerRole.CEO);
 
             return CreateCompany(context, name, companyType, new Dictionary<int, BlockOfShares>(), CEO);

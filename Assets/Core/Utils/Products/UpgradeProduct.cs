@@ -8,6 +8,7 @@ namespace Assets.Core
         public static TeamResource GetFeatureUpgradeCost() => new TeamResource(C.ITERATION_PROGRESS, 0, 0, 0, 0);
 
         public static bool IsCanUpgradeFeatures(GameEntity product) => Companies.IsEnoughResources(product, GetFeatureUpgradeCost());
+        public static bool IsCanUpgradeFeature(GameEntity product, int index) => Companies.IsEnoughResources(product, GetFeatureUpgradeCost());
 
         public static void TryToUpgradeFeature(GameEntity product, NewProductFeature feature, GameContext gameContext) => TryToUpgradeFeature(product, feature.Name, gameContext);
         public static void TryToUpgradeFeature(GameEntity product, string featureName, GameContext gameContext)
