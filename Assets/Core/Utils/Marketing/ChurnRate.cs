@@ -35,7 +35,7 @@
                 var featureName = f.Name;
                 var rating = Products.GetFeatureRating(c, featureName);
 
-                var marketRequirements = Markets.GetMarketRequirementsForCompany(gameContext, c);
+                var marketRequirements = reqs; // Markets.GetMarketRequirementsForCompany(gameContext, c);
 
                 var currentBestRating = marketRequirements.Features[i];
                 if (rating == 0 && currentBestRating > 0 && f.IsRetentionFeature)

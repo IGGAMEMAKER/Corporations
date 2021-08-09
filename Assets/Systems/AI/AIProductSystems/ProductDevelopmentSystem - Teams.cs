@@ -12,7 +12,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
             var time = DateTime.Now;
 
-            Teams.FillTeam2(product, gameContext, t);
+            Teams.FillTeam(product, gameContext, t);
 
             MeasureTag("Teams Fill", time);
         }

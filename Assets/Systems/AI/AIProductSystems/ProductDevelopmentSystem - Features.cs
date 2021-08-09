@@ -36,8 +36,8 @@ public partial class ProductDevelopmentSystem
         if (feature == null)
             return;
 
-        while (Products.IsCanUpgradeFeatures(product))
-            Products.TryToUpgradeFeature(product, feature, gameContext);
+        //while (Products.IsCanUpgradeFeature(product, ))
+        Products.TryToUpgradeFeature(product, feature, gameContext);
     }
 
     void Innovate(GameEntity product)

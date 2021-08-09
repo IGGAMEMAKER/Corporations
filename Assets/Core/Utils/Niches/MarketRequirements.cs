@@ -21,13 +21,15 @@ namespace Assets.Core
 
         public static MarketRequirementsComponent GetMarketRequirementsForCompany(GameContext gameContext, GameEntity c)
         {
-            var niche = Markets.Get(gameContext, c);
-            var reqs = Markets.GetMarketRequirements(gameContext, niche);
-
             if (!c.hasMarketRequirements)
-                c.AddMarketRequirements(reqs.Features);
+            {
+                var niche = Markets.Get(gameContext, c);
+                var reqs = Markets.GetMarketRequirements(gameContext, niche);
 
-            return reqs;
+                c.AddMarketRequirements(reqs.Features);
+            }
+
+            return c.marketRequirements;
         }
 
         public static float GetMaxFeatureLVL(IEnumerable<GameEntity> competitors, string featureName)
@@ -40,7 +42,6 @@ namespace Assets.Core
         {
             return GetCalculatedMarketRequirements(GetProductsOnMarket(niche, gameContext), allFeatures);
         }
-
         public static List<float> GetCalculatedMarketRequirements(IEnumerable<GameEntity> competitors, NewProductFeature[] allFeatures)
         {
             var features = GetEmptyMarketRequirements();

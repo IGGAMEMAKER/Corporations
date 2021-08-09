@@ -42,6 +42,13 @@ namespace Assets.Core
             return 0;
         }
 
+        public static float GetFeatureRating(GameEntity product, int featureID)
+        {
+            var featureName = GetAllFeaturesForProduct().First(f => f.ID == featureID).Name;
+
+            return GetFeatureRating(product, featureName);
+        }
+
         public static bool IsLeadingInFeature(GameEntity Flagship, NewProductFeature Feature, GameContext Q)
         {
             //var competitors = Companies.GetDirectCompetitors(Flagship, Q, true);

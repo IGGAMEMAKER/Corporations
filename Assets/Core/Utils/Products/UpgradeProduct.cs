@@ -8,7 +8,7 @@ namespace Assets.Core
         public static TeamResource GetFeatureUpgradeCost() => new TeamResource(C.ITERATION_PROGRESS, 0, 0, 0, 0);
 
         public static bool IsCanUpgradeFeatures(GameEntity product) => Companies.IsEnoughResources(product, GetFeatureUpgradeCost());
-        public static bool IsCanUpgradeFeature(GameEntity product, int index) => Companies.IsEnoughResources(product, GetFeatureUpgradeCost());
+        public static bool IsCanUpgradeFeature(GameEntity product, int index) => GetFeatureRating(product, index) < 10 && Companies.IsEnoughResources(product, GetFeatureUpgradeCost());
 
         public static void TryToUpgradeFeature(GameEntity product, NewProductFeature feature, GameContext gameContext) => TryToUpgradeFeature(product, feature.Name, gameContext);
         public static void TryToUpgradeFeature(GameEntity product, string featureName, GameContext gameContext)
@@ -35,23 +35,15 @@ namespace Assets.Core
         public static void NotifyAllProductsAboutMarketRequirementsChanges(GameEntity product, string featureName, float value, GameContext gameContext)
         {
             var niche = Markets.Get(gameContext, product);
-            //var index = product.features.Upgrades.Keys.ToList().IndexOf(featureName);
 
+            // Calculate changes in market
             Markets.GetMarketRequirements(gameContext, niche);
 
-            /*if (niche.marketRequirements.Features[index] < value)
-            {
-                // new leader!
-                // update data
-                niche.marketRequirements.Features[index] = value;
-
-                // notify everyone about updates
-
-            }*/
-
+            // Notify
+            var copy = Markets.CopyMarketRequirements(niche.marketRequirements.Features);
             foreach (var c in Companies.GetDirectCompetitors(product, gameContext, true))
             {
-                c.marketRequirements.Features = Markets.CopyMarketRequirements(niche.marketRequirements.Features);
+                c.ReplaceMarketRequirements(copy);
             }
         }
 
