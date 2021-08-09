@@ -31,7 +31,9 @@ public partial class ProductDevelopmentSystem
     static NewProductFeature GetBestFeatureUpgradePossibility(GameEntity product, GameContext gameContext)
     {
         var marketRequirements = Markets.GetMarketRequirementsForCompany(gameContext, product);
+
         var features = Products.GetAllFeaturesForProduct();
+        var features2 = Products.GetAllFeaturesForProduct().ToList();
 
         var sortedByImportance = features
             .OrderBy(f =>
@@ -39,7 +41,7 @@ public partial class ProductDevelopmentSystem
                 if (f.IsMonetizationFeature)
                     return 10;
 
-                var index = features.ToList().FindIndex(ff => f.Name == ff.Name);
+                var index = features2.FindIndex(ff => f.Name == ff.Name);
 
                 return marketRequirements.Features[index] - Products.GetFeatureRating(product, f.Name);
             });
@@ -92,9 +94,9 @@ public partial class ProductDevelopmentSystem
             // monetize?
 
             // go for innovations
-            return;
         }
 
+        return;
         // random development
         foreach (var f in features)
         {
