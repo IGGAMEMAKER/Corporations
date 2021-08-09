@@ -43,22 +43,22 @@ namespace Assets.Core
             return humans.Max(h => h.human.Id) + 1;
         }
 
-        public static string GetFullName(GameEntity human)
+        public static string GetFullName(HumanFF human)
         {
-            return $"{human.human.Name} {human.human.Surname}";
+            return $"{human.HumanComponent.Name} {human.HumanComponent.Surname}";
         }
 
-        public static ExpiringJobOffer GetCurrentOffer(GameEntity human)
+        public static ExpiringJobOffer GetCurrentOffer(HumanFF human)
         {
-            var offers = human.workerOffers.Offers;
+            var offers = human.WorkerOffersComponent.Offers;
 
             // there are accepted offers
             if (offers.Count(o => o.Accepted) > 0)
                 return offers.First(o => o.Accepted);
 
             // there is pending offer from company
-            if (offers.Count(o => o.CompanyId == human.worker.companyId) > 0)
-                return offers.First(o => o.CompanyId == human.worker.companyId);
+            if (offers.Count(o => o.CompanyId == human.WorkerComponent.companyId) > 0)
+                return offers.First(o => o.CompanyId == human.WorkerComponent.companyId);
 
             // unemployed
             return new ExpiringJobOffer
@@ -66,12 +66,12 @@ namespace Assets.Core
                 Accepted = false,
                 CompanyId = -1,
                 DecisionDate = -1,
-                HumanId = human.human.Id,
+                HumanId = human.HumanComponent.Id,
                 JobOffer = new JobOffer(Teams.GetSalaryPerRating(human))
             };
         }
 
-        public static long GetSalary(GameEntity human)
+        public static long GetSalary(HumanFF human)
         {
             return GetCurrentOffer(human).JobOffer.Salary;
         }
@@ -84,16 +84,17 @@ namespace Assets.Core
         }
 
         // actions
-        public static GameEntity SetSkill(GameEntity worker, WorkerRole workerRole, int level)
+        public static HumanFF SetSkill(HumanFF worker, WorkerRole workerRole, int level)
         {
-            var roles = worker.humanSkills.Roles;
-            roles[workerRole] = level;
-
-            worker.ReplaceHumanSkills(roles, worker.humanSkills.Traits, worker.humanSkills.Expertise);
+            worker.HumanSkillsComponent.Roles[workerRole] = level;
 
             return worker;
         }
 
+        public static bool HasTrait(HumanFF worker, Trait trait)
+        {
+            return worker.HumanSkillsComponent.Traits.Contains(trait);
+        }
         public static bool HasTrait(GameEntity worker, Trait trait)
         {
             var traits = worker.humanSkills.Traits;
@@ -101,14 +102,10 @@ namespace Assets.Core
             return traits.Contains(trait);
         }
 
-        public static GameEntity SetTrait(GameEntity worker, Trait traitType)
+        public static HumanFF SetTrait(HumanFF worker, Trait trait)
         {
-            var traits = worker.humanSkills.Traits;
-
-            if (!traits.Contains(traitType))
-                traits.Add(traitType);
-
-            worker.ReplaceHumanSkills(worker.humanSkills.Roles, traits, worker.humanSkills.Expertise);
+            if (!HasTrait(worker, trait))
+                worker.HumanSkillsComponent.Traits.Add(trait);
 
             return worker;
         }
@@ -122,14 +119,19 @@ namespace Assets.Core
             return human.worker.companyId == id;
         }
 
-        public static void AttachToCompany(GameEntity worker, int companyId, WorkerRole workerRole)
+        public static void AttachToCompany(HumanFF worker, int companyId, WorkerRole workerRole)
         {
-            worker.ReplaceWorker(companyId, workerRole);
+            if (worker.WorkerComponent == null)
+                worker.WorkerComponent = new WorkerComponent();
 
-            if (!worker.hasHumanCompanyRelationship)
-                worker.AddHumanCompanyRelationship(0, 50);
-            else
-                worker.ReplaceHumanCompanyRelationship(0, 50);
+            worker.WorkerComponent.companyId = companyId;
+            worker.WorkerComponent.WorkerRole = workerRole;
+
+            if (worker.HumanCompanyRelationshipComponent == null)
+                worker.HumanCompanyRelationshipComponent = new HumanCompanyRelationshipComponent();
+
+            worker.HumanCompanyRelationshipComponent.Adapted = 0;
+            worker.HumanCompanyRelationshipComponent.Morale = 50;
         }
 
         public static void LeaveCompany(GameEntity human)

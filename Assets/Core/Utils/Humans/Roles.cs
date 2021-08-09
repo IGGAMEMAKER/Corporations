@@ -4,11 +4,24 @@ namespace Assets.Core
 {
     public static partial class Humans
     {
-        public static bool IsEmployed(GameEntity worker)
+        public static bool IsEmployed(HumanFF worker)
         {
-            return worker.hasWorker && worker.worker.companyId != -1;
+            return worker.WorkerComponent != null && worker.WorkerComponent.companyId != -1;
+            //return worker.hasWorker && worker.worker.companyId != -1;
         }
 
+        public static WorkerRole GetRole(HumanFF worker)
+        {
+            //Debug.Log("Get Role of human " + worker.human.Id + " #" + worker.creationIndex);
+
+            if (worker.WorkerComponent != null)
+                return worker.WorkerComponent.WorkerRole;
+
+            var err = "Tries to getRole of entity #" + worker.HumanComponent.Id;
+            Debug.LogError(err);
+
+            throw new System.Exception(err);
+        }
         public static WorkerRole GetRole(GameEntity worker)
         {
             //Debug.Log("Get Role of human " + worker.human.Id + " #" + worker.creationIndex);
@@ -23,10 +36,12 @@ namespace Assets.Core
         }
 
         public static void SetRole(GameContext gameContext, int humanId, WorkerRole workerRole) => SetRole(Get(gameContext, humanId), workerRole);
-        public static void SetRole(GameEntity human, WorkerRole workerRole)
+        public static void SetRole(HumanFF human, WorkerRole workerRole)
         {
-            if (human.hasWorker)
-                human.ReplaceWorker(human.worker.companyId, workerRole);
+            if (human.WorkerComponent == null)
+                human.WorkerComponent = new WorkerComponent();
+
+            human.WorkerComponent.WorkerRole = workerRole;
         }
 
         public static string GetFormattedRole(WorkerRole role)

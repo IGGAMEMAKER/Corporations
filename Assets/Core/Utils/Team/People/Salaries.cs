@@ -4,36 +4,33 @@ namespace Assets.Core
 {
     public static partial class Teams
     {
-        public static void AddOrReplaceOffer(GameEntity company, GameEntity human, ExpiringJobOffer o)
+        public static void AddOrReplaceOffer(GameEntity company, HumanFF human, ExpiringJobOffer o)
         {
-            int index = human.workerOffers.Offers.FindIndex(o1 => o1.CompanyId == company.company.Id && o1.HumanId == human.human.Id);
+            int index = human.WorkerOffersComponent.Offers
+                .FindIndex(o1 => o1.CompanyId == company.company.Id && o1.HumanId == human.HumanComponent.Id);
 
             if (index == -1)
-            {
-                human.workerOffers.Offers.Add(o);
-            }
+                human.WorkerOffersComponent.Offers.Add(o);
             else
-            {
-                human.workerOffers.Offers[index] = o;
-            }
+                human.WorkerOffersComponent.Offers[index] = o;
 
             //Debug.Log($"Offer to {Humans.GetFullName(human)} ({human.workerOffers.Offers.Count}): {company.company.Name}");
         }
 
-        public static void SendJobOffer(GameEntity worker, JobOffer jobOffer, GameEntity company, GameContext gameContext)
+        public static void SendJobOffer(HumanFF worker, JobOffer jobOffer, GameEntity company, GameContext gameContext)
         {
             var offer = new ExpiringJobOffer
             {
                 JobOffer = jobOffer,
                 CompanyId = company.company.Id,
                 DecisionDate = ScheduleUtils.GetCurrentDate(gameContext) + 30,
-                HumanId = worker.human.Id
+                HumanId = worker.HumanComponent.Id
             };
 
             AddOrReplaceOffer(company, worker, offer);
         }
 
-        public static void SetJobOffer(GameEntity human, GameEntity company, JobOffer offer, int teamId, GameContext gameContext)
+        public static void SetJobOffer(HumanFF human, GameEntity company, JobOffer offer, int teamId, GameContext gameContext)
         {
             var o = new ExpiringJobOffer
             {
@@ -41,7 +38,7 @@ namespace Assets.Core
 
                 JobOffer = offer,
                 CompanyId = company.company.Id,
-                HumanId = human.human.Id,
+                HumanId = human.HumanComponent.Id,
                 DecisionDate = -1
             };
 
@@ -52,12 +49,12 @@ namespace Assets.Core
 
 
 
-        public static float GetPersonalSalaryModifier(GameEntity human)
+        public static float GetPersonalSalaryModifier(HumanFF human)
         {
             float modifier = 0;
 
-            bool isShy = human.humanSkills.Traits.Contains(Trait.Shy);
-            bool isGreedy = human.humanSkills.Traits.Contains(Trait.Greedy);
+            bool isShy = Humans.HasTrait(human, Trait.Shy);
+            bool isGreedy = Humans.HasTrait(human, Trait.Greedy);
 
             if (isShy)
             {
@@ -72,8 +69,8 @@ namespace Assets.Core
             return modifier;
         }
 
-        public static long GetSalaryPerRating(GameEntity human) => GetSalaryPerRating(human, Humans.GetRating(human));
-        public static long GetSalaryPerRating(GameEntity human, long rating)
+        public static long GetSalaryPerRating(HumanFF human) => GetSalaryPerRating(human, Humans.GetRating(human));
+        public static long GetSalaryPerRating(HumanFF human, long rating)
         {
             float modifier = GetPersonalSalaryModifier(human);
 

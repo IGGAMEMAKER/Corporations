@@ -11,7 +11,7 @@ namespace Assets.Core
             //Debug.LogWarning("DISMISS TEAM WORKS BAD!" + company.company.Name);
         }
 
-        public static void FireManager(GameContext gameContext, GameEntity worker) => FireManager(Companies.Get(gameContext, worker.worker.companyId), worker);
+        public static void FireManager(GameContext gameContext, HumanFF worker) => FireManager(Companies.Get(gameContext, worker.WorkerComponent.companyId), gameContext, worker.HumanComponent.Id);
         public static void FireManager(GameEntity company, GameContext gameContext, int humanId) => FireManager(company, Humans.Get(gameContext, humanId));
         public static void FireManager(GameEntity company, GameEntity worker)
         {
@@ -28,7 +28,7 @@ namespace Assets.Core
 
         public static void DetachHumanFromTeam(TeamInfo team, int humanId)
         {
-            team.Managers.Remove(humanId);
+            team.Managers.RemoveAll(h => h.HumanComponent.Id == humanId);
             team.Roles.Remove(humanId);
         }
     }

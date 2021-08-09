@@ -77,7 +77,7 @@ public partial class ProductDevelopmentSystem
             }
             else
             {
-                var ceo = Humans.Get(gameContext, core.Managers[0]);
+                var ceo = core.Managers[0];
 
                 bool isGreedy = Humans.HasTrait(ceo, Trait.Greedy);
                 bool isCreative = Humans.HasTrait(ceo, Trait.Visionaire) || Humans.HasTrait(ceo, Trait.WantsToCreate);

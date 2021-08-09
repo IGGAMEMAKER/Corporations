@@ -16,19 +16,19 @@ namespace Assets.Core
             };
         }
 
-        public static TeamInfo GetTeamOf(GameEntity human, GameContext gameContext)
+        public static TeamInfo GetTeamOf(HumanFF human, GameContext gameContext)
         {
-            return GetTeamOf(human, Companies.Get(gameContext, human.worker.companyId));
+            return GetTeamOf(human, Companies.Get(gameContext, human.WorkerComponent.companyId));
         }
 
-        public static TeamInfo GetTeamOf(GameEntity human, GameEntity company)
+        public static TeamInfo GetTeamOf(HumanFF human, GameEntity company)
         {
-            return company.team.Teams.Find(t => t.Managers.Contains(human.human.Id));
+            return company.team.Teams.Find(t => t.Managers.Any(h => h.HumanComponent.Id == human.HumanComponent.Id));
         }
 
-        public static Bonus<float> GetOpinionAboutOffer(GameEntity worker, ExpiringJobOffer newOffer)
+        public static Bonus<float> GetOpinionAboutOffer(HumanFF worker, ExpiringJobOffer newOffer)
         {
-            bool willNeedToLeaveCompany = worker.worker.companyId != newOffer.CompanyId;
+            bool willNeedToLeaveCompany = worker.WorkerComponent.companyId != newOffer.CompanyId;
 
             var bonus = new Bonus<float>("Opinion about offer");
 
@@ -41,7 +41,7 @@ namespace Assets.Core
             if (!Humans.IsEmployed(worker))
                 return bonus.Append("Salary", newOffer.JobOffer.Salary > GetSalaryPerRating(worker) ? 1 : -1);
 
-            int loyaltyBonus = (worker.humanCompanyRelationship.Morale - 50) / 10;
+            int loyaltyBonus = (worker.HumanCompanyRelationshipComponent.Morale - 50) / 10;
             int desireToLeaveCompany = 0;
 
             if (willNeedToLeaveCompany)
@@ -50,11 +50,11 @@ namespace Assets.Core
                 desireToLeaveCompany -= 5;
 
                 // and if your worker loves stability...
-                if (worker.humanSkills.Traits.Contains(Trait.Loyal))
+                if (Humans.HasTrait(worker, Trait.Loyal))
                     desireToLeaveCompany -= 5;
 
                 // but if your worker loves new challenges...
-                if (worker.humanSkills.Traits.Contains(Trait.NewChallenges))
+                if (Humans.HasTrait(worker, Trait.NewChallenges))
                     desireToLeaveCompany += 10;
 
                 if (desireToLeaveCompany > 0)
@@ -85,22 +85,20 @@ namespace Assets.Core
             return bonus;
         }
 
-        public static int GetLoyaltyChangeForManager(GameEntity worker, TeamInfo team, GameEntity company)
+        public static int GetLoyaltyChangeForManager(HumanFF worker, TeamInfo team, GameEntity company)
         {
-            //var company = Companies.Get(gameContext, worker.worker.companyId);
-
             var culture = Companies.GetActualCorporateCulture(company);
 
             return GetLoyaltyChangeForManager(worker, team, culture, company);
         }
 
-        public static int GetLoyaltyChangeForManager(GameEntity worker, TeamInfo team,
+        public static int GetLoyaltyChangeForManager(HumanFF worker, TeamInfo team,
             Dictionary<CorporatePolicy, int> culture, GameEntity company)
         {
             return GetLoyaltyChangeBonus(worker, team, culture, company).Sum();
         }
 
-        public static Bonus<int> GetLoyaltyChangeBonus(GameEntity worker, TeamInfo team,
+        public static Bonus<int> GetLoyaltyChangeBonus(HumanFF worker, TeamInfo team,
             Dictionary<CorporatePolicy, int> culture, GameEntity company)
         {
             var bonus = new Bonus<int>("Loyalty");
@@ -111,10 +109,10 @@ namespace Assets.Core
 
             bonus.AppendAndHideIfZero("Manager focus on atmosphere", loyaltyBuff);
 
-            var role = worker.worker.WorkerRole;
+            var role = worker.WorkerComponent.WorkerRole;
 
             // TODO: if is CEO in own project, morale loss is zero or very low
-            bonus.AppendAndHideIfZero("IS FOUNDER", worker.hasCEO ? 5 : 0);
+            bonus.AppendAndHideIfZero("IS FOUNDER", worker.WorkerComponent.WorkerRole == WorkerRole.CEO ? 5 : 0);
 
             // same role workers
             //ApplyDuplicateWorkersLoyalty(company, team, gameContext, ref bonus, worker, role);
@@ -132,8 +130,7 @@ namespace Assets.Core
             if (role != WorkerRole.CEO)
                 bonus.AppendAndHideIfZero($"Outgrown company (skill >= {max})", rating >= max ? -3 : 0);
 
-            bonus.AppendAndHideIfZero("Too many leaders",
-                worker.humanSkills.Traits.Contains(Trait.Leader) && team.TooManyLeaders ? -2 : 0);
+            bonus.AppendAndHideIfZero("Too many leaders", Humans.HasTrait(worker, Trait.Leader) && team.TooManyLeaders ? -2 : 0);
 
             if (team.isManagedBadly)
                 bonus.Append("Terrible management", -3);
@@ -142,7 +139,7 @@ namespace Assets.Core
             return bonus;
         }
 
-        private static void ApplyLowSalaryLoyalty(GameEntity company, ref Bonus<int> bonus, GameEntity worker)
+        private static void ApplyLowSalaryLoyalty(GameEntity company, ref Bonus<int> bonus, HumanFF worker)
         {
             bool isFounder = worker.hasShareholder; // &&
                              // company.shareholders.Shareholders.ContainsKey(worker.shareholder.Id);
@@ -154,8 +151,8 @@ namespace Assets.Core
 
             var expectedSalary = (double) GetSalaryPerRating(worker);
 
-            bool isGreedy = worker.humanSkills.Traits.Contains(Trait.Greedy);
-            bool isShy = worker.humanSkills.Traits.Contains(Trait.Shy);
+            bool isGreedy = Humans.HasTrait(worker, Trait.Greedy);
+            bool isShy = Humans.HasTrait(worker, Trait.Shy);
 
             float multiplier = 0.8f;
 
@@ -176,7 +173,7 @@ namespace Assets.Core
         private static void ApplyDuplicateWorkersLoyalty(GameEntity company, TeamInfo team, GameContext gameContext,
             ref Bonus<int> bonus, GameEntity worker, WorkerRole role)
         {
-            var roles = team.Managers.Select(humanId => Humans.Get(gameContext, humanId).worker.WorkerRole);
+            var roles = team.Managers.Select(h => h.WorkerComponent.WorkerRole);
             bool hasDuplicateWorkers = roles.Count(r => r == role) > 1;
 
             if (hasDuplicateWorkers)

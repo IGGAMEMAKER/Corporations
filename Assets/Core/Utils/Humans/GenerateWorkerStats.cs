@@ -2,7 +2,7 @@
 {
     public static partial class Humans
     {
-        public static void SetSkills(GameEntity worker, WorkerRole workerRole)
+        public static void SetSkills(HumanFF worker, WorkerRole workerRole)
         {
             switch (workerRole)
             {

@@ -82,7 +82,7 @@ namespace Assets.Core
             string name,
             CompanyType companyType,
             Dictionary<int, BlockOfShares> founders,
-            GameEntity CEO)
+            HumanFF CEO)
         {
             var company = context.CreateEntity();
 
@@ -129,10 +129,9 @@ namespace Assets.Core
 
 
             // CEO
-            int CeoID = CEO.human.Id;
+            int CeoID = CEO.HumanComponent.Id;
 
-            CEO.humanSkills.Traits.RemoveAll(t => t == Trait.Greedy);
-            CEO.humanSkills.Traits.Add(Trait.Shy);
+            CEO.HumanSkillsComponent.Traits.RemoveAll(t => t == Trait.Greedy);
 
             company.AddCEO(0, CeoID);
             company.AddEmployee(new Dictionary<int, WorkerRole>());

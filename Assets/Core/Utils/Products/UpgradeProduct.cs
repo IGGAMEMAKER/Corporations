@@ -28,11 +28,14 @@ namespace Assets.Core
 
             Companies.Pay(product, GetFeatureUpgradeCost(), "Feature");
 
-            // Update Market Requirements AndNotifyAllProductsAboutChanges
-            NotifyAllProductsAboutMarketRequirementsChanges(product, featureName, value, gameContext);
+            var index = product.features.Upgrades.Keys.ToList().IndexOf(featureName);
+            var reqs = product.marketRequirements.Features[index];
+
+            if (value > reqs)
+                NotifyAllProductsAboutMarketRequirementsChanges(product, gameContext);
         }
 
-        public static void NotifyAllProductsAboutMarketRequirementsChanges(GameEntity product, string featureName, float value, GameContext gameContext)
+        public static void NotifyAllProductsAboutMarketRequirementsChanges(GameEntity product, GameContext gameContext)
         {
             var niche = Markets.Get(gameContext, product);
 

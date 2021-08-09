@@ -9,12 +9,7 @@
             if (manager == null)
                 return 0;
 
-            var rating = Humans.GetRating(manager);
-            return rating;
-            var effeciency = GetWorkerEfficiency(manager, company);
-
-            // 0...50
-            return rating * (50 + effeciency / 2) / 100;
+            return Humans.GetRating(manager);
         }
 
         // TODO Remove

@@ -11,5 +11,10 @@
 
             return skills[WorkerRole.CEO];
         }
+
+        public static int GetRating(HumanFF human)
+        {
+            return 70;
+        }
     }
 }

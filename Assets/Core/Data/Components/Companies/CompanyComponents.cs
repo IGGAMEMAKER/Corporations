@@ -351,8 +351,8 @@ public class TeamInfo
 
     public List<TeamTask> Tasks;
 
-    //public Dictionary<int, JobOffer> Offers;
-    public List<int> Managers;
+    //public List<int> Managers;
+    public List<HumanFF> Managers;
     public Dictionary<int, WorkerRole> Roles;
 
     public int Workers;

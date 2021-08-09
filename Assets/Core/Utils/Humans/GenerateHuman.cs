@@ -4,7 +4,7 @@ namespace Assets.Core
 {
     public static partial class Humans
     {
-        public static GameEntity GenerateHuman(GameContext gameContext, WorkerRole workerRole)
+        public static HumanFF GenerateHuman(GameContext gameContext, WorkerRole workerRole)
         {
             var worker = GenerateHuman(gameContext);
 
@@ -14,7 +14,7 @@ namespace Assets.Core
             return worker;
         }
 
-        public static GameEntity GenerateHuman(GameContext gameContext)
+        public static HumanFF GenerateHuman(GameContext gameContext)
         {
             var e = gameContext.CreateEntity();
 
@@ -38,16 +38,18 @@ namespace Assets.Core
             return e;
         }
 
-        public static void ResetSkills(GameEntity worker, int rating)
+        public static void ResetSkills(HumanFF worker, int rating)
         {
-            var skills = worker.humanSkills;
+            var skills = worker.HumanSkillsComponent;
 
             var roles = new Dictionary<WorkerRole, int>
             {
                 [WorkerRole.CEO] = rating,
             };
 
-            worker.ReplaceHumanSkills(roles , skills.Traits, skills.Expertise);
+            worker.HumanSkillsComponent.Roles = roles;
+
+            //worker.ReplaceHumanSkills(roles , skills.Traits, skills.Expertise);
         }
 
 
@@ -67,14 +69,14 @@ namespace Assets.Core
             return UnityEngine.Random.Range(45, 65 + (geniusChance ? 20 : 0));
         }
 
-        static void SetPrimarySkill(GameEntity worker, WorkerRole role)
+        static void SetPrimarySkill(HumanFF worker, WorkerRole role)
         {
             int level = UnityEngine.Random.Range(65, 85);
 
             SetSkill(worker, role, level);
         }
 
-        static void SetPrimaryTrait(GameEntity worker, Trait traitType)
+        static void SetPrimaryTrait(HumanFF worker, Trait traitType)
         {
             int level = UnityEngine.Random.Range(70, 90);
 

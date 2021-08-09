@@ -56,7 +56,7 @@ namespace Assets.Core
             var rating = GetNewWorkerRandomRating(company, gameContext, managerTasks);
             Humans.ResetSkills(worker, (int)rating);
 
-            company.employee.Managers[worker.human.Id] = role;
+            company.employee.Managers[worker.HumanComponent.Id] = role;
         }
 
         public static int GetTeamAverageStrength(GameEntity company, GameContext gameContext)
@@ -68,7 +68,7 @@ namespace Assets.Core
             {
                 foreach (var m in t.Managers)
                 {
-                    rating += Humans.GetRating(gameContext, m);
+                    rating += Humans.GetRating(m);
                     counter++;
                 }
             }

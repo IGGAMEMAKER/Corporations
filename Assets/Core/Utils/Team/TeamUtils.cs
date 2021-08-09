@@ -26,7 +26,7 @@ namespace Assets.Core
                 TeamType = teamType,
                 Tasks = new List<TeamTask>(),
 
-                Managers = new List<int>(),
+                Managers = new List<HumanFF>(),
                 Roles = new Dictionary<int, WorkerRole>(),
 
                 ManagerTasks = new List<ManagerTask> {ManagerTask.None, ManagerTask.None, ManagerTask.None},
@@ -187,8 +187,7 @@ namespace Assets.Core
             bool hasNoManager = !HasMainManagerInTeam(team);
 
             bool hasDisloyalManagers = team.Managers
-                .Select(m => Humans.Get(gameContext, m))
-                .Any(h => h.humanCompanyRelationship.Morale < 40 && GetLoyaltyChangeForManager(h, team, product) < 0);
+                .Any(h => h.HumanCompanyRelationshipComponent.Morale < 40 && GetLoyaltyChangeForManager(h, team, product) < 0);
 
             return IsFullTeam(team) && (hasNoManager || hasDisloyalManagers || IsTeamPromotable(product, team));
         }

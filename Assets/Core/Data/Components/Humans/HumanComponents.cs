@@ -9,6 +9,38 @@ public class HumanComponent : IComponent
     public string Surname;
 }
 
+public class HumanFF
+{
+    public HumanComponent HumanComponent;
+
+    //public int Id;
+    //public string Name;
+    //public string Surname;
+
+    public WorkerComponent WorkerComponent;
+
+    //public int companyId;
+    //public WorkerRole WorkerRole;
+
+    public HumanSkillsComponent HumanSkillsComponent;
+
+    //public Dictionary<WorkerRole, int> Roles;
+    //public List<Trait> Traits;
+
+    //public Dictionary<NicheType, int> Expertise;
+
+    public HumanUpgradedSkillsComponent HumanUpgradedSkillsComponent;
+    //public int DaysSinceUpgrade;
+
+    public WorkerOffersComponent WorkerOffersComponent;
+    //public List<ExpiringJobOffer> Offers;
+
+    public PlayerComponent PlayerComponent;
+    //public bool isPlayer;
+
+    public HumanCompanyRelationshipComponent HumanCompanyRelationshipComponent;
+}
+
 public enum Trait
 {
     Leader,
@@ -45,6 +77,8 @@ public class HumanSkillsComponent : IComponent
 
     public Dictionary<NicheType, int> Expertise;
 }
+
+
 
 [Game]
 public class HumanUpgradedSkillsComponent : IComponent

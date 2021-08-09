@@ -11,7 +11,7 @@ namespace Assets.Core
             var bonus = new Bonus<float>("Cost of " + team.Name);
 
             var managers = GetPeople(team, gameContext);
-            var mainRole = Teams.GetMainManagerRole(team);
+            var mainRole = GetMainManagerRole(team);
 
             // 50...90
             foreach (var m in managers)
@@ -21,11 +21,11 @@ namespace Assets.Core
                 // Lead gain
                 if (Humans.GetRole(m) == mainRole)
                 {
-                    bonus.Append($"{mainRole}  <b>{rating}lvl</b>", GetLeaderGain(m, company));
+                    bonus.Append($"{mainRole}  <b>{rating}lvl</b>", rating / 10f);
                     continue;
                 }
 
-                bonus.Append($"{m.human.Name} {m.human.Surname} <b>{rating}lvl</b>", (rating - 150) / 100f);
+                bonus.Append($"{m.HumanComponent.Name} {m.HumanComponent.Surname} <b>{rating}lvl</b>", (rating - 150) / 100f);
             }
 
             var processes = GetPolicyValueModified(company, CorporatePolicy.PeopleOrProcesses, 1f, 0.5f, 0.25f);
@@ -39,9 +39,10 @@ namespace Assets.Core
 
 
         // TODO rewrite for more performance
-        public static IEnumerable<GameEntity> GetPeople(TeamInfo team, GameContext gameContext)
+        public static IEnumerable<HumanFF> GetPeople(TeamInfo team, GameContext gameContext)
         {
-            return team.Managers.Select(humanId => Humans.Get(gameContext, humanId));
+            return team.Managers;
+            //return team.Managers.Select(humanId => Humans.Get(gameContext, humanId));
         }
     }
 }

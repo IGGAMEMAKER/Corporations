@@ -7,9 +7,11 @@ namespace Assets.Core
     public static partial class Teams
     {
         // TODO duplicates?
-        public static GameEntity GetWorkerInRole(TeamInfo team, WorkerRole workerRole, GameContext gameContext)
+        public static HumanFF GetWorkerInRole(TeamInfo team, WorkerRole workerRole, GameContext gameContext)
         {
-            var managers = team.Managers.Select(humanId => Humans.Get(gameContext, humanId)).Where(worker => worker.worker.WorkerRole == workerRole).ToList();
+            var managers = team.Managers
+                .Where(worker => worker.WorkerComponent.WorkerRole == workerRole)
+                .ToList();
 
             if (managers.Any())
             {
